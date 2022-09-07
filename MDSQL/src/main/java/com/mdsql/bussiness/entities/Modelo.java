@@ -43,4 +43,9 @@ public class Modelo implements Serializable {
     private String mcaVariablesConCapa;
     private String mcaInh;
     private List<SubProyecto> subProyectos;
+
+    //TODO remove unused fields
+    private String mcaPdc;
+    private String mcaHis;
+
 }

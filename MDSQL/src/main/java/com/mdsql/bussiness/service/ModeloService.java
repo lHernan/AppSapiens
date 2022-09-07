@@ -1,9 +1,9 @@
 package com.mdsql.bussiness.service;
 
+import com.mdsql.bussiness.entities.Modelo;
+
 import java.math.BigDecimal;
 import java.util.List;
-
-import com.mdsql.bussiness.entities.Modelo;
 
 /**
  * @author hcarreno
@@ -21,5 +21,8 @@ public interface ModeloService {
     List<Modelo> consultarModelosGlosario(BigDecimal codigoGlosario);
 
     void modificaModelo(Modelo modelo);
+
+    //TODO refactor, delete old methods
+    List<Modelo> consultaModelos(String codigoProyecto, String nombreModelo, String codigoSubProyecto);
 
 }

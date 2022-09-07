@@ -66,7 +66,8 @@ public class Constants {
 	public static final String CALL_15_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_19_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_21_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	
+
+	//TODO eliminar sin utilizar al finalizar desarollo
 	public static final String T_R_LINEA = "T_R_LINEA";
 	public static final String T_T_LINEA = "T_T_LINEA";
 	public static final String T_T_VALIDA_PARTICULA = "T_T_VALIDA_PARTICULA";
@@ -84,8 +85,15 @@ public class Constants {
 	public static final String T_T_PARTICULA_NORMA = "T_T_PARTICULA_NORMA";
 	public static final String T_T_GLOSARIO = "T_T_GLOSARIO";
 	public static final String T_T_ERROR = "T_T_ERROR";
-	
-	
+
+	// nuevas constantes types BBDD
+	public static final String T_T_PROCESO = "T_T_PROCESO";
+	public static final String T_T_AVISO = "T_T_AVISO";
+	public static final String T_T_BBDD = "T_T_BBDD";
+	public static final String T_T_OBJ_HIS = "T_T_OBJ_HIS";
+	public static final String T_R_OBJ_HIS = "T_R_OBJ_HIS";
+	public static final String T_T_SCRIPT = "T_T_SCRIPT";
+
 	 // CONSTANTES DE UI
 	
 	// Tecla Enter, para los botones

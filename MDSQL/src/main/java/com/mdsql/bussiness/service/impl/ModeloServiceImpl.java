@@ -441,4 +441,67 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			throw new ServiceException(e);
 		}
 	}
+
+	@Override
+	@SneakyThrows
+	public List<Modelo> consultaModelos(String codigoProyecto, String nombreModelo, String codigoSubProyecto) {
+		String runSP = createCall("p_con_modelos", Constants.CALL_06_ARGS);
+
+		try (Connection conn = dataSource.getConnection();
+			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+			String typeModelo = createCallType(Constants.T_T_MODELO);
+			String typeError = createCallTypeError();
+
+			logProcedure(runSP, codigoProyecto, nombreModelo, codigoSubProyecto);
+
+			callableStatement.setString(1, codigoProyecto);
+			callableStatement.setString(2, nombreModelo);
+			callableStatement.setString(3, codigoSubProyecto);
+			callableStatement.registerOutParameter(4, Types.ARRAY, typeModelo);
+			callableStatement.registerOutParameter(5, Types.INTEGER);
+			callableStatement.registerOutParameter(6, Types.ARRAY, typeError);
+
+			callableStatement.execute();
+
+			Integer result = callableStatement.getInt(5);
+
+			if (result == 0) {
+				throw buildException(callableStatement.getArray(6));
+			}
+
+			List<Modelo> modelos = new ArrayList<>();
+			Array arrayModelos = callableStatement.getArray(4);
+
+			if (arrayModelos != null) {
+				Object[] rows = (Object[]) arrayModelos.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+					Modelo modelo = Modelo.builder()
+							.codigoProyecto((String) cols[0])
+							.nombreModelo((String) cols[1])
+							.nombreEsquema((String) cols[2])
+							.nombreBbdd((String) cols[3])
+							.nombreCarpetaAdj((String) cols[4])
+							.codigoCapaUsrown((String) cols[5])
+							.mcaVariables((String) cols[6])
+							.mcaGrantAll((String) cols[7])
+							.mcaGrantPublic((String) cols[8])
+							.mcaInh((String) cols[9])
+							.observacionesModelo((String) cols[10])
+							.mcaVariablesConCapa((String) cols[11])
+							.mcaPdc((String) cols[12])
+							.mcaHis((String) cols[13])
+							.build();
+
+					modelos.add(modelo);
+				}
+			}
+			return modelos;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ModeloService.consultarModelosGlosario] Error:  %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 }
