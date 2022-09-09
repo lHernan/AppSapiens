@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.utils.FrameSupport;
 
+import lombok.Getter;
+
 /**
  *
  * @author USUARIO1
@@ -41,7 +43,7 @@ public class PantallaEjecutarScripts extends FrameSupport {
     private JButton jButton7;
     private JButton jButton8;
     private JButton jButton9;
-    private JComboBox<String> jComboBox1;
+    
     private JLabel jLabel1;
     private JLabel jLabel10;
     private JLabel jLabel11;
@@ -57,13 +59,32 @@ public class PantallaEjecutarScripts extends FrameSupport {
     private JScrollPane jScrollPane2;
     private JTable jTable1;
     private JTable jTable2;
+    
+    @Getter
+    private JComboBox<String> jComboBox1;
+    
+    @Getter
     private JTextField jTextField1;
+    
+    @Getter
     private JTextField jTextField2;
+    
+    @Getter
     private JTextField jTextField3;
+    
+    @Getter
     private JTextField jTextField4;
+    
+    @Getter
     private JTextField jTextField5;
+    
+    @Getter
     private JTextField jTextField6;
+    
+    @Getter
     private JTextField jTextField8;
+    
+    @Getter
     private JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
     
