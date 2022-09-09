@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author hcarreno
@@ -17,7 +18,7 @@ import java.io.Serializable;
 @Builder(toBuilder = true)
 public class InputProcesaType implements Serializable {
 
-    private Script script;
+    private List<TextoLinea> lineasScript;
     private String pCodigoProyecto;
     private String pCodigoSubProyecto;
     private String pCodigoPeticion;

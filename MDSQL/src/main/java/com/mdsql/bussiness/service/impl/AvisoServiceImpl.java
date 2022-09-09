@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * @author hcarreno
  */
-@Service(Constants.MODELO_SERVICE)
+@Service(Constants.AVISO_SERVICE)
 @Slf4j
 public class AvisoServiceImpl extends ServiceSupport implements AvisoService {
 

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * @author hcarreno
  */
-@Service(Constants.MODELO_SERVICE)
+@Service(Constants.PROCESO_SERVICE)
 @Slf4j
 public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService {
 

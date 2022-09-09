@@ -45,6 +45,13 @@ public class Constants {
 	public static final String ELEMENTO_NORMA_SERVICE = "elementoNormaService";
 	public static final String INFORME_SERVICE = "informeService";
 
+	//TODO remove old bean names
+	public static final String SCRIPT_SERVICE = "scriptService";
+	public static final String PROCESO_SERVICE = "procesoService";
+	public static final String AVISO_SERVICE = "avisoService";
+	public static final String TYPE_SERVICE = "typeService";
+
+
 	/**
 	 * DataBase Types and constants
 	 */
@@ -66,6 +73,8 @@ public class Constants {
 	public static final String CALL_15_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_19_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_21_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+	public static final String CALL_22_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+	public static final String CALL_24_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 
 	//TODO eliminar sin utilizar al finalizar desarollo
 	public static final String T_R_LINEA = "T_R_LINEA";
@@ -93,6 +102,7 @@ public class Constants {
 	public static final String T_T_OBJ_HIS = "T_T_OBJ_HIS";
 	public static final String T_R_OBJ_HIS = "T_R_OBJ_HIS";
 	public static final String T_T_SCRIPT = "T_T_SCRIPT";
+	public static final String T_T_TYPE = "T_T_TYPE";
 
 	 // CONSTANTES DE UI
 	

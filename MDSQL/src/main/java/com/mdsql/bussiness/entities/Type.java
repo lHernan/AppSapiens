@@ -15,7 +15,7 @@ import java.util.Date;
 @Builder(toBuilder = true)
 public class Type implements Serializable {
 
-    private BigDecimal numeeroOrdenType;
+    private BigDecimal numeroOrdenType;
     private BigDecimal codigoEstadoScript;
     private String descripcionEstadoScript;
     private Date fechaCambio;
