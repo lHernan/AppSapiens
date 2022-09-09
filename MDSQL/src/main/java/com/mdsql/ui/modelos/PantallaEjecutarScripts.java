@@ -278,7 +278,7 @@ public class PantallaEjecutarScripts extends FrameSupport {
                     .addComponent(jButton10))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
 	@Override
 	protected void initEvents() {

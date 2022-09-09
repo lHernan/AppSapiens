@@ -88,9 +88,7 @@ public class PantallaSeleccionHistorico extends FrameSupport {
                     .addComponent(jButton3))
                 .addGap(43, 43, 43))
         );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
 	@Override
 	protected void initEvents() {
