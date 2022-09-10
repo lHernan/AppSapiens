@@ -39,7 +39,6 @@ public class Constants {
 	public static final String TIPO_DATO_SERVICE = "tipoDatoService";
 	public static final String TIPO_PARTICULA_SERVICE = "tipoParticulaService";
 	public static final String MODELO_SERVICE = "modeloService";
-	public static final String BBDD_SERVICE = "BBDDService";
 	public static final String GLOSARIO_SERVICE = "glosarioService";
 	public static final String CAMPOS_GLOSARIO_SERVICE = "camposGlosarioService";
 	public static final String NORMA_SERVICE = "normaService";
@@ -51,6 +50,7 @@ public class Constants {
 	public static final String PROCESO_SERVICE = "procesoService";
 	public static final String AVISO_SERVICE = "avisoService";
 	public static final String TYPE_SERVICE = "typeService";
+	public static final String BBDD_SERVICE = "bbddService";
 
 
 	/**
