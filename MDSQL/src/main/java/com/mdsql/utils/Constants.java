@@ -50,6 +50,7 @@ public class Constants {
 	public static final String PROCESO_SERVICE = "procesoService";
 	public static final String AVISO_SERVICE = "avisoService";
 	public static final String TYPE_SERVICE = "typeService";
+	public static final String BBDD_SERVICE = "bbddService";
 
 
 	/**
