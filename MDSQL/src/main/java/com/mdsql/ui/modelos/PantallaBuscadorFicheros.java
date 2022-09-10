@@ -12,7 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
+import com.mdsql.ui.listener.PantallaBuscadorFicherosListener;
 import com.mdsql.ui.utils.FrameSupport;
+import com.mdsql.utils.Constants;
 
 import lombok.Getter;
 
@@ -35,6 +37,9 @@ public class PantallaBuscadorFicheros extends FrameSupport {
     @Getter
     private JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
+    
+    @Getter
+    private PantallaBuscadorFicherosListener pantallaBuscadorFicherosListener;
     
     public PantallaBuscadorFicheros(FrameSupport parent) {
         super(parent);
@@ -86,21 +91,20 @@ public class PantallaBuscadorFicheros extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		pantallaBuscadorFicherosListener = new PantallaBuscadorFicherosListener(this);
 		
+		btnAceptar.setActionCommand(Constants.PANTALLA_BUSCADOR_FICHEROS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(Constants.PANTALLA_BUSCADOR_FICHEROS_BTN_CANCELAR);
+		
+		btnAceptar.addActionListener(pantallaBuscadorFicherosListener);
+		btnCancelar.addActionListener(pantallaBuscadorFicherosListener);
 	}
 
 	@Override
-	protected void initModels() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initModels() {}
 
 	@Override
-	protected void initialState() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initialState() {}
 
 	@Override
 	protected void setupLiterals() {
