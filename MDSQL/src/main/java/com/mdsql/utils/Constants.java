@@ -39,6 +39,7 @@ public class Constants {
 	public static final String TIPO_DATO_SERVICE = "tipoDatoService";
 	public static final String TIPO_PARTICULA_SERVICE = "tipoParticulaService";
 	public static final String MODELO_SERVICE = "modeloService";
+	public static final String BBDD_SERVICE = "BBDDService";
 	public static final String GLOSARIO_SERVICE = "glosarioService";
 	public static final String CAMPOS_GLOSARIO_SERVICE = "camposGlosarioService";
 	public static final String NORMA_SERVICE = "normaService";
