@@ -37,7 +37,7 @@ public class DlgIdentificadorListener extends ListenerSupport implements ActionL
 		String txtCodUsr = dlgIdentificador.getTxtIdentificador().getText();
 
 		if (StringUtils.isNotBlank(txtCodUsr)) {
-			AppGlobalSingleton.getInstance().setProperty(Constants.COD_USR, txtCodUsr);
+			// TODO - AQUÍ VA LA LLAMADA A LA CAPA DE NEGOCIO
 
 			dlgIdentificador.setIsTerminate(Boolean.FALSE);
 			dlgIdentificador.dispose();
