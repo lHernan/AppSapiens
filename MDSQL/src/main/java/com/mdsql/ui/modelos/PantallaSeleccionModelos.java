@@ -16,7 +16,13 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdsql.ui.model.DefinicionModelosTableModel;
+import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.FrameSupport;
+import com.mdsql.ui.utils.UIHelper;
+import com.mdsql.utils.Constants;
+
+import lombok.Getter;
 
 /**
  *
@@ -31,19 +37,27 @@ public class PantallaSeleccionModelos extends FrameSupport {
 	private static final long serialVersionUID = 8063673324639880723L;
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton jButton1;
-    private JButton jButton2;
+    private JButton btnBuscar;
+    private JButton btnSeleccionar;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
     private JLabel jLabel5;
     private JScrollPane jScrollPane1;
-    private JTable jTable1;
-    private JTextField jTextField1;
-    private JTextField jTextField2;
-    private JTextField jTextField3;
     private JPanel panelLogo;
+    
+    @Getter
+    private JTextField txtCodModelo;
+    
+    @Getter
+    private JTextField txtNombreModelo;
+    
+    @Getter
+    private JTextField txtCodSubmodelo;
+    
+    @Getter
+    private JTable tblModelos;
     // End of variables declaration//GEN-END:variables
 	
 	public PantallaSeleccionModelos(FrameSupport parent) {
@@ -63,13 +77,13 @@ public class PantallaSeleccionModelos extends FrameSupport {
         jLabel3 = new JLabel();
         jLabel4 = new JLabel();
         jLabel5 = new JLabel();
-        jButton1 = new JButton();
-        jTextField1 = new JTextField();
-        jTextField2 = new JTextField();
-        jTextField3 = new JTextField();
+        btnBuscar = new JButton();
+        txtCodModelo = new JTextField();
+        txtNombreModelo = new JTextField();
+        txtCodSubmodelo = new JTextField();
         jScrollPane1 = new JScrollPane();
-        jTable1 = new JTable();
-        jButton2 = new JButton();
+        tblModelos = new JTable();
+        btnSeleccionar = new JButton();
         
         GroupLayout panelLogoLayout = new GroupLayout(panelLogo);
         panelLogo.setLayout(panelLogoLayout);
@@ -88,7 +102,7 @@ public class PantallaSeleccionModelos extends FrameSupport {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblModelos);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,7 +111,7 @@ public class PantallaSeleccionModelos extends FrameSupport {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
+                    .addComponent(btnSeleccionar)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 1128, GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
@@ -107,17 +121,17 @@ public class PantallaSeleccionModelos extends FrameSupport {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jLabel4)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodModelo, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jLabel5)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodSubmodelo, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnBuscar, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,37 +148,34 @@ public class PantallaSeleccionModelos extends FrameSupport {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNombreModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)))
+                        .addComponent(txtCodSubmodelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 419, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(btnSeleccionar)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
     }
     
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		
+		
+		btnBuscar.setActionCommand(Constants.PANTALLA_SELECCION_MODELOS_BTN_BUSCAR);
+		btnSeleccionar.setActionCommand(Constants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR);
 		
 	}
 
 	@Override
 	protected void initModels() {
-		jTable1.setModel(new DefaultTableModel(
-	            new Object [][] {
-
-	            },
-	            new String [] {
-	                "Código", "Descripción", "Esquema", "BBDD", "Carpeta", "Capa USROWN", "Genera Variables", "GRANT ALL", "GRANT PUBLIC", "Inhabilitado", "Observaciones", "Entrega PDC"
-	            }
-	        ));
+		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_MODELOS_TABLA_CABECERA);
+		tblModelos.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 
 	@Override
@@ -180,7 +191,7 @@ public class PantallaSeleccionModelos extends FrameSupport {
         jLabel3.setText("Cod. Modelo:");
         jLabel4.setText("Nombre Modelo:");
         jLabel5.setText("Cod. Submodelo:");
-        jButton1.setText("BUSCAR");
-        jButton2.setText("SELECCIONAR");
+        btnBuscar.setText("BUSCAR");
+        btnSeleccionar.setText("SELECCIONAR");
 	}
 }
