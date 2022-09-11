@@ -58,7 +58,7 @@
                                                       <Component id="txtModeloProyecto" min="-2" pref="212" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                       <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="32767" attributes="0"/>
+                                                      <EmptySpace pref="26" max="32767" attributes="0"/>
                                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="cmbSubmodelo" min="-2" pref="198" max="-2" attributes="0"/>
@@ -70,13 +70,15 @@
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                       <Component id="txtDescNorma" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="txtCodGlosario" min="-2" pref="131" max="-2" attributes="0"/>
+                                                  <Component id="txtExpresionRegular" max="32767" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                          <Component id="txtTamMaximo" alignment="0" max="32767" attributes="0"/>
+                                                          <Component id="txtCodGlosario" alignment="0" pref="131" max="32767" attributes="0"/>
+                                                      </Group>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                       <Component id="txtDescGlosario" min="-2" pref="435" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="txtExpresionRegular" max="32767" attributes="0"/>
-                                                  <Component id="txtTamMaximo" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
