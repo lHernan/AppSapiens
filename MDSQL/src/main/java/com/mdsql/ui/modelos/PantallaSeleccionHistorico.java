@@ -15,7 +15,11 @@ import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
 import com.mdsql.ui.utils.FrameSupport;
+import com.mdsql.utils.Constants;
+
+import lombok.Getter;
 
 /**
  *
@@ -29,12 +33,15 @@ public class PantallaSeleccionHistorico extends FrameSupport {
 	private static final long serialVersionUID = 4469486461122163193L;
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton jButton1;
-    private JButton jButton2;
-    private JButton jButton3;
+    private JButton btnAñadir;
+    private JButton btnGenerar;
+    private JButton btnCancelar;
     private JScrollPane jScrollPane1;
     private JTable tblHistoricos;
     // End of variables declaration//GEN-END:variables
+    
+    @Getter
+    private PantallaSeleccionHistoricoListener pantallaSeleccionHistoricoListener;
     
     public PantallaSeleccionHistorico(FrameSupport parent) {
         super(parent);
@@ -49,9 +56,9 @@ public class PantallaSeleccionHistorico extends FrameSupport {
 
         jScrollPane1 = new JScrollPane();
         tblHistoricos = new JTable();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-        jButton3 = new JButton();
+        btnAñadir = new JButton();
+        btnGenerar = new JButton();
+        btnCancelar = new JButton();
 
         
         tblHistoricos.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -65,11 +72,11 @@ public class PantallaSeleccionHistorico extends FrameSupport {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(194, 194, 194)
-                .addComponent(jButton1)
+                .addComponent(btnAñadir)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(btnGenerar)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(btnCancelar)
                 .addContainerGap(194, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -83,17 +90,24 @@ public class PantallaSeleccionHistorico extends FrameSupport {
                 .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 311, GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnAñadir)
+                    .addComponent(btnGenerar)
+                    .addComponent(btnCancelar))
                 .addGap(43, 43, 43))
         );
     }
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		pantallaSeleccionHistoricoListener = new PantallaSeleccionHistoricoListener(this);
 		
+		btnAñadir.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_AÑADIR);
+		btnGenerar.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
+		btnCancelar.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR);
+		
+		btnAñadir.addActionListener(pantallaSeleccionHistoricoListener);
+		btnGenerar.addActionListener(pantallaSeleccionHistoricoListener);
+		btnCancelar.addActionListener(pantallaSeleccionHistoricoListener);
 	}
 
 	@Override
@@ -155,8 +169,8 @@ public class PantallaSeleccionHistorico extends FrameSupport {
 
 	@Override
 	protected void setupLiterals() {
-		jButton1.setText("Añadir a Histórico");
-        jButton2.setText("Generar Histórico");
-        jButton3.setText("CANCELAR");
+		btnAñadir.setText("Añadir a Histórico");
+		btnGenerar.setText("Generar Histórico");
+		btnCancelar.setText("CANCELAR");
 	}
 }
