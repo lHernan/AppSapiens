@@ -11,7 +11,7 @@
     
     <appender name="FILE" 
 		class="ch.qos.logback.core.FileAppender">
-		<file> log-mdval.txt </file>
+		<file> log-mdsql.txt </file>
 		<append>true</append>
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>
