@@ -5,11 +5,17 @@
  */
 package com.mdsql.ui;
 
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -21,6 +27,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdsql.ui.menu.MainMenuBar;
 import com.mdsql.ui.utils.FrameSupport;
 
 /**
@@ -35,7 +42,7 @@ public class FramePrincipal extends FrameSupport {
 	private static final long serialVersionUID = 543072851506727342L;
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton jButton1;
+    private JButton btnLoadScript;
     private JButton jButton10;
     private JButton jButton2;
     private JButton jButton3;
@@ -82,8 +89,8 @@ public class FramePrincipal extends FrameSupport {
     @Override
 	protected void setupComponents() {
 
-        jToolBar1 = new JToolBar();
-        jButton1 = new JButton();
+    	jToolBar1 = new JToolBar();
+        btnLoadScript = new JButton();
         jSeparator1 = new JToolBar.Separator();
         jButton2 = new JButton();
         jSeparator2 = new JToolBar.Separator();
@@ -119,14 +126,20 @@ public class FramePrincipal extends FrameSupport {
         jInternalFrame10 = new JInternalFrame();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        
+        JMenuBar barraMenu = new MainMenuBar();
+        setJMenuBar(barraMenu);
 
         jToolBar1.setRollover(true);
 
-        jButton1.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
+        btnLoadScript.setIcon(new ImageIcon(getClass().getResource("/script.png"))); // NOI18N
+        btnLoadScript.setFocusable(false);
+        btnLoadScript.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnLoadScript.setMaximumSize(new Dimension(36, 36));
+        btnLoadScript.setMinimumSize(new Dimension(36, 36));
+        btnLoadScript.setPreferredSize(new Dimension(36, 36));
+        btnLoadScript.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jToolBar1.add(btnLoadScript);
         jToolBar1.add(jSeparator1);
 
         jButton2.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
@@ -186,7 +199,7 @@ public class FramePrincipal extends FrameSupport {
         jButton10.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(jButton10);
 
-        getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(jToolBar1, BorderLayout.PAGE_START);
 
         jInternalFrame1.setVisible(true);
 
@@ -194,13 +207,13 @@ public class FramePrincipal extends FrameSupport {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jInternalFrame1.getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jInternalFrame1.getContentPane().add(jScrollPane1, BorderLayout.CENTER);
 
         jSplitPane1.setLeftComponent(jInternalFrame1);
 
         jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.LINE_AXIS));
 
-        jPanel2.setLayout(new java.awt.GridLayout(2, 2));
+        jPanel2.setLayout(new GridLayout(2, 2));
 
         jInternalFrame2.setVisible(true);
 
@@ -212,7 +225,7 @@ public class FramePrincipal extends FrameSupport {
         );
         jInternalFrame2Layout.setVerticalGroup(
             jInternalFrame2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
+            .addGap(0, 281, Short.MAX_VALUE)
         );
 
         jPanel2.add(jInternalFrame2);
@@ -227,7 +240,7 @@ public class FramePrincipal extends FrameSupport {
         );
         jInternalFrame3Layout.setVerticalGroup(
             jInternalFrame3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
+            .addGap(0, 281, Short.MAX_VALUE)
         );
 
         jPanel2.add(jInternalFrame3);
@@ -242,7 +255,7 @@ public class FramePrincipal extends FrameSupport {
         );
         jInternalFrame4Layout.setVerticalGroup(
             jInternalFrame4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
+            .addGap(0, 281, Short.MAX_VALUE)
         );
 
         jPanel2.add(jInternalFrame4);
@@ -257,7 +270,7 @@ public class FramePrincipal extends FrameSupport {
         );
         jInternalFrame5Layout.setVerticalGroup(
             jInternalFrame5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
+            .addGap(0, 281, Short.MAX_VALUE)
         );
 
         jPanel2.add(jInternalFrame5);
@@ -272,43 +285,18 @@ public class FramePrincipal extends FrameSupport {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 587, Short.MAX_VALUE)
+            .addGap(0, 630, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Histórico", jPanel3);
 
-        jPanel4.setLayout(new java.awt.GridLayout(3, 2));
+        jPanel4.setLayout(new GridLayout(3, 2));
 
         jInternalFrame6.setVisible(true);
 
-        jTable1.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Orden", "Objeto"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
         jScrollPane2.setViewportView(jTable1);
 
-        jInternalFrame6.getContentPane().add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        jInternalFrame6.getContentPane().add(jScrollPane2, BorderLayout.CENTER);
 
         jPanel4.add(jInternalFrame6);
 
@@ -378,7 +366,7 @@ public class FramePrincipal extends FrameSupport {
 
         jSplitPane1.setRightComponent(jPanel1);
 
-        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jSplitPane1, BorderLayout.CENTER);
         
     }// </editor-fold>//GEN-END:initComponents
 
@@ -390,8 +378,31 @@ public class FramePrincipal extends FrameSupport {
 
 	@Override
 	protected void initModels() {
-		// TODO Auto-generated method stub
-		
+		jTable1.setModel(new DefaultTableModel(
+	            new Object [][] {
+	                {null, null},
+	                {null, null},
+	                {null, null},
+	                {null, null},
+	                {null, null},
+	                {null, null},
+	                {null, null},
+	                {null, null},
+	                {null, null},
+	                {null, null}
+	            },
+	            new String [] {
+	                "Orden", "Objeto"
+	            }
+	        ) {
+	            Class[] types = new Class [] {
+	                java.lang.Integer.class, java.lang.String.class
+	            };
+
+	            public Class getColumnClass(int columnIndex) {
+	                return types [columnIndex];
+	            }
+	        });
 	}
 
 	@Override
