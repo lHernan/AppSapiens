@@ -11,4 +11,6 @@ public interface BBDDService {
 
     List<BBDD> consultaBBDDModelo(String codigoProyecto);
 
+    String consultaPasswordBBDD(String nombreBBDD, String nombreEsquema, String txtClaveEncriptada);
+
 }
