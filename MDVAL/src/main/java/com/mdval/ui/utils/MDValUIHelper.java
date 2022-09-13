@@ -2,7 +2,6 @@ package com.mdval.ui.utils;
 
 import java.util.Map;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -17,9 +16,9 @@ public class MDValUIHelper extends UIHelper {
 	 * @param item
 	 * @return
 	 */
-	public static JDialog createDialog(FrameSupport frameParent, String item) {
+	public static DialogSupport createDialog(FrameSupport frameParent, String item) {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
-		return (JDialog) dialogCreator.factoryMethod(null);
+		return (DialogSupport) dialogCreator.factoryMethod(null);
 	}
 	
 	/**
@@ -28,9 +27,9 @@ public class MDValUIHelper extends UIHelper {
 	 * @param params
 	 * @return
 	 */
-	public static JDialog createDialog(FrameSupport frameParent, String item, Map<String, Object> params) {
+	public static DialogSupport createDialog(FrameSupport frameParent, String item, Map<String, Object> params) {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
-		return (JDialog) dialogCreator.factoryMethod(params);
+		return (DialogSupport) dialogCreator.factoryMethod(params);
 	}
 	
 	/**

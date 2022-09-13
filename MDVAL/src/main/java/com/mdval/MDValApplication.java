@@ -3,7 +3,6 @@ package com.mdval;
 import java.awt.EventQueue;
 
 import javax.sql.DataSource;
-import javax.swing.JDialog;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
@@ -14,6 +13,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import com.mdval.ui.FramePrincipal;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.MDValUIHelper;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.AppGlobalSingleton;
@@ -78,7 +78,7 @@ public class MDValApplication implements CommandLineRunner {
 		EventQueue.invokeLater(() -> {
 			FramePrincipal framePrincipal = new FramePrincipal();
 
-			JDialog dialog = MDValUIHelper.createDialog(framePrincipal, MDValConstants.CMD_INICIAR_APP);
+			DialogSupport dialog = MDValUIHelper.createDialog(framePrincipal, MDValConstants.CMD_INICIAR_APP);
 			UIHelper.show(dialog);
 		});
 	}
