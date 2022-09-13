@@ -17,11 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
-import com.mdsql.ui.model.DefinicionModelosTableModel;
-import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.FrameSupport;
-import com.mdsql.ui.utils.UIHelper;
-import com.mdsql.utils.Constants;
 
 import lombok.Getter;
 
@@ -37,16 +33,16 @@ public class PantallaEjecutarScripts extends FrameSupport {
 	private static final long serialVersionUID = 3475243773559272110L;
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnRechazar;
-    private JButton btnVerLog;
-    private JButton btnDetalleScript;
-    private JButton btnDescartar;
-    private JButton btnReparar;
-    private JButton btnVerCuadros;
-    private JButton btnVerErrores;
-    private JButton btnExcepcion;
-    private JButton btnAceptar;
-    private JButton btnCancelar;
+    private JButton jButton1;
+    private JButton jButton10;
+    private JButton jButton2;
+    private JButton jButton3;
+    private JButton jButton4;
+    private JButton jButton5;
+    private JButton jButton6;
+    private JButton jButton7;
+    private JButton jButton8;
+    private JButton jButton9;
     
     private JLabel jLabel1;
     private JLabel jLabel10;
@@ -61,35 +57,35 @@ public class PantallaEjecutarScripts extends FrameSupport {
     private JLabel jLabel9;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
-    private JTable tblVigente;
-    private JTable tblHistorico;
+    private JTable jTable1;
+    private JTable jTable2;
     
     @Getter
     private JComboBox<String> jComboBox1;
     
     @Getter
-    private JTextField txtEstadoEjec;
+    private JTextField jTextField1;
     
     @Getter
-    private JTextField txtModeloProyecto;
+    private JTextField jTextField2;
     
     @Getter
-    private JTextField txtSubmodelo;
+    private JTextField jTextField3;
     
     @Getter
-    private JTextField txtSD;
+    private JTextField jTextField4;
     
     @Getter
-    private JTextField txtSolicitar;
+    private JTextField jTextField5;
     
     @Getter
-    private JTextField txtEsquema;
+    private JTextField jTextField6;
     
     @Getter
-    private JTextField txtBBDDHistorico;
+    private JTextField jTextField8;
     
     @Getter
-    private JTextField txtEsquemaHistorico;
+    private JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
     
     public PantallaEjecutarScripts(FrameSupport parent) {
@@ -104,42 +100,42 @@ public class PantallaEjecutarScripts extends FrameSupport {
 	protected void setupComponents() {
 
         jLabel1 = new JLabel();
-        txtEstadoEjec = new JTextField();
+        jTextField1 = new JTextField();
         jLabel2 = new JLabel();
-        txtModeloProyecto = new JTextField();
+        jTextField2 = new JTextField();
         jLabel3 = new JLabel();
-        txtSubmodelo = new JTextField();
+        jTextField3 = new JTextField();
         jLabel4 = new JLabel();
-        txtSD = new JTextField();
+        jTextField4 = new JTextField();
         jLabel5 = new JLabel();
-        txtSolicitar = new JTextField();
+        jTextField5 = new JTextField();
         jLabel6 = new JLabel();
-        txtEsquema = new JTextField();
+        jTextField6 = new JTextField();
         jLabel7 = new JLabel();
         jLabel8 = new JLabel();
-        txtBBDDHistorico = new JTextField();
+        jTextField8 = new JTextField();
         jComboBox1 = new JComboBox<>();
         jLabel9 = new JLabel();
-        txtEsquemaHistorico = new JTextField();
+        jTextField9 = new JTextField();
         jLabel10 = new JLabel();
         jScrollPane1 = new JScrollPane();
-        tblVigente = new JTable();
+        jTable1 = new JTable();
         jScrollPane2 = new JScrollPane();
-        tblHistorico = new JTable();
+        jTable2 = new JTable();
         jLabel11 = new JLabel();
-        btnRechazar = new JButton();
-        btnVerLog = new JButton();
-        btnDetalleScript = new JButton();
-        btnDescartar = new JButton();
-        btnReparar = new JButton();
-        btnVerCuadros = new JButton();
-        btnVerErrores = new JButton();
-        btnExcepcion = new JButton();
-        btnAceptar = new JButton();
-        btnCancelar = new JButton();
+        jButton1 = new JButton();
+        jButton2 = new JButton();
+        jButton3 = new JButton();
+        jButton4 = new JButton();
+        jButton5 = new JButton();
+        jButton6 = new JButton();
+        jButton7 = new JButton();
+        jButton8 = new JButton();
+        jButton9 = new JButton();
+        jButton10 = new JButton();
 
-        jScrollPane1.setViewportView(tblVigente);
-        jScrollPane2.setViewportView(tblHistorico);
+        jScrollPane1.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jTable2);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,7 +147,7 @@ public class PantallaEjecutarScripts extends FrameSupport {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBBDDHistorico, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField8, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
@@ -159,51 +155,51 @@ public class PantallaEjecutarScripts extends FrameSupport {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField6, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSolicitar, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField5, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSD, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField4, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtSubmodelo, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtModeloProyecto, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEstadoEjec, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRechazar)
-                            .addComponent(txtEsquemaHistorico, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton1)
+                            .addComponent(jTextField9, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))))
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnVerLog)
+                        .addComponent(jButton2)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDetalleScript)
+                        .addComponent(jButton3)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDescartar)
+                        .addComponent(jButton4)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReparar)
+                        .addComponent(jButton5)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnVerCuadros)
+                        .addComponent(jButton6)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnVerErrores)
+                        .addComponent(jButton7)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcepcion))
+                        .addComponent(jButton8))
                     .addComponent(jLabel10)
                     .addComponent(jLabel11)
                     .addComponent(jScrollPane2)
@@ -211,9 +207,9 @@ public class PantallaEjecutarScripts extends FrameSupport {
                 .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAceptar)
+                .addComponent(jButton9)
                 .addGap(18, 18, 18)
-                .addComponent(btnCancelar)
+                .addComponent(jButton10)
                 .addGap(202, 202, 202))
         );
         layout.setVerticalGroup(
@@ -222,30 +218,30 @@ public class PantallaEjecutarScripts extends FrameSupport {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtEstadoEjec, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtModeloProyecto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(txtSubmodelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(txtSD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txtSolicitar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -256,30 +252,30 @@ public class PantallaEjecutarScripts extends FrameSupport {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(txtBBDDHistorico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(txtEsquemaHistorico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33)
-                        .addComponent(btnRechazar))
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVerLog)
-                    .addComponent(btnDetalleScript)
-                    .addComponent(btnDescartar)
-                    .addComponent(btnReparar)
-                    .addComponent(btnVerCuadros)
-                    .addComponent(btnVerErrores)
-                    .addComponent(btnExcepcion))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6)
+                    .addComponent(jButton7)
+                    .addComponent(jButton8))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
+                    .addComponent(jButton9)
+                    .addComponent(jButton10))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
     }
@@ -287,27 +283,52 @@ public class PantallaEjecutarScripts extends FrameSupport {
 	@Override
 	protected void initEvents() {
 		// TODO Auto-generated method stub
-		 btnRechazar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR);
-		 btnVerLog.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_LOG);
-		 btnDetalleScript.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DETALLE_SCRIPT);
-		 btnDescartar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DESCARTAR);
-		 btnReparar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_REPARAR);
-		 btnVerCuadros.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_CUADROS);
-		 btnVerErrores.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_ERRORES);
-		 btnExcepcion.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_EXCEPCION);
-		 btnAceptar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
-		 btnCancelar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR);
+		
 	}
 
 	@Override
 	protected void initModels() {
-		jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "", "Item 2", "Item 3", "Item 4" }));
+		jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_SCRIPTS_TABLA_CABECERA);
-		tblHistorico.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
-		tblVigente.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
-		
-		
+        jTable1.setModel(new DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "", "Orden", "Estado", "Fecha", "Ejecución", "Operaciones", "Objetos", "Script"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        
+        jTable2.setModel(new DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null}
+                },
+                new String [] {
+                    "", "Orden", "Estado", "Fecha", "Ejecución", "Operaciones", "Objetos", "Script"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
 	}
 
 	@Override
@@ -327,16 +348,16 @@ public class PantallaEjecutarScripts extends FrameSupport {
         jLabel7.setText("BBDD");
         jLabel8.setText("BBDD historico");
         jLabel11.setText("Histórico");
-        btnRechazar.setText("Rechazar");
-        btnVerLog.setText("Ver Log");
-        btnDetalleScript.setText("Detalle Script");
-        btnDescartar.setText("Descartar");
-        btnReparar.setText("Reparar");
-        btnVerCuadros.setText("Ver cuadros");
-        btnVerErrores.setText("Ver Errores");
-        btnExcepcion.setText("Excepcion");
-        btnAceptar.setText("ACEPTAR");
-        btnCancelar.setText("CANCELAR");
+        jButton1.setText("Rechazar");
+        jButton2.setText("Ver Log");
+        jButton3.setText("Detalle Script");
+        jButton4.setText("Descartar");
+        jButton5.setText("Reparar");
+        jButton6.setText("Ver cuadres");
+        jButton7.setText("Ver Errores");
+        jButton8.setText("Excepcion");
+        jButton9.setText("ACEPTAR");
+        jButton10.setText("CANCELAR");
         jLabel9.setText("Esquema historico");
         jLabel10.setText("Vigente");
 	}
