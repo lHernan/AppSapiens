@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import com.mdsql.exceptions.ServiceException;
@@ -13,6 +12,7 @@ import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.DateFormatter;
 import com.mdsql.utils.LiteralesSingleton;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
 
@@ -87,7 +87,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 */
 	protected void showPopup(FrameSupport frame, String cmd) {
-		JDialog dialog = MDSQLUIHelper.createDialog(frame, cmd);
+		DialogSupport dialog = MDSQLUIHelper.createDialog(frame, cmd);
 		UIHelper.show(dialog);
 	}
 	
@@ -97,7 +97,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param params
 	 */
 	protected void showPopup(FrameSupport frame, String cmd, Map<String, Object> params) {
-		JDialog dialog = MDSQLUIHelper.createDialog(frame, cmd, params);
+		DialogSupport dialog = MDSQLUIHelper.createDialog(frame, cmd, params);
 		UIHelper.show(dialog);
 	}
 	

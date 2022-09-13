@@ -3,7 +3,6 @@ package com.mdsql.ui.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import com.mdsql.ui.model.cabeceras.Cabecera;
@@ -12,6 +11,7 @@ import com.mdsql.ui.utils.creators.Creator;
 import com.mdsql.ui.utils.creators.DialogCreator;
 import com.mdsql.ui.utils.creators.FrameCreator;
 import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
@@ -22,9 +22,9 @@ public class MDSQLUIHelper extends UIHelper {
 	 * @param item
 	 * @return
 	 */
-	public static JDialog createDialog(FrameSupport frameParent, String item) {
+	public static DialogSupport createDialog(FrameSupport frameParent, String item) {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
-		return (JDialog) dialogCreator.factoryMethod(null);
+		return (DialogSupport) dialogCreator.factoryMethod(null);
 	}
 	
 	/**
@@ -33,9 +33,9 @@ public class MDSQLUIHelper extends UIHelper {
 	 * @param params
 	 * @return
 	 */
-	public static JDialog createDialog(FrameSupport frameParent, String item, Map<String, Object> params) {
+	public static DialogSupport createDialog(FrameSupport frameParent, String item, Map<String, Object> params) {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
-		return (JDialog) dialogCreator.factoryMethod(params);
+		return (DialogSupport) dialogCreator.factoryMethod(params);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class MDSQLUIHelper extends UIHelper {
 	 * @param params
 	 */
 	public static void showPopup(FrameSupport frame, String cmd, Map<String, Object> params) {
-		JDialog dialog = createDialog(frame, cmd, params);
+		DialogSupport dialog = createDialog(frame, cmd, params);
 		UIHelper.show(dialog);
 	}
 	

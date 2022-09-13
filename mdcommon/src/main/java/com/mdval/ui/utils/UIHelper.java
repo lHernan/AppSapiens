@@ -57,7 +57,7 @@ public class UIHelper {
 	/**
 	 * @param dialog
 	 */
-	public static void show(JDialog dialog) {
+	public static void show(DialogSupport dialog) {
 		if (!Objects.isNull(dialog)) {
 			UIHelper.centerOnScreen(dialog);
 			dialog.setVisible(Boolean.TRUE);
