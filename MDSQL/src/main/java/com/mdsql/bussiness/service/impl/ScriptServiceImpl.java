@@ -2,6 +2,7 @@ package com.mdsql.bussiness.service.impl;
 
 import com.mdsql.bussiness.entities.InputProcesaScript;
 import com.mdsql.bussiness.entities.ObjetoHis;
+import com.mdsql.bussiness.entities.OutputExcepcionScript;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
@@ -156,6 +157,60 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
         } catch (SQLException e) {
             LogWrapper.error(log, "[ScriptService.procesarScript] Error: %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    @SneakyThrows
+    public OutputExcepcionScript excepcionScript(BigDecimal idProceso, BigDecimal numeroOrden, String txtComentario, String codigoUsuario) {
+        String runSP = createCall("p_excepcion_script", Constants.CALL_10_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, idProceso, numeroOrden, txtComentario, codigoUsuario);
+
+
+            callableStatement.setBigDecimal(1, idProceso);
+            callableStatement.setBigDecimal(2, numeroOrden);
+            callableStatement.setString(3, txtComentario);
+            callableStatement.setString(4, codigoUsuario);
+            callableStatement.registerOutParameter(5, Types.NUMERIC);
+            callableStatement.registerOutParameter(6, Types.VARCHAR);
+            callableStatement.registerOutParameter(7, Types.NUMERIC);
+            callableStatement.registerOutParameter(8, Types.VARCHAR);
+
+            callableStatement.registerOutParameter(9, Types.INTEGER);
+            callableStatement.registerOutParameter(10, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(9);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(10));
+            }
+
+            BigDecimal codigoEstadoProceso = callableStatement.getBigDecimal(5);
+            String descripcionEstadoProceso = callableStatement.getString(6);
+            BigDecimal codigoEstadoScript = callableStatement.getBigDecimal(7);
+            String descripcionEstadoScript = callableStatement.getString(8);
+
+            OutputExcepcionScript outputExcepcionScript = OutputExcepcionScript.builder()
+                    .codigoEstadoProceso(codigoEstadoProceso)
+                    .descripcionEstadoProceso(descripcionEstadoProceso)
+                    .codigoEstadoScript(codigoEstadoScript)
+                    .descripcionEstadoScript(descripcionEstadoScript)
+                    .build();
+
+            return outputExcepcionScript;
+
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[ScriptService.excepcionScript] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
     }

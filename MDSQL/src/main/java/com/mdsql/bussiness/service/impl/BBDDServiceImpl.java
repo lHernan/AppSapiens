@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -78,6 +77,42 @@ public class BBDDServiceImpl extends ServiceSupport implements BBDDService {
             return bbdds;
         } catch (SQLException e) {
             LogWrapper.error(log, "[BBDDService.consultaBBDDModelo] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    @SneakyThrows
+    public String consultaPasswordBBDD(String nombreBBDD, String nombreEsquema, String txtClaveEncriptada) {
+        String runSP = createCall("p_con_pass_bbdd", Constants.CALL_06_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, nombreBBDD, nombreEsquema, txtClaveEncriptada);
+
+            callableStatement.setString(1, nombreBBDD);
+            callableStatement.setString(2, nombreEsquema);
+            callableStatement.setString(3, txtClaveEncriptada);
+            callableStatement.registerOutParameter(4, Types.VARCHAR);
+
+            callableStatement.registerOutParameter(5, Types.INTEGER);
+            callableStatement.registerOutParameter(6, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(5);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(6));
+            }
+
+            return callableStatement.getString(4);
+
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[BBDDService.consultaPasswordBBDD] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
     }

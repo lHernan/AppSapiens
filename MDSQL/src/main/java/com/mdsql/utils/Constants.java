@@ -51,6 +51,8 @@ public class Constants {
 	public static final String AVISO_SERVICE = "avisoService";
 	public static final String TYPE_SERVICE = "typeService";
 	public static final String BBDD_SERVICE = "bbddService";
+	public static final String HISTORICO_SERVICE = "historicoService";
+	public static final String UTILS_SERVICE = "utilsService";
 
 
 	/**
@@ -104,6 +106,8 @@ public class Constants {
 	public static final String T_R_OBJ_HIS = "T_R_OBJ_HIS";
 	public static final String T_T_SCRIPT = "T_T_SCRIPT";
 	public static final String T_T_TYPE = "T_T_TYPE";
+	public static final String T_T_OBJETOS = "T_T_OBJETOS";
+	public static final String T_R_OBJETOS = "T_R_OBJETOS";
 
 	 // CONSTANTES DE UI
 	
