@@ -16,8 +16,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
-import com.mdsql.ui.utils.FrameSupport;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
 

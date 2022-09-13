@@ -11,9 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.DlgIdentificador;
 import com.mdsql.ui.utils.ListenerSupport;
-import com.mdsql.ui.utils.UIHelper;
-import com.mdsql.utils.AppGlobalSingleton;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.UIHelper;
 
 public class DlgIdentificadorListener extends ListenerSupport implements ActionListener {
 

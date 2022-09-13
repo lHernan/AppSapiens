@@ -14,7 +14,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import com.mdsql.ui.FramePrincipal;
-import com.mdsql.ui.utils.UIHelper;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.AppGlobalSingleton;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.LogWrapper;
@@ -77,8 +77,8 @@ public class MDSQLApplication implements CommandLineRunner {
 		EventQueue.invokeLater(() -> {
 			FramePrincipal framePrincipal = new FramePrincipal();
 
-			JDialog dialog = UIHelper.createDialog(framePrincipal, Constants.CMD_INICIAR_APP);
-			UIHelper.show(dialog);
+			JDialog dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_INICIAR_APP);
+			MDSQLUIHelper.show(dialog);
 		});
 	}
 }

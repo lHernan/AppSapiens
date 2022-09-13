@@ -1,13 +1,14 @@
 package com.mdsql.bussiness.entities;
 
+import java.io.Serializable;
+import java.util.List;
+
 import com.mdsql.exceptions.ServiceException;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author hcarreno

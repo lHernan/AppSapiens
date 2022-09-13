@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import com.mdsql.ui.modelos.PantallaBuscadorFicheros;
+import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.utils.Constants;
 

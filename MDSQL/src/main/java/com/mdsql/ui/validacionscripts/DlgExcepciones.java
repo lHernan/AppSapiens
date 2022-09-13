@@ -14,9 +14,9 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
 import com.mdsql.ui.listener.DlgExcepcionesListener;
-import com.mdsql.ui.utils.DialogSupport;
-import com.mdsql.ui.utils.FrameSupport;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
 

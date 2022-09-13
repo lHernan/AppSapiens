@@ -15,9 +15,9 @@ import javax.swing.WindowConstants;
 
 import com.mdsql.ui.listener.DlgIdentificadorListener;
 import com.mdsql.ui.listener.DlgIdentificadorWindowListener;
-import com.mdsql.ui.utils.DialogSupport;
-import com.mdsql.ui.utils.FrameSupport;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
 import lombok.Setter;

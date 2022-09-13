@@ -14,13 +14,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.model.DefinicionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
-import com.mdsql.ui.utils.FrameSupport;
-import com.mdsql.ui.utils.UIHelper;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
 
@@ -174,7 +173,7 @@ public class PantallaSeleccionModelos extends FrameSupport {
 
 	@Override
 	protected void initModels() {
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_MODELOS_TABLA_CABECERA);
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_MODELOS_TABLA_CABECERA);
 		tblModelos.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 

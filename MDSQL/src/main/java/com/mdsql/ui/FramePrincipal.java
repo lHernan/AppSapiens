@@ -9,6 +9,7 @@ package com.mdsql.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -27,8 +28,10 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdsql.ui.listener.FramePrincipalActionListener;
 import com.mdsql.ui.menu.MainMenuBar;
-import com.mdsql.ui.utils.FrameSupport;
+import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
@@ -372,8 +375,11 @@ public class FramePrincipal extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		ActionListener actionListener = new FramePrincipalActionListener(this);
 		
+		btnLoadScript.setActionCommand(Constants.FRAME_PRINCIPAL_LOAD_SCRIPT);
+		
+		btnLoadScript.addActionListener(actionListener);
 	}
 
 	@Override

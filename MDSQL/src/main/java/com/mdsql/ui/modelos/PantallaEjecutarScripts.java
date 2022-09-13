@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
-import com.mdsql.ui.utils.FrameSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
 
