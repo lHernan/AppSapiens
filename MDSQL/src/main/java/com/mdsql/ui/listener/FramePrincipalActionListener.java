@@ -19,15 +19,25 @@ import com.mdval.ui.utils.DialogSupport;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author federico
+ *
+ */
 @Slf4j
 public class FramePrincipalActionListener extends ListenerSupport implements ActionListener {
 	
 	private FramePrincipal framePrincipal;
 
+	/**
+	 * @param framePrincipal
+	 */
 	public FramePrincipalActionListener(FramePrincipal framePrincipal) {
 		this.framePrincipal = framePrincipal;
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
@@ -47,6 +57,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 	}
 	
+	/**
+	 * @return
+	 */
 	private File loadScript() {
 		File file = null;
 		
@@ -61,6 +74,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		return file;
 	}
 	
+	/**
+	 * @param rutaInicial
+	 * @return
+	 */
 	private File selectFile(String rutaInicial) {
 		File file = null;
 		JFileChooser chooser = new JFileChooser();
