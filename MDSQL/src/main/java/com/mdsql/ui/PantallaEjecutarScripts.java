@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mdsql.ui.modelos;
+package com.mdsql.ui;
 
 import java.util.Map;
 
@@ -15,17 +15,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.table.DefaultTableModel;
 
-<<<<<<< HEAD
 import com.mdsql.ui.model.DefinicionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
-import com.mdsql.ui.utils.FrameSupport;
-import com.mdsql.ui.utils.UIHelper;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
-=======
 import com.mdval.ui.utils.FrameSupport;
->>>>>>> ca090febac2300150a0466373b553efe408e4a24
 
 import lombok.Getter;
 
@@ -307,7 +302,7 @@ public class PantallaEjecutarScripts extends FrameSupport {
 	protected void initModels() {
 		jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "", "Item 2", "Item 3", "Item 4" }));
 
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_SCRIPTS_TABLA_CABECERA);
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_SCRIPTS_TABLA_CABECERA);
 		tblHistorico.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		tblVigente.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		

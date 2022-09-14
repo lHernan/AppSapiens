@@ -10,8 +10,8 @@ import javax.swing.JButton;
 
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.service.ModeloService;
+import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.model.DefinicionScriptsTableModel;
-import com.mdsql.ui.modelos.PantallaEjecutarScripts;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.utils.Constants;
 

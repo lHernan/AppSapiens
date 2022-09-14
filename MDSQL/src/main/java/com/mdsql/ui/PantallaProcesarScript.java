@@ -21,13 +21,14 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
  * @author federico
  */
-public class PantallaProcesarScript extends FrameSupport {
+public class PantallaProcesarScript extends DialogSupport {
 	
 	/**
 	 * 
@@ -71,15 +72,15 @@ public class PantallaProcesarScript extends FrameSupport {
     /**
 	 * @param params
 	 */
-	public PantallaProcesarScript(Map<String, Object> params) {
-        super(params);
+	public PantallaProcesarScript(FrameSupport parent, Boolean modal) {
+        super(parent, modal);
     }
 	
 	/**
 	 * Creates new form
 	 */
-	public PantallaProcesarScript(FrameSupport parent, Map<String, Object> params) {
-		super(parent, params);
+	public PantallaProcesarScript(FrameSupport parent, Boolean modal, Map<String, Object> params) {
+		super(parent, modal, params);
 	}
 
 	@Override

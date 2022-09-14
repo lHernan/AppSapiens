@@ -13,10 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
-import com.mdsql.ui.model.DefinicionModelosTableModel;
 import com.mdsql.ui.model.DefinicionSeleccionTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;

@@ -55,6 +55,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				
 			}
 		}
+		
+		if (Constants.FRAME_PRINCIPAL_PROCESAR_SCRIPT.equals(jButton.getActionCommand())) {
+			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_PROCESAR_SCRIPT);
+			MDSQLUIHelper.show(dialog);
+		}
 	}
 	
 	/**

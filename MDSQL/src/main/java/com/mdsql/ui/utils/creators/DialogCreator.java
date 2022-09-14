@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.mdsql.ui.DlgIdentificador;
 import com.mdsql.ui.PantallaBuscadorFicheros;
+import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -51,6 +52,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_LOAD_SCRIPT.equals(option)) {
 			dialog = new PantallaBuscadorFicheros(frameParent, modal);
+		}
+		
+		if (Constants.CMD_PROCESAR_SCRIPT.equals(option)) {
+			dialog = new PantallaProcesarScript(frameParent, modal);
 		}
 		
 		return dialog;
