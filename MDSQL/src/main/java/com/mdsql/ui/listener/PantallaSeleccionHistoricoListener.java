@@ -42,7 +42,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 	
 	private void añadirHistorico() {
 		try {
-			List lineasScript = pantallaSeleccionHistorico.getTxtLineasScript().getText();
+			List<TextoLinea> lineasScript = pantallaSeleccionHistorico.getTxtLineasScript().getText();
 			String codigoProyecto = pantallaSeleccionHistorico.getTxtCodigoProyecto().getText();
 			
 			List<ObjetoHis> objetosHis = añadir(lineasScript, codigoProyecto);

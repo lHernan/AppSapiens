@@ -352,5 +352,9 @@ public class Constants {
 	
 =======
 	public static final String FRAME_PRINCIPAL_LOAD_SCRIPT = "FRAME_PRINCIPAL_LOAD_SCRIPT";
+<<<<<<< HEAD
 >>>>>>> ca090febac2300150a0466373b553efe408e4a24
+=======
+	public static final String FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS = "FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS";
+>>>>>>> 358df04025d71a79e3171e57be67d3da37356e7f
 }

@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -31,6 +33,8 @@ public abstract class FrameSupport extends JFrame {
 	
 	@Getter
 	protected PanelLogotipo panelLogo;
+	
+	protected JMenuBar menuBar;
 	
 	@Getter
 	protected Map<String, Object> params;
@@ -85,6 +89,11 @@ public abstract class FrameSupport extends JFrame {
 			panelLogo.setPreferredSize(new Dimension(286, 63));
 			
 			initComponents();
+			
+			if (!Objects.isNull(menuBar)) {
+				this.setJMenuBar(menuBar);
+			}
+			
 			initLiterals();
 			initEvents();
 			

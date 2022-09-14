@@ -30,7 +30,7 @@ public class Principal extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         btnLoadScript = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        btnOpen = new javax.swing.JButton();
+        btnCargarScriptObjetos = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -54,6 +54,10 @@ public class Principal extends javax.swing.JFrame {
         jInternalFrame4 = new javax.swing.JInternalFrame();
         jInternalFrame5 = new javax.swing.JInternalFrame();
         jPanel3 = new javax.swing.JPanel();
+        jInternalFrame11 = new javax.swing.JInternalFrame();
+        jInternalFrame12 = new javax.swing.JInternalFrame();
+        jInternalFrame13 = new javax.swing.JInternalFrame();
+        jInternalFrame14 = new javax.swing.JInternalFrame();
         jPanel4 = new javax.swing.JPanel();
         jInternalFrame6 = new javax.swing.JInternalFrame();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -77,11 +81,11 @@ public class Principal extends javax.swing.JFrame {
         jToolBar1.add(btnLoadScript);
         jToolBar1.add(jSeparator1);
 
-        btnOpen.setText("TYPE");
-        btnOpen.setFocusable(false);
-        btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnOpen);
+        btnCargarScriptObjetos.setText("TYPE");
+        btnCargarScriptObjetos.setFocusable(false);
+        btnCargarScriptObjetos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCargarScriptObjetos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnCargarScriptObjetos);
         jToolBar1.add(jSeparator2);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
@@ -212,16 +216,67 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Vigente", jPanel2);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1064, Short.MAX_VALUE)
+        jPanel3.setLayout(new java.awt.GridLayout(2, 2));
+
+        jInternalFrame11.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame11Layout = new javax.swing.GroupLayout(jInternalFrame11.getContentPane());
+        jInternalFrame11.getContentPane().setLayout(jInternalFrame11Layout);
+        jInternalFrame11Layout.setHorizontalGroup(
+            jInternalFrame11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
+        jInternalFrame11Layout.setVerticalGroup(
+            jInternalFrame11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jPanel3.add(jInternalFrame11);
+
+        jInternalFrame12.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame12Layout = new javax.swing.GroupLayout(jInternalFrame12.getContentPane());
+        jInternalFrame12.getContentPane().setLayout(jInternalFrame12Layout);
+        jInternalFrame12Layout.setHorizontalGroup(
+            jInternalFrame12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame12Layout.setVerticalGroup(
+            jInternalFrame12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jInternalFrame12);
+
+        jInternalFrame13.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame13Layout = new javax.swing.GroupLayout(jInternalFrame13.getContentPane());
+        jInternalFrame13.getContentPane().setLayout(jInternalFrame13Layout);
+        jInternalFrame13Layout.setHorizontalGroup(
+            jInternalFrame13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame13Layout.setVerticalGroup(
+            jInternalFrame13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jInternalFrame13);
+
+        jInternalFrame14.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame14Layout = new javax.swing.GroupLayout(jInternalFrame14.getContentPane());
+        jInternalFrame14.getContentPane().setLayout(jInternalFrame14Layout);
+        jInternalFrame14Layout.setHorizontalGroup(
+            jInternalFrame14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame14Layout.setVerticalGroup(
+            jInternalFrame14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jInternalFrame14);
 
         jTabbedPane1.addTab("Histórico", jPanel3);
 
@@ -367,8 +422,8 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCargarScriptObjetos;
     private javax.swing.JButton btnLoadScript;
-    private javax.swing.JButton btnOpen;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -379,6 +434,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame10;
+    private javax.swing.JInternalFrame jInternalFrame11;
+    private javax.swing.JInternalFrame jInternalFrame12;
+    private javax.swing.JInternalFrame jInternalFrame13;
+    private javax.swing.JInternalFrame jInternalFrame14;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JInternalFrame jInternalFrame3;
     private javax.swing.JInternalFrame jInternalFrame4;
