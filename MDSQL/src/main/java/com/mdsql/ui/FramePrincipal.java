@@ -47,7 +47,7 @@ public class FramePrincipal extends FrameSupport {
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnLoadScript;
     private JButton jButton10;
-    private JButton jButton2;
+    private JButton btnCargarScriptObjetos;
     private JButton jButton3;
     private JButton jButton4;
     private JButton jButton5;
@@ -65,6 +65,10 @@ public class FramePrincipal extends FrameSupport {
     private JInternalFrame jInternalFrame7;
     private JInternalFrame jInternalFrame8;
     private JInternalFrame jInternalFrame9;
+    private JInternalFrame jInternalFrame11;
+    private JInternalFrame jInternalFrame12;
+    private JInternalFrame jInternalFrame14;
+    private JInternalFrame jInternalFrame13;
     private JPanel jPanel1;
     private JPanel jPanel2;
     private JPanel jPanel3;
@@ -95,7 +99,7 @@ public class FramePrincipal extends FrameSupport {
     	jToolBar1 = new JToolBar();
         btnLoadScript = new JButton();
         jSeparator1 = new JToolBar.Separator();
-        jButton2 = new JButton();
+        btnCargarScriptObjetos = new JButton();
         jSeparator2 = new JToolBar.Separator();
         jButton3 = new JButton();
         jButton4 = new JButton();
@@ -119,6 +123,10 @@ public class FramePrincipal extends FrameSupport {
         jInternalFrame4 = new JInternalFrame();
         jInternalFrame5 = new JInternalFrame();
         jPanel3 = new JPanel();
+        jInternalFrame11 = new JInternalFrame();
+        jInternalFrame12 = new JInternalFrame();
+        jInternalFrame13 = new JInternalFrame();
+        jInternalFrame14 = new JInternalFrame();
         jPanel4 = new JPanel();
         jInternalFrame6 = new JInternalFrame();
         jScrollPane2 = new JScrollPane();
@@ -129,9 +137,6 @@ public class FramePrincipal extends FrameSupport {
         jInternalFrame10 = new JInternalFrame();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        
-        JMenuBar barraMenu = new MainMenuBar();
-        setJMenuBar(barraMenu);
 
         jToolBar1.setRollover(true);
 
@@ -145,11 +150,11 @@ public class FramePrincipal extends FrameSupport {
         jToolBar1.add(btnLoadScript);
         jToolBar1.add(jSeparator1);
 
-        jButton2.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        btnCargarScriptObjetos.setText("TYPE");
+        btnCargarScriptObjetos.setFocusable(false);
+        btnCargarScriptObjetos.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnCargarScriptObjetos.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jToolBar1.add(btnCargarScriptObjetos);
         jToolBar1.add(jSeparator2);
 
         jButton3.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
@@ -280,16 +285,67 @@ public class FramePrincipal extends FrameSupport {
 
         jTabbedPane1.addTab("Vigente", jPanel2);
 
-        GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 1064, Short.MAX_VALUE)
+        jPanel3.setLayout(new GridLayout(2, 2));
+
+        jInternalFrame11.setVisible(true);
+
+        GroupLayout jInternalFrame11Layout = new GroupLayout(jInternalFrame11.getContentPane());
+        jInternalFrame11.getContentPane().setLayout(jInternalFrame11Layout);
+        jInternalFrame11Layout.setHorizontalGroup(
+            jInternalFrame11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
+        jInternalFrame11Layout.setVerticalGroup(
+            jInternalFrame11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jPanel3.add(jInternalFrame11);
+
+        jInternalFrame12.setVisible(true);
+
+        GroupLayout jInternalFrame12Layout = new GroupLayout(jInternalFrame12.getContentPane());
+        jInternalFrame12.getContentPane().setLayout(jInternalFrame12Layout);
+        jInternalFrame12Layout.setHorizontalGroup(
+            jInternalFrame12Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame12Layout.setVerticalGroup(
+            jInternalFrame12Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jInternalFrame12);
+
+        jInternalFrame13.setVisible(true);
+
+        GroupLayout jInternalFrame13Layout = new GroupLayout(jInternalFrame13.getContentPane());
+        jInternalFrame13.getContentPane().setLayout(jInternalFrame13Layout);
+        jInternalFrame13Layout.setHorizontalGroup(
+            jInternalFrame13Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame13Layout.setVerticalGroup(
+            jInternalFrame13Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jInternalFrame13);
+
+        jInternalFrame14.setVisible(true);
+
+        GroupLayout jInternalFrame14Layout = new GroupLayout(jInternalFrame14.getContentPane());
+        jInternalFrame14.getContentPane().setLayout(jInternalFrame14Layout);
+        jInternalFrame14Layout.setHorizontalGroup(
+            jInternalFrame14Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame14Layout.setVerticalGroup(
+            jInternalFrame14Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jInternalFrame14);
 
         jTabbedPane1.addTab("Histórico", jPanel3);
 
@@ -371,6 +427,8 @@ public class FramePrincipal extends FrameSupport {
 
         getContentPane().add(jSplitPane1, BorderLayout.CENTER);
         
+        menuBar = new MainMenuBar();
+        
     }// </editor-fold>//GEN-END:initComponents
 
 	@Override
@@ -378,8 +436,10 @@ public class FramePrincipal extends FrameSupport {
 		ActionListener actionListener = new FramePrincipalActionListener(this);
 		
 		btnLoadScript.setActionCommand(Constants.FRAME_PRINCIPAL_LOAD_SCRIPT);
+		btnCargarScriptObjetos.setActionCommand(Constants.FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS);
 		
 		btnLoadScript.addActionListener(actionListener);
+		btnCargarScriptObjetos.addActionListener(actionListener);
 	}
 
 	@Override

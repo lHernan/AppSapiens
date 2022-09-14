@@ -32,13 +32,21 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		JButton jButton = (JButton) e.getSource();
 
 		if (Constants.FRAME_PRINCIPAL_LOAD_SCRIPT.equals(jButton.getActionCommand())) {
-			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_LOAD_SCRIPT);
-			MDSQLUIHelper.show(dialog);
-			
-			String rutaInicial = (String) dialog.getReturnParams().get("RutaInicial");
-			if (StringUtils.isNotBlank(rutaInicial)) {
-				File file = selectFile(rutaInicial);
-			}
+			loadScript();
+		}
+		
+		if (Constants.FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS.equals(jButton.getActionCommand())) {
+			loadScript();
+		}
+	}
+	
+	private void loadScript() {
+		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_LOAD_SCRIPT);
+		MDSQLUIHelper.show(dialog);
+		
+		String rutaInicial = (String) dialog.getReturnParams().get("RutaInicial");
+		if (StringUtils.isNotBlank(rutaInicial)) {
+			File file = selectFile(rutaInicial);
 		}
 	}
 	
