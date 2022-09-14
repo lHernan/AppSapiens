@@ -3,6 +3,7 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -32,22 +33,32 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		JButton jButton = (JButton) e.getSource();
 
 		if (Constants.FRAME_PRINCIPAL_LOAD_SCRIPT.equals(jButton.getActionCommand())) {
-			loadScript();
+			File file = loadScript();
+			if (!Objects.isNull(file)) {
+				
+			}
 		}
 		
 		if (Constants.FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS.equals(jButton.getActionCommand())) {
-			loadScript();
+			File file = loadScript();
+			if (!Objects.isNull(file)) {
+				
+			}
 		}
 	}
 	
-	private void loadScript() {
+	private File loadScript() {
+		File file = null;
+		
 		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_LOAD_SCRIPT);
 		MDSQLUIHelper.show(dialog);
 		
 		String rutaInicial = (String) dialog.getReturnParams().get("RutaInicial");
 		if (StringUtils.isNotBlank(rutaInicial)) {
-			File file = selectFile(rutaInicial);
+			file = selectFile(rutaInicial);
 		}
+		
+		return file;
 	}
 	
 	private File selectFile(String rutaInicial) {
