@@ -16,7 +16,6 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -32,6 +31,8 @@ import com.mdsql.ui.listener.FramePrincipalActionListener;
 import com.mdsql.ui.menu.MainMenuBar;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.FrameSupport;
+
+import lombok.Getter;
 
 /**
  *
@@ -55,7 +56,7 @@ public class FramePrincipal extends FrameSupport {
     private JButton jButton7;
     private JButton jButton8;
     private JButton jButton9;
-    private JInternalFrame jInternalFrame1;
+    
     private JInternalFrame jInternalFrame10;
     private JInternalFrame jInternalFrame2;
     private JInternalFrame jInternalFrame3;
@@ -70,9 +71,9 @@ public class FramePrincipal extends FrameSupport {
     private JInternalFrame jInternalFrame14;
     private JInternalFrame jInternalFrame13;
     private JPanel jPanel1;
-    private JPanel jPanel2;
-    private JPanel jPanel3;
-    private JPanel jPanel4;
+    private JPanel panelVigente;
+    private JPanel panelHistorico;
+    private JPanel panelTypes;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JToolBar.Separator jSeparator1;
@@ -80,12 +81,20 @@ public class FramePrincipal extends FrameSupport {
     private JToolBar.Separator jSeparator3;
     private JToolBar.Separator jSeparator4;
     private JSplitPane jSplitPane1;
-    private JTabbedPane jTabbedPane1;
     private JTable jTable1;
-    private JTextArea jTextArea1;
     private JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 	
+    @Getter
+    private JInternalFrame frmSQLScript;
+    
+    @Getter
+    private JTextArea txtSQLCode;
+
+    @Getter
+	private JTabbedPane tabPanel;
+
+    
 	/**
      * Creates new form Principal
      */
@@ -112,22 +121,22 @@ public class FramePrincipal extends FrameSupport {
         jSeparator4 = new JToolBar.Separator();
         jButton10 = new JButton();
         jSplitPane1 = new JSplitPane();
-        jInternalFrame1 = new JInternalFrame();
+        frmSQLScript = new JInternalFrame();
         jScrollPane1 = new JScrollPane();
-        jTextArea1 = new JTextArea();
+        txtSQLCode = new JTextArea();
         jPanel1 = new JPanel();
-        jTabbedPane1 = new JTabbedPane();
-        jPanel2 = new JPanel();
+        tabPanel = new JTabbedPane();
+        panelVigente = new JPanel();
         jInternalFrame2 = new JInternalFrame();
         jInternalFrame3 = new JInternalFrame();
         jInternalFrame4 = new JInternalFrame();
         jInternalFrame5 = new JInternalFrame();
-        jPanel3 = new JPanel();
+        panelHistorico = new JPanel();
         jInternalFrame11 = new JInternalFrame();
         jInternalFrame12 = new JInternalFrame();
         jInternalFrame13 = new JInternalFrame();
         jInternalFrame14 = new JInternalFrame();
-        jPanel4 = new JPanel();
+        panelTypes = new JPanel();
         jInternalFrame6 = new JInternalFrame();
         jScrollPane2 = new JScrollPane();
         jTable1 = new JTable();
@@ -209,19 +218,19 @@ public class FramePrincipal extends FrameSupport {
 
         getContentPane().add(jToolBar1, BorderLayout.PAGE_START);
 
-        jInternalFrame1.setVisible(true);
+        frmSQLScript.setVisible(true);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtSQLCode.setColumns(20);
+        txtSQLCode.setRows(5);
+        jScrollPane1.setViewportView(txtSQLCode);
 
-        jInternalFrame1.getContentPane().add(jScrollPane1, BorderLayout.CENTER);
+        frmSQLScript.getContentPane().add(jScrollPane1, BorderLayout.CENTER);
 
-        jSplitPane1.setLeftComponent(jInternalFrame1);
+        jSplitPane1.setLeftComponent(frmSQLScript);
 
         jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.LINE_AXIS));
 
-        jPanel2.setLayout(new GridLayout(2, 2));
+        panelVigente.setLayout(new GridLayout(2, 2));
 
         jInternalFrame2.setVisible(true);
 
@@ -236,7 +245,7 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 281, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jInternalFrame2);
+        panelVigente.add(jInternalFrame2);
 
         jInternalFrame3.setVisible(true);
 
@@ -251,7 +260,7 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 281, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jInternalFrame3);
+        panelVigente.add(jInternalFrame3);
 
         jInternalFrame4.setVisible(true);
 
@@ -266,7 +275,7 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 281, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jInternalFrame4);
+        panelVigente.add(jInternalFrame4);
 
         jInternalFrame5.setVisible(true);
 
@@ -281,11 +290,11 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 281, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jInternalFrame5);
+        panelVigente.add(jInternalFrame5);
 
-        jTabbedPane1.addTab("Vigente", jPanel2);
+        tabPanel.addTab("Vigente", panelVigente);
 
-        jPanel3.setLayout(new GridLayout(2, 2));
+        panelHistorico.setLayout(new GridLayout(2, 2));
 
         jInternalFrame11.setVisible(true);
 
@@ -300,7 +309,7 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jInternalFrame11);
+        panelHistorico.add(jInternalFrame11);
 
         jInternalFrame12.setVisible(true);
 
@@ -315,7 +324,7 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jInternalFrame12);
+        panelHistorico.add(jInternalFrame12);
 
         jInternalFrame13.setVisible(true);
 
@@ -330,7 +339,7 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jInternalFrame13);
+        panelHistorico.add(jInternalFrame13);
 
         jInternalFrame14.setVisible(true);
 
@@ -345,11 +354,11 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jInternalFrame14);
+        panelHistorico.add(jInternalFrame14);
 
-        jTabbedPane1.addTab("Histórico", jPanel3);
+        tabPanel.addTab("Histórico", panelHistorico);
 
-        jPanel4.setLayout(new GridLayout(3, 2));
+        panelTypes.setLayout(new GridLayout(3, 2));
 
         jInternalFrame6.setVisible(true);
 
@@ -357,7 +366,7 @@ public class FramePrincipal extends FrameSupport {
 
         jInternalFrame6.getContentPane().add(jScrollPane2, BorderLayout.CENTER);
 
-        jPanel4.add(jInternalFrame6);
+        panelTypes.add(jInternalFrame6);
 
         jInternalFrame7.setVisible(true);
 
@@ -372,7 +381,7 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jInternalFrame7);
+        panelTypes.add(jInternalFrame7);
 
         jInternalFrame8.setVisible(true);
 
@@ -387,7 +396,7 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jInternalFrame8);
+        panelTypes.add(jInternalFrame8);
 
         jInternalFrame9.setVisible(true);
 
@@ -402,7 +411,7 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jInternalFrame9);
+        panelTypes.add(jInternalFrame9);
 
         jInternalFrame10.setVisible(true);
 
@@ -417,11 +426,11 @@ public class FramePrincipal extends FrameSupport {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jInternalFrame10);
+        panelTypes.add(jInternalFrame10);
 
-        jTabbedPane1.addTab("Types", jPanel4);
+        tabPanel.addTab("Types", panelTypes);
 
-        jPanel1.add(jTabbedPane1);
+        jPanel1.add(tabPanel);
 
         jSplitPane1.setRightComponent(jPanel1);
 

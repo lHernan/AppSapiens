@@ -43,22 +43,22 @@ public class Principal extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JToolBar.Separator();
         jButton10 = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
+        frmSQLScript = new javax.swing.JInternalFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtSQLCode = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
+        tabPanel = new javax.swing.JTabbedPane();
+        panelVigente = new javax.swing.JPanel();
         jInternalFrame2 = new javax.swing.JInternalFrame();
         jInternalFrame3 = new javax.swing.JInternalFrame();
         jInternalFrame4 = new javax.swing.JInternalFrame();
         jInternalFrame5 = new javax.swing.JInternalFrame();
-        jPanel3 = new javax.swing.JPanel();
+        panelHistorico = new javax.swing.JPanel();
         jInternalFrame11 = new javax.swing.JInternalFrame();
         jInternalFrame12 = new javax.swing.JInternalFrame();
         jInternalFrame13 = new javax.swing.JInternalFrame();
         jInternalFrame14 = new javax.swing.JInternalFrame();
-        jPanel4 = new javax.swing.JPanel();
+        panelTypes = new javax.swing.JPanel();
         jInternalFrame6 = new javax.swing.JInternalFrame();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -140,19 +140,19 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
-        jInternalFrame1.setVisible(true);
+        frmSQLScript.setVisible(true);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtSQLCode.setColumns(20);
+        txtSQLCode.setRows(5);
+        jScrollPane1.setViewportView(txtSQLCode);
 
-        jInternalFrame1.getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        frmSQLScript.getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jSplitPane1.setLeftComponent(jInternalFrame1);
+        jSplitPane1.setLeftComponent(frmSQLScript);
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel2.setLayout(new java.awt.GridLayout(2, 2));
+        panelVigente.setLayout(new java.awt.GridLayout(2, 2));
 
         jInternalFrame2.setVisible(true);
 
@@ -167,7 +167,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 281, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jInternalFrame2);
+        panelVigente.add(jInternalFrame2);
 
         jInternalFrame3.setVisible(true);
 
@@ -182,7 +182,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 281, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jInternalFrame3);
+        panelVigente.add(jInternalFrame3);
 
         jInternalFrame4.setVisible(true);
 
@@ -197,7 +197,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 281, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jInternalFrame4);
+        panelVigente.add(jInternalFrame4);
 
         jInternalFrame5.setVisible(true);
 
@@ -212,11 +212,11 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 281, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jInternalFrame5);
+        panelVigente.add(jInternalFrame5);
 
-        jTabbedPane1.addTab("Vigente", jPanel2);
+        tabPanel.addTab("Vigente", panelVigente);
 
-        jPanel3.setLayout(new java.awt.GridLayout(2, 2));
+        panelHistorico.setLayout(new java.awt.GridLayout(2, 2));
 
         jInternalFrame11.setVisible(true);
 
@@ -231,7 +231,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jInternalFrame11);
+        panelHistorico.add(jInternalFrame11);
 
         jInternalFrame12.setVisible(true);
 
@@ -246,7 +246,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jInternalFrame12);
+        panelHistorico.add(jInternalFrame12);
 
         jInternalFrame13.setVisible(true);
 
@@ -261,7 +261,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jInternalFrame13);
+        panelHistorico.add(jInternalFrame13);
 
         jInternalFrame14.setVisible(true);
 
@@ -276,11 +276,11 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jInternalFrame14);
+        panelHistorico.add(jInternalFrame14);
 
-        jTabbedPane1.addTab("Histórico", jPanel3);
+        tabPanel.addTab("Histórico", panelHistorico);
 
-        jPanel4.setLayout(new java.awt.GridLayout(3, 2));
+        panelTypes.setLayout(new java.awt.GridLayout(3, 2));
 
         jInternalFrame6.setVisible(true);
 
@@ -313,7 +313,7 @@ public class Principal extends javax.swing.JFrame {
 
         jInternalFrame6.getContentPane().add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jPanel4.add(jInternalFrame6);
+        panelTypes.add(jInternalFrame6);
 
         jInternalFrame7.setVisible(true);
 
@@ -328,7 +328,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jInternalFrame7);
+        panelTypes.add(jInternalFrame7);
 
         jInternalFrame8.setVisible(true);
 
@@ -343,7 +343,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jInternalFrame8);
+        panelTypes.add(jInternalFrame8);
 
         jInternalFrame9.setVisible(true);
 
@@ -358,7 +358,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jInternalFrame9);
+        panelTypes.add(jInternalFrame9);
 
         jInternalFrame10.setVisible(true);
 
@@ -373,11 +373,11 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jInternalFrame10);
+        panelTypes.add(jInternalFrame10);
 
-        jTabbedPane1.addTab("Types", jPanel4);
+        tabPanel.addTab("Types", panelTypes);
 
-        jPanel1.add(jTabbedPane1);
+        jPanel1.add(tabPanel);
 
         jSplitPane1.setRightComponent(jPanel1);
 
@@ -424,6 +424,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargarScriptObjetos;
     private javax.swing.JButton btnLoadScript;
+    private javax.swing.JInternalFrame frmSQLScript;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -432,7 +433,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame10;
     private javax.swing.JInternalFrame jInternalFrame11;
     private javax.swing.JInternalFrame jInternalFrame12;
@@ -447,9 +447,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrame8;
     private javax.swing.JInternalFrame jInternalFrame9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
@@ -457,9 +454,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JPanel panelHistorico;
+    private javax.swing.JPanel panelTypes;
+    private javax.swing.JPanel panelVigente;
+    private javax.swing.JTabbedPane tabPanel;
+    private javax.swing.JTextArea txtSQLCode;
     // End of variables declaration//GEN-END:variables
 }
