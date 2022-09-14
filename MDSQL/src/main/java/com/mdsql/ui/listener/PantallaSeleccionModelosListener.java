@@ -45,7 +45,7 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 		}
 	}
 
-	/**
+	/*
 	 * 
 	 */
 	private void eventBtnBuscar() {
