@@ -14,9 +14,9 @@ import org.apache.commons.lang3.StringUtils;
 import com.mdsql.bussiness.service.GlosarioService;
 import com.mdsql.ui.glosarios.DlgAltaModificacionGlosarios;
 import com.mdsql.ui.utils.ListenerSupport;
-import com.mdsql.ui.utils.UIHelper;
 import com.mdsql.utils.AppGlobalSingleton;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.UIHelper;
 
 import lombok.SneakyThrows;
 

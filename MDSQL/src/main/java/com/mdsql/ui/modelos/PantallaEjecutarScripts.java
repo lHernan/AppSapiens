@@ -17,11 +17,15 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
+<<<<<<< HEAD
 import com.mdsql.ui.model.DefinicionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.FrameSupport;
 import com.mdsql.ui.utils.UIHelper;
 import com.mdsql.utils.Constants;
+=======
+import com.mdval.ui.utils.FrameSupport;
+>>>>>>> ca090febac2300150a0466373b553efe408e4a24
 
 import lombok.Getter;
 

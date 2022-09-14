@@ -4,6 +4,7 @@ package com.mdval.ui.utils;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +38,9 @@ public abstract class DialogSupport extends JDialog {
 	
 	@Getter
 	protected Map<String, Object> params;
+	
+	@Getter
+	protected Map<String, Object> returnParams; 
 	
 	protected DateFormatter dateFormatter;
 	
@@ -83,6 +87,7 @@ public abstract class DialogSupport extends JDialog {
 			
 			dateFormatter = new DateFormatter();
 			onLoadListeners = new ArrayList<>();
+			returnParams = new HashMap<>();
 			
 			initComponents();
 			initLiterals();

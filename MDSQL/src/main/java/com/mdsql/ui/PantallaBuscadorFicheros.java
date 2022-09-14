@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mdsql.ui.modelos;
+package com.mdsql.ui;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -13,8 +14,12 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
 import com.mdsql.ui.listener.PantallaBuscadorFicherosListener;
-import com.mdsql.ui.utils.FrameSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
 
@@ -22,7 +27,7 @@ import lombok.Getter;
  *
  * @author USUARIO1
  */
-public class PantallaBuscadorFicheros extends FrameSupport {
+public class PantallaBuscadorFicheros extends DialogSupport {
 	
 	/**
 	 * 
@@ -41,12 +46,12 @@ public class PantallaBuscadorFicheros extends FrameSupport {
     @Getter
     private PantallaBuscadorFicherosListener pantallaBuscadorFicherosListener;
     
-    public PantallaBuscadorFicheros(FrameSupport parent) {
-        super(parent);
+    public PantallaBuscadorFicheros(FrameSupport parent, Boolean modal) {
+        super(parent, modal);
     }
     
-    public PantallaBuscadorFicheros(FrameSupport parent, Map<String, Object> params) {
-        super(parent, params);
+    public PantallaBuscadorFicheros(FrameSupport parent, Boolean modal, Map<String, Object> params) {
+        super(parent, modal, params);
     }
 
 	@Override
@@ -104,10 +109,21 @@ public class PantallaBuscadorFicheros extends FrameSupport {
 	protected void initModels() {}
 
 	@Override
-	protected void initialState() {}
+	protected void initialState() {
+		try {
+			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+			String rutaInicial = configuration.getConfig("RutaDefectoScripts");
+			txtRuta.setText(rutaInicial);
+		} catch (IOException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(this.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
+		}
+	}
 
 	@Override
 	protected void setupLiterals() {
+		this.setTitle("Cargar script");
+		
 		jLabel1.setText("Ruta");
         btnAceptar.setText("ACEPTAR");
         btnCancelar.setText("CANCELAR");

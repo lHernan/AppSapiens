@@ -6,7 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 
-import com.mdsql.ui.utils.UIHelper;
+import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdval.ui.utils.UIHelper;
 
 /**
  * El listener del menú principal usa la factoría de creación de diálogos
@@ -28,7 +29,7 @@ public class MenuListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
-		JFrame frame = UIHelper.createFrame(item.getActionCommand());
+		JFrame frame = MDSQLUIHelper.createFrame(item.getActionCommand());
 		UIHelper.show(frame);
 	}
 }

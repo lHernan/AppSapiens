@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import com.mdval.exceptions.ServiceException;
@@ -85,7 +84,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 */
 	protected void showPopup(FrameSupport frame, String cmd) {
-		JDialog dialog = MDValUIHelper.createDialog(frame, cmd);
+		DialogSupport dialog = MDValUIHelper.createDialog(frame, cmd);
 		UIHelper.show(dialog);
 	}
 	
@@ -95,7 +94,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param params
 	 */
 	protected void showPopup(FrameSupport frame, String cmd, Map<String, Object> params) {
-		JDialog dialog = MDValUIHelper.createDialog(frame, cmd, params);
+		DialogSupport dialog = MDValUIHelper.createDialog(frame, cmd, params);
 		UIHelper.show(dialog);
 	}
 	

@@ -27,9 +27,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.exceptions.ServiceException;
-import com.mdsql.ui.utils.DialogSupport;
-import com.mdsql.ui.utils.FrameSupport;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 /**
  *

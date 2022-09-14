@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import com.mdsql.exceptions.ServiceException;
@@ -13,6 +12,9 @@ import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.DateFormatter;
 import com.mdsql.utils.LiteralesSingleton;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.UIHelper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,7 +50,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 */
 	protected void showFrame(String cmd) {
-		JFrame frame = UIHelper.createFrame(cmd);
+		JFrame frame = MDSQLUIHelper.createFrame(cmd);
 		UIHelper.show(frame);
 	}
 	
@@ -57,7 +59,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 */
 	protected void showFrame(FrameSupport parent, String cmd) {
-		JFrame frame = UIHelper.createFrame(parent, cmd);
+		JFrame frame = MDSQLUIHelper.createFrame(parent, cmd);
 		UIHelper.show(frame);
 	}
 	
@@ -66,7 +68,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param params
 	 */
 	protected void showFrame(String cmd, Map<String, Object> params) {
-		JFrame frame = UIHelper.createFrame(cmd, params);
+		JFrame frame = MDSQLUIHelper.createFrame(cmd, params);
 		UIHelper.show(frame);
 	}
 	
@@ -76,7 +78,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param params
 	 */
 	protected void showFrame(FrameSupport parent, String cmd, Map<String, Object> params) {
-		JFrame frame = UIHelper.createFrame(parent, cmd, params);
+		JFrame frame = MDSQLUIHelper.createFrame(parent, cmd, params);
 		UIHelper.show(frame);
 	}
 	
@@ -85,7 +87,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 */
 	protected void showPopup(FrameSupport frame, String cmd) {
-		JDialog dialog = UIHelper.createDialog(frame, cmd);
+		DialogSupport dialog = MDSQLUIHelper.createDialog(frame, cmd);
 		UIHelper.show(dialog);
 	}
 	
@@ -95,7 +97,7 @@ public abstract class ListenerSupport extends Observable {
 	 * @param params
 	 */
 	protected void showPopup(FrameSupport frame, String cmd, Map<String, Object> params) {
-		JDialog dialog = UIHelper.createDialog(frame, cmd, params);
+		DialogSupport dialog = MDSQLUIHelper.createDialog(frame, cmd, params);
 		UIHelper.show(dialog);
 	}
 	

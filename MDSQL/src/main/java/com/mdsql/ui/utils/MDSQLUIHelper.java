@@ -1,16 +1,22 @@
-package com.mdval.ui.utils;
+package com.mdsql.ui.utils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JFrame;
 
-import com.mdval.ui.model.cabeceras.Cabecera;
-import com.mdval.ui.utils.creators.CabeceraTablaCreator;
-import com.mdval.ui.utils.creators.Creator;
-import com.mdval.ui.utils.creators.DialogCreator;
-import com.mdval.ui.utils.creators.FrameCreator;
+import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.utils.creators.CabeceraTablaCreator;
+import com.mdsql.ui.utils.creators.Creator;
+import com.mdsql.ui.utils.creators.DialogCreator;
+import com.mdsql.ui.utils.creators.FrameCreator;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.Constants;
 
-public class MDValUIHelper extends UIHelper {
+public class MDSQLUIHelper extends UIHelper {
 	
 	/**
 	 * @param item
@@ -78,5 +84,30 @@ public class MDValUIHelper extends UIHelper {
 	public static Cabecera createCabeceraTabla(String item) {
 		Creator cabeceraTablaCreator = new CabeceraTablaCreator(item);
 		return (Cabecera) cabeceraTablaCreator.factoryMethod();
+	}
+	
+	/**
+	 * @param frame
+	 * @param cmd
+	 * @param params
+	 */
+	public static void showPopup(FrameSupport frame, String cmd, Map<String, Object> params) {
+		DialogSupport dialog = createDialog(frame, cmd, params);
+		UIHelper.show(dialog);
+	}
+	
+	/**
+	 * @param e
+	 * @return
+	 */
+	public static Map<String, Object> buildError(Exception e) {
+		Map<String, Object> params = new HashMap<>();
+
+		if (e instanceof ServiceException) {
+			params.put(Constants.SERVICE_ERROR, e);
+		} else {
+			params.put(Constants.ERROR, e);
+		}
+		return params;
 	}
 }

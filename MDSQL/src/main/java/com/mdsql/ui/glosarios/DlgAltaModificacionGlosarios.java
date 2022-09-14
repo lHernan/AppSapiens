@@ -17,10 +17,10 @@ import javax.swing.WindowConstants;
 import com.mdsql.bussiness.entities.Glosario;
 import com.mdsql.ui.listener.DlgAltaModificacionGlosariosListener;
 import com.mdsql.ui.listener.FrmDefinicionGlosariosListener;
-import com.mdsql.ui.utils.DialogSupport;
-import com.mdsql.ui.utils.FrameSupport;
 import com.mdsql.utils.AppGlobalSingleton;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
 

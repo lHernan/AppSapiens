@@ -24,10 +24,10 @@ import com.mdsql.ui.renderer.BigDecimalRenderer;
 import com.mdsql.ui.renderer.DateTimeRenderer;
 import com.mdsql.ui.renderer.IntegerRenderer;
 import com.mdsql.ui.renderer.StringRenderer;
-import com.mdsql.ui.utils.FrameSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.ui.utils.TableSupport;
-import com.mdsql.ui.utils.UIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -214,7 +214,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		tblGlosarios.setDefaultRenderer(BigDecimal.class, new BigDecimalRenderer());
 		tblGlosarios.setDefaultRenderer(String.class, new StringRenderer());
 		
-		Cabecera cabecera = UIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
 		tblGlosarios.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 }

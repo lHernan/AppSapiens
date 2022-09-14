@@ -3,7 +3,6 @@ package com.mdsql;
 import java.awt.EventQueue;
 
 import javax.sql.DataSource;
-import javax.swing.JDialog;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
@@ -14,10 +13,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import com.mdsql.ui.FramePrincipal;
-import com.mdsql.ui.utils.UIHelper;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.AppGlobalSingleton;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.LogWrapper;
+import com.mdval.ui.utils.DialogSupport;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -77,8 +77,8 @@ public class MDSQLApplication implements CommandLineRunner {
 		EventQueue.invokeLater(() -> {
 			FramePrincipal framePrincipal = new FramePrincipal();
 
-			JDialog dialog = UIHelper.createDialog(framePrincipal, Constants.CMD_INICIAR_APP);
-			UIHelper.show(dialog);
+			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_INICIAR_APP);
+			MDSQLUIHelper.show(dialog);
 		});
 	}
 }
