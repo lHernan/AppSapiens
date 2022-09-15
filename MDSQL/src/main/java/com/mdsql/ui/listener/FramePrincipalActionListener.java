@@ -2,11 +2,16 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JTextArea;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -43,17 +48,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		JButton jButton = (JButton) e.getSource();
 
 		if (Constants.FRAME_PRINCIPAL_LOAD_SCRIPT.equals(jButton.getActionCommand())) {
-			File file = loadScript();
-			if (!Objects.isNull(file)) {
-				
-			}
+			evtLoadScript();
 		}
 		
 		if (Constants.FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS.equals(jButton.getActionCommand())) {
-			File file = loadScript();
-			if (!Objects.isNull(file)) {
-				
-			}
+			evtLoadScriptObjects();
 		}
 		
 		if (Constants.FRAME_PRINCIPAL_PROCESAR_SCRIPT.equals(jButton.getActionCommand())) {
@@ -71,6 +70,33 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 		
 		if (Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO.equals(jButton.getActionCommand())) {
+			
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void evtLoadScript() {
+		File file = loadScript();
+		if (!Objects.isNull(file)) {
+			try {
+				framePrincipal.getFrmSQLScript().setTitle(file.getName());
+				framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
+				dumpContentToText(file, framePrincipal.getTxtSQLCode());
+			} catch (IOException e1) {
+				Map<String, Object> params = MDSQLUIHelper.buildError(e1);
+				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void evtLoadScriptObjects() {
+		File file = loadScript();
+		if (!Objects.isNull(file)) {
 			
 		}
 	}
@@ -113,5 +139,23 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 
 		return file;
+	}
+	
+	/**
+	 * @param file
+	 * @param txtScript
+	 */
+	private void dumpContentToText(File file, JTextArea txtScript) throws IOException {
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+			
+			String line = reader.readLine();
+			
+			while (line != null) {
+				txtScript.append(line);
+				txtScript.append("\n");
+				line = reader.readLine();
+			}
+		} 
+		
 	}
 }
