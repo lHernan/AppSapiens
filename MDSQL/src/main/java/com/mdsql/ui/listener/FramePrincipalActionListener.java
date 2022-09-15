@@ -60,6 +60,18 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_PROCESAR_SCRIPT);
 			MDSQLUIHelper.show(dialog);
 		}
+		
+		if (Constants.FRAME_PRINCIPAL_SAVE.equals(jButton.getActionCommand())) {
+			
+		}
+		
+		if (Constants.FRAME_PRINCIPAL_EXECUTE.equals(jButton.getActionCommand())) {
+			
+		}
+		
+		if (Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO.equals(jButton.getActionCommand())) {
+			
+		}
 	}
 	
 	/**
