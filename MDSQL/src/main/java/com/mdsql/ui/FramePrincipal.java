@@ -9,6 +9,7 @@ package com.mdsql.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
@@ -147,25 +148,27 @@ public class FramePrincipal extends FrameSupport {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
+        jToolBar1.setMargin(new Insets(3, 3, 3, 3));
 
         btnLoadScript.setIcon(new ImageIcon(getClass().getResource("/script.png"))); // NOI18N
         btnLoadScript.setToolTipText("Cargar script");
         btnLoadScript.setFocusable(false);
         btnLoadScript.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnLoadScript.setMaximumSize(new Dimension(41, 41));
-        btnLoadScript.setMinimumSize(new Dimension(41, 41));
-        btnLoadScript.setPreferredSize(new Dimension(41, 41));
+        btnLoadScript.setMaximumSize(new Dimension(60, 60));
+        btnLoadScript.setMinimumSize(new Dimension(60, 60));
+        btnLoadScript.setPreferredSize(new Dimension(60, 60));
         btnLoadScript.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnLoadScript);
         jToolBar1.add(jSeparator1);
 
+        btnCargarScriptObjetos.setIcon(new ImageIcon(getClass().getResource("/folder.png"))); // NOI18N
         btnCargarScriptObjetos.setText("TYPE");
         btnCargarScriptObjetos.setToolTipText("Cargar script Objetos");
         btnCargarScriptObjetos.setFocusable(false);
         btnCargarScriptObjetos.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnCargarScriptObjetos.setMaximumSize(new Dimension(41, 41));
-        btnCargarScriptObjetos.setMinimumSize(new Dimension(41, 41));
-        btnCargarScriptObjetos.setPreferredSize(new Dimension(41, 41));
+        btnCargarScriptObjetos.setMaximumSize(new Dimension(60, 60));
+        btnCargarScriptObjetos.setMinimumSize(new Dimension(60, 60));
+        btnCargarScriptObjetos.setPreferredSize(new Dimension(60, 60));
         btnCargarScriptObjetos.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnCargarScriptObjetos);
         jToolBar1.add(jSeparator2);
@@ -174,9 +177,9 @@ public class FramePrincipal extends FrameSupport {
         btnProcesarScript.setToolTipText("Procesar script");
         btnProcesarScript.setFocusable(false);
         btnProcesarScript.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnProcesarScript.setMaximumSize(new Dimension(41, 41));
-        btnProcesarScript.setMinimumSize(new Dimension(41, 41));
-        btnProcesarScript.setPreferredSize(new Dimension(41, 41));
+        btnProcesarScript.setMaximumSize(new Dimension(60, 60));
+        btnProcesarScript.setMinimumSize(new Dimension(60, 60));
+        btnProcesarScript.setPreferredSize(new Dimension(60, 60));
         btnProcesarScript.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnProcesarScript);
 
@@ -184,18 +187,18 @@ public class FramePrincipal extends FrameSupport {
         btnSave.setToolTipText("Guardar archivo");
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnSave.setMaximumSize(new Dimension(41, 41));
-        btnSave.setMinimumSize(new Dimension(41, 41));
-        btnSave.setPreferredSize(new Dimension(41, 41));
+        btnSave.setMaximumSize(new Dimension(60, 60));
+        btnSave.setMinimumSize(new Dimension(60, 60));
+        btnSave.setPreferredSize(new Dimension(60, 60));
         btnSave.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnSave);
 
-        btn_1.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
+        btn_1.setIcon(new ImageIcon(getClass().getResource("/unknown.png"))); // NOI18N
         btn_1.setFocusable(false);
         btn_1.setHorizontalTextPosition(SwingConstants.CENTER);
-        btn_1.setMaximumSize(new Dimension(41, 41));
-        btn_1.setMinimumSize(new Dimension(41, 41));
-        btn_1.setPreferredSize(new Dimension(41, 41));
+        btn_1.setMaximumSize(new Dimension(60, 60));
+        btn_1.setMinimumSize(new Dimension(60, 60));
+        btn_1.setPreferredSize(new Dimension(60, 60));
         btn_1.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btn_1);
 
@@ -203,9 +206,9 @@ public class FramePrincipal extends FrameSupport {
         btnExecute.setToolTipText("Ejecutar script");
         btnExecute.setFocusable(false);
         btnExecute.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnExecute.setMaximumSize(new Dimension(41, 41));
-        btnExecute.setMinimumSize(new Dimension(41, 41));
-        btnExecute.setPreferredSize(new Dimension(41, 41));
+        btnExecute.setMaximumSize(new Dimension(60, 60));
+        btnExecute.setMinimumSize(new Dimension(60, 60));
+        btnExecute.setPreferredSize(new Dimension(60, 60));
         btnExecute.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnExecute);
 
@@ -213,9 +216,9 @@ public class FramePrincipal extends FrameSupport {
         btnEntregarProcesado.setToolTipText("Entregar procesado");
         btnEntregarProcesado.setFocusable(false);
         btnEntregarProcesado.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnEntregarProcesado.setMaximumSize(new Dimension(41, 41));
-        btnEntregarProcesado.setMinimumSize(new Dimension(41, 41));
-        btnEntregarProcesado.setPreferredSize(new Dimension(41, 41));
+        btnEntregarProcesado.setMaximumSize(new Dimension(60, 60));
+        btnEntregarProcesado.setMinimumSize(new Dimension(60, 60));
+        btnEntregarProcesado.setPreferredSize(new Dimension(60, 60));
         btnEntregarProcesado.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnEntregarProcesado);
 
@@ -223,9 +226,9 @@ public class FramePrincipal extends FrameSupport {
         btnLimpiarScripts.setToolTipText("Limpar scripts");
         btnLimpiarScripts.setFocusable(false);
         btnLimpiarScripts.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnLimpiarScripts.setMaximumSize(new Dimension(41, 41));
-        btnLimpiarScripts.setMinimumSize(new Dimension(41, 41));
-        btnLimpiarScripts.setPreferredSize(new Dimension(41, 41));
+        btnLimpiarScripts.setMaximumSize(new Dimension(60, 60));
+        btnLimpiarScripts.setMinimumSize(new Dimension(60, 60));
+        btnLimpiarScripts.setPreferredSize(new Dimension(60, 60));
         btnLimpiarScripts.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnLimpiarScripts);
         jToolBar1.add(jSeparator3);
@@ -234,9 +237,9 @@ public class FramePrincipal extends FrameSupport {
         btnInformacionModelo.setToolTipText("Información del modelo");
         btnInformacionModelo.setFocusable(false);
         btnInformacionModelo.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnInformacionModelo.setMaximumSize(new Dimension(41, 41));
-        btnInformacionModelo.setMinimumSize(new Dimension(41, 41));
-        btnInformacionModelo.setPreferredSize(new Dimension(41, 41));
+        btnInformacionModelo.setMaximumSize(new Dimension(60, 60));
+        btnInformacionModelo.setMinimumSize(new Dimension(60, 60));
+        btnInformacionModelo.setPreferredSize(new Dimension(60, 60));
         btnInformacionModelo.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnInformacionModelo);
         jToolBar1.add(jSeparator4);
@@ -245,9 +248,9 @@ public class FramePrincipal extends FrameSupport {
         btnLimpiarSesion.setToolTipText("Limpiar sesión");
         btnLimpiarSesion.setFocusable(false);
         btnLimpiarSesion.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnLimpiarSesion.setMaximumSize(new Dimension(41, 41));
-        btnLimpiarSesion.setMinimumSize(new Dimension(41, 41));
-        btnLimpiarSesion.setPreferredSize(new Dimension(41, 41));
+        btnLimpiarSesion.setMaximumSize(new Dimension(60, 60));
+        btnLimpiarSesion.setMinimumSize(new Dimension(60, 60));
+        btnLimpiarSesion.setPreferredSize(new Dimension(60, 60));
         btnLimpiarSesion.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnLimpiarSesion);
 
@@ -277,7 +280,7 @@ public class FramePrincipal extends FrameSupport {
         );
         jInternalFrame2Layout.setVerticalGroup(
             jInternalFrame2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
         panelVigente.add(jInternalFrame2);
@@ -292,7 +295,7 @@ public class FramePrincipal extends FrameSupport {
         );
         jInternalFrame3Layout.setVerticalGroup(
             jInternalFrame3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
         panelVigente.add(jInternalFrame3);
@@ -307,7 +310,7 @@ public class FramePrincipal extends FrameSupport {
         );
         jInternalFrame4Layout.setVerticalGroup(
             jInternalFrame4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
         panelVigente.add(jInternalFrame4);
@@ -322,7 +325,7 @@ public class FramePrincipal extends FrameSupport {
         );
         jInternalFrame5Layout.setVerticalGroup(
             jInternalFrame5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
         panelVigente.add(jInternalFrame5);

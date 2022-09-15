@@ -20,6 +20,7 @@ import com.mdsql.ui.model.DefinicionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -28,7 +29,7 @@ import lombok.Getter;
  *
  * @author USUARIO1
  */
-public class PantallaEjecutarScripts extends FrameSupport {
+public class PantallaEjecutarScripts extends DialogSupport {
 	
 	/**
 	 * 
@@ -91,12 +92,12 @@ public class PantallaEjecutarScripts extends FrameSupport {
     private JTextField txtEsquemaHistorico;
     // End of variables declaration//GEN-END:variables
     
-    public PantallaEjecutarScripts(FrameSupport parent) {
-        super(parent);
+    public PantallaEjecutarScripts(FrameSupport parent, Boolean modal) {
+        super(parent, modal);
     }
     
-    public PantallaEjecutarScripts(FrameSupport parent, Map<String, Object> params) {
-        super(parent, params);
+    public PantallaEjecutarScripts(FrameSupport parent, Boolean modal, Map<String, Object> params) {
+        super(parent, modal, params);
     }
 
     @Override
@@ -303,8 +304,8 @@ public class PantallaEjecutarScripts extends FrameSupport {
 		jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "", "Item 2", "Item 3", "Item 4" }));
 
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_SCRIPTS_TABLA_CABECERA);
-		tblHistorico.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
-		tblVigente.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		//tblHistorico.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		//tblVigente.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 		
 		
 	}
@@ -339,7 +340,4 @@ public class PantallaEjecutarScripts extends FrameSupport {
         jLabel9.setText("Esquema historico");
         jLabel10.setText("Vigente");
 	}
-
-	@Override
-	protected void initMenuBar() {}
 }

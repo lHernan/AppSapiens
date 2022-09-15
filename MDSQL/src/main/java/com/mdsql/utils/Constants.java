@@ -137,6 +137,7 @@ public class Constants {
 	public static final String CMD_MODIFICACION_GLOSARIOS = "CMD_MODIFICACION_GLOSARIOS";
 	public static final String CMD_LOAD_SCRIPT = "CMD_LOAD_SCRIPT";
 	public static final String CMD_PROCESAR_SCRIPT = "CMD_PROCESAR_SCRIPT";
+	public static final String CMD_EJECUTAR_SCRIPT = "CMD_EJECUTAR_SCRIPT";
 	public static final String CMD_ALTA_GLOSARIO_CAMPOS = "CMD_ALTA_GLOSARIO_CAMPOS";
 	public static final String CMD_MODIFICACION_GLOSARIO_CAMPOS = "CMD_MODIFICACION_GLOSARIO_CAMPOS";
 	public static final String CMD_ALTA_NORMAS = "CMD_ALTA_NORMAS";

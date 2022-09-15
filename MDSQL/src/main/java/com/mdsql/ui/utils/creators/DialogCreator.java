@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.mdsql.ui.DlgIdentificador;
 import com.mdsql.ui.PantallaBuscadorFicheros;
+import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
@@ -56,6 +57,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_PROCESAR_SCRIPT.equals(option)) {
 			dialog = new PantallaProcesarScript(frameParent, modal);
+		}
+		
+		if (Constants.CMD_EJECUTAR_SCRIPT.equals(option)) {
+			dialog = new PantallaEjecutarScripts(frameParent, modal);
 		}
 		
 		return dialog;
