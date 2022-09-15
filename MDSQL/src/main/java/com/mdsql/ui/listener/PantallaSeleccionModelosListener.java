@@ -13,6 +13,7 @@ import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.ui.model.DefinicionModelosTableModel;
 import com.mdsql.ui.modelos.PantallaSeleccionModelos;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 
 /**
@@ -58,8 +59,8 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 			populateModel(modelos);
 			
 		} catch (Exception e) {
-			Map<String, Object> params = buildError(e);
-			showPopup(pantallaSeleccionModelos, Constants.CMD_ERROR, params);
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 	}
 
