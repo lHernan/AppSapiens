@@ -370,4 +370,10 @@ public class FrmMantenimientoParticulas extends FrameSupport {
 		cmbProyecto.setModel(new SiNoComboBoxModel());
 		cmbSubproyecto.setModel(new SiNoComboBoxModel());	
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

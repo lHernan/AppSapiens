@@ -204,4 +204,10 @@ public class FrmDefinicionElementos extends FrameSupport {
 		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_ELEMENTOS_TABLA_TIPOS_ELEMENTO_CABECERA);
 		tblElementos.setModel(new DefinicionTipoElementoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

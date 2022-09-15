@@ -370,4 +370,10 @@ public class FrmGlosarioCampos extends FrameSupport {
 		
 		cmbMostrarExcepciones.setModel(new SiNoComboBoxModel());
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

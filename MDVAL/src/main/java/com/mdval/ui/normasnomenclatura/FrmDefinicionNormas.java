@@ -203,4 +203,10 @@ public class FrmDefinicionNormas extends FrameSupport {
 		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_NORMAS_TABLA_NORMAS_CABECERA);
 		tblNormas.setModel(new DefinicionNormasTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

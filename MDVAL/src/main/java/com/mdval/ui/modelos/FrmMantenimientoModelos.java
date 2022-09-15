@@ -674,4 +674,10 @@ public class FrmMantenimientoModelos extends FrameSupport {
         tblSubproyectos.setModel(new SubProyectoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
         tblSubproyectos.setColumnWidths(cabecera);
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

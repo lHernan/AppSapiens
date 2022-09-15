@@ -203,4 +203,10 @@ public class FrmDefinicionTiposParticula extends FrameSupport {
 		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA);
 		tblTiposParticula.setModel(new DefinicionTiposParticulaTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

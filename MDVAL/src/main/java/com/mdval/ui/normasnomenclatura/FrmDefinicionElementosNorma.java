@@ -182,4 +182,10 @@ public class FrmDefinicionElementosNorma extends FrameSupport {
 		cmbElemento.setRenderer(new TipoElementoRenderer());
 		cmbNorma.setRenderer(new NormaRenderer());
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

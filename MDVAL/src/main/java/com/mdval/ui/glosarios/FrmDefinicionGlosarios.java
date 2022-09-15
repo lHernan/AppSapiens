@@ -217,4 +217,10 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 		Cabecera cabecera = MDValUIHelper.createCabeceraTabla(MDValConstants.FRM_DEFINICION_GLOSARIOS_TABLA_GLOSARIOS_CABECERA);
 		tblGlosarios.setModel(new DefinicionGlosariosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -346,4 +346,10 @@ public class FrmDefinicionModelos extends FrameSupport {
 		
 		cmbNorma.setRenderer(new NormaRenderer());
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

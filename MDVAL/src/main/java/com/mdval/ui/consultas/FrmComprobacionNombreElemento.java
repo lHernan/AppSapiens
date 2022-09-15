@@ -371,4 +371,10 @@ public class FrmComprobacionNombreElemento extends FrameSupport {
 		tblValidaParticula.setDefaultRenderer(String.class, new StringRenderer());
 		tblValidaParticula.setColumnWidths(cabecera);
 	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
 }
