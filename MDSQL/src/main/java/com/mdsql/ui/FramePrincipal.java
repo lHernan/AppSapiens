@@ -47,15 +47,15 @@ public class FramePrincipal extends FrameSupport {
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnLoadScript;
-    private JButton jButton10;
+    private JButton btn_1;
+	private JButton btnInformacionModelo;
     private JButton btnCargarScriptObjetos;
     private JButton btnProcesarScript;
     private JButton btnSave;
 	private JButton btnExecute;
 	private JButton btnEntregarProcesado;
-    private JButton jButton7;
-    private JButton jButton8;
-    private JButton jButton9;
+	private JButton btnLimpiarScripts;
+	private JButton btnLimpiarSesion;
     
     private JInternalFrame jInternalFrame10;
     private JInternalFrame jInternalFrame2;
@@ -111,14 +111,14 @@ public class FramePrincipal extends FrameSupport {
         jSeparator2 = new JToolBar.Separator();
         btnProcesarScript = new JButton();
         btnSave = new JButton();
+        btn_1 = new JButton();
         btnExecute = new JButton();
         btnEntregarProcesado = new JButton();
-        jButton7 = new JButton();
-        jButton8 = new JButton();
+        btnLimpiarScripts = new JButton();
         jSeparator3 = new JToolBar.Separator();
-        jButton9 = new JButton();
+        btnInformacionModelo = new JButton();
         jSeparator4 = new JToolBar.Separator();
-        jButton10 = new JButton();
+        btnLimpiarSesion = new JButton();
         jSplitPane1 = new JSplitPane();
         frmSQLScript = new JInternalFrame();
         jScrollPane1 = new JScrollPane();
@@ -149,6 +149,7 @@ public class FramePrincipal extends FrameSupport {
         jToolBar1.setRollover(true);
 
         btnLoadScript.setIcon(new ImageIcon(getClass().getResource("/script.png"))); // NOI18N
+        btnLoadScript.setToolTipText("Cargar script");
         btnLoadScript.setFocusable(false);
         btnLoadScript.setHorizontalTextPosition(SwingConstants.CENTER);
         btnLoadScript.setMaximumSize(new Dimension(41, 41));
@@ -159,6 +160,7 @@ public class FramePrincipal extends FrameSupport {
         jToolBar1.add(jSeparator1);
 
         btnCargarScriptObjetos.setText("TYPE");
+        btnCargarScriptObjetos.setToolTipText("Cargar script Objetos");
         btnCargarScriptObjetos.setFocusable(false);
         btnCargarScriptObjetos.setHorizontalTextPosition(SwingConstants.CENTER);
         btnCargarScriptObjetos.setMaximumSize(new Dimension(41, 41));
@@ -169,6 +171,7 @@ public class FramePrincipal extends FrameSupport {
         jToolBar1.add(jSeparator2);
 
         btnProcesarScript.setIcon(new ImageIcon(getClass().getResource("/play.png"))); // NOI18N
+        btnProcesarScript.setToolTipText("Procesar script");
         btnProcesarScript.setFocusable(false);
         btnProcesarScript.setHorizontalTextPosition(SwingConstants.CENTER);
         btnProcesarScript.setMaximumSize(new Dimension(41, 41));
@@ -178,6 +181,7 @@ public class FramePrincipal extends FrameSupport {
         jToolBar1.add(btnProcesarScript);
 
         btnSave.setIcon(new ImageIcon(getClass().getResource("/floppy-disk.png"))); // NOI18N
+        btnSave.setToolTipText("Guardar archivo");
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(SwingConstants.CENTER);
         btnSave.setMaximumSize(new Dimension(41, 41));
@@ -186,7 +190,17 @@ public class FramePrincipal extends FrameSupport {
         btnSave.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnSave);
 
+        btn_1.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
+        btn_1.setFocusable(false);
+        btn_1.setHorizontalTextPosition(SwingConstants.CENTER);
+        btn_1.setMaximumSize(new Dimension(41, 41));
+        btn_1.setMinimumSize(new Dimension(41, 41));
+        btn_1.setPreferredSize(new Dimension(41, 41));
+        btn_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jToolBar1.add(btn_1);
+
         btnExecute.setIcon(new ImageIcon(getClass().getResource("/checking.png"))); // NOI18N
+        btnExecute.setToolTipText("Ejecutar script");
         btnExecute.setFocusable(false);
         btnExecute.setHorizontalTextPosition(SwingConstants.CENTER);
         btnExecute.setMaximumSize(new Dimension(41, 41));
@@ -196,6 +210,7 @@ public class FramePrincipal extends FrameSupport {
         jToolBar1.add(btnExecute);
 
         btnEntregarProcesado.setIcon(new ImageIcon(getClass().getResource("/execution.png"))); // NOI18N
+        btnEntregarProcesado.setToolTipText("Entregar procesado");
         btnEntregarProcesado.setFocusable(false);
         btnEntregarProcesado.setHorizontalTextPosition(SwingConstants.CENTER);
         btnEntregarProcesado.setMaximumSize(new Dimension(41, 41));
@@ -204,43 +219,37 @@ public class FramePrincipal extends FrameSupport {
         btnEntregarProcesado.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnEntregarProcesado);
 
-        jButton7.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(SwingConstants.CENTER);
-        jButton7.setMaximumSize(new Dimension(41, 41));
-        jButton7.setMinimumSize(new Dimension(41, 41));
-        jButton7.setPreferredSize(new Dimension(41, 41));
-        jButton7.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jToolBar1.add(jButton7);
-
-        jButton8.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-        jButton8.setFocusable(false);
-        jButton8.setHorizontalTextPosition(SwingConstants.CENTER);
-        jButton8.setMaximumSize(new Dimension(41, 41));
-        jButton8.setMinimumSize(new Dimension(41, 41));
-        jButton8.setPreferredSize(new Dimension(41, 41));
-        jButton8.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jToolBar1.add(jButton8);
+        btnLimpiarScripts.setIcon(new ImageIcon(getClass().getResource("/clean.png"))); // NOI18N
+        btnLimpiarScripts.setToolTipText("Limpar scripts");
+        btnLimpiarScripts.setFocusable(false);
+        btnLimpiarScripts.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnLimpiarScripts.setMaximumSize(new Dimension(41, 41));
+        btnLimpiarScripts.setMinimumSize(new Dimension(41, 41));
+        btnLimpiarScripts.setPreferredSize(new Dimension(41, 41));
+        btnLimpiarScripts.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jToolBar1.add(btnLimpiarScripts);
         jToolBar1.add(jSeparator3);
 
-        jButton9.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-        jButton9.setFocusable(false);
-        jButton9.setHorizontalTextPosition(SwingConstants.CENTER);
-        jButton9.setMaximumSize(new Dimension(41, 41));
-        jButton9.setMinimumSize(new Dimension(41, 41));
-        jButton9.setPreferredSize(new Dimension(41, 41));
-        jButton9.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jToolBar1.add(jButton9);
+        btnInformacionModelo.setIcon(new ImageIcon(getClass().getResource("/info.png"))); // NOI18N
+        btnInformacionModelo.setToolTipText("Información del modelo");
+        btnInformacionModelo.setFocusable(false);
+        btnInformacionModelo.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnInformacionModelo.setMaximumSize(new Dimension(41, 41));
+        btnInformacionModelo.setMinimumSize(new Dimension(41, 41));
+        btnInformacionModelo.setPreferredSize(new Dimension(41, 41));
+        btnInformacionModelo.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jToolBar1.add(btnInformacionModelo);
         jToolBar1.add(jSeparator4);
 
-        jButton10.setIcon(new ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
-        jButton10.setFocusable(false);
-        jButton10.setHorizontalTextPosition(SwingConstants.CENTER);
-        jButton10.setMaximumSize(new Dimension(41, 41));
-        jButton10.setMinimumSize(new Dimension(41, 41));
-        jButton10.setPreferredSize(new Dimension(41, 41));
-        jButton10.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jToolBar1.add(jButton10);
+        btnLimpiarSesion.setIcon(new ImageIcon(getClass().getResource("/trash.png"))); // NOI18N
+        btnLimpiarSesion.setToolTipText("Limpiar sesión");
+        btnLimpiarSesion.setFocusable(false);
+        btnLimpiarSesion.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnLimpiarSesion.setMaximumSize(new Dimension(41, 41));
+        btnLimpiarSesion.setMinimumSize(new Dimension(41, 41));
+        btnLimpiarSesion.setPreferredSize(new Dimension(41, 41));
+        btnLimpiarSesion.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jToolBar1.add(btnLimpiarSesion);
 
         getContentPane().add(jToolBar1, BorderLayout.PAGE_START);
 
@@ -462,9 +471,12 @@ public class FramePrincipal extends FrameSupport {
 
         getContentPane().add(jSplitPane1, BorderLayout.CENTER);
         
-        menuBar = new MainMenuBar();
-        
-    }// </editor-fold>//GEN-END:initComponents
+    }
+    
+    @Override
+    protected void initMenuBar() {
+        menuBar = new MainMenuBar();   
+    }
 
 	@Override
 	protected void initEvents() {

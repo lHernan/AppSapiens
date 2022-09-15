@@ -339,4 +339,7 @@ public class PantallaEjecutarScripts extends FrameSupport {
         jLabel9.setText("Esquema historico");
         jLabel10.setText("Vigente");
 	}
+
+	@Override
+	protected void initMenuBar() {}
 }

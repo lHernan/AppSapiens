@@ -129,4 +129,7 @@ public class PantallaSeleccionHistorico extends FrameSupport {
 		btnGenerar.setText("Generar Histórico");
 		btnCancelar.setText("CANCELAR");
 	}
+
+	@Override
+	protected void initMenuBar() {}
 }

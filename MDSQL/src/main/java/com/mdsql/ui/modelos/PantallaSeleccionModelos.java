@@ -193,4 +193,7 @@ public class PantallaSeleccionModelos extends FrameSupport {
         btnBuscar.setText("BUSCAR");
         btnSeleccionar.setText("SELECCIONAR");
 	}
+
+	@Override
+	protected void initMenuBar() {}
 }
