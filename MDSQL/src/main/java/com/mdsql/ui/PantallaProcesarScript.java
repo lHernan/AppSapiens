@@ -5,6 +5,7 @@
  */
 package com.mdsql.ui;
 
+import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.DefaultComboBoxModel;
@@ -21,6 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
+import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -256,7 +259,11 @@ public class PantallaProcesarScript extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		// TODO Auto-generated method stub
+		ActionListener actionListener = new PantallaProcesarScriptActionListener(this);
+		
+		jButton1.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);
+		
+		jButton1.addActionListener(actionListener);
 		
 	}
 

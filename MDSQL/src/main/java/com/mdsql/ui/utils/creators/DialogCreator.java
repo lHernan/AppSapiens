@@ -6,6 +6,7 @@ import com.mdsql.ui.DlgIdentificador;
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.modelos.PantallaSeleccionModelos;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -61,6 +62,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_EJECUTAR_SCRIPT.equals(option)) {
 			dialog = new PantallaEjecutarScripts(frameParent, modal);
+		}
+		
+		if (Constants.CMD_SEARCH_MODEL.equals(option)) {
+			dialog = new PantallaSeleccionModelos(frameParent, modal);
 		}
 		
 		return dialog;
