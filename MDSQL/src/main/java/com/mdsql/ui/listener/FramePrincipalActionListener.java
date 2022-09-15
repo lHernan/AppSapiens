@@ -56,8 +56,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 		
 		if (Constants.FRAME_PRINCIPAL_PROCESAR_SCRIPT.equals(jButton.getActionCommand())) {
-			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_PROCESAR_SCRIPT);
-			MDSQLUIHelper.show(dialog);
+			evtProcesarScript();
 		}
 		
 		if (Constants.FRAME_PRINCIPAL_SAVE.equals(jButton.getActionCommand())) {
@@ -65,8 +64,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 		
 		if (Constants.FRAME_PRINCIPAL_EXECUTE.equals(jButton.getActionCommand())) {
-			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT);
-			MDSQLUIHelper.show(dialog);
+			evtEjecutarScript();
 		}
 		
 		if (Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO.equals(jButton.getActionCommand())) {
@@ -99,6 +97,22 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (!Objects.isNull(file)) {
 			
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void evtProcesarScript() {
+		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_PROCESAR_SCRIPT);
+		MDSQLUIHelper.show(dialog);
+	}
+	
+	/**
+	 * 
+	 */
+	private void evtEjecutarScript() {
+		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT);
+		MDSQLUIHelper.show(dialog);
 	}
 	
 	/**
