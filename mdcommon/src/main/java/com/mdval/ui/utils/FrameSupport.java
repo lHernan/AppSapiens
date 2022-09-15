@@ -89,6 +89,7 @@ public abstract class FrameSupport extends JFrame {
 			panelLogo.setPreferredSize(new Dimension(286, 63));
 			
 			initComponents();
+			initMenuBar();
 			
 			if (!Objects.isNull(menuBar)) {
 				this.setJMenuBar(menuBar);
@@ -133,6 +134,11 @@ public abstract class FrameSupport extends JFrame {
 	 * Instala los componentes internos de este frame
 	 */
 	protected abstract void setupComponents();
+	
+	/**
+	 * Instala la barra de menú. Se puyede implementar vacío
+	 */
+	protected abstract void initMenuBar();
 	
 	/**
 	 * Instala los eventos a los componentes que los necesiten
