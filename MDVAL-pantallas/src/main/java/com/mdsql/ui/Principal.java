@@ -70,25 +70,27 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
+        jToolBar1.setMargin(new java.awt.Insets(3, 3, 3, 3));
 
         btnLoadScript.setIcon(new javax.swing.ImageIcon(getClass().getResource("/script.png"))); // NOI18N
         btnLoadScript.setToolTipText("Cargar script");
         btnLoadScript.setFocusable(false);
         btnLoadScript.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLoadScript.setMaximumSize(new java.awt.Dimension(41, 41));
-        btnLoadScript.setMinimumSize(new java.awt.Dimension(41, 41));
-        btnLoadScript.setPreferredSize(new java.awt.Dimension(41, 41));
+        btnLoadScript.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnLoadScript.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnLoadScript.setPreferredSize(new java.awt.Dimension(60, 60));
         btnLoadScript.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnLoadScript);
         jToolBar1.add(jSeparator1);
 
+        btnCargarScriptObjetos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/folder.png"))); // NOI18N
         btnCargarScriptObjetos.setText("TYPE");
         btnCargarScriptObjetos.setToolTipText("Cargar script Objetos");
         btnCargarScriptObjetos.setFocusable(false);
         btnCargarScriptObjetos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCargarScriptObjetos.setMaximumSize(new java.awt.Dimension(41, 41));
-        btnCargarScriptObjetos.setMinimumSize(new java.awt.Dimension(41, 41));
-        btnCargarScriptObjetos.setPreferredSize(new java.awt.Dimension(41, 41));
+        btnCargarScriptObjetos.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnCargarScriptObjetos.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnCargarScriptObjetos.setPreferredSize(new java.awt.Dimension(60, 60));
         btnCargarScriptObjetos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnCargarScriptObjetos);
         jToolBar1.add(jSeparator2);
@@ -97,9 +99,9 @@ public class Principal extends javax.swing.JFrame {
         btnProcesarScript.setToolTipText("Procesar script");
         btnProcesarScript.setFocusable(false);
         btnProcesarScript.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnProcesarScript.setMaximumSize(new java.awt.Dimension(41, 41));
-        btnProcesarScript.setMinimumSize(new java.awt.Dimension(41, 41));
-        btnProcesarScript.setPreferredSize(new java.awt.Dimension(41, 41));
+        btnProcesarScript.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnProcesarScript.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnProcesarScript.setPreferredSize(new java.awt.Dimension(60, 60));
         btnProcesarScript.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnProcesarScript);
 
@@ -107,18 +109,18 @@ public class Principal extends javax.swing.JFrame {
         btnSave.setToolTipText("Guardar archivo");
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(41, 41));
-        btnSave.setMinimumSize(new java.awt.Dimension(41, 41));
-        btnSave.setPreferredSize(new java.awt.Dimension(41, 41));
+        btnSave.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnSave.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnSave.setPreferredSize(new java.awt.Dimension(60, 60));
         btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnSave);
 
-        btn_1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/checked.png"))); // NOI18N
+        btn_1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/unknown.png"))); // NOI18N
         btn_1.setFocusable(false);
         btn_1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_1.setMaximumSize(new java.awt.Dimension(41, 41));
-        btn_1.setMinimumSize(new java.awt.Dimension(41, 41));
-        btn_1.setPreferredSize(new java.awt.Dimension(41, 41));
+        btn_1.setMaximumSize(new java.awt.Dimension(60, 60));
+        btn_1.setMinimumSize(new java.awt.Dimension(60, 60));
+        btn_1.setPreferredSize(new java.awt.Dimension(60, 60));
         btn_1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btn_1);
 
@@ -126,9 +128,9 @@ public class Principal extends javax.swing.JFrame {
         btnExecute.setToolTipText("Ejecutar script");
         btnExecute.setFocusable(false);
         btnExecute.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExecute.setMaximumSize(new java.awt.Dimension(41, 41));
-        btnExecute.setMinimumSize(new java.awt.Dimension(41, 41));
-        btnExecute.setPreferredSize(new java.awt.Dimension(41, 41));
+        btnExecute.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnExecute.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnExecute.setPreferredSize(new java.awt.Dimension(60, 60));
         btnExecute.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnExecute);
 
@@ -136,9 +138,9 @@ public class Principal extends javax.swing.JFrame {
         btnEntregarProcesado.setToolTipText("Entregar procesado");
         btnEntregarProcesado.setFocusable(false);
         btnEntregarProcesado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEntregarProcesado.setMaximumSize(new java.awt.Dimension(41, 41));
-        btnEntregarProcesado.setMinimumSize(new java.awt.Dimension(41, 41));
-        btnEntregarProcesado.setPreferredSize(new java.awt.Dimension(41, 41));
+        btnEntregarProcesado.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnEntregarProcesado.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnEntregarProcesado.setPreferredSize(new java.awt.Dimension(60, 60));
         btnEntregarProcesado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnEntregarProcesado);
 
@@ -146,9 +148,9 @@ public class Principal extends javax.swing.JFrame {
         btnLimpiarScripts.setToolTipText("Limpar scripts");
         btnLimpiarScripts.setFocusable(false);
         btnLimpiarScripts.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLimpiarScripts.setMaximumSize(new java.awt.Dimension(41, 41));
-        btnLimpiarScripts.setMinimumSize(new java.awt.Dimension(41, 41));
-        btnLimpiarScripts.setPreferredSize(new java.awt.Dimension(41, 41));
+        btnLimpiarScripts.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnLimpiarScripts.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnLimpiarScripts.setPreferredSize(new java.awt.Dimension(60, 60));
         btnLimpiarScripts.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnLimpiarScripts);
         jToolBar1.add(jSeparator3);
@@ -157,9 +159,9 @@ public class Principal extends javax.swing.JFrame {
         btnInformacionModelo.setToolTipText("Información del modelo");
         btnInformacionModelo.setFocusable(false);
         btnInformacionModelo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnInformacionModelo.setMaximumSize(new java.awt.Dimension(41, 41));
-        btnInformacionModelo.setMinimumSize(new java.awt.Dimension(41, 41));
-        btnInformacionModelo.setPreferredSize(new java.awt.Dimension(41, 41));
+        btnInformacionModelo.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnInformacionModelo.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnInformacionModelo.setPreferredSize(new java.awt.Dimension(60, 60));
         btnInformacionModelo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnInformacionModelo);
         jToolBar1.add(jSeparator4);
@@ -168,9 +170,9 @@ public class Principal extends javax.swing.JFrame {
         btnLimpiarSesion.setToolTipText("Limpiar sesión");
         btnLimpiarSesion.setFocusable(false);
         btnLimpiarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLimpiarSesion.setMaximumSize(new java.awt.Dimension(41, 41));
-        btnLimpiarSesion.setMinimumSize(new java.awt.Dimension(41, 41));
-        btnLimpiarSesion.setPreferredSize(new java.awt.Dimension(41, 41));
+        btnLimpiarSesion.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnLimpiarSesion.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnLimpiarSesion.setPreferredSize(new java.awt.Dimension(60, 60));
         btnLimpiarSesion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnLimpiarSesion);
 
@@ -200,7 +202,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jInternalFrame2Layout.setVerticalGroup(
             jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
         panelVigente.add(jInternalFrame2);
@@ -215,7 +217,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jInternalFrame3Layout.setVerticalGroup(
             jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
         panelVigente.add(jInternalFrame3);
@@ -230,7 +232,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jInternalFrame4Layout.setVerticalGroup(
             jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
         panelVigente.add(jInternalFrame4);
@@ -245,7 +247,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jInternalFrame5Layout.setVerticalGroup(
             jInternalFrame5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
         panelVigente.add(jInternalFrame5);
