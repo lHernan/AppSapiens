@@ -15,7 +15,12 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class Type implements Serializable {
 
-    private BigDecimal numeroOrdenType;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private BigDecimal numeroOrdenType;
     private BigDecimal codigoEstadoScript;
     private String descripcionEstadoScript;
     private Date fechaCambio;
