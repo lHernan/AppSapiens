@@ -65,7 +65,7 @@ public class DialogCreator extends Creator {
 		}
 		
 		if (Constants.CMD_SELECCION_HISTORICO.equals(option)) {
-			dialog = new PantallaSeleccionHistorico(frameParent, modal);
+			dialog = new PantallaSeleccionHistorico(frameParent, modal, params);
 		}
 		
 		return dialog;
