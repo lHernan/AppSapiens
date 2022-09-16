@@ -2,7 +2,6 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.SeleccionHistorica;
 
 /**

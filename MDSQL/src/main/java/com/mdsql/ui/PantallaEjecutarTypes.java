@@ -15,10 +15,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.mdsql.ui.listener.PantallaEjecutarTypesActionListener;
-import com.mdsql.ui.model.DefinicionTypesTableModel;
-import com.mdsql.ui.model.cabeceras.Cabecera;
-import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -26,7 +24,7 @@ import lombok.Getter;
  *
  * @author USUARIO1
  */
-public class PantallaEjecutarTypes extends FrameSupport {
+public class PantallaEjecutarTypes extends DialogSupport {
 	
 	 /**
 	  * 
@@ -71,12 +69,12 @@ public class PantallaEjecutarTypes extends FrameSupport {
     private JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
     
-    public PantallaEjecutarTypes(FrameSupport parent) {
-    	super(parent);
+    public PantallaEjecutarTypes(FrameSupport parent, Boolean modal) {
+    	super(parent, modal);
     }
     
-    public PantallaEjecutarTypes(FrameSupport parent, Map<String, Object> params) {
-    	super(parent, params);
+    public PantallaEjecutarTypes(FrameSupport parent, Boolean modal, Map<String, Object> params) {
+    	super(parent, modal, params);
     }
     
     public void setupComponents() {
@@ -204,7 +202,7 @@ public class PantallaEjecutarTypes extends FrameSupport {
     }
 
     @Override
-    private void initEvents() {      
+    protected void initEvents() {      
     	ActionListener actionListener = new PantallaEjecutarTypesActionListener(this);
     	
     	btnRechazar.setActionCommand(Constants.PANTALLA_EJECUTAR_TYPES_BTN_RECHAZAR);

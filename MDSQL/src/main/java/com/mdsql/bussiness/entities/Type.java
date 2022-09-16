@@ -2,7 +2,6 @@ package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,18 +20,14 @@ public class Type implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private BigDecimal numeroOrdenType;
-    private BigDecimal codigoEstadoScript;
-    private String descripcionEstadoScript;
-    private Date fechaCambio;
-    private BigDecimal numeroEjecucion;
-    private String txtCuadreTYS;
-    private String txtCuadreTYB;
-    private String txtCuadrePDC;
-    private String txtCuadreDROP;
-    private String nombreObjeto;
-    private ScriptType scriptType;
-    private String nombreScriptLanza;
-    private TextoLinea txtScriptLanza;
-    private String nombreScriptLog;
-
+	private BigDecimal codigoEstadoScript;
+	private String descripcionEstadoScript;
+	private String orden;
+	private String estado;
+	private String fecha;
+	private String ejecucion;
+	private String TYS;
+	private String TYB;
+	private String PDC;
+	private String objetoType;
 }

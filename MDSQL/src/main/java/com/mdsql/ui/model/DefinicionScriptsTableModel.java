@@ -32,7 +32,7 @@ public class DefinicionScriptsTableModel extends DefaultTableModel<Modelo> {
 		Modelo row = data.get(rowIndex);
 		
 		if (0 == columnIndex) {
-			return row.getSelecionada();
+			return row.getSeleccionada();
 		} else if (1 == columnIndex) {
 			return row.getOrden();
 		} else if (2 == columnIndex) {
