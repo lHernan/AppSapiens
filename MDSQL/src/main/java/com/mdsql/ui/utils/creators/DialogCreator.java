@@ -2,7 +2,6 @@ package com.mdsql.ui.utils.creators;
 
 import java.util.Map;
 
-import com.mdsql.ui.DlgIdentificador;
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesarScript;
@@ -47,10 +46,6 @@ public class DialogCreator extends Creator {
 	@Override
 	public Object factoryMethod(Map<String, Object> params) {
 		DialogSupport dialog = null;
-	
-		if (Constants.CMD_INICIAR_APP.equals(option)) {
-			dialog = new DlgIdentificador(frameParent, modal);
-		}
 		
 		if (Constants.CMD_LOAD_SCRIPT.equals(option)) {
 			dialog = new PantallaBuscadorFicheros(frameParent, modal);
