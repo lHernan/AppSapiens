@@ -5,6 +5,7 @@ import java.util.Map;
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.modelos.PantallaSeleccionHistorico;
 import com.mdsql.ui.modelos.PantallaSeleccionModelos;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
@@ -61,6 +62,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_SEARCH_MODEL.equals(option)) {
 			dialog = new PantallaSeleccionModelos(frameParent, modal);
+		}
+		
+		if (Constants.CMD_SELECCION_HISTORICO.equals(option)) {
+			dialog = new PantallaSeleccionHistorico(frameParent, modal);
 		}
 		
 		return dialog;

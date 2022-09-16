@@ -262,9 +262,12 @@ public class PantallaProcesarScript extends DialogSupport {
 		ActionListener actionListener = new PantallaProcesarScriptActionListener(this);
 		
 		jButton1.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);
+		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
+		btnProcesar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
 		
 		jButton1.addActionListener(actionListener);
-		
+		btnCancelar.addActionListener(actionListener);
+		btnProcesar.addActionListener(actionListener);
 	}
 
 	@Override

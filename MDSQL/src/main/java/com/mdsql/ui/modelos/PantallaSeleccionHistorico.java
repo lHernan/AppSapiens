@@ -19,6 +19,7 @@ import com.mdsql.ui.model.DefinicionSeleccionTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -27,7 +28,7 @@ import lombok.Getter;
  *
  * @author USUARIO1
  */
-public class PantallaSeleccionHistorico extends FrameSupport {
+public class PantallaSeleccionHistorico extends DialogSupport {
 
     /**
 	 * 
@@ -45,12 +46,12 @@ public class PantallaSeleccionHistorico extends FrameSupport {
     @Getter
     private PantallaSeleccionHistoricoListener pantallaSeleccionHistoricoListener;
     
-    public PantallaSeleccionHistorico(FrameSupport parent) {
-        super(parent);
+    public PantallaSeleccionHistorico(FrameSupport parent, Boolean modal) {
+        super(parent, modal);
     }
     
-    public PantallaSeleccionHistorico(FrameSupport parent, Map<String, Object> params) {
-        super(parent, params);
+    public PantallaSeleccionHistorico(FrameSupport parent, Boolean modal, Map<String, Object> params) {
+        super(parent, modal, params);
     }
 
     @Override
@@ -129,7 +130,4 @@ public class PantallaSeleccionHistorico extends FrameSupport {
 		btnGenerar.setText("Generar Histórico");
 		btnCancelar.setText("CANCELAR");
 	}
-
-	@Override
-	protected void initMenuBar() {}
 }

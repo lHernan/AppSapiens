@@ -51,6 +51,22 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		if (Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL.equals(jButton.getActionCommand())) {
 			eventBtnSearchModel();
 		}
+		
+		if (Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR.equals(jButton.getActionCommand())) {
+			pantallaProcesarScript.dispose();
+		}
+		
+		if (Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR.equals(jButton.getActionCommand())) {
+			eventBtnProcesar();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void eventBtnProcesar() {
+		DialogSupport dialog = MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(), Constants.CMD_SELECCION_HISTORICO);
+		MDSQLUIHelper.show(dialog);
 	}
 
 	/**
