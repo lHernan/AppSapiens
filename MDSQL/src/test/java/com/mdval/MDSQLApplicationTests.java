@@ -1,6 +1,7 @@
 package com.mdval;
 
 import static org.assertj.core.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ class MDSQLApplicationTests {
 	void contextLoads() {
 		try {
 			LiteralesSingleton literales = LiteralesSingleton.getInstance();
-			assertNotEquals(StringUtils.EMPTY, literales.getLiteral("menu.configuracion"));
+			assertEquals("Alta", literales.getLiteral("tblGlosarios.fecAlta"));
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
