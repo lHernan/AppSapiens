@@ -11,8 +11,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.DlgIdentificador;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
-import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.AppGlobalSingleton;
 
 public class DlgIdentificadorListener extends ListenerSupport implements ActionListener {
 
@@ -36,12 +37,12 @@ public class DlgIdentificadorListener extends ListenerSupport implements ActionL
 		String txtCodUsr = dlgIdentificador.getTxtIdentificador().getText();
 
 		if (StringUtils.isNotBlank(txtCodUsr)) {
-			// TODO - AQUÍ VA LA LLAMADA A LA CAPA DE NEGOCIO
+			AppGlobalSingleton.getInstance().setProperty(Constants.COD_USR, txtCodUsr);
 
 			dlgIdentificador.setIsTerminate(Boolean.FALSE);
 			dlgIdentificador.dispose();
 
-			UIHelper.showMaximized((JFrame) dlgIdentificador.getParent());
+			MDSQLUIHelper.showMaximized((JFrame) dlgIdentificador.getParent());
 			dlgIdentificador.getParent().setVisible(Boolean.TRUE);
 		} else {
 			JOptionPane.showMessageDialog(dlgIdentificador.getParent(),
