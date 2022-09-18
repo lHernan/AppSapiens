@@ -35,7 +35,31 @@ public class DefinicionModelosTableModel extends DefaultTableModel<Modelo> {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Modelo row = data.get(rowIndex);
 		
-		
+		if (0 == columnIndex) {
+			return row.getCodigoProyecto();
+		} else if (1 == columnIndex) {
+			return row.getNombreModelo();
+		} else if (2 == columnIndex) {
+			return row.getNombreEsquema();
+		} else if (3 == columnIndex) {
+			return row.getNombreBbdd();
+		} else if (4 == columnIndex) {
+			return row.getNombreCarpetaAdj();
+		} else if (5 == columnIndex) {
+			return row.getCodigoCapaUsrown();
+		} else if (6 == columnIndex) {
+			return row.getMcaVariables();	
+		} else if (7 == columnIndex) {
+			return row.getMcaGrantAll();
+		} else if (8 == columnIndex) {
+			return row.getMcaGrantPublic();
+		} else if (9 == columnIndex) {
+			return row.getMcaInh();
+		} else if (10 == columnIndex) {
+			return row.getObservaciones();
+		} else if (11 == columnIndex) {
+			return row.getEntregaPDC();
+		} 
  
 		return null;
 	}

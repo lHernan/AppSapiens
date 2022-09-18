@@ -2,6 +2,7 @@ package com.mdsql.ui.utils.creators;
 
 import java.util.Map;
 
+import com.mdsql.ui.DlgErrores;
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesarScript;
@@ -66,6 +67,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_SELECCION_HISTORICO.equals(option)) {
 			dialog = new PantallaSeleccionHistorico(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_ERROR.equals(option)) {
+			dialog = new DlgErrores(frameParent, modal, params);
 		}
 		
 		return dialog;

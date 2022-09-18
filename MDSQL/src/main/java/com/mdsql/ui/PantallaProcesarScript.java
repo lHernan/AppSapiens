@@ -27,6 +27,8 @@ import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
+import lombok.Getter;
+
 /**
  *
  * @author federico
@@ -67,9 +69,11 @@ public class PantallaProcesarScript extends DialogSupport {
     private JTextArea txtDescripcion;
     private JTextField txtEsquema;
     private JTextField txtEsquemaHistorico;
-    private JTextField txtModelo;
     private JTextField txtPeticion;
     private JTextField txtSolicitadaPor;
+    
+    @Getter
+    private JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
 
     /**

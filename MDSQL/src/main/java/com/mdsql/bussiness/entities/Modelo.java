@@ -18,13 +18,16 @@ public class Modelo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1060226242769948540L;
 	
-	private String seleccionada;
-	private String orden;
-	private String estado;
-	private String fecha;
-	private String ejecucion;
-	private String operaciones;
-	private String objetos;
-	private String script;
-
+	private String codigoProyecto;
+	private String nombreModelo;
+	private String nombreEsquema;
+	private String nombreBbdd;
+	private String nombreCarpetaAdj;
+	private String codigoCapaUsrown;
+	private String mcaVariables;
+	private String mcaGrantAll;
+	private String mcaGrantPublic;
+	private String mcaInh;
+	private String observaciones;
+	private String entregaPDC;
 }

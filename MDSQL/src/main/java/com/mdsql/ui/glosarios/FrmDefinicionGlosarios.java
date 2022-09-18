@@ -17,7 +17,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.mdsql.bussiness.entities.Glosario;
 import com.mdsql.ui.listener.FrmDefinicionGlosariosListener;
-import com.mdsql.ui.listener.tables.FrmDefinicionGlosariosTableListener;
+import com.mdsql.ui.listener.tables.PantallaSeleccionModelosTableListener;
 import com.mdsql.ui.model.DefinicionGlosariosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.renderer.BigDecimalRenderer;
@@ -179,7 +179,7 @@ public class FrmDefinicionGlosarios extends FrameSupport {
 	 */
 	protected void initEvents() {
 		frmDefinicionGlosariosListener = new FrmDefinicionGlosariosListener(this);
-		ListSelectionListener listSelectionListener = new FrmDefinicionGlosariosTableListener(this);
+		ListSelectionListener listSelectionListener = new PantallaSeleccionModelosTableListener(this);
 		
 		btnBuscar.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_BUSCAR);
 		btnAlta.setActionCommand(Constants.FRM_DEFINICION_GLOSARIOS_BTN_ALTA);

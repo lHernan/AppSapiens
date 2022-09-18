@@ -14,7 +14,12 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class Script implements Serializable {
 
-    private String tipoScript;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3317596703100222456L;
+	
+	private String tipoScript;
     private String txtScript;
     private String nombreScript;
     private String codigoEstadoScript;

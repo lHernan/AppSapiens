@@ -4,6 +4,7 @@
  */
 package com.mdsql.ui.modelos;
 
+import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -14,7 +15,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 
+import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.ui.listener.PantallaSeleccionModelosListener;
+import com.mdsql.ui.listener.tables.PantallaSeleccionModelosTableListener;
 import com.mdsql.ui.model.DefinicionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -23,6 +29,7 @@ import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -38,7 +45,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnBuscar;
-    private JButton btnSeleccionar;
+    
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
@@ -58,6 +65,13 @@ public class PantallaSeleccionModelos extends DialogSupport {
     
     @Getter
     private JTable tblModelos;
+    
+    @Getter
+    private JButton btnSeleccionar;
+    
+    @Getter
+    @Setter
+    private Modelo seleccionado;
     // End of variables declaration//GEN-END:variables
 	
 	public PantallaSeleccionModelos(FrameSupport parent, Boolean modal) {
@@ -165,11 +179,17 @@ public class PantallaSeleccionModelos extends DialogSupport {
     
 	@Override
 	protected void initEvents() {
-		
+		ActionListener actionListener = new PantallaSeleccionModelosListener(this);
+		ListSelectionListener listSelectionListener = new PantallaSeleccionModelosTableListener(this);
 		
 		btnBuscar.setActionCommand(Constants.PANTALLA_SELECCION_MODELOS_BTN_BUSCAR);
 		btnSeleccionar.setActionCommand(Constants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR);
 		
+		btnBuscar.addActionListener(actionListener);
+		btnSeleccionar.addActionListener(actionListener);
+		
+		ListSelectionModel rowSM = tblModelos.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
 	}
 
 	@Override
@@ -180,8 +200,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-		
+		btnSeleccionar.setEnabled(Boolean.FALSE);		
 	}
 
 	@Override
