@@ -47,8 +47,6 @@ public class PantallaSeleccionModelos extends DialogSupport {
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnBuscar;
     
-    private JLabel jLabel1;
-    private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
     private JLabel jLabel5;
@@ -98,6 +96,8 @@ public class PantallaSeleccionModelos extends DialogSupport {
         tblModelos = new JTable();
         btnSeleccionar = new JButton();
         lblTitulo = new JLabel();
+        
+        setPreferredSize(new Dimension(1418, 586));
 
         jScrollPane2.setViewportView(tblModelos);
 
@@ -115,7 +115,6 @@ public class PantallaSeleccionModelos extends DialogSupport {
         );
 
         lblTitulo.setFont(new Font("Dialog", 1, 18)); // NOI18N
-        lblTitulo.setText("Modelos");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,8 +204,9 @@ public class PantallaSeleccionModelos extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		jLabel1.setText("Logotipo");
-		jLabel2.setText("Modelos");
+		setTitle("Definición de modelos");
+		
+		lblTitulo.setText("Modelos");
 		jLabel3.setText("Cod. modelo");
 		jLabel4.setText("Nombre modelo");
 		jLabel5.setText("Cod. submodelo");
