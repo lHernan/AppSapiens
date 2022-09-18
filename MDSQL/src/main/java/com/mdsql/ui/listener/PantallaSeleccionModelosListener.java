@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.exceptions.ServiceException;
-import com.mdsql.ui.model.DefinicionModelosTableModel;
+import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.modelos.PantallaSeleccionModelos;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -86,7 +86,7 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 	 */
 	private void populateModel(List<Modelo> modelos) {
 		// Obtiene el modelo y lo actualiza
-		DefinicionModelosTableModel tableModel = (DefinicionModelosTableModel) pantallaSeleccionModelos
+		SeleccionModelosTableModel tableModel = (SeleccionModelosTableModel) pantallaSeleccionModelos
 				.getTblModelos().getModel();
 		tableModel.setData(modelos);
 	}

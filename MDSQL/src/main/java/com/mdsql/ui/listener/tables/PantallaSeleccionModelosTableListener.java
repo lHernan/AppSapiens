@@ -7,10 +7,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import com.mdsql.bussiness.entities.Modelo;
-import com.mdsql.ui.model.DefinicionModelosTableModel;
+import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.modelos.PantallaSeleccionModelos;
 import com.mdsql.ui.utils.ListenerSupport;
-import com.mdsql.utils.LogWrapper;
+import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +32,7 @@ public class PantallaSeleccionModelosTableListener extends ListenerSupport imple
 		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 		Integer index = lsm.getMinSelectionIndex();
 		
-		DefinicionModelosTableModel tableModel = (DefinicionModelosTableModel) pantallaSeleccionModelos.getTblModelos().getModel();
+		SeleccionModelosTableModel tableModel = (SeleccionModelosTableModel) pantallaSeleccionModelos.getTblModelos().getModel();
 		
 		Modelo seleccionado = tableModel.getSelectedRow(index);
 		if (!Objects.isNull(seleccionado)) {

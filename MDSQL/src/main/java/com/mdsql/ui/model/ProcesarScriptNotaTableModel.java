@@ -2,13 +2,14 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.TipoParticula;
+import com.mdsql.bussiness.entities.Nota;
+import com.mdval.ui.model.DefaultTableModel;
 
 /**
  * @author federico
  *
  */
-public class DefinicionTiposParticulaTableModel extends DefaultTableModel<TipoParticula> {
+public class ProcesarScriptNotaTableModel extends DefaultTableModel<Nota> {
 
 	/**
 	 * 
@@ -19,7 +20,7 @@ public class DefinicionTiposParticulaTableModel extends DefaultTableModel<TipoPa
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionTiposParticulaTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
+	public ProcesarScriptNotaTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
 		super(columnNames, columnClasses);
 	}
 	
@@ -28,27 +29,29 @@ public class DefinicionTiposParticulaTableModel extends DefaultTableModel<TipoPa
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionTiposParticulaTableModel(List<TipoParticula> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public ProcesarScriptNotaTableModel(List<Nota> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		TipoParticula row = data.get(rowIndex);
-
+		Nota row = data.get(rowIndex);
+		
 		if (0 == columnIndex) {
-			return row.getCodigoParticula();
+			return row.getNivel();
 		} else if (1 == columnIndex) {
-			return row.getDescripcionParticula();
+			return row.getTitulo();
 		} else if (2 == columnIndex) {
-			return row.getCodigoUsuario();
+			return row.getDescripcion();
 		} else if (3 == columnIndex) {
-			return row.getFechaActualizacion();
+			return row.getPeticion();
 		} else if (4 == columnIndex) {
-			return row.getMcaProyecto();
+			return row.getHabilitado();
 		} else if (5 == columnIndex) {
-			return row.getMcaSubProyecto();
-		}
-
+			return row.getUsuario();
+		} else if (6 == columnIndex) {
+			return row.getActualizado();	
+		} 
+ 
 		return null;
 	}
 }

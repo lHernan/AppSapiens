@@ -117,16 +117,18 @@ public class Constants {
 	/**
 	 * Menu de la aplicación
 	 */
-	public static final String MNU_DEF_GLOSARIOS = "MNU_DEF_GLOSARIOS";
-	public static final String MNU_DATOS_GLOSARIO_CAMPOS = "MNU_DATOS_GLOSARIO_CAMPOS";
-	public static final String MNU_DEF_NORMAS = "MNU_DEF_NORMAS";
-	public static final String MNU_DEF_ELEMENTOS = "MNU_DEF_ELEMENTOS";
-	public static final String MNU_DEF_ELEMENTOS_NORMA = "MNU_DEF_ELEMENTOS_NORMA";
-	public static final String MNU_DEF_TIPOS_PARTICULAS = "MNU_DEF_TIPOS_PARTICULAS";
-	public static final String MNU_DEF_PARTICULAS_NORMA_ELEMENTO = "MNU_DEF_PARTICULAS_NORMA_ELEMENTO";
-	public static final String MNU_VALORES_PARTICULAS = "MNU_VALORES_PARTICULAS";
-	public static final String MNU_COMPROBAR_NOMBRE_ELEMENTO = "MNU_COMPROBAR_NOMBRE_ELEMENTO";
-	public static final String MNU_MODELOS = "MNU_MODELOS";
+	public static final String MNU_PERMISOS_GENERALES = "MNU_PERMISOS_GENERALES";
+	public static final String MNU_ENTORNOS = "MNU_ENTORNOS";
+	public static final String MNU_VARIABLES = "MNU_VARIABLES";
+	public static final String MNU_CONSULTA_PERMISOS = "MNU_CONSULTA_PERMISOS";
+	public static final String MNU_MANTENIMIENTO_PERMISOS = "MNU_MANTENIMIENTO_PERMISOS";
+	public static final String MNU_GENERAR_PERMISOS = "MNU_GENERAR_PERMISOS";
+	public static final String MNU_CONSULTA_HISTORICO_CAMBIOS = "MNU_CONSULTA_HISTORICO_CAMBIOS";
+	public static final String MNU_MANTENIMIENTO_ENTORNOS_PRUEBAS = "MNU_MANTENIMIENTO_ENTORNOS_PRUEBAS";
+	public static final String MNU_EJECUCION_SCRIPT_INICIAL = "MNU_EJECUCION_SCRIPT_INICIAL";
+	public static final String MNU_NOTAS_MODELOS = "MNU_NOTAS_MODELOS";
+	public static final String MNU_CONFIGURACION_ENTORNOS_PRUEBA = "MNU_CONFIGURACION_ENTORNOS_PRUEBA";
+	public static final String MNU_MANTENIMIENTO_HISTORICO = "MNU_MANTENIMIENTO_HISTORICO";
 	
 	/**
 	 * Comandos que activan dialogos
@@ -376,4 +378,6 @@ public class Constants {
 	public static final String PANTALLA_EJECUTAR_TYPES_BTN_VER_ERRORES = "PANTALLA_EJECUTAR_TYPES_BTN_VER_ERRORES";
 	public static final String PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR = "PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR";
 	public static final String PANTALLA_EJECUTAR_TYPES_BTN_CANCELAR = "PANTALLA_EJECUTAR_TYPES_BTN_CANCELAR";
+	
+	public static final String DLG_SELECCION_MODELOS_TABLA_CABECERA = "DLG_SELECCION_MODELOS_TABLA_CABECERA";
 }

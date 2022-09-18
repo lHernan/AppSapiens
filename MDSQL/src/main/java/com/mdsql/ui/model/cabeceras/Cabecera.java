@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mdsql.utils.LiteralesSingleton;
-import com.mdsql.utils.LogWrapper;
+import com.mdval.utils.LogWrapper;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

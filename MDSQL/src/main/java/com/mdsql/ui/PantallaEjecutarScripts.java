@@ -16,7 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
-import com.mdsql.ui.model.DefinicionModelosTableModel;
+import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;

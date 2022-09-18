@@ -3,12 +3,13 @@ package com.mdsql.ui.model;
 import java.util.List;
 
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdval.ui.model.DefaultTableModel;
 
 /**
  * @author federico
  *
  */
-public class DefinicionModelosTableModel extends DefaultTableModel<Modelo> {
+public class SeleccionModelosTableModel extends DefaultTableModel<Modelo> {
 
 	/**
 	 * 
@@ -19,7 +20,7 @@ public class DefinicionModelosTableModel extends DefaultTableModel<Modelo> {
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionModelosTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
+	public SeleccionModelosTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
 		super(columnNames, columnClasses);
 	}
 	
@@ -28,7 +29,7 @@ public class DefinicionModelosTableModel extends DefaultTableModel<Modelo> {
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public DefinicionModelosTableModel(List<Modelo> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public SeleccionModelosTableModel(List<Modelo> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 	

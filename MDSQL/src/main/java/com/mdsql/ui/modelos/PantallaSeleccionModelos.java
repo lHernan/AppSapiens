@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaSeleccionModelosListener;
 import com.mdsql.ui.listener.tables.PantallaSeleccionModelosTableListener;
-import com.mdsql.ui.model.DefinicionModelosTableModel;
+import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
@@ -194,8 +194,8 @@ public class PantallaSeleccionModelos extends DialogSupport {
 
 	@Override
 	protected void initModels() {
-		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_MODELOS_TABLA_CABECERA);
-		tblModelos.setModel(new DefinicionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_SELECCION_MODELOS_TABLA_CABECERA);
+		tblModelos.setModel(new SeleccionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 
 	@Override

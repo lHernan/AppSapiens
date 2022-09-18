@@ -19,7 +19,7 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.AppGlobalSingleton;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
-import com.mdsql.utils.LogWrapper;
+import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
 

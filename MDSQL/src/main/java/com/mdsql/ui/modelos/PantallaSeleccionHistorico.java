@@ -15,9 +15,6 @@ import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 
 import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
-import com.mdsql.ui.model.DefinicionSeleccionTableModel;
-import com.mdsql.ui.model.cabeceras.Cabecera;
-import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -115,9 +112,10 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
 	@Override
 	protected void initModels() {
-		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.FRM_DEFINICION_MODELOS_TABLA_CABECERA);
-		tblHistoricos.setModel(new DefinicionSeleccionTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));}
-
+//		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_SELECCION_MODELOS_TABLA_CABECERA);
+//		tblHistoricos.setModel(new DefinicionSeleccionTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));}
+	}	
+		
 	@Override
 	protected void initialState() {
 		// TODO Auto-generated method stub

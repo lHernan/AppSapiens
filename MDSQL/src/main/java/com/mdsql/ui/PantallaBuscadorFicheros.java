@@ -17,7 +17,6 @@ import com.mdsql.ui.listener.PantallaBuscadorFicherosListener;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
-import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -116,7 +115,7 @@ public class PantallaBuscadorFicheros extends DialogSupport {
 			txtRuta.setText(rutaInicial);
 		} catch (IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(this.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(this.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 	}
 
