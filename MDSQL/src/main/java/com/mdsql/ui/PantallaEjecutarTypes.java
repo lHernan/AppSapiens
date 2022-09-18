@@ -13,13 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.listener.PantallaEjecutarTypesActionListener;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
-
-import lombok.Getter;
 /**
  *
  * @author USUARIO1
@@ -45,29 +45,23 @@ public class PantallaEjecutarTypes extends DialogSupport {
     private JLabel jLabel6;
     private JLabel jLabel7;
     private JScrollPane jScrollPane1;
-    private JTable tblTypes;
-    
-    @Getter
-    private JTextField jTextField1;
-
-    @Getter
-    private JTextField jTextField2;
-
-    @Getter
-    private JTextField jTextField3;
-
-    @Getter
-    private JTextField jTextField4;
-
-    @Getter
-    private JTextField jTextField5;
-
-    @Getter
-    private JTextField jTextField6;
-
-    @Getter
-    private JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
+
+	private JTextField txtEstadoEjecucion;
+
+	private JTextField txtModelo;
+
+	private JTextField txtSubmodelo;
+
+	private JTextField txtSD;
+
+	private JTextField txtSolicitadaPor;
+
+	private JTextField txtEsquema;
+
+	private JTextField txtBBDD;
+	
+	private JTable tblTypes;
     
     public PantallaEjecutarTypes(FrameSupport parent, Boolean modal) {
     	super(parent, modal);
@@ -79,126 +73,128 @@ public class PantallaEjecutarTypes extends DialogSupport {
     
     public void setupComponents() {
         
-    	 jLabel1 = new javax.swing.JLabel();
-         jTextField1 = new javax.swing.JTextField();
-         jLabel2 = new javax.swing.JLabel();
-         jTextField2 = new javax.swing.JTextField();
-         jLabel3 = new javax.swing.JLabel();
-         jTextField3 = new javax.swing.JTextField();
-         jLabel4 = new javax.swing.JLabel();
-         jTextField4 = new javax.swing.JTextField();
-         jLabel5 = new javax.swing.JLabel();
-         jTextField5 = new javax.swing.JTextField();
-         jLabel6 = new javax.swing.JLabel();
-         jTextField6 = new javax.swing.JTextField();
-         jLabel7 = new javax.swing.JLabel();
-         jTextField7 = new javax.swing.JTextField();
-         btnRechazar = new javax.swing.JButton();
-         btnVerCuadres = new javax.swing.JButton();
-         btnVerErrores = new javax.swing.JButton();
-         jScrollPane1 = new javax.swing.JScrollPane();
-         tblTypes = new javax.swing.JTable();
-         btnAceptar = new javax.swing.JButton();
-         btnCancelar = new javax.swing.JButton();
+    	jLabel1 = new JLabel();
+        txtEstadoEjecucion = new JTextField();
+        jLabel2 = new JLabel();
+        txtModelo = new JTextField();
+        jLabel3 = new JLabel();
+        jLabel4 = new JLabel();
+        jLabel5 = new JLabel();
+        jLabel6 = new JLabel();
+        jLabel7 = new JLabel();
+        btnRechazar = new JButton();
+        btnVerCuadres = new JButton();
+        btnVerErrores = new JButton();
+        jScrollPane1 = new JScrollPane();
+        tblTypes = new JTable();
+        btnAceptar = new JButton();
+        btnCancelar = new JButton();
+        txtSubmodelo = new JTextField();
+        txtSD = new JTextField();
+        txtSolicitadaPor = new JTextField();
+        txtEsquema = new JTextField();
+        txtBBDD = new JTextField();
 
-         jScrollPane1.setViewportView(tblTypes);
-         
-         GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-         getContentPane().setLayout(layout);
-         layout.setHorizontalGroup(
-             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-             .addGroup(layout.createSequentialGroup()
-                 .addGap(43, 43, 43)
-                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                     .addGroup(layout.createSequentialGroup()
-                         .addComponent(jLabel7)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                         .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                     .addGroup(layout.createSequentialGroup()
-                         .addComponent(jLabel6)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                     .addGroup(layout.createSequentialGroup()
-                         .addComponent(jLabel5)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                         .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                     .addGroup(layout.createSequentialGroup()
-                         .addComponent(jLabel4)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                     .addGroup(layout.createSequentialGroup()
-                         .addComponent(jLabel3)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                     .addGroup(layout.createSequentialGroup()
-                         .addComponent(jLabel2)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                     .addGroup(layout.createSequentialGroup()
-                         .addComponent(jLabel1)
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                     .addGroup(layout.createSequentialGroup()
-                         .addComponent(btnRechazar)
-                         .addGap(18, 18, 18)
-                         .addComponent(btnVerCuadres)
-                         .addGap(18, 18, 18)
-                         .addComponent(btnVerErrores)))
-                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                 .addGap(17, 17, 17))
-             .addGroup(layout.createSequentialGroup()
-                 .addGap(439, 439, 439)
-                 .addComponent(btnAceptar)
-                 .addGap(18, 18, 18)
-                 .addComponent(btnCancelar)
-                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-         );
-         layout.setVerticalGroup(
-             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-             .addGroup(layout.createSequentialGroup()
-                 .addGap(29, 29, 29)
-                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                     .addGroup(layout.createSequentialGroup()
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                             .addComponent(jLabel1)
-                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                             .addComponent(jLabel2)
-                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                             .addComponent(jLabel3)
-                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                             .addComponent(jLabel4)
-                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                             .addComponent(jLabel5)
-                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                             .addComponent(jLabel6)
-                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                             .addComponent(jLabel7)
-                             .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addGap(18, 18, 18)
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                             .addComponent(btnRechazar)
-                             .addComponent(btnVerCuadres)
-                             .addComponent(btnVerErrores)))
-                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                 .addGap(18, 18, 18)
-                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(btnAceptar)
-                     .addComponent(btnCancelar))
-                 .addContainerGap(19, Short.MAX_VALUE))
-         );
+        jScrollPane1.setViewportView(tblTypes);
+
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtModelo, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtEstadoEjecucion, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSubmodelo, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSD, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSolicitadaPor, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBBDD, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRechazar)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnVerCuadres)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnVerErrores)))
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAceptar)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtEstadoEjecucion, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtModelo, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSubmodelo, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSD, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSolicitadaPor, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBBDD, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnVerErrores)
+                            .addComponent(btnVerCuadres)
+                            .addComponent(btnRechazar))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCancelar))
+                .addContainerGap())
+        );
     }
 
     @Override
@@ -220,7 +216,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
     
     @Override
     protected void initModels() {
-    	tblTypes.setModel(new javax.swing.table.DefaultTableModel(
+    	tblTypes.setModel(new DefaultTableModel(
                 new Object [][] {
                     {null, null, null, null, null, null, null, null},
                     {null, null, null, null, null, null, null, null},
@@ -230,7 +226,15 @@ public class PantallaEjecutarTypes extends DialogSupport {
                 new String [] {
                     "Orden", "Estado", "Fecha", "Ejecución", "TYS", "TYB", "PDC", "Objeto Type"
                 }
-            ));
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
     }
     
     @Override
@@ -242,7 +246,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
     @Override
     protected void setupLiterals() {
     	jLabel1.setText("Estado de ejecución");
-		jLabel2.setText("Modelo o proyecto");
+        jLabel2.setText("Modelo o proyecto");
         jLabel3.setText("Submodelo");
         jLabel4.setText("SD");
         jLabel5.setText("Solicitada por");
@@ -250,8 +254,8 @@ public class PantallaEjecutarTypes extends DialogSupport {
         jLabel7.setText("BBDD");
         btnRechazar.setText("Rechazar");
         btnVerCuadres.setText("Ver cuadres");
-    	btnVerErrores.setText("Ver Errores");
-        btnAceptar.setText("ACEPTAR");     
+        btnVerErrores.setText("Ver Errores");
+        btnAceptar.setText("ACEPTAR");
         btnCancelar.setText("CANCELAR");
     }
     
