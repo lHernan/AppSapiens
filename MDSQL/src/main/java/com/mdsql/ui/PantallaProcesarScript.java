@@ -303,6 +303,8 @@ public class PantallaProcesarScript extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
+		setTitle("Procesar script");
+		
 		jLabel1.setText("Modelo o proyecto");
 		jLabel2.setText("Submodelo");
 		jLabel3.setText("Petición");

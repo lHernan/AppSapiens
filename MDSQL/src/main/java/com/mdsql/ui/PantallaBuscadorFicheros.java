@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdsql.ui.listener.PantallaBuscadorFicherosListener;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
@@ -121,7 +123,7 @@ public class PantallaBuscadorFicheros extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		this.setTitle("Cargar script");
+		setTitle(StringUtils.EMPTY);
 		
 		jLabel1.setText("Ruta");
         btnAceptar.setText("ACEPTAR");

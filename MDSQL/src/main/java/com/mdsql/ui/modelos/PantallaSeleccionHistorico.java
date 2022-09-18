@@ -14,6 +14,8 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
@@ -143,6 +145,8 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
+		setTitle(StringUtils.EMPTY);
+		
 		btnAddHistorico.setText("Añadir a histórico");
 		btnGenerarHistorico.setText("Generar histórico");
 		btnCancelar.setText("CANCELAR");
