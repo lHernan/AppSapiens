@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.WindowConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -63,14 +62,8 @@ public class PantallaBuscadorFicheros extends DialogSupport {
 		btnCancelar = new JButton();
 		jLabel1 = new JLabel();
 		txtRuta = new JTextField();
-
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-		btnAceptar.setText("ACEPTAR");
-
-		btnCancelar.setText("CANCELAR");
-
-		jLabel1.setText("Ruta:");
+		
+		setPreferredSize(new Dimension(502, 92));
 
 		txtRuta.setPreferredSize(new Dimension(64, 41));
 
