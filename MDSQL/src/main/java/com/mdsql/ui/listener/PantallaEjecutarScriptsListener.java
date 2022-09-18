@@ -106,6 +106,6 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	}
 	
 	private void eventBtnCancelar() {
-		
+		pantallaEjecutarScripts.dispose();
 	}
 }
