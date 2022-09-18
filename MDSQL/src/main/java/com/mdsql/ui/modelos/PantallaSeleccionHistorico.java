@@ -4,7 +4,7 @@
  */
 package com.mdsql.ui.modelos;
 
-import java.awt.Cursor;
+import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle;
-import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
 import com.mdsql.utils.Constants;
@@ -33,15 +33,18 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 	private static final long serialVersionUID = 4469486461122163193L;
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnAñadir;
-    private JButton btnGenerar;
     private JButton btnCancelar;
     private JScrollPane jScrollPane1;
-    private JTable tblHistoricos;
     // End of variables declaration//GEN-END:variables
     
     @Getter
-    private PantallaSeleccionHistoricoListener pantallaSeleccionHistoricoListener;
+	private JTable tblHistorico;
+
+    @Getter
+	private JButton btnAddHistorico;
+
+    @Getter
+	private JButton btnGenerarHistorico;
     
     public PantallaSeleccionHistorico(FrameSupport parent, Boolean modal) {
         super(parent, modal);
@@ -54,66 +57,82 @@ public class PantallaSeleccionHistorico extends DialogSupport {
     @Override
 	protected void setupComponents() {
 
-        jScrollPane1 = new JScrollPane();
-        tblHistoricos = new JTable();
-        btnAñadir = new JButton();
-        btnGenerar = new JButton();
+    	jScrollPane1 = new JScrollPane();
+        tblHistorico = new JTable();
+        btnAddHistorico = new JButton();
+        btnGenerarHistorico = new JButton();
         btnCancelar = new JButton();
 
-        
-        tblHistoricos.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        tblHistoricos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tblHistoricos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tblHistoricos);
+        jScrollPane1.setViewportView(tblHistorico);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(194, 194, 194)
-                .addComponent(btnAñadir)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGenerar)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCancelar)
-                .addContainerGap(194, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 1151, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAddHistorico)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnGenerarHistorico, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 311, GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAñadir)
-                    .addComponent(btnGenerar)
+                    .addComponent(btnAddHistorico)
+                    .addComponent(btnGenerarHistorico)
                     .addComponent(btnCancelar))
-                .addGap(43, 43, 43))
+                .addContainerGap())
         );
     }
 
 	@Override
 	protected void initEvents() {
-		pantallaSeleccionHistoricoListener = new PantallaSeleccionHistoricoListener(this);
+		ActionListener actionListener = new PantallaSeleccionHistoricoListener(this);
 		
-		btnAñadir.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_AÑADIR);
-		btnGenerar.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
+		btnAddHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_AÑADIR);
+		btnGenerarHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR);
 		
-		btnAñadir.addActionListener(pantallaSeleccionHistoricoListener);
-		btnGenerar.addActionListener(pantallaSeleccionHistoricoListener);
-		btnCancelar.addActionListener(pantallaSeleccionHistoricoListener);
+		btnAddHistorico.addActionListener(actionListener);
+		btnGenerarHistorico.addActionListener(actionListener);
+		btnCancelar.addActionListener(actionListener);
 	}
 
 	@Override
 	protected void initModels() {
 //		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_SELECCION_MODELOS_TABLA_CABECERA);
 //		tblHistoricos.setModel(new DefinicionSeleccionTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));}
+	
+		tblHistorico.setModel(new DefaultTableModel(
+	            new Object [][] {
+	                {null, null, null, null, null},
+	                {null, null, null, null, null},
+	                {null, null, null, null, null},
+	                {null, null, null, null, null}
+	            },
+	            new String [] {
+	                "Configurado", "Objeto", "Tipo", "Histórico", "Vigente"
+	            }
+	        ) {
+	            Class[] types = new Class [] {
+	                java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class
+	            };
+
+	            public Class getColumnClass(int columnIndex) {
+	                return types [columnIndex];
+	            }
+	        });
 	}	
 		
 	@Override
@@ -124,8 +143,8 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		btnAñadir.setText("Añadir a Histórico");
-		btnGenerar.setText("Generar Histórico");
+		btnAddHistorico.setText("Añadir a histórico");
+		btnGenerarHistorico.setText("Generar histórico");
 		btnCancelar.setText("CANCELAR");
 	}
 }
