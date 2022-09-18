@@ -63,7 +63,7 @@ public class PantallaBuscadorFicheros extends DialogSupport {
 		jLabel1 = new JLabel();
 		txtRuta = new JTextField();
 		
-		setPreferredSize(new Dimension(502, 92));
+		setPreferredSize(new Dimension(502, 120));
 
 		txtRuta.setPreferredSize(new Dimension(64, 41));
 
