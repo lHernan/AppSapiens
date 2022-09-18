@@ -52,10 +52,10 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblNotas = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblUltimasPeticiones = new javax.swing.JTable();
         btnVerProcesado = new javax.swing.JButton();
         btnProcesar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -137,7 +137,7 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
 
         jLabel11.setText("Notas / avisos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblNotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -148,11 +148,11 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblNotas);
 
         jLabel12.setText("Últimas peticiones");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblUltimasPeticiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -163,7 +163,7 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tblUltimasPeticiones);
 
         btnVerProcesado.setText("Ver procesado");
 
@@ -236,10 +236,10 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(jButton1))
+                        .addComponent(jLabel1))
                     .addComponent(jLabel11))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -386,8 +386,8 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tblNotas;
+    private javax.swing.JTable tblUltimasPeticiones;
     private javax.swing.JTextField txtBBDDHistorico;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtEsquema;

@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.model.DefinicionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
