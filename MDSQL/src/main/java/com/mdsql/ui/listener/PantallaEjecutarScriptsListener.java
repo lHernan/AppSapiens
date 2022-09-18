@@ -64,7 +64,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			eventBtnAceptar();
 		}
 		
-		if (Constants.FRM_DEFINICION_SCRIPTS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			eventBtnCancelar();
 		}
 	}
