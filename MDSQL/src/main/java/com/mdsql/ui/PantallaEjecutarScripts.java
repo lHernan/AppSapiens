@@ -4,6 +4,7 @@
  */
 package com.mdsql.ui;
 
+import java.awt.Dimension;
 import java.util.Map;
 
 import javax.swing.DefaultComboBoxModel;
@@ -145,6 +146,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
         btnVerCuadres = new JButton();
         btnVerErrores = new JButton();
         btnExcepcion = new JButton();
+        
+        setPreferredSize(new Dimension(1297, 758));
 
         jScrollPane2.setViewportView(tblVigente);
 
