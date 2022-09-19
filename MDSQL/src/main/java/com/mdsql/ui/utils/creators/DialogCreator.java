@@ -2,10 +2,11 @@ package com.mdsql.ui.utils.creators;
 
 import java.util.Map;
 
-import com.mdsql.ui.DlgIdentificador;
+import com.mdsql.ui.DlgErrores;
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.modelos.PantallaSeleccionHistorico;
 import com.mdsql.ui.modelos.PantallaSeleccionModelos;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
@@ -47,10 +48,6 @@ public class DialogCreator extends Creator {
 	@Override
 	public Object factoryMethod(Map<String, Object> params) {
 		DialogSupport dialog = null;
-	
-		if (Constants.CMD_INICIAR_APP.equals(option)) {
-			dialog = new DlgIdentificador(frameParent, modal);
-		}
 		
 		if (Constants.CMD_LOAD_SCRIPT.equals(option)) {
 			dialog = new PantallaBuscadorFicheros(frameParent, modal);
@@ -66,6 +63,14 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_SEARCH_MODEL.equals(option)) {
 			dialog = new PantallaSeleccionModelos(frameParent, modal);
+		}
+		
+		if (Constants.CMD_SELECCION_HISTORICO.equals(option)) {
+			dialog = new PantallaSeleccionHistorico(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_ERROR.equals(option)) {
+			dialog = new DlgErrores(frameParent, modal, params);
 		}
 		
 		return dialog;

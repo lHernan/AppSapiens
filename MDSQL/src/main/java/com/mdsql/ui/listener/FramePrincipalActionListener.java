@@ -19,8 +19,8 @@ import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
-import com.mdsql.utils.LogWrapper;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
 

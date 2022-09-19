@@ -4,6 +4,7 @@
  */
 package com.mdsql.ui;
 
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.Map;
 
@@ -13,11 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdsql.ui.listener.PantallaBuscadorFicherosListener;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
-import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -28,85 +30,80 @@ import lombok.Getter;
  * @author USUARIO1
  */
 public class PantallaBuscadorFicheros extends DialogSupport {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6174427890699657674L;
-	
+
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnAceptar;
-    private JButton btnCancelar;
-    private JLabel jLabel1;
-    
-    @Getter
-    private JTextField txtRuta;
-    // End of variables declaration//GEN-END:variables
-    
-    @Getter
-    private PantallaBuscadorFicherosListener pantallaBuscadorFicherosListener;
-    
-    public PantallaBuscadorFicheros(FrameSupport parent, Boolean modal) {
-        super(parent, modal);
-    }
-    
-    public PantallaBuscadorFicheros(FrameSupport parent, Boolean modal, Map<String, Object> params) {
-        super(parent, modal, params);
-    }
+	private JButton btnAceptar;
+	private JButton btnCancelar;
+	private JLabel jLabel1;
+
+	@Getter
+	private JTextField txtRuta;
+	// End of variables declaration//GEN-END:variables
+
+	@Getter
+	private PantallaBuscadorFicherosListener pantallaBuscadorFicherosListener;
+
+	public PantallaBuscadorFicheros(FrameSupport parent, Boolean modal) {
+		super(parent, modal);
+	}
+
+	public PantallaBuscadorFicheros(FrameSupport parent, Boolean modal, Map<String, Object> params) {
+		super(parent, modal, params);
+	}
 
 	@Override
 	protected void setupComponents() {
+		btnAceptar = new JButton();
+		btnCancelar = new JButton();
 		jLabel1 = new JLabel();
-        txtRuta = new JTextField();
-        btnAceptar = new JButton();
-        btnCancelar = new JButton();
+		txtRuta = new JTextField();
+		
+		setPreferredSize(new Dimension(502, 120));
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtRuta, GroupLayout.PREFERRED_SIZE, 496, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(btnAceptar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtRuta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
+		txtRuta.setPreferredSize(new Dimension(64, 41));
+
+		GroupLayout layout = new GroupLayout(getContentPane());
+		getContentPane().setLayout(layout);
+		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(layout
+				.createSequentialGroup().addContainerGap()
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addGroup(layout.createSequentialGroup().addComponent(jLabel1)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+								.addComponent(txtRuta, GroupLayout.PREFERRED_SIZE, 429, GroupLayout.PREFERRED_SIZE))
+						.addGroup(GroupLayout.Alignment.TRAILING,
+								layout.createSequentialGroup().addComponent(btnAceptar)
+										.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+										.addComponent(btnCancelar)))
+				.addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+				.addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap()
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(jLabel1)
+								.addComponent(txtRuta, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(btnCancelar)
+								.addComponent(btnAceptar))
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 	}
 
 	@Override
 	protected void initEvents() {
 		pantallaBuscadorFicherosListener = new PantallaBuscadorFicherosListener(this);
-		
+
 		btnAceptar.setActionCommand(Constants.PANTALLA_BUSCADOR_FICHEROS_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_BUSCADOR_FICHEROS_BTN_CANCELAR);
-		
+
 		btnAceptar.addActionListener(pantallaBuscadorFicherosListener);
 		btnCancelar.addActionListener(pantallaBuscadorFicherosListener);
 	}
 
 	@Override
-	protected void initModels() {}
+	protected void initModels() {
+	}
 
 	@Override
 	protected void initialState() {
@@ -116,16 +113,16 @@ public class PantallaBuscadorFicheros extends DialogSupport {
 			txtRuta.setText(rutaInicial);
 		} catch (IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(this.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(this.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 	}
 
 	@Override
 	protected void setupLiterals() {
-		this.setTitle("Cargar script");
-		
+		setTitle(StringUtils.EMPTY);
+
 		jLabel1.setText("Ruta");
-        btnAceptar.setText("ACEPTAR");
-        btnCancelar.setText("CANCELAR");
+		btnAceptar.setText("ACEPTAR");
+		btnCancelar.setText("CANCELAR");
 	}
 }

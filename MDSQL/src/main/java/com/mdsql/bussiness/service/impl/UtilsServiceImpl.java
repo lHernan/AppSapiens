@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import com.mdsql.bussiness.service.UtilsService;
 import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
-import com.mdsql.utils.LogWrapper;
+import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

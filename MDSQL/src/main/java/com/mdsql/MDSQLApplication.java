@@ -1,6 +1,8 @@
 package com.mdsql;
 
 import java.awt.EventQueue;
+import java.io.IOException;
+import java.util.Map;
 
 import javax.sql.DataSource;
 import javax.swing.UIDefaults;
@@ -15,9 +17,9 @@ import org.springframework.context.ApplicationContext;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.AppGlobalSingleton;
+import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
-import com.mdsql.utils.LogWrapper;
-import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -76,9 +78,21 @@ public class MDSQLApplication implements CommandLineRunner {
 		/* Create and display the form */
 		EventQueue.invokeLater(() -> {
 			FramePrincipal framePrincipal = new FramePrincipal();
+			
+			try {
+				ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+				
+				String codUsr = System.getenv(configuration.getConfig("user.field"));
+				LogWrapper.debug(log, "Usuario: %s", codUsr);
+				
+				AppGlobalSingleton.getInstance().setProperty(Constants.COD_USR, codUsr);
 
-			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_INICIAR_APP);
-			MDSQLUIHelper.show(dialog);
+				MDSQLUIHelper.showMaximized(framePrincipal);
+				framePrincipal.setVisible(Boolean.TRUE);
+			} catch (IOException e) {
+				Map<String, Object> params = MDSQLUIHelper.buildError(e);
+				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
+			}
 		});
 	}
 }

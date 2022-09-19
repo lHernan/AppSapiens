@@ -9,7 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import com.mdsql.utils.LogWrapper;
+import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
 

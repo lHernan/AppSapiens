@@ -537,7 +537,7 @@ public class FramePrincipal extends FrameSupport {
 
 	@Override
 	protected void setupLiterals() {
-		// TODO Auto-generated method stub
+		setTitle("MDSQL");
 		
 	}
 }

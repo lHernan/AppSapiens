@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 
 import com.mdsql.ui.listener.MenuListener;
 import com.mdsql.ui.utils.MenuSupport;
-import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.Constants;
 
 /**
  *
@@ -54,51 +54,51 @@ public class MainMenuBar extends MenuSupport {
         mnuPermisos = new JMenu();
         
         mnuPermisosGenerales = new JMenuItem();
-        mnuPermisosGenerales.setActionCommand(MDSQLConstants.MNU_PERMISOS_GENERALES); // NOI18N
+        mnuPermisosGenerales.setActionCommand(Constants.MNU_PERMISOS_GENERALES); // NOI18N
         mnuPermisos.add(mnuPermisosGenerales);
       
         mnuPermisosPersonalizados = new JMenu();
         mnuConsultaPermisos = new JMenuItem();
-        mnuConsultaPermisos.setActionCommand(MDSQLConstants.MNU_CONSULTA_PERMISOS); // NOI18N
+        mnuConsultaPermisos.setActionCommand(Constants.MNU_CONSULTA_PERMISOS); // NOI18N
         mnuPermisosPersonalizados.add(mnuConsultaPermisos);
         
         mnuMantenimientoPermisos = new JMenuItem();
-        mnuMantenimientoPermisos.setActionCommand(MDSQLConstants.MNU_MANTENIMIENTO_PERMISOS); // NOI18N
+        mnuMantenimientoPermisos.setActionCommand(Constants.MNU_MANTENIMIENTO_PERMISOS); // NOI18N
         mnuPermisosPersonalizados.add(mnuMantenimientoPermisos);
         
         mnuGenerarPermisos = new JMenuItem();
-        mnuGenerarPermisos.setActionCommand(MDSQLConstants.MNU_GENERAR_PERMISOS); // NOI18N
+        mnuGenerarPermisos.setActionCommand(Constants.MNU_GENERAR_PERMISOS); // NOI18N
         mnuPermisosPersonalizados.add(mnuGenerarPermisos);
         
         mnuPermisos.add(mnuPermisosPersonalizados);
         
         mnuEntornos = new JMenu();
-        mnuEntornos.setActionCommand(MDSQLConstants.MNU_ENTORNOS); // NOI18N
+        mnuEntornos.setActionCommand(Constants.MNU_ENTORNOS); // NOI18N
         
         mnuVariables = new JMenu();
-        mnuVariables.setActionCommand(MDSQLConstants.MNU_VARIABLES); // NOI18N
+        mnuVariables.setActionCommand(Constants.MNU_VARIABLES); // NOI18N
         
         mnuNotasModelos = new JMenu();
-        mnuNotasModelos.setActionCommand(MDSQLConstants.MNU_NOTAS_MODELOS); // NOI18N
+        mnuNotasModelos.setActionCommand(Constants.MNU_NOTAS_MODELOS); // NOI18N
         
         mnuConsultaHistoricoCambios = new JMenu();
-        mnuConsultaHistoricoCambios.setActionCommand(MDSQLConstants.MNU_CONSULTA_HISTORICO_CAMBIOS); // NOI18N
+        mnuConsultaHistoricoCambios.setActionCommand(Constants.MNU_CONSULTA_HISTORICO_CAMBIOS); // NOI18N
         
         mnuScriptInicial = new JMenu();
         mnuMantenimientoEntornosPruebas = new JMenuItem();
-        mnuMantenimientoEntornosPruebas.setActionCommand(MDSQLConstants.MNU_MANTENIMIENTO_ENTORNOS_PRUEBAS); // NOI18N
+        mnuMantenimientoEntornosPruebas.setActionCommand(Constants.MNU_MANTENIMIENTO_ENTORNOS_PRUEBAS); // NOI18N
         mnuScriptInicial.add(mnuMantenimientoEntornosPruebas);
         
         mnuEjecucionScriptInicial = new JMenuItem();
-        mnuEjecucionScriptInicial.setActionCommand(MDSQLConstants.MNU_EJECUCION_SCRIPT_INICIAL); // NOI18N
+        mnuEjecucionScriptInicial.setActionCommand(Constants.MNU_EJECUCION_SCRIPT_INICIAL); // NOI18N
         mnuScriptInicial.add(mnuEjecucionScriptInicial);
         
         mnuConfiguracionEntornosPrueba = new JMenuItem();
-        mnuConfiguracionEntornosPrueba.setActionCommand(MDSQLConstants.MNU_CONFIGURACION_ENTORNOS_PRUEBA); // NOI18N
+        mnuConfiguracionEntornosPrueba.setActionCommand(Constants.MNU_CONFIGURACION_ENTORNOS_PRUEBA); // NOI18N
         mnuScriptInicial.add(mnuConfiguracionEntornosPrueba);
         
         mnuMantenimientoHistorico = new JMenu();
-        mnuMantenimientoHistorico.setActionCommand(MDSQLConstants.MNU_MANTENIMIENTO_HISTORICO); // NOI18N
+        mnuMantenimientoHistorico.setActionCommand(Constants.MNU_MANTENIMIENTO_HISTORICO); // NOI18N
 
         add(mnuPermisos);
         add(mnuEntornos);
