@@ -48,7 +48,6 @@ public class PantallaEjecutarTypes extends FrameSupport {
     private JLabel jLabel7;
     private JScrollPane jScrollPane1;
     private JTable tblTypes;
-    
     @Getter
     private JTextField jTextField1;
 
