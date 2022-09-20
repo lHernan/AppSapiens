@@ -4,6 +4,7 @@
  */
 package com.mdsql.ui.modelos;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
@@ -64,6 +65,9 @@ public class PantallaSeleccionHistorico extends DialogSupport {
         btnAddHistorico = new JButton();
         btnGenerarHistorico = new JButton();
         btnCancelar = new JButton();
+        
+        setPreferredSize(new Dimension(1418, 586));
+        setResizable(Boolean.TRUE);
 
         jScrollPane1.setViewportView(tblHistorico);
 
