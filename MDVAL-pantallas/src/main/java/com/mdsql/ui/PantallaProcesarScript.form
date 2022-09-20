@@ -263,6 +263,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEsquema">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEsquemaActionPerformed"/>
       </Events>
@@ -283,13 +286,22 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkGenerarHistorico">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtBBDDHistorico">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBBDDHistoricoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEsquemaHistorico">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEsquemaHistoricoActionPerformed"/>
       </Events>

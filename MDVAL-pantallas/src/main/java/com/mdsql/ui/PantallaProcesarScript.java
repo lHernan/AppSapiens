@@ -102,6 +102,7 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
             }
         });
 
+        txtEsquema.setEditable(false);
         txtEsquema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEsquemaActionPerformed(evt);
@@ -110,12 +111,16 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
 
         cmbBBDD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        chkGenerarHistorico.setEnabled(false);
+
+        txtBBDDHistorico.setEditable(false);
         txtBBDDHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBBDDHistoricoActionPerformed(evt);
             }
         });
 
+        txtEsquemaHistorico.setEditable(false);
         txtEsquemaHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEsquemaHistoricoActionPerformed(evt);
