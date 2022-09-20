@@ -150,7 +150,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		btnExcepcion = new JButton();
 
 		setPreferredSize(new Dimension(1297, 758));
-
+		setResizable(Boolean.TRUE);
+		
 		jScrollPane2.setViewportView(tblVigente);
 
 		jScrollPane3.setViewportView(tblHistorico);

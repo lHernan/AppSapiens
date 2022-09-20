@@ -98,6 +98,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
         lblTitulo = new JLabel();
         
         setPreferredSize(new Dimension(1418, 586));
+        setResizable(Boolean.TRUE);
 
         jScrollPane2.setViewportView(tblModelos);
 

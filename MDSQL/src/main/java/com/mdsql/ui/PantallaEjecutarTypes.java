@@ -4,6 +4,7 @@
  */
 package com.mdsql.ui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
@@ -118,7 +119,10 @@ public class PantallaEjecutarTypes extends DialogSupport {
         txtSolicitadaPor = new JTextField();
         txtEsquema = new JTextField();
         txtBBDD = new JTextField();
-
+        
+        setPreferredSize(new Dimension(1297, 758));
+        setResizable(Boolean.TRUE);
+        
         jScrollPane1.setViewportView(tblTypes);
 
         GroupLayout layout = new GroupLayout(getContentPane());
