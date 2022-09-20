@@ -19,10 +19,16 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 
+import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
+import com.mdsql.ui.listener.tables.AvisosTableListener;
+import com.mdsql.ui.listener.tables.UltimasPeticionesTableListener;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
@@ -34,6 +40,7 @@ import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -105,6 +112,14 @@ public class PantallaProcesarScript extends DialogSupport {
 	@Getter
 	private JButton btnLimpiar;
 	// End of variables declaration//GEN-END:variables
+	
+	@Getter
+	@Setter
+	private Aviso avisoSeleccionado;
+	
+	@Getter
+	@Setter
+	private Proceso procesoSeleccionado;
 	
 	/**
 	 * @param params
@@ -295,6 +310,8 @@ public class PantallaProcesarScript extends DialogSupport {
 	@Override
 	protected void initEvents() {
 		ActionListener actionListener = new PantallaProcesarScriptActionListener(this);
+		ListSelectionListener avisosSelectionListener = new AvisosTableListener(this);
+		ListSelectionListener ultimasPeticionesSelectionListener = new UltimasPeticionesTableListener(this);
 
 		jButton1.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);
 		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
@@ -304,6 +321,12 @@ public class PantallaProcesarScript extends DialogSupport {
 		jButton1.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 		btnProcesar.addActionListener(actionListener);
+		
+		ListSelectionModel avisosRowSM = tblNotas.getSelectionModel();
+		avisosRowSM.addListSelectionListener(avisosSelectionListener);
+		
+		ListSelectionModel ultimasPeticionesRowSM = tblUltimasPeticiones.getSelectionModel();
+		ultimasPeticionesRowSM.addListSelectionListener(ultimasPeticionesSelectionListener);
 	}
 
 	@Override
