@@ -2,14 +2,18 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Objects;
 
 import javax.swing.JButton;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.model.SubProyectoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
@@ -93,6 +97,16 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			pantallaProcesarScript.getTxtEsquemaHistorico().setText(seleccionado.getNombreEsquema());
 			pantallaProcesarScript.getChkGenerarHistorico()
 					.setSelected(AppHelper.normalizeCheckValue(seleccionado.getMcaHis()));
+			
+			List<SubProyecto> subProyectos = seleccionado.getSubproyectos();
+			if (CollectionUtils.isNotEmpty(subProyectos)) {
+				SubProyectoComboBoxModel modelSubProyectos = new SubProyectoComboBoxModel(subProyectos);
+				pantallaProcesarScript.getCmbSubmodelo().setModel(modelSubProyectos);
+				
+				if (subProyectos.size() == 1) {
+					pantallaProcesarScript.getCmbSubmodelo().setSelectedItem(subProyectos.get(0));
+				}
+			}
 
 			pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.TRUE);
 		}

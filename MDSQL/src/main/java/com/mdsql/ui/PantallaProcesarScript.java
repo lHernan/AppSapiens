@@ -21,10 +21,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
+import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.renderer.SubProyectoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
@@ -45,8 +47,7 @@ public class PantallaProcesarScript extends DialogSupport {
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private JButton btnCancelar;
 	private JButton btnVerProcesado;
-	private JComboBox<String> cmbBBDD;
-	private JComboBox<String> cmbSubmodelo;
+	
 	private JButton jButton1;
 	private JLabel jLabel1;
 	private JLabel jLabel10;
@@ -85,15 +86,23 @@ public class PantallaProcesarScript extends DialogSupport {
 	
 	@Getter
 	private JTable tblNotas;
-	// End of variables declaration//GEN-END:variables
+	
+	@Getter
 	private JTable tblUltimasPeticiones;
+	
+	@Getter
+	private JComboBox<SubProyecto> cmbSubmodelo;
+	
+	@Getter
+	private JComboBox<String> cmbBBDD;
 	
 	@Getter
 	private JButton btnProcesar;
 	
 	@Getter
 	private JButton btnLimpiar;
-
+	// End of variables declaration//GEN-END:variables
+	
 	/**
 	 * @param params
 	 */
@@ -296,7 +305,7 @@ public class PantallaProcesarScript extends DialogSupport {
 
 	@Override
 	protected void initModels() {
-		cmbSubmodelo.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
 
 		cmbBBDD.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
