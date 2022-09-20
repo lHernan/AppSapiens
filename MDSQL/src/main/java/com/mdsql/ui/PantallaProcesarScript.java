@@ -8,7 +8,6 @@ package com.mdsql.ui;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,11 +20,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
+import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.renderer.BBDDRenderer;
 import com.mdsql.ui.renderer.SubProyectoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
@@ -46,7 +47,6 @@ public class PantallaProcesarScript extends DialogSupport {
 	private static final long serialVersionUID = -7845375531319490239L;
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private JButton btnCancelar;
-	private JButton btnVerProcesado;
 	
 	private JButton jButton1;
 	private JLabel jLabel1;
@@ -94,7 +94,10 @@ public class PantallaProcesarScript extends DialogSupport {
 	private JComboBox<SubProyecto> cmbSubmodelo;
 	
 	@Getter
-	private JComboBox<String> cmbBBDD;
+	private JComboBox<BBDD> cmbBBDD;
+	
+	@Getter
+	private JButton btnVerProcesado;
 	
 	@Getter
 	private JButton btnProcesar;
@@ -306,9 +309,8 @@ public class PantallaProcesarScript extends DialogSupport {
 	@Override
 	protected void initModels() {
 		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
-
-		cmbBBDD.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
+		cmbBBDD.setRenderer(new BBDDRenderer());
+		
 		Cabecera cabeceraNotas = MDSQLUIHelper.createCabeceraTabla(Constants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA);
 		tblNotas.setModel(
 				new ProcesarScriptNotaTableModel(cabeceraNotas.getColumnIdentifiers(), cabeceraNotas.getColumnClasses()));
@@ -325,6 +327,7 @@ public class PantallaProcesarScript extends DialogSupport {
         chkGenerarHistorico.setEnabled(false);
         txtBBDDHistorico.setEditable(false);
         txtEsquemaHistorico.setEditable(false);
+        btnVerProcesado.setEnabled(Boolean.FALSE);
         btnProcesar.setEnabled(Boolean.FALSE);
         btnLimpiar.setEnabled(Boolean.FALSE);
 	}
