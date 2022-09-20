@@ -15,7 +15,12 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class InputSeleccionarProcesados implements Serializable {
 
-    private String pCodigoPeticion;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6491053159448299653L;
+	
+	private String pCodigoPeticion;
     private String pCodigoUsuarioPeticion;
     private Date pFechaInicio;
     private Date pFechaFin;

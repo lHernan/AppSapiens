@@ -2,14 +2,14 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.Peticion;
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdval.ui.model.DefaultTableModel;
 
 /**
  * @author federico
  *
  */
-public class ProcesarScriptUltimasPeticionesTableModel extends DefaultTableModel<Peticion> {
+public class ProcesarScriptUltimasPeticionesTableModel extends DefaultTableModel<Proceso> {
 
 	/**
 	 * 
@@ -29,27 +29,27 @@ public class ProcesarScriptUltimasPeticionesTableModel extends DefaultTableModel
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public ProcesarScriptUltimasPeticionesTableModel(List<Peticion> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public ProcesarScriptUltimasPeticionesTableModel(List<Proceso> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Peticion row = data.get(rowIndex);
+		Proceso row = data.get(rowIndex);
 		
 		if (0 == columnIndex) {
-			return row.getPeticion();
+			return row.getCodigoPeticion();
 		} else if (1 == columnIndex) {
-			return row.getSolicitado();
+			return row.getCodigoUsrPeticion();
 		} else if (2 == columnIndex) {
-			return row.getEstado();
+			return row.getDescripcionEstadoProceso();
 		} else if (3 == columnIndex) {
-			return row.getFecha();
+			return row.getFechaInicio();
 		} else if (4 == columnIndex) {
-			return row.getUsuario();
+			return row.getCodigoUsr();
 		} else if (5 == columnIndex) {
-			return row.getDescripcion();
+			return row.getTxtDescripcion();
 		} else if (6 == columnIndex) {
-			return row.getComentarioEntrega();	
+			return row.getTxtObservacionEntrega();	
 		} 
  
 		return null;

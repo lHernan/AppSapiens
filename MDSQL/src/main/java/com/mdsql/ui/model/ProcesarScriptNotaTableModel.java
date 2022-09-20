@@ -2,14 +2,14 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.Nota;
+import com.mdsql.bussiness.entities.Aviso;
 import com.mdval.ui.model.DefaultTableModel;
 
 /**
  * @author federico
  *
  */
-public class ProcesarScriptNotaTableModel extends DefaultTableModel<Nota> {
+public class ProcesarScriptNotaTableModel extends DefaultTableModel<Aviso> {
 
 	/**
 	 * 
@@ -29,27 +29,27 @@ public class ProcesarScriptNotaTableModel extends DefaultTableModel<Nota> {
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public ProcesarScriptNotaTableModel(List<Nota> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public ProcesarScriptNotaTableModel(List<Aviso> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Nota row = data.get(rowIndex);
+		Aviso row = data.get(rowIndex);
 		
 		if (0 == columnIndex) {
-			return row.getNivel();
+			return row.getDescripcionNivelAviso();
 		} else if (1 == columnIndex) {
-			return row.getTitulo();
+			return row.getTxtAviso();
 		} else if (2 == columnIndex) {
-			return row.getDescripcion();
+			return row.getDescripcionAviso();
 		} else if (3 == columnIndex) {
-			return row.getPeticion();
+			return row.getCodigoPeticion();
 		} else if (4 == columnIndex) {
-			return row.getHabilitado();
+			return row.getMcaHabilitado();
 		} else if (5 == columnIndex) {
-			return row.getUsuario();
+			return row.getCodigoUsuario();
 		} else if (6 == columnIndex) {
-			return row.getActualizado();	
+			return row.getFechaActualizacion();	
 		} 
  
 		return null;
