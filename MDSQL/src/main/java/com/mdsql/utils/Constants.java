@@ -61,7 +61,10 @@ public class Constants {
 	public static final String PAQUETE = "paquete";
 	
 	public static final String FORMATO_LLAMADA = "%s.%s";
-	
+	public static final String FORMATO_CONEXION = "jdbc:oracle:thin:@%s";
+	public static final String TNS_ADMIN_PROPERTY = "oracle.net.tns_admin";
+	public static final String ORACLE_DRIVER_NAME = "oracle.jdbc.OracleDriver";
+
 	public static final String CALL_03_ARGS = "{call %s(?,?,?)}";
 	public static final String CALL_04_ARGS = "{call %s(?,?,?,?)}";
 	public static final String CALL_05_ARGS = "{call %s(?,?,?,?,?)}";

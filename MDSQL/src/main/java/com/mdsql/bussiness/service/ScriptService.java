@@ -15,4 +15,6 @@ public interface ScriptService {
 
     OutputExcepcionScript excepcionScript(BigDecimal idProceso, BigDecimal numeroOrden, String txtComentario, String codigoUsuario);
 
+    boolean executeScriptFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation);
+
 }

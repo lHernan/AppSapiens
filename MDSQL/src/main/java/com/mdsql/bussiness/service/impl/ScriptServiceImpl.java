@@ -1,9 +1,13 @@
 package com.mdsql.bussiness.service.impl;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Struct;
 import java.sql.Types;
@@ -13,6 +17,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.mdsql.utils.ConfigurationSingleton;
+import oracle.dbtools.raptor.newscriptrunner.ScriptExecutor;
+import oracle.dbtools.raptor.newscriptrunner.ScriptRunnerContext;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -216,6 +224,36 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
             LogWrapper.error(log, "[ScriptService.excepcionScript] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    @SneakyThrows
+    public boolean executeScriptFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation) {
+        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+        String tnsNamesRoute = configuration.getConfig("RutaTnsNamesORA");
+        System.setProperty(Constants.TNS_ADMIN_PROPERTY, tnsNamesRoute);
+        Class.forName(Constants.ORACLE_DRIVER_NAME);
+        ScriptExecutor sqlcl;
+        String connection = String.format(Constants.FORMATO_CONEXION, nombreBBDD);
+        try (Connection conn = DriverManager.getConnection(connection, nombreEsquema, password)) {
+            conn.setAutoCommit(false);
+            sqlcl = new ScriptExecutor(conn);
+            ScriptRunnerContext ctx = new ScriptRunnerContext();
+            sqlcl.setScriptRunnerContext(ctx);
+            ctx.setBaseConnection(conn);
+        }
+
+        // Capture the results without this it goes to STDOUT
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        BufferedOutputStream buf = new BufferedOutputStream(bout);
+        sqlcl.setOut(buf);
+        sqlcl.setStmt("@".concat(fileLocation));
+        sqlcl.run();
+
+        String results = bout.toString(StandardCharsets.UTF_8.name());
+        results = results.replaceAll(" force_print\n", "");
+        LogWrapper.debug(log, "[ScriptService.executeScriptFile] Resultados: %s", results);
+        return StringUtils.containsIgnoreCase(results, Constants.ERROR);
     }
 
 }
