@@ -75,11 +75,19 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	private void eventBtnLimpiar() {
 		pantallaProcesarScript.getTxtModelo().setText(StringUtils.EMPTY);
 		pantallaProcesarScript.getTxtEsquema().setText(StringUtils.EMPTY);
-		pantallaProcesarScript.getTxtBBDDHistorico().setText(StringUtils.EMPTY);
-		pantallaProcesarScript.getTxtEsquemaHistorico().setText(StringUtils.EMPTY);
 		pantallaProcesarScript.getChkGenerarHistorico().setSelected(Boolean.FALSE);
+		pantallaProcesarScript.getChkGenerarHistorico().setEnabled(Boolean.FALSE);
+		pantallaProcesarScript.getTxtEsquema().setText(StringUtils.EMPTY);
+  	  	pantallaProcesarScript.getTxtBBDDHistorico().setText(StringUtils.EMPTY);
+  	  	pantallaProcesarScript.getTxtEsquemaHistorico().setText(StringUtils.EMPTY);
+
+		((ProcesarScriptNotaTableModel) pantallaProcesarScript.getTblNotas().getModel()).clearData();
+		((ProcesarScriptUltimasPeticionesTableModel) pantallaProcesarScript.getTblUltimasPeticiones().getModel())
+				.clearData();
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.FALSE);
+		pantallaProcesarScript.getBtnVerProcesado().setEnabled(Boolean.FALSE);
+		pantallaProcesarScript.getBtnProcesar().setEnabled(Boolean.FALSE);
 	}
 
 	/**
@@ -123,6 +131,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		fillChkHistorico(seleccionado);
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.TRUE);
+		pantallaProcesarScript.getBtnProcesar().setEnabled(Boolean.TRUE);
 	}
 
 	/**
@@ -205,8 +214,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void populateModelAvisos(List<Aviso> avisos) {
 		// Obtiene el modelo y lo actualiza
-		ProcesarScriptNotaTableModel tableModel = (ProcesarScriptNotaTableModel) pantallaProcesarScript
-				.getTblNotas().getModel();
+		ProcesarScriptNotaTableModel tableModel = (ProcesarScriptNotaTableModel) pantallaProcesarScript.getTblNotas()
+				.getModel();
 		tableModel.setData(avisos);
 	}
 

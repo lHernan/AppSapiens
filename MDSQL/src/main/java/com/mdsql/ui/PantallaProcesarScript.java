@@ -6,6 +6,7 @@
 package com.mdsql.ui;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -27,6 +28,7 @@ import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
+import com.mdsql.ui.listener.combo.BBDDItemListener;
 import com.mdsql.ui.listener.tables.AvisosTableListener;
 import com.mdsql.ui.listener.tables.UltimasPeticionesTableListener;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
@@ -312,6 +314,7 @@ public class PantallaProcesarScript extends DialogSupport {
 		ActionListener actionListener = new PantallaProcesarScriptActionListener(this);
 		ListSelectionListener avisosSelectionListener = new AvisosTableListener(this);
 		ListSelectionListener ultimasPeticionesSelectionListener = new UltimasPeticionesTableListener(this);
+		ItemListener itemListener = new BBDDItemListener(this);
 
 		jButton1.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);
 		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
@@ -327,6 +330,8 @@ public class PantallaProcesarScript extends DialogSupport {
 		
 		ListSelectionModel ultimasPeticionesRowSM = tblUltimasPeticiones.getSelectionModel();
 		ultimasPeticionesRowSM.addListSelectionListener(ultimasPeticionesSelectionListener);
+		
+		cmbBBDD.addItemListener(itemListener);
 	}
 
 	@Override
