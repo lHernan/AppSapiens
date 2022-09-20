@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
@@ -78,9 +79,27 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 							.mcaGrantAll((String) cols[7])
 							.mcaGrantPublic((String) cols[8])
 							.mcaInh((String) cols[9])
-							.observaciones((String) cols[10])
-							.entregaPDC((String) cols[11])
+							.mcaHis((String) cols[10])
+							.observaciones((String) cols[11])
+							.entregaPDC((String) cols[12])
 							.build();
+					
+					// Lista de subproyectos
+					List<SubProyecto> subProyectos = new ArrayList<>();
+					Array arraySubProyectos = callableStatement.getArray(12);
+					if (arraySubProyectos != null) {
+						Object[] subs = (Object[]) arraySubProyectos.getArray();
+						for (Object sub : subs) {
+							Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
+
+							SubProyecto subProyecto = SubProyecto.builder()
+									.codigoSubProyecto((String) sub_cols[0])
+									.descripcionSubProyecto((String) sub_cols[1])
+									.build();
+							subProyectos.add(subProyecto);
+						}
+					}
+					modelo.setSubproyectos(subProyectos);
 
 					modelos.add(modelo);
 				}

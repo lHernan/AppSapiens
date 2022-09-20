@@ -1,6 +1,7 @@
 package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,8 @@ public class Modelo implements Serializable {
 	private String mcaGrantAll;
 	private String mcaGrantPublic;
 	private String mcaInh;
+	private String mcaHis;
 	private String observaciones;
 	private String entregaPDC;
+	private List<SubProyecto> subproyectos;
 }

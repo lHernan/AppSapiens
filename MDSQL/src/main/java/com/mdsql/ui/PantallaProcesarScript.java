@@ -44,10 +44,7 @@ public class PantallaProcesarScript extends DialogSupport {
 	private static final long serialVersionUID = -7845375531319490239L;
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private JButton btnCancelar;
-	private JButton btnLimpiar;
-	private JButton btnProcesar;
 	private JButton btnVerProcesado;
-	private JCheckBox chkGenerarHistorico;
 	private JComboBox<String> cmbBBDD;
 	private JComboBox<String> cmbSubmodelo;
 	private JButton jButton1;
@@ -66,18 +63,36 @@ public class PantallaProcesarScript extends DialogSupport {
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
 	private JScrollPane jScrollPane3;
-	private JTextField txtBBDDHistorico;
 	private JTextArea txtDescripcion;
-	private JTextField txtEsquema;
-	private JTextField txtEsquemaHistorico;
+	
 	private JTextField txtPeticion;
 	private JTextField txtSolicitadaPor;
 
 	@Getter
 	private JTextField txtModelo;
+	
+	@Getter
+	private JTextField txtEsquema;
+	
+	@Getter
+	private JTextField txtBBDDHistorico;
+	
+	@Getter
+	private JTextField txtEsquemaHistorico;
+	
+	@Getter
+	private JCheckBox chkGenerarHistorico;
+	
+	@Getter
 	private JTable tblNotas;
 	// End of variables declaration//GEN-END:variables
 	private JTable tblUltimasPeticiones;
+	
+	@Getter
+	private JButton btnProcesar;
+	
+	@Getter
+	private JButton btnLimpiar;
 
 	/**
 	 * @param params
@@ -135,7 +150,6 @@ public class PantallaProcesarScript extends DialogSupport {
         jButton1.setIcon(new ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
 
         jScrollPane2.setViewportView(tblNotas);
-
         jScrollPane3.setViewportView(tblUltimasPeticiones);
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -273,6 +287,7 @@ public class PantallaProcesarScript extends DialogSupport {
 		jButton1.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);
 		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
 		btnProcesar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
+		btnLimpiar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_LIMPIAR);
 
 		jButton1.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
@@ -297,8 +312,12 @@ public class PantallaProcesarScript extends DialogSupport {
 
 	@Override
 	protected void initialState() {
-		// TODO Auto-generated method stub
-
+		txtEsquema.setEditable(false);
+        chkGenerarHistorico.setEnabled(false);
+        txtBBDDHistorico.setEditable(false);
+        txtEsquemaHistorico.setEditable(false);
+        btnProcesar.setEnabled(Boolean.FALSE);
+        btnLimpiar.setEnabled(Boolean.FALSE);
 	}
 
 	@Override
