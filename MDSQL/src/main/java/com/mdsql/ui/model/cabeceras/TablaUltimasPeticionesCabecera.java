@@ -1,5 +1,7 @@
 package com.mdsql.ui.model.cabeceras;
 
+import java.util.Date;
+
 /**
  * @author federico
  *
@@ -18,7 +20,7 @@ public class TablaUltimasPeticionesCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
-		columnClasses.add(String.class);
+		columnClasses.add(Date.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
