@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.sql.DataSource;
 
@@ -86,7 +87,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 					
 					// Lista de subproyectos
 					Array arraySubProyectos = callableStatement.getArray(13);
-					if (arraySubProyectos != null) {
+					if (!Objects.isNull(arraySubProyectos)) {
 						List<SubProyecto> subProyectos = new ArrayList<>();
 						Object[] subs = (Object[]) arraySubProyectos.getArray();
 						for (Object sub : subs) {
