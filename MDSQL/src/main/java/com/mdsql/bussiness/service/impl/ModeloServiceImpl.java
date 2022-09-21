@@ -85,9 +85,9 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 							.build();
 					
 					// Lista de subproyectos
-					List<SubProyecto> subProyectos = new ArrayList<>();
 					Array arraySubProyectos = callableStatement.getArray(13);
 					if (arraySubProyectos != null) {
+						List<SubProyecto> subProyectos = new ArrayList<>();
 						Object[] subs = (Object[]) arraySubProyectos.getArray();
 						for (Object sub : subs) {
 							Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
@@ -98,9 +98,10 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 									.build();
 							subProyectos.add(subProyecto);
 						}
+						
+						modelo.setSubproyectos(subProyectos);
 					}
-					modelo.setSubproyectos(subProyectos);
-
+					
 					modelos.add(modelo);
 				}
 			}
