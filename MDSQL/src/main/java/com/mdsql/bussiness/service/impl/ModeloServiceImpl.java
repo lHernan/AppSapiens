@@ -86,7 +86,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 							.build();
 					
 					// Lista de subproyectos
-					Array arraySubProyectos = callableStatement.getArray(13);
+					Array arraySubProyectos = (Array) cols[13];
 					if (!Objects.isNull(arraySubProyectos)) {
 						List<SubProyecto> subProyectos = new ArrayList<>();
 						Object[] subs = (Object[]) arraySubProyectos.getArray();
