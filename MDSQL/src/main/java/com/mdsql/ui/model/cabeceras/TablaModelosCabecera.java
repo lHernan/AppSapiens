@@ -11,22 +11,12 @@ public class TablaModelosCabecera extends Cabecera {
 		columnIdentifiers.add(literales.getLiteral("tblModelos.nombreModelo"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.nombreEsquema"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.nombreBbdd"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.codigoGrupoBds"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.nombreCarpetaAdj"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.codigoNorma"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.descripcionNorma"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.nomApnCmdb"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.codigoGlosario"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.descripcionGlosario"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.codigoHerramienta"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.observacionesModelo"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.codigoCapaUsrown"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.mcaVariables"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.mcaGrantAll"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.mcaGrantPublic"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.mcaInh"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.codigoUsuario"));
-//		columnIdentifiers.add(literales.getLiteral("tblModelos.fechaActualizacion"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.observaciones"));
 		columnIdentifiers.add(literales.getLiteral("tblModelos.entregaPDC"));
 		
@@ -34,22 +24,12 @@ public class TablaModelosCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
-//		columnClasses.add(String.class);
-		columnClasses.add(String.class);
-//		columnClasses.add(BigDecimal.class);
-//		columnClasses.add(String.class);
-//		columnClasses.add(String.class);
-//		columnClasses.add(BigDecimal.class);
-//		columnClasses.add(String.class);
-//		columnClasses.add(String.class);
-//		columnClasses.add(String.class);
-//		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
-//		columnClasses.add(String.class);
-//		columnClasses.add(Date.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 	}

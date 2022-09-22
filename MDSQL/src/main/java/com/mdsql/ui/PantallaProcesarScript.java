@@ -25,6 +25,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
@@ -114,6 +115,14 @@ public class PantallaProcesarScript extends DialogSupport {
 	@Getter
 	private JButton btnLimpiar;
 	// End of variables declaration//GEN-END:variables
+	
+	@Getter
+	@Setter
+	private Modelo modeloSeleccionado;
+	
+	@Getter
+	@Setter
+	private SubProyecto subproyectoSeleccionado;
 	
 	@Getter
 	@Setter

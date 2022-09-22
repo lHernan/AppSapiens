@@ -22,7 +22,6 @@ import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -37,8 +36,7 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
     private DataSource dataSource;
 
     @Override
-    @SneakyThrows
-    public List<Proceso> seleccionarProcesados(InputSeleccionarProcesados inputSeleccionarProcesados) {
+    public List<Proceso> seleccionarProcesados(InputSeleccionarProcesados inputSeleccionarProcesados) throws ServiceException {
         String runSP = createCall("p_sel_procesados", Constants.CALL_12_ARGS);
 
         try (Connection conn = dataSource.getConnection();
