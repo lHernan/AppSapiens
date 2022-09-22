@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.sql.DataSource;
 
@@ -85,9 +86,9 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 							.build();
 					
 					// Lista de subproyectos
-					List<SubProyecto> subProyectos = new ArrayList<>();
-					Array arraySubProyectos = callableStatement.getArray(13);
-					if (arraySubProyectos != null) {
+					Array arraySubProyectos = (Array) cols[13];
+					if (!Objects.isNull(arraySubProyectos)) {
+						List<SubProyecto> subProyectos = new ArrayList<>();
 						Object[] subs = (Object[]) arraySubProyectos.getArray();
 						for (Object sub : subs) {
 							Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
@@ -98,9 +99,10 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 									.build();
 							subProyectos.add(subProyecto);
 						}
+						
+						modelo.setSubproyectos(subProyectos);
 					}
-					modelo.setSubproyectos(subProyectos);
-
+					
 					modelos.add(modelo);
 				}
 			}
