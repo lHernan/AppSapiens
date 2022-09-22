@@ -5,7 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdsql.ui.PantallaEjecutarTypes;
+import com.mdsql.ui.model.EjecutarTypesTableModel;
+import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.utils.Constants;
 
@@ -44,7 +48,20 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	}
 	
 	public void eventBtnRechazar() {
+		pantallaEjecutarTypes.getTxtEstadoEjecucion().setText(StringUtils.EMPTY);
+		pantallaEjecutarTypes.getTxtModelo().setText(StringUtils.EMPTY);
+		pantallaEjecutarTypes.getTxtSubmodelo().setText(StringUtils.EMPTY);
+		pantallaEjecutarTypes.getTxtSD().setText(StringUtils.EMPTY);
+		pantallaEjecutarTypes.getTxtSolicitadaPor().setText(StringUtils.EMPTY);
+		pantallaEjecutarTypes.getTxtEsquema().setText(StringUtils.EMPTY);
+		pantallaEjecutarTypes.getTxtBBDD().setText(StringUtils.EMPTY);
 		
+		((EjecutarTypesTableModel) pantallaEjecutarTypes.getTblTypes().getModel().clearData()).clearData();
+		
+		pantallaEjecutarTypes.getBtnRechazar().setEnabled(Boolean.FALSE);
+		pantallaEjecutarTypes.getBtnVerCuadres().setEnabled(Boolean.FALSE);
+		pantallaEjecutarTypes.getBtnVerErrores().setEnabled(Boolean.FALSE);
+		pantallaEjecutarTypes.getBtnAceptar().setEnabled(Boolean.FALSE);
 	}
 
 	public void eventBtnVerCuadres() {
@@ -60,7 +77,7 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	}
 	
 	public void eventBtnCancelar() {
-		
+		pantallaEjecutarTypes.dispose();
 	}
 	
 }
