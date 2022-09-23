@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.service.AvisoService;
 import com.mdsql.bussiness.service.BBDDService;
 import com.mdsql.bussiness.service.ProcesoService;
+import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
@@ -78,8 +80,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		pantallaProcesarScript.getChkGenerarHistorico().setSelected(Boolean.FALSE);
 		pantallaProcesarScript.getChkGenerarHistorico().setEnabled(Boolean.FALSE);
 		pantallaProcesarScript.getTxtEsquema().setText(StringUtils.EMPTY);
-  	  	pantallaProcesarScript.getTxtBBDDHistorico().setText(StringUtils.EMPTY);
-  	  	pantallaProcesarScript.getTxtEsquemaHistorico().setText(StringUtils.EMPTY);
+		pantallaProcesarScript.getTxtBBDDHistorico().setText(StringUtils.EMPTY);
+		pantallaProcesarScript.getTxtEsquemaHistorico().setText(StringUtils.EMPTY);
 
 		((ProcesarScriptNotaTableModel) pantallaProcesarScript.getTblNotas().getModel()).clearData();
 		((ProcesarScriptUltimasPeticionesTableModel) pantallaProcesarScript.getTblUltimasPeticiones().getModel())
@@ -107,16 +109,23 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				Constants.CMD_SEARCH_MODEL);
 		MDSQLUIHelper.show(dialog);
 
-		Modelo seleccionado = (Modelo) dialog.getReturnParams().get("seleccionado");
-		if (!Objects.isNull(seleccionado)) {
-			procesarModelo(seleccionado);
+		try {
+			Modelo seleccionado = (Modelo) dialog.getReturnParams().get("seleccionado");
+			if (!Objects.isNull(seleccionado)) {
+				pantallaProcesarScript.setModeloSeleccionado(seleccionado);
+				procesarModelo();
+			}
+		} catch (ServiceException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, params);
 		}
 	}
 
 	/**
 	 * @param seleccionado
 	 */
-	private void procesarModelo(Modelo seleccionado) {
+	private void procesarModelo() throws ServiceException {
+		Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
 		pantallaProcesarScript.getTxtModelo().setText(seleccionado.getCodigoProyecto());
 		pantallaProcesarScript.getTxtEsquema().setText(seleccionado.getNombreEsquema());
 
@@ -126,7 +135,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 
 		fillAvisos(seleccionado);
 
-		fillBBDD(seleccionado);
+		fillBBDD(seleccionado, pantallaProcesarScript.getSubproyectoSeleccionado());
 
 		fillChkHistorico(seleccionado);
 
@@ -146,6 +155,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			// Si el modelo solo tiene un solo submodelo, se seleccionará directamente en el
 			// combo.
 			if (subProyectos.size() == 1) {
+				pantallaProcesarScript.setSubproyectoSeleccionado(subProyectos.get(0));
 				pantallaProcesarScript.getCmbSubmodelo().setSelectedItem(subProyectos.get(0));
 			}
 		}
@@ -154,7 +164,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	/**
 	 * @param seleccionado
 	 */
-	private void fillUltimasPeticiones(Modelo seleccionado) {
+	private void fillUltimasPeticiones(Modelo seleccionado) throws ServiceException {
 		InputSeleccionarProcesados inputSeleccionarProcesados = new InputSeleccionarProcesados();
 
 		inputSeleccionarProcesados.setPCodigoproyecto(seleccionado.getCodigoProyecto());
@@ -171,7 +181,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	/**
 	 * @param seleccionado
 	 */
-	private void fillAvisos(Modelo seleccionado) {
+	private void fillAvisos(Modelo seleccionado) throws ServiceException {
 		AvisoService avisoService = (AvisoService) getService(Constants.AVISO_SERVICE);
 		List<Aviso> avisos = avisoService.consultaAvisosModelo(seleccionado.getCodigoProyecto());
 
@@ -183,10 +193,15 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	/**
 	 * @param seleccionado
 	 */
-	private void fillBBDD(Modelo seleccionado) {
+	private void fillBBDD(Modelo modelo, SubProyecto subproyecto) throws ServiceException {
 		BBDDService bbddService = (BBDDService) getService(Constants.BBDD_SERVICE);
 
-		List<BBDD> bbdds = bbddService.consultaBBDDModelo(seleccionado.getCodigoProyecto());
+		String codigoProyecto = modelo.getCodigoProyecto();
+		String codigoSubproyecto = !Objects.isNull(subproyecto)
+				? subproyecto.getCodigoSubProyecto()
+				: null;
+
+		List<BBDD> bbdds = bbddService.consultaBBDDModelo(codigoProyecto, codigoSubproyecto);
 		if (CollectionUtils.isNotEmpty(bbdds)) {
 			BBDDComboBoxModel modelBBDD = new BBDDComboBoxModel(bbdds);
 			pantallaProcesarScript.getCmbBBDD().setModel(modelBBDD);

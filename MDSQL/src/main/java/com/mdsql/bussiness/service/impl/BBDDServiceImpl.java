@@ -33,9 +33,8 @@ public class BBDDServiceImpl extends ServiceSupport implements BBDDService {
     private DataSource dataSource;
 
     @Override
-    @SneakyThrows
-    public List<BBDD> consultaBBDDModelo(String codigoProyecto) {
-        String runSP = createCall("p_con_bbdd_modelo", Constants.CALL_04_ARGS);
+    public List<BBDD> consultaBBDDModelo(String codigoProyecto, String codSubproyecto) throws ServiceException {
+        String runSP = createCall("p_con_bbdd_modelo", Constants.CALL_05_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -43,23 +42,24 @@ public class BBDDServiceImpl extends ServiceSupport implements BBDDService {
             String typeBBDD = createCallType(Constants.T_T_BBDD);
             String typeError = createCallTypeError();
 
-            logProcedure(runSP, codigoProyecto);
+            logProcedure(runSP, codigoProyecto, codSubproyecto);
 
             callableStatement.setString(1, codigoProyecto);
-            callableStatement.registerOutParameter(2, Types.ARRAY, typeBBDD);
-            callableStatement.registerOutParameter(3, Types.INTEGER);
-            callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
+            callableStatement.setString(2, codSubproyecto);
+            callableStatement.registerOutParameter(3, Types.ARRAY, typeBBDD);
+            callableStatement.registerOutParameter(4, Types.INTEGER);
+            callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
 
             callableStatement.execute();
 
-            Integer result = callableStatement.getInt(3);
+            Integer result = callableStatement.getInt(4);
 
             if (result == 0) {
-                throw buildException(callableStatement.getArray(4));
+                throw buildException(callableStatement.getArray(5));
             }
 
             List<BBDD> bbdds = new ArrayList<>();
-            Array arrayBBDDs = callableStatement.getArray(2);
+            Array arrayBBDDs = callableStatement.getArray(3);
 
             if (arrayBBDDs != null) {
                 Object[] rows = (Object[]) arrayBBDDs.getArray();

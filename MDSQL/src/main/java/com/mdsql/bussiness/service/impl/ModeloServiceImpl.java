@@ -3,6 +3,7 @@ package com.mdsql.bussiness.service.impl;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,28 +81,13 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 							.mcaGrantAll((String) cols[7])
 							.mcaGrantPublic((String) cols[8])
 							.mcaInh((String) cols[9])
-							.mcaHis((String) cols[10])
-							.observaciones((String) cols[11])
+							.observaciones((String) cols[10])
+							.mcaHis((String) cols[11])
 							.entregaPDC((String) cols[12])
 							.build();
 					
 					// Lista de subproyectos
-					Array arraySubProyectos = (Array) cols[13];
-					if (!Objects.isNull(arraySubProyectos)) {
-						List<SubProyecto> subProyectos = new ArrayList<>();
-						Object[] subs = (Object[]) arraySubProyectos.getArray();
-						for (Object sub : subs) {
-							Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
-
-							SubProyecto subProyecto = SubProyecto.builder()
-									.codigoSubProyecto((String) sub_cols[0])
-									.descripcionSubProyecto((String) sub_cols[1])
-									.build();
-							subProyectos.add(subProyecto);
-						}
-						
-						modelo.setSubproyectos(subProyectos);
-					}
+					fillSubproyectos(modelo, cols);
 					
 					modelos.add(modelo);
 				}
@@ -111,6 +97,34 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 		} catch (Exception e) {
 			LogWrapper.error(log, "[ModeloService.consultaModelos] Error: %s", e.getMessage());
 			throw new ServiceException(e);
+		}
+	}
+
+	/**
+	 * @param modelo
+	 * @param arraySubProyectos
+	 * @throws SQLException
+	 */
+	private void fillSubproyectos(Modelo modelo, Object[] cols) throws SQLException {
+		try {
+			Array arraySubProyectos = (Array) cols[13];
+			if (!Objects.isNull(arraySubProyectos)) {
+				List<SubProyecto> subProyectos = new ArrayList<>();
+				Object[] subs = (Object[]) arraySubProyectos.getArray();
+				for (Object sub : subs) {
+					Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
+	
+					SubProyecto subProyecto = SubProyecto.builder()
+							.codigoSubProyecto((String) sub_cols[0])
+							.descripcionSubProyecto((String) sub_cols[1])
+							.build();
+					subProyectos.add(subProyecto);
+				}
+				
+				modelo.setSubproyectos(subProyectos);
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			LogWrapper.error(log, "[ModeloService.fillSubproyectos] Error: %s", e.getMessage());
 		}
 	}
 }
