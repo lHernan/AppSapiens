@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -86,6 +87,13 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		((ProcesarScriptNotaTableModel) pantallaProcesarScript.getTblNotas().getModel()).clearData();
 		((ProcesarScriptUltimasPeticionesTableModel) pantallaProcesarScript.getTblUltimasPeticiones().getModel())
 				.clearData();
+		
+		// Clear comboboxes
+		DefaultComboBoxModel<BBDD> bbddModel = new DefaultComboBoxModel<BBDD>();
+		pantallaProcesarScript.getCmbBBDD().setModel(bbddModel);
+		
+		DefaultComboBoxModel<SubProyecto> subproyectoModel = new DefaultComboBoxModel<SubProyecto>();
+		pantallaProcesarScript.getCmbSubmodelo().setModel(subproyectoModel);
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.FALSE);
 		pantallaProcesarScript.getBtnVerProcesado().setEnabled(Boolean.FALSE);
@@ -135,8 +143,11 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 
 		fillAvisos(seleccionado);
 
-		fillBBDD(seleccionado, pantallaProcesarScript.getSubproyectoSeleccionado());
-
+		SubProyecto subproyecto = pantallaProcesarScript.getSubproyectoSeleccionado();
+		if (!Objects.isNull(subproyecto)) {
+			fillBBDD(seleccionado, subproyecto);
+		}
+		
 		fillChkHistorico(seleccionado);
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.TRUE);
