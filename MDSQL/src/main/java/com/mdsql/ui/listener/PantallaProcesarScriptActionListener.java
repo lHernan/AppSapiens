@@ -104,9 +104,14 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 * 
 	 */
 	private void eventBtnProcesar() {
-		DialogSupport dialog = MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
-				Constants.CMD_SELECCION_HISTORICO);
-		MDSQLUIHelper.show(dialog);
+		Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
+		
+		// El modelo tiene histórico
+		if (Constants.S.equals(seleccionado.getMcaHis())) {
+			DialogSupport dialog = MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
+					Constants.CMD_SELECCION_HISTORICO);
+			MDSQLUIHelper.show(dialog);
+		}
 	}
 
 	/**

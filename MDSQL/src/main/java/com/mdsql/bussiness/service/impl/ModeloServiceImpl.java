@@ -82,8 +82,8 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 							.mcaGrantPublic((String) cols[8])
 							.mcaInh((String) cols[9])
 							.observaciones((String) cols[10])
-							.mcaHis((String) cols[11])
-							.entregaPDC((String) cols[12])
+							.entregaPDC((String) cols[11])
+							.mcaHis((String) cols[12])
 							.build();
 					
 					// Lista de subproyectos
