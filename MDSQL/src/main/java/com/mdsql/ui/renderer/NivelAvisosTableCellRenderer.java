@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.ColorCelda;
 
 public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
@@ -22,7 +23,7 @@ public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
 		String s = StringUtils.EMPTY;
 		if (valueAt != null) {
 			s = valueAt.toString();
-			setColorCelda(c, s, col);
+			setColorCelda(c, s, col, isSelected);
 		}
 
 		return c;
@@ -32,12 +33,13 @@ public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
 	 * @param c
 	 * @param s
 	 */
-	private void setColorCelda(Component c, String s, int col) {
+	private void setColorCelda(Component c, String s, int col, boolean isSelected) {
 		ColorCelda colorCelda = ColorCelda.getByName(s);
-		
+
 		c.setForeground(Color.black);
-		
-		Color color = (col == 0) ? colorCelda.getValue() : Color.WHITE; 
+
+		Color color = (col == 0) ? colorCelda.getValue()
+				: (!isSelected) ? Color.WHITE : Constants.CELL_SELECTED_BGCOLOR;
 		c.setBackground(color);
 	}
 }

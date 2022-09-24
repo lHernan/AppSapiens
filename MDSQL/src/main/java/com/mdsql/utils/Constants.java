@@ -146,6 +146,8 @@ public class Constants {
 			return null;
 		}
 	}
+	
+	public static final Color CELL_SELECTED_BGCOLOR = new Color(184, 207, 229);
 
 	/**
 	 * Menu de la aplicación
