@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import com.mdsql.bussiness.entities.ObjetoHis;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.HistoricoService;
-import com.mdsql.ui.modelos.PantallaSeleccionHistorico;
+import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;

@@ -7,8 +7,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.SeleccionModelosTableModel;
-import com.mdsql.ui.modelos.PantallaSeleccionModelos;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdval.utils.LogWrapper;
 
