@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -53,8 +53,8 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
 
             callableStatement.setString(1, inputSeleccionarProcesados.getPCodigoPeticion());
             callableStatement.setString(2, inputSeleccionarProcesados.getPCodigoUsuarioPeticion());
-            callableStatement.setDate(3, (Date) inputSeleccionarProcesados.getPFechaInicio());
-            callableStatement.setDate(4, (Date) inputSeleccionarProcesados.getPFechaFin());
+            callableStatement.setDate(3, (java.sql.Date) inputSeleccionarProcesados.getPFechaInicio());
+            callableStatement.setDate(4, (java.sql.Date) inputSeleccionarProcesados.getPFechaFin());
             callableStatement.setString(5, inputSeleccionarProcesados.getPCodigoUsuario());
             callableStatement.setString(6, inputSeleccionarProcesados.getPCodigoproyecto());
             callableStatement.setString(7,  inputSeleccionarProcesados.getPCodigoSubProyecto());
