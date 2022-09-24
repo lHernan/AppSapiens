@@ -36,6 +36,7 @@ import com.mdsql.ui.listener.tables.UltimasPeticionesTableListener;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
 import com.mdsql.ui.renderer.BBDDRenderer;
 import com.mdsql.ui.renderer.SubProyectoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -355,7 +356,8 @@ public class PantallaProcesarScript extends DialogSupport {
 		Cabecera cabeceraNotas = MDSQLUIHelper.createCabeceraTabla(Constants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA);
 		tblNotas.setModel(
 				new ProcesarScriptNotaTableModel(cabeceraNotas.getColumnIdentifiers(), cabeceraNotas.getColumnClasses()));
-
+		tblNotas.setDefaultRenderer(String.class, new NivelAvisosTableCellRenderer());
+		
 		Cabecera cabeceraUltimasPeticiones = MDSQLUIHelper
 				.createCabeceraTabla(Constants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA);
 		tblUltimasPeticiones.setModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraUltimasPeticiones.getColumnIdentifiers(),
