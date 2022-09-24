@@ -31,12 +31,17 @@ import com.mdsql.ui.model.SubProyectoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.utils.LogWrapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
+@Slf4j
 public class PantallaProcesarScriptActionListener extends ListenerSupport implements ActionListener {
 
 	private PantallaProcesarScript pantallaProcesarScript;
@@ -111,6 +116,17 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			DialogSupport dialog = MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
 					Constants.CMD_SELECCION_HISTORICO);
 			MDSQLUIHelper.show(dialog);
+		}
+		else {
+			Procesado procesado = pantallaProcesarScript.getProcesado();
+			
+			if (Procesado.TYPE.equals(procesado)) {
+				LogWrapper.debug(log, "p_procesa_type");
+			}
+			
+			if (Procesado.SCRIPT.equals(procesado)) {
+				LogWrapper.debug(log, "p_procesa_script");
+			}
 		}
 	}
 

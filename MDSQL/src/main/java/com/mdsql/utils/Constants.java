@@ -148,6 +148,11 @@ public class Constants {
 	}
 	
 	public static final Color CELL_SELECTED_BGCOLOR = new Color(184, 207, 229);
+	
+	// Modos para el procesado
+	public enum Procesado {
+		SCRIPT, TYPE
+	}
 
 	/**
 	 * Menu de la aplicación

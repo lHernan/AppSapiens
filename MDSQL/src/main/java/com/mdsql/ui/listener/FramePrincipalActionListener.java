@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -19,6 +20,7 @@ import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.utils.LogWrapper;
 
@@ -82,6 +84,15 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				framePrincipal.getFrmSQLScript().setTitle(file.getName());
 				framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
 				dumpContentToText(file, framePrincipal.getTxtSQLCode());
+				
+				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
+				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
+				framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);
+				
+				framePrincipal.getTabPanel().setSelectedIndex(0);
+				
+				// set the procesado
+				framePrincipal.setProcesado(Procesado.SCRIPT);
 			} catch (IOException e1) {
 				Map<String, Object> params = MDSQLUIHelper.buildError(e1);
 				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
@@ -95,7 +106,23 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	private void evtLoadScriptObjects() {
 		File file = loadScript();
 		if (!Objects.isNull(file)) {
-			
+			try {
+				framePrincipal.getFrmSQLScript().setTitle(file.getName());
+				framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
+				dumpContentToText(file, framePrincipal.getTxtSQLCode());
+				
+				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
+				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
+				framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
+				
+				framePrincipal.getTabPanel().setSelectedIndex(2);
+				
+				// set the procesado
+				framePrincipal.setProcesado(Procesado.TYPE);
+			} catch (IOException e1) {
+				Map<String, Object> params = MDSQLUIHelper.buildError(e1);
+				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
+			}
 		}
 	}
 	
@@ -103,7 +130,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtProcesarScript() {
-		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_PROCESAR_SCRIPT);
+		Map<String, Object> params = new HashMap<>();
+		params.put("procesado", framePrincipal.getProcesado());
+		
+		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, params);
 		MDSQLUIHelper.show(dialog);
 	}
 	

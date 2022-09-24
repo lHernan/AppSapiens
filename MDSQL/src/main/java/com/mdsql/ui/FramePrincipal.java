@@ -31,9 +31,11 @@ import javax.swing.table.DefaultTableModel;
 import com.mdsql.ui.listener.FramePrincipalActionListener;
 import com.mdsql.ui.menu.MainMenuBar;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -94,6 +96,10 @@ public class FramePrincipal extends FrameSupport {
 
     @Getter
 	private JTabbedPane tabPanel;
+    
+    @Getter
+    @Setter
+    private Procesado procesado;
     
 	/**
      * Creates new form Principal

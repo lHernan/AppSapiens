@@ -54,7 +54,7 @@ public class DialogCreator extends Creator {
 		}
 		
 		if (Constants.CMD_PROCESAR_SCRIPT.equals(option)) {
-			dialog = new PantallaProcesarScript(frameParent, modal);
+			dialog = new PantallaProcesarScript(frameParent, modal, params);
 		}
 		
 		if (Constants.CMD_EJECUTAR_SCRIPT.equals(option)) {
