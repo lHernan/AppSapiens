@@ -1,43 +1,47 @@
 package com.mdsql.bussiness.service.impl;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
-import java.sql.Array;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Struct;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.sql.DataSource;
-
-import com.mdsql.utils.ConfigurationSingleton;
-import oracle.dbtools.raptor.newscriptrunner.ScriptExecutor;
-import oracle.dbtools.raptor.newscriptrunner.ScriptRunnerContext;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.InputProcesaScript;
 import com.mdsql.bussiness.entities.ObjetoHis;
 import com.mdsql.bussiness.entities.OutputExcepcionScript;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
+import com.mdsql.bussiness.service.BBDDService;
+import com.mdsql.bussiness.service.EjecucionService;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.exceptions.ServiceException;
+import com.mdsql.utils.AppGlobalSingleton;
 import com.mdsql.utils.Constants;
 import com.mdval.utils.LogWrapper;
-
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.internal.OracleConnection;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Struct;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author hcarreno
@@ -48,6 +52,13 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private BBDDService bbddService;
+
+    @Autowired
+    private EjecucionService ejecucionService;
+
 
     @Override
     @SneakyThrows
@@ -137,9 +148,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
                     Script script = Script.builder()
                             .tipoScript((String) cols[0])
-                            .txtScript((String) cols[1])
+                            //.txtScript((String) cols[1]) //TODO doit like subproyectos
                             .nombreScript((String) cols[2])
-                            .codigoEstadoScript((String) cols[3])
+                            .codigoEstadoScript((BigDecimal) cols[3])
                             .descripcionEstadoScript((String) cols[4])
                             .numeroOrden((BigDecimal) cols[5])
                             .nombreScriptLanza((String) cols[6])
@@ -227,33 +238,121 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
     }
 
     @Override
-    @SneakyThrows
-    public boolean executeScriptFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation) {
-        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String tnsNamesRoute = configuration.getConfig("RutaTnsNamesORA");
-        System.setProperty(Constants.TNS_ADMIN_PROPERTY, tnsNamesRoute);
-        Class.forName(Constants.ORACLE_DRIVER_NAME);
-        ScriptExecutor sqlcl;
-        String connection = String.format(Constants.FORMATO_CONEXION, nombreBBDD);
-        try (Connection conn = DriverManager.getConnection(connection, nombreEsquema, password)) {
-            conn.setAutoCommit(false);
-            sqlcl = new ScriptExecutor(conn);
-            ScriptRunnerContext ctx = new ScriptRunnerContext();
-            sqlcl.setScriptRunnerContext(ctx);
-            ctx.setBaseConnection(conn);
+    public List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> listaVigente, List<Script> listaHistorico) {
+        String ruta = "C:/Users/herna/Documents/sapiens/pruebaServicio/"; //TODO obtener ruta usuario idProceso
+        String nombreEsquema = StringUtils.EMPTY;
+        String nombreBBDD = StringUtils.EMPTY;
+        String addExitToLanzaFile = System.lineSeparator().concat(Constants.EXIT);
+        String codigoUsuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
+        List<OutputRegistraEjecucion> listOutputLogs = new ArrayList<>();
+
+        if (!CollectionUtils.isEmpty(listaVigente)) {
+            listaVigente.sort(Comparator.comparing(Script::getNumeroOrden));
+            for (Script script : listaVigente) {
+                if (StringUtils.isNotBlank(script.getNombreScript())
+                        && CollectionUtils.isNotEmpty(script.getLineasScript())) {
+                    writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript());
+                }
+                if (StringUtils.isNotBlank(script.getNombreScriptLanza())
+                        && StringUtils.isNotBlank(script.getTxtScriptLanza())) {
+                    if (script.getNumeroOrden().compareTo(new BigDecimal("1")) == 0
+                            || script.getNumeroOrden().compareTo(new BigDecimal("2")) == 0) {
+                        nombreEsquema = bbdd.getNombreEsquema();
+                        nombreBBDD = bbdd.getNombreBBDD();
+                    }
+                    String lanzaFile = ruta.concat(script.getNombreScriptLanza());
+                    writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(addExitToLanzaFile));
+                    //String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, ""); //TODO uncomment to get password with token from config
+
+                    executeLanzaFile(nombreEsquema, nombreBBDD, "vigente", lanzaFile);
+                    String logFile = ruta.concat(script.getNombreScriptLog());
+                    List<TextoLinea> logLinesList = readLogFile(logFile);
+                    //TODO replace Bidecimal.ZERO with idProceso
+                    OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(BigDecimal.ZERO, script.getNumeroOrden(), codigoUsuario, logLinesList);
+                    listOutputLogs.add(outputRegistraEjecucion);
+
+                }
+            }
         }
 
-        // Capture the results without this it goes to STDOUT
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        BufferedOutputStream buf = new BufferedOutputStream(bout);
-        sqlcl.setOut(buf);
-        sqlcl.setStmt("@".concat(fileLocation));
-        sqlcl.run();
+        if (!CollectionUtils.isEmpty(listaHistorico)) {
+            listaHistorico.sort(Comparator.comparing(Script::getNumeroOrden));
+            for (Script script : listaHistorico) {
+                if (StringUtils.isNotBlank(script.getNombreScript())
+                        && CollectionUtils.isNotEmpty(script.getLineasScript())) {
+                    writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript());
+                }
+                if (StringUtils.isNotBlank(script.getNombreScriptLanza())
+                        && StringUtils.isNotBlank(script.getTxtScriptLanza())) {
+                    if (script.getNumeroOrden().compareTo(new BigDecimal("3")) == 0
+                            || script.getNumeroOrden().compareTo(new BigDecimal("4")) == 0) {
+                        nombreEsquema = bbdd.getNombreEsquemaHis();
+                        nombreBBDD = bbdd.getNombreBBDDHis();
+                    }
+                    String lanzaFile = ruta.concat(script.getNombreScriptLanza());
+                    writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(addExitToLanzaFile));
+                    //String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, ""); //TODO uncomment to get password with token from config
 
-        String results = bout.toString(StandardCharsets.UTF_8.name());
-        results = results.replaceAll(" force_print\n", "");
-        LogWrapper.debug(log, "[ScriptService.executeScriptFile] Resultados: %s", results);
-        return StringUtils.containsIgnoreCase(results, Constants.ERROR);
+                    executeLanzaFile(nombreEsquema, nombreBBDD, "vigente", lanzaFile);
+                    String logFile = ruta.concat(script.getNombreScriptLog());
+                    List<TextoLinea> logLinesList = readLogFile(logFile);
+                    //TODO replace Bidecimal.ZERO with idProceso
+                    OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(BigDecimal.ZERO, script.getNumeroOrden(), codigoUsuario, logLinesList);
+                    listOutputLogs.add(outputRegistraEjecucion);
+                }
+            }
+        }
+
+        return listOutputLogs;
+    }
+
+    @SneakyThrows
+    private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation) {
+
+        String connection = String.format(Constants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
+        ProcessBuilder processBuilder = new ProcessBuilder(Constants.SQL_PLUS,
+                connection, String.format(Constants.FORMATO_FICHERO, fileLocation));
+
+        processBuilder.redirectErrorStream(true);
+        Process process = processBuilder.start();
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String currentLine;
+
+        LogWrapper.debug(log, "[ScriptService.executeScriptFile] Inicio Ejecucion fichero: %s", fileLocation);
+        while (((currentLine = in.readLine()) != null)) {
+            LogWrapper.debug(log, " ".concat(currentLine));
+        }
+
+        in.close();
+        int exitCode = process.waitFor();
+
+        LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
+    }
+
+    @SneakyThrows
+    private static void writeFileFromString(Path path, String content) {
+        Files.write(path, content.getBytes(StandardCharsets.US_ASCII), StandardOpenOption.CREATE);
+    }
+
+    @SneakyThrows
+    private static void writeFileFromList(Path path, List<TextoLinea> textoLineaList) {
+        List<String> scriptLines = new ArrayList<>();
+        for (TextoLinea texto : textoLineaList) {
+            scriptLines.add(texto.getValor());
+        }
+        Files.write(path, scriptLines, StandardCharsets.US_ASCII, StandardOpenOption.CREATE);
+    }
+
+    @SneakyThrows
+    private static List<TextoLinea> readLogFile(String logPath) {
+        List<TextoLinea> logLinesList = new ArrayList<>();
+        List<String> allLines = Files.readAllLines(Paths.get(logPath));
+        for (String line : allLines) {
+            TextoLinea textoLinea = TextoLinea.builder().valor(line).build();
+            logLinesList.add(textoLinea);
+        }
+        return logLinesList;
     }
 
 }

@@ -57,6 +57,7 @@ public class Constants {
 	public static final String BBDD_SERVICE = "bbddService";
 	public static final String HISTORICO_SERVICE = "historicoService";
 	public static final String UTILS_SERVICE = "utilsService";
+	public static final String EJECUCION_SERVICE = "ejecucionService";
 
 	/**
 	 * DataBase Types and constants
@@ -64,9 +65,10 @@ public class Constants {
 	public static final String PAQUETE = "paquete";
 
 	public static final String FORMATO_LLAMADA = "%s.%s";
-	public static final String FORMATO_CONEXION = "jdbc:oracle:thin:@%s";
-	public static final String TNS_ADMIN_PROPERTY = "oracle.net.tns_admin";
-	public static final String ORACLE_DRIVER_NAME = "oracle.jdbc.OracleDriver";
+	public static final String FORMATO_CONEXION = "%s/%s@%s";
+	public static final String FORMATO_FICHERO = "@%s";
+	public static final String SQL_PLUS = "sqlplus";
+	public static final String EXIT = "exit";
 
 	public static final String CALL_03_ARGS = "{call %s(?,?,?)}";
 	public static final String CALL_04_ARGS = "{call %s(?,?,?,?)}";
