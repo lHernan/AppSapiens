@@ -2,6 +2,7 @@ package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,9 +21,9 @@ public class Script implements Serializable {
 	private static final long serialVersionUID = -3317596703100222456L;
 	
 	private String tipoScript;
-    private String txtScript;
+    private List<TextoLinea> lineasScript;
     private String nombreScript;
-    private String codigoEstadoScript;
+    private BigDecimal codigoEstadoScript;
     private String descripcionEstadoScript;
     private BigDecimal numeroOrden;
     private String nombreScriptLanza;
