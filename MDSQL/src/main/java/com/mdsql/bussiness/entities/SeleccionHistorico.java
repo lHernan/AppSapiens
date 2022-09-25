@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class SeleccionHistorica {
+public class SeleccionHistorico {
 	
-	private String configurado;
+	private Boolean configurado;
 	private String objeto;
 	private String tipo;
-	private String historico;
-	private String vigente;
+	private Boolean historico;
+	private Boolean vigente;
 }

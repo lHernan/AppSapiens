@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -100,6 +101,10 @@ public class FramePrincipal extends FrameSupport {
     @Getter
     @Setter
     private Procesado procesado;
+    
+    @Getter
+    @Setter
+    private List<String> lineasScript;
     
 	/**
      * Creates new form Principal

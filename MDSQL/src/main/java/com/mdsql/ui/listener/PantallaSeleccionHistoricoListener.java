@@ -7,15 +7,17 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
-import com.mdsql.bussiness.entities.ObjetoHis;
-import com.mdsql.bussiness.entities.TextoLinea;
-import com.mdsql.bussiness.service.HistoricoService;
+import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.service.ProcesoService;
+import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaSeleccionHistorico;
+import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.OnLoadListener;
 
-public class PantallaSeleccionHistoricoListener extends ListenerSupport implements ActionListener{
+public class PantallaSeleccionHistoricoListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private PantallaSeleccionHistorico pantallaSeleccionHistorico;
 	
@@ -41,6 +43,23 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void onLoad() {
+		try {
+			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
+			
+			String codigoProyecto = (String) pantallaSeleccionHistorico.getParams().get("codigoProyecto");
+			List<String> lineas = (List<String>) pantallaSeleccionHistorico.getParams().get("script");
+			List<SeleccionHistorico> seleccion = procesoService.seleccionarHistorico(codigoProyecto, lineas);
+			
+			populateModelSeleccion(seleccion);
+		} catch (ServiceException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaSeleccionHistorico.getFrameParent(), Constants.CMD_ERROR, params);
+		}
+	}
+	
 	private void añadirHistorico() {
 //		try {
 //			List<TextoLinea> lineasScript = pantallaSeleccionHistorico.getTxtLineasScript().getText();
@@ -54,17 +73,21 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 //		}
 	}
 	
-	private List<ObjetoHis> añadir(List<TextoLinea> lineasScript, String codigoProyecto) {
-		HistoricoService historicoService = (HistoricoService) getService(Constants.BBDD_SERVICE);
-		
-		return historicoService.seleccionarHistorico(lineasScript, codigoProyecto);
-	}
-	
 	private void generarHistorico() {
 		pantallaSeleccionHistorico.dispose();
 	}
 	
 	private void cancelar() {
 		pantallaSeleccionHistorico.dispose();
+	}
+	
+	/**
+	 * @param avisos
+	 */
+	private void populateModelSeleccion(List<SeleccionHistorico> seleccion) {
+		// Obtiene el modelo y lo actualiza
+		SeleccionHistoricoTableModel tableModel = (SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico()
+				.getModel();
+		tableModel.setData(seleccion);
 	}
 }

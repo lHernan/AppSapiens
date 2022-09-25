@@ -1,29 +1,5 @@
 package com.mdsql.bussiness.service.impl;
 
-import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.bussiness.entities.InputProcesaScript;
-import com.mdsql.bussiness.entities.ObjetoHis;
-import com.mdsql.bussiness.entities.OutputExcepcionScript;
-import com.mdsql.bussiness.entities.OutputProcesaScript;
-import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
-import com.mdsql.bussiness.entities.Script;
-import com.mdsql.bussiness.entities.TextoLinea;
-import com.mdsql.bussiness.service.BBDDService;
-import com.mdsql.bussiness.service.EjecucionService;
-import com.mdsql.bussiness.service.ScriptService;
-import com.mdsql.exceptions.ServiceException;
-import com.mdsql.utils.AppGlobalSingleton;
-import com.mdsql.utils.Constants;
-import com.mdval.utils.LogWrapper;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.internal.OracleConnection;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -43,6 +19,33 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.InputProcesaScript;
+import com.mdsql.bussiness.entities.OutputExcepcionScript;
+import com.mdsql.bussiness.entities.OutputProcesaScript;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.TextoLinea;
+import com.mdsql.bussiness.service.BBDDService;
+import com.mdsql.bussiness.service.ScriptService;
+import com.mdsql.exceptions.ServiceException;
+import com.mdsql.utils.AppGlobalSingleton;
+import com.mdsql.utils.Constants;
+import com.mdval.utils.AppHelper;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.internal.OracleConnection;
+
 /**
  * @author hcarreno
  */
@@ -56,8 +59,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
     @Autowired
     private BBDDService bbddService;
 
-    @Autowired
-    private EjecucionService ejecucionService;
+//    @Autowired
+//    private EjecucionService ejecucionService;
 
 
     @Override
@@ -96,9 +99,12 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
             Struct[] structObjHis = new Struct[inputProcesaScript.getListaObjetoHis().size()];
 
             int arrayIndexObjHis = 0;
-            for (ObjetoHis data : inputProcesaScript.getListaObjetoHis()) {
+            for (SeleccionHistorico data : inputProcesaScript.getListaObjetoHis()) {
+            	String mcaVigente = AppHelper.normalizeValueToCheck(data.getVigente());
+            	String mcaHistorico = AppHelper.normalizeValueToCheck(data.getHistorico());
+            	
                 structObjHis[arrayIndexObjHis++] = conn.createStruct(recordObjHis,
-                        new Object[]{data.getNombreObjeto(), data.getTipoObjeto(), data.getDescripcionTipoObjeto(), data.getMcaHis()});
+                        new Object[]{data.getObjeto(), data.getTipo(), mcaVigente, mcaHistorico});
             }
 
             Array arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
@@ -268,8 +274,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
                     String logFile = ruta.concat(script.getNombreScriptLog());
                     List<TextoLinea> logLinesList = readLogFile(logFile);
                     //TODO replace Bidecimal.ZERO with idProceso
-                    OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(BigDecimal.ZERO, script.getNumeroOrden(), codigoUsuario, logLinesList);
-                    listOutputLogs.add(outputRegistraEjecucion);
+//                    OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(BigDecimal.ZERO, script.getNumeroOrden(), codigoUsuario, logLinesList);
+//                    listOutputLogs.add(outputRegistraEjecucion);
 
                 }
             }
@@ -297,8 +303,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
                     String logFile = ruta.concat(script.getNombreScriptLog());
                     List<TextoLinea> logLinesList = readLogFile(logFile);
                     //TODO replace Bidecimal.ZERO with idProceso
-                    OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(BigDecimal.ZERO, script.getNumeroOrden(), codigoUsuario, logLinesList);
-                    listOutputLogs.add(outputRegistraEjecucion);
+//                    OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(BigDecimal.ZERO, script.getNumeroOrden(), codigoUsuario, logLinesList);
+//                    listOutputLogs.add(outputRegistraEjecucion);
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -113,8 +114,12 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		
 		// El modelo tiene histórico
 		if (Constants.S.equals(seleccionado.getMcaHis())) {
+			Map<String, Object> params = new HashMap<>();
+			params.put("codigoProyecto", seleccionado.getCodigoProyecto());
+			params.put("script", pantallaProcesarScript.getParams().get("script"));
+			
 			DialogSupport dialog = MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
-					Constants.CMD_SELECCION_HISTORICO);
+					Constants.CMD_SELECCION_HISTORICO, params);
 			MDSQLUIHelper.show(dialog);
 		}
 		else {
