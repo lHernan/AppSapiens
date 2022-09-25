@@ -30,7 +30,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (Constants.PANTALLA_SELECCION_HISTORICA_BTN_AÑADIR.equals(jButton.getActionCommand())) {
+		if (Constants.PANTALLA_SELECCION_HISTORICA_BTN_ADD.equals(jButton.getActionCommand())) {
 			addToHistorico();
 		}
 		

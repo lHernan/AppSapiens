@@ -107,7 +107,7 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 	protected void initEvents() {
 		PantallaSeleccionHistoricoListener actionListener = new PantallaSeleccionHistoricoListener(this);
 		
-		btnAddHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_AÑADIR);
+		btnAddHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_ADD);
 		btnGenerarHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR);
 		
