@@ -31,7 +31,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 		JButton jButton = (JButton) e.getSource();
 		
 		if (Constants.PANTALLA_SELECCION_HISTORICA_BTN_AÑADIR.equals(jButton.getActionCommand())) {
-			añadirHistorico();
+			addToHistorico();
 		}
 		
 		if (Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR.equals(jButton.getActionCommand())) {
@@ -60,7 +60,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 		}
 	}
 	
-	private void añadirHistorico() {
+	private void addToHistorico() {
 //		try {
 //			List<TextoLinea> lineasScript = pantallaSeleccionHistorico.getTxtLineasScript().getText();
 //			String codigoProyecto = pantallaSeleccionHistorico.getTxtCodigoProyecto().getText();
