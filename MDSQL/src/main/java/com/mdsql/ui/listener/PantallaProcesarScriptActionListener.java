@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -34,15 +35,11 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
-import com.mdval.utils.LogWrapper;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
-@Slf4j
 public class PantallaProcesarScriptActionListener extends ListenerSupport implements ActionListener {
 
 	private PantallaProcesarScript pantallaProcesarScript;
@@ -111,26 +108,36 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void eventBtnProcesar() {
 		Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
+		Proceso procesoSeleccionado = pantallaProcesarScript.getProcesoSeleccionado();
 		
 		// El modelo tiene histórico
 		if (Constants.S.equals(seleccionado.getMcaHis())) {
 			Map<String, Object> params = new HashMap<>();
 			params.put("codigoProyecto", seleccionado.getCodigoProyecto());
+			params.put("codigoPeticion", procesoSeleccionado.getCodigoPeticion());
 			params.put("script", pantallaProcesarScript.getParams().get("script"));
 			
 			DialogSupport dialog = MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
 					Constants.CMD_SELECCION_HISTORICO, params);
 			MDSQLUIHelper.show(dialog);
+			
+			Boolean continuarProcesado = (Boolean) dialog.getReturnParams().get("procesado");
+			if (continuarProcesado) {
+				procesarScript();
+			}
+			else {
+				JOptionPane.showMessageDialog(pantallaProcesarScript.getFrameParent(), "Operación cancelada");
+			}
 		}
 		else {
 			Procesado procesado = pantallaProcesarScript.getProcesado();
 			
 			if (Procesado.TYPE.equals(procesado)) {
-				LogWrapper.debug(log, "p_procesa_type");
+				procesarType();
 			}
 			
 			if (Procesado.SCRIPT.equals(procesado)) {
-				LogWrapper.debug(log, "p_procesa_script");
+				procesarScript();
 			}
 		}
 	}
@@ -177,7 +184,6 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		fillChkHistorico(seleccionado);
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.TRUE);
-		pantallaProcesarScript.getBtnProcesar().setEnabled(Boolean.TRUE);
 	}
 
 	/**
@@ -261,7 +267,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		}
 	}
 
-	/**
+	/**)
 	 * @param avisos
 	 */
 	private void populateModelAvisos(List<Aviso> avisos) {
@@ -279,5 +285,21 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		ProcesarScriptUltimasPeticionesTableModel tableModel = (ProcesarScriptUltimasPeticionesTableModel) pantallaProcesarScript
 				.getTblUltimasPeticiones().getModel();
 		tableModel.setData(peticiones);
+	}
+	
+	/**
+	 * 
+	 */
+	private void procesarScript() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * 
+	 */
+	private void procesarType() {
+		// TODO Auto-generated method stub
+		
 	}
 }

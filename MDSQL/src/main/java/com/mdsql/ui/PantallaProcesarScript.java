@@ -353,6 +353,7 @@ public class PantallaProcesarScript extends DialogSupport {
 		cmbSubmodelo.addItemListener(subproyectoItemListener);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
