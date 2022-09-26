@@ -305,7 +305,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		btnExcepcion.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_EXCEPCION);
 		btnAceptar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR);
-		
+
+		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 	}
 

@@ -12,10 +12,6 @@ import lombok.SneakyThrows;
  * @author federico
  *
  */
-/**
- * @author federico
- *
- */
 public class AppHelper {
 
 	/**

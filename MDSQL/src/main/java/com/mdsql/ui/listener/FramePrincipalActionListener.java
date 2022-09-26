@@ -6,6 +6,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -19,6 +22,7 @@ import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.utils.LogWrapper;
 
@@ -81,7 +85,17 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			try {
 				framePrincipal.getFrmSQLScript().setTitle(file.getName());
 				framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
-				dumpContentToText(file, framePrincipal.getTxtSQLCode());
+				List<String> lineas = dumpContentToText(file, framePrincipal.getTxtSQLCode());
+				framePrincipal.setLineasScript(lineas);
+				
+				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
+				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
+				framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);
+				
+				framePrincipal.getTabPanel().setSelectedIndex(0);
+				
+				// set the procesado
+				framePrincipal.setProcesado(Procesado.SCRIPT);
 			} catch (IOException e1) {
 				Map<String, Object> params = MDSQLUIHelper.buildError(e1);
 				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
@@ -95,7 +109,24 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	private void evtLoadScriptObjects() {
 		File file = loadScript();
 		if (!Objects.isNull(file)) {
-			
+			try {
+				framePrincipal.getFrmSQLScript().setTitle(file.getName());
+				framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
+				List<String> lineas = dumpContentToText(file, framePrincipal.getTxtSQLCode());
+				framePrincipal.setLineasScript(lineas);
+				
+				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
+				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
+				framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
+				
+				framePrincipal.getTabPanel().setSelectedIndex(2);
+				
+				// set the procesado
+				framePrincipal.setProcesado(Procesado.TYPE);
+			} catch (IOException e1) {
+				Map<String, Object> params = MDSQLUIHelper.buildError(e1);
+				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
+			}
 		}
 	}
 	
@@ -103,7 +134,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtProcesarScript() {
-		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_PROCESAR_SCRIPT);
+		Map<String, Object> params = new HashMap<>();
+		params.put("procesado", framePrincipal.getProcesado());
+		params.put("script", framePrincipal.getLineasScript());
+		
+		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, params);
 		MDSQLUIHelper.show(dialog);
 	}
 	
@@ -159,7 +194,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * @param file
 	 * @param txtScript
 	 */
-	private void dumpContentToText(File file, JTextArea txtScript) throws IOException {
+	private List<String> dumpContentToText(File file, JTextArea txtScript) throws IOException {
+		List<String> lines = new ArrayList<>();
+		
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			
 			String line = reader.readLine();
@@ -167,9 +204,12 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			while (line != null) {
 				txtScript.append(line);
 				txtScript.append("\n");
+				lines.add(line);
+				
 				line = reader.readLine();
 			}
 		} 
 		
+		return lines;
 	}
 }

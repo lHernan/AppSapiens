@@ -3,11 +3,14 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +33,7 @@ import com.mdsql.ui.model.SubProyectoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
 
 /**
@@ -86,6 +90,13 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		((ProcesarScriptNotaTableModel) pantallaProcesarScript.getTblNotas().getModel()).clearData();
 		((ProcesarScriptUltimasPeticionesTableModel) pantallaProcesarScript.getTblUltimasPeticiones().getModel())
 				.clearData();
+		
+		// Clear comboboxes
+		DefaultComboBoxModel<BBDD> bbddModel = new DefaultComboBoxModel<BBDD>();
+		pantallaProcesarScript.getCmbBBDD().setModel(bbddModel);
+		
+		DefaultComboBoxModel<SubProyecto> subproyectoModel = new DefaultComboBoxModel<SubProyecto>();
+		pantallaProcesarScript.getCmbSubmodelo().setModel(subproyectoModel);
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.FALSE);
 		pantallaProcesarScript.getBtnVerProcesado().setEnabled(Boolean.FALSE);
@@ -96,9 +107,39 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 * 
 	 */
 	private void eventBtnProcesar() {
-		DialogSupport dialog = MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
-				Constants.CMD_SELECCION_HISTORICO);
-		MDSQLUIHelper.show(dialog);
+		Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
+		Proceso procesoSeleccionado = pantallaProcesarScript.getProcesoSeleccionado();
+		
+		// El modelo tiene histórico
+		if (Constants.S.equals(seleccionado.getMcaHis())) {
+			Map<String, Object> params = new HashMap<>();
+			params.put("codigoProyecto", seleccionado.getCodigoProyecto());
+			params.put("codigoPeticion", procesoSeleccionado.getCodigoPeticion());
+			params.put("script", pantallaProcesarScript.getParams().get("script"));
+			
+			DialogSupport dialog = MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
+					Constants.CMD_SELECCION_HISTORICO, params);
+			MDSQLUIHelper.show(dialog);
+			
+			Boolean continuarProcesado = (Boolean) dialog.getReturnParams().get("procesado");
+			if (continuarProcesado) {
+				procesarScript();
+			}
+			else {
+				JOptionPane.showMessageDialog(pantallaProcesarScript.getFrameParent(), "Operación cancelada");
+			}
+		}
+		else {
+			Procesado procesado = pantallaProcesarScript.getProcesado();
+			
+			if (Procesado.TYPE.equals(procesado)) {
+				procesarType();
+			}
+			
+			if (Procesado.SCRIPT.equals(procesado)) {
+				procesarScript();
+			}
+		}
 	}
 
 	/**
@@ -135,12 +176,14 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 
 		fillAvisos(seleccionado);
 
-		fillBBDD(seleccionado, pantallaProcesarScript.getSubproyectoSeleccionado());
-
+		SubProyecto subproyecto = pantallaProcesarScript.getSubproyectoSeleccionado();
+		if (!Objects.isNull(subproyecto)) {
+			fillBBDD(seleccionado, subproyecto);
+		}
+		
 		fillChkHistorico(seleccionado);
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.TRUE);
-		pantallaProcesarScript.getBtnProcesar().setEnabled(Boolean.TRUE);
 	}
 
 	/**
@@ -224,7 +267,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		}
 	}
 
-	/**
+	/**)
 	 * @param avisos
 	 */
 	private void populateModelAvisos(List<Aviso> avisos) {
@@ -242,5 +285,21 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		ProcesarScriptUltimasPeticionesTableModel tableModel = (ProcesarScriptUltimasPeticionesTableModel) pantallaProcesarScript
 				.getTblUltimasPeticiones().getModel();
 		tableModel.setData(peticiones);
+	}
+	
+	/**
+	 * 
+	 */
+	private void procesarScript() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * 
+	 */
+	private void procesarType() {
+		// TODO Auto-generated method stub
+		
 	}
 }

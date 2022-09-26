@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mdsql.ui.modelos;
+package com.mdsql.ui;
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -13,11 +12,13 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle;
-import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
+import com.mdsql.ui.model.SeleccionHistoricoTableModel;
+import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -104,48 +105,27 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener actionListener = new PantallaSeleccionHistoricoListener(this);
+		PantallaSeleccionHistoricoListener actionListener = new PantallaSeleccionHistoricoListener(this);
 		
-		btnAddHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_AÑADIR);
+		btnAddHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_ADD);
 		btnGenerarHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR);
 		
 		btnAddHistorico.addActionListener(actionListener);
 		btnGenerarHistorico.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
+		
+		this.addOnLoadListener(actionListener);
 	}
 
 	@Override
 	protected void initModels() {
-//		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_SELECCION_MODELOS_TABLA_CABECERA);
-//		tblHistoricos.setModel(new DefinicionSeleccionTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));}
-	
-		tblHistorico.setModel(new DefaultTableModel(
-	            new Object [][] {
-	                {null, null, null, null, null},
-	                {null, null, null, null, null},
-	                {null, null, null, null, null},
-	                {null, null, null, null, null}
-	            },
-	            new String [] {
-	                "Configurado", "Objeto", "Tipo", "Histórico", "Vigente"
-	            }
-	        ) {
-	            Class[] types = new Class [] {
-	                java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class
-	            };
-
-	            public Class getColumnClass(int columnIndex) {
-	                return types [columnIndex];
-	            }
-	        });
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.SELECCION_HISTORICO_TABLA_CABECERA);
+		tblHistorico.setModel(new SeleccionHistoricoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}	
 		
 	@Override
-	protected void initialState() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initialState() {}
 
 	@Override
 	protected void setupLiterals() {

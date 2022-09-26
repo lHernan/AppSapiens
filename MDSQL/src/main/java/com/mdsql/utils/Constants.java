@@ -1,11 +1,15 @@
 package com.mdsql.utils;
 
+import java.awt.Color;
+
+import lombok.Getter;
+
 /**
  * @author federico
  *
  */
 public class Constants {
-	
+
 	/**
 	 * App globals
 	 */
@@ -27,7 +31,7 @@ public class Constants {
 	public static final String NOMENCLATURA_ERRORES_TEMPLATE_LOCATION = "/templates/validacionNomenclaturaErrores.xlt";
 	public static final String NOMENCLATURA_OTRA_DEFINICION_TEMPLATE_LOCATION = "/templates/validacionNomenclatura.xlt";
 	public static final String NOMENCLATURA_GLOSARIO_TEMPLATE_LOCATION = "/templates/validacionGlosario.xlt";
-	
+
 	/**
 	 * Bean names
 	 */
@@ -45,7 +49,7 @@ public class Constants {
 	public static final String ELEMENTO_NORMA_SERVICE = "elementoNormaService";
 	public static final String INFORME_SERVICE = "informeService";
 
-	//TODO remove old bean names
+	// TODO remove old bean names
 	public static final String SCRIPT_SERVICE = "scriptService";
 	public static final String PROCESO_SERVICE = "procesoService";
 	public static final String AVISO_SERVICE = "avisoService";
@@ -53,17 +57,18 @@ public class Constants {
 	public static final String BBDD_SERVICE = "bbddService";
 	public static final String HISTORICO_SERVICE = "historicoService";
 	public static final String UTILS_SERVICE = "utilsService";
-
+	public static final String EJECUCION_SERVICE = "ejecucionService";
 
 	/**
 	 * DataBase Types and constants
 	 */
 	public static final String PAQUETE = "paquete";
-	
+
 	public static final String FORMATO_LLAMADA = "%s.%s";
-	public static final String FORMATO_CONEXION = "jdbc:oracle:thin:@%s";
-	public static final String TNS_ADMIN_PROPERTY = "oracle.net.tns_admin";
-	public static final String ORACLE_DRIVER_NAME = "oracle.jdbc.OracleDriver";
+	public static final String FORMATO_CONEXION = "%s/%s@%s";
+	public static final String FORMATO_FICHERO = "@%s";
+	public static final String SQL_PLUS = "sqlplus";
+	public static final String EXIT = "exit";
 
 	public static final String CALL_03_ARGS = "{call %s(?,?,?)}";
 	public static final String CALL_04_ARGS = "{call %s(?,?,?,?)}";
@@ -82,7 +87,7 @@ public class Constants {
 	public static final String CALL_22_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_24_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 
-	//TODO eliminar sin utilizar al finalizar desarollo
+	// TODO eliminar sin utilizar al finalizar desarollo
 	public static final String T_R_LINEA = "T_R_LINEA";
 	public static final String T_T_LINEA = "T_T_LINEA";
 	public static final String T_T_VALIDA_PARTICULA = "T_T_VALIDA_PARTICULA";
@@ -112,11 +117,45 @@ public class Constants {
 	public static final String T_T_OBJETOS = "T_T_OBJETOS";
 	public static final String T_R_OBJETOS = "T_R_OBJETOS";
 
-	 // CONSTANTES DE UI
-	
+	// CONSTANTES DE UI
+
 	// Tecla Enter, para los botones
 	public static final String KEY_ENTER = "ENTER";
+
+	// Colores de celdas de aviso
+	public enum ColorCelda {
+		BAJA("BAJA", Color.WHITE), MEDIA("MEDIA", Color.ORANGE), ALTA("ALTA", Color.YELLOW),
+		CRITICA("CRITICA", Color.RED);
+
+		@Getter
+		private String name;
+
+		@Getter
+		private Color value;
+
+		ColorCelda(String name, Color value) {
+			this.name = name;
+			this.value = value;
+		}
+
+		public static ColorCelda getByName(String name) {
+			for (ColorCelda colorCelda : ColorCelda.values()) {
+				if (colorCelda.name.equals(name)) {
+					return colorCelda;
+				}
+			}
+
+			return null;
+		}
+	}
 	
+	public static final Color CELL_SELECTED_BGCOLOR = new Color(184, 207, 229);
+	
+	// Modos para el procesado
+	public enum Procesado {
+		SCRIPT, TYPE
+	}
+
 	/**
 	 * Menu de la aplicación
 	 */
@@ -132,7 +171,7 @@ public class Constants {
 	public static final String MNU_NOTAS_MODELOS = "MNU_NOTAS_MODELOS";
 	public static final String MNU_CONFIGURACION_ENTORNOS_PRUEBA = "MNU_CONFIGURACION_ENTORNOS_PRUEBA";
 	public static final String MNU_MANTENIMIENTO_HISTORICO = "MNU_MANTENIMIENTO_HISTORICO";
-	
+
 	/**
 	 * Comandos que activan dialogos
 	 */
@@ -163,7 +202,7 @@ public class Constants {
 	public static final String CMD_ERROR = "CMD_ERROR";
 	public static final String CMD_WARN = "CMD_WARN";
 	public static final String CMD_BUSCAR_MODELOS = "CMD_BUSCAR_MODELOS";
-	
+
 	/**
 	 * Panel principal
 	 */
@@ -173,23 +212,23 @@ public class Constants {
 	public static final String PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION = "PANEL_PRINCIPAL_BTN_LIMPIAR_VALIDACION";
 	public static final String PANEL_PRINCIPAL_BTN_LIMPIAR_TODO = "PANEL_PRINCIPAL_BTN_LIMPIAR_TODO";
 	public static final String DETALLE_VALIDACION_TABLA_CABECERA = "DETALLE_VALIDACION_TABLA_CABECERA";
-	
+
 	public static final String PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION = "PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION";
 	public static final String PANEL_RESULTADOS_BTN_ADD_GLOSARIO = "PANEL_RESULTADOS_BTN_ADD_GLOSARIO";
 	public static final String PANEL_RESULTADOS_BTN_ADD_TODOS_GLOSARIO = "PANEL_RESULTADOS_BTN_ADD_TODOS_GLOSARIO";
 	public static final String PANEL_RESULTADOS_BTN_GENERAR_LOG = "PANEL_RESULTADOS_BTN_GENERAR_LOG";
-	
+
 	/**
 	 * DlgIdentificador
 	 */
 	public static final String DLG_IDENTIFICADOR_BTN_ACEPTAR = "DLG_IDENTIFICADOR_BTN_ACEPTAR";
-	
+
 	/**
 	 * DlgExcepciones
 	 */
 	public static final String DLG_EXCEPCIONES_BTN_ACEPTAR = "DLG_EXCEPCIONES_BTN_ACEPTAR";
 	public static final String DLG_EXCEPCIONES_BTN_CANCELAR = "DLG_EXCEPCIONES_BTN_CANCELAR";
-	
+
 	/**
 	 * DlgDefinicionGlosarios constantes
 	 */
@@ -199,7 +238,7 @@ public class Constants {
 	public static final String FRM_DEFINICION_GLOSARIOS_BTN_ALTA = "FRM_DEFINICION_GLOSARIOS_BTN_ALTA";
 	public static final String FRM_DEFINICION_GLOSARIOS_BTN_MODIFICACION = "FRM_DEFINICION_GLOSARIOS_BTN_MODIFICACION";
 	public static final String FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR = "FRM_DEFINICION_GLOSARIOS_BTN_SELECCIONAR";
-	
+
 	/**
 	 * DlgAltaModificacionGlosarios
 	 */
@@ -219,22 +258,22 @@ public class Constants {
 	public static final String FRM_GLOSARIO_CAMPOS_BTN_BAJA = "FRM_GLOSARIO_CAMPOS_BTN_BAJA";
 	public static final String FRM_GLOSARIO_CAMPOS_BTN_MODIFICACION = "FRM_GLOSARIO_CAMPOS_BTN_MODIFICACION";
 	public static final String FRM_GLOSARIO_CAMPOS_BTN_IMPRIMIR = "FRM_GLOSARIO_CAMPOS_BTN_IMPRIMIR";
-	
+
 	/**
 	 * DlgAltaModificacionCampos
 	 */
 	public static final String DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR = "DLG_ALTA_MODIFICACION_CAMPOS_BTN_ACEPTAR";
 	public static final String DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR = "DLG_ALTA_MODIFICACION_CAMPOS_BTN_CANCELAR";
-	
+
 	public static final String DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR = "DLG_BAJA_CAMPO_GLOSARIO_BTN_ACEPTAR";
 	public static final String DLG_BAJA_CAMPO_GLOSARIO_BTN_CANCELAR = "DLG_BAJA_CAMPO_GLOSARIO_BTN_CANCELAR";
-	
+
 	/**
 	 * DlgBajaGlosario
 	 */
 	public static final String DLG_BAJA_GLOSARIO_BTN_ACEPTAR = "DLG_BAJA_GLOSARIO_BTN_ACEPTAR";
 	public static final String DLG_BAJA_GLOSARIO_BTN_CANCELAR = "DLG_BAJA_GLOSARIO_BTN_CANCELAR";
-	
+
 	/**
 	 * FrmDefinicionNormas
 	 */
@@ -243,7 +282,7 @@ public class Constants {
 	public static final String FRM_DEFINICION_NORMAS_BTN_BUSCAR = "FRM_DEFINICION_NORMAS_BTN_BUSCAR";
 	public static final String FRM_DEFINICION_NORMAS_BTN_ALTA = "FRM_DEFINICION_NORMAS_BTN_ALTA";
 	public static final String FRM_DEFINICION_NORMAS_BTN_MODIFICACION = "FRM_DEFINICION_NORMAS_BTN_MODIFICACION";
-	
+
 	/**
 	 * DlgAltaModificacionNormas
 	 */
@@ -255,7 +294,7 @@ public class Constants {
 	public static final String DLG_MODIFICACION_NORMAS_BTN_MODIFICACION_ELEMENTO = "DLG_MODIFICACION_NORMAS_BTN_MODIFICACION_ELEMENTO";
 	public static final String DLG_MODIFICACION_NORMAS_BTN_ACEPTAR = "DLG_MODIFICACION_NORMAS_BTN_ACEPTAR";
 	public static final String DLG_MODIFICACION_NORMAS_BTN_CANCELAR = "DLG_MODIFICACION_NORMAS_BTN_CANCELAR";
-	
+
 	/**
 	 * FrmDefinicionElementos
 	 */
@@ -264,37 +303,37 @@ public class Constants {
 	public static final String FRM_DEFINICION_ELEMENTOS_BTN_BUSCAR = "FRM_DEFINICION_ELEMENTOS_BTN_BUSCAR";
 	public static final String FRM_DEFINICION_ELEMENTOS_BTN_ALTA = "FRM_DEFINICION_ELEMENTOS_BTN_ALTA";
 	public static final String FRM_DEFINICION_ELEMENTOS_BTN_MODIFICACION = "FRM_DEFINICION_ELEMENTOS_BTN_MODIFICACION";
-	
+
 	/**
 	 * DlgAltaModificacionTiposElemento
 	 */
 	public static final String DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_ACEPTAR = "DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_ACEPTAR";
 	public static final String DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_CANCELAR = "DLG_ALTA_MODIFICACION_ELEMENTOS_BTN_CANCELAR";
-	
+
 	/**
 	 * FrmDefinicionElementosNorma
 	 */
 	public static final String FRM_DEFINICION_ELEMENTOS_NORMA_TABLA_ELEMENTOS_CABECERA = "FRM_DEFINICION_ELEMENTOS_NORMA_TABLA_ELEMENTOS_CABECERA";
 	public static final String FRM_DEFINICION_ELEMENTOS_NORMA_BTN_BUSCAR = "FRM_DEFINICION_ELEMENTOS_NORMA_BTN_BUSCAR";
-	
+
 	public static final String FRM_DEFINICION_TIPOS_PARTICULA_SELECCIONADO = "FRM_DEFINICION_TIPOS_PARTICULA_SELECCIONADO";
 	public static final String FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA = "FRM_DEFINICION_TIPOS_PARTICULA_TABLA_TIPOS_CABECERA";
 	public static final String FRM_DEFINICION_TIPOS_PARTICULA_BTN_BUSCAR = "FRM_DEFINICION_TIPOS_PARTICULA_BTN_BUSCAR";
 	public static final String FRM_DEFINICION_TIPOS_PARTICULA_BTN_ALTA = "FRM_DEFINICION_TIPOS_PARTICULA_BTN_ALTA";
 	public static final String FRM_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION = "FRM_DEFINICION_TIPOS_PARTICULA_BTN_MODIFICACION";
-	
+
 	public static final String DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR = "DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_ACEPTAR";
 	public static final String DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_CANCELAR = "DLG_ALTA_MODIFICACION_TIPOS_PARTICULA_BTN_CANCELAR";
-	
+
 	public static final String FRM_DEFINICION_PARTICULAS_NORMA_CABECERA = "FRM_DEFINICION_PARTICULAS_NORMA_CABECERA";
 	public static final String FRM_DEFINICION_PARTICULAS_NORMA_BTN_BUSCAR = "FRM_DEFINICION_PARTICULAS_NORMA_BTN_BUSCAR";
-	
+
 	public static final String FRM_VALORES_PARTICULAS_CABECERA = "FRM_VALORES_PARTICULAS_CABECERA";
 	public static final String FRM_VALORES_PARTICULAS_SELECCIONADA = "FRM_VALORES_PARTICULAS_SELECCIONADA";
 	public static final String FRM_VALORES_PARTICULAS_BTN_BUSCAR = "FRM_VALORES_PARTICULAS_BTN_BUSCAR";
 	public static final String FRM_VALORES_PARTICULAS_BTN_ALTA = "FRM_VALORES_PARTICULAS_BTN_ALTA";
 	public static final String FRM_VALORES_PARTICULAS_BTN_MODIFICACION = "FRM_VALORES_PARTICULAS_BTN_MODIFICACION";
-	
+
 	public static final String FRM_MANTENIMIENTO_PARTICULAS_TIPO_SELECCIONADO = "FRM_MANTENIMIENTO_PARTICULAS_TIPO_SELECCIONADO";
 	public static final String FRM_MANTENIMIENTO_PARTICULAS_VALOR_SELECCIONADO = "FRM_MANTENIMIENTO_PARTICULAS_VALOR_SELECCIONADO";
 	public static final String FRM_MANTENIMIENTO_PARTICULAS_BTN_ALTA = "FRM_MANTENIMIENTO_PARTICULAS_BTN_ALTA";
@@ -302,10 +341,10 @@ public class Constants {
 	public static final String FRM_MANTENIMIENTO_PARTICULAS_BTN_MODIFICACION = "FRM_MANTENIMIENTO_PARTICULAS_BTN_MODIFICACION";
 	public static final String FRM_MANTENIMIENTO_PARTICULAS_BTN_ACEPTAR = "FRM_MANTENIMIENTO_PARTICULAS_BTN_ACEPTAR";
 	public static final String FRM_MANTENIMIENTO_PARTICULAS_BTN_CANCELAR = "FRM_MANTENIMIENTO_PARTICULAS_BTN_CANCELAR";
-	
+
 	public static final String DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_ACEPTAR = "DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_ACEPTAR";
 	public static final String DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_CANCELAR = "DLG_ALTA_MODIFICACION_VALORES_PARTICULA_BTN_CANCELAR";
-	
+
 	public static final String FRM_DEFINICION_MODELOS_SELECCIONADO = "FRM_DEFINICION_MODELOS_SELECCIONADO";
 	public static final String FRM_DEFINICION_MODELOS_TABLA_CABECERA = "FRM_DEFINICION_MODELOS_TABLA_CABECERA";
 	public static final String FRM_DEFINICION_MODELOS_BTN_BUSCAR = "FRM_DEFINICION_MODELOS_BTN_BUSCAR";
@@ -313,28 +352,28 @@ public class Constants {
 	public static final String FRM_DEFINICION_MODELOS_BTN_BAJA = "FRM_DEFINICION_MODELOS_BTN_BAJA";
 	public static final String FRM_DEFINICION_MODELOS_BTN_MODIFICACION = "FRM_DEFINICION_MODELOS_BTN_MODIFICACION";
 	public static final String FRM_DEFINICION_MODELOS_BTN_SELECCIONAR = "FRM_DEFINICION_MODELOS_BTN_SELECCIONAR";
-	
+
 	public static final String FRM_MANTENIMIENTO_MODELOS_SUBPROYECTO_TABLA_CABECERA = "FRM_MANTENIMIENTO_MODELOS_SUBPROYECTO_TABLA_CABECERA";
 	public static final String FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO = "FRM_MANTENIMIENTO_MODELOS_BTN_BUSCAR_GLOSARIO";
 	public static final String FRM_MANTENIMIENTO_MODELOS_BTN_ADD_SUBMODELO = "FRM_MANTENIMIENTO_MODELOS_BTN_ADD_SUBMODELO";
 	public static final String FRM_MANTENIMIENTO_MODELOS_BTN_REMOVE_SUBMODELO = "FRM_MANTENIMIENTO_MODELOS_BTN_REMOVE_SUBMODELO";
 	public static final String FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR = "FRM_MANTENIMIENTO_MODELOS_BTN_ACEPTAR";
 	public static final String FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR = "FRM_MANTENIMIENTO_MODELOS_BTN_CANCELAR";
-	
+
 	public static final String FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA = "FRM_COMPROBACION_NOMBRE_ELEMENTO_TABLA_CABECERA";
 	public static final String FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_BUSCAR = "FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_BUSCAR";
 	public static final String FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_COMPROBAR = "FRM_COMPROBACION_NOMBRE_ELEMENTO_BTN_COMPROBAR";
-	
+
 	public static final String PANTALLA_BUSCADOR_FICHEROS_BTN_ACEPTAR = "PANTALLA_BUSCADOR_FICHEROS_BTN_ACEPTAR";
 	public static final String PANTALLA_BUSCADOR_FICHEROS_BTN_CANCELAR = "PANTALLA_BUSCADOR_FICHEROS_BTN_CANCELAR";
 	public static final String PANTALLA_SELECCION_MODELOS_BTN_BUSCAR = "PANTALLA_SELECCION_MODELOS_BTN_BUSCAR";
 	public static final String PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR = "PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR";
-	
-	public static final String PANTALLA_SELECCION_HISTORICA_BTN_AÑADIR = "PANTALLA_SELECCION_HISTORICA_BTN_AÑADIR";
+
+	public static final String PANTALLA_SELECCION_HISTORICA_BTN_ADD = "PANTALLA_SELECCION_HISTORICA_BTN_ADD";
 	public static final String PANTALLA_SELECCION_HISTORICA_BTN_GENERAR = "PANTALLA_SELECCION_HISTORICA_BTN_GENERAR";
 	public static final String PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR = "PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR";
 	public static final String FRM_DEFINICION_SELECCION_TABLA_CABECERA = "FRM_DEFINICION_SELECCION_TABLA_CABECERA";
-	
+
 	public static final String FRM_DEFINICION_SCRIPTS_TABLA_CABECERA = "FRM_DEFINICION_SCRIPTS_TABLA_CABECERA";
 	public static final String FRM_DEFINICION_SCRIPTS_BTN_RECHAZAR = "FRM_DEFINICION_SCRIPTS_BTN_RECHAZAR";
 	public static final String FRM_DEFINICION_SCRIPTS_BTN_VER_LOG = "FRM_DEFINICION_SCRIPTS_BTN_VER_LOG";
@@ -346,7 +385,7 @@ public class Constants {
 	public static final String FRM_DEFINICION_SCRIPTS_BTN_EXCEPCION = "FRM_DEFINICION_SCRIPTS_BTN_EXCEPCION";
 	public static final String FRM_DEFINICION_SCRIPTS_BTN_ACEPTAR = "FRM_DEFINICION_SCRIPTS_BTN_ACEPTAR";
 	public static final String FRM_DEFINICION_SCRIPTS_BTN_CANCELAR = "FRM_DEFINICION_SCRIPTS_BTN_CANCELAR";
-	
+
 	public static final String PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR = "PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR";
 	public static final String PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_LOG = "PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_LOG";
 	public static final String PANTALLA_EJECUTAR_SCRIPTS_BTN_DETALLE_SCRIPT = "PANTALLA_EJECUTAR_SCRIPTS_BTN_DETALLE_SCRIPT";
@@ -357,33 +396,34 @@ public class Constants {
 	public static final String PANTALLA_EJECUTAR_SCRIPTS_BTN_EXCEPCION = "PANTALLA_EJECUTAR_SCRIPTS_BTN_EXCEPCION";
 	public static final String PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR = "PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR";
 	public static final String PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR = "PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR";
-	
+
 	public static final String FRAME_PRINCIPAL_LOAD_SCRIPT = "FRAME_PRINCIPAL_LOAD_SCRIPT";
 	public static final String FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS = "FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS";
 	public static final String FRAME_PRINCIPAL_PROCESAR_SCRIPT = "FRAME_PRINCIPAL_PROCESAR_SCRIPT";
 	public static final String FRAME_PRINCIPAL_SAVE = "FRAME_PRINCIPAL_SAVE";
 	public static final String FRAME_PRINCIPAL_EXECUTE = "FRAME_PRINCIPAL_EXECUTE";
 	public static final String FRAME_PRINCIPAL_ENTREGAR_PROCESADO = "FRAME_PRINCIPAL_ENTREGAR_PROCESADO";
-	
+
 	public static final String PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL = "PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL";
 	public static final String PANTALLA_PROCESADO_SCRIPT_CANCELAR = "PANTALLA_PROCESADO_SCRIPT_CANCELAR";
 	public static final String PANTALLA_PROCESADO_SCRIPT_PROCESAR = "PANTALLA_PROCESADO_SCRIPT_PROCESAR";
 	public static final String PANTALLA_PROCESADO_SCRIPT_LIMPIAR = "PANTALLA_PROCESADO_SCRIPT_LIMPIAR";
-	
+
 	public static final String FRM_DEFINICION_EJECUTAR_TYPES_TABLA_CABECERA = "FRM_DEFINICION_EJECUTAR_TYPES_TABLA_CABECERA";
 	public static final String FRM_DEFINICION_EJECUTAR_TYPES_BTN_RECHAZAR = "FRM_DEFINICION_EJECUTAR_TYPES_BTN_RECHAZAR";
 	public static final String FRM_DEFINICION_EJECUTAR_TYPES_BTN_VER_CUADRES = "FRM_DEFINICION_EJECUTAR_TYPES_BTN_VER_CUADRES";
 	public static final String FRM_DEFINICION_EJECUTAR_TYPES_BTN_VER_ERRORES = "FRM_DEFINICION_EJECUTAR_TYPES_BTN_VER_ERRORES";
 	public static final String FRM_DEFINICION_EJECUTAR_TYPES_BTN_ACEPTAR = "FRM_DEFINICION_EJECUTAR_TYPES_BTN_ACEPTAR";
 	public static final String FRM_DEFINICION_EJECUTAR_TYPES_BTN_CANCELAR = "FRM_DEFINICION_EJECUTAR_TYPES_BTN_CANCELAR";
-	
+
 	public static final String PANTALLA_EJECUTAR_TYPES_BTN_RECHAZAR = "PANTALLA_EJECUTAR_TYPES_BTN_RECHAZAR";
 	public static final String PANTALLA_EJECUTAR_TYPES_BTN_VER_CUADRES = "PANTALLA_EJECUTAR_TYPES_BTN_VER_CUADRES";
 	public static final String PANTALLA_EJECUTAR_TYPES_BTN_VER_ERRORES = "PANTALLA_EJECUTAR_TYPES_BTN_VER_ERRORES";
 	public static final String PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR = "PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR";
 	public static final String PANTALLA_EJECUTAR_TYPES_BTN_CANCELAR = "PANTALLA_EJECUTAR_TYPES_BTN_CANCELAR";
-	
+
 	public static final String DLG_SELECCION_MODELOS_TABLA_CABECERA = "DLG_SELECCION_MODELOS_TABLA_CABECERA";
 	public static final String PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA = "PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA";
 	public static final String PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA = "PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA";
+	public static final String SELECCION_HISTORICO_TABLA_CABECERA = "SELECCION_HISTORICO_TABLA_CABECERA";
 }

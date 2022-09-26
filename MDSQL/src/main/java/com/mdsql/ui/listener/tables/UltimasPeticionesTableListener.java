@@ -39,6 +39,7 @@ public class UltimasPeticionesTableListener extends ListenerSupport implements L
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			pantallaProcesarScript.setProcesoSeleccionado(seleccionado);
 			pantallaProcesarScript.getBtnVerProcesado().setEnabled(Boolean.TRUE);
+			pantallaProcesarScript.getBtnProcesar().setEnabled(Boolean.TRUE);
 		}
 	}
 

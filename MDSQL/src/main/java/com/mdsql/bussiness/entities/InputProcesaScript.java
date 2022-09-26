@@ -19,6 +19,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class InputProcesaScript implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6345407715103930138L;
+	
 	private List<TextoLinea> lineasScript;
 	private String pCodigoProyecto;
 	private String pCodigoSubProyecto;
@@ -34,7 +39,7 @@ public class InputProcesaScript implements Serializable {
 	private String pNombreEsquemaHis;
 	private String pNombreFichaEntrada;
 	private String pTxtRutaEntrada;
-	private List<ObjetoHis> listaObjetoHis;
+	private List<SeleccionHistorico> listaObjetoHis;
 	private String pTxtDescripcion;
     
     // Para los warnings

@@ -30,15 +30,18 @@ import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
 import com.mdsql.ui.listener.combo.BBDDItemListener;
+import com.mdsql.ui.listener.combo.SubproyectoItemListener;
 import com.mdsql.ui.listener.tables.AvisosTableListener;
 import com.mdsql.ui.listener.tables.UltimasPeticionesTableListener;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.renderer.BBDDRenderer;
+import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
 import com.mdsql.ui.renderer.SubProyectoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -131,6 +134,10 @@ public class PantallaProcesarScript extends DialogSupport {
 	@Getter
 	@Setter
 	private Proceso procesoSeleccionado;
+	
+	@Getter
+	@Setter
+	private Procesado procesado;
 	
 	/**
 	 * @param params
@@ -323,7 +330,8 @@ public class PantallaProcesarScript extends DialogSupport {
 		ActionListener actionListener = new PantallaProcesarScriptActionListener(this);
 		ListSelectionListener avisosSelectionListener = new AvisosTableListener(this);
 		ListSelectionListener ultimasPeticionesSelectionListener = new UltimasPeticionesTableListener(this);
-		ItemListener itemListener = new BBDDItemListener(this);
+		ItemListener bbddItemListener = new BBDDItemListener(this);
+		ItemListener subproyectoItemListener = new SubproyectoItemListener(this);
 
 		jButton1.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);
 		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
@@ -333,6 +341,7 @@ public class PantallaProcesarScript extends DialogSupport {
 		jButton1.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 		btnProcesar.addActionListener(actionListener);
+		btnLimpiar.addActionListener(actionListener);
 		
 		ListSelectionModel avisosRowSM = tblNotas.getSelectionModel();
 		avisosRowSM.addListSelectionListener(avisosSelectionListener);
@@ -340,9 +349,11 @@ public class PantallaProcesarScript extends DialogSupport {
 		ListSelectionModel ultimasPeticionesRowSM = tblUltimasPeticiones.getSelectionModel();
 		ultimasPeticionesRowSM.addListSelectionListener(ultimasPeticionesSelectionListener);
 		
-		cmbBBDD.addItemListener(itemListener);
+		cmbBBDD.addItemListener(bbddItemListener);
+		cmbSubmodelo.addItemListener(subproyectoItemListener);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
@@ -351,7 +362,8 @@ public class PantallaProcesarScript extends DialogSupport {
 		Cabecera cabeceraNotas = MDSQLUIHelper.createCabeceraTabla(Constants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA);
 		tblNotas.setModel(
 				new ProcesarScriptNotaTableModel(cabeceraNotas.getColumnIdentifiers(), cabeceraNotas.getColumnClasses()));
-
+		tblNotas.setDefaultRenderer(String.class, new NivelAvisosTableCellRenderer());
+		
 		Cabecera cabeceraUltimasPeticiones = MDSQLUIHelper
 				.createCabeceraTabla(Constants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA);
 		tblUltimasPeticiones.setModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraUltimasPeticiones.getColumnIdentifiers(),
@@ -367,6 +379,8 @@ public class PantallaProcesarScript extends DialogSupport {
         btnVerProcesado.setEnabled(Boolean.FALSE);
         btnProcesar.setEnabled(Boolean.FALSE);
         btnLimpiar.setEnabled(Boolean.FALSE);
+        
+        procesado = (Procesado) params.get("procesado");
 	}
 
 	@Override

@@ -15,7 +15,12 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class Proceso implements Serializable {
 
-    private BigDecimal idProceso;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2012801467618032649L;
+	
+	private BigDecimal idProceso;
     private String codigoPeticion;
     private String codigoUsrPeticion;
     private Date fechaInicio;
