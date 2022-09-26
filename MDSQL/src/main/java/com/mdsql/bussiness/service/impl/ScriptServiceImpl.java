@@ -1,5 +1,30 @@
 package com.mdsql.bussiness.service.impl;
 
+import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.InputProcesaScript;
+import com.mdsql.bussiness.entities.OutputExcepcionScript;
+import com.mdsql.bussiness.entities.OutputProcesaScript;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.TextoLinea;
+import com.mdsql.bussiness.service.BBDDService;
+import com.mdsql.bussiness.service.EjecucionService;
+import com.mdsql.bussiness.service.ScriptService;
+import com.mdsql.exceptions.ServiceException;
+import com.mdsql.utils.AppGlobalSingleton;
+import com.mdsql.utils.Constants;
+import com.mdval.utils.AppHelper;
+import com.mdval.utils.LogWrapper;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.internal.OracleConnection;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -18,33 +43,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.bussiness.entities.InputProcesaScript;
-import com.mdsql.bussiness.entities.OutputExcepcionScript;
-import com.mdsql.bussiness.entities.OutputProcesaScript;
-import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
-import com.mdsql.bussiness.entities.Script;
-import com.mdsql.bussiness.entities.SeleccionHistorico;
-import com.mdsql.bussiness.entities.TextoLinea;
-import com.mdsql.bussiness.service.BBDDService;
-import com.mdsql.bussiness.service.ScriptService;
-import com.mdsql.exceptions.ServiceException;
-import com.mdsql.utils.AppGlobalSingleton;
-import com.mdsql.utils.Constants;
-import com.mdval.utils.AppHelper;
-import com.mdval.utils.LogWrapper;
-
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.internal.OracleConnection;
+import java.util.Objects;
 
 /**
  * @author hcarreno
@@ -59,8 +58,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
     @Autowired
     private BBDDService bbddService;
 
-//    @Autowired
-//    private EjecucionService ejecucionService;
+    @Autowired
+    private EjecucionService ejecucionService;
 
 
     @Override
@@ -154,7 +153,6 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
                     Script script = Script.builder()
                             .tipoScript((String) cols[0])
-                            //.txtScript((String) cols[1]) //TODO doit like subproyectos
                             .nombreScript((String) cols[2])
                             .codigoEstadoScript((BigDecimal) cols[3])
                             .descripcionEstadoScript((String) cols[4])
@@ -163,6 +161,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
                             .txtScriptLanza((String) cols[7])
                             .nombreScriptLog((String) cols[8])
                             .build();
+
+                    fillScriptLines(script, cols);
 
                     scripts.add(script);
                 }
@@ -186,6 +186,33 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
         } catch (SQLException e) {
             LogWrapper.error(log, "[ScriptService.procesarScript] Error: %s", e.getMessage());
             throw new ServiceException(e);
+        }
+    }
+
+    /**
+     * @param script
+     * @param cols
+     * @throws SQLException
+     */
+    private void fillScriptLines(Script script, Object[] cols) throws SQLException {
+        try {
+            Array arrayScript = (Array) cols[1];
+            if (!Objects.isNull(arrayScript)) {
+                List<TextoLinea> arrayTextoLinea = new ArrayList<>();
+                Object[] subs = (Object[]) arrayScript.getArray();
+                for (Object sub : subs) {
+                    Object[] texto_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
+
+                    TextoLinea textoLinea = TextoLinea.builder()
+                            .valor((String) texto_cols[0])
+                            .build();
+                    arrayTextoLinea.add(textoLinea);
+                }
+
+                script.setLineasScript(arrayTextoLinea);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            LogWrapper.error(log, "[ScriptService.fillScriptLines] Error: %s", e.getMessage());
         }
     }
 
@@ -245,6 +272,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
     @Override
     public List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> listaVigente, List<Script> listaHistorico) {
+        String testRoute = (String) AppGlobalSingleton.getInstance().getProperty(Constants.SELECTED_ROUTE);
         String ruta = "C:/Users/herna/Documents/sapiens/pruebaServicio/"; //TODO obtener ruta usuario idProceso
         String nombreEsquema = StringUtils.EMPTY;
         String nombreBBDD = StringUtils.EMPTY;

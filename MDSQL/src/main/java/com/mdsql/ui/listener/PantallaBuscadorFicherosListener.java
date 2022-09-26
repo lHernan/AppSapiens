@@ -24,7 +24,7 @@ public class PantallaBuscadorFicherosListener extends ListenerSupport implements
 
 		if (Constants.PANTALLA_BUSCADOR_FICHEROS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			pantallaBuscadorFicheros.getReturnParams().put("RutaInicial",
-					pantallaBuscadorFicheros.getTxtRuta().getText());//TODO ask fede, how to set this route in whole project
+					pantallaBuscadorFicheros.getTxtRuta().getText());
 			pantallaBuscadorFicheros.dispose();
 		}
 

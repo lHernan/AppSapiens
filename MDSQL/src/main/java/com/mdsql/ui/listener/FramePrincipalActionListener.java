@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 
+import com.mdval.utils.AppGlobalSingleton;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.FramePrincipal;
@@ -184,6 +185,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		//
 		if (chooser.showOpenDialog(framePrincipal) == JFileChooser.APPROVE_OPTION) {
 			LogWrapper.debug(log, "Archivo seleccionado: %s", chooser.getSelectedFile());
+			AppGlobalSingleton.getInstance().setProperty(Constants.SELECTED_ROUTE, chooser.getSelectedFile().getParentFile().getAbsolutePath());
 			file = chooser.getSelectedFile();
 		}
 
