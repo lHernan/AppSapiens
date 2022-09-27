@@ -169,7 +169,8 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 						"@\"c:\\pruebaLOG\\20220922_Con_variables\\20220922_10_00_VARIABLES_DD_RF0123456_SD0123456.sql\"\n" +
 						"PROMPT -- BORRAMOS LA TABLA\n" +
 						"DROP TABLE CLIENTES2;\n" +
-						"SPOOL OFF")
+						"SPOOL OFF\n" +
+						"exit")
 				.nombreScriptLog("20220922_10_00_VARIABLES_DD_RF0123456_SD0123456_sqlplus.log")
 				.build();
 
