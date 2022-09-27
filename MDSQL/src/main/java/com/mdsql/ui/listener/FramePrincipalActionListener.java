@@ -193,7 +193,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			LogWrapper.debug(log, "Archivo seleccionado: %s", file.getAbsolutePath());
 			String ruta = file.getParent();
 			AppGlobalSingleton.getInstance().setProperty(Constants.SELECTED_ROUTE, ruta);
-			LogWrapper.debug(log, "Ruta global: %s", ruta);
+			LogWrapper.debug(log, "Ruta global: %s", (String) AppGlobalSingleton.getInstance().getProperty(Constants.SELECTED_ROUTE));
 		}
 
 		return file;

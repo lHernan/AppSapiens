@@ -15,9 +15,9 @@ import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.AppGlobalSingleton;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.utils.AppGlobalSingleton;
 
 public class PantallaSeleccionHistoricoListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
