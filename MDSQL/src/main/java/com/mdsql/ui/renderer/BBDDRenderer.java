@@ -27,7 +27,12 @@ public class BBDDRenderer extends BasicComboBoxRenderer {
 		if (Objects.isNull(bbdd)) {
 			setText(StringUtils.EMPTY);
 		} else {
-			setText(bbdd.getNombreBBDD());
+			String text = bbdd.getNombreBBDD();
+			if (text.length() > 20) {
+				text = text.substring(0, 20) + "...";
+				this.setToolTipText(bbdd.getNombreBBDD());
+			}
+			setText(text);
 		}
 		return this;
 	}

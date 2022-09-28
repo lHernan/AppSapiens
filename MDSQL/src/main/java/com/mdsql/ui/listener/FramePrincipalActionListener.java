@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 
+import com.mdval.utils.AppGlobalSingleton;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.FramePrincipal;
@@ -83,10 +84,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		File file = loadScript();
 		if (!Objects.isNull(file)) {
 			try {
-				framePrincipal.getFrmSQLScript().setTitle(file.getName());
-				framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
-				List<String> lineas = dumpContentToText(file, framePrincipal.getTxtSQLCode());
-				framePrincipal.setLineasScript(lineas);
+				setContent(file);
 				
 				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
 				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
@@ -110,10 +108,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		File file = loadScript();
 		if (!Objects.isNull(file)) {
 			try {
-				framePrincipal.getFrmSQLScript().setTitle(file.getName());
-				framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
-				List<String> lineas = dumpContentToText(file, framePrincipal.getTxtSQLCode());
-				framePrincipal.setLineasScript(lineas);
+				setContent(file);
 				
 				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
 				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
@@ -168,6 +163,17 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	}
 	
 	/**
+	 * @param file
+	 * @throws IOException
+	 */
+	private void setContent(File file) throws IOException {
+		framePrincipal.getFrmSQLScript().setTitle(file.getName());
+		framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
+		List<String> lineas = dumpContentToText(file, framePrincipal.getTxtSQLCode());
+		framePrincipal.setLineasScript(lineas);
+	}
+	
+	/**
 	 * @param rutaInicial
 	 * @return
 	 */
@@ -183,8 +189,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		chooser.setAcceptAllFileFilterUsed(false);
 		//
 		if (chooser.showOpenDialog(framePrincipal) == JFileChooser.APPROVE_OPTION) {
-			LogWrapper.debug(log, "Archivo seleccionado: %s", chooser.getSelectedFile());
 			file = chooser.getSelectedFile();
+			LogWrapper.debug(log, "Archivo seleccionado: %s", file.getAbsolutePath());
+			String ruta = file.getParent();
+			AppGlobalSingleton.getInstance().setProperty(Constants.SELECTED_ROUTE, ruta);
+			LogWrapper.debug(log, "Ruta global: %s", (String) AppGlobalSingleton.getInstance().getProperty(Constants.SELECTED_ROUTE));
 		}
 
 		return file;

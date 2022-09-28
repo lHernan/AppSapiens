@@ -27,7 +27,13 @@ public class SubProyectoRenderer extends BasicComboBoxRenderer {
 		if (Objects.isNull(subProyecto)) {
 			setText(StringUtils.EMPTY);
 		} else {
-			setText(subProyecto.getDescripcionSubProyecto());
+			// Ellipsis
+			String text = subProyecto.getDescripcionSubProyecto();
+			if (text.length() > 20) {
+				text = text.substring(0, 20) + "...";
+				this.setToolTipText(subProyecto.getDescripcionSubProyecto());
+			}
+			setText(text);
 		}
 		return this;
 	}
