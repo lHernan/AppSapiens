@@ -31,6 +31,8 @@ public abstract class FrameSupport extends JFrame {
 	 */
 	private static final long serialVersionUID = -637526827846474731L;
 	
+	private Boolean modal;
+	
 	@Getter
 	protected PanelLogotipo panelLogo;
 	
@@ -50,6 +52,7 @@ public abstract class FrameSupport extends JFrame {
 	 * 
 	 */
 	public FrameSupport() {
+		modal = Boolean.FALSE;
 		initialize();
 	}
 	
@@ -57,6 +60,16 @@ public abstract class FrameSupport extends JFrame {
 	 * 
 	 */
 	public FrameSupport(FrameSupport parent) {
+		modal = Boolean.FALSE;
+		this.frameParent = parent;
+		initialize();
+	}
+	
+	/**
+	 * 
+	 */
+	public FrameSupport(FrameSupport parent, Boolean modal) {
+		this.modal = modal;
 		this.frameParent = parent;
 		initialize();
 	}
@@ -65,6 +78,17 @@ public abstract class FrameSupport extends JFrame {
 	 * 
 	 */
 	public FrameSupport(FrameSupport parent, Map<String, Object> params) {
+		modal = Boolean.FALSE;
+		this.frameParent = parent;
+		this.params = params;
+		initialize();
+	}
+	
+	/**
+	 * 
+	 */
+	public FrameSupport(FrameSupport parent, Boolean modal, Map<String, Object> params) {
+		this.modal = modal;
 		this.frameParent = parent;
 		this.params = params;
 		initialize();
@@ -74,6 +98,16 @@ public abstract class FrameSupport extends JFrame {
 	 * 
 	 */
 	public FrameSupport(Map<String, Object> params) {
+		modal = Boolean.FALSE;
+		this.params = params;
+		initialize();
+	}
+	
+	/**
+	 * 
+	 */
+	public FrameSupport(Boolean modal, Map<String, Object> params) {
+		this.modal = modal;
 		this.params = params;
 		initialize();
 	}
@@ -83,6 +117,14 @@ public abstract class FrameSupport extends JFrame {
      */
     private void initialize() {
 		try {
+			// Instrucciones para modal
+			if (modal) {
+				setAlwaysOnTop(Boolean.TRUE);
+				setResizable(Boolean.TRUE);
+				setLocationRelativeTo(getRootPane());
+				setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			}
+			
 			onLoadListeners = new ArrayList<>();
 			
 			panelLogo = new PanelLogotipo("logotipo.png");
