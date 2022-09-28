@@ -1,9 +1,36 @@
 package com.mdsql.bussiness.service.impl;
 
+import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.InputProcesaScript;
+import com.mdsql.bussiness.entities.OutputExcepcionScript;
+import com.mdsql.bussiness.entities.OutputProcesaScript;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.TextoLinea;
+import com.mdsql.bussiness.service.BBDDService;
+import com.mdsql.bussiness.service.EjecucionService;
+import com.mdsql.bussiness.service.ScriptService;
+import com.mdsql.exceptions.ServiceException;
+import com.mdsql.utils.ConfigurationSingleton;
+import com.mdsql.utils.Constants;
+import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.AppHelper;
+import com.mdval.utils.LogWrapper;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.internal.OracleConnection;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,34 +46,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.bussiness.entities.InputProcesaScript;
-import com.mdsql.bussiness.entities.OutputExcepcionScript;
-import com.mdsql.bussiness.entities.OutputProcesaScript;
-import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
-import com.mdsql.bussiness.entities.Script;
-import com.mdsql.bussiness.entities.SeleccionHistorico;
-import com.mdsql.bussiness.entities.TextoLinea;
-import com.mdsql.bussiness.service.BBDDService;
-import com.mdsql.bussiness.service.EjecucionService;
-import com.mdsql.bussiness.service.ScriptService;
-import com.mdsql.exceptions.ServiceException;
-import com.mdsql.utils.Constants;
-import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.AppHelper;
-import com.mdval.utils.LogWrapper;
-
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.internal.OracleConnection;
 
 /**
  * @author hcarreno
@@ -274,14 +273,16 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
     }
 
     @Override
+    @SneakyThrows
     public List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> listaVigente, List<Script> listaHistorico) {
-        String testRoute = (String) AppGlobalSingleton.getInstance().getProperty(Constants.SELECTED_ROUTE);
-        String ruta = "C:/Users/herna/Documents/sapiens/pruebaServicio/"; //TODO obtener ruta usuario idProceso
+        String selectedRoute = (String) AppGlobalSingleton.getInstance().getProperty(Constants.SELECTED_ROUTE);
+        String ruta = selectedRoute.concat(FileSystems.getDefault().getSeparator()); //TODO obtener  idProceso
         String nombreEsquema = StringUtils.EMPTY;
         String nombreBBDD = StringUtils.EMPTY;
-        String addExitToLanzaFile = System.lineSeparator().concat(Constants.EXIT);
         String codigoUsuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
         List<OutputRegistraEjecucion> listOutputLogs = new ArrayList<>();
+        ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+        String txtClaveEncriptada = configuration.getConfig(Constants.TOKEN).substring(17,29);
 
         if (!CollectionUtils.isEmpty(listaVigente)) {
             listaVigente.sort(Comparator.comparing(Script::getNumeroOrden));
@@ -298,10 +299,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
                         nombreBBDD = bbdd.getNombreBBDD();
                     }
                     String lanzaFile = ruta.concat(script.getNombreScriptLanza());
-                    writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(addExitToLanzaFile));
-                    //String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, ""); //TODO uncomment to get password with token from config
+                    writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(System.lineSeparator()));
+                    //String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada); //TODO uncomment
 
-                    executeLanzaFile(nombreEsquema, nombreBBDD, "vigente", lanzaFile);
+                    executeLanzaFile(nombreEsquema, nombreBBDD, "vigente", lanzaFile);//TODO uncomment replace with password
                     String logFile = ruta.concat(script.getNombreScriptLog());
                     List<TextoLinea> logLinesList = readLogFile(logFile);
                     //TODO replace Bidecimal.ZERO with idProceso
@@ -327,10 +328,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
                         nombreBBDD = bbdd.getNombreBBDDHis();
                     }
                     String lanzaFile = ruta.concat(script.getNombreScriptLanza());
-                    writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(addExitToLanzaFile));
-                    //String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, ""); //TODO uncomment to get password with token from config
+                    writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(System.lineSeparator()));
+                    //String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada); //TODO uncomment
 
-                    executeLanzaFile(nombreEsquema, nombreBBDD, "vigente", lanzaFile);
+                    executeLanzaFile(nombreEsquema, nombreBBDD, "vigente", lanzaFile);//TODO uncomment replace with password
                     String logFile = ruta.concat(script.getNombreScriptLog());
                     List<TextoLinea> logLinesList = readLogFile(logFile);
                     //TODO replace Bidecimal.ZERO with idProceso
