@@ -66,6 +66,7 @@ public class PantallaProcesarScript extends DialogSupport {
 	private JLabel jLabel10;
 	private JLabel jLabel11;
 	private JLabel jLabel12;
+	private JLabel jLabel13;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
 	private JLabel jLabel4;
@@ -93,6 +94,9 @@ public class PantallaProcesarScript extends DialogSupport {
 	
 	@Getter
 	private JTextField txtEsquemaHistorico;
+	
+	@Getter
+	private JTextField txtDemanda;
 	
 	@Getter
 	private JCheckBox chkGenerarHistorico;
@@ -138,7 +142,7 @@ public class PantallaProcesarScript extends DialogSupport {
 	@Getter
 	@Setter
 	private Procesado procesado;
-	
+		
 	/**
 	 * @param params
 	 */
@@ -187,6 +191,8 @@ public class PantallaProcesarScript extends DialogSupport {
         btnVerProcesado = new JButton();
         btnProcesar = new JButton();
         btnCancelar = new JButton();
+        txtDemanda = new JTextField();
+        jLabel13 = new JLabel();
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -224,7 +230,8 @@ public class PantallaProcesarScript extends DialogSupport {
                                         .addComponent(jLabel9, GroupLayout.Alignment.TRAILING))
                                     .addComponent(jLabel7, GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel8, GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel10, GroupLayout.Alignment.TRAILING))
+                                    .addComponent(jLabel10, GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel13, GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cmbSubmodelo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -239,7 +246,8 @@ public class PantallaProcesarScript extends DialogSupport {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtModelo, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                        .addComponent(jButton1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtDemanda))))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 1031, Short.MAX_VALUE)
@@ -302,6 +310,10 @@ public class PantallaProcesarScript extends DialogSupport {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(txtEsquemaHistorico, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDemanda, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
@@ -376,6 +388,7 @@ public class PantallaProcesarScript extends DialogSupport {
         chkGenerarHistorico.setEnabled(false);
         txtBBDDHistorico.setEditable(false);
         txtEsquemaHistorico.setEditable(false);
+        txtDemanda.setEditable(false);
         btnVerProcesado.setEnabled(Boolean.FALSE);
         btnProcesar.setEnabled(Boolean.FALSE);
         btnLimpiar.setEnabled(Boolean.FALSE);
@@ -396,6 +409,7 @@ public class PantallaProcesarScript extends DialogSupport {
 		jLabel7.setText("Generar histórico");
 		jLabel8.setText("BBDD histórico");
 		jLabel9.setText("Esquema histórico");
+		jLabel13.setText("Demanda");
 		jLabel10.setText("Descripción");
 		btnLimpiar.setText("Limpiar");
 		jLabel11.setText("Notas / avisos");
