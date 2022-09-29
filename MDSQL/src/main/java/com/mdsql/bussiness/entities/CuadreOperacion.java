@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class CuadreOperacion implements Serializable {
 
     private String tipoObjeto;
-    private String descripcionTipoObjeto;
     private String tipoAccion;
     private BigDecimal numeroOperacionBBDD;
     private BigDecimal numeroOperacionScript;

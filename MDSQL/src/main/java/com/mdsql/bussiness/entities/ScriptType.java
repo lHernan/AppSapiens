@@ -1,6 +1,7 @@
 package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class ScriptType implements Serializable {
 
-    private String txtScript;
+    private List<TextoLinea> txtScript;
     private String nombreScript;
 
 }

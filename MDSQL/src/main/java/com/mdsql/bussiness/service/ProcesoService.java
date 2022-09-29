@@ -1,11 +1,13 @@
 package com.mdsql.bussiness.service;
 
-import java.util.List;
-
 import com.mdsql.bussiness.entities.InputSeleccionarProcesados;
+import com.mdsql.bussiness.entities.OutputConsultaProcesado;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.exceptions.ServiceException;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author hcarreno
@@ -35,4 +37,11 @@ public interface ProcesoService {
 	 * @return
 	 */
 	void altaHistorico(List<SeleccionHistorico> listaObjetos, String codigoProyecto, String codigoPeticion, String codigoUsuario) throws ServiceException;
+
+    /**
+     * @param idProceso
+     *
+     * @return OutputConsultaProcesado
+     */
+    OutputConsultaProcesado consultaProcesado(BigDecimal idProceso);
 }
