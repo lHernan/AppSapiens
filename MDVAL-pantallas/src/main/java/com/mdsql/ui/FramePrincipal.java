@@ -34,14 +34,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnProcesarScript = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
-        btn_1 = new javax.swing.JButton();
         btnExecute = new javax.swing.JButton();
         btnEntregarProcesado = new javax.swing.JButton();
         btnLimpiarScripts = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
-        btnInformacionModelo = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
         btnLimpiarSesion = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        btnProcesadoEnCurso = new javax.swing.JButton();
+        btnRefrescarFichero = new javax.swing.JButton();
+        btnInformacionModelo = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         frmSQLScript = new javax.swing.JInternalFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -115,15 +115,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnSave);
 
-        btn_1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/unknown.png"))); // NOI18N
-        btn_1.setFocusable(false);
-        btn_1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_1.setMaximumSize(new java.awt.Dimension(60, 60));
-        btn_1.setMinimumSize(new java.awt.Dimension(60, 60));
-        btn_1.setPreferredSize(new java.awt.Dimension(60, 60));
-        btn_1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btn_1);
-
         btnExecute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/checking.png"))); // NOI18N
         btnExecute.setToolTipText("Ejecutar script");
         btnExecute.setFocusable(false);
@@ -153,18 +144,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnLimpiarScripts.setPreferredSize(new java.awt.Dimension(60, 60));
         btnLimpiarScripts.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnLimpiarScripts);
-        jToolBar1.add(jSeparator3);
-
-        btnInformacionModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info.png"))); // NOI18N
-        btnInformacionModelo.setToolTipText("Información del modelo");
-        btnInformacionModelo.setFocusable(false);
-        btnInformacionModelo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnInformacionModelo.setMaximumSize(new java.awt.Dimension(60, 60));
-        btnInformacionModelo.setMinimumSize(new java.awt.Dimension(60, 60));
-        btnInformacionModelo.setPreferredSize(new java.awt.Dimension(60, 60));
-        btnInformacionModelo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnInformacionModelo);
-        jToolBar1.add(jSeparator4);
 
         btnLimpiarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trash.png"))); // NOI18N
         btnLimpiarSesion.setToolTipText("Limpiar sesión");
@@ -175,6 +154,37 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnLimpiarSesion.setPreferredSize(new java.awt.Dimension(60, 60));
         btnLimpiarSesion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnLimpiarSesion);
+        jToolBar1.add(jSeparator4);
+
+        btnProcesadoEnCurso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info.png"))); // NOI18N
+        btnProcesadoEnCurso.setToolTipText("Procesado en curso");
+        btnProcesadoEnCurso.setFocusable(false);
+        btnProcesadoEnCurso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProcesadoEnCurso.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnProcesadoEnCurso.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnProcesadoEnCurso.setPreferredSize(new java.awt.Dimension(60, 60));
+        btnProcesadoEnCurso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnProcesadoEnCurso);
+
+        btnRefrescarFichero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/file.png"))); // NOI18N
+        btnRefrescarFichero.setToolTipText("Refrescar fichero");
+        btnRefrescarFichero.setFocusable(false);
+        btnRefrescarFichero.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRefrescarFichero.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnRefrescarFichero.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnRefrescarFichero.setPreferredSize(new java.awt.Dimension(60, 60));
+        btnRefrescarFichero.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnRefrescarFichero);
+
+        btnInformacionModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/information.png"))); // NOI18N
+        btnInformacionModelo.setToolTipText("Información del modelo");
+        btnInformacionModelo.setFocusable(false);
+        btnInformacionModelo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnInformacionModelo.setMaximumSize(new java.awt.Dimension(60, 60));
+        btnInformacionModelo.setMinimumSize(new java.awt.Dimension(60, 60));
+        btnInformacionModelo.setPreferredSize(new java.awt.Dimension(60, 60));
+        btnInformacionModelo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnInformacionModelo);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
@@ -468,9 +478,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiarScripts;
     private javax.swing.JButton btnLimpiarSesion;
     private javax.swing.JButton btnLoadScript;
+    private javax.swing.JButton btnProcesadoEnCurso;
     private javax.swing.JButton btnProcesarScript;
+    private javax.swing.JButton btnRefrescarFichero;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btn_1;
     private javax.swing.JInternalFrame frmSQLScript;
     private javax.swing.JInternalFrame jInternalFrame10;
     private javax.swing.JInternalFrame jInternalFrame11;
@@ -490,7 +501,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTable jTable1;
