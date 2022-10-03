@@ -2,12 +2,13 @@ package com.mdsql.ui.renderer;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.Objects;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import org.apache.commons.lang3.StringUtils;
-
+import com.mdsql.bussiness.entities.Aviso;
+import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.ColorCelda;
 
@@ -19,11 +20,11 @@ public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
 			int row, int col) {
 
 		Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-		Object valueAt = table.getModel().getValueAt(row, col);
-		String s = StringUtils.EMPTY;
-		if (valueAt != null) {
-			s = valueAt.toString();
-			setColorCelda(c, s, col, isSelected);
+		Aviso aviso = ((ProcesarScriptNotaTableModel) table.getModel()).getSelectedRow(row);
+		
+		if (!Objects.isNull(aviso)) {
+			Integer orden = aviso.getCodigoNivelAviso().intValue();
+			setColorCelda(c, orden, col, isSelected);
 		}
 
 		return c;
@@ -33,12 +34,13 @@ public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
 	 * @param c
 	 * @param s
 	 */
-	private void setColorCelda(Component c, String s, int col, boolean isSelected) {
-		ColorCelda colorCelda = ColorCelda.getByName(s);
+	private void setColorCelda(Component c, Integer o, int col, boolean isSelected) {
+		ColorCelda colorCelda = ColorCelda.getByOrden(o);
+		Color bgColor = Objects.isNull(colorCelda) ? Color.WHITE : colorCelda.getValue();
 
 		c.setForeground(Color.black);
 
-		Color color = (col == 0) ? colorCelda.getValue()
+		Color color = (col == 0) ? bgColor
 				: (!isSelected) ? Color.WHITE : Constants.CELL_SELECTED_BGCOLOR;
 		c.setBackground(color);
 	}
