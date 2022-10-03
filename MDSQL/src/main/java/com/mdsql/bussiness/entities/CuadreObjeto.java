@@ -16,7 +16,6 @@ public class CuadreObjeto implements Serializable {
 
     private String nombreObjeto;
     private String tipoObjeto;
-    private String descripcionTipoObjeto;
     private String tipoAccion;
     private BigDecimal numeroOperacionBBDD;
     private BigDecimal numeroOperacionScript;

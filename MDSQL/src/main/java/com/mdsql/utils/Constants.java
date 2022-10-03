@@ -61,6 +61,8 @@ public class Constants {
 	public static final String HISTORICO_SERVICE = "historicoService";
 	public static final String UTILS_SERVICE = "utilsService";
 	public static final String EJECUCION_SERVICE = "ejecucionService";
+	public static final String CUADRE_SERVICE = "cuadreService";
+	public static final String ENTREGA_SERVICE = "entregaService";
 
 	/**
 	 * DataBase Types and constants
@@ -119,6 +121,9 @@ public class Constants {
 	public static final String T_T_TYPE = "T_T_TYPE";
 	public static final String T_T_OBJETOS = "T_T_OBJETOS";
 	public static final String T_R_OBJETOS = "T_R_OBJETOS";
+	public static final String T_T_SCRIPT_EJEC = "T_T_SCRIPT_EJEC";
+	public static final String T_T_CUADRE_OPER = "T_T_CUADRE_OPER";
+	public static final String T_T_CUADRE_OBJ = "T_T_CUADRE_OBJ";
 
 	// CONSTANTES DE UI
 
