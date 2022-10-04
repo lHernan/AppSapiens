@@ -49,6 +49,9 @@ public class PantallaSeleccionHistorico extends FrameSupport {
     @Getter
 	private JButton btnGenerarHistorico;
     
+    @Getter
+    private PantallaSeleccionHistoricoListener pantallaSeleccionHistoricoListener;
+    
     public PantallaSeleccionHistorico(FrameSupport parent, Boolean modal) {
         super(parent, modal);
     }
@@ -104,17 +107,17 @@ public class PantallaSeleccionHistorico extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		PantallaSeleccionHistoricoListener actionListener = new PantallaSeleccionHistoricoListener(this);
+		pantallaSeleccionHistoricoListener = new PantallaSeleccionHistoricoListener(this);
 		
 		btnAddHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_ADD);
 		btnGenerarHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR);
 		
-		btnAddHistorico.addActionListener(actionListener);
-		btnGenerarHistorico.addActionListener(actionListener);
-		btnCancelar.addActionListener(actionListener);
+		btnAddHistorico.addActionListener(pantallaSeleccionHistoricoListener);
+		btnGenerarHistorico.addActionListener(pantallaSeleccionHistoricoListener);
+		btnCancelar.addActionListener(pantallaSeleccionHistoricoListener);
 		
-		this.addOnLoadListener(actionListener);
+		this.addOnLoadListener(pantallaSeleccionHistoricoListener);
 	}
 
 	@Override

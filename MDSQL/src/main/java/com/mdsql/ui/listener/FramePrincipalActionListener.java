@@ -134,7 +134,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		params.put("procesado", framePrincipal.getProcesado());
 		params.put("script", framePrincipal.getLineasScript());
 		
-		FrameSupport dialog = MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, Boolean.TRUE, params);
+		FrameSupport dialog = MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE, params);
 		MDSQLUIHelper.show(dialog);
 	}
 	

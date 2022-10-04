@@ -17,15 +17,21 @@ import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
 
-public class PantallaSeleccionHistoricoListener extends ListenerSupport implements ActionListener, OnLoadListener {
+public class PantallaSeleccionHistoricoListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 
 	private PantallaSeleccionHistorico pantallaSeleccionHistorico;
 
 	public PantallaSeleccionHistoricoListener(PantallaSeleccionHistorico pantallaSeleccionHistorico) {
 		super();
 		this.pantallaSeleccionHistorico = pantallaSeleccionHistorico;
+	}
+	
+	public void addObservador(Observer o) {
+		this.addObserver(o);
 	}
 
 	@Override
@@ -99,6 +105,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 			pantallaSeleccionHistorico.getReturnParams().put("procesado", Boolean.FALSE);
 		}
 
+		updateObservers(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		pantallaSeleccionHistorico.dispose();
 	}
 
@@ -129,5 +136,11 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 		}
 
 		return true;
+	}
+
+	@Override
+	public void update(Observable o, Object cmd) {
+		// TODO Auto-generated method stub
+		
 	}
 }
