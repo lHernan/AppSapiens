@@ -63,6 +63,7 @@ public class Constants {
 	public static final String EJECUCION_SERVICE = "ejecucionService";
 	public static final String CUADRE_SERVICE = "cuadreService";
 	public static final String ENTREGA_SERVICE = "entregaService";
+	public static final String ERRORES_SERVICE = "erroresService";
 
 	/**
 	 * DataBase Types and constants
@@ -87,6 +88,7 @@ public class Constants {
 	public static final String CALL_12_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_13_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_15_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+	public static final String CALL_18_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_19_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_21_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_22_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
@@ -124,6 +126,9 @@ public class Constants {
 	public static final String T_T_SCRIPT_EJEC = "T_T_SCRIPT_EJEC";
 	public static final String T_T_CUADRE_OPER = "T_T_CUADRE_OPER";
 	public static final String T_T_CUADRE_OBJ = "T_T_CUADRE_OBJ";
+	public static final String T_T_ERROR_SCRIPT = "T_T_ERROR_SCRIPT";
+	public static final String T_T_SCRIPT_PARCHE = "T_T_SCRIPT_PARCHE";
+	public static final String T_T_SCRIPT_OLD = "T_T_SCRIPT_OLD";
 
 	// CONSTANTES DE UI
 
