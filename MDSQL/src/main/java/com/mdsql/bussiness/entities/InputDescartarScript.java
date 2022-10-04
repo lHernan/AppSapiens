@@ -1,0 +1,33 @@
+package com.mdsql.bussiness.entities;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
+
+/**
+ * @author hcarreno
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(toBuilder = true)
+public class InputDescartarScript implements Serializable {
+
+    private List<TextoLinea> script;
+    private BigDecimal idProceso;
+    private String codigoUsuario;
+    private String nombreScript;
+    private String tipoCambio;
+    private String nombreScriptNew;
+    private String txtRutaNew;
+    private String txtComentario;
+    private String nombreScriptParche;
+    private String txtRutaParche;
+    private List<TextoLinea> scriptParche;
+
+}

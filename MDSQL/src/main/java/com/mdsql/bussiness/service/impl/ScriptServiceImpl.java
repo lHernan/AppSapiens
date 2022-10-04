@@ -1,11 +1,16 @@
 package com.mdsql.bussiness.service.impl;
 
 import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.InputDescartarScript;
 import com.mdsql.bussiness.entities.InputProcesaScript;
+import com.mdsql.bussiness.entities.InputReparaScript;
+import com.mdsql.bussiness.entities.OutputDescartarScript;
 import com.mdsql.bussiness.entities.OutputExcepcionScript;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.ScriptOld;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.BBDDService;
@@ -101,9 +106,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
             int arrayIndexObjHis = 0;
             for (SeleccionHistorico data : inputProcesaScript.getListaObjetoHis()) {
-            	String mcaVigente = AppHelper.normalizeValueToCheck(data.getVigente());
-            	String mcaHistorico = AppHelper.normalizeValueToCheck(data.getHistorico());
-            	
+                String mcaVigente = AppHelper.normalizeValueToCheck(data.getVigente());
+                String mcaHistorico = AppHelper.normalizeValueToCheck(data.getHistorico());
+
                 structObjHis[arrayIndexObjHis++] = conn.createStruct(recordObjHis,
                         new Object[]{data.getObjeto(), data.getTipo(), mcaVigente, mcaHistorico});
             }
@@ -282,7 +287,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
         String codigoUsuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
         List<OutputRegistraEjecucion> listOutputLogs = new ArrayList<>();
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-        String txtClaveEncriptada = configuration.getConfig(Constants.TOKEN).substring(17,29);
+        String txtClaveEncriptada = configuration.getConfig(Constants.TOKEN).substring(17, 29);
 
         if (!CollectionUtils.isEmpty(listaVigente)) {
             listaVigente.sort(Comparator.comparing(Script::getNumeroOrden));
@@ -342,6 +347,352 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
         }
 
         return listOutputLogs;
+    }
+
+    @Override
+    @SneakyThrows
+    public OutputReparaScript repararScript(InputReparaScript inputReparaScript) {
+        String runSP = createCall("p_repara_script", Constants.CALL_21_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String tableLinea = createCallType(Constants.T_T_LINEA);
+            String recordLinea = createCallType(Constants.T_R_LINEA);
+
+            String typeScriptOld = createCallType(Constants.T_T_SCRIPT_OLD);
+            String typeScript = createCallType(Constants.T_T_SCRIPT);
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, inputReparaScript.getIdProceso(), inputReparaScript.getNumeroOrden(), inputReparaScript.getCodigoUsuario(), inputReparaScript.getMcaReprocesa(), inputReparaScript.getMcaMismoScript(),
+                    inputReparaScript.getNombreScriptNew(), inputReparaScript.getTxtRutaNew(), inputReparaScript.getScriptNew(), inputReparaScript.getTxtComentario(), inputReparaScript.getNombreScriptParche(),
+                    inputReparaScript.getTxtRutaParche(), inputReparaScript.getScriptParche());
+
+            Struct[] structLineaScriptNew = new Struct[inputReparaScript.getScriptNew().size()];
+
+            int arrayIndexLinea = 0;
+            for (TextoLinea data : inputReparaScript.getScriptNew()) {
+                structLineaScriptNew[arrayIndexLinea++] = conn.createStruct(recordLinea,
+                        new Object[]{data.getValor()});
+            }
+
+            Struct[] structLineaScriptParche = new Struct[inputReparaScript.getScriptParche().size()];
+
+            int arrayIndexLineaParche = 0;
+            for (TextoLinea data : inputReparaScript.getScriptParche()) {
+                structLineaScriptParche[arrayIndexLineaParche++] = conn.createStruct(recordLinea,
+                        new Object[]{data.getValor()});
+            }
+
+            Array arrayLineaScriptNew = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScriptNew);
+            Array arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScriptParche);
+
+            callableStatement.setBigDecimal(1, inputReparaScript.getIdProceso());
+            callableStatement.setBigDecimal(2, inputReparaScript.getNumeroOrden());
+            callableStatement.setString(3, inputReparaScript.getCodigoUsuario());
+            callableStatement.setString(4, inputReparaScript.getMcaReprocesa());
+            callableStatement.setString(5, inputReparaScript.getMcaMismoScript());
+            callableStatement.setString(6, inputReparaScript.getNombreScriptNew());
+            callableStatement.setString(7, inputReparaScript.getTxtRutaNew());
+            callableStatement.setArray(8, arrayLineaScriptNew);
+            callableStatement.setString(9, inputReparaScript.getTxtComentario());
+            callableStatement.setString(10, inputReparaScript.getNombreScriptParche());
+            callableStatement.setString(11, inputReparaScript.getTxtRutaParche());
+            callableStatement.setArray(12, arrayLineaScriptParche);
+            callableStatement.registerOutParameter(13, Types.VARCHAR);
+            callableStatement.registerOutParameter(14, Types.ARRAY, tableLinea);
+            callableStatement.registerOutParameter(15, Types.VARCHAR);
+            callableStatement.registerOutParameter(16, Types.ARRAY, tableLinea);
+            callableStatement.registerOutParameter(17, Types.VARCHAR);
+            callableStatement.registerOutParameter(18, Types.ARRAY, typeScriptOld);
+            callableStatement.registerOutParameter(19, Types.ARRAY, typeScript);
+
+            callableStatement.registerOutParameter(20, Types.INTEGER);
+            callableStatement.registerOutParameter(21, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(20);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(21));
+            }
+
+
+            List<TextoLinea> scriptRepara = new ArrayList<>();
+            Array arrayScriptRepara = callableStatement.getArray(14);
+
+            if (arrayScriptRepara != null) {
+                Object[] rows = (Object[]) arrayScriptRepara.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    TextoLinea textoLinea = TextoLinea.builder()
+                            .valor((String) cols[0])
+                            .build();
+
+                    scriptRepara.add(textoLinea);
+                }
+            }
+
+            List<TextoLinea> scriptLanza = new ArrayList<>();
+            Array arrayScriptLanza = callableStatement.getArray(16);
+
+            if (arrayScriptLanza != null) {
+                Object[] rows = (Object[]) arrayScriptLanza.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    TextoLinea textoLinea = TextoLinea.builder()
+                            .valor((String) cols[0])
+                            .build();
+
+                    scriptLanza.add(textoLinea);
+                }
+            }
+
+            List<ScriptOld> listaScriptOld = new ArrayList<>();
+            Array arrayScriptOld = callableStatement.getArray(18);
+
+            if (arrayScriptOld != null) {
+                Object[] rows = (Object[]) arrayScriptOld.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    ScriptOld scriptOld = ScriptOld.builder()
+                            .nombreScriptOld((String) cols[0])
+                            .nombreScriptNew((String) cols[1])
+                            .build();
+
+                    listaScriptOld.add(scriptOld);
+                }
+            }
+
+            List<Script> listaScript = new ArrayList<>();
+            Array arrayScript = callableStatement.getArray(19);
+
+            if (arrayScript != null) {
+                Object[] rows = (Object[]) arrayScript.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    Script script = Script.builder()
+                            .tipoScript((String) cols[0])
+                            .nombreScript((String) cols[2])
+                            .codigoEstadoScript((BigDecimal) cols[3])
+                            .descripcionEstadoScript((String) cols[4])
+                            .numeroOrden((BigDecimal) cols[5])
+                            .nombreScriptLanza((String) cols[6])
+                            .txtScriptLanza((String) cols[7])
+                            .nombreScriptLog((String) cols[8])
+                            .build();
+
+                    fillLineasScript(script, cols);
+
+                    listaScript.add(script);
+                }
+            }
+
+            String nombreScriptRepara = callableStatement.getString(13);
+            String nombreScriptLanza = callableStatement.getString(15);
+            String nombreLogRepara = callableStatement.getString(17);
+
+            OutputReparaScript outputProcesaScript = OutputReparaScript.builder()
+                    .nombreScriptRepara(nombreScriptRepara)
+                    .scriptRepara(scriptRepara)
+                    .nombreScriptLanza(nombreScriptLanza)
+                    .scriptLanza(scriptLanza)
+                    .nombreLogRepara(nombreLogRepara)
+                    .listaScriptOld(listaScriptOld)
+                    .listaScript(listaScript)
+                    .build();
+
+            return outputProcesaScript;
+
+        } catch (
+                SQLException e) {
+            LogWrapper.error(log, "[ScriptService.repararScript] Error: %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+
+    private void fillLineasScript(Script script, Object[] cols) throws SQLException {
+        try {
+            Array arrayLineasScript = (Array) cols[1];
+            if (!Objects.isNull(arrayLineasScript)) {
+                List<TextoLinea> textoLineas = new ArrayList<>();
+                Object[] subs = (Object[]) arrayLineasScript.getArray();
+                for (Object sub : subs) {
+                    Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
+
+                    TextoLinea textoLinea = TextoLinea.builder()
+                            .valor((String) sub_cols[0])
+                            .build();
+                    textoLineas.add(textoLinea);
+                }
+
+                script.setLineasScript(textoLineas);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            LogWrapper.error(log, "[ScriptService.fillLineasScript] Error: %s", e.getMessage());
+        }
+    }
+
+    @Override
+    @SneakyThrows
+    public OutputDescartarScript descartarScript(InputDescartarScript inputDescartarScript) {
+        String runSP = createCall("p_descartar_script", Constants.CALL_18_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String tableLinea = createCallType(Constants.T_T_LINEA);
+            String recordLinea = createCallType(Constants.T_R_LINEA);
+
+            String typeScriptOld = createCallType(Constants.T_T_SCRIPT_OLD);
+            String typeScript = createCallType(Constants.T_T_SCRIPT);
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, inputDescartarScript.getScript(), inputDescartarScript.getIdProceso(), inputDescartarScript.getCodigoUsuario(), inputDescartarScript.getNombreScript(), inputDescartarScript.getTipoCambio(),
+                    inputDescartarScript.getNombreScriptNew(), inputDescartarScript.getTxtRutaNew(), inputDescartarScript.getTxtComentario(), inputDescartarScript.getNombreScriptParche(), inputDescartarScript.getTxtRutaParche(),
+                    inputDescartarScript.getScriptParche());
+
+            Struct[] structLineaScript = new Struct[inputDescartarScript.getScript().size()];
+
+            int arrayIndexLinea = 0;
+            for (TextoLinea data : inputDescartarScript.getScript()) {
+                structLineaScript[arrayIndexLinea++] = conn.createStruct(recordLinea,
+                        new Object[]{data.getValor()});
+            }
+
+            Struct[] structLineaScriptParche = new Struct[inputDescartarScript.getScriptParche().size()];
+
+            int arrayIndexLineaParche = 0;
+            for (TextoLinea data : inputDescartarScript.getScriptParche()) {
+                structLineaScriptParche[arrayIndexLineaParche++] = conn.createStruct(recordLinea,
+                        new Object[]{data.getValor()});
+            }
+
+            Array arrayLineaScript = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScript);
+            Array arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScriptParche);
+
+            callableStatement.setArray(1, arrayLineaScript);
+            callableStatement.setBigDecimal(2, inputDescartarScript.getIdProceso());
+            callableStatement.setString(3, inputDescartarScript.getCodigoUsuario());
+            callableStatement.setString(4, inputDescartarScript.getNombreScript());
+            callableStatement.setString(5, inputDescartarScript.getTipoCambio());
+            callableStatement.setString(6, inputDescartarScript.getNombreScriptNew());
+            callableStatement.setString(7, inputDescartarScript.getTxtRutaNew());
+            callableStatement.setString(8, inputDescartarScript.getTxtComentario());
+            callableStatement.setString(9, inputDescartarScript.getNombreScriptParche());
+            callableStatement.setString(10, inputDescartarScript.getTxtRutaParche());
+            callableStatement.setArray(11, arrayLineaScriptParche);
+            callableStatement.registerOutParameter(12, Types.ARRAY, typeScript);
+            callableStatement.registerOutParameter(13, Types.ARRAY, typeScriptOld);
+            callableStatement.registerOutParameter(14, Types.ARRAY, typeScript);
+            callableStatement.registerOutParameter(15, Types.NUMERIC);
+            callableStatement.registerOutParameter(16, Types.VARCHAR);
+
+            callableStatement.registerOutParameter(17, Types.INTEGER);
+            callableStatement.registerOutParameter(18, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(17);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(18));
+            }
+
+            List<Script> listaParches = new ArrayList<>();
+            Array arrayParches = callableStatement.getArray(12);
+
+            if (arrayParches != null) {
+                Object[] rows = (Object[]) arrayParches.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    Script script = Script.builder()
+                            .tipoScript((String) cols[0])
+                            .nombreScript((String) cols[2])
+                            .codigoEstadoScript((BigDecimal) cols[3])
+                            .descripcionEstadoScript((String) cols[4])
+                            .numeroOrden((BigDecimal) cols[5])
+                            .nombreScriptLanza((String) cols[6])
+                            .txtScriptLanza((String) cols[7])
+                            .nombreScriptLog((String) cols[8])
+                            .build();
+
+                    fillLineasScript(script, cols);
+
+                    listaParches.add(script);
+                }
+            }
+
+            List<ScriptOld> listaScriptOld = new ArrayList<>();
+            Array arrayScriptOld = callableStatement.getArray(13);
+
+            if (arrayScriptOld != null) {
+                Object[] rows = (Object[]) arrayScriptOld.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    ScriptOld scriptOld = ScriptOld.builder()
+                            .nombreScriptOld((String) cols[0])
+                            .nombreScriptNew((String) cols[1])
+                            .build();
+
+                    listaScriptOld.add(scriptOld);
+                }
+            }
+
+            List<Script> listaScriptNew = new ArrayList<>();
+
+            Array arrayScriptNew = callableStatement.getArray(14);
+
+            if (arrayScriptNew != null) {
+                Object[] rows = (Object[]) arrayScriptNew.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    Script script = Script.builder()
+                            .tipoScript((String) cols[0])
+                            .nombreScript((String) cols[2])
+                            .codigoEstadoScript((BigDecimal) cols[3])
+                            .descripcionEstadoScript((String) cols[4])
+                            .numeroOrden((BigDecimal) cols[5])
+                            .nombreScriptLanza((String) cols[6])
+                            .txtScriptLanza((String) cols[7])
+                            .nombreScriptLog((String) cols[8])
+                            .build();
+
+                    fillLineasScript(script, cols);
+
+                    listaScriptNew.add(script);
+                }
+            }
+
+            BigDecimal codigoEstadoProceso = callableStatement.getBigDecimal(13);
+            String descripcionEstadoProceso = callableStatement.getString(15);
+
+            OutputDescartarScript outputDescartarScript = OutputDescartarScript.builder()
+                    .listaParches(listaParches)
+                    .listaScriptOld(listaScriptOld)
+                    .listaScriptNew(listaScriptNew)
+                    .codigoEstadoProceso(codigoEstadoProceso)
+                    .descripcionEstadoProceso(descripcionEstadoProceso)
+                    .build();
+
+            return outputDescartarScript;
+
+        } catch (
+                SQLException e) {
+            LogWrapper.error(log, "[ScriptService.descartarScript] Error: %s", e.getMessage());
+            throw new ServiceException(e);
+        }
     }
 
     @SneakyThrows
