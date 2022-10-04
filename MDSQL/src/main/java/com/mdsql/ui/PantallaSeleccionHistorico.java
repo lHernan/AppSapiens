@@ -20,7 +20,6 @@ import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
-import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -29,7 +28,7 @@ import lombok.Getter;
  *
  * @author USUARIO1
  */
-public class PantallaSeleccionHistorico extends DialogSupport {
+public class PantallaSeleccionHistorico extends FrameSupport {
 
     /**
 	 * 
@@ -134,5 +133,11 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 		btnAddHistorico.setText("Añadir a histórico");
 		btnGenerarHistorico.setText("Generar histórico");
 		btnCancelar.setText("CANCELAR");
+	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
 	}
 }

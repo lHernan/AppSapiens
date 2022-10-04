@@ -1,5 +1,13 @@
 package com.mdsql.ui.listener;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+
 import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
@@ -7,14 +15,7 @@ import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.utils.Constants;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observer;
+import com.mdval.ui.utils.observer.Observer;
 
 public class PantallaEjecutarScriptsListener extends ListenerSupport implements ActionListener {
 

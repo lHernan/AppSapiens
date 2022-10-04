@@ -3,7 +3,6 @@ package com.mdsql.ui.utils;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
 
 import javax.swing.JFrame;
 
@@ -15,6 +14,7 @@ import com.mdsql.utils.LiteralesSingleton;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
+import com.mdval.ui.utils.observer.Observable;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,8 +49,8 @@ public abstract class ListenerSupport extends Observable {
 	/**
 	 * @param cmd
 	 */
-	protected void showFrame(String cmd) {
-		JFrame frame = MDSQLUIHelper.createFrame(cmd);
+	protected void showFrame(String cmd, Boolean modal) {
+		JFrame frame = MDSQLUIHelper.createFrame(cmd, modal);
 		UIHelper.show(frame);
 	}
 	
@@ -58,8 +58,8 @@ public abstract class ListenerSupport extends Observable {
 	 * @param parent
 	 * @param cmd
 	 */
-	protected void showFrame(FrameSupport parent, String cmd) {
-		JFrame frame = MDSQLUIHelper.createFrame(parent, cmd);
+	protected void showFrame(FrameSupport parent, String cmd, Boolean modal) {
+		JFrame frame = MDSQLUIHelper.createFrame(parent, cmd, modal);
 		UIHelper.show(frame);
 	}
 	
@@ -67,8 +67,8 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 * @param params
 	 */
-	protected void showFrame(String cmd, Map<String, Object> params) {
-		JFrame frame = MDSQLUIHelper.createFrame(cmd, params);
+	protected void showFrame(String cmd, Boolean modal, Map<String, Object> params) {
+		JFrame frame = MDSQLUIHelper.createFrame(cmd, modal, params);
 		UIHelper.show(frame);
 	}
 	
@@ -77,8 +77,8 @@ public abstract class ListenerSupport extends Observable {
 	 * @param cmd
 	 * @param params
 	 */
-	protected void showFrame(FrameSupport parent, String cmd, Map<String, Object> params) {
-		JFrame frame = MDSQLUIHelper.createFrame(parent, cmd, params);
+	protected void showFrame(FrameSupport parent, String cmd, Boolean modal, Map<String, Object> params) {
+		JFrame frame = MDSQLUIHelper.createFrame(parent, cmd, modal, params);
 		UIHelper.show(frame);
 	}
 	

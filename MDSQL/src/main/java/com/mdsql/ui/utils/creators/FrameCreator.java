@@ -2,11 +2,16 @@ package com.mdsql.ui.utils.creators;
 
 import java.util.Map;
 
+import com.mdsql.ui.PantallaEjecutarScripts;
+import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.PantallaSeleccionHistorico;
+import com.mdsql.ui.PantallaSeleccionModelos;
+import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.FrameSupport;
 
 /**
  * Factory method para gestionar la creación centralizada de cuadros emergentes
- * de la aplicación. Se le pasa al constructor la cadena de la
+ * de la aplicación. Se le pasa al constructor la ventana padre y la cadena de la
  * opción del menú principal que activa al emergente solicitado.
  * 
  * @author federico
@@ -16,17 +21,21 @@ public class FrameCreator extends Creator {
 	
 	private String option;
 	
-	private FrameSupport parent;
+	private FrameSupport frameParent;
 	
-	public FrameCreator(String option) {
+	private Boolean modal;
+	
+	public FrameCreator(String option, Boolean modal) {
+		this.modal = Boolean.TRUE;
 		this.option = option;
 	}
 	
-	public FrameCreator(FrameSupport parent, String option) {
-		this.parent = parent;
+	public FrameCreator(FrameSupport frameParent, String option, Boolean modal) {
+		this.modal = modal;
 		this.option = option;
+		this.frameParent = frameParent;
 	}
-
+	
 	/**
 	 *
 	 */
@@ -34,13 +43,29 @@ public class FrameCreator extends Creator {
 	public Object factoryMethod() {
 		return null;
 	}
-	
+
 	/**
 	 *
 	 */
 	@Override
 	public Object factoryMethod(Map<String, Object> params) {
 		FrameSupport frame = null;
+		
+		if (Constants.CMD_PROCESAR_SCRIPT.equals(option)) {
+			frame = new PantallaProcesarScript(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_EJECUTAR_SCRIPT.equals(option)) {
+			frame = new PantallaEjecutarScripts(frameParent, modal);
+		}
+		
+		if (Constants.CMD_SEARCH_MODEL.equals(option)) {
+			frame = new PantallaSeleccionModelos(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_SELECCION_HISTORICO.equals(option)) {
+			frame = new PantallaSeleccionHistorico(frameParent, modal, params);
+		}
 		
 		
 		

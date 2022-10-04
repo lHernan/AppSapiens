@@ -26,6 +26,7 @@ import com.mdsql.bussiness.service.BBDDService;
 import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
@@ -35,14 +36,18 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 
 /**
  * @author federico
  *
  */
-public class PantallaProcesarScriptActionListener extends ListenerSupport implements ActionListener {
+public class PantallaProcesarScriptActionListener extends ListenerSupport implements ActionListener, Observer {
 
 	private PantallaProcesarScript pantallaProcesarScript;
+	
+	private PantallaSeleccionModelos pantallaSeleccionModelos;
 
 	/**
 	 * @param framePrincipal
@@ -146,20 +151,19 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 * 
 	 */
 	private void eventBtnSearchModel() {
-		DialogSupport dialog = MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
-				Constants.CMD_SEARCH_MODEL);
-		MDSQLUIHelper.show(dialog);
-
-		try {
-			Modelo seleccionado = (Modelo) dialog.getReturnParams().get("seleccionado");
-			if (!Objects.isNull(seleccionado)) {
-				pantallaProcesarScript.setModeloSeleccionado(seleccionado);
-				procesarModelo();
-			}
-		} catch (ServiceException e) {
-			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, params);
+		Map<String, Object> params = new HashMap<>();
+		
+		String codigoProyecto = pantallaProcesarScript.getTxtModelo().getText();
+		
+		if (StringUtils.isNotBlank(codigoProyecto)) {
+			params.put("codigoProyecto", codigoProyecto);
 		}
+		
+		pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createFrame(pantallaProcesarScript.getFrameParent(),
+				Constants.CMD_SEARCH_MODEL, Boolean.TRUE, params);
+		MDSQLUIHelper.show(pantallaSeleccionModelos);
+		
+		pantallaSeleccionModelos.getPantallaSeleccionModelosListener().addObservador(this);
 	}
 
 	/**
@@ -301,5 +305,22 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	private void procesarType() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void update(Observable o, Object cmd) {
+		String command = (String) cmd;
+		if (Constants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR.equals(command)) {
+			try {
+				Modelo seleccionado = pantallaSeleccionModelos.getSeleccionado();
+				if (!Objects.isNull(seleccionado)) {
+					pantallaProcesarScript.setModeloSeleccionado(seleccionado);
+					procesarModelo();
+				}
+			} catch (ServiceException e) {
+				Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+				MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+			}
+		}
 	}
 }

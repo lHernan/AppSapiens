@@ -4,6 +4,7 @@ package com.mdval.ui.utils;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -40,6 +41,9 @@ public abstract class FrameSupport extends JFrame {
 	
 	@Getter
 	protected Map<String, Object> params;
+	
+	@Getter
+	protected Map<String, Object> returnParams; 
 	
 	protected LiteralesSingleton literales;
 	
@@ -126,6 +130,7 @@ public abstract class FrameSupport extends JFrame {
 			}
 			
 			onLoadListeners = new ArrayList<>();
+			returnParams = new HashMap<>();
 			
 			panelLogo = new PanelLogotipo("logotipo.png");
 			panelLogo.setPreferredSize(new Dimension(286, 63));
