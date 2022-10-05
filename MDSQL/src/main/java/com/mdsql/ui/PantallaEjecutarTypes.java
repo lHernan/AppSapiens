@@ -25,6 +25,8 @@ import com.mdval.ui.utils.FrameSupport;
  *
  * @author USUARIO1
  */
+
+import lombok.Getter;
 public class PantallaEjecutarTypes extends DialogSupport {
 	
 	 /**
@@ -46,7 +48,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
     private JLabel jLabel6;
     private JLabel jLabel7;
     private JScrollPane jScrollPane1;
-<<<<<<< HEAD
+    
     private JTable tblTypes;
     @Getter
     private JTextField jTextField1;
