@@ -20,7 +20,6 @@ import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
-import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -29,7 +28,7 @@ import lombok.Getter;
  *
  * @author USUARIO1
  */
-public class PantallaSeleccionHistorico extends DialogSupport {
+public class PantallaSeleccionHistorico extends FrameSupport {
 
     /**
 	 * 
@@ -49,6 +48,9 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
     @Getter
 	private JButton btnGenerarHistorico;
+    
+    @Getter
+    private PantallaSeleccionHistoricoListener pantallaSeleccionHistoricoListener;
     
     public PantallaSeleccionHistorico(FrameSupport parent, Boolean modal) {
         super(parent, modal);
@@ -105,17 +107,17 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		PantallaSeleccionHistoricoListener actionListener = new PantallaSeleccionHistoricoListener(this);
+		pantallaSeleccionHistoricoListener = new PantallaSeleccionHistoricoListener(this);
 		
 		btnAddHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_ADD);
 		btnGenerarHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR);
 		
-		btnAddHistorico.addActionListener(actionListener);
-		btnGenerarHistorico.addActionListener(actionListener);
-		btnCancelar.addActionListener(actionListener);
+		btnAddHistorico.addActionListener(pantallaSeleccionHistoricoListener);
+		btnGenerarHistorico.addActionListener(pantallaSeleccionHistoricoListener);
+		btnCancelar.addActionListener(pantallaSeleccionHistoricoListener);
 		
-		this.addOnLoadListener(actionListener);
+		this.addOnLoadListener(pantallaSeleccionHistoricoListener);
 	}
 
 	@Override
@@ -134,5 +136,11 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 		btnAddHistorico.setText("Añadir a histórico");
 		btnGenerarHistorico.setText("Generar histórico");
 		btnCancelar.setText("CANCELAR");
+	}
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
 	}
 }

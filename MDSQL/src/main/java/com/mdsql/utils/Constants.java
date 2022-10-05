@@ -137,8 +137,11 @@ public class Constants {
 
 	// Colores de celdas de aviso
 	public enum ColorCelda {
-		BAJA("BAJA", Color.WHITE), MEDIA("MEDIA", Color.ORANGE), ALTA("ALTA", Color.YELLOW),
-		CRITICA("CRITICA", Color.RED);
+		BAJA(4, "Baja", Color.WHITE), MEDIA(3, "Media", Color.ORANGE), ALTA(2, "Alta", Color.YELLOW),
+		CRITICA(1, "Crítica", Color.RED);
+		
+		@Getter
+		private Integer orden;
 
 		@Getter
 		private String name;
@@ -146,7 +149,8 @@ public class Constants {
 		@Getter
 		private Color value;
 
-		ColorCelda(String name, Color value) {
+		ColorCelda(Integer orden, String name, Color value) {
+			this.orden = orden;
 			this.name = name;
 			this.value = value;
 		}
@@ -154,6 +158,16 @@ public class Constants {
 		public static ColorCelda getByName(String name) {
 			for (ColorCelda colorCelda : ColorCelda.values()) {
 				if (colorCelda.name.equals(name)) {
+					return colorCelda;
+				}
+			}
+
+			return null;
+		}
+		
+		public static ColorCelda getByOrden(Integer orden) {
+			for (ColorCelda colorCelda : ColorCelda.values()) {
+				if (colorCelda.orden == orden) {
 					return colorCelda;
 				}
 			}

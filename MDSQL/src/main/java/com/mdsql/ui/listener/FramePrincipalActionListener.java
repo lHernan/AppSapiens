@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 
-import com.mdval.utils.AppGlobalSingleton;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.FramePrincipal;
@@ -25,6 +24,8 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
+import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -133,7 +134,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		params.put("procesado", framePrincipal.getProcesado());
 		params.put("script", framePrincipal.getLineasScript());
 		
-		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, params);
+		FrameSupport dialog = MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE, params);
 		MDSQLUIHelper.show(dialog);
 	}
 	

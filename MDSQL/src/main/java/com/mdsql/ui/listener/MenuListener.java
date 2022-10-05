@@ -29,7 +29,7 @@ public class MenuListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
-		JFrame frame = MDSQLUIHelper.createFrame(item.getActionCommand());
+		JFrame frame = MDSQLUIHelper.createFrame(item.getActionCommand(), Boolean.FALSE);
 		UIHelper.show(frame);
 	}
 }

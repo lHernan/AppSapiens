@@ -51,8 +51,7 @@ public class FramePrincipal extends FrameSupport {
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnLoadScript;
-    private JButton btn_1;
-	private JButton btnInformacionModelo;
+    private JButton btnInformacionModelo;
     private JButton btnCargarScriptObjetos;
     private JButton btnProcesarScript;
     private JButton btnSave;
@@ -60,6 +59,8 @@ public class FramePrincipal extends FrameSupport {
 	private JButton btnEntregarProcesado;
 	private JButton btnLimpiarScripts;
 	private JButton btnLimpiarSesion;
+	private JButton btnProcesadoEnCurso;
+	private JButton btnRefrescarFichero;
     
     private JInternalFrame jInternalFrame10;
     private JInternalFrame jInternalFrame2;
@@ -82,7 +83,6 @@ public class FramePrincipal extends FrameSupport {
     private JScrollPane jScrollPane2;
     private JToolBar.Separator jSeparator1;
     private JToolBar.Separator jSeparator2;
-    private JToolBar.Separator jSeparator3;
     private JToolBar.Separator jSeparator4;
     private JSplitPane jSplitPane1;
     private JTable jTable1;
@@ -123,14 +123,14 @@ public class FramePrincipal extends FrameSupport {
         jSeparator2 = new JToolBar.Separator();
         btnProcesarScript = new JButton();
         btnSave = new JButton();
-        btn_1 = new JButton();
         btnExecute = new JButton();
         btnEntregarProcesado = new JButton();
         btnLimpiarScripts = new JButton();
-        jSeparator3 = new JToolBar.Separator();
-        btnInformacionModelo = new JButton();
-        jSeparator4 = new JToolBar.Separator();
         btnLimpiarSesion = new JButton();
+        jSeparator4 = new JToolBar.Separator();
+        btnProcesadoEnCurso = new JButton();
+        btnRefrescarFichero = new JButton();
+        btnInformacionModelo = new JButton();
         jSplitPane1 = new JSplitPane();
         frmSQLScript = new JInternalFrame();
         jScrollPane1 = new JScrollPane();
@@ -204,15 +204,6 @@ public class FramePrincipal extends FrameSupport {
         btnSave.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnSave);
 
-        btn_1.setIcon(new ImageIcon(getClass().getResource("/unknown.png"))); // NOI18N
-        btn_1.setFocusable(false);
-        btn_1.setHorizontalTextPosition(SwingConstants.CENTER);
-        btn_1.setMaximumSize(new Dimension(60, 60));
-        btn_1.setMinimumSize(new Dimension(60, 60));
-        btn_1.setPreferredSize(new Dimension(60, 60));
-        btn_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jToolBar1.add(btn_1);
-
         btnExecute.setIcon(new ImageIcon(getClass().getResource("/checking.png"))); // NOI18N
         btnExecute.setToolTipText("Ejecutar script");
         btnExecute.setFocusable(false);
@@ -242,18 +233,6 @@ public class FramePrincipal extends FrameSupport {
         btnLimpiarScripts.setPreferredSize(new Dimension(60, 60));
         btnLimpiarScripts.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnLimpiarScripts);
-        jToolBar1.add(jSeparator3);
-
-        btnInformacionModelo.setIcon(new ImageIcon(getClass().getResource("/info.png"))); // NOI18N
-        btnInformacionModelo.setToolTipText("Información del modelo");
-        btnInformacionModelo.setFocusable(false);
-        btnInformacionModelo.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnInformacionModelo.setMaximumSize(new Dimension(60, 60));
-        btnInformacionModelo.setMinimumSize(new Dimension(60, 60));
-        btnInformacionModelo.setPreferredSize(new Dimension(60, 60));
-        btnInformacionModelo.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jToolBar1.add(btnInformacionModelo);
-        jToolBar1.add(jSeparator4);
 
         btnLimpiarSesion.setIcon(new ImageIcon(getClass().getResource("/trash.png"))); // NOI18N
         btnLimpiarSesion.setToolTipText("Limpiar sesión");
@@ -264,6 +243,37 @@ public class FramePrincipal extends FrameSupport {
         btnLimpiarSesion.setPreferredSize(new Dimension(60, 60));
         btnLimpiarSesion.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnLimpiarSesion);
+        jToolBar1.add(jSeparator4);
+
+        btnProcesadoEnCurso.setIcon(new ImageIcon(getClass().getResource("/info.png"))); // NOI18N
+        btnProcesadoEnCurso.setToolTipText("Procesado en curso");
+        btnProcesadoEnCurso.setFocusable(false);
+        btnProcesadoEnCurso.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnProcesadoEnCurso.setMaximumSize(new Dimension(60, 60));
+        btnProcesadoEnCurso.setMinimumSize(new Dimension(60, 60));
+        btnProcesadoEnCurso.setPreferredSize(new Dimension(60, 60));
+        btnProcesadoEnCurso.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jToolBar1.add(btnProcesadoEnCurso);
+
+        btnRefrescarFichero.setIcon(new ImageIcon(getClass().getResource("/file.png"))); // NOI18N
+        btnRefrescarFichero.setToolTipText("Refrescar fichero");
+        btnRefrescarFichero.setFocusable(false);
+        btnRefrescarFichero.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnRefrescarFichero.setMaximumSize(new Dimension(60, 60));
+        btnRefrescarFichero.setMinimumSize(new Dimension(60, 60));
+        btnRefrescarFichero.setPreferredSize(new Dimension(60, 60));
+        btnRefrescarFichero.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jToolBar1.add(btnRefrescarFichero);
+
+        btnInformacionModelo.setIcon(new ImageIcon(getClass().getResource("/information.png"))); // NOI18N
+        btnInformacionModelo.setToolTipText("Información del modelo");
+        btnInformacionModelo.setFocusable(false);
+        btnInformacionModelo.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnInformacionModelo.setMaximumSize(new Dimension(60, 60));
+        btnInformacionModelo.setMinimumSize(new Dimension(60, 60));
+        btnInformacionModelo.setPreferredSize(new Dimension(60, 60));
+        btnInformacionModelo.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jToolBar1.add(btnInformacionModelo);
 
         getContentPane().add(jToolBar1, BorderLayout.PAGE_START);
 

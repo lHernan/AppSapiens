@@ -15,18 +15,24 @@ import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 
 /**
  * @author federico
  *
  */
-public class PantallaSeleccionModelosListener extends ListenerSupport implements ActionListener {
+public class PantallaSeleccionModelosListener extends ListenerSupport implements ActionListener, Observer {
 
 	private PantallaSeleccionModelos pantallaSeleccionModelos;
 
 	public PantallaSeleccionModelosListener(PantallaSeleccionModelos pantallaSeleccionModelos) {
 		super();
 		this.pantallaSeleccionModelos = pantallaSeleccionModelos;
+	}
+	
+	public void addObservador(Observer o) {
+		this.addObserver(o);
 	}
 
 	@Override
@@ -64,7 +70,7 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 	 * 
 	 */
 	private void evntBtnSeleccionar() {
-		pantallaSeleccionModelos.getReturnParams().put("seleccionado", pantallaSeleccionModelos.getSeleccionado());
+		updateObservers(Constants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR);
 		pantallaSeleccionModelos.dispose();
 	}
 
@@ -89,5 +95,11 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 		SeleccionModelosTableModel tableModel = (SeleccionModelosTableModel) pantallaSeleccionModelos
 				.getTblModelos().getModel();
 		tableModel.setData(modelos);
+	}
+
+	@Override
+	public void update(Observable o, Object cmd) {
+		// TODO Auto-generated method stub
+		
 	}
 }

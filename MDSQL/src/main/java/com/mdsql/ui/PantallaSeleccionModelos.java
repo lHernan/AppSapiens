@@ -6,7 +6,6 @@ package com.mdsql.ui;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -19,6 +18,8 @@ import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaSeleccionModelosListener;
 import com.mdsql.ui.listener.tables.PantallaSeleccionModelosTableListener;
@@ -26,7 +27,6 @@ import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
-import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -36,7 +36,7 @@ import lombok.Setter;
  *
  * @author USUARIO1
  */
-public class PantallaSeleccionModelos extends DialogSupport {
+public class PantallaSeleccionModelos extends FrameSupport {
 	
     
     /**
@@ -73,6 +73,9 @@ public class PantallaSeleccionModelos extends DialogSupport {
     // End of variables declaration//GEN-END:variables
 
 	private JLabel lblTitulo;
+	
+	@Getter
+	private PantallaSeleccionModelosListener pantallaSeleccionModelosListener; 
 	
 	public PantallaSeleccionModelos(FrameSupport parent, Boolean modal) {
         super(parent, modal);
@@ -179,14 +182,14 @@ public class PantallaSeleccionModelos extends DialogSupport {
     
 	@Override
 	protected void initEvents() {
-		ActionListener actionListener = new PantallaSeleccionModelosListener(this);
+		pantallaSeleccionModelosListener = new PantallaSeleccionModelosListener(this);
 		ListSelectionListener listSelectionListener = new PantallaSeleccionModelosTableListener(this);
 		
 		btnBuscar.setActionCommand(Constants.PANTALLA_SELECCION_MODELOS_BTN_BUSCAR);
 		btnSeleccionar.setActionCommand(Constants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR);
 		
-		btnBuscar.addActionListener(actionListener);
-		btnSeleccionar.addActionListener(actionListener);
+		btnBuscar.addActionListener(pantallaSeleccionModelosListener);
+		btnSeleccionar.addActionListener(pantallaSeleccionModelosListener);
 		
 		ListSelectionModel rowSM = tblModelos.getSelectionModel();
 		rowSM.addListSelectionListener(listSelectionListener);
@@ -200,6 +203,11 @@ public class PantallaSeleccionModelos extends DialogSupport {
 
 	@Override
 	protected void initialState() {
+		String codigoProyecto = (String) params.get("codigoProyecto");
+		if (StringUtils.isNotBlank(codigoProyecto)) {
+			txtCodModelo.setText(codigoProyecto);
+		}
+		
 		btnSeleccionar.setEnabled(Boolean.FALSE);		
 	}
 
@@ -214,4 +222,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
         btnBuscar.setText("BUSCAR");
         btnSeleccionar.setText("SELECCIONAR");
 	}
+
+	@Override
+	protected void initMenuBar() {}
 }

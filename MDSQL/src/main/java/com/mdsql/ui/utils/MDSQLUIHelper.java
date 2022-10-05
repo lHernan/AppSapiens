@@ -3,8 +3,6 @@ package com.mdsql.ui.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JFrame;
-
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.creators.CabeceraTablaCreator;
 import com.mdsql.ui.utils.creators.Creator;
@@ -42,18 +40,18 @@ public class MDSQLUIHelper extends UIHelper {
 	 * @param item
 	 * @return
 	 */
-	public static JFrame createFrame(String item) {
-		Creator frameCreator = new FrameCreator(item);
-		return (JFrame) frameCreator.factoryMethod(null);
+	public static FrameSupport createFrame(String item, Boolean modal) {
+		Creator frameCreator = new FrameCreator(item, modal);
+		return (FrameSupport) frameCreator.factoryMethod(null);
 	}
 	
 	/**
 	 * @param item
 	 * @return
 	 */
-	public static JFrame createFrame(FrameSupport parent, String item) {
-		Creator frameCreator = new FrameCreator(parent, item);
-		return (JFrame) frameCreator.factoryMethod(null);
+	public static FrameSupport createFrame(FrameSupport parent, String item, Boolean modal) {
+		Creator frameCreator = new FrameCreator(parent, item, modal);
+		return (FrameSupport) frameCreator.factoryMethod(null);
 	}
 	
 	/**
@@ -61,9 +59,9 @@ public class MDSQLUIHelper extends UIHelper {
 	 * @param params
 	 * @return
 	 */
-	public static JFrame createFrame(String item, Map<String, Object> params) {
-		Creator frameCreator = new FrameCreator(item);
-		return (JFrame) frameCreator.factoryMethod(params);
+	public static FrameSupport createFrame(String item, Boolean modal, Map<String, Object> params) {
+		Creator frameCreator = new FrameCreator(item, modal);
+		return (FrameSupport) frameCreator.factoryMethod(params);
 	}
 	
 	/**
@@ -72,9 +70,9 @@ public class MDSQLUIHelper extends UIHelper {
 	 * @param params
 	 * @return
 	 */
-	public static JFrame createFrame(FrameSupport parent, String item, Map<String, Object> params) {
-		Creator frameCreator = new FrameCreator(parent, item);
-		return (JFrame) frameCreator.factoryMethod(params);
+	public static FrameSupport createFrame(FrameSupport parent, String item, Boolean modal, Map<String, Object> params) {
+		Creator frameCreator = new FrameCreator(parent, item, modal);
+		return (FrameSupport) frameCreator.factoryMethod(params);
 	}
 	
 	/**
