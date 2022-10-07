@@ -46,6 +46,13 @@ public class FramePrincipal extends javax.swing.JFrame {
         frmSQLScript = new javax.swing.JInternalFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSQLCode = new javax.swing.JTextArea();
+        jToolBar2 = new javax.swing.JToolBar();
+        btnUndo = new javax.swing.JButton();
+        btnRedo = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        btnCopy = new javax.swing.JButton();
+        btnCut = new javax.swing.JButton();
+        btnPaste = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         tabPanel = new javax.swing.JTabbedPane();
         panelVigente = new javax.swing.JPanel();
@@ -195,6 +202,47 @@ public class FramePrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtSQLCode);
 
         frmSQLScript.getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jToolBar2.setFloatable(false);
+        jToolBar2.setRollover(true);
+
+        btnUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/undo.png"))); // NOI18N
+        btnUndo.setToolTipText("Deshacer");
+        btnUndo.setFocusable(false);
+        btnUndo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnUndo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnUndo);
+
+        btnRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/redo.png"))); // NOI18N
+        btnRedo.setToolTipText("Rehacer");
+        btnRedo.setFocusable(false);
+        btnRedo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRedo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnRedo);
+        jToolBar2.add(jSeparator3);
+
+        btnCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/copy.png"))); // NOI18N
+        btnCopy.setToolTipText("Copiar");
+        btnCopy.setFocusable(false);
+        btnCopy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCopy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnCopy);
+
+        btnCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cut.png"))); // NOI18N
+        btnCut.setToolTipText("Cortar");
+        btnCut.setFocusable(false);
+        btnCut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnCut);
+
+        btnPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paste.png"))); // NOI18N
+        btnPaste.setToolTipText("Pegar");
+        btnPaste.setFocusable(false);
+        btnPaste.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPaste.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnPaste);
+
+        frmSQLScript.getContentPane().add(jToolBar2, java.awt.BorderLayout.PAGE_START);
 
         jSplitPane1.setLeftComponent(frmSQLScript);
 
@@ -472,16 +520,21 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargarScriptObjetos;
+    private javax.swing.JButton btnCopy;
+    private javax.swing.JButton btnCut;
     private javax.swing.JButton btnEntregarProcesado;
     private javax.swing.JButton btnExecute;
     private javax.swing.JButton btnInformacionModelo;
     private javax.swing.JButton btnLimpiarScripts;
     private javax.swing.JButton btnLimpiarSesion;
     private javax.swing.JButton btnLoadScript;
+    private javax.swing.JButton btnPaste;
     private javax.swing.JButton btnProcesadoEnCurso;
     private javax.swing.JButton btnProcesarScript;
+    private javax.swing.JButton btnRedo;
     private javax.swing.JButton btnRefrescarFichero;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUndo;
     private javax.swing.JInternalFrame frmSQLScript;
     private javax.swing.JInternalFrame jInternalFrame10;
     private javax.swing.JInternalFrame jInternalFrame11;
@@ -501,10 +554,12 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JPanel panelHistorico;
     private javax.swing.JPanel panelTypes;
     private javax.swing.JPanel panelVigente;
