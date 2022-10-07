@@ -10,9 +10,11 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.sql.DataSource;
 
+import com.mdsql.bussiness.entities.ScriptType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -115,8 +117,16 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
                             .numeroOrdenType((BigDecimal) cols[0])
                             .codigoEstadoScript((BigDecimal) cols[1])
                             .descripcionEstadoScript((String) cols[2])
-
+                            .fechaCambio((Date) cols[3])
+                            .numeroEjecucion((BigDecimal) cols[4])
+                            .TYS((String) cols[5])
+                            .TYB((String) cols[6])
+                            .PDC((String) cols[7])
+                            .DROP((String) cols[8])
+                            .nombreObjeto((String) cols[9])
                             .build();
+
+                    fillScripType(type, cols);
 
                     types.add(type);
                 }
@@ -139,8 +149,65 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
 
         } catch (
                 SQLException e) {
-            LogWrapper.error(log, "[ScriptService.procesarScript] Error: %s", e.getMessage());
+            LogWrapper.error(log, "[TypeService.procesarScript] Error: %s", e.getMessage());
             throw new ServiceException(e);
+        }
+    }
+
+    /**
+     * @param type
+     * @param cols
+     * @throws SQLException
+     */
+    private void fillScripType(Type type, Object[] cols) throws SQLException {
+        try {
+            Array arrayTypes = (Array) cols[10];
+            if (!Objects.isNull(arrayTypes)) {
+                List<ScriptType> scriptTypes = new ArrayList<>();
+                Object[] subs = (Object[]) arrayTypes.getArray();
+                for (Object sub : subs) {
+                    Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
+
+                    ScriptType scriptType = ScriptType.builder()
+                            .nombreScript((String) sub_cols[1])
+                            .build();
+                    //fill script type lines
+                    fillScriptTypeLines(scriptType, sub_cols);
+                    scriptTypes.add(scriptType);
+                }
+
+                type.setScriptType(scriptTypes);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            LogWrapper.error(log, "[TypeService.fillScripType] Error: %s", e.getMessage());
+        }
+    }
+
+    /**
+     * @param scriptType
+     * @param cols
+     * @throws SQLException
+     */
+    private void fillScriptTypeLines(ScriptType scriptType, Object[] cols) throws SQLException {
+        try {
+            Array arrayLines = (Array) cols[0];
+            if (!Objects.isNull(arrayLines)) {
+                List<TextoLinea> textoLineas = new ArrayList<>();
+                Object[] subs = (Object[]) arrayLines.getArray();
+                for (Object sub : subs) {
+                    Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
+
+                    TextoLinea textoLinea = TextoLinea.builder()
+                            .valor((String) sub_cols[0])
+                            .build();
+
+                    textoLineas.add(textoLinea);
+                }
+
+                scriptType.setTxtScript(textoLineas);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            LogWrapper.error(log, "[TypeService.fillScriptTypeLines] Error: %s", e.getMessage());
         }
     }
 }

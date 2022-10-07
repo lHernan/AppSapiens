@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.DetObjeto;
 import com.mdsql.bussiness.entities.InputDescartarScript;
 import com.mdsql.bussiness.entities.InputProcesaScript;
 import com.mdsql.bussiness.entities.InputReparaScript;
@@ -28,5 +29,7 @@ public interface ScriptService {
     OutputReparaScript repararScript(InputReparaScript inputReparaScript);
 
     OutputDescartarScript descartarScript(InputDescartarScript inputDescartarScript);
+
+    List<DetObjeto> detalleObjetosScripts(BigDecimal idProceso, BigDecimal numeroOrden);
 
 }

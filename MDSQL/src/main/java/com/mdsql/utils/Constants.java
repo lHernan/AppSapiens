@@ -87,6 +87,7 @@ public class Constants {
 	public static final String CALL_11_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_12_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_13_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+	public static final String CALL_14_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_15_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_18_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 	public static final String CALL_19_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
@@ -112,6 +113,7 @@ public class Constants {
 	public static final String T_T_PARTICULA_NORMA = "T_T_PARTICULA_NORMA";
 	public static final String T_T_GLOSARIO = "T_T_GLOSARIO";
 	public static final String T_T_ERROR = "T_T_ERROR";
+	public static final String T_T_DET_OBJETO = "T_T_DET_OBJETO";
 
 	// nuevas constantes types BBDD
 	public static final String T_T_PROCESO = "T_T_PROCESO";
