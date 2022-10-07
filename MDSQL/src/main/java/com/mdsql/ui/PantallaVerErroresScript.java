@@ -120,4 +120,7 @@ public class PantallaVerErroresScript extends FrameSupport {
 		jLabel1.setText("Parches asociados");
 		btnCancelar.setText("CANCELAR");
 	}
+
+	@Override
+	protected void initMenuBar() {}
 }

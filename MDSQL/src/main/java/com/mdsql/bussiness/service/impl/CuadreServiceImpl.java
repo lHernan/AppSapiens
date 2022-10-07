@@ -28,112 +28,107 @@ import java.util.List;
 @Slf4j
 public class CuadreServiceImpl extends ServiceSupport implements CuadreService {
 
-    @Autowired
-    private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
 
-    @Override
-    @SneakyThrows
-    public List<CuadreOperacion> consultaCuadreOperacionesScript(BigDecimal idProceso, BigDecimal numeroOrden) {
-        String runSP = createCall("p_con_cuadre_oper_script", Constants.CALL_05_ARGS);
+	@Override
+	public List<CuadreOperacion> consultaCuadreOperacionesScript(BigDecimal idProceso, BigDecimal numeroOrden)
+			throws ServiceException {
+		String runSP = createCall("p_con_cuadre_oper_script", Constants.CALL_05_ARGS);
 
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+		try (Connection conn = dataSource.getConnection();
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeCuadreOperaciones = createCallType(Constants.T_T_CUADRE_OPER);
-            String typeError = createCallTypeError();
+			String typeCuadreOperaciones = createCallType(Constants.T_T_CUADRE_OPER);
+			String typeError = createCallTypeError();
 
-            logProcedure(runSP, idProceso, numeroOrden);
+			logProcedure(runSP, idProceso, numeroOrden);
 
-            callableStatement.setBigDecimal(1, idProceso);
-            callableStatement.setBigDecimal(2, numeroOrden);
-            callableStatement.registerOutParameter(3, Types.ARRAY, typeCuadreOperaciones);
-            callableStatement.registerOutParameter(4, Types.INTEGER);
-            callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
+			callableStatement.setBigDecimal(1, idProceso);
+			callableStatement.setBigDecimal(2, numeroOrden);
+			callableStatement.registerOutParameter(3, Types.ARRAY, typeCuadreOperaciones);
+			callableStatement.registerOutParameter(4, Types.INTEGER);
+			callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
 
-            callableStatement.execute();
+			callableStatement.execute();
 
-            Integer result = callableStatement.getInt(4);
+			Integer result = callableStatement.getInt(4);
 
-            if (result == 0) {
-                throw buildException(callableStatement.getArray(5));
-            }
+			if (result == 0) {
+				throw buildException(callableStatement.getArray(5));
+			}
 
-            List<CuadreOperacion> cuadreOperacions = new ArrayList<>();
-            Array arrayCuadreOperaciones = callableStatement.getArray(3);
+			List<CuadreOperacion> cuadreOperacions = new ArrayList<>();
+			Array arrayCuadreOperaciones = callableStatement.getArray(3);
 
-            if (arrayCuadreOperaciones != null) {
-                Object[] rows = (Object[]) arrayCuadreOperaciones.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+			if (arrayCuadreOperaciones != null) {
+				Object[] rows = (Object[]) arrayCuadreOperaciones.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-                    CuadreOperacion cuadreOperacion = CuadreOperacion.builder()
-                            .tipoObjeto((String) cols[0])
-                            .tipoAccion((String) cols[1])
-                            .numeroOperacionBBDD((BigDecimal) cols[2])
-                            .numeroOperacionScript((BigDecimal) cols[3])
-                            .build();
+					CuadreOperacion cuadreOperacion = CuadreOperacion.builder().tipoObjeto((String) cols[0])
+							.tipoAccion((String) cols[1]).numeroOperacionBBDD((BigDecimal) cols[2])
+							.numeroOperacionScript((BigDecimal) cols[3]).build();
 
-                    cuadreOperacions.add(cuadreOperacion);
-                }
-            }
+					cuadreOperacions.add(cuadreOperacion);
+				}
+			}
 
-            return cuadreOperacions;
-        } catch (SQLException e) {
-            LogWrapper.error(log, "[CuadreService.consultaCuadreOperacionesScript] Error:  %s", e.getMessage());
-            throw new ServiceException(e);
-        }
-    }
+			return cuadreOperacions;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[CuadreService.consultaCuadreOperacionesScript] Error:  %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 
-    @Override
-    @SneakyThrows
-    public List<CuadreObjeto> consultaCuadreOperacionesObjetoScript(BigDecimal idProceso, BigDecimal numeroOrden) {
-        String runSP = createCall("p_con_cuadre_obj_script", Constants.CALL_05_ARGS);
+	@Override
+	@SneakyThrows
+	public List<CuadreObjeto> consultaCuadreOperacionesObjetoScript(BigDecimal idProceso, BigDecimal numeroOrden)
+			throws ServiceException {
+		String runSP = createCall("p_con_cuadre_obj_script", Constants.CALL_05_ARGS);
 
-        try (Connection conn = dataSource.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+		try (Connection conn = dataSource.getConnection();
+				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeCuadreObjetoScript = createCallType(Constants.T_T_CUADRE_OBJ);
-            String typeError = createCallTypeError();
+			String typeCuadreObjetoScript = createCallType(Constants.T_T_CUADRE_OBJ);
+			String typeError = createCallTypeError();
 
-            logProcedure(runSP, idProceso, numeroOrden);
+			logProcedure(runSP, idProceso, numeroOrden);
 
-            callableStatement.setBigDecimal(1, idProceso);
-            callableStatement.setBigDecimal(2, numeroOrden);
-            callableStatement.registerOutParameter(3, Types.ARRAY, typeCuadreObjetoScript);
-            callableStatement.registerOutParameter(4, Types.INTEGER);
-            callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
+			callableStatement.setBigDecimal(1, idProceso);
+			callableStatement.setBigDecimal(2, numeroOrden);
+			callableStatement.registerOutParameter(3, Types.ARRAY, typeCuadreObjetoScript);
+			callableStatement.registerOutParameter(4, Types.INTEGER);
+			callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
 
-            callableStatement.execute();
+			callableStatement.execute();
 
-            Integer result = callableStatement.getInt(4);
+			Integer result = callableStatement.getInt(4);
 
-            if (result == 0) {
-                throw buildException(callableStatement.getArray(5));
-            }
+			if (result == 0) {
+				throw buildException(callableStatement.getArray(5));
+			}
 
-            List<CuadreObjeto> cuadreObjetos = new ArrayList<>();
-            Array arrayCuadreOperaciones = callableStatement.getArray(3);
+			List<CuadreObjeto> cuadreObjetos = new ArrayList<>();
+			Array arrayCuadreOperaciones = callableStatement.getArray(3);
 
-            if (arrayCuadreOperaciones != null) {
-                Object[] rows = (Object[]) arrayCuadreOperaciones.getArray();
-                for (Object row : rows) {
-                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+			if (arrayCuadreOperaciones != null) {
+				Object[] rows = (Object[]) arrayCuadreOperaciones.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-                    CuadreObjeto cuadreObjeto = CuadreObjeto.builder()
-                            .tipoObjeto((String) cols[0])
-                            .tipoAccion((String) cols[1])
-                            .numeroOperacionBBDD((BigDecimal) cols[2])
-                            .numeroOperacionScript((BigDecimal) cols[3])
-                            .build();
+					CuadreObjeto cuadreObjeto = CuadreObjeto.builder().tipoObjeto((String) cols[0])
+							.tipoAccion((String) cols[1]).numeroOperacionBBDD((BigDecimal) cols[2])
+							.numeroOperacionScript((BigDecimal) cols[3]).build();
 
-                    cuadreObjetos.add(cuadreObjeto);
-                }
-            }
+					cuadreObjetos.add(cuadreObjeto);
+				}
+			}
 
-            return cuadreObjetos;
-        } catch (SQLException e) {
-            LogWrapper.error(log, "[CuadreService.consultaCuadreOperacionesObjetoScript] Error:  %s", e.getMessage());
-            throw new ServiceException(e);
-        }
-    }
+			return cuadreObjetos;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[CuadreService.consultaCuadreOperacionesObjetoScript] Error:  %s", e.getMessage());
+			throw new ServiceException(e);
+		}
+	}
 }

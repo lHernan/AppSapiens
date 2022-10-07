@@ -2,11 +2,10 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import javax.swing.table.DefaultTableModel;
-
 import com.mdsql.bussiness.entities.Aviso;
+import com.mdval.ui.model.DefaultTableModel;
 
-public class ProcesadoCursoPrincipalTableModel extends DefaultTableModel<Aviso>{
+public class ProcesadoCursoPrincipalTableModel extends DefaultTableModel<Aviso> {
 
 	/**
 	 * @param columnNames
@@ -23,5 +22,11 @@ public class ProcesadoCursoPrincipalTableModel extends DefaultTableModel<Aviso>{
 	 */
 	public ProcesadoCursoPrincipalTableModel(List<Aviso> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

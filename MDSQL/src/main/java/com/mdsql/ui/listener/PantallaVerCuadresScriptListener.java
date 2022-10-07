@@ -2,23 +2,22 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
 
-import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.CuadreObjeto;
 import com.mdsql.bussiness.service.CuadreService;
-import com.mdsql.bussiness.service.ErroresService;
-import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaVerCuadresScript;
-import com.mdsql.ui.PantallaVerErroresScript;
-import com.mdsql.ui.model.SeleccionHistoricoTableModel;
-import com.mdsql.ui.model.VerErroresScriptTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 
 public class PantallaVerCuadresScriptListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 	
@@ -48,9 +47,12 @@ public class PantallaVerCuadresScriptListener extends ListenerSupport implements
 		try {
 			CuadreService cuadreService = (CuadreService) getService(Constants.CUADRE_SERVICE);
 
-			String idProceso = (String) pantallaVerCuadresScript.getParams().get("idProceso");
-			List<String> numeroOrden = (List<String>) pantallaVerCuadresScript.getParams().get("numeroOrden");
-			List<CuadreService> seleccion = cuadreService.consultaErroresType(idProceso, numeroOrden);
+			String s_idProceso = (String) pantallaVerCuadresScript.getParams().get("idProceso");
+			String s_numeroOrden = (String) pantallaVerCuadresScript.getParams().get("numeroOrden");
+			
+			BigDecimal idProceso = BigDecimal.valueOf(Long.valueOf(s_idProceso));
+			BigDecimal numeroOrden = BigDecimal.valueOf(Long.valueOf(s_numeroOrden));
+			List<CuadreObjeto> seleccion = cuadreService.consultaCuadreOperacionesObjetoScript(idProceso, numeroOrden);
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
@@ -60,6 +62,12 @@ public class PantallaVerCuadresScriptListener extends ListenerSupport implements
 	
 	private void cancelar() {
 		pantallaVerCuadresScript.dispose();
+		
+	}
+
+	@Override
+	public void update(Observable o, Object cmd) {
+		// TODO Auto-generated method stub
 		
 	}
 }

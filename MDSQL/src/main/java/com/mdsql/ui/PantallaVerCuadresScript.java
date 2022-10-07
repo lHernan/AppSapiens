@@ -123,5 +123,8 @@ public class PantallaVerCuadresScript extends FrameSupport {
 		jLabel1.setText("Operaciones");
 		jLabel2.setText("Objetos");
         btnCancelar.setText("CANCELAR");
-	}    
+	}
+
+	@Override
+	protected void initMenuBar() {}    
 }

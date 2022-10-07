@@ -5,7 +5,6 @@
  */
 package com.mdsql.ui;
 
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
@@ -15,19 +14,15 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.LayoutStyle;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.JTextField;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.mdsql.ui.listener.PantallaProcesadoCursoActionListener;
-import com.mdsql.ui.listener.tables.AvisosTableListener;
+import com.mdval.ui.utils.FrameSupport;
 /**
  *
  * @author federico
  */
-public class PantallaProcesadoCurso extends javax.swing.JFrame {
+public class PantallaProcesadoCurso extends FrameSupport {
 
     /**
 	 * 
@@ -302,5 +297,23 @@ public class PantallaProcesadoCurso extends javax.swing.JFrame {
         btnEntregar.setText("Entregar");
         btnVerLog.setText("Ver log");
         btnCancelar.setText("CANCELAR");       
-    }   
+    }
+
+	@Override
+	protected void initMenuBar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initModels() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initialState() {
+		// TODO Auto-generated method stub
+		
+	}   
 }

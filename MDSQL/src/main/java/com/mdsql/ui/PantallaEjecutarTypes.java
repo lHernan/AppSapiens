@@ -27,6 +27,7 @@ import com.mdval.ui.utils.FrameSupport;
  */
 
 import lombok.Getter;
+
 public class PantallaEjecutarTypes extends DialogSupport {
 	
 	 /**
@@ -35,11 +36,6 @@ public class PantallaEjecutarTypes extends DialogSupport {
     private static final long serialVersionUID = 1L;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnRechazar;
-    private JButton btnVerCuadres;
-    private JButton btnVerErrores;
-    private JButton btnAceptar;
-    private JButton btnCancelar;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
@@ -48,47 +44,47 @@ public class PantallaEjecutarTypes extends DialogSupport {
     private JLabel jLabel6;
     private JLabel jLabel7;
     private JScrollPane jScrollPane1;
-    
-    private JTable tblTypes;
-    @Getter
-    private JTextField jTextField1;
 
     @Getter
-    private JTextField jTextField2;
-
-    @Getter
-    private JTextField jTextField3;
-
-    @Getter
-    private JTextField jTextField4;
-
-    @Getter
-    private JTextField jTextField5;
-
-    @Getter
-    private JTextField jTextField6;
-
-    @Getter
-    private JTextField jTextField7;
-=======
->>>>>>> 802196d9f08e08220a3ac9ea94f6c6d7494f8d84
-    // End of variables declaration//GEN-END:variables
-
 	private JTextField txtEstadoEjecucion;
 
+    @Getter
 	private JTextField txtModelo;
 
+    @Getter
+	private JTable tblTypes;
+
+    @Getter
 	private JTextField txtSubmodelo;
 
+    @Getter
 	private JTextField txtSD;
 
+    @Getter
 	private JTextField txtSolicitadaPor;
 
+    @Getter
 	private JTextField txtEsquema;
 
+    @Getter
 	private JTextField txtBBDD;
-	
-	private JTable tblTypes;
+    
+    @Getter
+    private JButton btnRechazar;
+    
+    @Getter
+    private JButton btnVerCuadres;
+    
+    @Getter
+    private JButton btnVerErrores;
+    
+    @Getter
+    private JButton btnAceptar;
+    
+    @Getter
+    private JButton btnCancelar;
+    
+    // End of variables declaration//GEN-END:variables
     
     public PantallaEjecutarTypes(FrameSupport parent, Boolean modal) {
     	super(parent, modal);

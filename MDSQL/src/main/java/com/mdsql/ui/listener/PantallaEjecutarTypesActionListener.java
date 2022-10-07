@@ -2,26 +2,18 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mdsql.bussiness.entities.SeleccionHistorico;
-import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.bussiness.service.TypeService;
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaEjecutarTypes;
-import com.mdsql.ui.model.EjecutarTypesTableModel;
-import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
-import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
-import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.OnLoadListener;
 
-public class PantallaEjecutarTypesActionListener extends ListenerSupport implements ActionListener {
+public class PantallaEjecutarTypesActionListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private PantallaEjecutarTypes pantallaEjecutarTypes; 
 	
@@ -64,7 +56,7 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		pantallaEjecutarTypes.getTxtEsquema().setText(StringUtils.EMPTY);
 		pantallaEjecutarTypes.getTxtBBDD().setText(StringUtils.EMPTY);
 		
-		((EjecutarTypesTableModel) pantallaEjecutarTypes.getTblTypes().getModel().clearData()).clearData();
+//		((EjecutarTypesTableModel) pantallaEjecutarTypes.getTblTypes().getModel().clearData()).clearData();
 		
 		pantallaEjecutarTypes.getBtnRechazar().setEnabled(Boolean.FALSE);
 		pantallaEjecutarTypes.getBtnVerCuadres().setEnabled(Boolean.FALSE);
@@ -91,21 +83,9 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onLoad() {
-		try {
-			TypeService typeService = (TypeService) getService(Constants.PROCESO_SERVICE);
+		TypeService typeService = (TypeService) getService(Constants.PROCESO_SERVICE);
 
-			String typeProyecto = (String) pantallaEjecutarTypes.getParams().get("codigoProyecto");
+		String typeProyecto = (String) pantallaEjecutarTypes.getParams().get("codigoProyecto");
 
-			// TODO - Preguntar cómo añadir los objetos nuevos
-
-			if (checkAllConfigured(
-					(EjecutarTypesTableModel) pantallaEjecutarTypes.getTblTypes().getModel())) {
-				pantallaEjecutarTypes.getBtnRechazar().setEnabled(Boolean.FALSE);
-			}
-		} catch (ServiceException e) {
-			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaEjecutarTypes.getFrameParent(), Constants.CMD_ERROR, params);
-		}
 	}
-	
 }

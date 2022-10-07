@@ -45,17 +45,14 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.FrameSupport;
-import com.mdval.utils.LogWrapper;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author federico
  */
-@Slf4j
 public class PantallaProcesarScript extends FrameSupport {
 
 	/**
