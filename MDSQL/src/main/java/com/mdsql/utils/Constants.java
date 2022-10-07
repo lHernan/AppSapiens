@@ -64,6 +64,8 @@ public class Constants {
 	public static final String CUADRE_SERVICE = "cuadreService";
 	public static final String ENTREGA_SERVICE = "entregaService";
 	public static final String ERRORES_SERVICE = "erroresService";
+	public static final String LOG_SERVICE = "logService";
+	public static final String CONSULTA_SERVICE = "consultaService";
 
 	/**
 	 * DataBase Types and constants
@@ -114,6 +116,12 @@ public class Constants {
 	public static final String T_T_GLOSARIO = "T_T_GLOSARIO";
 	public static final String T_T_ERROR = "T_T_ERROR";
 	public static final String T_T_DET_OBJETO = "T_T_DET_OBJETO";
+	public static final String T_T_HIS_PROC = "T_T_HIS_PROC";
+	public static final String T_T_INFORME_CAMBIOS = "T_T_INFORME_CAMBIOS";
+	public static final String T_T_LOG_EJECUCION = "T_T_LOG_EJECUCION";
+	public static final String T_T_TIP_OBJETO = "T_T_TIP_OBJETO";
+	public static final String T_T_ESTADO = "T_T_ESTADO";
+	public static final String T_T_OPERACION = "T_T_OPERACION";
 
 	// nuevas constantes types BBDD
 	public static final String T_T_PROCESO = "T_T_PROCESO";
