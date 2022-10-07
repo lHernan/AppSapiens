@@ -17,11 +17,10 @@ public class DetObjeto implements Serializable {
     private BigDecimal numeroSentencia;
     private String nombreObjetoPadre;
     private String tipoObjetoPadre;
-    private String descripcionTipoObjetoPadre;
     private String tipoAccionPadre;
     private String nombreObjeto;
+    private String nombreObjetoDestino;
     private String tipoObjeto;
-    private String descripcionTipoObjeto;
     private String tipoAccion;
     private String tipoDato;
     private BigDecimal numeroLongitud;

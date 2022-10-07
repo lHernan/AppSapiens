@@ -1,6 +1,7 @@
 package com.mdsql.bussiness.service.impl;
 
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucionParche;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucionType;
 import com.mdsql.bussiness.entities.ScriptType;
 import com.mdsql.bussiness.entities.TextoLinea;
@@ -181,12 +182,9 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
                             .PDC((String) cols[7])
                             .DROP((String) cols[8])
                             .nombreObjeto((String) cols[9])
-                            .nombreScriptLanza((String) cols[11])
-                            .nombreScriptLog((String) cols[13])
                             .build();
 
                     fillScripType(type, cols);
-                    fillTxtScriptLanza(type, cols);
 
                     types.add(type);
                 }
@@ -203,6 +201,82 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
         } catch (
                 SQLException e) {
             LogWrapper.error(log, "[EjecucionService.registraEjecucionType] Error: %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    @SneakyThrows
+    public OutputRegistraEjecucionParche registraEjecucionParche(BigDecimal idProceso, BigDecimal numeroOrden, String codigoUsuario, List<TextoLinea> logScript, String indRepara) {
+        String runSP = createCall("p_registra_ejecucion_parche", Constants.CALL_14_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String tableLinea = createCallType(Constants.T_T_LINEA);
+            String recordLinea = createCallType(Constants.T_R_LINEA);
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, idProceso, codigoUsuario, logScript);
+
+            Struct[] structLinea = new Struct[logScript.size()];
+
+            int arrayIndexLinea = 0;
+            for (TextoLinea data : logScript) {
+                structLinea[arrayIndexLinea++] = conn.createStruct(recordLinea,
+                        new Object[]{data.getValor()});
+            }
+
+            Array arrayLinea = ((OracleConnection) conn).createOracleArray(tableLinea, structLinea);
+
+            callableStatement.setBigDecimal(1, idProceso);
+            callableStatement.setBigDecimal(2, numeroOrden);
+            callableStatement.setString(3, codigoUsuario);
+            callableStatement.setArray(4, arrayLinea);
+            callableStatement.setString(5, indRepara);
+            callableStatement.registerOutParameter(6, Types.NUMERIC);
+            callableStatement.registerOutParameter(7, Types.VARCHAR);
+            callableStatement.registerOutParameter(8, Types.VARCHAR);
+            callableStatement.registerOutParameter(9, Types.NUMERIC);
+            callableStatement.registerOutParameter(10, Types.VARCHAR);
+            callableStatement.registerOutParameter(11, Types.VARCHAR);
+            callableStatement.registerOutParameter(12, Types.VARCHAR);
+
+            callableStatement.registerOutParameter(13, Types.INTEGER);
+            callableStatement.registerOutParameter(14, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(13);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(14));
+            }
+
+            BigDecimal codigoEstadoProceso = callableStatement.getBigDecimal(6);
+            String descripcionEstadoProceso = callableStatement.getString(7);
+            String nombreScript = callableStatement.getString(8);
+            BigDecimal codigoEstadoScript = callableStatement.getBigDecimal(9);
+            String descripcionEstadoScript = callableStatement.getString(10);
+            String txtCuadreOperacion = callableStatement.getString(11);
+            String txtCuadreObjeto = callableStatement.getString(12);
+
+            OutputRegistraEjecucionParche outputRegistraEjecucionParche = OutputRegistraEjecucionParche.builder()
+                    .codigoEstadoProceso(codigoEstadoProceso)
+                    .descripcionEstadoProceso(descripcionEstadoProceso)
+                    .nombreScript(nombreScript)
+                    .codigoEstadoScript(codigoEstadoScript)
+                    .descripcionEstadoScript(descripcionEstadoScript)
+                    .txtCuadreOperacion(txtCuadreOperacion)
+                    .txtCuadreObjeto(txtCuadreObjeto)
+                    .build();
+
+            return outputRegistraEjecucionParche;
+
+        } catch (
+                SQLException e) {
+            LogWrapper.error(log, "[EjecucionService.registraEjecucionParche] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
     }
@@ -226,7 +300,6 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
                             .build();
                     //fill script type lines
                     fillScriptTypeLines(scriptType, sub_cols);
-
                     scriptTypes.add(scriptType);
                 }
 
@@ -263,35 +336,6 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             LogWrapper.error(log, "[EjecucionService.fillScriptTypeLines] Error: %s", e.getMessage());
-        }
-    }
-
-    /**
-     * @param type
-     * @param cols
-     * @throws SQLException
-     */
-    private void fillTxtScriptLanza(Type type, Object[] cols) throws SQLException {
-        try {
-            Array arrayLineas = (Array) cols[12];
-            if (!Objects.isNull(arrayLineas)) {
-                List<TextoLinea> textoLineas = new ArrayList<>();
-                Object[] subs = (Object[]) arrayLineas.getArray();
-                for (Object sub : subs) {
-                    Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
-
-                    TextoLinea textoLinea = TextoLinea.builder()
-                            .valor((String) sub_cols[0])
-                            .build();
-
-
-                    textoLineas.add(textoLinea);
-                }
-
-                type.setTxtScriptLanza(textoLineas);
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            LogWrapper.error(log, "[EjecucionService.fillTxtScriptLanza] Error: %s", e.getMessage());
         }
     }
 

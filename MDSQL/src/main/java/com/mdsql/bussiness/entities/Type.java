@@ -32,7 +32,5 @@ public class Type implements Serializable {
 	private String DROP;
 	private String nombreObjeto;
 	private List<ScriptType> scriptType;
-	private String nombreScriptLanza;
-	private List<TextoLinea> txtScriptLanza;
-	private String nombreScriptLog;
+
 }

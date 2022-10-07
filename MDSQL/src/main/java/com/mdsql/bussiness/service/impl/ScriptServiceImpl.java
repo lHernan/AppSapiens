@@ -1,6 +1,7 @@
 package com.mdsql.bussiness.service.impl;
 
 import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.DetObjeto;
 import com.mdsql.bussiness.entities.InputDescartarScript;
 import com.mdsql.bussiness.entities.InputProcesaScript;
 import com.mdsql.bussiness.entities.InputReparaScript;
@@ -690,6 +691,68 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
         } catch (
                 SQLException e) {
             LogWrapper.error(log, "[ScriptService.descartarScript] Error: %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    @SneakyThrows
+    public List<DetObjeto> detalleObjetosScripts(BigDecimal idProceso, BigDecimal numeroOrden) {
+        String runSP = createCall("p_detalle_objetos_scripts", Constants.CALL_05_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeDetObjeto = createCallType(Constants.T_T_DET_OBJETO);
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, idProceso, numeroOrden);
+
+            callableStatement.setBigDecimal(1, idProceso);
+            callableStatement.setBigDecimal(2, numeroOrden);
+            callableStatement.registerOutParameter(3, Types.ARRAY, typeDetObjeto);
+
+            callableStatement.registerOutParameter(4, Types.INTEGER);
+            callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(4);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(5));
+            }
+
+            List<DetObjeto> detObjetoList = new ArrayList<>();
+            Array arrayDetObjeto = callableStatement.getArray(3);
+
+            if (arrayDetObjeto != null) {
+                Object[] rows = (Object[]) arrayDetObjeto.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    DetObjeto detObjeto = DetObjeto.builder()
+                            .numeroSentencia((BigDecimal) cols[0])
+                            .nombreObjetoPadre((String) cols[1])
+                            .tipoObjetoPadre((String) cols[2])
+                            .tipoAccionPadre((String) cols[3])
+                            .nombreObjeto((String) cols[4])
+                            .nombreObjetoDestino((String) cols[5])
+                            .tipoObjeto((String) cols[6])
+                            .tipoAccion((String) cols[7])
+                            .tipoDato((String) cols[8])
+                            .numeroLongitud((BigDecimal) cols[9])
+                            .numeroDecimal((BigDecimal) cols[10])
+                            .build();
+
+                    detObjetoList.add(detObjeto);
+                }
+            }
+            return detObjetoList;
+        } catch (
+                SQLException e) {
+            LogWrapper.error(log, "[ScriptService.detalleObjetosScripts] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
     }
