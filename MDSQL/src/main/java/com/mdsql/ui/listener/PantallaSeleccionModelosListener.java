@@ -15,14 +15,13 @@ import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
-import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 
 /**
  * @author federico
  *
  */
-public class PantallaSeleccionModelosListener extends ListenerSupport implements ActionListener, Observer {
+public class PantallaSeleccionModelosListener extends ListenerSupport implements ActionListener {
 
 	private PantallaSeleccionModelos pantallaSeleccionModelos;
 
@@ -95,11 +94,5 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 		SeleccionModelosTableModel tableModel = (SeleccionModelosTableModel) pantallaSeleccionModelos
 				.getTblModelos().getModel();
 		tableModel.setData(modelos);
-	}
-
-	@Override
-	public void update(Observable o, Object cmd) {
-		// TODO Auto-generated method stub
-		
 	}
 }

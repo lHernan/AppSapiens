@@ -13,13 +13,14 @@ import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.exceptions.ServiceException;
 
 /**
  * @author hcarreno
  */
 public interface ScriptService {
 
-    OutputProcesaScript procesarScript(InputProcesaScript inputProcesaScript);
+    OutputProcesaScript procesarScript(InputProcesaScript inputProcesaScript) throws ServiceException;
 
     OutputExcepcionScript excepcionScript(BigDecimal idProceso, BigDecimal numeroOrden, String txtComentario, String codigoUsuario);
 

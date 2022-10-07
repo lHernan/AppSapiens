@@ -1,8 +1,13 @@
 package com.mdsql.ui.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.swing.JTextArea;
+
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.creators.CabeceraTablaCreator;
 import com.mdsql.ui.utils.creators.Creator;
@@ -107,5 +112,22 @@ public class MDSQLUIHelper extends UIHelper {
 			params.put(Constants.ERROR, e);
 		}
 		return params;
+	}
+	
+	/**
+	 * @param script
+	 * @return
+	 */
+	public static List<TextoLinea> toTextoLineas(JTextArea txtArea) {
+		List<TextoLinea> lineas = new ArrayList<>();
+		
+		for (String line : txtArea.getText().split("\\n")) {
+			TextoLinea linea = new TextoLinea();
+			linea.setValor(line);
+			
+			lineas.add(linea);
+		}
+		
+		return lineas;
 	}
 }

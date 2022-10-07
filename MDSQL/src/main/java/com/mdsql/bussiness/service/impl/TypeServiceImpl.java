@@ -25,7 +25,6 @@ import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.internal.OracleConnection;
 
@@ -42,8 +41,7 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
 
 
     @Override
-    @SneakyThrows
-    public OutputProcesaType procesarType(InputProcesaType inputProcesaType) {
+    public OutputProcesaType procesarType(InputProcesaType inputProcesaType) throws ServiceException {
         String runSP = createCall("p_procesa_type", Constants.CALL_22_ARGS);
 
         try (Connection conn = dataSource.getConnection();

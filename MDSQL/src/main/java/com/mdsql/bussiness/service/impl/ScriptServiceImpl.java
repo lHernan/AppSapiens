@@ -70,8 +70,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 
     @Override
-    @SneakyThrows
-    public OutputProcesaScript procesarScript(InputProcesaScript inputProcesaScript) {
+    public OutputProcesaScript procesarScript(InputProcesaScript inputProcesaScript) throws ServiceException {
         String runSP = createCall("p_procesa_script", Constants.CALL_24_ARGS);
 
         try (Connection conn = dataSource.getConnection();

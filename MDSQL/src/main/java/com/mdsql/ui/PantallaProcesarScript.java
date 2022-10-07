@@ -7,6 +7,7 @@ package com.mdsql.ui;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -28,6 +29,7 @@ import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SubProyecto;
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
 import com.mdsql.ui.listener.combo.BBDDItemListener;
 import com.mdsql.ui.listener.combo.SubproyectoItemListener;
@@ -43,14 +45,17 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.utils.LogWrapper;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author federico
  */
+@Slf4j
 public class PantallaProcesarScript extends FrameSupport {
 
 	/**
@@ -77,9 +82,14 @@ public class PantallaProcesarScript extends FrameSupport {
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
 	private JScrollPane jScrollPane3;
+	
+	@Getter
 	private JTextArea txtDescripcion;
 	
+	@Getter
 	private JTextField txtPeticion;
+	
+	@Getter
 	private JTextField txtSolicitadaPor;
 
 	@Getter
@@ -141,6 +151,9 @@ public class PantallaProcesarScript extends FrameSupport {
 	@Getter
 	@Setter
 	private Procesado procesado;
+	
+	@Getter
+	private List<TextoLinea> script;
 		
 	/**
 	 * @param params
@@ -381,6 +394,7 @@ public class PantallaProcesarScript extends FrameSupport {
 				cabeceraUltimasPeticiones.getColumnClasses()));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initialState() {
 		txtEsquema.setEditable(false);
@@ -388,11 +402,10 @@ public class PantallaProcesarScript extends FrameSupport {
         txtBBDDHistorico.setEditable(false);
         txtEsquemaHistorico.setEditable(false);
         txtDemanda.setEditable(false);
-        btnVerProcesado.setEnabled(Boolean.FALSE);
-        btnProcesar.setEnabled(Boolean.FALSE);
         btnLimpiar.setEnabled(Boolean.FALSE);
         
         procesado = (Procesado) params.get("procesado");
+        script = (List<TextoLinea>) params.get("script");
 	}
 
 	@Override
@@ -419,8 +432,5 @@ public class PantallaProcesarScript extends FrameSupport {
 	}
 
 	@Override
-	protected void initMenuBar() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initMenuBar() {}
 }

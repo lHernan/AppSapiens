@@ -25,7 +25,14 @@ public class EditorEventHandler implements UndoableEditListener {
 		 * administrador de edición
 		 */
 		framePrincipal.getUndoManager().addEdit(e.getEdit());
-		//updateControls(); // actualiza el estado de las opciones "Deshacer" y "Rehacer"
+		framePrincipal.updateEditionControls(); // actualiza el estado de las opciones "Deshacer" y "Rehacer"
+		
+		// Se cambia el titulo
+		String title = framePrincipal.getFrmSQLScript().getTitle();
+		if (!title.contains("*")) {
+			title = title.concat("*");
+			framePrincipal.getFrmSQLScript().setTitle(title);
+		}
 
 		framePrincipal.setHasChanged(Boolean.TRUE);
 	}

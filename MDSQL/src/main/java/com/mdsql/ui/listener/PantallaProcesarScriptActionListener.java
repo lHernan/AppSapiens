@@ -17,13 +17,20 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.InputProcesaScript;
+import com.mdsql.bussiness.entities.InputProcesaType;
 import com.mdsql.bussiness.entities.InputSeleccionarProcesados;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputProcesaScript;
+import com.mdsql.bussiness.entities.OutputProcesaType;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SubProyecto;
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.AvisoService;
 import com.mdsql.bussiness.service.BBDDService;
 import com.mdsql.bussiness.service.ProcesoService;
+import com.mdsql.bussiness.service.ScriptService;
+import com.mdsql.bussiness.service.TypeService;
 import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.PantallaSeleccionHistorico;
@@ -93,6 +100,9 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		pantallaProcesarScript.getTxtEsquema().setText(StringUtils.EMPTY);
 		pantallaProcesarScript.getTxtBBDDHistorico().setText(StringUtils.EMPTY);
 		pantallaProcesarScript.getTxtEsquemaHistorico().setText(StringUtils.EMPTY);
+		pantallaProcesarScript.getTxtDescripcion().setText(StringUtils.EMPTY);
+		pantallaProcesarScript.getTxtSolicitadaPor().setText(StringUtils.EMPTY);
+		pantallaProcesarScript.getTxtPeticion().setText(StringUtils.EMPTY);
 
 		((ProcesarScriptNotaTableModel) pantallaProcesarScript.getTblNotas().getModel()).clearData();
 		((ProcesarScriptUltimasPeticionesTableModel) pantallaProcesarScript.getTblUltimasPeticiones().getModel())
@@ -117,28 +127,30 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
 		Proceso procesoSeleccionado = pantallaProcesarScript.getProcesoSeleccionado();
 		
-		// El modelo tiene histórico
-		if (Constants.S.equals(seleccionado.getMcaHis())) {
-			Map<String, Object> params = new HashMap<>();
-			params.put("codigoProyecto", seleccionado.getCodigoProyecto());
-			params.put("codigoPeticion", procesoSeleccionado.getCodigoPeticion());
-			params.put("script", pantallaProcesarScript.getParams().get("script"));
-			
-			pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createFrame(pantallaProcesarScript.getFrameParent(),
-					Constants.CMD_SELECCION_HISTORICO, Boolean.FALSE, params);
-			MDSQLUIHelper.show(pantallaSeleccionHistorico);
-			
-			pantallaSeleccionHistorico.getPantallaSeleccionHistoricoListener().addObservador(this);
-		}
-		else {
-			Procesado procesado = pantallaProcesarScript.getProcesado();
-			
-			if (Procesado.TYPE.equals(procesado)) {
-				procesarType();
+		if (!Objects.isNull(seleccionado)) {
+			// El modelo tiene histórico
+			if (Constants.S.equals(seleccionado.getMcaHis())) {
+				Map<String, Object> params = new HashMap<>();
+				params.put("codigoProyecto", seleccionado.getCodigoProyecto());
+				params.put("codigoPeticion", procesoSeleccionado.getCodigoPeticion());
+				params.put("script", pantallaProcesarScript.getParams().get("script"));
+				
+				pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createFrame(pantallaProcesarScript.getFrameParent(),
+						Constants.CMD_SELECCION_HISTORICO, Boolean.FALSE, params);
+				MDSQLUIHelper.show(pantallaSeleccionHistorico);
+				
+				pantallaSeleccionHistorico.getPantallaSeleccionHistoricoListener().addObservador(this);
 			}
-			
-			if (Procesado.SCRIPT.equals(procesado)) {
-				procesarScript();
+			else {
+				Procesado procesado = pantallaProcesarScript.getProcesado();
+				
+				if (Procesado.TYPE.equals(procesado)) {
+					procesarType();
+				}
+				
+				if (Procesado.SCRIPT.equals(procesado)) {
+					procesarScript();
+				}
 			}
 		}
 	}
@@ -291,16 +303,38 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 * 
 	 */
 	private void procesarScript() {
-		// TODO Auto-generated method stub
+		try {
+			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
+			
+			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
+			SubProyecto subProyecto = pantallaProcesarScript.getSubproyectoSeleccionado();
 		
+			InputProcesaScript inputProcesaScript = new InputProcesaScript();
+			List<TextoLinea> lineasScript = pantallaProcesarScript.getScript();
+			inputProcesaScript.setLineasScript(lineasScript);
+			inputProcesaScript.setPCodigoProyecto(seleccionado.getCodigoProyecto());
+			inputProcesaScript.setPCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
+			
+			OutputProcesaScript outputProcesaScript = scriptService.procesarScript(inputProcesaScript);
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+		}
 	}
 	
 	/**
 	 * 
 	 */
 	private void procesarType() {
-		// TODO Auto-generated method stub
+		try {
+			TypeService typeService = (TypeService) getService(Constants.TYPE_SERVICE);
 		
+			InputProcesaType inputProcesaType = new InputProcesaType();
+			OutputProcesaType outputProcesaType = typeService.procesarType(inputProcesaType);
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+		}
 	}
 
 	@Override
