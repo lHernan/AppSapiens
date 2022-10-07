@@ -12,9 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
 import com.mdsql.ui.listener.PantallaVerErroresScriptListener;
 import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
