@@ -25,6 +25,8 @@ import com.mdval.ui.utils.FrameSupport;
  *
  * @author USUARIO1
  */
+
+import lombok.Getter;
 public class PantallaEjecutarTypes extends DialogSupport {
 	
 	 /**
@@ -46,6 +48,30 @@ public class PantallaEjecutarTypes extends DialogSupport {
     private JLabel jLabel6;
     private JLabel jLabel7;
     private JScrollPane jScrollPane1;
+    
+    private JTable tblTypes;
+    @Getter
+    private JTextField jTextField1;
+
+    @Getter
+    private JTextField jTextField2;
+
+    @Getter
+    private JTextField jTextField3;
+
+    @Getter
+    private JTextField jTextField4;
+
+    @Getter
+    private JTextField jTextField5;
+
+    @Getter
+    private JTextField jTextField6;
+
+    @Getter
+    private JTextField jTextField7;
+=======
+>>>>>>> 802196d9f08e08220a3ac9ea94f6c6d7494f8d84
     // End of variables declaration//GEN-END:variables
 
 	private JTextField txtEstadoEjecucion;
