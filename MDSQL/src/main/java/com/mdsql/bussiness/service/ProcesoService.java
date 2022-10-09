@@ -43,5 +43,5 @@ public interface ProcesoService {
      *
      * @return OutputConsultaProcesado
      */
-    OutputConsultaProcesado consultaProcesado(BigDecimal idProceso);
+    OutputConsultaProcesado consultaProcesado(BigDecimal idProceso) throws ServiceException;
 }

@@ -1,23 +1,5 @@
 package com.mdsql.bussiness.service.impl;
 
-import com.mdsql.bussiness.entities.InputSeleccionarProcesados;
-import com.mdsql.bussiness.entities.OutputConsultaProcesado;
-import com.mdsql.bussiness.entities.Proceso;
-import com.mdsql.bussiness.entities.ScriptEjecutado;
-import com.mdsql.bussiness.entities.SeleccionHistorico;
-import com.mdsql.bussiness.service.ProcesoService;
-import com.mdsql.exceptions.ServiceException;
-import com.mdsql.utils.Constants;
-import com.mdval.utils.AppHelper;
-import com.mdval.utils.LogWrapper;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.internal.OracleConnection;
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
@@ -28,6 +10,26 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mdsql.bussiness.entities.InputSeleccionarProcesados;
+import com.mdsql.bussiness.entities.OutputConsultaProcesado;
+import com.mdsql.bussiness.entities.Proceso;
+import com.mdsql.bussiness.entities.ScriptEjecutado;
+import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.service.ProcesoService;
+import com.mdsql.exceptions.ServiceException;
+import com.mdsql.utils.Constants;
+import com.mdval.utils.AppHelper;
+import com.mdval.utils.LogWrapper;
+
+import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.internal.OracleConnection;
 
 /**
  * @author hcarreno
@@ -221,8 +223,7 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
     }
 
     @Override
-    @SneakyThrows
-    public OutputConsultaProcesado consultaProcesado(BigDecimal idProceso) {
+    public OutputConsultaProcesado consultaProcesado(BigDecimal idProceso) throws ServiceException {
         String runSP = createCall("p_con_procesado", Constants.CALL_19_ARGS);
 
         try (Connection conn = dataSource.getConnection();

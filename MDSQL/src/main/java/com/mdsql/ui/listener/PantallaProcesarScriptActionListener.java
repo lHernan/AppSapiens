@@ -33,6 +33,7 @@ import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.bussiness.service.TypeService;
 import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.BBDDComboBoxModel;
@@ -87,6 +88,20 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		if (Constants.PANTALLA_PROCESADO_SCRIPT_LIMPIAR.equals(jButton.getActionCommand())) {
 			eventBtnLimpiar();
 		}
+		
+		if (Constants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO.equals(jButton.getActionCommand())) {
+			eventBtnVerProcesado();
+		}
+	}
+
+	private void eventBtnVerProcesado() {
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("entregar", Boolean.FALSE);
+		
+		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper.createFrame(pantallaProcesarScript.getFrameParent(),
+				Constants.CMD_RESUMEN_PROCESADO, Boolean.FALSE, params);
+		MDSQLUIHelper.show(pantallaResumenProcesado);
 	}
 
 	/**

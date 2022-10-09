@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.utils.Constants;
@@ -67,7 +68,9 @@ public class FrameCreator extends Creator {
 			frame = new PantallaSeleccionHistorico(frameParent, modal, params);
 		}
 		
-		
+		if (Constants.CMD_RESUMEN_PROCESADO.equals(option)) {
+			frame = new PantallaResumenProcesado(frameParent, modal, params);
+		}
 		
 		return frame;
 	}

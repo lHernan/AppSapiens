@@ -358,11 +358,13 @@ public class PantallaProcesarScript extends FrameSupport {
 		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
 		btnProcesar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
 		btnLimpiar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_LIMPIAR);
+		btnVerProcesado.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO);
 
 		jButton1.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 		btnProcesar.addActionListener(actionListener);
 		btnLimpiar.addActionListener(actionListener);
+		btnVerProcesado.addActionListener(actionListener);
 		
 		ListSelectionModel avisosRowSM = tblNotas.getSelectionModel();
 		avisosRowSM.addListSelectionListener(avisosSelectionListener);

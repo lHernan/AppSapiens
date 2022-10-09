@@ -5,6 +5,7 @@ import java.util.Map;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.model.cabeceras.TablaModelosCabecera;
 import com.mdsql.ui.model.cabeceras.TablaNotasCabecera;
+import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoScriptsCabecera;
 import com.mdsql.ui.model.cabeceras.TablaSeleccionHistoricoCabecera;
 import com.mdsql.ui.model.cabeceras.TablaUltimasPeticionesCabecera;
 import com.mdsql.utils.Constants;
@@ -42,6 +43,10 @@ public class CabeceraTablaCreator extends Creator {
 		
 		if (Constants.SELECCION_HISTORICO_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaSeleccionHistoricoCabecera();
+		}
+		
+		if (Constants.RESUMEN_PROCESADO_SCRIPTS_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaResumenProcesadoScriptsCabecera();
 		}
 		
 		return cabecera;
