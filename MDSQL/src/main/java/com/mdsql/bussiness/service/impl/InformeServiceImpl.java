@@ -1,30 +1,28 @@
 package com.mdsql.bussiness.service.impl;
 
-import java.math.BigDecimal;
-import java.sql.Array;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.mdsql.bussiness.entities.CampoGlosario;
 import com.mdsql.bussiness.entities.DetValidacion;
+import com.mdsql.bussiness.entities.InformeCambios;
 import com.mdsql.bussiness.entities.InformeValidacion;
 import com.mdsql.bussiness.service.InformeService;
 import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
 import com.mdval.utils.LogWrapper;
-
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
+import java.math.BigDecimal;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author hcarreno
@@ -83,6 +81,73 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
             LogWrapper.error(log, "[InformeService.generarInformeValidacion] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    @SneakyThrows
+    public List<InformeCambios> informeCambios(String codigoProyecto, Date fechaDesde, Date fechaHasta) {
+        String runSP = createCall("p_informe_cambios", Constants.CALL_06_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeInformeCambios = createCallType(Constants.T_T_INFORME_CAMBIOS);
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, codigoProyecto, fechaDesde, fechaHasta);
+
+            callableStatement.setString(1, codigoProyecto);
+            callableStatement.setDate(2, fechaDesde);
+            callableStatement.setDate(3, fechaHasta);
+            callableStatement.registerOutParameter(4, Types.ARRAY, typeInformeCambios);
+            callableStatement.registerOutParameter(5, Types.INTEGER);
+            callableStatement.registerOutParameter(6, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(5);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(6));
+            }
+
+            List<InformeCambios> informeCambios = new ArrayList<>();
+            Array arrayInformeCambios = callableStatement.getArray(4);
+
+            if (arrayInformeCambios != null) {
+                Object[] rows = (Object[]) arrayInformeCambios.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+                    InformeCambios historicoProceso = InformeCambios.builder()
+                            .codigoPeticion((String) cols[0])
+                            .idProceso((BigDecimal) cols[1])
+                            .nombreObjetoPadre((String) cols[2])
+                            .tipoObjetoPadre((String) cols[3])
+                            .tipoAccionPadre((String) cols[4])
+                            .nombreObjeto((String) cols[5])
+                            .nombreObjetoDestino((String) cols[6])
+                            .tipoObjeto((String) cols[7])
+                            .tipoAccion((String) cols[8])
+                            .tipoDato((String) cols[9])
+                            .numeroLongitud((BigDecimal) cols[10])
+                            .numeroDecimal((BigDecimal) cols[11])
+                            .descripcionEstadoProceso((String) cols[12])
+                            .fechaProceso((Date) cols[13])
+                            .codigoSubProyecto((String) cols[14])
+                            .codigoUsuarioPeticion((String) cols[15])
+                            .codigoUsuario((String) cols[16])
+                            .descripcionEstadoScript((String) cols[17])
+                            .nombreScript((String) cols[18])
+                            .build();
+                    informeCambios.add(historicoProceso);
+                }
+            }
+            return informeCambios;
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[InformeService.informeCambios] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+
     }
 
     @SneakyThrows
