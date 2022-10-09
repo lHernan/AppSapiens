@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.exceptions.ServiceException;
@@ -15,13 +17,14 @@ import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observer;
 
 /**
  * @author federico
  *
  */
-public class PantallaSeleccionModelosListener extends ListenerSupport implements ActionListener {
+public class PantallaSeleccionModelosListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private PantallaSeleccionModelos pantallaSeleccionModelos;
 
@@ -94,5 +97,22 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 		SeleccionModelosTableModel tableModel = (SeleccionModelosTableModel) pantallaSeleccionModelos
 				.getTblModelos().getModel();
 		tableModel.setData(modelos);
+	}
+
+	@Override
+	public void onLoad() {
+		try {
+			String codModelo = (String) pantallaSeleccionModelos.getParams().get("codigoProyecto");
+			if (StringUtils.isNotBlank(codModelo)) {
+				String nombreModelo = pantallaSeleccionModelos.getTxtNombreModelo().getText();
+				String codSubmodelo = pantallaSeleccionModelos.getTxtCodSubmodelo().getText();
+				
+				List<Modelo> modelos = buscar(codModelo, nombreModelo, codSubmodelo);
+				populateModel(modelos);
+			}
+		} catch (ServiceException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), Constants.CMD_ERROR, params);
+		}
 	}
 }

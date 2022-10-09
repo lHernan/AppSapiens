@@ -103,6 +103,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		pantallaProcesarScript.getTxtDescripcion().setText(StringUtils.EMPTY);
 		pantallaProcesarScript.getTxtSolicitadaPor().setText(StringUtils.EMPTY);
 		pantallaProcesarScript.getTxtPeticion().setText(StringUtils.EMPTY);
+		pantallaProcesarScript.getTxtDemanda().setText(StringUtils.EMPTY);
 
 		((ProcesarScriptNotaTableModel) pantallaProcesarScript.getTblNotas().getModel()).clearData();
 		((ProcesarScriptUltimasPeticionesTableModel) pantallaProcesarScript.getTblUltimasPeticiones().getModel())
@@ -116,8 +117,6 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		pantallaProcesarScript.getCmbSubmodelo().setModel(subproyectoModel);
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.FALSE);
-		pantallaProcesarScript.getBtnVerProcesado().setEnabled(Boolean.FALSE);
-		pantallaProcesarScript.getBtnProcesar().setEnabled(Boolean.FALSE);
 	}
 
 	/**
@@ -260,6 +259,18 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		if (CollectionUtils.isNotEmpty(bbdds)) {
 			BBDDComboBoxModel modelBBDD = new BBDDComboBoxModel(bbdds);
 			pantallaProcesarScript.getCmbBBDD().setModel(modelBBDD);
+		}
+		
+		// Pone la base de datos por defecto
+		String baseDatos = modelo.getNombreBbdd();
+		if (StringUtils.isNotBlank(baseDatos)) {
+			BBDDComboBoxModel modelBBDD = (BBDDComboBoxModel) pantallaProcesarScript.getCmbBBDD().getModel();
+			for (int i = 0; i < modelBBDD.getSize(); i++) {
+				BBDD bbdd = modelBBDD.getElementAt(i);
+				if (bbdd.getNombreBBDD().equals(baseDatos)) {
+					pantallaProcesarScript.getCmbBBDD().setSelectedItem(bbdd);
+				}
+			}
 		}
 	}
 

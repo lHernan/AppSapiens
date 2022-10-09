@@ -147,11 +147,13 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtGuardarScript() {
-		if (confirmSave()) {
-			actionSave();
-		} else {
-			// Aviso de que no se ha modificado
-			JOptionPane.showMessageDialog(framePrincipal, "El script no se ha modificado");
+		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
+			if (confirmSave()) {
+				actionSave();
+			} else {
+				// Aviso de que no se ha modificado
+				JOptionPane.showMessageDialog(framePrincipal, "El script no se ha modificado");
+			}
 		}
 	}
 
@@ -159,11 +161,13 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtLimpiarScript() {
-		if (confirmSave()) {
-			actionSave();
+		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
+			if (confirmSave()) {
+				actionSave();
+			}
+	
+			resetFramePrincipal();
 		}
-
-		resetFramePrincipal();
 	}
 
 	/**
@@ -232,23 +236,27 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtProcesarScript() {
-		Map<String, Object> params = new HashMap<>();
-		params.put("procesado", framePrincipal.getProcesado());
-		
-		// Las líneas del script vienen directamente del text area
-		params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
-
-		FrameSupport dialog = MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE,
-				params);
-		MDSQLUIHelper.show(dialog);
+		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
+			Map<String, Object> params = new HashMap<>();
+			params.put("procesado", framePrincipal.getProcesado());
+			
+			// Las líneas del script vienen directamente del text area
+			params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
+	
+			FrameSupport dialog = MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE,
+					params);
+			MDSQLUIHelper.show(dialog);
+		}
 	}
 
 	/**
 	 * 
 	 */
 	private void evtEjecutarScript() {
-		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT);
-		MDSQLUIHelper.show(dialog);
+		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
+			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT);
+			MDSQLUIHelper.show(dialog);
+		}
 	}
 
 	/**
@@ -440,5 +448,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 		framePrincipal.disableEditionButtons();
 		framePrincipal.disableTabs();
+		
+		framePrincipal.setCurrentFile(null);
 	}
 }

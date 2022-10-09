@@ -191,6 +191,8 @@ public class PantallaSeleccionModelos extends FrameSupport {
 		btnBuscar.addActionListener(pantallaSeleccionModelosListener);
 		btnSeleccionar.addActionListener(pantallaSeleccionModelosListener);
 		
+		this.addOnLoadListener(pantallaSeleccionModelosListener);
+		
 		ListSelectionModel rowSM = tblModelos.getSelectionModel();
 		rowSM.addListSelectionListener(listSelectionListener);
 	}

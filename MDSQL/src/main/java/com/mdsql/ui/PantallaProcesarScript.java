@@ -17,7 +17,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -45,6 +44,7 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -108,10 +108,10 @@ public class PantallaProcesarScript extends FrameSupport {
 	private JCheckBox chkGenerarHistorico;
 	
 	@Getter
-	private JTable tblNotas;
+	private TableSupport tblNotas;
 	
 	@Getter
-	private JTable tblUltimasPeticiones;
+	private TableSupport tblUltimasPeticiones;
 	
 	@Getter
 	private JComboBox<SubProyecto> cmbSubmodelo;
@@ -193,10 +193,10 @@ public class PantallaProcesarScript extends FrameSupport {
         jButton1 = new JButton();
         jLabel11 = new JLabel();
         jScrollPane2 = new JScrollPane();
-        tblNotas = new JTable();
+        tblNotas = new TableSupport(Boolean.FALSE);
         jLabel12 = new JLabel();
         jScrollPane3 = new JScrollPane();
-        tblUltimasPeticiones = new JTable();
+        tblUltimasPeticiones = new TableSupport(Boolean.FALSE);
         btnVerProcesado = new JButton();
         btnProcesar = new JButton();
         btnCancelar = new JButton();
