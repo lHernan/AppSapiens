@@ -20,6 +20,8 @@ public class Operacion implements Serializable {
 	
 	private String tipoObjeto;
 	private String accion;
+	private String tipoAccion;
+	private String descripcionAccion;
 	private String bbdd;
 	private String script;
 

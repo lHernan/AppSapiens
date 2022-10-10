@@ -400,7 +400,6 @@ public class PantallaProcesarScript extends FrameSupport {
         chkGenerarHistorico.setEnabled(false);
         txtBBDDHistorico.setEditable(false);
         txtEsquemaHistorico.setEditable(false);
-        txtDemanda.setEditable(false);
         btnLimpiar.setEnabled(Boolean.FALSE);
         btnVerProcesado.setEnabled(Boolean.FALSE);
         

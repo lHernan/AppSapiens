@@ -87,10 +87,15 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
             String typeError = createCallTypeError();
 
-            logProcedure(runSP, inputProcesaScript.getLineasScript(), inputProcesaScript.getPCodigoProyecto(), inputProcesaScript.getPCodigoSubProyecto(), inputProcesaScript.getPCodigoPeticion(), inputProcesaScript.getPCodigoDemanda(),
-                    inputProcesaScript.getPCodigoDemanda(), inputProcesaScript.getPCodigoUsr(), inputProcesaScript.getPCodigoUsrPeticion(), inputProcesaScript.getPMcaReprocesa(), inputProcesaScript.getPNombreBBDD(),
-                    inputProcesaScript.getPNombreEsquema(), inputProcesaScript.getPMcaHIS(), inputProcesaScript.getPNombreBBDDHIS(), inputProcesaScript.getPNombreEsquemaHis(), inputProcesaScript.getPNombreFichaEntrada(),
-                    inputProcesaScript.getPTxtRutaEntrada(), inputProcesaScript.getListaObjetoHis(), inputProcesaScript.getPTxtRutaEntrada());
+            logProcedure(runSP, inputProcesaScript.getLineasScript(), inputProcesaScript.getPCodigoProyecto(), 
+            		inputProcesaScript.getPCodigoSubProyecto(), inputProcesaScript.getPCodigoPeticion(), 
+            		inputProcesaScript.getPCodigoDemanda(), inputProcesaScript.getPCodigoDemanda(), 
+            		inputProcesaScript.getPCodigoUsr(), inputProcesaScript.getPCodigoUsrPeticion(), 
+            		inputProcesaScript.getPMcaReprocesa(), inputProcesaScript.getPNombreBBDD(),
+                    inputProcesaScript.getPNombreEsquema(), inputProcesaScript.getPMcaHIS(), 
+                    inputProcesaScript.getPNombreBBDDHIS(), inputProcesaScript.getPNombreEsquemaHis(), 
+                    inputProcesaScript.getPNombreFichaEntrada(), inputProcesaScript.getPTxtRutaEntrada(), 
+                    inputProcesaScript.getListaObjetoHis(), inputProcesaScript.getPTxtRutaEntrada());
 
             Struct[] structLinea = new Struct[inputProcesaScript.getLineasScript().size()];
 

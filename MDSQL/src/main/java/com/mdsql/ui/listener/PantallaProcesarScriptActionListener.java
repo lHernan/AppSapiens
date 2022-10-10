@@ -24,6 +24,7 @@ import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputProcesaType;
 import com.mdsql.bussiness.entities.Proceso;
+import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.AvisoService;
@@ -42,10 +43,12 @@ import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.SubProyectoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
+import com.mdval.utils.AppGlobalSingleton;
 
 /**
  * @author federico
@@ -334,6 +337,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void procesarScript() {
 		try {
+			String usuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
 			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
 			
 			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
@@ -344,8 +348,27 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			inputProcesaScript.setLineasScript(lineasScript);
 			inputProcesaScript.setPCodigoProyecto(seleccionado.getCodigoProyecto());
 			inputProcesaScript.setPCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
+			inputProcesaScript.setPCodigoPeticion(pantallaProcesarScript.getTxtPeticion().getText());
+			inputProcesaScript.setPCodigoDemanda(pantallaProcesarScript.getTxtDemanda().getText());
+			inputProcesaScript.setPCodigoUsr(usuario);
+			inputProcesaScript.setPCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
+			inputProcesaScript.setPMcaHIS(AppHelper.normalizeValueToCheck(pantallaProcesarScript.getChkGenerarHistorico().isSelected()));
+			
+			BBDD selectedBBDD = (BBDD) pantallaProcesarScript.getCmbBBDD().getSelectedItem();
+			inputProcesaScript.setPNombreBBDD(selectedBBDD.getNombreBBDD());
+			inputProcesaScript.setPNombreEsquema(selectedBBDD.getNombreEsquema());
+			inputProcesaScript.setPNombreBBDDHIS(selectedBBDD.getNombreBBDDHis());
+			inputProcesaScript.setPNombreEsquemaHis(selectedBBDD.getNombreEsquemaHis());
+			inputProcesaScript.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
+			
+			// TODO - Falta el nombre del fichero de entrada y la ruta
 			
 			OutputProcesaScript outputProcesaScript = scriptService.procesarScript(inputProcesaScript);
+			
+			BigDecimal idProceso = outputProcesaScript.getIdProceso();
+			BigDecimal codigoEstadoProceso = outputProcesaScript.getPCodigoEstadoProceso();
+			String descripcionEstadoProceso = outputProcesaScript.getPDescripcionEstadoProceso();
+			List<Script> scripts = outputProcesaScript.getListaScripts();
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
@@ -357,10 +380,30 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void procesarType() {
 		try {
+			String usuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
 			TypeService typeService = (TypeService) getService(Constants.TYPE_SERVICE);
+			
+			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
+			SubProyecto subProyecto = pantallaProcesarScript.getSubproyectoSeleccionado();
 		
 			InputProcesaType inputProcesaType = new InputProcesaType();
+			List<TextoLinea> lineasScript = pantallaProcesarScript.getScript();
+			inputProcesaType.setLineasScript(lineasScript);
+			inputProcesaType.setPCodigoProyecto(seleccionado.getCodigoProyecto());
+			inputProcesaType.setPCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
+			inputProcesaType.setPCodigoPeticion(pantallaProcesarScript.getTxtPeticion().getText());
+			inputProcesaType.setPCodigoDemanda(pantallaProcesarScript.getTxtDemanda().getText());
+			inputProcesaType.setPCodigoUsr(usuario);
+			inputProcesaType.setPCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
+			
+			BBDD selectedBBDD = (BBDD) pantallaProcesarScript.getCmbBBDD().getSelectedItem();
+			inputProcesaType.setPNombreBBDD(selectedBBDD.getNombreBBDD());
+			inputProcesaType.setPNombreEsquema(selectedBBDD.getNombreEsquema());
+			inputProcesaType.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
+			
 			OutputProcesaType outputProcesaType = typeService.procesarType(inputProcesaType);
+			
+			
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
