@@ -38,6 +38,7 @@ public class UltimasPeticionesTableListener extends ListenerSupport implements L
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			pantallaProcesarScript.setProcesoSeleccionado(seleccionado);
+			pantallaProcesarScript.getBtnVerProcesado().setEnabled(Boolean.TRUE);
 		}
 	}
 
