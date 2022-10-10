@@ -5,7 +5,7 @@
  */
 package com.mdsql.ui;
 
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
 import java.util.Map;
 import java.util.Objects;
 
@@ -16,9 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.listener.PantallaResumenProcesadoActionListener;
+import com.mdsql.ui.model.ResumenProcesadoObjetosTableModel;
+import com.mdsql.ui.model.ResumenProcesadoOperacionesTableModel;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -63,18 +64,44 @@ public class PantallaResumenProcesado extends FrameSupport {
     private JScrollPane jScrollPane2;
     private JScrollPane jScrollPane3;
     private JScrollPane jScrollPane4;
+    
+    @Getter
     private JTextField txtBBDD;
+    
+    @Getter
     private JTextField txtBBDDHistorico;
+    
+    @Getter
     private JTextArea txtComentarios;
+    
+    @Getter
     private JTextField txtEsquema;
+    
+    @Getter
     private JTextField txtEsquemaHistorico;
+    
+    @Getter
     private JTextField txtEstado;
+    
+    @Getter
     private JTextField txtFecha;
+    
+    @Getter
     private JTextField txtModelo;
+    
+    @Getter
     private JTextField txtPeticion;
+    
+    @Getter
     private JTextField txtRuta;
+    
+    @Getter
     private JTextField txtSolicitadaPor;
+    
+    @Getter
     private JTextField txtSubmodelo;
+    
+    @Getter
     private JTextField txtUsuario;
     
     @Getter
@@ -143,6 +170,8 @@ public class PantallaResumenProcesado extends FrameSupport {
         jScrollPane4 = new JScrollPane();
         tblObjetos = new TableSupport(Boolean.FALSE);
         jLabel12 = new JLabel();
+        
+        setMinimumSize(new Dimension(1522, 990));
 
         jScrollPane2.setViewportView(tblScripts);
 
@@ -313,45 +342,13 @@ public class PantallaResumenProcesado extends FrameSupport {
 		tblScripts.setModel(
 				new ResumenProcesadoScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses()));
 		
-		tblOperaciones.setModel(new DefaultTableModel(
-	            new Object [][] {
-	                {null, null, null, null},
-	                {null, null, null, null},
-	                {null, null, null, null},
-	                {null, null, null, null}
-	            },
-	            new String [] {
-	                "Tipo objeto", "Acción", "BBDD", "Script"
-	            }
-	        ) {
-	            Class[] types = new Class [] {
-	                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-	            };
-
-	            public Class getColumnClass(int columnIndex) {
-	                return types [columnIndex];
-	            }
-	        });
+		Cabecera cabeceraOperaciones = MDSQLUIHelper.createCabeceraTabla(Constants.RESUMEN_PROCESADO_OPERACIONES_TABLA_CABECERA);
+		tblOperaciones.setModel(
+				new ResumenProcesadoOperacionesTableModel(cabeceraOperaciones.getColumnIdentifiers(), cabeceraOperaciones.getColumnClasses()));
 		
-		tblObjetos.setModel(new DefaultTableModel(
-	            new Object [][] {
-	                {null, null, null, null, null},
-	                {null, null, null, null, null},
-	                {null, null, null, null, null},
-	                {null, null, null, null, null}
-	            },
-	            new String [] {
-	                "Nombre objeto", "Tipo objeto", "Acción", "BBDD", "Script"
-	            }
-	        ) {
-	            Class[] types = new Class [] {
-	                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-	            };
-
-	            public Class getColumnClass(int columnIndex) {
-	                return types [columnIndex];
-	            }
-	        });
+		Cabecera cabeceraObjetos = MDSQLUIHelper.createCabeceraTabla(Constants.RESUMEN_PROCESADO_OBJETOS_TABLA_CABECERA);
+		tblObjetos.setModel(
+				new ResumenProcesadoObjetosTableModel(cabeceraObjetos.getColumnIdentifiers(), cabeceraObjetos.getColumnClasses()));
 	}
 
 	@Override
