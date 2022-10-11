@@ -64,8 +64,6 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 
 			populateModelSeleccion(seleccion);
 
-			// TODO - Preguntar cómo añadir los objetos nuevos
-
 			if (checkAllConfigured(
 					(SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico().getModel())) {
 				pantallaSeleccionHistorico.getBtnAddHistorico().setEnabled(Boolean.FALSE);
