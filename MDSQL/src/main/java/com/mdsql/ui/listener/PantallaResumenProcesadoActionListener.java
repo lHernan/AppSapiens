@@ -53,11 +53,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		try {
 			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
 			
-			/**
-			 * TODO - Preguntar de dónde sale el id del proceso cuando viene de la pantalla
-			 * procesar script
-			 */
-			BigDecimal idProceso = new BigDecimal(1L);
+			BigDecimal idProceso = (BigDecimal) pantallaResumenProcesado.getParams().get("idProceso");
 			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(idProceso);
 
 			if (!Objects.isNull(outputConsultaProcesado)) {

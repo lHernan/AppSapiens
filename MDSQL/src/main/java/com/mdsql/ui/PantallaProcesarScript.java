@@ -402,6 +402,7 @@ public class PantallaProcesarScript extends FrameSupport {
         txtEsquemaHistorico.setEditable(false);
         txtDemanda.setEditable(false);
         btnLimpiar.setEnabled(Boolean.FALSE);
+        btnVerProcesado.setEnabled(Boolean.FALSE);
         
         procesado = (Procesado) params.get("procesado");
         script = (List<TextoLinea>) params.get("script");

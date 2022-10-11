@@ -97,6 +97,9 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	private void eventBtnVerProcesado() {
 		Map<String, Object> params = new HashMap<>();
 		
+		Proceso seleccionado = pantallaProcesarScript.getProcesoSeleccionado();
+		
+		params.put("idProceso", seleccionado.getIdProceso());
 		params.put("entregar", Boolean.FALSE);
 		
 		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper.createFrame(pantallaProcesarScript.getFrameParent(),
@@ -132,6 +135,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		pantallaProcesarScript.getCmbSubmodelo().setModel(subproyectoModel);
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.FALSE);
+		pantallaProcesarScript.getBtnVerProcesado().setEnabled(Boolean.FALSE);
 	}
 
 	/**
