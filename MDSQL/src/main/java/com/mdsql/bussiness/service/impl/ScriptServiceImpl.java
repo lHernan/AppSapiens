@@ -107,19 +107,22 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
             Array arrayLinea = ((OracleConnection) conn).createOracleArray(tableLinea, structLinea);
 
-            Struct[] structObjHis = new Struct[inputProcesaScript.getListaObjetoHis().size()];
-
-            int arrayIndexObjHis = 0;
-            for (SeleccionHistorico data : inputProcesaScript.getListaObjetoHis()) {
-                String mcaVigente = AppHelper.normalizeValueToCheck(data.getVigente());
-                String mcaHistorico = AppHelper.normalizeValueToCheck(data.getHistorico());
-
-                structObjHis[arrayIndexObjHis++] = conn.createStruct(recordObjHis,
-                        new Object[]{data.getObjeto(), data.getTipo(), mcaVigente, mcaHistorico});
+            Array arrayObjHis = null;
+            if (CollectionUtils.isNotEmpty(inputProcesaScript.getListaObjetoHis())) {
+	            Struct[] structObjHis = new Struct[inputProcesaScript.getListaObjetoHis().size()];
+	
+	            int arrayIndexObjHis = 0;
+	            for (SeleccionHistorico data : inputProcesaScript.getListaObjetoHis()) {
+	                String mcaVigente = AppHelper.normalizeValueToCheck(data.getVigente());
+	                String mcaHistorico = AppHelper.normalizeValueToCheck(data.getHistorico());
+	
+	                structObjHis[arrayIndexObjHis++] = conn.createStruct(recordObjHis,
+	                        new Object[]{data.getObjeto(), data.getTipo(), mcaVigente, mcaHistorico});
+	            }
+	
+	            arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
             }
-
-            Array arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
-
+            
             callableStatement.setArray(1, arrayLinea);
             callableStatement.setString(2, inputProcesaScript.getPCodigoProyecto());
             callableStatement.setString(3, inputProcesaScript.getPCodigoSubProyecto());
@@ -810,5 +813,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
         }
         return logLinesList;
     }
+
+	@Override
+	public OutputReparaScript repararScript(String inputReparaScript) throws ServiceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

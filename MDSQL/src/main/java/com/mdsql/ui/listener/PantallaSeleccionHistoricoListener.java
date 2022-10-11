@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaSeleccionHistorico;
@@ -58,7 +59,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
 
 			String codigoProyecto = (String) pantallaSeleccionHistorico.getParams().get("codigoProyecto");
-			List<String> lineas = (List<String>) pantallaSeleccionHistorico.getParams().get("script");
+			List<TextoLinea> lineas = (List<TextoLinea>) pantallaSeleccionHistorico.getParams().get("script");
 			List<SeleccionHistorico> seleccion = procesoService.seleccionarHistorico(codigoProyecto, lineas);
 
 			populateModelSeleccion(seleccion);
@@ -105,6 +106,9 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 			pantallaSeleccionHistorico.getReturnParams().put("procesado", Boolean.FALSE);
 		}
 
+		List<SeleccionHistorico> list = ((SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico().getModel()).getData();
+		pantallaSeleccionHistorico.getReturnParams().put("objetosHistorico", list);
+		
 		updateObservers(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		pantallaSeleccionHistorico.dispose();
 	}

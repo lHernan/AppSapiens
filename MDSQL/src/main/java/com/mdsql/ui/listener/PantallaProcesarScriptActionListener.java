@@ -25,6 +25,7 @@ import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputProcesaType;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.AvisoService;
@@ -153,7 +154,6 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			if (Constants.S.equals(seleccionado.getMcaHis())) {
 				Map<String, Object> params = new HashMap<>();
 				params.put("codigoProyecto", seleccionado.getCodigoProyecto());
-				params.put("codigoPeticion", procesoSeleccionado.getCodigoPeticion());
 				params.put("script", pantallaProcesarScript.getParams().get("script"));
 				
 				pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createFrame(pantallaProcesarScript.getFrameParent(),
@@ -170,7 +170,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				}
 				
 				if (Procesado.SCRIPT.equals(procesado)) {
-					procesarScript();
+					procesarScript(null);
 				}
 			}
 		}
@@ -335,7 +335,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	/**
 	 * 
 	 */
-	private void procesarScript() {
+	private void procesarScript(List<SeleccionHistorico> objetosHistorico) {
 		try {
 			String usuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
 			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
@@ -360,6 +360,10 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			inputProcesaScript.setPNombreBBDDHIS(selectedBBDD.getNombreBBDDHis());
 			inputProcesaScript.setPNombreEsquemaHis(selectedBBDD.getNombreEsquemaHis());
 			inputProcesaScript.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
+			
+			if (objetosHistorico != null) {
+				inputProcesaScript.setListaObjetoHis(objetosHistorico);
+			}
 			
 			// TODO - Falta el nombre del fichero de entrada y la ruta
 			
@@ -410,6 +414,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object cmd) {
 		String command = (String) cmd;
@@ -419,8 +424,9 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		
 		if (Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR.equals(command)) {
 			Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
+			List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
 			if (continuarProcesado) {
-				procesarScript();
+				procesarScript(objetosHistorico);
 			}
 			else {
 				JOptionPane.showMessageDialog(pantallaProcesarScript.getFrameParent(), "Operación cancelada");

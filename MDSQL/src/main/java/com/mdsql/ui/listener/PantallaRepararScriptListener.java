@@ -2,10 +2,7 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
-import java.util.Observer;
 
 import javax.swing.JButton;
 
@@ -16,6 +13,9 @@ import com.mdsql.ui.PantallaRepararScript;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 
 public class PantallaRepararScriptListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 
@@ -48,7 +48,6 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 
 			String inputReparaScript = (String) pantallaRepararScript.getParams().get("inputReparaScript");
 			
-			String idProceso = String.valueOf(Long.valueOf(inputReparaScript));
 			OutputReparaScript repararScript = scriptService.repararScript(inputReparaScript);
 
 		} catch (ServiceException e) {
@@ -59,6 +58,18 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 
 	private void cancelar() {
 		pantallaRepararScript.dispose();
+	}
+
+	@Override
+	public void update(Observable o, Object cmd) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoad() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

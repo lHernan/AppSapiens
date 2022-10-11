@@ -33,4 +33,6 @@ public interface ScriptService {
 
     List<DetObjeto> detalleObjetosScripts(BigDecimal idProceso, BigDecimal numeroOrden);
 
+	OutputReparaScript repararScript(String inputReparaScript) throws ServiceException;
+
 }

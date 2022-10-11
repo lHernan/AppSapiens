@@ -22,6 +22,7 @@ import com.mdsql.bussiness.entities.OutputConsultaProcesado;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.ScriptEjecutado;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
@@ -107,7 +108,7 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
     }
 
     @Override
-    public List<SeleccionHistorico> seleccionarHistorico(String codProyecto, List<String> lineas)
+    public List<SeleccionHistorico> seleccionarHistorico(String codProyecto, List<TextoLinea> lineas)
             throws ServiceException {
         String runSP = createCall("p_sel_historico", Constants.CALL_05_ARGS);
 
@@ -127,8 +128,8 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
             Struct[] struct = new Struct[lineas.size()];
 
             int arrayIndex = 0;
-            for (String linea : lineas) {
-                struct[arrayIndex++] = conn.createStruct(trLinea, new Object[]{linea});
+            for (TextoLinea linea : lineas) {
+                struct[arrayIndex++] = conn.createStruct(trLinea, new Object[]{linea.getValor()});
             }
 
             Array arrayLineas = ((OracleConnection) conn).createOracleArray(tableLinea, struct);

@@ -17,12 +17,13 @@ import javax.swing.JTextField;
 
 import com.mdsql.ui.listener.PantallaRepararScriptListener;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
  * @author USUARIO1
  */
-public class PantallaRepararScript extends javax.swing.JFrame {
+public class PantallaRepararScript extends FrameSupport {
 
     private static final long serialVersionUID = 1L;
     
@@ -164,4 +165,7 @@ public class PantallaRepararScript extends javax.swing.JFrame {
         btnAceptar.setText("ACEPTAR");
         btnCancelar.setText("CANCELAR");
    	}
+
+	@Override
+	protected void initMenuBar() {}
 }
