@@ -1,5 +1,6 @@
 package com.mdsql.utils;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -117,5 +118,15 @@ public class AppHelper {
 			return dup;
 		}
 		return StringUtils.EMPTY;
+	}
+	
+	/**
+	 * @param fileOrDirPath
+	 * @return
+	 */
+	public static String getParentDirPath(String fileOrDirPath) {
+	    boolean endsWithSlash = fileOrDirPath.endsWith(File.separator);
+	    return fileOrDirPath.substring(0, fileOrDirPath.lastIndexOf(File.separatorChar, 
+	            endsWithSlash ? fileOrDirPath.length() - 2 : fileOrDirPath.length() - 1));
 	}
 }

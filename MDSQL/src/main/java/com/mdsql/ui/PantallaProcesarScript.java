@@ -10,6 +10,7 @@ import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,8 +35,10 @@ import com.mdsql.ui.listener.combo.BBDDItemListener;
 import com.mdsql.ui.listener.combo.SubproyectoItemListener;
 import com.mdsql.ui.listener.tables.AvisosTableListener;
 import com.mdsql.ui.listener.tables.UltimasPeticionesTableListener;
+import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
+import com.mdsql.ui.model.SubProyectoComboBoxModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.renderer.BBDDRenderer;
 import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
@@ -379,6 +382,12 @@ public class PantallaProcesarScript extends FrameSupport {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
+		BBDDComboBoxModel bbddModel = new BBDDComboBoxModel();
+		cmbBBDD.setModel(bbddModel);
+				
+		SubProyectoComboBoxModel subproyectoModel = new SubProyectoComboBoxModel();
+		cmbSubmodelo.setModel(subproyectoModel);
+		
 		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
 		cmbBBDD.setRenderer(new BBDDRenderer());
 		

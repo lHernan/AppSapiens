@@ -242,6 +242,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			
 			// Las líneas del script vienen directamente del text area
 			params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
+			params.put("file", framePrincipal.getCurrentFile());
 	
 			FrameSupport dialog = MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE,
 					params);

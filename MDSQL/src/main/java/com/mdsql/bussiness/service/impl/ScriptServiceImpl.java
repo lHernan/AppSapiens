@@ -89,13 +89,13 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
             logProcedure(runSP, inputProcesaScript.getLineasScript(), inputProcesaScript.getPCodigoProyecto(), 
             		inputProcesaScript.getPCodigoSubProyecto(), inputProcesaScript.getPCodigoPeticion(), 
-            		inputProcesaScript.getPCodigoDemanda(), inputProcesaScript.getPCodigoDemanda(), 
-            		inputProcesaScript.getPCodigoUsr(), inputProcesaScript.getPCodigoUsrPeticion(), 
+            		inputProcesaScript.getPCodigoDemanda(), inputProcesaScript.getPCodigoUsr(), 
+            		inputProcesaScript.getPCodigoUsrPeticion(), 
             		inputProcesaScript.getPMcaReprocesa(), inputProcesaScript.getPNombreBBDD(),
                     inputProcesaScript.getPNombreEsquema(), inputProcesaScript.getPMcaHIS(), 
                     inputProcesaScript.getPNombreBBDDHIS(), inputProcesaScript.getPNombreEsquemaHis(), 
                     inputProcesaScript.getPNombreFichaEntrada(), inputProcesaScript.getPTxtRutaEntrada(), 
-                    inputProcesaScript.getListaObjetoHis(), inputProcesaScript.getPTxtRutaEntrada());
+                    inputProcesaScript.getListaObjetoHis(), inputProcesaScript.getPTxtDescripcion());
 
             Struct[] structLinea = new Struct[inputProcesaScript.getLineasScript().size()];
 
@@ -108,8 +108,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
             Array arrayLinea = ((OracleConnection) conn).createOracleArray(tableLinea, structLinea);
 
             Array arrayObjHis = null;
+            Struct[] structObjHis = null;
             if (CollectionUtils.isNotEmpty(inputProcesaScript.getListaObjetoHis())) {
-	            Struct[] structObjHis = new Struct[inputProcesaScript.getListaObjetoHis().size()];
+	            structObjHis = new Struct[inputProcesaScript.getListaObjetoHis().size()];
 	
 	            int arrayIndexObjHis = 0;
 	            for (SeleccionHistorico data : inputProcesaScript.getListaObjetoHis()) {
@@ -119,9 +120,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	                structObjHis[arrayIndexObjHis++] = conn.createStruct(recordObjHis,
 	                        new Object[]{data.getObjeto(), data.getTipo(), mcaVigente, mcaHistorico});
 	            }
-	
-	            arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
             }
+            
+            arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
             
             callableStatement.setArray(1, arrayLinea);
             callableStatement.setString(2, inputProcesaScript.getPCodigoProyecto());

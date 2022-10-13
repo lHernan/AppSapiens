@@ -2,7 +2,9 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.math.BigDecimal;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,7 @@ import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.entities.TextoLinea;
+import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.AvisoService;
 import com.mdsql.bussiness.service.BBDDService;
 import com.mdsql.bussiness.service.ProcesoService;
@@ -147,7 +150,6 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void eventBtnProcesar() {
 		Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
-		Proceso procesoSeleccionado = pantallaProcesarScript.getProcesoSeleccionado();
 		
 		if (!Objects.isNull(seleccionado)) {
 			// El modelo tiene histórico
@@ -350,6 +352,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			inputProcesaScript.setPCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
 			inputProcesaScript.setPCodigoPeticion(pantallaProcesarScript.getTxtPeticion().getText());
 			inputProcesaScript.setPCodigoDemanda(pantallaProcesarScript.getTxtDemanda().getText());
+			inputProcesaScript.setPMcaReprocesa(Constants.N);
 			inputProcesaScript.setPCodigoUsr(usuario);
 			inputProcesaScript.setPCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
 			inputProcesaScript.setPMcaHIS(AppHelper.normalizeValueToCheck(pantallaProcesarScript.getChkGenerarHistorico().isSelected()));
@@ -365,7 +368,11 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				inputProcesaScript.setListaObjetoHis(objetosHistorico);
 			}
 			
-			// TODO - Falta el nombre del fichero de entrada y la ruta
+			File file = (File) pantallaProcesarScript.getParams().get("file");
+			inputProcesaScript.setPNombreFichaEntrada(file.getName());
+			
+			String parentPath = file.getAbsoluteFile().getParent();
+			inputProcesaScript.setPTxtRutaEntrada(parentPath);
 			
 			OutputProcesaScript outputProcesaScript = scriptService.procesarScript(inputProcesaScript);
 			
@@ -405,9 +412,18 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			inputProcesaType.setPNombreEsquema(selectedBBDD.getNombreEsquema());
 			inputProcesaType.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
 			
+			File file = (File) pantallaProcesarScript.getParams().get("file");
+			inputProcesaType.setPNombreFichaEntrada(file.getName());
+			
+			String parentPath = file.getAbsoluteFile().getParent();
+			inputProcesaType.setPTxtRutaEntrada(parentPath);
+			
 			OutputProcesaType outputProcesaType = typeService.procesarType(inputProcesaType);
 			
-			
+			BigDecimal idProceso = outputProcesaType.getIdProceso();
+			BigDecimal codigoEstadoProceso = outputProcesaType.getPCodigoEstadoProceso();
+			String descripcionEstadoProceso = outputProcesaType.getPDescripcionEstadoProceso();
+			List<Type> types = outputProcesaType.getListaType();
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
