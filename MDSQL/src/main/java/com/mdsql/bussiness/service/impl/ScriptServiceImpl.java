@@ -1,37 +1,5 @@
 package com.mdsql.bussiness.service.impl;
 
-import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.bussiness.entities.DetObjeto;
-import com.mdsql.bussiness.entities.InputDescartarScript;
-import com.mdsql.bussiness.entities.InputProcesaScript;
-import com.mdsql.bussiness.entities.InputReparaScript;
-import com.mdsql.bussiness.entities.OutputDescartarScript;
-import com.mdsql.bussiness.entities.OutputExcepcionScript;
-import com.mdsql.bussiness.entities.OutputProcesaScript;
-import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
-import com.mdsql.bussiness.entities.OutputReparaScript;
-import com.mdsql.bussiness.entities.Script;
-import com.mdsql.bussiness.entities.ScriptOld;
-import com.mdsql.bussiness.entities.SeleccionHistorico;
-import com.mdsql.bussiness.entities.TextoLinea;
-import com.mdsql.bussiness.service.BBDDService;
-import com.mdsql.bussiness.service.EjecucionService;
-import com.mdsql.bussiness.service.ScriptService;
-import com.mdsql.exceptions.ServiceException;
-import com.mdsql.utils.ConfigurationSingleton;
-import com.mdsql.utils.Constants;
-import com.mdval.utils.AppGlobalSingleton;
-import com.mdval.utils.AppHelper;
-import com.mdval.utils.LogWrapper;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.internal.OracleConnection;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -52,6 +20,41 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.DetObjeto;
+import com.mdsql.bussiness.entities.InputDescartarScript;
+import com.mdsql.bussiness.entities.InputProcesaScript;
+import com.mdsql.bussiness.entities.InputReparaScript;
+import com.mdsql.bussiness.entities.OutputDescartarScript;
+import com.mdsql.bussiness.entities.OutputExcepcionScript;
+import com.mdsql.bussiness.entities.OutputProcesaScript;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.OutputReparaScript;
+import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.ScriptOld;
+import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.TextoLinea;
+import com.mdsql.bussiness.service.BBDDService;
+import com.mdsql.bussiness.service.EjecucionService;
+import com.mdsql.bussiness.service.ScriptService;
+import com.mdsql.utils.ConfigurationSingleton;
+import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.AppGlobalSingleton;
+import com.mdval.utils.AppHelper;
+import com.mdval.utils.LogWrapper;
+
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.internal.OracleConnection;
 
 /**
  * @author hcarreno
@@ -152,10 +155,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
             callableStatement.execute();
 
-            Integer result = callableStatement.getInt(18);
+            Integer result = callableStatement.getInt(23);
 
             if (result == 0) {
-                throw buildException(callableStatement.getArray(19));
+                throw buildException(callableStatement.getArray(24));
             }
 
 

@@ -3,7 +3,7 @@ package com.mdsql.bussiness.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import com.mdsql.exceptions.ServiceException;
+import com.mdval.exceptions.ServiceException;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

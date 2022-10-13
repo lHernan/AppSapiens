@@ -24,8 +24,8 @@ import com.mdsql.bussiness.entities.ScriptEjecutado;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ProcesoService;
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
 

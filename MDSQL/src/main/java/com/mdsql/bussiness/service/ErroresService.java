@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.ErrorScript;
 import com.mdsql.bussiness.entities.OutputErroresScript;
-import com.mdsql.exceptions.ServiceException;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno

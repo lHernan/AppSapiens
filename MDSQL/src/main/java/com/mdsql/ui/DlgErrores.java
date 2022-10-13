@@ -26,8 +26,8 @@ import javax.swing.WindowConstants;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 

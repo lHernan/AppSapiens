@@ -3,7 +3,7 @@ package com.mdsql.bussiness.service;
 import java.util.List;
 
 import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.exceptions.ServiceException;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno

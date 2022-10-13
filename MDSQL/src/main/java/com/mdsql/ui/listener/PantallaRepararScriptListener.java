@@ -8,11 +8,11 @@ import javax.swing.JButton;
 
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.service.ScriptService;
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaRepararScript;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;

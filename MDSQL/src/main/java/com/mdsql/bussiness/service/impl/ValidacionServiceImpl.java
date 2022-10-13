@@ -23,8 +23,8 @@ import com.mdsql.bussiness.entities.ValidaParticula;
 import com.mdsql.bussiness.entities.ValidaScriptRequest;
 import com.mdsql.bussiness.entities.ValidaScriptResponse;
 import com.mdsql.bussiness.service.ValidacionService;
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;

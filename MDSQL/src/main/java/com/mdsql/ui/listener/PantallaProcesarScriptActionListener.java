@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.math.BigDecimal;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,6 @@ import com.mdsql.bussiness.service.BBDDService;
 import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.bussiness.service.TypeService;
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.PantallaSeleccionHistorico;
@@ -50,6 +48,7 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
@@ -382,7 +381,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			List<Script> scripts = outputProcesaScript.getListaScripts();
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript, Constants.CMD_ERROR, errParams);
 		}
 	}
 	
@@ -426,7 +425,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			List<Type> types = outputProcesaType.getListaType();
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript, Constants.CMD_ERROR, errParams);
 		}
 	}
 
@@ -462,7 +461,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript, Constants.CMD_ERROR, errParams);
 		}
 	}
 }

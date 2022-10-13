@@ -10,7 +10,6 @@ import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;

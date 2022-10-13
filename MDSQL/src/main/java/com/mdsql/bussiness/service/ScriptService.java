@@ -14,7 +14,7 @@ import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Script;
-import com.mdsql.exceptions.ServiceException;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno

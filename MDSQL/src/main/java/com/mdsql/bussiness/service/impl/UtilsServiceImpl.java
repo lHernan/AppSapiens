@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.service.UtilsService;
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;

@@ -8,10 +8,10 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.DateFormatter;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;

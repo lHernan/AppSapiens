@@ -2,7 +2,7 @@ package com.mdsql.bussiness.service;
 
 import com.mdsql.bussiness.entities.InputProcesaType;
 import com.mdsql.bussiness.entities.OutputProcesaType;
-import com.mdsql.exceptions.ServiceException;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno

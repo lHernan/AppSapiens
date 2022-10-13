@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.CuadreObjeto;
 import com.mdsql.bussiness.entities.CuadreOperacion;
-import com.mdsql.exceptions.ServiceException;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno

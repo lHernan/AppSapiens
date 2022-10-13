@@ -12,12 +12,12 @@ import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.service.BBDDService;
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;

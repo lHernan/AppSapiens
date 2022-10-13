@@ -9,19 +9,15 @@ import java.util.Objects;
 
 import javax.swing.JButton;
 
-import org.apache.commons.collections.CollectionUtils;
-
-import com.mdsql.bussiness.entities.InputSeleccionarProcesados;
 import com.mdsql.bussiness.entities.OutputConsultaProcesado;
 import com.mdsql.bussiness.entities.ScriptEjecutado;
 import com.mdsql.bussiness.service.ProcesoService;
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
-import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 
 /**

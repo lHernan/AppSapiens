@@ -13,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.mdsql.ui.listener.PantallaVerCuadresScriptListener;
-import com.mdsql.ui.listener.PantallaVerErroresScriptListener;
 import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;

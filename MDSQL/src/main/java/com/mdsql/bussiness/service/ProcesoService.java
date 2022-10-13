@@ -8,7 +8,7 @@ import com.mdsql.bussiness.entities.OutputConsultaProcesado;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.TextoLinea;
-import com.mdsql.exceptions.ServiceException;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno

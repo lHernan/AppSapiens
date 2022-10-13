@@ -1,10 +1,10 @@
 package com.mdsql.bussiness.service;
 
+import java.util.List;
+
 import com.mdsql.bussiness.entities.Estado;
 import com.mdsql.bussiness.entities.Operacion;
 import com.mdsql.bussiness.entities.TipoObjeto;
-
-import java.util.List;
 
 /**
  * @author hcarreno

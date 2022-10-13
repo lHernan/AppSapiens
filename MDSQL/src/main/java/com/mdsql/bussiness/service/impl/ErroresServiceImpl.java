@@ -19,8 +19,8 @@ import com.mdsql.bussiness.entities.ErrorScript;
 import com.mdsql.bussiness.entities.OutputErroresScript;
 import com.mdsql.bussiness.entities.ScriptParche;
 import com.mdsql.bussiness.service.ErroresService;
-import com.mdsql.exceptions.ServiceException;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
