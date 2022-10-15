@@ -142,6 +142,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 
 		pantallaProcesarScript.getBtnLimpiar().setEnabled(Boolean.FALSE);
 		pantallaProcesarScript.getBtnVerProcesado().setEnabled(Boolean.FALSE);
+		
+		pantallaProcesarScript.setModeloSeleccionado(null);
 	}
 
 	/**
@@ -342,43 +344,45 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
 			
 			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
-			SubProyecto subProyecto = pantallaProcesarScript.getSubproyectoSeleccionado();
-		
-			InputProcesaScript inputProcesaScript = new InputProcesaScript();
-			List<TextoLinea> lineasScript = pantallaProcesarScript.getScript();
-			inputProcesaScript.setLineasScript(lineasScript);
-			inputProcesaScript.setPCodigoProyecto(seleccionado.getCodigoProyecto());
-			inputProcesaScript.setPCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
-			inputProcesaScript.setPCodigoPeticion(pantallaProcesarScript.getTxtPeticion().getText());
-			inputProcesaScript.setPCodigoDemanda(pantallaProcesarScript.getTxtDemanda().getText());
-			inputProcesaScript.setPMcaReprocesa(Constants.N);
-			inputProcesaScript.setPCodigoUsr(usuario);
-			inputProcesaScript.setPCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
-			inputProcesaScript.setPMcaHIS(AppHelper.normalizeValueToCheck(pantallaProcesarScript.getChkGenerarHistorico().isSelected()));
+			if (!Objects.isNull(seleccionado)) {
+				SubProyecto subProyecto = pantallaProcesarScript.getSubproyectoSeleccionado();
 			
-			BBDD selectedBBDD = (BBDD) pantallaProcesarScript.getCmbBBDD().getSelectedItem();
-			inputProcesaScript.setPNombreBBDD(selectedBBDD.getNombreBBDD());
-			inputProcesaScript.setPNombreEsquema(selectedBBDD.getNombreEsquema());
-			inputProcesaScript.setPNombreBBDDHIS(selectedBBDD.getNombreBBDDHis());
-			inputProcesaScript.setPNombreEsquemaHis(selectedBBDD.getNombreEsquemaHis());
-			inputProcesaScript.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
-			
-			if (objetosHistorico != null) {
-				inputProcesaScript.setListaObjetoHis(objetosHistorico);
+				InputProcesaScript inputProcesaScript = new InputProcesaScript();
+				List<TextoLinea> lineasScript = pantallaProcesarScript.getScript();
+				inputProcesaScript.setLineasScript(lineasScript);
+				inputProcesaScript.setPCodigoProyecto(seleccionado.getCodigoProyecto());
+				inputProcesaScript.setPCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
+				inputProcesaScript.setPCodigoPeticion(pantallaProcesarScript.getTxtPeticion().getText());
+				inputProcesaScript.setPCodigoDemanda(pantallaProcesarScript.getTxtDemanda().getText());
+				inputProcesaScript.setPMcaReprocesa(Constants.N);
+				inputProcesaScript.setPCodigoUsr(usuario);
+				inputProcesaScript.setPCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
+				inputProcesaScript.setPMcaHIS(AppHelper.normalizeValueToCheck(pantallaProcesarScript.getChkGenerarHistorico().isSelected()));
+				
+				BBDD selectedBBDD = (BBDD) pantallaProcesarScript.getCmbBBDD().getSelectedItem();
+				inputProcesaScript.setPNombreBBDD(selectedBBDD.getNombreBBDD());
+				inputProcesaScript.setPNombreEsquema(selectedBBDD.getNombreEsquema());
+				inputProcesaScript.setPNombreBBDDHIS(selectedBBDD.getNombreBBDDHis());
+				inputProcesaScript.setPNombreEsquemaHis(selectedBBDD.getNombreEsquemaHis());
+				inputProcesaScript.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
+				
+				if (objetosHistorico != null) {
+					inputProcesaScript.setListaObjetoHis(objetosHistorico);
+				}
+				
+				File file = (File) pantallaProcesarScript.getParams().get("file");
+				inputProcesaScript.setPNombreFichaEntrada(file.getName());
+				
+				String parentPath = file.getAbsoluteFile().getParent();
+				inputProcesaScript.setPTxtRutaEntrada(parentPath);
+				
+				OutputProcesaScript outputProcesaScript = scriptService.procesarScript(inputProcesaScript);
+				
+				BigDecimal idProceso = outputProcesaScript.getIdProceso();
+				BigDecimal codigoEstadoProceso = outputProcesaScript.getPCodigoEstadoProceso();
+				String descripcionEstadoProceso = outputProcesaScript.getPDescripcionEstadoProceso();
+				List<Script> scripts = outputProcesaScript.getListaScripts();
 			}
-			
-			File file = (File) pantallaProcesarScript.getParams().get("file");
-			inputProcesaScript.setPNombreFichaEntrada(file.getName());
-			
-			String parentPath = file.getAbsoluteFile().getParent();
-			inputProcesaScript.setPTxtRutaEntrada(parentPath);
-			
-			OutputProcesaScript outputProcesaScript = scriptService.procesarScript(inputProcesaScript);
-			
-			BigDecimal idProceso = outputProcesaScript.getIdProceso();
-			BigDecimal codigoEstadoProceso = outputProcesaScript.getPCodigoEstadoProceso();
-			String descripcionEstadoProceso = outputProcesaScript.getPDescripcionEstadoProceso();
-			List<Script> scripts = outputProcesaScript.getListaScripts();
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaProcesarScript, Constants.CMD_ERROR, errParams);
