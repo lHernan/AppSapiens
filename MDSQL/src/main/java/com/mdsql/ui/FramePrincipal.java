@@ -9,7 +9,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.BoxLayout;
@@ -24,6 +26,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 import javax.swing.JToolBar.Separator;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
@@ -535,7 +538,7 @@ public class FramePrincipal extends FrameSupport {
 		btnExecute.setActionCommand(Constants.FRAME_PRINCIPAL_EXECUTE);
 		btnEntregarProcesado.setActionCommand(Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO);
 		btnLimpiarScripts.setActionCommand(Constants.FRAME_PRINCIPAL_LIMPIAR_SCRIPT);
-		
+
 		btnUndo.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_UNDO);
 		btnRedo.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_REDO);
 		btnCut.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_CUT);
@@ -557,6 +560,18 @@ public class FramePrincipal extends FrameSupport {
 
 		// Manejador de eventos del editor
 		txtSQLCode.getDocument().addUndoableEditListener(editorEventHandler);
+
+		// remueve las posibles combinaciones de teclas asociadas por defecto con el
+		// JTextArea
+		txtSQLCode.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK), "none"); // remueve
+																											// CTRL + X
+																											// ("Cortar")
+		txtSQLCode.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK), "none"); // remueve
+																											// CTRL + C
+																											// ("Copiar")
+		txtSQLCode.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK), "none"); // remueve
+																											// CTRL + V
+																											// ("Pegar")
 	}
 
 	@Override
@@ -577,7 +592,7 @@ public class FramePrincipal extends FrameSupport {
 	protected void initialState() {
 		undoManager = new UndoManager(); // construye una instancia de UndoManager
 		undoManager.setLimit(50); // le asigna un límite al buffer de ediciones
-		
+
 		disableEditionButtons();
 		disableTabs();
 	}
@@ -615,7 +630,7 @@ public class FramePrincipal extends FrameSupport {
 		this.getTabPanel().setEnabledAt(1, Boolean.FALSE);
 		this.getTabPanel().setEnabledAt(2, Boolean.FALSE);
 	}
-	
+
 	/**
 	 * 
 	 */
