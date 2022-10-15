@@ -56,10 +56,18 @@ public class FramePrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         tabPanel = new javax.swing.JTabbedPane();
         panelVigente = new javax.swing.JPanel();
-        jInternalFrame2 = new javax.swing.JInternalFrame();
-        jInternalFrame3 = new javax.swing.JInternalFrame();
-        jInternalFrame4 = new javax.swing.JInternalFrame();
-        jInternalFrame5 = new javax.swing.JInternalFrame();
+        ifrmSQLModificado = new javax.swing.JInternalFrame();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtSQLModificado = new javax.swing.JTextArea();
+        ifrmPDC = new javax.swing.JInternalFrame();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtPDC = new javax.swing.JTextArea();
+        ifrmLanzaSQLModificado = new javax.swing.JInternalFrame();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtLanzaSQLModificado = new javax.swing.JTextArea();
+        ifrmLanzaPDC = new javax.swing.JInternalFrame();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        txtLanzaPDC = new javax.swing.JTextArea();
         panelHistorico = new javax.swing.JPanel();
         jInternalFrame11 = new javax.swing.JInternalFrame();
         jInternalFrame12 = new javax.swing.JInternalFrame();
@@ -250,65 +258,49 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         panelVigente.setLayout(new java.awt.GridLayout(2, 2));
 
-        jInternalFrame2.setVisible(true);
+        ifrmSQLModificado.setVisible(true);
 
-        javax.swing.GroupLayout jInternalFrame2Layout = new javax.swing.GroupLayout(jInternalFrame2.getContentPane());
-        jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
-        jInternalFrame2Layout.setHorizontalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
-        );
-        jInternalFrame2Layout.setVerticalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
-        );
+        txtSQLModificado.setEditable(false);
+        txtSQLModificado.setColumns(20);
+        txtSQLModificado.setRows(5);
+        jScrollPane3.setViewportView(txtSQLModificado);
 
-        panelVigente.add(jInternalFrame2);
+        ifrmSQLModificado.getContentPane().add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
-        jInternalFrame3.setVisible(true);
+        panelVigente.add(ifrmSQLModificado);
 
-        javax.swing.GroupLayout jInternalFrame3Layout = new javax.swing.GroupLayout(jInternalFrame3.getContentPane());
-        jInternalFrame3.getContentPane().setLayout(jInternalFrame3Layout);
-        jInternalFrame3Layout.setHorizontalGroup(
-            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
-        );
-        jInternalFrame3Layout.setVerticalGroup(
-            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
-        );
+        ifrmPDC.setVisible(true);
 
-        panelVigente.add(jInternalFrame3);
+        txtPDC.setEditable(false);
+        txtPDC.setColumns(20);
+        txtPDC.setRows(5);
+        jScrollPane4.setViewportView(txtPDC);
 
-        jInternalFrame4.setVisible(true);
+        ifrmPDC.getContentPane().add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jInternalFrame4Layout = new javax.swing.GroupLayout(jInternalFrame4.getContentPane());
-        jInternalFrame4.getContentPane().setLayout(jInternalFrame4Layout);
-        jInternalFrame4Layout.setHorizontalGroup(
-            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
-        );
-        jInternalFrame4Layout.setVerticalGroup(
-            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
-        );
+        panelVigente.add(ifrmPDC);
 
-        panelVigente.add(jInternalFrame4);
+        ifrmLanzaSQLModificado.setVisible(true);
 
-        jInternalFrame5.setVisible(true);
+        txtLanzaSQLModificado.setEditable(false);
+        txtLanzaSQLModificado.setColumns(20);
+        txtLanzaSQLModificado.setRows(5);
+        jScrollPane5.setViewportView(txtLanzaSQLModificado);
 
-        javax.swing.GroupLayout jInternalFrame5Layout = new javax.swing.GroupLayout(jInternalFrame5.getContentPane());
-        jInternalFrame5.getContentPane().setLayout(jInternalFrame5Layout);
-        jInternalFrame5Layout.setHorizontalGroup(
-            jInternalFrame5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
-        );
-        jInternalFrame5Layout.setVerticalGroup(
-            jInternalFrame5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
-        );
+        ifrmLanzaSQLModificado.getContentPane().add(jScrollPane5, java.awt.BorderLayout.CENTER);
 
-        panelVigente.add(jInternalFrame5);
+        panelVigente.add(ifrmLanzaSQLModificado);
+
+        ifrmLanzaPDC.setVisible(true);
+
+        txtLanzaPDC.setEditable(false);
+        txtLanzaPDC.setColumns(20);
+        txtLanzaPDC.setRows(5);
+        jScrollPane6.setViewportView(txtLanzaPDC);
+
+        ifrmLanzaPDC.getContentPane().add(jScrollPane6, java.awt.BorderLayout.CENTER);
+
+        panelVigente.add(ifrmLanzaPDC);
 
         tabPanel.addTab("Vigente", panelVigente);
 
@@ -536,15 +528,15 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUndo;
     private javax.swing.JInternalFrame frmSQLScript;
+    private javax.swing.JInternalFrame ifrmLanzaPDC;
+    private javax.swing.JInternalFrame ifrmLanzaSQLModificado;
+    private javax.swing.JInternalFrame ifrmPDC;
+    private javax.swing.JInternalFrame ifrmSQLModificado;
     private javax.swing.JInternalFrame jInternalFrame10;
     private javax.swing.JInternalFrame jInternalFrame11;
     private javax.swing.JInternalFrame jInternalFrame12;
     private javax.swing.JInternalFrame jInternalFrame13;
     private javax.swing.JInternalFrame jInternalFrame14;
-    private javax.swing.JInternalFrame jInternalFrame2;
-    private javax.swing.JInternalFrame jInternalFrame3;
-    private javax.swing.JInternalFrame jInternalFrame4;
-    private javax.swing.JInternalFrame jInternalFrame5;
     private javax.swing.JInternalFrame jInternalFrame6;
     private javax.swing.JInternalFrame jInternalFrame7;
     private javax.swing.JInternalFrame jInternalFrame8;
@@ -552,6 +544,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
@@ -564,6 +560,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelTypes;
     private javax.swing.JPanel panelVigente;
     private javax.swing.JTabbedPane tabPanel;
+    private javax.swing.JTextArea txtLanzaPDC;
+    private javax.swing.JTextArea txtLanzaSQLModificado;
+    private javax.swing.JTextArea txtPDC;
     private javax.swing.JTextArea txtSQLCode;
+    private javax.swing.JTextArea txtSQLModificado;
     // End of variables declaration//GEN-END:variables
 }
