@@ -378,6 +378,12 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 				// marca el estado del documento como no modificado
 				framePrincipal.setHasChanged(Boolean.FALSE);
+				
+				framePrincipal.getUndoManager().die(); // se limpia el buffer del administrador de edición
+				framePrincipal.updateEditionControls(); //se actualiza el estado de las
+				
+				// Le pone el nombre del archivo al título del editor
+				framePrincipal.getFrmSQLScript().setTitle(framePrincipal.getCurrentFile().getName());
 			} catch (IOException ex) { // en caso de que ocurra una excepción
 				Map<String, Object> params = MDSQLUIHelper.buildError(ex);
 				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
