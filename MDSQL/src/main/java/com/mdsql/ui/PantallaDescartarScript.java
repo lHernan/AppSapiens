@@ -17,12 +17,13 @@ import javax.swing.JTextField;
 
 import com.mdsql.ui.listener.PantallaDescartarScriptListener;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
  * @author USUARIO1
  */
-public class PantallaDescartarScript extends javax.swing.JFrame {
+public class PantallaDescartarScript extends FrameSupport {
 
     private static final long serialVersionUID = 1L;
     
@@ -165,8 +166,8 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
    	protected void initEvents() {
     	pantallaDescartarScriptListener = new PantallaDescartarScriptListener(this);
     	
-    	btnAceptar.addActionListener(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ACEPTAR);
-    	btnCancelar.addActionListener(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_CANCELAR);
+    	btnAceptar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ACEPTAR);
+    	btnCancelar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_CANCELAR);
     	
     	btnAceptar.addActionListener(pantallaDescartarScriptListener);
     	btnCancelar.addActionListener(pantallaDescartarScriptListener);

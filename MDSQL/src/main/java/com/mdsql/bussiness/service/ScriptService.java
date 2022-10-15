@@ -35,4 +35,6 @@ public interface ScriptService {
 
 	OutputReparaScript repararScript(String inputReparaScript) throws ServiceException;
 
+	OutputDescartarScript descartarScript(String inputDescartarScript) throws ServiceException;
+
 }

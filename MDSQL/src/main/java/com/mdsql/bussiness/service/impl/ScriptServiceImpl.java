@@ -824,4 +824,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		return null;
 	}
 
+	@Override
+	public OutputDescartarScript descartarScript(String inputDescartarScript) throws ServiceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
