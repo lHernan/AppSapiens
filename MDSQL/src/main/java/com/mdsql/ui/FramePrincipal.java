@@ -131,10 +131,12 @@ public class FramePrincipal extends FrameSupport {
 
 	private JButton btnPaste;
 
+	@Getter
 	private JInternalFrame ifrmSQLModificado;
 
 	private JScrollPane jScrollPane3;
 
+	@Getter
 	private JTextArea txtSQLModificado;
 
 	private JInternalFrame ifrmPDC;
@@ -143,10 +145,12 @@ public class FramePrincipal extends FrameSupport {
 
 	private JTextArea txtPDC;
 
+	@Getter
 	private JInternalFrame ifrmLanzaSQLModificado;
 
 	private JScrollPane jScrollPane5;
 
+	@Getter
 	private JTextArea txtLanzaSQLModificado;
 
 	private JInternalFrame ifrmLanzaPDC;
@@ -660,6 +664,9 @@ public class FramePrincipal extends FrameSupport {
 
 		disableEditionButtons();
 		disableTabs();
+		
+		txtSQLCode.setEditable(Boolean.FALSE);
+		txtSQLCode.setEnabled(Boolean.FALSE);
 	}
 
 	@Override

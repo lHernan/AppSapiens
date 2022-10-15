@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -21,13 +22,17 @@ import javax.swing.undo.CannotUndoException;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.ui.FramePrincipal;
+import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
-import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.observer.Observable;
+import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.LogWrapper;
 
@@ -38,9 +43,11 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class FramePrincipalActionListener extends ListenerSupport implements ActionListener {
+public class FramePrincipalActionListener extends ListenerSupport implements ActionListener, Observer {
 
 	private FramePrincipal framePrincipal;
+	
+	private PantallaProcesarScript pantallaProcesarScript;
 
 	/**
 	 * @param framePrincipal
@@ -242,9 +249,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
 			params.put("file", framePrincipal.getCurrentFile());
 	
-			FrameSupport dialog = MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE,
+			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE,
 					params);
-			MDSQLUIHelper.show(dialog);
+			MDSQLUIHelper.show(pantallaProcesarScript);
+			
+			pantallaProcesarScript.getPantallaProcesarScriptActionListener().addObservador(this);
 		}
 	}
 
@@ -282,7 +291,6 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	private void setContent(File file) throws IOException {
 		framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
 		dumpContentToText(file, framePrincipal.getTxtSQLCode());
-		
 
 		framePrincipal.getTxtSQLCode().getDocument().addUndoableEditListener(framePrincipal.getEditorEventHandler());
 
@@ -292,6 +300,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 		framePrincipal.getFrmSQLScript().setTitle(file.getName());
 		framePrincipal.setHasChanged(Boolean.FALSE);
+		
+		framePrincipal.getTxtSQLCode().setEditable(Boolean.TRUE);
+		framePrincipal.getTxtSQLCode().setEnabled(Boolean.TRUE);
 	}
 
 	/**
@@ -335,6 +346,18 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 				line = reader.readLine();
 			}
+		}
+	}
+	
+	/**
+	 * @param file
+	 * @param txtScript
+	 */
+	private void dumpContentToText(List<TextoLinea> lineas, JTextArea txtScript) {
+
+		for (TextoLinea linea : lineas) {
+			txtScript.append(linea.getValor());
+			txtScript.append("\n");
 		}
 	}
 
@@ -455,5 +478,26 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		framePrincipal.disableTabs();
 		
 		framePrincipal.setCurrentFile(null);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void update(Observable o, Object cmd) {
+		String command = (String) cmd;
+		if (Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR.equals(command)) {
+			Map<String, Script> scripts = (Map<String, Script>) pantallaProcesarScript.getReturnParams().get("scripts");
+		
+			Script scriptModificado = scripts.get("SQL");
+			if (!Objects.isNull(scriptModificado)) {
+				framePrincipal.getIfrmSQLModificado().setTitle(scriptModificado.getNombreScript());
+				framePrincipal.getTxtSQLModificado().setText(StringUtils.EMPTY);
+				dumpContentToText(scriptModificado.getLineasScript(), framePrincipal.getTxtSQLModificado());
+				framePrincipal.getIfrmLanzaSQLModificado().setTitle(scriptModificado.getNombreScriptLanza());
+				framePrincipal.getTxtLanzaSQLModificado().setText(scriptModificado.getTxtScriptLanza());
+			}
+			
+			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
+			framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
+		}
 	}
 }

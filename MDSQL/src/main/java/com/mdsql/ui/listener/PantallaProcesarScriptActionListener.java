@@ -71,6 +71,10 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	public PantallaProcesarScriptActionListener(PantallaProcesarScript pantallaProcesarScript) {
 		this.pantallaProcesarScript = pantallaProcesarScript;
 	}
+	
+	public void addObservador(Observer o) {
+		this.addObserver(o);
+	}
 
 	/**
 	 *
@@ -381,7 +385,20 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				BigDecimal idProceso = outputProcesaScript.getIdProceso();
 				BigDecimal codigoEstadoProceso = outputProcesaScript.getPCodigoEstadoProceso();
 				String descripcionEstadoProceso = outputProcesaScript.getPDescripcionEstadoProceso();
-				List<Script> scripts = outputProcesaScript.getListaScripts();
+				List<Script> listaScripts = outputProcesaScript.getListaScripts();
+				
+				if (CollectionUtils.isNotEmpty(listaScripts)) {
+					Map<String, Script> scripts = new HashMap<>();
+				
+					for (Script script : listaScripts) {
+						scripts.put(script.getTipoScript(), script);
+					}
+					
+					pantallaProcesarScript.getReturnParams().put("scripts", scripts);
+					updateObservers(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
+					
+					pantallaProcesarScript.dispose();
+				}
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);

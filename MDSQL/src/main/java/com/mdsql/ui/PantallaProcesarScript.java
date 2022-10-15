@@ -153,6 +153,9 @@ public class PantallaProcesarScript extends FrameSupport {
 	
 	@Getter
 	private List<TextoLinea> script;
+	
+	@Getter
+	private PantallaProcesarScriptActionListener pantallaProcesarScriptActionListener;
 		
 	/**
 	 * @param params
@@ -350,7 +353,7 @@ public class PantallaProcesarScript extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener actionListener = new PantallaProcesarScriptActionListener(this);
+		pantallaProcesarScriptActionListener = new PantallaProcesarScriptActionListener(this);
 		ListSelectionListener avisosSelectionListener = new AvisosTableListener(this);
 		ListSelectionListener ultimasPeticionesSelectionListener = new UltimasPeticionesTableListener(this);
 		ItemListener bbddItemListener = new BBDDItemListener(this);
@@ -362,11 +365,11 @@ public class PantallaProcesarScript extends FrameSupport {
 		btnLimpiar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_LIMPIAR);
 		btnVerProcesado.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO);
 
-		jButton1.addActionListener(actionListener);
-		btnCancelar.addActionListener(actionListener);
-		btnProcesar.addActionListener(actionListener);
-		btnLimpiar.addActionListener(actionListener);
-		btnVerProcesado.addActionListener(actionListener);
+		jButton1.addActionListener(pantallaProcesarScriptActionListener);
+		btnCancelar.addActionListener(pantallaProcesarScriptActionListener);
+		btnProcesar.addActionListener(pantallaProcesarScriptActionListener);
+		btnLimpiar.addActionListener(pantallaProcesarScriptActionListener);
+		btnVerProcesado.addActionListener(pantallaProcesarScriptActionListener);
 		
 		ListSelectionModel avisosRowSM = tblNotas.getSelectionModel();
 		avisosRowSM.addListSelectionListener(avisosSelectionListener);
