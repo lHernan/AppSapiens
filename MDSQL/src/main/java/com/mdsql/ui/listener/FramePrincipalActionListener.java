@@ -496,6 +496,33 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				framePrincipal.getTxtLanzaSQLModificado().setText(scriptModificado.getTxtScriptLanza());
 			}
 			
+			Script scriptPDC = scripts.get("PDC");
+			if (!Objects.isNull(scriptPDC)) {
+				framePrincipal.getIfrmPDC().setTitle(scriptPDC.getNombreScript());
+				framePrincipal.getTxtPDC().setText(StringUtils.EMPTY);
+				dumpContentToText(scriptPDC.getLineasScript(), framePrincipal.getTxtPDC());
+				framePrincipal.getIfrmLanzaPDC().setTitle(scriptPDC.getNombreScriptLanza());
+				framePrincipal.getTxtLanzaPDC().setText(scriptPDC.getTxtScriptLanza());
+			}
+			
+			Script scriptHistorico = scripts.get("SQLH");
+			if (!Objects.isNull(scriptHistorico)) {
+				framePrincipal.getIfrmSQLH().setTitle(scriptHistorico.getNombreScript());
+				framePrincipal.getTxtSQLH().setText(StringUtils.EMPTY);
+				dumpContentToText(scriptHistorico.getLineasScript(), framePrincipal.getTxtSQLH());
+				framePrincipal.getIfrmLanzaSQLH().setTitle(scriptHistorico.getNombreScriptLanza());
+				framePrincipal.getTxtLanzaSQLH().setText(scriptHistorico.getTxtScriptLanza());
+			}
+			
+			Script scriptPDCH = scripts.get("PDCH");
+			if (!Objects.isNull(scriptPDCH)) {
+				framePrincipal.getIfrmPDCH().setTitle(scriptPDCH.getNombreScript());
+				framePrincipal.getTxtPDCH().setText(StringUtils.EMPTY);
+				dumpContentToText(scriptPDCH.getLineasScript(), framePrincipal.getTxtPDCH());
+				framePrincipal.getIfrmLanzaPDCH().setTitle(scriptPDCH.getNombreScriptLanza());
+				framePrincipal.getTxtLanzaPDCH().setText(scriptPDCH.getTxtScriptLanza());
+			}
+			
 			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
 			framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
 		}

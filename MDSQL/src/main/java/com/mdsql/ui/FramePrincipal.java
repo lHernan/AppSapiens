@@ -135,10 +135,12 @@ public class FramePrincipal extends FrameSupport {
 	@Getter
 	private JTextArea txtSQLModificado;
 
+	@Getter
 	private JInternalFrame ifrmPDC;
 
 	private JScrollPane jScrollPane4;
 
+	@Getter
 	private JTextArea txtPDC;
 
 	@Getter
