@@ -72,10 +72,6 @@ public class FramePrincipal extends FrameSupport {
 	private JInternalFrame jInternalFrame7;
 	private JInternalFrame jInternalFrame8;
 	private JInternalFrame jInternalFrame9;
-	private JInternalFrame jInternalFrame11;
-	private JInternalFrame jInternalFrame12;
-	private JInternalFrame jInternalFrame14;
-	private JInternalFrame jInternalFrame13;
 	private JPanel jPanel1;
 	private JPanel panelVigente;
 	private JPanel panelHistorico;
@@ -153,11 +149,45 @@ public class FramePrincipal extends FrameSupport {
 	@Getter
 	private JTextArea txtLanzaSQLModificado;
 
+	@Getter
 	private JInternalFrame ifrmLanzaPDC;
 
 	private JScrollPane jScrollPane6;
 
+	@Getter
 	private JTextArea txtLanzaPDC;
+
+	@Getter
+	private JInternalFrame ifrmSQLH;
+
+	private JScrollPane jScrollPane7;
+
+	@Getter
+	private JTextArea txtSQLH;
+
+	@Getter
+	private JInternalFrame ifrmPDCH;
+
+	private JScrollPane jScrollPane8;
+
+	@Getter
+	private JTextArea txtPDCH;
+
+	@Getter
+	private JInternalFrame ifrmLanzaSQLH;
+
+	private JScrollPane jScrollPane9;
+
+	@Getter
+	private JTextArea txtLanzaSQLH;
+
+	@Getter
+	private JInternalFrame ifrmLanzaPDCH;
+
+	private JScrollPane jScrollPane10;
+
+	@Getter
+	private JTextArea txtLanzaPDCH;
 
 	/**
 	 * Creates new form Principal
@@ -211,10 +241,18 @@ public class FramePrincipal extends FrameSupport {
         jScrollPane6 = new JScrollPane();
         txtLanzaPDC = new JTextArea();
         panelHistorico = new JPanel();
-        jInternalFrame11 = new JInternalFrame();
-        jInternalFrame12 = new JInternalFrame();
-        jInternalFrame13 = new JInternalFrame();
-        jInternalFrame14 = new JInternalFrame();
+        ifrmSQLH = new JInternalFrame();
+        jScrollPane7 = new JScrollPane();
+        txtSQLH = new JTextArea();
+        ifrmPDCH = new JInternalFrame();
+        jScrollPane8 = new JScrollPane();
+        txtPDCH = new JTextArea();
+        ifrmLanzaSQLH = new JInternalFrame();
+        jScrollPane9 = new JScrollPane();
+        txtLanzaSQLH = new JTextArea();
+        ifrmLanzaPDCH = new JInternalFrame();
+        jScrollPane10 = new JScrollPane();
+        txtLanzaPDCH = new JTextArea();
         panelTypes = new JPanel();
         jInternalFrame6 = new JInternalFrame();
         jScrollPane2 = new JScrollPane();
@@ -448,65 +486,49 @@ public class FramePrincipal extends FrameSupport {
 
         panelHistorico.setLayout(new GridLayout(2, 2));
 
-        jInternalFrame11.setVisible(true);
+        ifrmSQLH.setVisible(true);
 
-        GroupLayout jInternalFrame11Layout = new GroupLayout(jInternalFrame11.getContentPane());
-        jInternalFrame11.getContentPane().setLayout(jInternalFrame11Layout);
-        jInternalFrame11Layout.setHorizontalGroup(
-            jInternalFrame11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame11Layout.setVerticalGroup(
-            jInternalFrame11Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        txtSQLH.setEditable(false);
+        txtSQLH.setColumns(20);
+        txtSQLH.setRows(5);
+        jScrollPane7.setViewportView(txtSQLH);
 
-        panelHistorico.add(jInternalFrame11);
+        ifrmSQLH.getContentPane().add(jScrollPane7, BorderLayout.CENTER);
 
-        jInternalFrame12.setVisible(true);
+        panelHistorico.add(ifrmSQLH);
 
-        GroupLayout jInternalFrame12Layout = new GroupLayout(jInternalFrame12.getContentPane());
-        jInternalFrame12.getContentPane().setLayout(jInternalFrame12Layout);
-        jInternalFrame12Layout.setHorizontalGroup(
-            jInternalFrame12Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame12Layout.setVerticalGroup(
-            jInternalFrame12Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        ifrmPDCH.setVisible(true);
 
-        panelHistorico.add(jInternalFrame12);
+        txtPDCH.setEditable(false);
+        txtPDCH.setColumns(20);
+        txtPDCH.setRows(5);
+        jScrollPane8.setViewportView(txtPDCH);
 
-        jInternalFrame13.setVisible(true);
+        ifrmPDCH.getContentPane().add(jScrollPane8, BorderLayout.CENTER);
 
-        GroupLayout jInternalFrame13Layout = new GroupLayout(jInternalFrame13.getContentPane());
-        jInternalFrame13.getContentPane().setLayout(jInternalFrame13Layout);
-        jInternalFrame13Layout.setHorizontalGroup(
-            jInternalFrame13Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame13Layout.setVerticalGroup(
-            jInternalFrame13Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        panelHistorico.add(ifrmPDCH);
 
-        panelHistorico.add(jInternalFrame13);
+        ifrmLanzaSQLH.setVisible(true);
 
-        jInternalFrame14.setVisible(true);
+        txtLanzaSQLH.setEditable(false);
+        txtLanzaSQLH.setColumns(20);
+        txtLanzaSQLH.setRows(5);
+        jScrollPane9.setViewportView(txtLanzaSQLH);
 
-        GroupLayout jInternalFrame14Layout = new GroupLayout(jInternalFrame14.getContentPane());
-        jInternalFrame14.getContentPane().setLayout(jInternalFrame14Layout);
-        jInternalFrame14Layout.setHorizontalGroup(
-            jInternalFrame14Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame14Layout.setVerticalGroup(
-            jInternalFrame14Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        ifrmLanzaSQLH.getContentPane().add(jScrollPane9, BorderLayout.CENTER);
 
-        panelHistorico.add(jInternalFrame14);
+        panelHistorico.add(ifrmLanzaSQLH);
+
+        ifrmLanzaPDCH.setVisible(true);
+
+        txtLanzaPDCH.setEditable(false);
+        txtLanzaPDCH.setColumns(20);
+        txtLanzaPDCH.setRows(5);
+        jScrollPane10.setViewportView(txtLanzaPDCH);
+
+        ifrmLanzaPDCH.getContentPane().add(jScrollPane10, BorderLayout.CENTER);
+
+        panelHistorico.add(ifrmLanzaPDCH);
 
         tabPanel.addTab("Histórico", panelHistorico);
 
