@@ -30,12 +30,16 @@ import javax.swing.JToolBar.Separator;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.undo.UndoManager;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.listener.EditorEventHandler;
 import com.mdsql.ui.listener.FramePrincipalActionListener;
 import com.mdsql.ui.menu.MainMenuBar;
+import com.mdsql.ui.model.FramePrincipalTypesTableModel;
+import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.FrameSupport;
@@ -82,7 +86,6 @@ public class FramePrincipal extends FrameSupport {
 	private JToolBar.Separator jSeparator2;
 	private JToolBar.Separator jSeparator4;
 	private JSplitPane jSplitPane1;
-	private JTable jTable1;
 	private JToolBar jToolBar1;
 	// End of variables declaration//GEN-END:variables
 
@@ -190,6 +193,9 @@ public class FramePrincipal extends FrameSupport {
 
 	@Getter
 	private JTextArea txtLanzaPDCH;
+	
+	@Getter
+	private JTable jTable1;
 
 	/**
 	 * Creates new form Principal
@@ -669,16 +675,8 @@ public class FramePrincipal extends FrameSupport {
 
 	@Override
 	protected void initModels() {
-		jTable1.setModel(new DefaultTableModel(
-				new Object[][] { { null, null }, { null, null }, { null, null }, { null, null }, { null, null },
-						{ null, null }, { null, null }, { null, null }, { null, null }, { null, null } },
-				new String[] { "Orden", "Objeto" }) {
-			Class[] types = new Class[] { java.lang.Integer.class, java.lang.String.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.FRAME_PRINCIPAL_TYPES_TABLA_CABECERA);
+		jTable1.setModel(new FramePrincipalTypesTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}
 
 	@Override
@@ -716,6 +714,26 @@ public class FramePrincipal extends FrameSupport {
 		// activa o desactiva las opciones en la barra de herramientas
 		btnUndo.setEnabled(canUndo);
 		btnRedo.setEnabled(canRedo);
+	}
+	
+	public void resetFrames() {
+		ifrmSQLModificado.setTitle(StringUtils.EMPTY);
+		ifrmPDC.setTitle(StringUtils.EMPTY);
+		ifrmLanzaSQLModificado.setTitle(StringUtils.EMPTY);
+		ifrmLanzaPDC.setTitle(StringUtils.EMPTY);
+		ifrmSQLH.setTitle(StringUtils.EMPTY);
+		ifrmLanzaSQLH.setTitle(StringUtils.EMPTY);
+		ifrmPDCH.setTitle(StringUtils.EMPTY);
+		ifrmLanzaPDCH.setTitle(StringUtils.EMPTY);
+		
+		txtSQLModificado.setText(StringUtils.EMPTY);
+		txtPDC.setText(StringUtils.EMPTY);
+		txtLanzaSQLModificado.setText(StringUtils.EMPTY);
+		txtLanzaPDC.setText(StringUtils.EMPTY);
+		txtSQLH.setText(StringUtils.EMPTY);
+		txtLanzaSQLH.setText(StringUtils.EMPTY);
+		txtPDCH.setText(StringUtils.EMPTY);
+		txtLanzaPDCH.setText(StringUtils.EMPTY);
 	}
 
 	/**

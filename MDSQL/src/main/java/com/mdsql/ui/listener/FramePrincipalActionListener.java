@@ -24,8 +24,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
+import com.mdsql.bussiness.entities.Type;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.model.FramePrincipalTypesTableModel;
+import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
@@ -46,7 +49,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FramePrincipalActionListener extends ListenerSupport implements ActionListener, Observer {
 
 	private FramePrincipal framePrincipal;
-	
+
 	private PantallaProcesarScript pantallaProcesarScript;
 
 	/**
@@ -90,63 +93,63 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO.equals(jButton.getActionCommand())) {
 
 		}
-		
+
 		if (Constants.FRAME_PRINCIPAL_BTN_UNDO.equals(jButton.getActionCommand())) {
 			evtUndo();
 		}
-		
+
 		if (Constants.FRAME_PRINCIPAL_BTN_REDO.equals(jButton.getActionCommand())) {
 			evtRedo();
 		}
-		
+
 		if (Constants.FRAME_PRINCIPAL_BTN_CUT.equals(jButton.getActionCommand())) {
 			framePrincipal.getTxtSQLCode().cut();
 		}
-		
+
 		if (Constants.FRAME_PRINCIPAL_BTN_COPY.equals(jButton.getActionCommand())) {
 			framePrincipal.getTxtSQLCode().copy();
 		}
-		
+
 		if (Constants.FRAME_PRINCIPAL_BTN_PASTE.equals(jButton.getActionCommand())) {
 			framePrincipal.getTxtSQLCode().paste();
 		}
 	}
-	
+
 	/**
-     * Opción seleccionada: "Deshacer".
-     * 
-     * Deshace el último cambio realizado en el documento actual.
-     */
-    private void evtUndo() {
-        try {
-            //deshace el último cambio realizado sobre el documento en el área de edición
-            framePrincipal.getUndoManager().undo();
-        } catch (CannotUndoException ex) {    //en caso de que ocurra una excepción
-        	Map<String, Object> params = MDSQLUIHelper.buildError(ex);
+	 * Opción seleccionada: "Deshacer".
+	 * 
+	 * Deshace el último cambio realizado en el documento actual.
+	 */
+	private void evtUndo() {
+		try {
+			// deshace el último cambio realizado sobre el documento en el área de edición
+			framePrincipal.getUndoManager().undo();
+		} catch (CannotUndoException ex) { // en caso de que ocurra una excepción
+			Map<String, Object> params = MDSQLUIHelper.buildError(ex);
 			MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
-        }
- 
-        //actualiza el estado de las opciones "Deshacer" y "Rehacer"
-        framePrincipal.updateEditionControls();
-    }
- 
-    /**
-     * Opción seleccionada: "Rehacer".
-     * 
-     * Rehace el último cambio realizado en el documento actual.
-     */
-    private void evtRedo() {
-        try {
-            //rehace el último cambio realizado sobre el documento en el área de edición
-        	framePrincipal.getUndoManager().redo();
-        } catch (CannotRedoException ex) {    //en caso de que ocurra una excepción
-        	Map<String, Object> params = MDSQLUIHelper.buildError(ex);
+		}
+
+		// actualiza el estado de las opciones "Deshacer" y "Rehacer"
+		framePrincipal.updateEditionControls();
+	}
+
+	/**
+	 * Opción seleccionada: "Rehacer".
+	 * 
+	 * Rehace el último cambio realizado en el documento actual.
+	 */
+	private void evtRedo() {
+		try {
+			// rehace el último cambio realizado sobre el documento en el área de edición
+			framePrincipal.getUndoManager().redo();
+		} catch (CannotRedoException ex) { // en caso de que ocurra una excepción
+			Map<String, Object> params = MDSQLUIHelper.buildError(ex);
 			MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
-        }
- 
-        //actualiza el estado de las opciones "Deshacer" y "Rehacer"
-        framePrincipal.updateEditionControls();
-    }
+		}
+
+		// actualiza el estado de las opciones "Deshacer" y "Rehacer"
+		framePrincipal.updateEditionControls();
+	}
 
 	/**
 	 * 
@@ -170,7 +173,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			if (confirmSave()) {
 				actionSave();
 			}
-	
+
 			resetFramePrincipal();
 		}
 	}
@@ -182,7 +185,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (confirmSave()) {
 			actionSave();
 		}
-		
+
 		resetFramePrincipal();
 
 		File file = loadScript();
@@ -215,7 +218,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 
 		resetFramePrincipal();
-		
+
 		File file = loadScript();
 		if (!Objects.isNull(file)) {
 			try {
@@ -244,15 +247,15 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
 			Map<String, Object> params = new HashMap<>();
 			params.put("procesado", framePrincipal.getProcesado());
-			
+
 			// Las líneas del script vienen directamente del text area
 			params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
 			params.put("file", framePrincipal.getCurrentFile());
-	
-			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE,
-					params);
+
+			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createFrame(framePrincipal,
+					Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE, params);
 			MDSQLUIHelper.show(pantallaProcesarScript);
-			
+
 			pantallaProcesarScript.getPantallaProcesarScriptActionListener().addObservador(this);
 		}
 	}
@@ -295,12 +298,12 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		framePrincipal.getTxtSQLCode().getDocument().addUndoableEditListener(framePrincipal.getEditorEventHandler());
 
 		framePrincipal.getUndoManager().die(); // se limpia el buffer del administrador de edición
-		framePrincipal.updateEditionControls(); //se actualiza el estado de las
+		framePrincipal.updateEditionControls(); // se actualiza el estado de las
 		// opciones "Deshacer" y "Rehacer"
 
 		framePrincipal.getFrmSQLScript().setTitle(file.getName());
 		framePrincipal.setHasChanged(Boolean.FALSE);
-		
+
 		framePrincipal.getTxtSQLCode().setEditable(Boolean.TRUE);
 		framePrincipal.getTxtSQLCode().setEnabled(Boolean.TRUE);
 	}
@@ -348,7 +351,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			}
 		}
 	}
-	
+
 	/**
 	 * @param file
 	 * @param txtScript
@@ -401,10 +404,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 				// marca el estado del documento como no modificado
 				framePrincipal.setHasChanged(Boolean.FALSE);
-				
+
 				framePrincipal.getUndoManager().die(); // se limpia el buffer del administrador de edición
-				framePrincipal.updateEditionControls(); //se actualiza el estado de las
-				
+				framePrincipal.updateEditionControls(); // se actualiza el estado de las
+
 				// Le pone el nombre del archivo al título del editor
 				framePrincipal.getFrmSQLScript().setTitle(framePrincipal.getCurrentFile().getName());
 			} catch (IOException ex) { // en caso de que ocurra una excepción
@@ -459,7 +462,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 		return chooser;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -476,55 +479,76 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 		framePrincipal.disableEditionButtons();
 		framePrincipal.disableTabs();
-		
+		framePrincipal.resetFrames();
+
 		framePrincipal.setCurrentFile(null);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object cmd) {
 		String command = (String) cmd;
 		if (Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR.equals(command)) {
-			Map<String, Script> scripts = (Map<String, Script>) pantallaProcesarScript.getReturnParams().get("scripts");
-		
-			Script scriptModificado = scripts.get("SQL");
-			if (!Objects.isNull(scriptModificado)) {
-				framePrincipal.getIfrmSQLModificado().setTitle(scriptModificado.getNombreScript());
-				framePrincipal.getTxtSQLModificado().setText(StringUtils.EMPTY);
-				dumpContentToText(scriptModificado.getLineasScript(), framePrincipal.getTxtSQLModificado());
-				framePrincipal.getIfrmLanzaSQLModificado().setTitle(scriptModificado.getNombreScriptLanza());
-				framePrincipal.getTxtLanzaSQLModificado().setText(scriptModificado.getTxtScriptLanza());
+			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
+				fillProcesadoScript();
 			}
-			
-			Script scriptPDC = scripts.get("PDC");
-			if (!Objects.isNull(scriptPDC)) {
-				framePrincipal.getIfrmPDC().setTitle(scriptPDC.getNombreScript());
-				framePrincipal.getTxtPDC().setText(StringUtils.EMPTY);
-				dumpContentToText(scriptPDC.getLineasScript(), framePrincipal.getTxtPDC());
-				framePrincipal.getIfrmLanzaPDC().setTitle(scriptPDC.getNombreScriptLanza());
-				framePrincipal.getTxtLanzaPDC().setText(scriptPDC.getTxtScriptLanza());
+
+			if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
+				fillProcesadoType();
 			}
-			
-			Script scriptHistorico = scripts.get("SQLH");
-			if (!Objects.isNull(scriptHistorico)) {
-				framePrincipal.getIfrmSQLH().setTitle(scriptHistorico.getNombreScript());
-				framePrincipal.getTxtSQLH().setText(StringUtils.EMPTY);
-				dumpContentToText(scriptHistorico.getLineasScript(), framePrincipal.getTxtSQLH());
-				framePrincipal.getIfrmLanzaSQLH().setTitle(scriptHistorico.getNombreScriptLanza());
-				framePrincipal.getTxtLanzaSQLH().setText(scriptHistorico.getTxtScriptLanza());
-			}
-			
-			Script scriptPDCH = scripts.get("PDCH");
-			if (!Objects.isNull(scriptPDCH)) {
-				framePrincipal.getIfrmPDCH().setTitle(scriptPDCH.getNombreScript());
-				framePrincipal.getTxtPDCH().setText(StringUtils.EMPTY);
-				dumpContentToText(scriptPDCH.getLineasScript(), framePrincipal.getTxtPDCH());
-				framePrincipal.getIfrmLanzaPDCH().setTitle(scriptPDCH.getNombreScriptLanza());
-				framePrincipal.getTxtLanzaPDCH().setText(scriptPDCH.getTxtScriptLanza());
-			}
-			
+
 			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
 			framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void fillProcesadoType() {
+		List<Type> types = (List<Type>) pantallaProcesarScript.getReturnParams().get("types");
+
+		// Obtiene el modelo y lo actualiza
+		FramePrincipalTypesTableModel tableModel = (FramePrincipalTypesTableModel) framePrincipal
+				.getJTable1().getModel();
+		tableModel.setData(types);
+	}
+
+	@SuppressWarnings("unchecked")
+	private void fillProcesadoScript() {
+		Map<String, Script> scripts = (Map<String, Script>) pantallaProcesarScript.getReturnParams().get("scripts");
+
+		Script scriptModificado = scripts.get("SQL");
+		if (!Objects.isNull(scriptModificado)) {
+			framePrincipal.getIfrmSQLModificado().setTitle(scriptModificado.getNombreScript());
+			framePrincipal.getTxtSQLModificado().setText(StringUtils.EMPTY);
+			dumpContentToText(scriptModificado.getLineasScript(), framePrincipal.getTxtSQLModificado());
+			framePrincipal.getIfrmLanzaSQLModificado().setTitle(scriptModificado.getNombreScriptLanza());
+			framePrincipal.getTxtLanzaSQLModificado().setText(scriptModificado.getTxtScriptLanza());
+		}
+
+		Script scriptPDC = scripts.get("PDC");
+		if (!Objects.isNull(scriptPDC)) {
+			framePrincipal.getIfrmPDC().setTitle(scriptPDC.getNombreScript());
+			framePrincipal.getTxtPDC().setText(StringUtils.EMPTY);
+			dumpContentToText(scriptPDC.getLineasScript(), framePrincipal.getTxtPDC());
+			framePrincipal.getIfrmLanzaPDC().setTitle(scriptPDC.getNombreScriptLanza());
+			framePrincipal.getTxtLanzaPDC().setText(scriptPDC.getTxtScriptLanza());
+		}
+
+		Script scriptHistorico = scripts.get("SQLH");
+		if (!Objects.isNull(scriptHistorico)) {
+			framePrincipal.getIfrmSQLH().setTitle(scriptHistorico.getNombreScript());
+			framePrincipal.getTxtSQLH().setText(StringUtils.EMPTY);
+			dumpContentToText(scriptHistorico.getLineasScript(), framePrincipal.getTxtSQLH());
+			framePrincipal.getIfrmLanzaSQLH().setTitle(scriptHistorico.getNombreScriptLanza());
+			framePrincipal.getTxtLanzaSQLH().setText(scriptHistorico.getTxtScriptLanza());
+		}
+
+		Script scriptPDCH = scripts.get("PDCH");
+		if (!Objects.isNull(scriptPDCH)) {
+			framePrincipal.getIfrmPDCH().setTitle(scriptPDCH.getNombreScript());
+			framePrincipal.getTxtPDCH().setText(StringUtils.EMPTY);
+			dumpContentToText(scriptPDCH.getLineasScript(), framePrincipal.getTxtPDCH());
+			framePrincipal.getIfrmLanzaPDCH().setTitle(scriptPDCH.getNombreScriptLanza());
+			framePrincipal.getTxtLanzaPDCH().setText(scriptPDCH.getTxtScriptLanza());
 		}
 	}
 }

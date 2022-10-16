@@ -443,7 +443,14 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			BigDecimal idProceso = outputProcesaType.getIdProceso();
 			BigDecimal codigoEstadoProceso = outputProcesaType.getPCodigoEstadoProceso();
 			String descripcionEstadoProceso = outputProcesaType.getPDescripcionEstadoProceso();
-			List<Type> types = outputProcesaType.getListaType();
+			List<Type> listaTypes = outputProcesaType.getListaType();
+			
+			if (CollectionUtils.isNotEmpty(listaTypes)) {
+				pantallaProcesarScript.getReturnParams().put("types", listaTypes);
+				updateObservers(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
+				
+				pantallaProcesarScript.dispose();
+			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaProcesarScript, Constants.CMD_ERROR, errParams);
