@@ -28,7 +28,6 @@ import com.mdsql.bussiness.entities.Type;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
-import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
