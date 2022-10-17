@@ -637,6 +637,7 @@ public class FramePrincipal extends FrameSupport {
 		btnExecute.setActionCommand(Constants.FRAME_PRINCIPAL_EXECUTE);
 		btnEntregarProcesado.setActionCommand(Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO);
 		btnLimpiarScripts.setActionCommand(Constants.FRAME_PRINCIPAL_LIMPIAR_SCRIPT);
+		btnProcesadoEnCurso.setActionCommand(Constants.FRAME_PRINCIPAL_PROCESADO_CURSO);
 
 		btnUndo.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_UNDO);
 		btnRedo.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_REDO);
@@ -656,6 +657,7 @@ public class FramePrincipal extends FrameSupport {
 		btnCut.addActionListener(actionListener);
 		btnCopy.addActionListener(actionListener);
 		btnPaste.addActionListener(actionListener);
+		btnProcesadoEnCurso.addActionListener(actionListener);
 
 		// Manejador de eventos del editor
 		txtSQLCode.getDocument().addUndoableEditListener(editorEventHandler);

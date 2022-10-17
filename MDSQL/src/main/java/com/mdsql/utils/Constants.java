@@ -240,6 +240,7 @@ public class Constants {
 	public static final String CMD_ERROR = "CMD_ERROR";
 	public static final String CMD_WARN = "CMD_WARN";
 	public static final String CMD_BUSCAR_MODELOS = "CMD_BUSCAR_MODELOS";
+	public static final String CMD_PROCESADO_EN_CURSO = "CMD_PROCESADO_EN_CURSO";
 
 	/**
 	 * Panel principal
@@ -448,6 +449,7 @@ public class Constants {
 	public static final String FRAME_PRINCIPAL_BTN_COPY = "FRAME_PRINCIPAL_BTN_COPY";
 	public static final String FRAME_PRINCIPAL_BTN_PASTE = "FRAME_PRINCIPAL_BTN_PASTE";
 	public static final String FRAME_PRINCIPAL_TYPES_TABLA_CABECERA = "FRAME_PRINCIPAL_TYPES_TABLA_CABECERA";
+	public static final String FRAME_PRINCIPAL_PROCESADO_CURSO = "FRAME_PRINCIPAL_PROCESADO_CURSO";
 
 	public static final String PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL = "PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL";
 	public static final String PANTALLA_PROCESADO_SCRIPT_CANCELAR = "PANTALLA_PROCESADO_SCRIPT_CANCELAR";

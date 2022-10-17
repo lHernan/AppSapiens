@@ -33,6 +33,7 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
@@ -89,6 +90,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			evtEjecutarScript();
 		}
 
+		if (Constants.FRAME_PRINCIPAL_PROCESADO_CURSO.equals(jButton.getActionCommand())) {
+			evtProcesadoEnCurso();
+		}
+
 		if (Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO.equals(jButton.getActionCommand())) {
 
 		}
@@ -111,6 +116,12 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 		if (Constants.FRAME_PRINCIPAL_BTN_PASTE.equals(jButton.getActionCommand())) {
 			framePrincipal.getTxtSQLCode().paste();
+		}
+	}
+
+	private void evtProcesadoEnCurso() {
+		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
+			// TODO - Esta es la pantalla 4.2
 		}
 	}
 
@@ -264,8 +275,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 */
 	private void evtEjecutarScript() {
 		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
-			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT);
-			MDSQLUIHelper.show(dialog);
+			FrameSupport frame = MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT,
+					Boolean.FALSE);
+			MDSQLUIHelper.show(frame);
 		}
 	}
 
@@ -505,8 +517,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		List<Type> types = (List<Type>) pantallaProcesarScript.getReturnParams().get("types");
 
 		// Obtiene el modelo y lo actualiza
-		FramePrincipalTypesTableModel tableModel = (FramePrincipalTypesTableModel) framePrincipal
-				.getJTable1().getModel();
+		FramePrincipalTypesTableModel tableModel = (FramePrincipalTypesTableModel) framePrincipal.getJTable1()
+				.getModel();
 		tableModel.setData(types);
 	}
 
