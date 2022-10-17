@@ -333,6 +333,10 @@ public class PantallaResumenProcesado extends FrameSupport {
 	protected void initEvents() {
 		PantallaResumenProcesadoActionListener actionListener = new PantallaResumenProcesadoActionListener(this);
 		
+		btnCancelar.setActionCommand(Constants.PANTALLA_RESUMEN_PROCESADO_CANCELAR);
+
+		btnCancelar.addActionListener(actionListener);
+		
 		this.addOnLoadListener(actionListener);
 	}
 

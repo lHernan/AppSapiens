@@ -42,6 +42,9 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
+		if (Constants.PANTALLA_RESUMEN_PROCESADO_CANCELAR.equals(jButton.getActionCommand())) {
+			pantallaResumenProcesado.dispose();
+		}
 	}
 
 	@Override
@@ -53,12 +56,31 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(idProceso);
 
 			if (!Objects.isNull(outputConsultaProcesado)) {
+				populateProceso(outputConsultaProcesado);
 				populateScripts(outputConsultaProcesado.getListaScriptsEjecutados());
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), Constants.CMD_ERROR, errParams);
 		}
+	}
+
+	/**
+	 * @param outputConsultaProcesado
+	 */
+	private void populateProceso(OutputConsultaProcesado outputConsultaProcesado) {
+		pantallaResumenProcesado.getTxtModelo().setText(outputConsultaProcesado.getNombreModelo());
+		pantallaResumenProcesado.getTxtSubmodelo().setText(outputConsultaProcesado.getDescripcionSubProyecto());
+		pantallaResumenProcesado.getTxtBBDD().setText(outputConsultaProcesado.getNombreBBDD());
+		pantallaResumenProcesado.getTxtEsquema().setText(outputConsultaProcesado.getNombreEsquema());
+		pantallaResumenProcesado.getTxtBBDDHistorico().setText(outputConsultaProcesado.getNombreBBDDHistorico());
+		pantallaResumenProcesado.getTxtEsquemaHistorico().setText(outputConsultaProcesado.getNombreesquemaHistorico());
+		pantallaResumenProcesado.getTxtPeticion().setText(outputConsultaProcesado.getCodigoPeticion());
+		pantallaResumenProcesado.getTxtUsuario().setText(outputConsultaProcesado.getCodigoUsuario());
+		pantallaResumenProcesado.getTxtSolicitadaPor().setText(outputConsultaProcesado.getCodigoUsrPeticion());
+		pantallaResumenProcesado.getTxtFecha().setText(outputConsultaProcesado.getFechaProceso().toString());
+		pantallaResumenProcesado.getTxtEstado().setText(outputConsultaProcesado.getDescripcionEstadoProceso());
+		pantallaResumenProcesado.getTxtRuta().setText(outputConsultaProcesado.getTxtRutaEntrada());
 	}
 
 	/**
