@@ -382,7 +382,12 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				
 				OutputProcesaScript outputProcesaScript = scriptService.procesarScript(inputProcesaScript);
 				
-				pantallaProcesarScript.getReturnParams().put("proceso", generateProceso(usuario, outputProcesaScript));
+				Proceso proceso = generateProceso(usuario, outputProcesaScript);
+				proceso.setModelo(seleccionado);
+				proceso.setSubproyecto(subProyecto);
+				proceso.setBbdd(selectedBBDD);
+				
+				pantallaProcesarScript.getReturnParams().put("proceso", proceso);
 				
 				List<Script> listaScripts = outputProcesaScript.getListaScripts();
 				
@@ -440,7 +445,12 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			
 			OutputProcesaType outputProcesaType = typeService.procesarType(inputProcesaType);
 			
-			pantallaProcesarScript.getReturnParams().put("proceso", generateProceso(usuario, outputProcesaType));
+			Proceso proceso = generateProceso(usuario, outputProcesaType);
+			proceso.setModelo(seleccionado);
+			proceso.setSubproyecto(subProyecto);
+			proceso.setBbdd(selectedBBDD);
+			
+			pantallaProcesarScript.getReturnParams().put("proceso", proceso);
 			
 			List<Type> listaTypes = outputProcesaType.getListaType();
 			

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.mdsql.ui.DlgErrores;
 import com.mdsql.ui.PantallaBuscadorFicheros;
+import com.mdsql.ui.PantallaProcesadoEnCurso;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -51,6 +52,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_ERROR.equals(option)) {
 			dialog = new DlgErrores(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_PROCESADO_EN_CURSO.equals(option)) {
+			dialog = new PantallaProcesadoEnCurso(frameParent, modal, params);
 		}
 		
 		return dialog;

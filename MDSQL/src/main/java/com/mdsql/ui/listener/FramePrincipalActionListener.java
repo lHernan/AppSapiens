@@ -133,11 +133,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (!Objects.isNull(proceso)) {
 			params.put("proceso", proceso);
 
-			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createFrame(framePrincipal,
-					Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE, params);
-			MDSQLUIHelper.show(pantallaProcesarScript);
-
-			pantallaProcesarScript.getPantallaProcesarScriptActionListener().addObservador(this);
+			DialogSupport procesadoEnCurso = MDSQLUIHelper.createDialog(framePrincipal,
+					Constants.CMD_PROCESADO_EN_CURSO, params);
+			MDSQLUIHelper.show(procesadoEnCurso);
 		}
 
 	}

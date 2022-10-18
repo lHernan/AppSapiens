@@ -21,8 +21,11 @@ public class Proceso implements Serializable {
 	private static final long serialVersionUID = -2012801467618032649L;
 	
 	private BigDecimal idProceso;
+	private Modelo modelo;
+	private SubProyecto subproyecto;
     private String codigoPeticion;
     private String codigoUsrPeticion;
+    private BBDD bbdd;
     private Date fechaInicio;
     private String codigoUsr;
     private BigDecimal codigoEstadoProceso;

@@ -5,8 +5,7 @@
  */
 package com.mdsql.ui;
 
-import java.awt.event.ItemListener;
-import java.util.List;
+import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.Objects;
 
@@ -14,37 +13,25 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionListener;
 
 import com.mdsql.bussiness.entities.Aviso;
-import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SubProyecto;
-import com.mdsql.bussiness.entities.TextoLinea;
-import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
-import com.mdsql.ui.listener.combo.BBDDItemListener;
-import com.mdsql.ui.listener.combo.SubproyectoItemListener;
-import com.mdsql.ui.listener.tables.AvisosTableListener;
-import com.mdsql.ui.listener.tables.UltimasPeticionesTableListener;
-import com.mdsql.ui.model.BBDDComboBoxModel;
+import com.mdsql.ui.listener.PantallaProcesadoEnCursoActionListener;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
-import com.mdsql.ui.model.SubProyectoComboBoxModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
-import com.mdsql.ui.renderer.BBDDRenderer;
 import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
-import com.mdsql.ui.renderer.SubProyectoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
@@ -55,7 +42,7 @@ import lombok.Setter;
  *
  * @author federico
  */
-public class PantallaProcesarScript extends FrameSupport {
+public class PantallaProcesadoEnCurso extends DialogSupport {
 
 	/**
 	 * 
@@ -116,12 +103,6 @@ public class PantallaProcesarScript extends FrameSupport {
 	private TableSupport tblUltimasPeticiones;
 	
 	@Getter
-	private JComboBox<SubProyecto> cmbSubmodelo;
-	
-	@Getter
-	private JComboBox<BBDD> cmbBBDD;
-	
-	@Getter
 	private JButton btnVerProcesado;
 	
 	@Getter
@@ -151,23 +132,21 @@ public class PantallaProcesarScript extends FrameSupport {
 	@Setter
 	private Procesado procesado;
 	
-	@Getter
-	private List<TextoLinea> script;
+	private JTextField txtBBDD;
 	
-	@Getter
-	private PantallaProcesarScriptActionListener pantallaProcesarScriptActionListener;
+	private JTextField txtSubproyecto;
 		
 	/**
 	 * @param params
 	 */
-	public PantallaProcesarScript(FrameSupport parent, Boolean modal) {
+	public PantallaProcesadoEnCurso(FrameSupport parent, Boolean modal) {
 		super(parent, modal);
 	}
 
 	/**
 	 * Creates new form
 	 */
-	public PantallaProcesarScript(FrameSupport parent, Boolean modal, Map<String, Object> params) {
+	public PantallaProcesadoEnCurso(FrameSupport parent, Boolean modal, Map<String, Object> params) {
 		super(parent, modal, params);
 	}
 
@@ -184,11 +163,9 @@ public class PantallaProcesarScript extends FrameSupport {
         jLabel9 = new JLabel();
         jLabel10 = new JLabel();
         txtModelo = new JTextField();
-        cmbSubmodelo = new JComboBox<>();
         txtPeticion = new JTextField();
         txtSolicitadaPor = new JTextField();
         txtEsquema = new JTextField();
-        cmbBBDD = new JComboBox<>();
         chkGenerarHistorico = new JCheckBox();
         txtBBDDHistorico = new JTextField();
         txtEsquemaHistorico = new JTextField();
@@ -207,6 +184,8 @@ public class PantallaProcesarScript extends FrameSupport {
         btnCancelar = new JButton();
         txtDemanda = new JTextField();
         jLabel13 = new JLabel();
+        txtSubproyecto = new JTextField();
+        txtBBDD = new JTextField();
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -215,7 +194,16 @@ public class PantallaProcesarScript extends FrameSupport {
         jButton1.setIcon(new ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
 
         jScrollPane2.setViewportView(tblNotas);
+
+        jLabel12.setText("Últimas peticiones");
+        
         jScrollPane3.setViewportView(tblUltimasPeticiones);
+
+        btnVerProcesado.setText("Ver procesado");
+
+        btnProcesar.setText("Procesar");
+
+        btnCancelar.setText("Cancelar");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -248,8 +236,6 @@ public class PantallaProcesarScript extends FrameSupport {
                                     .addComponent(jLabel13, GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbSubmodelo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbBBDD, 0, 214, Short.MAX_VALUE)
                                     .addComponent(chkGenerarHistorico)
                                     .addComponent(txtPeticion)
                                     .addComponent(txtSolicitadaPor)
@@ -260,8 +246,10 @@ public class PantallaProcesarScript extends FrameSupport {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtModelo, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(txtDemanda))))
+                                        .addComponent(jButton1, GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                                    .addComponent(txtDemanda)
+                                    .addComponent(txtSubproyecto)
+                                    .addComponent(txtBBDD))))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 1031, Short.MAX_VALUE)
@@ -295,7 +283,7 @@ public class PantallaProcesarScript extends FrameSupport {
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(cmbSubmodelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSubproyecto, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPeticion, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
@@ -310,8 +298,8 @@ public class PantallaProcesarScript extends FrameSupport {
                             .addComponent(txtEsquema, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbBBDD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(txtBBDD, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                             .addComponent(chkGenerarHistorico)
@@ -353,46 +341,15 @@ public class PantallaProcesarScript extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		pantallaProcesarScriptActionListener = new PantallaProcesarScriptActionListener(this);
-		ListSelectionListener avisosSelectionListener = new AvisosTableListener(this);
-		ListSelectionListener ultimasPeticionesSelectionListener = new UltimasPeticionesTableListener(this);
-		ItemListener bbddItemListener = new BBDDItemListener(this);
-		ItemListener subproyectoItemListener = new SubproyectoItemListener(this);
+		ActionListener actionListener = new PantallaProcesadoEnCursoActionListener(this);
 
-		jButton1.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);
 		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
-		btnProcesar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
-		btnLimpiar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_LIMPIAR);
-		btnVerProcesado.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO);
 
-		jButton1.addActionListener(pantallaProcesarScriptActionListener);
-		btnCancelar.addActionListener(pantallaProcesarScriptActionListener);
-		btnProcesar.addActionListener(pantallaProcesarScriptActionListener);
-		btnLimpiar.addActionListener(pantallaProcesarScriptActionListener);
-		btnVerProcesado.addActionListener(pantallaProcesarScriptActionListener);
-		
-		ListSelectionModel avisosRowSM = tblNotas.getSelectionModel();
-		avisosRowSM.addListSelectionListener(avisosSelectionListener);
-		
-		ListSelectionModel ultimasPeticionesRowSM = tblUltimasPeticiones.getSelectionModel();
-		ultimasPeticionesRowSM.addListSelectionListener(ultimasPeticionesSelectionListener);
-		
-		cmbBBDD.addItemListener(bbddItemListener);
-		cmbSubmodelo.addItemListener(subproyectoItemListener);
+		btnCancelar.addActionListener(actionListener);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
-		BBDDComboBoxModel bbddModel = new BBDDComboBoxModel();
-		cmbBBDD.setModel(bbddModel);
-				
-		SubProyectoComboBoxModel subproyectoModel = new SubProyectoComboBoxModel();
-		cmbSubmodelo.setModel(subproyectoModel);
-		
-		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
-		cmbBBDD.setRenderer(new BBDDRenderer());
-		
 		Cabecera cabeceraNotas = MDSQLUIHelper.createCabeceraTabla(Constants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA);
 		tblNotas.setModel(
 				new ProcesarScriptNotaTableModel(cabeceraNotas.getColumnIdentifiers(), cabeceraNotas.getColumnClasses()));
@@ -404,7 +361,6 @@ public class PantallaProcesarScript extends FrameSupport {
 				cabeceraUltimasPeticiones.getColumnClasses()));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void initialState() {
 		txtEsquema.setEditable(false);
@@ -415,24 +371,20 @@ public class PantallaProcesarScript extends FrameSupport {
         btnVerProcesado.setEnabled(Boolean.FALSE);
         
         Proceso proceso = (Proceso) params.get("proceso");
-        if (Objects.isNull(proceso)) {
-        	procesado = (Procesado) params.get("procesado");
-        	script = (List<TextoLinea>) params.get("script");
-        }
-        else {
+        if (!Objects.isNull(proceso)) {
         	txtModelo.setEditable(false);
-        	cmbSubmodelo.setEnabled(false);
+        	txtSubproyecto.setEditable(false);
         	txtPeticion.setEditable(false);
         	txtSolicitadaPor.setEditable(false);
-        	cmbBBDD.setEnabled(false);
+        	txtBBDD.setEditable(false);
         	txtDemanda.setEditable(false);
         	txtDescripcion.setEditable(false);
         	
         	txtModelo.setText(proceso.getModelo().getCodigoProyecto());
-        	cmbSubmodelo.setSelectedItem(proceso.getSubproyecto());
+        	txtSubproyecto.setText(proceso.getSubproyecto().getDescripcionSubProyecto());
         	txtPeticion.setText(proceso.getCodigoPeticion());
         	txtSolicitadaPor.setText(proceso.getCodigoUsrPeticion());
-        	cmbBBDD.setSelectedItem(proceso.getBbdd());
+        	txtBBDD.setText(proceso.getBbdd().getNombreBBDD());
         	txtEsquema.setText(proceso.getBbdd().getNombreEsquema());
         	txtBBDDHistorico.setText(proceso.getBbdd().getNombreBBDDHis());
         	txtEsquemaHistorico.setText(proceso.getBbdd().getNombreEsquemaHis());
@@ -446,7 +398,7 @@ public class PantallaProcesarScript extends FrameSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Procesar script");
+		setTitle("Procesado en curso");
 		
 		jLabel1.setText("Modelo o proyecto");
 		jLabel2.setText("Submodelo");
@@ -466,7 +418,4 @@ public class PantallaProcesarScript extends FrameSupport {
 		btnProcesar.setText("Procesar");
 		btnCancelar.setText("Cancelar");
 	}
-
-	@Override
-	protected void initMenuBar() {}
 }
