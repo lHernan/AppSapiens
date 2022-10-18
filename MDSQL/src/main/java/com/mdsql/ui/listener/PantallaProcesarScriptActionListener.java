@@ -248,6 +248,11 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 * @param seleccionado
 	 */
 	private void fillUltimasPeticiones(Modelo seleccionado) throws ServiceException {
+		// Limpiar la tabla de peticiones
+		((ProcesarScriptUltimasPeticionesTableModel) pantallaProcesarScript.getTblUltimasPeticiones().getModel())
+				.clearData();
+		
+		// Hacer la consulta
 		InputSeleccionarProcesados inputSeleccionarProcesados = new InputSeleccionarProcesados();
 
 		inputSeleccionarProcesados.setPCodigoproyecto(seleccionado.getCodigoProyecto());
@@ -265,6 +270,10 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 * @param seleccionado
 	 */
 	private void fillAvisos(Modelo seleccionado) throws ServiceException {
+		// Limpiar la tabla de avisos
+		((ProcesarScriptNotaTableModel) pantallaProcesarScript.getTblNotas().getModel()).clearData();
+		
+		// Hacer la consulta
 		AvisoService avisoService = (AvisoService) getService(Constants.AVISO_SERVICE);
 		List<Aviso> avisos = avisoService.consultaAvisosModelo(seleccionado.getCodigoProyecto());
 
