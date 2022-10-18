@@ -341,7 +341,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	}
 	
 	/**
-	 * 
+	 * @param objetosHistorico
 	 */
 	private void procesarScript(List<SeleccionHistorico> objetosHistorico) {
 		try {
