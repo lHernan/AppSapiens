@@ -32,6 +32,10 @@ public class AppGlobalSingleton {
 		return properties.get(key);
 	}
 	
+	/**
+	 * @param key
+	 * @param value
+	 */
 	public void setProperty(String key, Object value) {
 		properties.put(key, value);
 	}

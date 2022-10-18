@@ -135,15 +135,14 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
             BigDecimal pCodigoEstadoProceso = callableStatement.getBigDecimal(20);
             String pDescripcionEstadoProceso = callableStatement.getString(21);
 
-            OutputProcesaType outputProcesaScript = OutputProcesaType.builder()
-                    .idProceso(idProceso)
-                    .pFechaProceso(pFechaProceso)
-                    .pCodigoEstadoProceso(pCodigoEstadoProceso)
-                    .pDescripcionEstadoProceso(pDescripcionEstadoProceso)
-                    .listaType(types)
-                    .build();
-
-            return outputProcesaScript;
+            OutputProcesaType outputProcesaType = new OutputProcesaType();
+            outputProcesaType.setIdProceso(idProceso);
+            outputProcesaType.setPFechaProceso(pFechaProceso);
+            outputProcesaType.setPCodigoEstadoProceso(pCodigoEstadoProceso);
+            outputProcesaType.setPDescripcionEstadoProceso(pDescripcionEstadoProceso);
+            outputProcesaType.setListaType(types);
+            
+            return outputProcesaType;
 
         } catch (
                 SQLException e) {

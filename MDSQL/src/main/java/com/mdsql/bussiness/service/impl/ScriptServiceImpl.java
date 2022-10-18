@@ -192,13 +192,12 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
             BigDecimal pCodigoEstadoProceso = callableStatement.getBigDecimal(20);
             String pDescripcionEstadoProceso = callableStatement.getString(21);
 
-            OutputProcesaScript outputProcesaScript = OutputProcesaScript.builder()
-                    .idProceso(idProceso)
-                    .pFechaProceso(pFechaProceso)
-                    .pCodigoEstadoProceso(pCodigoEstadoProceso)
-                    .pDescripcionEstadoProceso(pDescripcionEstadoProceso)
-                    .listaScripts(scripts)
-                    .build();
+            OutputProcesaScript outputProcesaScript = new OutputProcesaScript();
+            outputProcesaScript.setIdProceso(idProceso);
+            outputProcesaScript.setPFechaProceso(pFechaProceso);
+            outputProcesaScript.setPCodigoEstadoProceso(pCodigoEstadoProceso);
+            outputProcesaScript.setPDescripcionEstadoProceso(pDescripcionEstadoProceso);
+            outputProcesaScript.setListaScripts(scripts);
 
             return outputProcesaScript;
 

@@ -52,7 +52,6 @@ import com.mdsql.utils.Constants.Procesado;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.AppGlobalSingleton;
 
 /**
  * @author federico
@@ -345,7 +344,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void procesarScript(List<SeleccionHistorico> objetosHistorico) {
 		try {
-			String usuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
+			String usuario = (String) AppHelper.getGlobalProperty(Constants.COD_USR);
 			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
 			
 			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
@@ -412,7 +411,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void procesarType() {
 		try {
-			String usuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
+			String usuario = (String) AppHelper.getGlobalProperty(Constants.COD_USR);
 			TypeService typeService = (TypeService) getService(Constants.TYPE_SERVICE);
 			
 			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();

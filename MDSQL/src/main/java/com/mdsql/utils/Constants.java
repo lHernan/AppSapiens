@@ -26,6 +26,7 @@ public class Constants {
 	public static final String ORACLE_OBJECT_DATE_FORMAT_FOR_PROCEDURES = "yyyy-MM-dd HH:mm:ss";
 	public static final String SELECTED_ROUTE = "selectedRoute";
 	public static final String TOKEN = "TOKEN";
+	public static final String PROCESADO_EN_CURSO = "PROCESADO_EN_CURSO";
 
 	/**
 	 * Report templates

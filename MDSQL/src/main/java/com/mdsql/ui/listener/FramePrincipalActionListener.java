@@ -22,6 +22,7 @@ import javax.swing.undo.CannotUndoException;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
@@ -30,6 +31,7 @@ import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
@@ -119,10 +121,17 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void evtProcesadoEnCurso() {
-		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
-			Map<String, Object> params = new HashMap<>();
-			params.put("proceso", null);
+
+		Map<String, Object> params = new HashMap<>();
+
+		Proceso proceso = (Proceso) AppHelper.getGlobalProperty(Constants.PROCESADO_EN_CURSO);
+
+		if (!Objects.isNull(proceso)) {
+			params.put("proceso", proceso);
 
 			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createFrame(framePrincipal,
 					Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE, params);
@@ -130,6 +139,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 			pantallaProcesarScript.getPantallaProcesarScriptActionListener().addObservador(this);
 		}
+
 	}
 
 	/**
@@ -500,6 +510,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		framePrincipal.resetFrames();
 
 		framePrincipal.setCurrentFile(null);
+
+		// No hay procesado en curso
+		AppHelper.setGlobalProperty(Constants.PROCESADO_EN_CURSO, null);
 	}
 
 	@Override
@@ -516,6 +529,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
 			framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
+
+			// Poner el proceso devuelto en procesado en curso
+			Proceso proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
+			AppHelper.setGlobalProperty(Constants.PROCESADO_EN_CURSO, proceso);
 		}
 	}
 

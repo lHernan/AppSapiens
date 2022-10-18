@@ -16,6 +16,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
 import com.mdval.utils.AppGlobalSingleton;
@@ -85,7 +86,7 @@ public class MDSQLApplication implements CommandLineRunner {
 				String codUsr = System.getenv(configuration.getConfig("user.field"));
 				LogWrapper.debug(log, "Usuario: %s", codUsr);
 				
-				AppGlobalSingleton.getInstance().setProperty(Constants.COD_USR, codUsr);
+				AppHelper.setGlobalProperty(Constants.COD_USR, codUsr);
 
 				MDSQLUIHelper.showMaximized(framePrincipal);
 				framePrincipal.setVisible(Boolean.TRUE);

@@ -129,4 +129,20 @@ public class AppHelper {
 	    return fileOrDirPath.substring(0, fileOrDirPath.lastIndexOf(File.separatorChar, 
 	            endsWithSlash ? fileOrDirPath.length() - 2 : fileOrDirPath.length() - 1));
 	}
+	
+	/**
+	 * @param key
+	 * @return
+	 */
+	public static Object getGlobalProperty(String key) {
+		return AppGlobalSingleton.getInstance().getProperty(key);
+	}
+	
+	/**
+	 * @param key
+	 * @param value
+	 */
+	public static void setGlobalProperty(String key, Object value) {
+		AppGlobalSingleton.getInstance().setProperty(key, value);
+	}
 }
