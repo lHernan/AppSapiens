@@ -292,7 +292,7 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
 
                     ScriptEjecutado scriptEjecutado = ScriptEjecutado.builder()
                             .numeroOrden((BigDecimal) cols[0])
-                            .codigoEstadoScript((String) cols[1])
+                            .codigoEstadoScript((BigDecimal) cols[1])
                             .descripcionEstadoScript((String) cols[2])
                             .fechaEjecucion((Date) cols[3])
                             .txtCuadreOperacion((String) cols[4])
