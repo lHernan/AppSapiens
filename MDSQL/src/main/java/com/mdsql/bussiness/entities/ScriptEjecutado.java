@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class ScriptEjecutado implements Serializable {
 
     private BigDecimal numeroOrden;
-    private String codigoEstadoScript;
+    private BigDecimal codigoEstadoScript;
     private String descripcionEstadoScript;
     private Date fechaEjecucion;
     private String txtCuadreOperacion;
