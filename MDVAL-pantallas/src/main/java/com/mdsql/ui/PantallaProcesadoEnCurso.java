@@ -9,12 +9,12 @@ package com.mdsql.ui;
  *
  * @author federico
  */
-public class PantallaProcesarScript extends javax.swing.JFrame {
+public class PantallaProcesadoEnCurso extends javax.swing.JFrame {
 
     /**
      * Creates new form PantallaProcesarScript
      */
-    public PantallaProcesarScript() {
+    public PantallaProcesadoEnCurso() {
         initComponents();
     }
 
@@ -38,11 +38,9 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txtModelo = new javax.swing.JTextField();
-        cmbSubmodelo = new javax.swing.JComboBox<>();
         txtPeticion = new javax.swing.JTextField();
         txtSolicitadaPor = new javax.swing.JTextField();
         txtEsquema = new javax.swing.JTextField();
-        cmbBBDD = new javax.swing.JComboBox<>();
         chkGenerarHistorico = new javax.swing.JCheckBox();
         txtBBDDHistorico = new javax.swing.JTextField();
         txtEsquemaHistorico = new javax.swing.JTextField();
@@ -61,6 +59,8 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         txtDemanda = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        txtPeticion1 = new javax.swing.JTextField();
+        txtBBDD = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,8 +90,6 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
             }
         });
 
-        cmbSubmodelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         txtPeticion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPeticionActionPerformed(evt);
@@ -110,8 +108,6 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
                 txtEsquemaActionPerformed(evt);
             }
         });
-
-        cmbBBDD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         chkGenerarHistorico.setEnabled(false);
 
@@ -187,6 +183,19 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
 
         jLabel13.setText("Demanda");
 
+        txtPeticion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPeticion1ActionPerformed(evt);
+            }
+        });
+
+        txtBBDD.setEditable(false);
+        txtBBDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBBDDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -218,8 +227,6 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
                                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbSubmodelo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbBBDD, 0, 214, Short.MAX_VALUE)
                                     .addComponent(chkGenerarHistorico)
                                     .addComponent(txtPeticion)
                                     .addComponent(txtSolicitadaPor)
@@ -230,8 +237,10 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(txtDemanda))))
+                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                                    .addComponent(txtDemanda)
+                                    .addComponent(txtPeticion1)
+                                    .addComponent(txtBBDD))))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1031, Short.MAX_VALUE)
@@ -265,7 +274,7 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(cmbSubmodelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPeticion1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPeticion, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,8 +289,8 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
                             .addComponent(txtEsquema, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(txtBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(chkGenerarHistorico)
@@ -355,6 +364,14 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDemandaActionPerformed
 
+    private void txtPeticion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPeticion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPeticion1ActionPerformed
+
+    private void txtBBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBBDDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBBDDActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -372,20 +389,21 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaProcesarScript.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaProcesadoEnCurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaProcesarScript.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaProcesadoEnCurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaProcesarScript.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaProcesadoEnCurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaProcesarScript.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaProcesadoEnCurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaProcesarScript().setVisible(true);
+                new PantallaProcesadoEnCurso().setVisible(true);
             }
         });
     }
@@ -396,8 +414,6 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
     private javax.swing.JButton btnProcesar;
     private javax.swing.JButton btnVerProcesado;
     private javax.swing.JCheckBox chkGenerarHistorico;
-    private javax.swing.JComboBox<String> cmbBBDD;
-    private javax.swing.JComboBox<String> cmbSubmodelo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -417,6 +433,7 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblNotas;
     private javax.swing.JTable tblUltimasPeticiones;
+    private javax.swing.JTextField txtBBDD;
     private javax.swing.JTextField txtBBDDHistorico;
     private javax.swing.JTextField txtDemanda;
     private javax.swing.JTextArea txtDescripcion;
@@ -424,6 +441,7 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
     private javax.swing.JTextField txtEsquemaHistorico;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtPeticion;
+    private javax.swing.JTextField txtPeticion1;
     private javax.swing.JTextField txtSolicitadaPor;
     // End of variables declaration//GEN-END:variables
 }
