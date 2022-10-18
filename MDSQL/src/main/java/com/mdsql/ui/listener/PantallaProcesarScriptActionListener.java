@@ -22,6 +22,7 @@ import com.mdsql.bussiness.entities.InputProcesaScript;
 import com.mdsql.bussiness.entities.InputProcesaType;
 import com.mdsql.bussiness.entities.InputSeleccionarProcesados;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputProcesa;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputProcesaType;
 import com.mdsql.bussiness.entities.Proceso;
@@ -382,9 +383,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				
 				OutputProcesaScript outputProcesaScript = scriptService.procesarScript(inputProcesaScript);
 				
-				BigDecimal idProceso = outputProcesaScript.getIdProceso();
-				BigDecimal codigoEstadoProceso = outputProcesaScript.getPCodigoEstadoProceso();
-				String descripcionEstadoProceso = outputProcesaScript.getPDescripcionEstadoProceso();
+				pantallaProcesarScript.getReturnParams().put("proceso", generateProceso(usuario, outputProcesaScript));
+				
 				List<Script> listaScripts = outputProcesaScript.getListaScripts();
 				
 				if (CollectionUtils.isNotEmpty(listaScripts)) {
@@ -395,10 +395,11 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 					}
 					
 					pantallaProcesarScript.getReturnParams().put("scripts", scripts);
-					updateObservers(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
-					
-					pantallaProcesarScript.dispose();
 				}
+				
+				updateObservers(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
+				
+				pantallaProcesarScript.dispose();
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
@@ -440,21 +441,40 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			
 			OutputProcesaType outputProcesaType = typeService.procesarType(inputProcesaType);
 			
-			BigDecimal idProceso = outputProcesaType.getIdProceso();
-			BigDecimal codigoEstadoProceso = outputProcesaType.getPCodigoEstadoProceso();
-			String descripcionEstadoProceso = outputProcesaType.getPDescripcionEstadoProceso();
+			pantallaProcesarScript.getReturnParams().put("proceso", generateProceso(usuario, outputProcesaType));
+			
 			List<Type> listaTypes = outputProcesaType.getListaType();
 			
 			if (CollectionUtils.isNotEmpty(listaTypes)) {
 				pantallaProcesarScript.getReturnParams().put("types", listaTypes);
-				updateObservers(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
-				
-				pantallaProcesarScript.dispose();
 			}
+			
+			updateObservers(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
+			
+			pantallaProcesarScript.dispose();
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaProcesarScript, Constants.CMD_ERROR, errParams);
 		}
+	}
+
+	/**
+	 * @param usuario
+	 * @param outputProcesa
+	 * @return
+	 */
+	private Proceso generateProceso(String usuario, OutputProcesa outputProcesa) {
+		Proceso proceso = new Proceso();
+		proceso.setIdProceso(outputProcesa.getIdProceso());
+		proceso.setCodigoEstadoProceso(outputProcesa.getPCodigoEstadoProceso());
+		proceso.setDescripcionEstadoProceso(outputProcesa.getPDescripcionEstadoProceso());
+		
+		proceso.setCodigoPeticion(pantallaProcesarScript.getTxtPeticion().getText());
+		proceso.setCodigoDemanda(pantallaProcesarScript.getTxtDemanda().getText());
+		proceso.setCodigoUsr(usuario);
+		proceso.setCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
+		proceso.setTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
+		return proceso;
 	}
 
 	@SuppressWarnings("unchecked")

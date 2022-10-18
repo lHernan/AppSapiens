@@ -1,11 +1,6 @@
 package com.mdsql.bussiness.entities;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
-
-import com.mdval.exceptions.ServiceException;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,18 +14,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class OutputProcesaType implements Serializable {
+public class OutputProcesaType extends OutputProcesa {
 
-	private BigDecimal idProceso;
-	private Date pFechaProceso;
-	private BigDecimal pCodigoEstadoProceso;
-	private String pDescripcionEstadoProceso;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6168650459690301885L;
+	
 	private String pNombreScriptLanza;
 	private String pTxtScriptLanza;
 	private String pNombreScriptLog;
+	
     private List<Type> listaType;
-    
-    // Para los warnings
-    private ServiceException serviceException;
-
 }

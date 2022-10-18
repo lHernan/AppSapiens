@@ -121,7 +121,14 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 	private void evtProcesadoEnCurso() {
 		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
-			// TODO - Esta es la pantalla 4.2
+			Map<String, Object> params = new HashMap<>();
+			params.put("proceso", null);
+
+			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createFrame(framePrincipal,
+					Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE, params);
+			MDSQLUIHelper.show(pantallaProcesarScript);
+
+			pantallaProcesarScript.getPantallaProcesarScriptActionListener().addObservador(this);
 		}
 	}
 

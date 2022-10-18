@@ -30,6 +30,7 @@ public class Proceso implements Serializable {
     private String mcaInicial;
     private String txtDescripcion;
     private String txtObservacionEntrega;
+    private String codigoDemanda;
     private String mcaErrores;
 
 }
