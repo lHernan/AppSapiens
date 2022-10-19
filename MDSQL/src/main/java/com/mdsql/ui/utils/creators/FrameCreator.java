@@ -3,7 +3,6 @@ package com.mdsql.ui.utils.creators;
 import java.util.Map;
 
 import com.mdsql.ui.PantallaEjecutarScripts;
-import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.PantallaSeleccionModelos;
@@ -51,10 +50,6 @@ public class FrameCreator extends Creator {
 	@Override
 	public Object factoryMethod(Map<String, Object> params) {
 		FrameSupport frame = null;
-		
-		if (Constants.CMD_PROCESAR_SCRIPT.equals(option)) {
-			frame = new PantallaProcesarScript(frameParent, modal, params);
-		}
 		
 		if (Constants.CMD_EJECUTAR_SCRIPT.equals(option)) {
 			frame = new PantallaEjecutarScripts(frameParent, modal);

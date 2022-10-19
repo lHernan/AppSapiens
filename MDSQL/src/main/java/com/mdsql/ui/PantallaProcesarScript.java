@@ -45,6 +45,7 @@ import com.mdsql.ui.renderer.SubProyectoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
@@ -55,7 +56,7 @@ import lombok.Setter;
  *
  * @author federico
  */
-public class PantallaProcesarScript extends FrameSupport {
+public class PantallaProcesarScript extends DialogSupport {
 
 	/**
 	 * 
@@ -466,7 +467,4 @@ public class PantallaProcesarScript extends FrameSupport {
 		btnProcesar.setText("Procesar");
 		btnCancelar.setText("Cancelar");
 	}
-
-	@Override
-	protected void initMenuBar() {}
 }

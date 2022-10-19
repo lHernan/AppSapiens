@@ -277,8 +277,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
 			params.put("file", framePrincipal.getCurrentFile());
 
-			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createFrame(framePrincipal,
-					Constants.CMD_PROCESAR_SCRIPT, Boolean.FALSE, params);
+			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createDialog(framePrincipal,
+					Constants.CMD_PROCESAR_SCRIPT, params);
 			MDSQLUIHelper.show(pantallaProcesarScript);
 
 			pantallaProcesarScript.getPantallaProcesarScriptActionListener().addObservador(this);

@@ -416,7 +416,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript, Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
 		}
 	}
 	
@@ -472,7 +472,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			pantallaProcesarScript.dispose();
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript, Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
 		}
 	}
 
@@ -527,7 +527,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript, Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
 		}
 	}
 }
