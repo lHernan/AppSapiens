@@ -50,14 +50,12 @@ import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.ui.utils.observer.Observable;
-import com.mdval.ui.utils.observer.Observer;
 
 /**
  * @author federico
  *
  */
-public class PantallaProcesarScriptActionListener extends ListenerSupport implements ActionListener, Observer {
+public class PantallaProcesarScriptActionListener extends ListenerSupport implements ActionListener {
 
 	private PantallaProcesarScript pantallaProcesarScript;
 	
@@ -70,10 +68,6 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	public PantallaProcesarScriptActionListener(PantallaProcesarScript pantallaProcesarScript) {
 		this.pantallaProcesarScript = pantallaProcesarScript;
-	}
-	
-	public void addObservador(Observer o) {
-		this.addObserver(o);
 	}
 
 	/**
@@ -112,8 +106,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		params.put("idProceso", seleccionado.getIdProceso());
 		params.put("entregar", Boolean.FALSE);
 		
-		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper.createFrame(pantallaProcesarScript.getFrameParent(),
-				Constants.CMD_RESUMEN_PROCESADO, Boolean.FALSE, params);
+		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
+				Constants.CMD_RESUMEN_PROCESADO, params);
 		MDSQLUIHelper.show(pantallaResumenProcesado);
 	}
 
@@ -153,6 +147,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	private void eventBtnProcesar() {
 		Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
 		
@@ -163,11 +158,18 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				params.put("codigoProyecto", seleccionado.getCodigoProyecto());
 				params.put("script", pantallaProcesarScript.getParams().get("script"));
 				
-				pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createFrame(pantallaProcesarScript.getFrameParent(),
-						Constants.CMD_SELECCION_HISTORICO, Boolean.FALSE, params);
+				pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
+						Constants.CMD_SELECCION_HISTORICO, params);
 				MDSQLUIHelper.show(pantallaSeleccionHistorico);
 				
-				pantallaSeleccionHistorico.getPantallaSeleccionHistoricoListener().addObservador(this);
+				Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
+				List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
+				if (continuarProcesado) {
+					procesarScript(objetosHistorico);
+				}
+				else {
+					JOptionPane.showMessageDialog(pantallaProcesarScript.getFrameParent(), "Operación cancelada");
+				}
 			}
 			else {
 				Procesado procesado = pantallaProcesarScript.getProcesado();
@@ -195,11 +197,11 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			params.put("codigoProyecto", codigoProyecto);
 		}
 		
-		pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createFrame(pantallaProcesarScript.getFrameParent(),
-				Constants.CMD_SEARCH_MODEL, Boolean.FALSE, params);
+		pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
+				Constants.CMD_SEARCH_MODEL, params);
 		MDSQLUIHelper.show(pantallaSeleccionModelos);
 		
-		pantallaSeleccionModelos.getPantallaSeleccionModelosListener().addObservador(this);
+		establecerModelo();
 	}
 
 	/**
@@ -410,8 +412,6 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 					pantallaProcesarScript.getReturnParams().put("scripts", scripts);
 				}
 				
-				updateObservers(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
-				
 				pantallaProcesarScript.dispose();
 			}
 		} catch (ServiceException e) {
@@ -467,8 +467,6 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				pantallaProcesarScript.getReturnParams().put("types", listaTypes);
 			}
 			
-			updateObservers(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
-			
 			pantallaProcesarScript.dispose();
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
@@ -493,26 +491,6 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		proceso.setCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
 		proceso.setTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
 		return proceso;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public void update(Observable o, Object cmd) {
-		String command = (String) cmd;
-		if (Constants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR.equals(command)) {
-			establecerModelo();
-		}
-		
-		if (Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR.equals(command)) {
-			Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
-			List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
-			if (continuarProcesado) {
-				procesarScript(objetosHistorico);
-			}
-			else {
-				JOptionPane.showMessageDialog(pantallaProcesarScript.getFrameParent(), "Operación cancelada");
-			}
-		}
 	}
 
 	/**

@@ -24,6 +24,7 @@ import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
@@ -33,7 +34,7 @@ import lombok.Getter;
  *
  * @author federico
  */
-public class PantallaResumenProcesado extends FrameSupport {
+public class PantallaResumenProcesado extends DialogSupport {
 
 	/**
 	 * 
@@ -401,7 +402,4 @@ public class PantallaResumenProcesado extends FrameSupport {
         jLabel11.setText("Operaciones");
         jLabel12.setText("Objetos");
 	}
-
-	@Override
-	protected void initMenuBar() {}
 }

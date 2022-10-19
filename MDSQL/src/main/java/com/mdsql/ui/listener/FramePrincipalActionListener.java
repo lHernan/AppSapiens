@@ -35,9 +35,6 @@ import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.utils.DialogSupport;
-import com.mdval.ui.utils.FrameSupport;
-import com.mdval.ui.utils.observer.Observable;
-import com.mdval.ui.utils.observer.Observer;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.LogWrapper;
 
@@ -48,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class FramePrincipalActionListener extends ListenerSupport implements ActionListener, Observer {
+public class FramePrincipalActionListener extends ListenerSupport implements ActionListener {
 
 	private FramePrincipal framePrincipal;
 
@@ -136,6 +133,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			DialogSupport procesadoEnCurso = MDSQLUIHelper.createDialog(framePrincipal,
 					Constants.CMD_PROCESADO_EN_CURSO, params);
 			MDSQLUIHelper.show(procesadoEnCurso);
+		} else {
+			// Aviso de que no hay procesado en curso
+			JOptionPane.showMessageDialog(framePrincipal, "No hay procesado en curso");
 		}
 
 	}
@@ -270,18 +270,26 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 */
 	private void evtProcesarScript() {
 		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
-			Map<String, Object> params = new HashMap<>();
-			params.put("procesado", framePrincipal.getProcesado());
+			Proceso proceso = (Proceso) AppHelper.getGlobalProperty(Constants.PROCESADO_EN_CURSO);
 
-			// Las líneas del script vienen directamente del text area
-			params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
-			params.put("file", framePrincipal.getCurrentFile());
+			if (!Objects.isNull(proceso)) {
+				// Aviso de que no hay procesado en curso
+				JOptionPane.showMessageDialog(framePrincipal,
+						"Ya hay un procesado en curso. Debe finalizarlo o rechazarlo pulsando sobre Ejecutar script");
+			} else {
+				Map<String, Object> params = new HashMap<>();
+				params.put("procesado", framePrincipal.getProcesado());
 
-			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createDialog(framePrincipal,
-					Constants.CMD_PROCESAR_SCRIPT, params);
-			MDSQLUIHelper.show(pantallaProcesarScript);
+				// Las líneas del script vienen directamente del text area
+				params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
+				params.put("file", framePrincipal.getCurrentFile());
 
-			pantallaProcesarScript.getPantallaProcesarScriptActionListener().addObservador(this);
+				pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createDialog(framePrincipal,
+						Constants.CMD_PROCESAR_SCRIPT, params);
+				MDSQLUIHelper.show(pantallaProcesarScript);
+
+				updateProcesadoEnCurso();
+			}
 		}
 	}
 
@@ -290,9 +298,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 */
 	private void evtEjecutarScript() {
 		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
-			FrameSupport frame = MDSQLUIHelper.createFrame(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT,
-					Boolean.FALSE);
-			MDSQLUIHelper.show(frame);
+			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT);
+			MDSQLUIHelper.show(dialog);
 		}
 	}
 
@@ -513,25 +520,24 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		AppHelper.setGlobalProperty(Constants.PROCESADO_EN_CURSO, null);
 	}
 
-	@Override
-	public void update(Observable o, Object cmd) {
-		String command = (String) cmd;
-		if (Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR.equals(command)) {
-			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
-				fillProcesadoScript();
-			}
-
-			if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
-				fillProcesadoType();
-			}
-
-			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
-			framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
-
-			// Poner el proceso devuelto en procesado en curso
-			Proceso proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
-			AppHelper.setGlobalProperty(Constants.PROCESADO_EN_CURSO, proceso);
+	/**
+	 * 
+	 */
+	private void updateProcesadoEnCurso() {
+		if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
+			fillProcesadoScript();
 		}
+
+		if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
+			fillProcesadoType();
+		}
+
+		framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
+		framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
+
+		// Poner el proceso devuelto en procesado en curso
+		Proceso proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
+		AppHelper.setGlobalProperty(Constants.PROCESADO_EN_CURSO, proceso);
 	}
 
 	@SuppressWarnings("unchecked")

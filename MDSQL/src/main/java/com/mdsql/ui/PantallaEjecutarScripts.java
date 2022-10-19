@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.listener.PantallaEjecutarScriptsListener;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -29,7 +30,7 @@ import lombok.Getter;
  *
  * @author USUARIO1
  */
-public class PantallaEjecutarScripts extends FrameSupport {
+public class PantallaEjecutarScripts extends DialogSupport {
 
 	/**
 	 * 
@@ -371,11 +372,5 @@ public class PantallaEjecutarScripts extends FrameSupport {
 		btnExcepcion.setText("Excepción");
 		btnAceptar.setText("ACEPTAR");
 		btnCancelar.setText("CANCELAR");
-	}
-
-	@Override
-	protected void initMenuBar() {
-		// TODO Auto-generated method stub
-		
 	}
 }

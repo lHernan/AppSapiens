@@ -18,7 +18,6 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
-import com.mdval.ui.utils.observer.Observer;
 
 /**
  * @author federico
@@ -31,10 +30,6 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 	public PantallaSeleccionModelosListener(PantallaSeleccionModelos pantallaSeleccionModelos) {
 		super();
 		this.pantallaSeleccionModelos = pantallaSeleccionModelos;
-	}
-	
-	public void addObservador(Observer o) {
-		this.addObserver(o);
 	}
 
 	@Override
@@ -72,7 +67,6 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 	 * 
 	 */
 	private void evntBtnSeleccionar() {
-		updateObservers(Constants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR);
 		pantallaSeleccionModelos.dispose();
 	}
 

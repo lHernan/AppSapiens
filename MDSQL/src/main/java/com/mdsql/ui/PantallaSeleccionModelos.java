@@ -27,6 +27,7 @@ import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;
@@ -36,7 +37,7 @@ import lombok.Setter;
  *
  * @author USUARIO1
  */
-public class PantallaSeleccionModelos extends FrameSupport {
+public class PantallaSeleccionModelos extends DialogSupport {
 	
     
     /**
@@ -224,7 +225,4 @@ public class PantallaSeleccionModelos extends FrameSupport {
         btnBuscar.setText("BUSCAR");
         btnSeleccionar.setText("SELECCIONAR");
 	}
-
-	@Override
-	protected void initMenuBar() {}
 }

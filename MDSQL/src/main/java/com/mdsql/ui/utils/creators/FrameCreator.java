@@ -51,22 +51,6 @@ public class FrameCreator extends Creator {
 	public Object factoryMethod(Map<String, Object> params) {
 		FrameSupport frame = null;
 		
-		if (Constants.CMD_EJECUTAR_SCRIPT.equals(option)) {
-			frame = new PantallaEjecutarScripts(frameParent, modal);
-		}
-		
-		if (Constants.CMD_SEARCH_MODEL.equals(option)) {
-			frame = new PantallaSeleccionModelos(frameParent, modal, params);
-		}
-		
-		if (Constants.CMD_SELECCION_HISTORICO.equals(option)) {
-			frame = new PantallaSeleccionHistorico(frameParent, modal, params);
-		}
-		
-		if (Constants.CMD_RESUMEN_PROCESADO.equals(option)) {
-			frame = new PantallaResumenProcesado(frameParent, modal, params);
-		}
-		
 		return frame;
 	}
 }

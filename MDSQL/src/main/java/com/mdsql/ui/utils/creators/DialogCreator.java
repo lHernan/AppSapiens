@@ -4,8 +4,12 @@ import java.util.Map;
 
 import com.mdsql.ui.DlgErrores;
 import com.mdsql.ui.PantallaBuscadorFicheros;
+import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesadoEnCurso;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.PantallaResumenProcesado;
+import com.mdsql.ui.PantallaSeleccionHistorico;
+import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -61,6 +65,22 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_PROCESAR_SCRIPT.equals(option)) {
 			dialog = new PantallaProcesarScript(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_SEARCH_MODEL.equals(option)) {
+			dialog = new PantallaSeleccionModelos(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_SELECCION_HISTORICO.equals(option)) {
+			dialog = new PantallaSeleccionHistorico(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_EJECUTAR_SCRIPT.equals(option)) {
+			dialog = new PantallaEjecutarScripts(frameParent, modal);
+		}
+		
+		if (Constants.CMD_RESUMEN_PROCESADO.equals(option)) {
+			dialog = new PantallaResumenProcesado(frameParent, modal, params);
 		}
 		
 		return dialog;
