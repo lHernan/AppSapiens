@@ -1,5 +1,5 @@
 --------------------------------------------------------
--- Archivo creado  - martes-octubre-18-2022   
+-- Archivo creado  - miércoles-octubre-19-2022   
 --------------------------------------------------------
 DROP TYPE "SAPIENS"."T_R_SCRIPT_LANZA";
 DROP SEQUENCE "SAPIENS"."SEQ_ID_LINEA_SCRIPT";
@@ -46,17 +46,17 @@ DROP FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA";
 --  DDL for Sequence SEQ_ID_LINEA_SCRIPT
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_LINEA_SCRIPT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 238 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_LINEA_SCRIPT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 360 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_ID_PROCESO
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_PROCESO"  MINVALUE 1 MAXVALUE 100000 INCREMENT BY 1 START WITH 40 NOCACHE  ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_PROCESO"  MINVALUE 1 MAXVALUE 100000 INCREMENT BY 1 START WITH 47 NOCACHE  ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_ID_SCRIPT
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_SCRIPT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 71 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_SCRIPT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 96 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_ID_SCRIPT_LANZA
 --------------------------------------------------------
@@ -66,7 +66,7 @@ DROP FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA";
 --  DDL for Sequence SEQ_NUM_ORDEN
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SAPIENS"."SEQ_NUM_ORDEN"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 51 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SAPIENS"."SEQ_NUM_ORDEN"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 76 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Table AVISO
 --------------------------------------------------------
@@ -566,6 +566,77 @@ Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('194','50','    d
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('195','50','    dbms_output.put_line(''LA DIFERENCIA ES:'' || diferencia);');
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('196','50','END;');
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('197','50','/');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('238','71','--PRACTICA 5- MULTIPLOS DE 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('239','71','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('240','71','    inicio NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('241','71','    final  NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('242','71','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('243','71','    inicio := 10;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('244','71','    final := 200;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('245','71','    FOR i IN inicio..final LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('246','71','        IF MOD(i, 4) = 0 THEN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('247','71','            dbms_output.put_line(i);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('248','71','        END IF;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('249','71','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('250','71',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('251','71','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('291','74','--PRACTICA4- ASTERISCOS');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('292','74','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('293','74','    nombre     VARCHAR2(100);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('294','74','    asteriscos VARCHAR2(100);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('295','74','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('296','74','    nombre := ''ALBERTO'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('297','74','    FOR i IN 1..length(nombre) LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('298','74','        asteriscos := asteriscos || ''*'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('299','74','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('300','74',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('301','74','    dbms_output.put_line(nombre');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('302','74','                         || ''-->''');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('303','74','                         || asteriscos);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('304','74','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('305','74','/');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('306','75','--PRACTICA 5- MULTIPLOS DE 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('307','75','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('308','75','    inicio NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('309','75','    final  NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('310','75','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('311','75','    inicio := 10;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('312','75','    final := 200;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('313','75','    FOR i IN inicio..final LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('314','75','        IF MOD(i, 4) = 0 THEN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('315','75','            dbms_output.put_line(i);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('316','75','        END IF;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('317','75','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('318','75',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('319','75','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('320','76','--PRACTICA 5- MULTIPLOS DE 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('321','76','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('322','76','    inicio NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('323','76','    final  NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('324','76','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('325','76','    inicio := 10;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('326','76','    final := 200;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('327','76','    FOR i IN inicio..final LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('328','76','        IF MOD(i, 4) = 0 THEN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('329','76','            dbms_output.put_line(i);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('330','76','        END IF;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('331','76','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('332','76',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('333','76','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('334','77','--PRACTICA 5- MULTIPLOS DE 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('335','77','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('336','77','    inicio NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('337','77','    final  NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('338','77','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('339','77','    inicio := 10;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('340','77','    final := 200;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('341','77','    FOR i IN inicio..final LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('342','77','        IF MOD(i, 4) = 0 THEN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('343','77','            dbms_output.put_line(i);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('344','77','        END IF;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('345','77','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('346','77',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('347','77','END;');
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('21','23','--PRACTICA 5- MULTIPLOS DE 4');
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('22','23','DECLARE');
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('23','23','    inicio NUMBER;');
@@ -661,6 +732,45 @@ Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('112','28','     
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('113','28','    END LOOP;');
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('114','28',null);
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('115','28','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('252','72','-- Práctica 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('253','72','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('254','72','    maximo     NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('255','72','    minimo     NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('256','72','    diferencia NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('257','72','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('258','72','    SELECT');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('259','72','        MAX(salary),');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('260','72','        MIN(salary)');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('261','72','    INTO');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('262','72','        maximo,');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('263','72','        minimo');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('264','72','    FROM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('265','72','        employees;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('266','72',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('267','72','    dbms_output.put_line(''EL SALARIO MÁXIMO ES:'' || maximo);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('268','72','    dbms_output.put_line(''EL SALARIO MÍNIMO ES:'' || minimo);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('269','72','    diferencia := maximo - minimo;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('270','72','    dbms_output.put_line(''LA DIFERENCIA ES:'' || diferencia);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('271','72','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('272','72','/');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('273','73','--PRACTICA2- FRASE AL REVES');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('274','73','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('275','73','    frase          VARCHAR2(100);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('276','73','    limite         NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('277','73','    contador       NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('278','73','    frase_al_reves VARCHAR2(100);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('279','73','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('280','73','    frase := ''ESTO ES UNA PRUEBA DE FRASE'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('281','73','    limite := length(frase);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('282','73','    WHILE limite > 0 LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('283','73','        frase_al_reves := frase_al_reves');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('284','73','                          || substr(frase, limite, 1);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('285','73','        limite := limite - 1;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('286','73','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('287','73',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('288','73','    dbms_output.put_line(frase_al_reves);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('289','73','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('290','73','/');
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1','1','--PRACTICA 5- MULTIPLOS DE 4');
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2','1','DECLARE');
 Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('3','1','    inicio NUMBER;');
@@ -725,12 +835,19 @@ Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICI
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','34','prueba petición','federico',to_date('16/10/22','DD/MM/RR'),'federico','1','Generado','N','descripción',null,'N','29');
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','35','petición ejercicio 9','federico',to_date('16/10/22','DD/MM/RR'),'federico','1','Generado','N','Se procesa el script del ejercicio 9',null,'N','30');
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','37','RE-EJ4','federico',to_date('16/10/22','DD/MM/RR'),'federico','1','Generado','N','Se requiere ejecutar el script del ejercicio 4',null,'N','50');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','40','REQ-EJ10','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba de creación',null,'N','71');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','43','RQ-EJ9','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba petición',null,'N','74');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','44',null,null,to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N',null,null,'N','75');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','45','peticion','federico',to_date('19/10/22','DD/MM/RR'),'federico','1','Generado','N','descripcion',null,'N','76');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','46',null,null,to_date('19/10/22','DD/MM/RR'),'federico','1','Generado','N',null,null,'N','77');
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','28','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','Prueba de creación de un proceso',null,'N','23');
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','29','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba de devolución de script',null,'N','24');
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','30','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba descripción',null,'N','25');
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','31','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba descripción',null,'N','26');
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','32','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','descripción',null,'N','27');
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','33','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','descripción',null,'N','28');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','41','REQ-EJ4','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba descripción',null,'N','72');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','42','REQ-EJ7','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','Prueba descripción',null,'N','73');
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('PROY1','3','RQ1','federico',to_date('11/10/22','DD/MM/RR'),'federico','1','Generado','S','PRUEBA DE PETICIÓN NUMERO 1',null,'N',null);
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','19','prueba petición','federico',to_date('13/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba descripción',null,'N',null);
 Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','27','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba de que se crea un script',null,'N','1');
@@ -747,12 +864,19 @@ Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('30','ejercicio-9.sql','/home/federico/SQL','SQL','1','Pendiente','10','Lanza_ejercicio-9.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-9.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('49','ejercicio-4.sql','/home/federico/SQL','SQL','1','Pendiente','29','Lanza_ejercicio-4.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-4.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('50','ejercicio-4.sql','/home/federico/SQL','SQL','1','Pendiente','30','Lanza_ejercicio-4.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-4.sql"',null);
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('71','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','51','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('74','ejercicio-9.sql','/home/federico/SQL','SQL','1','Pendiente','54','Lanza_ejercicio-9.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-9.sql"',null);
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('75','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','55','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('76','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','56','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('77','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','57','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('23','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','3','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('24','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','4','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('25','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','5','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('26','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','6','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('27','ejercicio-4.sql','/home/federico/SQL','SQL','1','Pendiente','7','Lanza_ejercicio-4.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-4.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('28','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','8','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('72','ejercicio-4.sql','/home/federico/SQL','SQL','1','Pendiente','52','Lanza_ejercicio-4.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-4.sql"',null);
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('73','ejercicio-7.sql','/home/federico/SQL','SQL','1','Pendiente','53','Lanza_ejercicio-7.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-7.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('1','ejercicio-10.sql','/home/federico/SQL','SQL',null,null,null,'1_Lanza_20220922_10_00_VARIABLES_DD_RF0123456_SD0123456.bat.txt','exit | sqlplus usuario/pwd@bbdd  @"c:\pruebaLOG\Lanza_20220922_10_00_VARIABLES_DD_RF0123456_SD0123456.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('51','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','31','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
 Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('52','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','32','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
@@ -870,25 +994,25 @@ SET DEFINE OFF;
 
   /*
   Estados de un script
-  1	Pendiente
-  2	Ejecutado
-  3	Error
-  4	Descuadrado
-  5	Reparado
-  6	Descartado
-  7	Excepción
+  1 Pendiente
+  2 Ejecutado
+  3 Error
+  4 Descuadrado
+  5 Reparado
+  6 Descartado
+  7 Excepción
   */
 
   -- Datos de un script
   TYPE t_r_script IS RECORD(
-    tip_script       VARCHAR2(4), -- Los tipos posibles serán SQL - Script SQL Modificado, PDC - Script PDC Modificado, SQLH - Script SQL Histórico, PDCH - Script PDC Histórico 
+    tip_script       VARCHAR2(5), -- Los tipos posibles serán SQL - Script SQL Modificado, PDC - Script PDC Modificado, SQLH - Script SQL Histórico, PDCH - Script PDC Histórico 
     txt_script       t_t_linea,
     nom_script       VARCHAR2(100),
     cod_estado_scrip NUMBER(1), -- Modificado 26/08/2022 de VARCHAR2 a NUMBER
     des_estado_scrip VARCHAR2(20),
     num_orden        NUMBER,
     nom_script_lanza VARCHAR2(106),
-    txt_script_lanza VARCHAR2(4000),
+    txt_script_lanza VARCHAR2(32767),
     nom_script_log   VARCHAR2(100));
 
   -- Lista de scripts
@@ -919,7 +1043,15 @@ SET DEFINE OFF;
   -- Script de objetos TYPE
   TYPE t_r_script_type IS RECORD(
     txt_script t_t_linea,
-    nom_script VARCHAR2(100));
+    nom_script VARCHAR2(100),
+    tip_script VARCHAR2(5)); -- Añadido el 18/10/2022
+
+  -- Tipos de scripts TYPE
+  -- TYS - Especificación
+  -- TYB - Body
+  -- PDC - PDC
+  -- DROP - Borrado -- En pantalla se muestra en el área TYS
+  -- DROPS - PDC de borrado -- En pantalla se muestra en el área PDC  
 
   -- Lista de scripts de objetos TYPE
   TYPE t_t_script_type IS TABLE OF t_r_script_type INDEX BY BINARY_INTEGER;
@@ -935,11 +1067,11 @@ SET DEFINE OFF;
     txt_cuadre_TYB   VARCHAR2(10),
     txt_cuadre_PDC   VARCHAR2(10),
     txt_cuadre_DROP  VARCHAR2(10),
-    nom_objeto       VARCHAR2(30),
-    script_type      t_t_script_type,
-    nom_script_lanza VARCHAR2(106),
-    txt_script_lanza t_t_linea,
-    nom_script_log   VARCHAR2(100));
+    nom_objeto       VARCHAR2(100), -- Ampliado tamaño 18/10/2022
+    script_type      t_t_script_type);
+  --nom_script_lanza VARCHAR2(106),   -- Eliminado 05/10/2022
+  --txt_script_lanza t_t_linea,       -- Eliminado 05/10/2022
+  --nom_script_log   VARCHAR2(100));  -- Eliminado 05/10/2022
 
   -- Lista de objetos Type procesados
   TYPE t_t_type IS TABLE OF t_r_type INDEX BY BINARY_INTEGER;
@@ -963,6 +1095,13 @@ SET DEFINE OFF;
   -- Lista de objetos con su tipo
   TYPE t_t_objetos IS TABLE OF t_r_objetos INDEX BY BINARY_INTEGER;
 
+  /* Niveles de aviso (notas del modelo)
+   1 Crítica
+   2 Alta
+   3 Media
+   4 Baja
+  */
+
   -- Aviso (nota) de un modelo 
   TYPE t_r_aviso IS RECORD(
     cod_nivel_aviso NUMBER(1),
@@ -982,12 +1121,12 @@ SET DEFINE OFF;
 
   /*
   Estados de un procesado
-  1	Generado
-  2	En ejecución
-  3	Error
-  4	Ejecutado
-  5	Rechazado
-  6	Entregado 
+  1 Generado
+  2 En ejecución
+  3 Error
+  4 Ejecutado
+  5 Rechazado
+  6 Entregado 
   */
   -- Datos de un procesado
   TYPE t_r_proceso IS RECORD(
@@ -1056,9 +1195,9 @@ SET DEFINE OFF;
 
   /*
   Estados de ejecución
-  1	Pendiente
-  2	Ejecutado
-  3	Error
+  1 Pendiente
+  2 Ejecutado
+  3 Error
   */
   -- Datos de un script tipo parche (ya ejecutado)
   TYPE t_r_script_parche IS RECORD(
@@ -1083,6 +1222,7 @@ SET DEFINE OFF;
     --des_tip_obj_padre VARCHAR2(30), -- Eliminado 26/08/2022
     tip_accion_padre VARCHAR2(2),
     nom_objeto       VARCHAR2(30),
+    nom_objeto_dest  VARCHAR2(30), -- Añadido 05/10/2022 - Objeto destino. Debe salir en pantalla
     tip_objeto       VARCHAR2(20), -- Modificado tamaño 26/08/2022
     --des_tip_objeto    VARCHAR2(30), -- Eliminado 26/08/2022
     tip_accion   VARCHAR2(2),
@@ -1092,6 +1232,108 @@ SET DEFINE OFF;
 
   -- Listado de objetos modificados en un script
   TYPE t_t_det_objeto IS TABLE OF t_r_det_objeto INDEX BY BINARY_INTEGER;
+
+  TYPE t_r_his_proc IS RECORD(
+    cod_peticion     VARCHAR2(25),
+    des_estado_proc  VARCHAR2(20),
+    fec_proceso      DATE,
+    cod_sub_proy     VARCHAR2(30),
+    cod_usr_peticion VARCHAR2(8), -- Solicitado
+    cod_usr          VARCHAR2(8), -- Usuario
+    tip_accion       VARCHAR2(1), -- Operación 
+    tip_accion_padre VARCHAR2(1), -- Operación padre
+    nom_script       VARCHAR2(100),
+    des_estado_scrip VARCHAR2(20));
+
+  TYPE t_t_his_proc IS TABLE OF t_r_his_proc INDEX BY BINARY_INTEGER;
+
+  TYPE t_r_estado IS RECORD(
+    cod_estado NUMBER(1),
+    des_estado VARCHAR2(20));
+
+  TYPE t_t_estado IS TABLE OF t_r_estado INDEX BY BINARY_INTEGER;
+
+  TYPE t_r_tip_objeto IS RECORD(
+    tip_objeto VARCHAR2(20));
+
+  TYPE t_t_tip_objeto IS TABLE OF t_r_tip_objeto INDEX BY BINARY_INTEGER;
+  /* Tipos de objetos:
+  TABLA
+  COLUMNA
+  VISTA
+  VM
+  INDICE
+  CHECK
+  PK
+  FK
+  AK
+  SECUENCIA
+  PARTICION
+  SUBPARTICION
+  TYPE
+  TYPE BODY
+  COMENTARIO
+  COMENTARIO COL.
+  CONSTRAINT
+  INDEFINIDO
+  PERMISO
+  SINONIMO
+  VIEW LOG
+  TEMPLATE
+  */
+
+  TYPE t_r_operacion IS RECORD(
+    tip_accion VARCHAR2(1),
+    des_accion VARCHAR2(20));
+
+  TYPE t_t_operacion IS TABLE OF t_r_operacion INDEX BY BINARY_INTEGER;
+
+  /* Operaciones:
+  A - ALTA
+  B - BAJA
+  M - MODIFICACIÓN
+  R - RENOMBRADO 
+  */
+
+  TYPE t_r_informe_cambios IS RECORD(
+    cod_peticion     VARCHAR2(25), -- Petición
+    id_proceso       NUMBER, -- Código Procesado
+    nom_objeto_padre VARCHAR2(30), -- Objeto padre
+    tip_obj_padre    VARCHAR2(20), -- Tipo Objeto
+    tip_accion_padre VARCHAR2(2), -- Acción
+    nom_objeto       VARCHAR2(30), -- Objeto
+    nom_objeto_dest  VARCHAR2(30), -- Objeto destino
+    tip_objeto       VARCHAR2(20), -- Tipo Objeto
+    tip_accion       VARCHAR2(2), -- Acción
+    tip_dato         VARCHAR2(18), -- Tipo Dato
+    num_longitud     NUMBER, -- Precisión
+    num_decimal      NUMBER, -- Escala
+    des_estado_proc  VARCHAR2(20), -- Estado Procesado
+    fec_proceso      DATE, --Fecha inicio procesado.
+    cod_sub_proy     VARCHAR2(30), -- Submodelo
+    cod_usr_peticion VARCHAR2(8), -- Solicitado
+    cod_usr          VARCHAR2(8), -- Usuario
+    des_estado_scrip VARCHAR2(20), -- Estado script
+    nom_script       VARCHAR2(100)); -- Nombre Script
+
+  TYPE t_t_informe_cambios IS TABLE OF t_r_informe_cambios INDEX BY BINARY_INTEGER;
+
+  TYPE t_r_log_ejecucion IS RECORD(
+    nom_script      VARCHAR2(100),
+    id_proceso      NUMBER,
+    num_orden       NUMBER, -- No haría falta mostrarlo en pantalla, pero es necesario para pasárselo a p_elimina_log
+    num_iteracion   NUMBER,
+    num_ejecucion   NUMBER,
+    num_parche      NUMBER, -- No haría falta mostrarlo en pantalla, pero es necesario para pasárselo a p_elimina_log
+    num_sentencia   NUMBER,
+    tip_objeto      VARCHAR2(20),
+    tip_accion      VARCHAR2(2),
+    nom_objeto      VARCHAR2(30),
+    des_estado_ejec VARCHAR2(20),
+    mca_eliminada   VARCHAR2(1), -- Valores S/N
+    txt_obs_elimina VARCHAR2(500)); -- Comentario
+
+  TYPE t_t_log_ejecucion IS TABLE OF t_r_log_ejecucion INDEX BY BINARY_INTEGER;
 
   /*----------------------------------------------------------------------------------------
   || Procedimiento de procesado de un script
@@ -1191,7 +1433,7 @@ SET DEFINE OFF;
                            p_cod_estado_proc  OUT NOCOPY NUMBER,
                            p_des_estado_proc  OUT NOCOPY VARCHAR2,
                            p_nom_script_lanza OUT NOCOPY VARCHAR2,
-                           p_txt_script_lanza OUT NOCOPY VARCHAR2,
+                           p_txt_script_lanza OUT NOCOPY t_t_linea, -- Modificado 18/10/2022 Cambio de tipo de dato
                            p_nom_script_log   OUT NOCOPY VARCHAR2,
                            p_lista_type       OUT NOCOPY t_t_type,
                            p_resultado        IN OUT NOCOPY INTEGER,
@@ -1331,8 +1573,8 @@ SET DEFINE OFF;
                             p_txt_pwd           OUT NOCOPY VARCHAR2,
                             --p_txt_observacion   OUT NOCOPY VARCHAR2, -- Eliminado 07/09/2022 - No se necesita
                             --p_mca_habilitado    OUT NOCOPY VARCHAR2, -- Eliminado 07/09/2022 - No se necesita
-                            p_resultado         IN OUT NOCOPY INTEGER,
-                            p_lista_errores     IN OUT NOCOPY t_t_error);
+                            p_resultado     IN OUT NOCOPY INTEGER,
+                            p_lista_errores IN OUT NOCOPY t_t_error);
 
   /*----------------------------------------------------------------------------------------
   || Procedimiento que trata el fichero de log generado por Oracle tras la ejecución de un script
@@ -1719,6 +1961,143 @@ SET DEFINE OFF;
                                       p_resultado         IN OUT NOCOPY INTEGER,
                                       p_lista_errores     IN OUT NOCOPY t_t_error);
 
+  -- 05/10/2022 Se añaden el resto de procedimientos que faltaban
+  /*----------------------------------------------------------------------------------------
+  || Procedimiento que devuelve el histórico de scripts en los que se ha modificado un objeto,
+  || de acuerdo con los critrios de selección
+  || Entrada:
+  || p_cod_proyecto       : Código de modelo
+  || p_nom_objeto_padre   : Nombre del objeto padre
+  || p_tip_objeto_padre   : Tipo de objeto padre
+  || p_tip_accion_padre   : Tipo de acción padre
+  || p_nom_objeto         : Nombre del objeto hijo (columnas)
+  || p_tip_objeto         : Tipo de objeto hijo
+  || p_tip_accion         : Tipo de acción hijo
+  || p_fec_desde          : Fecha de inicio de la búsqueda
+  || p_fec_hasta          : Fecha de fin de la búsqueda
+  || p_cod_estado_proc    : Código de estado del procesado
+  || p_cod_estado_scrip   : Código de estado del script
+  || Salida:
+  || p_lista_his_proc     : Lista con el histórico del objeto
+  || p_resultado          : Resultado de la operación (1- Correcto, 0-Error, 2-Aviso)
+  || p_lista_errores      : Lista de errores
+  */ ----------------------------------------------------------------------------------------                                    
+  procedure p_con_historico_objeto(p_cod_proyecto     IN VARCHAR2,
+                                   p_nom_objeto_padre IN VARCHAR2,
+                                   p_tip_objeto_padre IN VARCHAR2,
+                                   p_tip_accion_padre IN VARCHAR2,
+                                   p_nom_objeto       IN VARCHAR2,
+                                   p_tip_objeto       IN VARCHAR2,
+                                   p_tip_accion       IN VARCHAR2,
+                                   p_fec_desde        IN DATE,
+                                   p_fec_hasta        IN DATE,
+                                   p_cod_estado_proc  IN NUMBER,
+                                   p_cod_estado_scrip IN NUMBER,
+                                   p_lista_his_proc   OUT NOCOPY t_t_his_proc,
+                                   p_resultado        IN OUT NOCOPY INTEGER,
+                                   p_lista_errores    IN OUT NOCOPY t_t_error);
+
+  /*----------------------------------------------------------------------------------------
+  || Procedimiento que devuelve la lista de tipos de objetos
+  || Salida:
+  || p_lista_his_proc     : Lista de tipos de objeto
+  || p_resultado          : Resultado de la operación (1- Correcto, 0-Error, 2-Aviso)
+  || p_lista_errores      : Lista de errores
+  */ ----------------------------------------------------------------------------------------                                    
+  procedure p_con_tipos_objeto(p_lista_tip_objeto OUT NOCOPY t_t_tip_objeto,
+                               p_resultado        IN OUT NOCOPY INTEGER,
+                               p_lista_errores    IN OUT NOCOPY t_t_error);
+
+  /*----------------------------------------------------------------------------------------
+  || Procedimiento que devuelve la lista de estados de un procesado
+  || Salida:
+  || p_lista_estados     : Lista de estados del procesado (código/descripción)
+  || p_resultado         : Resultado de la operación (1- Correcto, 0-Error, 2-Aviso)
+  || p_lista_errores     : Lista de errores
+  */ ----------------------------------------------------------------------------------------                                                                          
+  procedure p_con_estados_proc(p_lista_estados OUT NOCOPY t_t_estado,
+                               p_resultado     IN OUT NOCOPY INTEGER,
+                               p_lista_errores IN OUT NOCOPY t_t_error);
+
+  /*----------------------------------------------------------------------------------------
+  || Procedimiento que devuelve la lista de estados de un script
+  || Salida:
+  || p_lista_estados     : Lista de estados del script (código/descripción)
+  || p_resultado         : Resultado de la operación (1- Correcto, 0-Error, 2-Aviso)
+  || p_lista_errores     : Lista de errores
+  */ ----------------------------------------------------------------------------------------                                                                                                        
+  procedure p_con_estados_scrip(p_lista_estados OUT NOCOPY t_t_estado,
+                                p_resultado     IN OUT NOCOPY INTEGER,
+                                p_lista_errores IN OUT NOCOPY t_t_error);
+
+  /*----------------------------------------------------------------------------------------
+  || Procedimiento que devuelve la lista de tipos de operación de un script
+  || Salida:
+  || p_lista_operación   : Lista de operaciones (código/descripción)
+  || p_resultado         : Resultado de la operación (1- Correcto, 0-Error, 2-Aviso)
+  || p_lista_errores     : Lista de errores
+  */ ----------------------------------------------------------------------------------------                                                                                                                                              
+  procedure p_con_operaciones(p_lista_operacion OUT NOCOPY t_t_operacion,
+                              p_resultado       IN OUT NOCOPY INTEGER,
+                              p_lista_errores   IN OUT NOCOPY t_t_error);
+
+  /*----------------------------------------------------------------------------------------
+  || Procedimiento que devuelve el informe de cambios
+  || Entrada:
+  || p_cod_proyecto      : Código de modelo
+  || p_fec_desde         : Fecha de inicio de la búsqueda
+  || p_fec_hasta         : Fecha de fin de la búsqueda    
+  || Salida:
+  || p_lista_operación   : Lista de operaciones (código/descripción)
+  || p_resultado         : Resultado de la operación (1- Correcto, 0-Error, 2-Aviso)
+  || p_lista_errores     : Lista de errores
+  */ ----------------------------------------------------------------------------------------
+  procedure p_informe_cambios(p_cod_proyecto  IN VARCHAR2,
+                              p_fec_desde     IN DATE,
+                              p_fec_hasta     IN DATE,
+                              p_lista_cambios OUT NOCOPY t_t_informe_cambios,
+                              p_resultado     IN OUT NOCOPY INTEGER,
+                              p_lista_errores IN OUT NOCOPY t_t_error);
+
+  /*----------------------------------------------------------------------------------------
+  || Procedimiento que devuelve las operaciones que figuran en el log de la última ejecución de un script
+  || Entrada:
+  || p_id_proceso        : Código de procesado
+  || p_num_orden         : Número de orden del script seleccionado en pantalla Ejecutar Scripts
+  || Salida:
+  || p_lista_log         : Lista de operaciones registradas en los log
+  || p_resultado         : Resultado de la operación (1- Correcto, 0-Error, 2-Aviso)
+  || p_lista_errores     : Lista de errores
+  */ ----------------------------------------------------------------------------------------
+  procedure p_log_ejecucion(p_id_proceso    IN NUMBER,
+                            p_num_orden     IN NUMBER, -- viene de una pantalla anterior: Ejecutar Scripts. Es el num_orden del script seleccionado
+                            p_lista_log     OUT NOCOPY t_t_log_ejecucion,
+                            p_resultado     IN OUT NOCOPY INTEGER,
+                            p_lista_errores IN OUT NOCOPY t_t_error);
+
+  /*----------------------------------------------------------------------------------------
+  || Procedimiento que marca como eliminado un registro del LOG de un script. 
+  || Entrada:
+  || p_id_proceso        : Código de procesado
+  || p_num_orden         : Número de orden
+  || p_num_iteracion     : Número de iteración
+  || p_num_ejecucion     : Número de ejecución
+  || p_num_parche        : Número de parche
+  || p_num_sentencia     : Número de sentencia
+  || p_txt_comentario    : Comentario
+  || Salida:
+  || p_resultado         : Resultado de la operación (1- Correcto, 0-Error, 2-Aviso)
+  || p_lista_errores     : Lista de errores
+  */ ----------------------------------------------------------------------------------------
+  procedure p_elimina_log(p_id_proceso     IN NUMBER,
+                          p_num_orden      IN NUMBER,
+                          p_num_iteracion  IN NUMBER,
+                          p_num_ejecucion  IN NUMBER,
+                          p_num_parche     IN NUMBER,
+                          p_num_sentencia  IN NUMBER,
+                          p_txt_comentario IN VARCHAR2,
+                          p_resultado      IN OUT NOCOPY INTEGER,
+                          p_lista_errores  IN OUT NOCOPY t_t_error);
 END sm2_k_ld_MDSQL;
 
 /
@@ -1847,7 +2226,7 @@ END sm2_k_ld_MDSQL;
                            p_cod_estado_proc  OUT NOCOPY NUMBER,
                            p_des_estado_proc  OUT NOCOPY VARCHAR2,
                            p_nom_script_lanza OUT NOCOPY VARCHAR2,
-                           p_txt_script_lanza OUT NOCOPY VARCHAR2,
+                           p_txt_script_lanza OUT NOCOPY t_t_linea, -- Modificado 18/10/2022 Cambio de tipo de dato
                            p_nom_script_log   OUT NOCOPY VARCHAR2,
                            p_lista_type       OUT NOCOPY t_t_type,
                            p_resultado        IN OUT NOCOPY INTEGER,
@@ -2487,7 +2866,158 @@ END sm2_k_ld_MDSQL;
 	                                             1,
 	                                             200);
   END p_detalle_objetos_scripts;
+  
+  procedure p_con_historico_objeto(p_cod_proyecto     IN VARCHAR2,
+                                   p_nom_objeto_padre IN VARCHAR2,
+                                   p_tip_objeto_padre IN VARCHAR2,
+                                   p_tip_accion_padre IN VARCHAR2,
+                                   p_nom_objeto       IN VARCHAR2,
+                                   p_tip_objeto       IN VARCHAR2,
+                                   p_tip_accion       IN VARCHAR2,
+                                   p_fec_desde        IN DATE,
+                                   p_fec_hasta        IN DATE,
+                                   p_cod_estado_proc  IN NUMBER,
+                                   p_cod_estado_scrip IN NUMBER,
+                                   p_lista_his_proc   OUT NOCOPY t_t_his_proc,
+                                   p_resultado        IN OUT NOCOPY INTEGER,
+                                   p_lista_errores    IN OUT NOCOPY t_t_error) AS
+    BEGIN
+    p_resultado := C_RESULTADO_OK;
+	
+	EXCEPTION
+		WHEN OTHERS THEN
+	    	p_resultado := C_RESULTADO_NOK;
 
+			p_lista_errores(1).txt_error := substr('p_con_historico_objeto: ' ||
+	                                             sqlerrm,
+	                                             1,
+	                                             200);
+  END p_con_historico_objeto;
+  
+    procedure p_con_tipos_objeto(p_lista_tip_objeto OUT NOCOPY t_t_tip_objeto,
+                               p_resultado        IN OUT NOCOPY INTEGER,
+                               p_lista_errores    IN OUT NOCOPY t_t_error) AS
+    BEGIN
+    p_resultado := C_RESULTADO_OK;
+	
+	EXCEPTION
+		WHEN OTHERS THEN
+	    	p_resultado := C_RESULTADO_NOK;
+
+			p_lista_errores(1).txt_error := substr('p_con_tipos_objeto: ' ||
+	                                             sqlerrm,
+	                                             1,
+	                                             200);
+  END p_con_tipos_objeto;
+  
+  procedure p_con_estados_proc(p_lista_estados OUT NOCOPY t_t_estado,
+                               p_resultado     IN OUT NOCOPY INTEGER,
+                               p_lista_errores IN OUT NOCOPY t_t_error) AS
+  BEGIN
+    p_resultado := C_RESULTADO_OK;
+	
+	EXCEPTION
+		WHEN OTHERS THEN
+	    	p_resultado := C_RESULTADO_NOK;
+
+			p_lista_errores(1).txt_error := substr('p_con_estados_proc: ' ||
+	                                             sqlerrm,
+	                                             1,
+	                                             200);
+  END p_con_estados_proc;
+  
+  procedure p_con_estados_scrip(p_lista_estados OUT NOCOPY t_t_estado,
+                                p_resultado     IN OUT NOCOPY INTEGER,
+                                p_lista_errores IN OUT NOCOPY t_t_error) AS
+  
+  BEGIN
+    p_resultado := C_RESULTADO_OK;
+	
+	EXCEPTION
+		WHEN OTHERS THEN
+	    	p_resultado := C_RESULTADO_NOK;
+
+			p_lista_errores(1).txt_error := substr('p_con_estados_scrip: ' ||
+	                                             sqlerrm,
+	                                             1,
+	                                             200);
+  END p_con_estados_scrip;
+  
+  procedure p_con_operaciones(p_lista_operacion OUT NOCOPY t_t_operacion,
+                              p_resultado       IN OUT NOCOPY INTEGER,
+                              p_lista_errores   IN OUT NOCOPY t_t_error) AS
+    BEGIN
+    p_resultado := C_RESULTADO_OK;
+	
+	EXCEPTION
+		WHEN OTHERS THEN
+	    	p_resultado := C_RESULTADO_NOK;
+
+			p_lista_errores(1).txt_error := substr('p_con_operaciones: ' ||
+	                                             sqlerrm,
+	                                             1,
+	                                             200);
+  END p_con_operaciones;
+  
+  procedure p_informe_cambios(p_cod_proyecto  IN VARCHAR2,
+                              p_fec_desde     IN DATE,
+                              p_fec_hasta     IN DATE,
+                              p_lista_cambios OUT NOCOPY t_t_informe_cambios,
+                              p_resultado     IN OUT NOCOPY INTEGER,
+                              p_lista_errores IN OUT NOCOPY t_t_error) AS
+     BEGIN
+    p_resultado := C_RESULTADO_OK;
+	
+	EXCEPTION
+		WHEN OTHERS THEN
+	    	p_resultado := C_RESULTADO_NOK;
+
+			p_lista_errores(1).txt_error := substr('p_informe_cambios: ' ||
+	                                             sqlerrm,
+	                                             1,
+	                                             200);
+  END p_informe_cambios;
+  
+  procedure p_log_ejecucion(p_id_proceso    IN NUMBER,
+                            p_num_orden     IN NUMBER, -- viene de una pantalla anterior: Ejecutar Scripts. Es el num_orden del script seleccionado
+                            p_lista_log     OUT NOCOPY t_t_log_ejecucion,
+                            p_resultado     IN OUT NOCOPY INTEGER,
+                            p_lista_errores IN OUT NOCOPY t_t_error) AS
+    BEGIN
+    p_resultado := C_RESULTADO_OK;
+	
+	EXCEPTION
+		WHEN OTHERS THEN
+	    	p_resultado := C_RESULTADO_NOK;
+
+			p_lista_errores(1).txt_error := substr('p_log_ejecucion: ' ||
+	                                             sqlerrm,
+	                                             1,
+	                                             200);
+  END p_log_ejecucion;
+  
+  procedure p_elimina_log(p_id_proceso     IN NUMBER,
+                          p_num_orden      IN NUMBER,
+                          p_num_iteracion  IN NUMBER,
+                          p_num_ejecucion  IN NUMBER,
+                          p_num_parche     IN NUMBER,
+                          p_num_sentencia  IN NUMBER,
+                          p_txt_comentario IN VARCHAR2,
+                          p_resultado      IN OUT NOCOPY INTEGER,
+                          p_lista_errores  IN OUT NOCOPY t_t_error) AS
+    BEGIN
+    p_resultado := C_RESULTADO_OK;
+	
+	EXCEPTION
+		WHEN OTHERS THEN
+	    	p_resultado := C_RESULTADO_NOK;
+
+			p_lista_errores(1).txt_error := substr('p_elimina_log: ' ||
+	                                             sqlerrm,
+	                                             1,
+	                                             200);
+  END p_elimina_log;
+  
 END SM2_K_LD_MDSQL;
 
 /
