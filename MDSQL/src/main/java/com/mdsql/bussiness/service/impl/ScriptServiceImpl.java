@@ -41,12 +41,14 @@ import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.ScriptOld;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.BBDDService;
 import com.mdsql.bussiness.service.EjecucionService;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
@@ -295,7 +297,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
         String ruta = selectedRoute.concat(FileSystems.getDefault().getSeparator()); //TODO obtener  idProceso
         String nombreEsquema = StringUtils.EMPTY;
         String nombreBBDD = StringUtils.EMPTY;
-        String codigoUsuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
+        
+        Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+        String codigoUsuario = session.getCodUsr();
         List<OutputRegistraEjecucion> listOutputLogs = new ArrayList<>();
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
         String txtClaveEncriptada = configuration.getConfig(Constants.TOKEN).substring(17, 29);

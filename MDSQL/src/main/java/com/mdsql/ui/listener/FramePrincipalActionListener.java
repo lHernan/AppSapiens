@@ -24,16 +24,18 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.ui.FramePrincipal;
+import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.LogWrapper;
@@ -50,6 +52,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	private FramePrincipal framePrincipal;
 
 	private PantallaProcesarScript pantallaProcesarScript;
+	
+	private PantallaEjecutarScripts pantallaEjecutarScript;
 
 	/**
 	 * @param framePrincipal
@@ -94,7 +98,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 
 		if (Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO.equals(jButton.getActionCommand())) {
-
+			evtEntregarScript();
 		}
 
 		if (Constants.FRAME_PRINCIPAL_BTN_UNDO.equals(jButton.getActionCommand())) {
@@ -118,6 +122,16 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 	}
 
+	private void evtEntregarScript() {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = session.getProceso();
+
+		if (!Objects.isNull(proceso) && "Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
+			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_ENTREGAR_SCRIPT);
+			MDSQLUIHelper.show(dialog);
+		}
+	}
+
 	/**
 	 * 
 	 */
@@ -125,7 +139,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 		Map<String, Object> params = new HashMap<>();
 
-		Proceso proceso = (Proceso) AppHelper.getGlobalProperty(Constants.PROCESADO_EN_CURSO);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = session.getProceso();
 
 		if (!Objects.isNull(proceso)) {
 			params.put("proceso", proceso);
@@ -194,12 +209,15 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtLimpiarScript() {
-		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
-			if (confirmSave()) {
-				actionSave();
-			}
-
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = session.getProceso();
+		
+		if (Objects.isNull(proceso)) {
 			resetFramePrincipal();
+		} else {
+			if ("Entregado".equals(proceso.getDescripcionEstadoProceso())) {
+				resetFramePrincipal();
+			}
 		}
 	}
 
@@ -269,27 +287,37 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtProcesarScript() {
-		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
-			Proceso proceso = (Proceso) AppHelper.getGlobalProperty(Constants.PROCESADO_EN_CURSO);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = session.getProceso();
 
-			if (!Objects.isNull(proceso)) {
-				// Aviso de que no hay procesado en curso
-				JOptionPane.showMessageDialog(framePrincipal,
-						"Ya hay un procesado en curso. Debe finalizarlo o rechazarlo pulsando sobre Ejecutar script");
-			} else {
-				Map<String, Object> params = new HashMap<>();
-				params.put("procesado", framePrincipal.getProcesado());
+		if (!Objects.isNull(proceso)) {
+			// Aviso de que no hay procesado en curso
+			JOptionPane.showMessageDialog(framePrincipal,
+					"Ya hay un procesado en curso. Debe finalizarlo o rechazarlo pulsando sobre Ejecutar script");
+		} else {
+			Map<String, Object> params = new HashMap<>();
+			params.put("procesado", framePrincipal.getProcesado());
 
-				// Las líneas del script vienen directamente del text area
-				params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
-				params.put("file", framePrincipal.getCurrentFile());
+			// Las líneas del script vienen directamente del text area
+			params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
+			params.put("file", framePrincipal.getCurrentFile());
 
-				pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createDialog(framePrincipal,
-						Constants.CMD_PROCESAR_SCRIPT, params);
-				MDSQLUIHelper.show(pantallaProcesarScript);
-
-				updateProcesadoEnCurso();
+			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createDialog(framePrincipal,
+					Constants.CMD_PROCESAR_SCRIPT, params);
+			MDSQLUIHelper.show(pantallaProcesarScript);
+			
+			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
+				fillProcesadoScript();
 			}
+
+			if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
+				fillProcesadoType();
+			}
+
+			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
+			framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
+
+			updateProcesadoEnCurso(Constants.CMD_PROCESAR_SCRIPT);
 		}
 	}
 
@@ -297,9 +325,17 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtEjecutarScript() {
-		if (!Objects.isNull(framePrincipal.getCurrentFile())) {
-			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT);
-			MDSQLUIHelper.show(dialog);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = session.getProceso();
+
+		if (!Objects.isNull(proceso)) {
+			pantallaEjecutarScript = (PantallaEjecutarScripts) MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT);
+			MDSQLUIHelper.show(pantallaEjecutarScript);
+			
+			updateProcesadoEnCurso(Constants.CMD_EJECUTAR_SCRIPT);
+		} else {
+			// Aviso de que no hay procesado en curso
+			JOptionPane.showMessageDialog(framePrincipal, "Es necesario procesar un script");
 		}
 	}
 
@@ -515,29 +551,31 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		framePrincipal.resetFrames();
 
 		framePrincipal.setCurrentFile(null);
-
-		// No hay procesado en curso
-		AppHelper.setGlobalProperty(Constants.PROCESADO_EN_CURSO, null);
 	}
 
 	/**
 	 * 
 	 */
-	private void updateProcesadoEnCurso() {
-		if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
-			fillProcesadoScript();
+	private void updateProcesadoEnCurso(String cmd) {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = null;
+		
+		if (Constants.CMD_PROCESAR_SCRIPT.equals(cmd)) {
+			// Poner el proceso devuelto en procesado en curso
+			proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
 		}
-
-		if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
-			fillProcesadoType();
+		
+		if (Constants.CMD_EJECUTAR_SCRIPT.equals(cmd)) {
+			// Poner el proceso devuelto en procesado en curso
+			proceso = (Proceso) pantallaEjecutarScript.getReturnParams().get("proceso");
 		}
-
-		framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
-		framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
-
-		// Poner el proceso devuelto en procesado en curso
-		Proceso proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
-		AppHelper.setGlobalProperty(Constants.PROCESADO_EN_CURSO, proceso);
+		
+		if (!Objects.isNull(proceso)) {
+			session.setProceso(proceso);
+		}
+		
+		// Save session to disk
+		MDSQLAppHelper.serializeToDisk(session, Constants.SESSION);
 	}
 
 	@SuppressWarnings("unchecked")

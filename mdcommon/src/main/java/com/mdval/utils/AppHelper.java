@@ -1,5 +1,10 @@
 package com.mdval.utils;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -7,15 +12,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
-/**
- * @author federico
- *
- */
+@Slf4j
 public class AppHelper {
 
 	/**
@@ -119,5 +122,31 @@ public class AppHelper {
 			return dup;
 		}
 		return StringUtils.EMPTY;
+	}
+	
+	/**
+	 * @param data
+	 */
+	public static void serializeToDisk(Object data, String name) {
+		try (FileOutputStream fout = new FileOutputStream(name + ".ser");
+				ObjectOutputStream oos = new ObjectOutputStream(fout)) {
+			oos.writeObject(data);
+		} catch (IOException e) {
+			LogWrapper.warn(log, e.getMessage());
+		} 
+	}
+	
+	
+	/**
+	 * @return
+	 */
+	public static Object deserializeFromDisk(String name) {
+		try (FileInputStream fin = new FileInputStream(name + ".ser");
+				ObjectInputStream ois = new ObjectInputStream(fin)) {
+			return ois.readObject();
+		} catch (IOException | ClassNotFoundException e) {
+			LogWrapper.warn(log, e.getMessage());
+			return null;
+		} 
 	}
 }

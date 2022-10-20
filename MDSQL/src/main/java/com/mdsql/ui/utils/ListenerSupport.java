@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.DateFormatter;
 import com.mdsql.utils.LiteralesSingleton;
@@ -15,6 +14,7 @@ import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.ui.utils.observer.Observable;
+import com.mdval.utils.AppHelper;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,7 +1,9 @@
 package com.mdval.utils;
 
 import java.util.HashMap;
-import java.util.Map;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author federico
@@ -11,7 +13,9 @@ public class AppGlobalSingleton {
 	
 	private static AppGlobalSingleton instance;
 	
-	private Map<String, Object> properties;
+	@Getter
+	@Setter
+	private HashMap<String, Object> properties;
 	
 	private AppGlobalSingleton() {
 		properties = new HashMap<>();

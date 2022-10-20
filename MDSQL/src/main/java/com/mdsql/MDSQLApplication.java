@@ -3,6 +3,7 @@ package com.mdsql;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.sql.DataSource;
 import javax.swing.UIDefaults;
@@ -14,11 +15,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
+import com.mdsql.bussiness.entities.Session;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.LogWrapper;
 
@@ -83,10 +85,16 @@ public class MDSQLApplication implements CommandLineRunner {
 			try {
 				ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 				
-				String codUsr = System.getenv(configuration.getConfig("user.field"));
-				LogWrapper.debug(log, "Usuario: %s", codUsr);
+				// If has session saved, set in global properties. If not, creates it
+				Session session = (Session) MDSQLAppHelper.deserializeFromDisk(Constants.SESSION);
+				if (Objects.isNull(session)) {
+					session = new Session();
+					String codUsr = System.getenv(configuration.getConfig("user.field"));
+					session.setCodUsr(codUsr);
+					LogWrapper.debug(log, "Usuario: %s", codUsr);
+				}
 				
-				AppHelper.setGlobalProperty(Constants.COD_USR, codUsr);
+				MDSQLAppHelper.setGlobalProperty(Constants.SESSION, session);
 
 				MDSQLUIHelper.showMaximized(framePrincipal);
 				framePrincipal.setVisible(Boolean.TRUE);

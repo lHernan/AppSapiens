@@ -23,10 +23,10 @@ import com.mdsql.bussiness.entities.CampoGlosario;
 import com.mdsql.bussiness.entities.DetValidacion;
 import com.mdsql.bussiness.entities.InformeValidacion;
 import com.mdsql.bussiness.service.ExcelGeneratorService;
-import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.LiteralesSingleton;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;

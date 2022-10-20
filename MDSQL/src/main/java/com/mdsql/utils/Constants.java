@@ -27,6 +27,7 @@ public class Constants {
 	public static final String SELECTED_ROUTE = "selectedRoute";
 	public static final String TOKEN = "TOKEN";
 	public static final String PROCESADO_EN_CURSO = "PROCESADO_EN_CURSO";
+	public static final String SESSION = "SESSION";
 
 	/**
 	 * Report templates
@@ -242,6 +243,7 @@ public class Constants {
 	public static final String CMD_WARN = "CMD_WARN";
 	public static final String CMD_BUSCAR_MODELOS = "CMD_BUSCAR_MODELOS";
 	public static final String CMD_PROCESADO_EN_CURSO = "CMD_PROCESADO_EN_CURSO";
+	public static final String CMD_ENTREGAR_SCRIPT = "CMD_ENTREGAR_SCRIPT";
 
 	/**
 	 * Panel principal

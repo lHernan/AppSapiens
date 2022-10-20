@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.ui.PantallaSeleccionHistorico;
@@ -16,6 +17,7 @@ import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observable;
@@ -81,7 +83,8 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 		try {
 			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
 
-			String codigoUsuario = (String) AppGlobalSingleton.getInstance().getProperty(Constants.COD_USR);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+	        String codigoUsuario = session.getCodUsr();
 			String codigoProyecto = (String) pantallaSeleccionHistorico.getParams().get("codigoProyecto");
 			String codigoPeticion = (String) pantallaSeleccionHistorico.getParams().get("codigoPeticion");
 			List<SeleccionHistorico> listaObjetos = ((SeleccionHistoricoTableModel) pantallaSeleccionHistorico

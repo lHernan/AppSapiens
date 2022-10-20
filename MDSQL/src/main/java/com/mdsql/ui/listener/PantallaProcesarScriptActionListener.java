@@ -28,6 +28,7 @@ import com.mdsql.bussiness.entities.OutputProcesaType;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
+import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
@@ -46,9 +47,9 @@ import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.SubProyectoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.AppHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 
 /**
@@ -355,8 +356,10 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void procesarScript(List<SeleccionHistorico> objetosHistorico) {
 		try {
-			String usuario = (String) AppHelper.getGlobalProperty(Constants.COD_USR);
-			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+	        String usuario = session.getCodUsr();
+			
+	        ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
 			
 			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
 			if (!Objects.isNull(seleccionado)) {
@@ -372,7 +375,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				inputProcesaScript.setPMcaReprocesa(Constants.N);
 				inputProcesaScript.setPCodigoUsr(usuario);
 				inputProcesaScript.setPCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
-				inputProcesaScript.setPMcaHIS(AppHelper.normalizeValueToCheck(pantallaProcesarScript.getChkGenerarHistorico().isSelected()));
+				inputProcesaScript.setPMcaHIS(MDSQLAppHelper.normalizeValueToCheck(pantallaProcesarScript.getChkGenerarHistorico().isSelected()));
 				
 				BBDD selectedBBDD = (BBDD) pantallaProcesarScript.getCmbBBDD().getSelectedItem();
 				inputProcesaScript.setPNombreBBDD(selectedBBDD.getNombreBBDD());
@@ -425,7 +428,9 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void procesarType() {
 		try {
-			String usuario = (String) AppHelper.getGlobalProperty(Constants.COD_USR);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+	        String usuario = session.getCodUsr();
+	        
 			TypeService typeService = (TypeService) getService(Constants.TYPE_SERVICE);
 			
 			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
