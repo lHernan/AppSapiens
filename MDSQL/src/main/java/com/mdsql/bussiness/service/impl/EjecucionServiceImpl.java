@@ -300,6 +300,7 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
 
                     ScriptType scriptType = ScriptType.builder()
                             .nombreScript((String) sub_cols[1])
+                            .tipoScript((String) sub_cols[2])
                             .build();
                     //fill script type lines
                     fillScriptTypeLines(scriptType, sub_cols);
