@@ -2,6 +2,7 @@ package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -29,5 +30,5 @@ public class Script implements Serializable {
     private String nombreScriptLanza;
     private String txtScriptLanza;
     private String nombreScriptLog;
-
+    private Date fecha;
 }

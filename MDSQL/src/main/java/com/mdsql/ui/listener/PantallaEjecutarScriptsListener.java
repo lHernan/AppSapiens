@@ -17,6 +17,7 @@ import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.model.BBDDComboBoxModel;
+import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.OnLoadListener;
@@ -80,11 +81,11 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		}
 	}
 
-	private void eventBtnRechazar(){
+	private void eventBtnRechazar() {
 
 	}
 
-	private void eventBtnVerLog(){
+	private void eventBtnVerLog() {
 
 	}
 
@@ -112,9 +113,9 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 	}
 
-    private void eventBtnAceptar() {
-        //TODO aqui, obtener lista vigente, historico y bbdd por el momento mockeados
-        ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
+	private void eventBtnAceptar() {
+		// TODO aqui, obtener lista vigente, historico y bbdd por el momento mockeados
+		ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
 		TextoLinea textoLinea = TextoLinea.builder().valor("CREATE TABLE &&USROWN..CLIENTES2(").build();
 		TextoLinea textoLinea2 = TextoLinea.builder().valor("COD_CLIENTE VARCHAR2(10) NOT NULL,").build();
 		TextoLinea textoLinea3 = TextoLinea.builder().valor("TXT_NOMBRE VARCHAR2(50) NOT NULL,").build();
@@ -122,19 +123,27 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		TextoLinea textoLinea5 = TextoLinea.builder().valor("TXT_APELLIDO2 VARCHAR2(50),").build();
 		TextoLinea textoLinea6 = TextoLinea.builder().valor("COD_DOCUM VARCHAR2(10) NOT NULL").build();
 		TextoLinea textoLinea7 = TextoLinea.builder().valor(");").build();
-		TextoLinea textoLinea8 = TextoLinea.builder().valor("COMMENT ON TABLE &&USROWN..CLIENTES2 IS 'TABLA DE CLIENTES2';").build();
-		TextoLinea textoLinea9 = TextoLinea.builder().valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.COD_CLIENTE IS 'CODIGO DE CLIENTE';").build();
-		TextoLinea textoLinea10 = TextoLinea.builder().valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.TXT_NOMBRE IS 'NOMBRE DEL CLIENTE';").build();
-		TextoLinea textoLinea11 = TextoLinea.builder().valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.TXT_APELLIDO1 IS 'APELLIDO 1';").build();
-		TextoLinea textoLinea12 = TextoLinea.builder().valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.TXT_APELLIDO2 IS 'APELLIDO 2';").build();
-		TextoLinea textoLinea13 = TextoLinea.builder().valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.COD_DOCUM IS 'DOCUMENTO DE IDENTIDAD';\n").build();
-		TextoLinea textoLinea14 = TextoLinea.builder().valor("CREATE UNIQUE INDEX &&USROWN..PK_CLIENTES2 ON &&USROWN..CLIENTES2").build();
+		TextoLinea textoLinea8 = TextoLinea.builder()
+				.valor("COMMENT ON TABLE &&USROWN..CLIENTES2 IS 'TABLA DE CLIENTES2';").build();
+		TextoLinea textoLinea9 = TextoLinea.builder()
+				.valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.COD_CLIENTE IS 'CODIGO DE CLIENTE';").build();
+		TextoLinea textoLinea10 = TextoLinea.builder()
+				.valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.TXT_NOMBRE IS 'NOMBRE DEL CLIENTE';").build();
+		TextoLinea textoLinea11 = TextoLinea.builder()
+				.valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.TXT_APELLIDO1 IS 'APELLIDO 1';").build();
+		TextoLinea textoLinea12 = TextoLinea.builder()
+				.valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.TXT_APELLIDO2 IS 'APELLIDO 2';").build();
+		TextoLinea textoLinea13 = TextoLinea.builder()
+				.valor("COMMENT ON COLUMN &&USROWN..CLIENTES2.COD_DOCUM IS 'DOCUMENTO DE IDENTIDAD';\n").build();
+		TextoLinea textoLinea14 = TextoLinea.builder()
+				.valor("CREATE UNIQUE INDEX &&USROWN..PK_CLIENTES2 ON &&USROWN..CLIENTES2").build();
 		TextoLinea textoLinea15 = TextoLinea.builder().valor("       (COD_CLIENTE ASC);\n").build();
 		TextoLinea textoLinea16 = TextoLinea.builder().valor("ALTER TABLE &&USROWN..CLIENTES2").build();
 		TextoLinea textoLinea17 = TextoLinea.builder().valor("      ADD CONSTRAINT PK_CLIENTES2").build();
 		TextoLinea textoLinea18 = TextoLinea.builder().valor("      PRIMARY KEY(COD_CLIENTE)").build();
 		TextoLinea textoLinea19 = TextoLinea.builder().valor("      USING INDEX &&USROWN..PK_CLIENTES2;\n").build();
-		TextoLinea textoLinea20 = TextoLinea.builder().valor("CREATE UNIQUE INDEX &&USROWN..AK_CLIENTES2 ON &&USROWN..CLIENTES2").build();
+		TextoLinea textoLinea20 = TextoLinea.builder()
+				.valor("CREATE UNIQUE INDEX &&USROWN..AK_CLIENTES2 ON &&USROWN..CLIENTES2").build();
 		TextoLinea textoLinea21 = TextoLinea.builder().valor("       (COD_DOCUM ASC);").build();
 
 		List<TextoLinea> textoLineas = new ArrayList<>();
@@ -159,39 +168,26 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		textoLineas.add(textoLinea19);
 		textoLineas.add(textoLinea20);
 		textoLineas.add(textoLinea21);
-		Script script1 = Script.builder()
-				.tipoScript("SQL")
-				.lineasScript(textoLineas)
+		Script script1 = Script.builder().tipoScript("SQL").lineasScript(textoLineas)
 				.nombreScript("20220922_10_00_VARIABLES_DD_RF0123456_SD0123456.sql")
-				.codigoEstadoScript(new BigDecimal("1"))
-				.descripcionEstadoScript("test")
+				.codigoEstadoScript(new BigDecimal("1")).descripcionEstadoScript("test")
 				.numeroOrden(new BigDecimal("1"))
 				.nombreScriptLanza("Lanza_20220922_10_00_VARIABLES_DD_RF0123456_SD0123456.sql")
-				.txtScriptLanza("SET DEFINE ON\n" +
-						"SET VERIFY\tON\n" +
-						"SET ECHO OFF\n" +
-						"SPOOL \"C:\\Users\\herna\\Documents\\sapiens\\pruebaServicio\\20220922_10_00_VARIABLES_DD_RF0123456_SD0123456_sqlplus.log\"\n" +
-						"DEFINE USROWN=vigente\n" +
-						"@\"c:\\pruebaLOG\\20220922_Con_variables\\20220922_10_00_VARIABLES_DD_RF0123456_SD0123456.sql\"\n" +
-						"PROMPT -- BORRAMOS LA TABLA\n" +
-						"DROP TABLE CLIENTES2;\n" +
-						"SPOOL OFF\n" +
-						"exit")
-				.nombreScriptLog("20220922_10_00_VARIABLES_DD_RF0123456_SD0123456_sqlplus.log")
-				.build();
+				.txtScriptLanza("SET DEFINE ON\n" + "SET VERIFY\tON\n" + "SET ECHO OFF\n"
+						+ "SPOOL \"C:\\Users\\herna\\Documents\\sapiens\\pruebaServicio\\20220922_10_00_VARIABLES_DD_RF0123456_SD0123456_sqlplus.log\"\n"
+						+ "DEFINE USROWN=vigente\n"
+						+ "@\"c:\\pruebaLOG\\20220922_Con_variables\\20220922_10_00_VARIABLES_DD_RF0123456_SD0123456.sql\"\n"
+						+ "PROMPT -- BORRAMOS LA TABLA\n" + "DROP TABLE CLIENTES2;\n" + "SPOOL OFF\n" + "exit")
+				.nombreScriptLog("20220922_10_00_VARIABLES_DD_RF0123456_SD0123456_sqlplus.log").build();
 
-        List<Script> vigente = new ArrayList<>();
+		List<Script> vigente = new ArrayList<>();
 		vigente.add(script1);
-        List<Script> historico = new ArrayList<>();
-        BBDD bbdd = BBDD.builder()
-                .nombreBBDD("oracle21")
-                .nombreEsquema("vigente")
-                .nombreBBDDHis("oracle21")
-                .nombreEsquemaHis("historico")
-                .build();
-        scriptService.executeScripts(bbdd, vigente, historico);
+		List<Script> historico = new ArrayList<>();
+		BBDD bbdd = BBDD.builder().nombreBBDD("oracle21").nombreEsquema("vigente").nombreBBDDHis("oracle21")
+				.nombreEsquemaHis("historico").build();
+		scriptService.executeScripts(bbdd, vigente, historico);
 
-    }
+	}
 
 	private void eventBtnCancelar() {
 		pantallaEjecutarScripts.dispose();
@@ -200,11 +196,24 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	@Override
 	public void onLoad() {
 		Proceso proceso = (Proceso) pantallaEjecutarScripts.getParams().get("proceso");
-		
+
 		List<BBDD> bbdds = proceso.getBbdds();
 		if (CollectionUtils.isNotEmpty(bbdds)) {
 			BBDDComboBoxModel modelBBDD = new BBDDComboBoxModel(bbdds);
 			pantallaEjecutarScripts.getCmbBBDD().setModel(modelBBDD);
 		}
+		
+		List<Script> scripts = proceso.getScripts();
+
+		// Actualiza las tablas
+		// TODO - Vigente, usar filtros
+		ScriptsTableModel tableModelVigente = (ScriptsTableModel) pantallaEjecutarScripts
+				.getTblVigente().getModel();
+		tableModelVigente.setData(scripts);
+		
+		// TODO - Histórico, usar filtros
+		ScriptsTableModel tableModelHistorico = (ScriptsTableModel) pantallaEjecutarScripts
+				.getTblHistorico().getModel();
+		tableModelHistorico.setData(scripts);
 	}
 }

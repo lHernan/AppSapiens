@@ -18,17 +18,21 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.ui.listener.PantallaEjecutarScriptsListener;
 import com.mdsql.ui.listener.combo.EjecutarScriptBBDDItemListener;
 import com.mdsql.ui.model.BBDDComboBoxModel;
+import com.mdsql.ui.model.ScriptsTableModel;
+import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.renderer.BBDDRenderer;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
 
@@ -63,8 +67,6 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	private JLabel jLabel8;
 	private JLabel jLabel9;
 	private JScrollPane jScrollPane2;
-	private JTable tblVigente;
-	private JTable tblHistorico;
 
 	@Getter
 	private JTextField txtSubmodelo;
@@ -82,13 +84,21 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	private JTextField txtEsquemaHistorico;
 	// End of variables declaration//GEN-END:variables
 
+	@Getter
 	private JTextField txtEstadoEjecucion;
 
+	@Getter
 	private JTextField txtSolicitadaPor;
 
 	@Getter
 	private JComboBox<BBDD> cmbBBDD;
 
+	@Getter
+	private TableSupport tblVigente;
+	
+	@Getter
+	private TableSupport tblHistorico;
+	
 	private JLabel jLabel12;
 
 	private JScrollPane jScrollPane3;
@@ -102,10 +112,12 @@ public class PantallaEjecutarScripts extends DialogSupport {
 
 	private JButton btnVerCuadres;
 
+	@Getter
 	private JTextField txtDemanda;
 
 	private JLabel jLabel5;
 
+	@Getter
 	private JTextField txtPeticion;
 
 	public PantallaEjecutarScripts(FrameSupport parent, Boolean modal) {
@@ -135,10 +147,10 @@ public class PantallaEjecutarScripts extends DialogSupport {
         btnRechazar = new JButton();
         jLabel11 = new JLabel();
         jScrollPane2 = new JScrollPane();
-        tblVigente = new JTable();
+        tblVigente = new TableSupport(Boolean.FALSE);
         jLabel12 = new JLabel();
         jScrollPane3 = new JScrollPane();
-        tblHistorico = new JTable();
+        tblHistorico = new TableSupport(Boolean.FALSE);
         btnAceptar = new JButton();
         btnCancelar = new JButton();
         txtModelo = new JTextField();
@@ -327,37 +339,19 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		this.addOnLoadListener(actionListener);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
 		BBDDComboBoxModel bbddModel = new BBDDComboBoxModel();
 		cmbBBDD.setModel(bbddModel);
 		cmbBBDD.setRenderer(new BBDDRenderer());
-
-		tblVigente.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null } },
-				new String[] { "", "Orden", "Estado", "Fecha", "Ejecución", "Operaciones", "Objetos", "Script" }) {
-			Class[] types = new Class[] { java.lang.Boolean.class, java.lang.Integer.class, java.lang.String.class,
-					java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
-					java.lang.String.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
-
-		tblHistorico.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null } },
-				new String[] { "", "Orden", "Estado", "Fecha", "Ejecución", "Operaciones", "Objetos", "Script" }) {
-			Class[] types = new Class[] { java.lang.Boolean.class, java.lang.Integer.class, java.lang.String.class,
-					java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
-					java.lang.String.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
+		
+		Cabecera cabeceraScripts = MDSQLUIHelper.createCabeceraTabla(Constants.SCRIPTS_TABLA_CABECERA);
+		TableModel vigenteTableModel = new ScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses());
+		TableModel historicoTableModel = new ScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses());
+		
+		tblVigente.setModel(vigenteTableModel);
+		tblHistorico.setModel(historicoTableModel);
 	}
 
 	@Override

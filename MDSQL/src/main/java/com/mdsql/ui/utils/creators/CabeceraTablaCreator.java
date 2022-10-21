@@ -8,6 +8,7 @@ import com.mdsql.ui.model.cabeceras.TablaNotasCabecera;
 import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoObjetosCabecera;
 import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoOperacionesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoScriptsCabecera;
+import com.mdsql.ui.model.cabeceras.TablaScriptsCabecera;
 import com.mdsql.ui.model.cabeceras.TablaSeleccionHistoricoCabecera;
 import com.mdsql.ui.model.cabeceras.TablaTypesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaUltimasPeticionesCabecera;
@@ -62,6 +63,10 @@ public class CabeceraTablaCreator extends Creator {
 		
 		if (Constants.FRAME_PRINCIPAL_TYPES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaTypesCabecera();
+		}
+		
+		if (Constants.SCRIPTS_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaScriptsCabecera();
 		}
 		
 		return cabecera;
