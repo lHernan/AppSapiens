@@ -16,5 +16,6 @@ public class ScriptType implements Serializable {
 
     private List<TextoLinea> txtScript;
     private String nombreScript;
+    private String tipoScript;
 
 }

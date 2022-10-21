@@ -87,7 +87,7 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
             callableStatement.registerOutParameter(15, Types.NUMERIC);
             callableStatement.registerOutParameter(16, Types.VARCHAR);
             callableStatement.registerOutParameter(17, Types.VARCHAR);
-            callableStatement.registerOutParameter(18, Types.VARCHAR);
+            callableStatement.registerOutParameter(18, Types.ARRAY, tableLinea);
             callableStatement.registerOutParameter(19, Types.VARCHAR);
             callableStatement.registerOutParameter(20, Types.ARRAY, typeType);
 
@@ -104,7 +104,7 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
 
 
             List<Type> types = new ArrayList<>();
-            Array arrayTypes = callableStatement.getArray(22);
+            Array arrayTypes = callableStatement.getArray(20);
 
             if (arrayTypes != null) {
                 Object[] rows = (Object[]) arrayTypes.getArray();
@@ -130,16 +130,37 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
                 }
             }
 
-            BigDecimal idProceso = callableStatement.getBigDecimal(18);
-            Date pFechaProceso = callableStatement.getDate(19);
-            BigDecimal pCodigoEstadoProceso = callableStatement.getBigDecimal(20);
-            String pDescripcionEstadoProceso = callableStatement.getString(21);
+            List<TextoLinea> scriptLanza = new ArrayList<>();
+            Array arrayLanza = callableStatement.getArray(18);
+
+            if (arrayLanza != null) {
+                Object[] rows = (Object[]) arrayLanza.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+                    TextoLinea linea = TextoLinea.builder()
+                            .valor((String) cols[0])
+                            .build();
+
+                    scriptLanza.add(linea);
+                }
+            }
+
+            BigDecimal idProceso = callableStatement.getBigDecimal(13);
+            Date pFechaProceso = callableStatement.getDate(14);
+            BigDecimal pCodigoEstadoProceso = callableStatement.getBigDecimal(15);
+            String pDescripcionEstadoProceso = callableStatement.getString(16);
+            String nombreScriptLanza = callableStatement.getString(17);
+            String nombreScripLog = callableStatement.getString(19);
 
             OutputProcesaType outputProcesaType = new OutputProcesaType();
             outputProcesaType.setIdProceso(idProceso);
             outputProcesaType.setPFechaProceso(pFechaProceso);
             outputProcesaType.setPCodigoEstadoProceso(pCodigoEstadoProceso);
             outputProcesaType.setPDescripcionEstadoProceso(pDescripcionEstadoProceso);
+            outputProcesaType.setPNombreScriptLanza(nombreScriptLanza);
+            outputProcesaType.setPNombreScriptLog(nombreScripLog);
+            outputProcesaType.setTxtScriptLanza(scriptLanza);
             outputProcesaType.setListaType(types);
             
             return outputProcesaType;
@@ -167,6 +188,7 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
 
                     ScriptType scriptType = ScriptType.builder()
                             .nombreScript((String) sub_cols[1])
+                            .tipoScript((String) sub_cols[2])
                             .build();
                     //fill script type lines
                     fillScriptTypeLines(scriptType, sub_cols);

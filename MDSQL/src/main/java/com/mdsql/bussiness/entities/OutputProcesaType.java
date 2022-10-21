@@ -22,6 +22,7 @@ public class OutputProcesaType extends OutputProcesa {
 	private String pNombreScriptLanza;
 	private String pTxtScriptLanza;
 	private String pNombreScriptLog;
-	
+
+	private List<TextoLinea> txtScriptLanza;
     private List<Type> listaType;
 }
