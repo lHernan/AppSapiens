@@ -38,5 +38,6 @@ public class Proceso implements Serializable {
     private String mcaErrores;
     
     private List<BBDD> bbdds;
-
+    private List<Script> scripts;
+    private List<Type> types;
 }

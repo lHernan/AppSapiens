@@ -407,6 +407,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				pantallaProcesarScript.getReturnParams().put("proceso", proceso);
 				
 				List<Script> listaScripts = outputProcesaScript.getListaScripts();
+				proceso.setScripts(listaScripts);
 				
 				if (CollectionUtils.isNotEmpty(listaScripts)) {
 					Map<String, Script> scripts = new HashMap<>();
@@ -471,6 +472,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			pantallaProcesarScript.getReturnParams().put("proceso", proceso);
 			
 			List<Type> listaTypes = outputProcesaType.getListaType();
+			proceso.setTypes(listaTypes);
 			
 			if (CollectionUtils.isNotEmpty(listaTypes)) {
 				pantallaProcesarScript.getReturnParams().put("types", listaTypes);

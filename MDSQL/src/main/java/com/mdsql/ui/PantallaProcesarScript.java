@@ -30,7 +30,7 @@ import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.ui.listener.PantallaProcesarScriptActionListener;
-import com.mdsql.ui.listener.combo.BBDDItemListener;
+import com.mdsql.ui.listener.combo.ProcesarScriptBBDDItemListener;
 import com.mdsql.ui.listener.combo.SubproyectoItemListener;
 import com.mdsql.ui.listener.tables.AvisosTableListener;
 import com.mdsql.ui.listener.tables.UltimasPeticionesTableListener;
@@ -357,7 +357,7 @@ public class PantallaProcesarScript extends DialogSupport {
 		pantallaProcesarScriptActionListener = new PantallaProcesarScriptActionListener(this);
 		ListSelectionListener avisosSelectionListener = new AvisosTableListener(this);
 		ListSelectionListener ultimasPeticionesSelectionListener = new UltimasPeticionesTableListener(this);
-		ItemListener bbddItemListener = new BBDDItemListener(this);
+		ItemListener bbddItemListener = new ProcesarScriptBBDDItemListener(this);
 		ItemListener subproyectoItemListener = new SubproyectoItemListener(this);
 
 		jButton1.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);

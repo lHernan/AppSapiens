@@ -5,6 +5,7 @@
 package com.mdsql.ui;
 
 import java.awt.Dimension;
+import java.awt.event.ItemListener;
 import java.util.Map;
 import java.util.Objects;
 
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.ui.listener.PantallaEjecutarScriptsListener;
+import com.mdsql.ui.listener.combo.EjecutarScriptBBDDItemListener;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.renderer.BBDDRenderer;
 import com.mdsql.utils.Constants;
@@ -305,6 +307,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	@Override
 	protected void initEvents() {
 		PantallaEjecutarScriptsListener actionListener = new PantallaEjecutarScriptsListener(this);
+		ItemListener bbddItemListener = new EjecutarScriptBBDDItemListener(this);
 		
 		btnRechazar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR);
 		btnVerLog.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_LOG);
@@ -320,6 +323,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 		
+		cmbBBDD.addItemListener(bbddItemListener);
 		this.addOnLoadListener(actionListener);
 	}
 
