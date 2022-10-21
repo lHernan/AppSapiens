@@ -30,11 +30,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -54,7 +54,7 @@
                           <Component id="txtEsquemaHistorico" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtEstadoEjecucion" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtModelo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtSD" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtPeticion" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtEsquema" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtDemanda" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -132,7 +132,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtSD" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="txtPeticion" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -194,6 +194,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Estado ejecuci&#xf3;n"/>
       </Properties>
     </Component>
@@ -446,12 +447,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
-        <Property name="text" type="java.lang.String" value="SD"/>
+        <Property name="text" type="java.lang.String" value="Petici&#xf3;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtSD">
+    <Component class="javax.swing.JTextField" name="txtPeticion">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSDActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPeticionActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEsquema">

@@ -51,7 +51,7 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         txtModelo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        txtSD = new javax.swing.JTextField();
+        txtPeticion = new javax.swing.JTextField();
         txtEsquema = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         btnVerLog = new javax.swing.JButton();
@@ -66,6 +66,7 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Estado ejecución");
 
         jLabel2.setText("Modelo o proyecto");
@@ -175,11 +176,11 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("SD");
+        jLabel13.setText("Petición");
 
-        txtSD.addActionListener(new java.awt.event.ActionListener() {
+        txtPeticion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSDActionPerformed(evt);
+                txtPeticionActionPerformed(evt);
             }
         });
 
@@ -224,11 +225,11 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(13, 13, 13)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -244,7 +245,7 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
                             .addComponent(txtEsquemaHistorico)
                             .addComponent(txtEstadoEjecucion)
                             .addComponent(txtModelo)
-                            .addComponent(txtSD)
+                            .addComponent(txtPeticion)
                             .addComponent(txtEsquema)
                             .addComponent(txtDemanda))
                         .addGap(39, 39, 39))
@@ -306,7 +307,7 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSD, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPeticion, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -383,9 +384,9 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtModeloActionPerformed
 
-    private void txtSDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSDActionPerformed
+    private void txtPeticionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPeticionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSDActionPerformed
+    }//GEN-LAST:event_txtPeticionActionPerformed
 
     private void txtEsquemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEsquemaActionPerformed
         // TODO add your handling code here:
@@ -465,7 +466,7 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
     private javax.swing.JTextField txtEsquemaHistorico;
     private javax.swing.JTextField txtEstadoEjecucion;
     private javax.swing.JTextField txtModelo;
-    private javax.swing.JTextField txtSD;
+    private javax.swing.JTextField txtPeticion;
     private javax.swing.JTextField txtSolicitadaPor;
     private javax.swing.JTextField txtSubmodelo;
     // End of variables declaration//GEN-END:variables
