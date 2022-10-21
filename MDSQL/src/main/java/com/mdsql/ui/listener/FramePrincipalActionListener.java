@@ -329,7 +329,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Proceso proceso = session.getProceso();
 
 		if (!Objects.isNull(proceso)) {
-			pantallaEjecutarScript = (PantallaEjecutarScripts) MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT);
+			Map<String, Object> params = new HashMap<>();
+			params.put("proceso", proceso);
+			
+			pantallaEjecutarScript = (PantallaEjecutarScripts) MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT, params);
 			MDSQLUIHelper.show(pantallaEjecutarScript);
 			
 			updateProcesadoEnCurso(Constants.CMD_EJECUTAR_SCRIPT);

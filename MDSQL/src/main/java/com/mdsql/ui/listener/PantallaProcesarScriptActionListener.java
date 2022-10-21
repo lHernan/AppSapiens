@@ -63,6 +63,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	private PantallaSeleccionModelos pantallaSeleccionModelos;
 	
 	private PantallaSeleccionHistorico pantallaSeleccionHistorico;
+	
+	private List<BBDD> bbdds;
 
 	/**
 	 * @param framePrincipal
@@ -296,7 +298,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				? subproyecto.getCodigoSubProyecto()
 				: null;
 
-		List<BBDD> bbdds = bbddService.consultaBBDDModelo(codigoProyecto, codigoSubproyecto);
+		bbdds = bbddService.consultaBBDDModelo(codigoProyecto, codigoSubproyecto);
 		if (CollectionUtils.isNotEmpty(bbdds)) {
 			BBDDComboBoxModel modelBBDD = new BBDDComboBoxModel(bbdds);
 			pantallaProcesarScript.getCmbBBDD().setModel(modelBBDD);
@@ -400,6 +402,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				proceso.setModelo(seleccionado);
 				proceso.setSubproyecto(subProyecto);
 				proceso.setBbdd(selectedBBDD);
+				proceso.setBbdds(bbdds);
 				
 				pantallaProcesarScript.getReturnParams().put("proceso", proceso);
 				
@@ -463,6 +466,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			proceso.setModelo(seleccionado);
 			proceso.setSubproyecto(subProyecto);
 			proceso.setBbdd(selectedBBDD);
+			proceso.setBbdds(bbdds);
 			
 			pantallaProcesarScript.getReturnParams().put("proceso", proceso);
 			

@@ -3,6 +3,7 @@ package com.mdsql.bussiness.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,5 +36,7 @@ public class Proceso implements Serializable {
     private String txtObservacionEntrega;
     private String codigoDemanda;
     private String mcaErrores;
+    
+    private List<BBDD> bbdds;
 
 }

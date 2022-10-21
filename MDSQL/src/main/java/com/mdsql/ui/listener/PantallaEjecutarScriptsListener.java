@@ -8,16 +8,21 @@ import java.util.List;
 
 import javax.swing.JButton;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaEjecutarScripts;
+import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observer;
 
-public class PantallaEjecutarScriptsListener extends ListenerSupport implements ActionListener {
+public class PantallaEjecutarScriptsListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private PantallaEjecutarScripts pantallaEjecutarScripts;
 
@@ -190,5 +195,16 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 	private void eventBtnCancelar() {
 		pantallaEjecutarScripts.dispose();
+	}
+
+	@Override
+	public void onLoad() {
+		Proceso proceso = (Proceso) pantallaEjecutarScripts.getParams().get("proceso");
+		
+		List<BBDD> bbdds = proceso.getBbdds();
+		if (CollectionUtils.isNotEmpty(bbdds)) {
+			BBDDComboBoxModel modelBBDD = new BBDDComboBoxModel(bbdds);
+			pantallaEjecutarScripts.getCmbBBDD().setModel(modelBBDD);
+		}
 	}
 }

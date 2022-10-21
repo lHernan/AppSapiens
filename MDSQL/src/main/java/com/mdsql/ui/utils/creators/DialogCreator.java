@@ -76,7 +76,7 @@ public class DialogCreator extends Creator {
 		}
 		
 		if (Constants.CMD_EJECUTAR_SCRIPT.equals(option)) {
-			dialog = new PantallaEjecutarScripts(frameParent, modal);
+			dialog = new PantallaEjecutarScripts(frameParent, modal, params);
 		}
 		
 		if (Constants.CMD_RESUMEN_PROCESADO.equals(option)) {
