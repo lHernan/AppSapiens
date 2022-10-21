@@ -61,6 +61,8 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
         btnVerCuadres = new javax.swing.JButton();
         btnVerErrores = new javax.swing.JButton();
         btnExcepcion = new javax.swing.JButton();
+        txtDemanda = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -203,6 +205,14 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
 
         btnExcepcion.setText("Excepción");
 
+        txtDemanda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDemandaActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Demanda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,7 +233,8 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbBBDD, 0, 214, Short.MAX_VALUE)
@@ -234,7 +245,8 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
                             .addComponent(txtEstadoEjecucion)
                             .addComponent(txtModelo)
                             .addComponent(txtSD)
-                            .addComponent(txtEsquema))
+                            .addComponent(txtEsquema)
+                            .addComponent(txtDemanda))
                         .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnRechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,7 +292,7 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel12))
                     .addGroup(layout.createSequentialGroup()
@@ -317,9 +329,13 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
                             .addComponent(txtEsquemaHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDemanda, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRechazar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerLog)
@@ -374,6 +390,10 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
     private void txtEsquemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEsquemaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEsquemaActionPerformed
+
+    private void txtDemandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDemandaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDemandaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -431,6 +451,7 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -439,6 +460,7 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
     private javax.swing.JTable tblHistorico;
     private javax.swing.JTable tblVigente;
     private javax.swing.JTextField txtBBDDHistorico;
+    private javax.swing.JTextField txtDemanda;
     private javax.swing.JTextField txtEsquema;
     private javax.swing.JTextField txtEsquemaHistorico;
     private javax.swing.JTextField txtEstadoEjecucion;
