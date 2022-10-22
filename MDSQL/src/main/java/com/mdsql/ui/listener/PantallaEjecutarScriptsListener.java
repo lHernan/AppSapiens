@@ -20,6 +20,7 @@ import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.collections.ScriptPredicate;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observer;
 
@@ -193,6 +194,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		pantallaEjecutarScripts.dispose();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onLoad() {
 		Proceso proceso = (Proceso) pantallaEjecutarScripts.getParams().get("proceso");
@@ -202,18 +204,23 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			BBDDComboBoxModel modelBBDD = new BBDDComboBoxModel(bbdds);
 			pantallaEjecutarScripts.getCmbBBDD().setModel(modelBBDD);
 		}
-		
+
 		List<Script> scripts = proceso.getScripts();
 
 		// Actualiza las tablas
-		// TODO - Vigente, usar filtros
-		ScriptsTableModel tableModelVigente = (ScriptsTableModel) pantallaEjecutarScripts
-				.getTblVigente().getModel();
-		tableModelVigente.setData(scripts);
+		String[] filtroVigentes = { "SQL", "PDC" };
+		List<Script> vigentes = new ArrayList<Script>(
+				CollectionUtils.select(scripts, new ScriptPredicate(filtroVigentes)));
+
+		ScriptsTableModel tableModelVigente = (ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel();
+		tableModelVigente.setData(vigentes);
+
+		String[] filtroHistorico = { "SQLH", "PDCH" };
+		List<Script> historicos = new ArrayList<Script>(
+				CollectionUtils.select(scripts, new ScriptPredicate(filtroHistorico)));
 		
-		// TODO - Histórico, usar filtros
-		ScriptsTableModel tableModelHistorico = (ScriptsTableModel) pantallaEjecutarScripts
-				.getTblHistorico().getModel();
-		tableModelHistorico.setData(scripts);
+		ScriptsTableModel tableModelHistorico = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
+				.getModel();
+		tableModelHistorico.setData(historicos);
 	}
 }
