@@ -36,6 +36,8 @@ public abstract class ScriptsTableListener extends ListenerSupport implements Li
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			pantallaEjecutarScripts.setSeleccionado(seleccionado);
+			
+			pantallaEjecutarScripts.disableButtons();
 			pantallaEjecutarScripts.getBtnDetalleScript().setEnabled(Boolean.TRUE);
 		}
 	}

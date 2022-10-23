@@ -54,14 +54,25 @@ public class PantallaEjecutarScripts extends DialogSupport {
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private JButton btnRechazar;
+	
+	@Getter
 	private JButton btnVerLog;
 	
 	@Getter
 	private JButton btnDetalleScript;
+	
+	@Getter
 	private JButton btnDescartar;
+	
+	@Getter
 	private JButton btnReparar;
+	
+	@Getter
 	private JButton btnVerErrores;
+	
+	@Getter
 	private JButton btnExcepcion;
+	
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 
@@ -385,13 +396,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		txtEsquemaHistorico.setEditable(Boolean.FALSE);
 		txtDemanda.setEditable(Boolean.FALSE);
 		
-		btnVerLog.setEnabled(Boolean.FALSE);
-		btnDescartar.setEnabled(Boolean.FALSE);
-		btnReparar.setEnabled(Boolean.FALSE);
-		btnVerErrores.setEnabled(Boolean.FALSE);
-		btnVerCuadres.setEnabled(Boolean.FALSE);
-		btnDetalleScript.setEnabled(Boolean.FALSE);
-		btnExcepcion.setEnabled(Boolean.FALSE);
+		disableButtons();
 		
 		// Rellena los campos
 		Proceso proceso = (Proceso) params.get("proceso");
@@ -435,5 +440,17 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		btnExcepcion.setText("Excepción");
 		btnAceptar.setText("ACEPTAR");
 		btnCancelar.setText("CANCELAR");
+	}
+	
+	/**
+	 * 
+	 */
+	public void disableButtons() {
+		btnVerLog.setEnabled(Boolean.FALSE);
+		btnDetalleScript.setEnabled(Boolean.FALSE);
+		btnDescartar.setEnabled(Boolean.FALSE);
+		btnReparar.setEnabled(Boolean.FALSE);
+		btnVerErrores.setEnabled(Boolean.FALSE);
+		btnExcepcion.setEnabled(Boolean.FALSE);
 	}
 }
