@@ -14,16 +14,20 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 
 import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.Proceso;
+import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.listener.PantallaEjecutarScriptsListener;
 import com.mdsql.ui.listener.combo.EjecutarScriptBBDDItemListener;
+import com.mdsql.ui.listener.tables.HistoricoScriptsTableListener;
+import com.mdsql.ui.listener.tables.VigenteScriptsTableListener;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
@@ -35,6 +39,7 @@ import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -50,6 +55,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private JButton btnRechazar;
 	private JButton btnVerLog;
+	
+	@Getter
 	private JButton btnDetalleScript;
 	private JButton btnDescartar;
 	private JButton btnReparar;
@@ -119,6 +126,10 @@ public class PantallaEjecutarScripts extends DialogSupport {
 
 	@Getter
 	private JTextField txtPeticion;
+	
+	@Getter
+	@Setter
+	private Script seleccionado;
 
 	public PantallaEjecutarScripts(FrameSupport parent, Boolean modal) {
 		super(parent, modal);
@@ -319,6 +330,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	@Override
 	protected void initEvents() {
 		PantallaEjecutarScriptsListener actionListener = new PantallaEjecutarScriptsListener(this);
+		ListSelectionListener vigenteSelectionListener = new VigenteScriptsTableListener(this);
+		ListSelectionListener historicoSelectionListener = new HistoricoScriptsTableListener(this);
 		ItemListener bbddItemListener = new EjecutarScriptBBDDItemListener(this);
 		
 		btnRechazar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR);
@@ -334,6 +347,12 @@ public class PantallaEjecutarScripts extends DialogSupport {
 
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
+		
+		ListSelectionModel vigenteRowSM = tblVigente.getSelectionModel();
+		vigenteRowSM.addListSelectionListener(vigenteSelectionListener);
+		
+		ListSelectionModel historicoRowSM = tblHistorico.getSelectionModel();
+		historicoRowSM.addListSelectionListener(historicoSelectionListener);
 		
 		cmbBBDD.addItemListener(bbddItemListener);
 		this.addOnLoadListener(actionListener);
