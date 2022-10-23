@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class ScriptsTableListener extends ListenerSupport implements ListSelectionListener {
 
-	private PantallaEjecutarScripts pantallaEjecutarScripts;
+	protected PantallaEjecutarScripts pantallaEjecutarScripts;
 
 	public ScriptsTableListener(PantallaEjecutarScripts pantallaEjecutarScripts) {
 		super();
@@ -31,7 +31,7 @@ public abstract class ScriptsTableListener extends ListenerSupport implements Li
 		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 		Integer index = lsm.getMinSelectionIndex();
 		
-		Script seleccionado = getScriptSeleccionado(pantallaEjecutarScripts, index);
+		Script seleccionado = getScriptSeleccionado(index);
 
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
@@ -41,9 +41,9 @@ public abstract class ScriptsTableListener extends ListenerSupport implements Li
 	}
 
 	/**
-	 * @param pantallaEjecutarScripts2
+	 * @param index
 	 * @return
 	 */
-	protected abstract Script getScriptSeleccionado(PantallaEjecutarScripts pantallaEjecutarScripts, Integer index);
+	protected abstract Script getScriptSeleccionado(Integer index);
 
 }

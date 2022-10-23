@@ -11,7 +11,7 @@ public class HistoricoScriptsTableListener extends ScriptsTableListener {
 	}
 
 	@Override
-	protected Script getScriptSeleccionado(PantallaEjecutarScripts pantallaEjecutarScripts, Integer index) {
+	protected Script getScriptSeleccionado(Integer index) {
 		ScriptsTableModel tableModel = (ScriptsTableModel) pantallaEjecutarScripts
 				.getTblHistorico().getModel();
 		return tableModel.getSelectedRow(index);

@@ -11,7 +11,7 @@ public class VigenteScriptsTableListener extends ScriptsTableListener {
 	}
 
 	@Override
-	protected Script getScriptSeleccionado(PantallaEjecutarScripts pantallaEjecutarScripts, Integer index) {
+	protected Script getScriptSeleccionado(Integer index) {
 		ScriptsTableModel tableModel = (ScriptsTableModel) pantallaEjecutarScripts
 				.getTblVigente().getModel();
 		return tableModel.getSelectedRow(index);
