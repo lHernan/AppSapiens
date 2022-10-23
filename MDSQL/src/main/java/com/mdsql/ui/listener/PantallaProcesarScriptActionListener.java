@@ -333,7 +333,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		}
 	}
 
-	/**)
+	/**
 	 * @param avisos
 	 */
 	private void populateModelAvisos(List<Aviso> avisos) {

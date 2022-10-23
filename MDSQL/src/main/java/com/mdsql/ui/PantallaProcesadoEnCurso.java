@@ -5,7 +5,6 @@
  */
 package com.mdsql.ui;
 
-import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.Objects;
 
@@ -18,12 +17,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.ui.listener.PantallaProcesadoEnCursoActionListener;
+import com.mdsql.ui.listener.tables.UltimasPeticionesTableListener;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
@@ -42,7 +44,7 @@ import lombok.Setter;
  *
  * @author federico
  */
-public class PantallaProcesadoEnCurso extends DialogSupport {
+public class PantallaProcesadoEnCurso extends DialogSupport implements PantallaProcesar {
 
 	/**
 	 * 
@@ -341,11 +343,19 @@ public class PantallaProcesadoEnCurso extends DialogSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener actionListener = new PantallaProcesadoEnCursoActionListener(this);
+		PantallaProcesadoEnCursoActionListener actionListener = new PantallaProcesadoEnCursoActionListener(this);
+		ListSelectionListener ultimasPeticionesSelectionListener = new UltimasPeticionesTableListener(this);
 
 		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
+		btnVerProcesado.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO);
 
 		btnCancelar.addActionListener(actionListener);
+		btnVerProcesado.addActionListener(actionListener);
+		
+		ListSelectionModel ultimasPeticionesRowSM = tblUltimasPeticiones.getSelectionModel();
+		ultimasPeticionesRowSM.addListSelectionListener(ultimasPeticionesSelectionListener);
+		
+		addOnLoadListener(actionListener);
 	}
 
 	@Override

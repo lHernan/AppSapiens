@@ -56,7 +56,7 @@ import lombok.Setter;
  *
  * @author federico
  */
-public class PantallaProcesarScript extends DialogSupport {
+public class PantallaProcesarScript extends DialogSupport implements PantallaProcesar {
 
 	/**
 	 * 
