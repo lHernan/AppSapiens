@@ -455,6 +455,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		btnDescartar.setEnabled(Boolean.FALSE);
 		btnReparar.setEnabled(Boolean.FALSE);
 		btnVerErrores.setEnabled(Boolean.FALSE);
+		btnVerCuadres.setEnabled(Boolean.FALSE);
 		btnExcepcion.setEnabled(Boolean.FALSE);
 	}
 }
