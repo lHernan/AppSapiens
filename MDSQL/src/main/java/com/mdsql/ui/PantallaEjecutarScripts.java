@@ -32,6 +32,7 @@ import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.renderer.BBDDRenderer;
+import com.mdsql.ui.renderer.ScriptTableCellRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
@@ -382,6 +383,9 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		
 		tblVigente.setModel(vigenteTableModel);
 		tblHistorico.setModel(historicoTableModel);
+		
+		tblVigente.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
+		tblHistorico.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
 	}
 
 	@Override
