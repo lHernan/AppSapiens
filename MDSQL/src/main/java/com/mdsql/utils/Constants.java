@@ -148,10 +148,10 @@ public class Constants {
 	public static final String KEY_ENTER = "ENTER";
 
 	// Colores de celdas de aviso
-	public enum ColorCelda {
+	public enum ColorCeldaNota {
 		BAJA(4, "Baja", Color.WHITE), MEDIA(3, "Media", Color.ORANGE), ALTA(2, "Alta", Color.YELLOW),
 		CRITICA(1, "Crítica", Color.RED);
-		
+
 		@Getter
 		private Integer orden;
 
@@ -161,14 +161,14 @@ public class Constants {
 		@Getter
 		private Color value;
 
-		ColorCelda(Integer orden, String name, Color value) {
+		ColorCeldaNota(Integer orden, String name, Color value) {
 			this.orden = orden;
 			this.name = name;
 			this.value = value;
 		}
 
-		public static ColorCelda getByName(String name) {
-			for (ColorCelda colorCelda : ColorCelda.values()) {
+		public static ColorCeldaNota getByName(String name) {
+			for (ColorCeldaNota colorCelda : ColorCeldaNota.values()) {
 				if (colorCelda.name.equals(name)) {
 					return colorCelda;
 				}
@@ -176,9 +176,9 @@ public class Constants {
 
 			return null;
 		}
-		
-		public static ColorCelda getByOrden(Integer orden) {
-			for (ColorCelda colorCelda : ColorCelda.values()) {
+
+		public static ColorCeldaNota getByOrden(Integer orden) {
+			for (ColorCeldaNota colorCelda : ColorCeldaNota.values()) {
 				if (colorCelda.orden == orden) {
 					return colorCelda;
 				}
@@ -187,9 +187,37 @@ public class Constants {
 			return null;
 		}
 	}
-	
+
+	// Colores de celdas de script
+	public enum ColorCeldaScript {
+		PENDIENTE("Pendiente", Color.WHITE), EJECUTADO("Ejecutado", Color.GREEN), ERROR("Error", Color.RED),
+		DESCUADRADO("Descuadrado", new Color(229, 206, 184)), REPARADO("Reparado", Color.BLUE), DESCARTADO("Descartado", Color.ORANGE),
+		EXCEPCION("Excepción", Color.YELLOW);
+
+		@Getter
+		private String name;
+
+		@Getter
+		private Color value;
+
+		ColorCeldaScript(String name, Color value) {
+			this.name = name;
+			this.value = value;
+		}
+
+		public static ColorCeldaScript getByName(String name) {
+			for (ColorCeldaScript colorCelda : ColorCeldaScript.values()) {
+				if (colorCelda.name.equals(name)) {
+					return colorCelda;
+				}
+			}
+
+			return null;
+		}
+	}
+
 	public static final Color CELL_SELECTED_BGCOLOR = new Color(184, 207, 229);
-	
+
 	// Modos para el procesado
 	public enum Procesado {
 		SCRIPT, TYPE
@@ -460,8 +488,7 @@ public class Constants {
 	public static final String PANTALLA_PROCESADO_SCRIPT_PROCESAR = "PANTALLA_PROCESADO_SCRIPT_PROCESAR";
 	public static final String PANTALLA_PROCESADO_SCRIPT_LIMPIAR = "PANTALLA_PROCESADO_SCRIPT_LIMPIAR";
 	public static final String PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO = "PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO";
-	
-	
+
 	public static final String FRM_DEFINICION_EJECUTAR_TYPES_TABLA_CABECERA = "FRM_DEFINICION_EJECUTAR_TYPES_TABLA_CABECERA";
 	public static final String FRM_DEFINICION_EJECUTAR_TYPES_BTN_RECHAZAR = "FRM_DEFINICION_EJECUTAR_TYPES_BTN_RECHAZAR";
 	public static final String FRM_DEFINICION_EJECUTAR_TYPES_BTN_VER_CUADRES = "FRM_DEFINICION_EJECUTAR_TYPES_BTN_VER_CUADRES";
@@ -488,19 +515,19 @@ public class Constants {
 	public static final String PANTALLA_PROCESADO_CURSO_DETALLE_SCRIPT = "PANTALLA_PROCESADO_CURSO_DETALLE_SCRIPT";
 	public static final String PANTALLA_PROCESADO_CURSO_ENTREGAR = "PANTALLA_PROCESADO_CURSO_ENTREGAR";
 	public static final String PANTALLA_PROCESADO_CURSO_CANCELAR = "PANTALLA_PROCESADO_CURSO_CANCELAR";
-	
+
 	public static final String PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR = "PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR";
-	
+
 	public static final String PANTALLA_VER_CUADRES_SCRIPT_BTN_CANCELAR = "PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR";
-	
+
 	public static final String RESUMEN_PROCESADO_OBJETOS_TABLA_CABECERA = "RESUMEN_PROCESADO_OBJETOS_TABLA_CABECERA";
 	public static final String RESUMEN_PROCESADO_OPERACIONES_TABLA_CABECERA = "RESUMEN_PROCESADO_OPERACIONES_TABLA_CABECERA";
 
 	public static final String PANTALLA_REPARAR_SCRIPT_BTN_ACEPTAR = "PANTALLA_REPARAR_SCRIPT_BTN_ACEPTAR";
 	public static final String PANTALLA_REPARAR_SCRIPT_BTN_CANCELAR = "PANTALLA_REPARAR_SCRIPT_BTN_CANCELAR";
-	
+
 	public static final String PANTALLA_DESCARTAR_SCRIPT_BTN_ACEPTAR = "PANTALLA_DESCARTAR_SCRIPT_BTN_ACEPTAR";
 	public static final String PANTALLA_DESCARTAR_SCRIPT_BTN_CANCELAR = "PANTALLA_DESCARTAR_SCRIPT_BTN_CANCELAR";
-	
+
 	public static final String PANTALLA_RESUMEN_PROCESADO_CANCELAR = "PANTALLA_RESUMEN_PROCESADO_CANCELAR";
 }

@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.utils.Constants;
-import com.mdsql.utils.Constants.ColorCelda;
+import com.mdsql.utils.Constants.ColorCeldaNota;
 
 public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
 
@@ -35,7 +35,7 @@ public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
 	 * @param s
 	 */
 	private void setColorCelda(Component c, Integer o, int col, boolean isSelected) {
-		ColorCelda colorCelda = ColorCelda.getByOrden(o);
+		ColorCeldaNota colorCelda = ColorCeldaNota.getByOrden(o);
 		Color bgColor = Objects.isNull(colorCelda) ? Color.WHITE : colorCelda.getValue();
 
 		c.setForeground(Color.black);
