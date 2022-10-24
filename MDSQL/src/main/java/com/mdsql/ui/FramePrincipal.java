@@ -12,6 +12,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 
 import javax.swing.BoxLayout;
@@ -36,6 +37,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.listener.EditorEventHandler;
 import com.mdsql.ui.listener.FramePrincipalActionListener;
+import com.mdsql.ui.listener.FramePrincipalWindowListener;
 import com.mdsql.ui.menu.MainMenuBar;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
@@ -628,7 +630,10 @@ public class FramePrincipal extends FrameSupport {
 	@Override
 	protected void initEvents() {
 		ActionListener actionListener = new FramePrincipalActionListener(this);
+		WindowListener windowListener = new FramePrincipalWindowListener(this);
 		editorEventHandler = new EditorEventHandler(this);
+		
+		addWindowListener(windowListener);
 
 		btnLoadScript.setActionCommand(Constants.FRAME_PRINCIPAL_LOAD_SCRIPT);
 		btnCargarScriptObjetos.setActionCommand(Constants.FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS);

@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.utils.Constants;
-import com.mdsql.utils.Constants.ColorCeldaNota;
 import com.mdsql.utils.Constants.ColorCeldaScript;
 
 public class ScriptTableCellRenderer extends DefaultTableCellRenderer {

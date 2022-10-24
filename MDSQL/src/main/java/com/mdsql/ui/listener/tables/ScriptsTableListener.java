@@ -39,6 +39,8 @@ public abstract class ScriptsTableListener extends ListenerSupport implements Li
 			
 			pantallaEjecutarScripts.disableButtons();
 			pantallaEjecutarScripts.getBtnDetalleScript().setEnabled(Boolean.TRUE);
+			
+			// TODO - Según el estado del script, habilitar el resto de botones
 		}
 	}
 
