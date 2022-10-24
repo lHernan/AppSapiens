@@ -573,9 +573,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			proceso = (Proceso) pantallaEjecutarScript.getReturnParams().get("proceso");
 		}
 		
-		if (!Objects.isNull(proceso)) {
-			session.setProceso(proceso);
-		}
+		session.setProceso(proceso);
 		
 		// Save session to disk
 		MDSQLAppHelper.serializeToDisk(session, Constants.SESSION);
