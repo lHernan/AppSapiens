@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Proceso;
@@ -37,6 +38,7 @@ import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.LogWrapper;
 
@@ -47,7 +49,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class FramePrincipalActionListener extends ListenerSupport implements ActionListener {
+public class FramePrincipalActionListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private FramePrincipal framePrincipal;
 
@@ -129,6 +131,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (!Objects.isNull(proceso) && "Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
 			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_ENTREGAR_SCRIPT);
 			MDSQLUIHelper.show(dialog);
+		
+			updateProcesadoEnCurso(Constants.CMD_ENTREGAR_SCRIPT);
 		}
 	}
 
@@ -286,6 +290,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	private void evtProcesarScript() {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		Proceso proceso = session.getProceso();
@@ -307,11 +312,13 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			MDSQLUIHelper.show(pantallaProcesarScript);
 			
 			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
-				fillProcesadoScript();
+				List<Script> scripts = (List<Script>) pantallaProcesarScript.getReturnParams().get("scripts");
+				fillProcesadoScript(scripts);
 			}
 
 			if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
-				fillProcesadoType();
+				List<Type> types = (List<Type>) pantallaProcesarScript.getReturnParams().get("types");
+				fillProcesadoType(types);
 			}
 
 			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
@@ -561,7 +568,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 */
 	private void updateProcesadoEnCurso(String cmd) {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
-		Proceso proceso = null;
+		Proceso proceso = session.getProceso();
 		
 		if (Constants.CMD_PROCESAR_SCRIPT.equals(cmd)) {
 			// Poner el proceso devuelto en procesado en curso
@@ -570,7 +577,12 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		
 		if (Constants.CMD_EJECUTAR_SCRIPT.equals(cmd)) {
 			// Poner el proceso devuelto en procesado en curso
-			proceso = (Proceso) pantallaEjecutarScript.getReturnParams().get("proceso");
+			//proceso = (Proceso) pantallaEjecutarScript.getReturnParams().get("proceso");
+		}
+		
+		if (Constants.CMD_ENTREGAR_SCRIPT.equals(cmd)) {
+			// Poner el proceso devuelto en procesado en curso
+			proceso = null;
 		}
 		
 		session.setProceso(proceso);
@@ -579,54 +591,83 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		MDSQLAppHelper.serializeToDisk(session, Constants.SESSION);
 	}
 
-	@SuppressWarnings("unchecked")
-	private void fillProcesadoType() {
-		List<Type> types = (List<Type>) pantallaProcesarScript.getReturnParams().get("types");
-
+	/**
+	 * @param types
+	 */
+	private void fillProcesadoType(List<Type> types) {
 		// Obtiene el modelo y lo actualiza
 		FramePrincipalTypesTableModel tableModel = (FramePrincipalTypesTableModel) framePrincipal.getJTable1()
 				.getModel();
 		tableModel.setData(types);
+		
+		framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
+		framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
+		framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
 	}
 
-	@SuppressWarnings("unchecked")
-	private void fillProcesadoScript() {
-		Map<String, Script> scripts = (Map<String, Script>) pantallaProcesarScript.getReturnParams().get("scripts");
-
-		Script scriptModificado = scripts.get("SQL");
-		if (!Objects.isNull(scriptModificado)) {
-			framePrincipal.getIfrmSQLModificado().setTitle(scriptModificado.getNombreScript());
-			framePrincipal.getTxtSQLModificado().setText(StringUtils.EMPTY);
-			dumpContentToText(scriptModificado.getLineasScript(), framePrincipal.getTxtSQLModificado());
-			framePrincipal.getIfrmLanzaSQLModificado().setTitle(scriptModificado.getNombreScriptLanza());
-			framePrincipal.getTxtLanzaSQLModificado().setText(scriptModificado.getTxtScriptLanza());
+	/**
+	 * @param scripts
+	 */
+	private void fillProcesadoScript(List<Script> scripts) {
+		
+		for (Script script: scripts) {
+			if ("SQL".equals(script.getTipoScript())) {
+				framePrincipal.getIfrmSQLModificado().setTitle(script.getNombreScript());
+				framePrincipal.getTxtSQLModificado().setText(StringUtils.EMPTY);
+				dumpContentToText(script.getLineasScript(), framePrincipal.getTxtSQLModificado());
+				framePrincipal.getIfrmLanzaSQLModificado().setTitle(script.getNombreScriptLanza());
+				framePrincipal.getTxtLanzaSQLModificado().setText(script.getTxtScriptLanza());
+			}
+	
+			if ("PDC".equals(script.getTipoScript())) {
+				framePrincipal.getIfrmPDC().setTitle(script.getNombreScript());
+				framePrincipal.getTxtPDC().setText(StringUtils.EMPTY);
+				dumpContentToText(script.getLineasScript(), framePrincipal.getTxtPDC());
+				framePrincipal.getIfrmLanzaPDC().setTitle(script.getNombreScriptLanza());
+				framePrincipal.getTxtLanzaPDC().setText(script.getTxtScriptLanza());
+			}
+	
+			if ("SQLH".equals(script.getTipoScript())) {
+				framePrincipal.getIfrmSQLH().setTitle(script.getNombreScript());
+				framePrincipal.getTxtSQLH().setText(StringUtils.EMPTY);
+				dumpContentToText(script.getLineasScript(), framePrincipal.getTxtSQLH());
+				framePrincipal.getIfrmLanzaSQLH().setTitle(script.getNombreScriptLanza());
+				framePrincipal.getTxtLanzaSQLH().setText(script.getTxtScriptLanza());
+			}
+	
+			if ("PDCH".equals(script.getTipoScript())) {
+				framePrincipal.getIfrmPDCH().setTitle(script.getNombreScript());
+				framePrincipal.getTxtPDCH().setText(StringUtils.EMPTY);
+				dumpContentToText(script.getLineasScript(), framePrincipal.getTxtPDCH());
+				framePrincipal.getIfrmLanzaPDCH().setTitle(script.getNombreScriptLanza());
+				framePrincipal.getTxtLanzaPDCH().setText(script.getTxtScriptLanza());
+			}
 		}
+		
+		framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
+		framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
+		framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);
+	}
 
-		Script scriptPDC = scripts.get("PDC");
-		if (!Objects.isNull(scriptPDC)) {
-			framePrincipal.getIfrmPDC().setTitle(scriptPDC.getNombreScript());
-			framePrincipal.getTxtPDC().setText(StringUtils.EMPTY);
-			dumpContentToText(scriptPDC.getLineasScript(), framePrincipal.getTxtPDC());
-			framePrincipal.getIfrmLanzaPDC().setTitle(scriptPDC.getNombreScriptLanza());
-			framePrincipal.getTxtLanzaPDC().setText(scriptPDC.getTxtScriptLanza());
-		}
-
-		Script scriptHistorico = scripts.get("SQLH");
-		if (!Objects.isNull(scriptHistorico)) {
-			framePrincipal.getIfrmSQLH().setTitle(scriptHistorico.getNombreScript());
-			framePrincipal.getTxtSQLH().setText(StringUtils.EMPTY);
-			dumpContentToText(scriptHistorico.getLineasScript(), framePrincipal.getTxtSQLH());
-			framePrincipal.getIfrmLanzaSQLH().setTitle(scriptHistorico.getNombreScriptLanza());
-			framePrincipal.getTxtLanzaSQLH().setText(scriptHistorico.getTxtScriptLanza());
-		}
-
-		Script scriptPDCH = scripts.get("PDCH");
-		if (!Objects.isNull(scriptPDCH)) {
-			framePrincipal.getIfrmPDCH().setTitle(scriptPDCH.getNombreScript());
-			framePrincipal.getTxtPDCH().setText(StringUtils.EMPTY);
-			dumpContentToText(scriptPDCH.getLineasScript(), framePrincipal.getTxtPDCH());
-			framePrincipal.getIfrmLanzaPDCH().setTitle(scriptPDCH.getNombreScriptLanza());
-			framePrincipal.getTxtLanzaPDCH().setText(scriptPDCH.getTxtScriptLanza());
+	@Override
+	public void onLoad() {
+		framePrincipal.disableTabs();
+		
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		if (!Objects.isNull(session)) {
+			Proceso proceso = session.getProceso();
+	
+			if (!Objects.isNull(proceso)) {
+				List<Script> scripts = proceso.getScripts();
+				if (CollectionUtils.isNotEmpty(scripts)) {
+					fillProcesadoScript(scripts);
+				}
+				
+				List<Type> types = proceso.getTypes();
+				if (CollectionUtils.isNotEmpty(types)) {
+					fillProcesadoType(types);
+				}
+			}
 		}
 	}
 }

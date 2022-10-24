@@ -80,8 +80,6 @@ public class MDSQLApplication implements CommandLineRunner {
 	private void displayApp() {
 		/* Create and display the form */
 		EventQueue.invokeLater(() -> {
-			FramePrincipal framePrincipal = new FramePrincipal();
-			
 			try {
 				ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 				
@@ -95,12 +93,13 @@ public class MDSQLApplication implements CommandLineRunner {
 				}
 				
 				MDSQLAppHelper.setGlobalProperty(Constants.SESSION, session);
-
+				
+				FramePrincipal framePrincipal = new FramePrincipal();
 				MDSQLUIHelper.showMaximized(framePrincipal);
 				framePrincipal.setVisible(Boolean.TRUE);
 			} catch (IOException e) {
 				Map<String, Object> params = MDSQLUIHelper.buildError(e);
-				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
+				MDSQLUIHelper.showPopup(null, Constants.CMD_ERROR, params);
 			}
 		});
 	}

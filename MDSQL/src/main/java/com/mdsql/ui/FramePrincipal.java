@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -629,11 +628,12 @@ public class FramePrincipal extends FrameSupport {
 
 	@Override
 	protected void initEvents() {
-		ActionListener actionListener = new FramePrincipalActionListener(this);
+		FramePrincipalActionListener actionListener = new FramePrincipalActionListener(this);
 		WindowListener windowListener = new FramePrincipalWindowListener(this);
 		editorEventHandler = new EditorEventHandler(this);
 		
 		addWindowListener(windowListener);
+		addOnLoadListener(actionListener);
 
 		btnLoadScript.setActionCommand(Constants.FRAME_PRINCIPAL_LOAD_SCRIPT);
 		btnCargarScriptObjetos.setActionCommand(Constants.FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS);
@@ -692,7 +692,6 @@ public class FramePrincipal extends FrameSupport {
 		undoManager.setLimit(50); // le asigna un límite al buffer de ediciones
 
 		disableEditionButtons();
-		disableTabs();
 		
 		txtSQLCode.setEditable(Boolean.FALSE);
 		txtSQLCode.setEnabled(Boolean.FALSE);

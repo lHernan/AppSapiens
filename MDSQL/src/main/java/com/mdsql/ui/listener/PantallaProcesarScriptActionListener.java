@@ -410,13 +410,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				proceso.setScripts(listaScripts);
 				
 				if (CollectionUtils.isNotEmpty(listaScripts)) {
-					Map<String, Script> scripts = new HashMap<>();
-				
-					for (Script script : listaScripts) {
-						scripts.put(script.getTipoScript(), script);
-					}
-					
-					pantallaProcesarScript.getReturnParams().put("scripts", scripts);
+					pantallaProcesarScript.getReturnParams().put("scripts", listaScripts);
 				}
 				
 				pantallaProcesarScript.dispose();
