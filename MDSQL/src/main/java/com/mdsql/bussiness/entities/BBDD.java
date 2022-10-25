@@ -18,5 +18,6 @@ public class BBDD implements Serializable {
     private String nombreBBDDHis;
     private String nombreEsquemaHis;
     private String mcaDefecto;
+    private String password;
 
 }

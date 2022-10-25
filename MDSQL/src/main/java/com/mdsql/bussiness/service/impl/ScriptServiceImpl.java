@@ -23,6 +23,7 @@ import java.util.Objects;
 
 import javax.sql.DataSource;
 
+import com.mdsql.bussiness.entities.OutputRegistraEjecucionParche;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -299,6 +300,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
         String nombreBBDD = StringUtils.EMPTY;
         
         Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+        session.getProceso().setRutaTrabajo(ruta);
         String codigoUsuario = session.getCodUsr();
         List<OutputRegistraEjecucion> listOutputLogs = new ArrayList<>();
         ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
@@ -321,7 +323,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
                     String lanzaFile = ruta.concat(script.getNombreScriptLanza());
                     writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(System.lineSeparator()));
                     //String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada); //TODO uncomment
-
+                    //bbdd.setPassword(password);
                     executeLanzaFile(nombreEsquema, nombreBBDD, "vigente", lanzaFile);//TODO uncomment replace with password
                     String logFile = ruta.concat(script.getNombreScriptLog());
                     List<TextoLinea> logLinesList = readLogFile(logFile);
@@ -350,7 +352,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
                     String lanzaFile = ruta.concat(script.getNombreScriptLanza());
                     writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(System.lineSeparator()));
                     //String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada); //TODO uncomment
-
+                    //bbdd.setPassword(password);
                     executeLanzaFile(nombreEsquema, nombreBBDD, "vigente", lanzaFile);//TODO uncomment replace with password
                     String logFile = ruta.concat(script.getNombreScriptLog());
                     List<TextoLinea> logLinesList = readLogFile(logFile);
@@ -360,9 +362,48 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
                 }
             }
         }
+        session.getProceso().setBbdd(bbdd);
 
         return listOutputLogs;
     }
+
+
+    @SneakyThrows
+    private void ejecutarRepararScript(Boolean isReparacion, Boolean isSameScript, OutputReparaScript outputReparaScript){
+        //TODO return OutputRegistraEjecucion or OutputRegistraEjecucionParche separate?
+
+        Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+        String codigoUsuario = session.getCodUsr();
+        String ruta = session.getProceso().getRutaTrabajo();
+        BBDD bbdd = session.getProceso().getBbdd();
+        String nombreEsquema = StringUtils.isNotBlank(bbdd.getNombreEsquema()) ? bbdd.getNombreEsquema() : bbdd.getNombreEsquemaHis();
+        String nombreBBDD = StringUtils.isNotBlank(bbdd.getNombreBBDD()) ? bbdd.getNombreBBDD() : bbdd.getNombreBBDDHis();
+
+        if (isReparacion.equals(Boolean.TRUE)){
+            String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
+            writeFileFromList(Paths.get(lanzaFile),  outputReparaScript.getScriptRepara());
+            executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile);
+            //String logFile = ruta.concat(script.getNombreScriptLog()); TODO obtener nombreScript log
+            //List<TextoLinea> logLinesList = readLogFile(logFile);
+            //TODO replace Bidecimal.ZERO with idProceso
+            //TODO como se relaciona la listaScript con la listaScript old para obtener el nombre del log del script y el numero de orden
+            //OutputRegistraEjecucionParche outputRegistraEjecucionParche = ejecucionService.registraEjecucionParche(BigDecimal.ZERO, script.getNumeroOrden(), codigoUsuario, logLinesList, "R");
+            //listOutputLogs.add(outputRegistraEjecucion);
+        }
+        if (isSameScript.equals(Boolean.TRUE)){
+            String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
+            writeFileFromList(Paths.get(lanzaFile),  outputReparaScript.getScriptRepara());
+            executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile);
+            //String logFile = ruta.concat(script.getNombreScriptLog()); TODO obtener nombreScript log
+            //List<TextoLinea> logLinesList = readLogFile(logFile);
+            //TODO replace Bidecimal.ZERO with idProceso
+            //TODO como se relaciona la listaScript con la listaScript old para obtener el nombre del log del script y el numero de orden
+            //OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(BigDecimal.ZERO, script.getNumeroOrden(), codigoUsuario, logLinesList);
+            //listOutputLogs.add(outputRegistraEjecucion);
+        }
+
+    }
+
 
     @Override
     @SneakyThrows
