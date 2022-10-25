@@ -56,6 +56,7 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 		Script row = data.get(rowIndex);
 		if (0 == columnIndex) {
 			row.setSelected((Boolean) aValue);
+			fireTableCellUpdated(rowIndex, columnIndex);
 		} 
 	}
 	

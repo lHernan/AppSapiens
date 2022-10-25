@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 
 import com.mdsql.bussiness.entities.BBDD;
@@ -27,7 +26,9 @@ import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.listener.PantallaEjecutarScriptsListener;
 import com.mdsql.ui.listener.combo.EjecutarScriptBBDDItemListener;
 import com.mdsql.ui.listener.tables.HistoricoScriptsTableListener;
+import com.mdsql.ui.listener.tables.HistoricoScriptsTableModelListener;
 import com.mdsql.ui.listener.tables.VigenteScriptsTableListener;
+import com.mdsql.ui.listener.tables.VigenteScriptsTableModelListener;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
@@ -342,8 +343,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	@Override
 	protected void initEvents() {
 		PantallaEjecutarScriptsListener actionListener = new PantallaEjecutarScriptsListener(this);
-		ListSelectionListener vigenteSelectionListener = new VigenteScriptsTableListener(this);
-		ListSelectionListener historicoSelectionListener = new HistoricoScriptsTableListener(this);
+		VigenteScriptsTableListener vigenteSelectionListener = new VigenteScriptsTableListener(this);
+		HistoricoScriptsTableListener historicoSelectionListener = new HistoricoScriptsTableListener(this);
 		ItemListener bbddItemListener = new EjecutarScriptBBDDItemListener(this);
 		
 		btnRechazar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR);
@@ -381,8 +382,11 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		TableModel vigenteTableModel = new ScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses());
 		TableModel historicoTableModel = new ScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses());
 		
+		// Hay que escuchar por cambios en el modelo, ya que se van a marcar / desmarcar los checks
 		tblVigente.setModel(vigenteTableModel);
+		tblVigente.getModel().addTableModelListener(new VigenteScriptsTableModelListener(this));
 		tblHistorico.setModel(historicoTableModel);
+		tblHistorico.getModel().addTableModelListener(new HistoricoScriptsTableModelListener(this));
 		
 		tblVigente.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
 		tblHistorico.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
