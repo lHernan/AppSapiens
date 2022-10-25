@@ -2,6 +2,9 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
+
 import com.mdsql.bussiness.entities.Script;
 import com.mdval.ui.model.DefaultTableModel;
 
@@ -19,7 +22,7 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 	public ScriptsTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
 		super(columnNames, columnClasses);
 	}
-	
+
 	/**
 	 * @param data
 	 * @param columnNames
@@ -32,8 +35,10 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Script row = data.get(rowIndex);
-		
-		if (1 == columnIndex) {
+
+		if (0 == columnIndex) {
+			return row.getSelected();
+		} else if (1 == columnIndex) {
 			return row.getNumeroOrden().intValue();
 		} else if (2 == columnIndex) {
 			return row.getDescripcionEstadoScript();
@@ -41,8 +46,33 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 			return row.getFecha();
 		} else if (7 == columnIndex) {
 			return row.getNombreScript();
-		} 
- 
+		}
+
 		return null;
+	}
+
+	@Override
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		Script row = data.get(rowIndex);
+		if (0 == columnIndex) {
+			row.setSelected((Boolean) aValue);
+		} 
+	}
+	
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return (0 == columnIndex) ? true : false;
+	}
+
+	public void setAllSelected() {
+		CollectionUtils.forAllDo(data, new Closure() {
+
+			@Override
+			public void execute(Object input) {
+				Script script = (Script) input;
+				script.setSelected(Boolean.TRUE);
+			}
+
+		});
 	}
 }

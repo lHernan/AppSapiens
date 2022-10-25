@@ -214,6 +214,8 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 		ScriptsTableModel tableModelVigente = (ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel();
 		tableModelVigente.setData(vigentes);
+		// En principio estarán todos seleccionados
+		tableModelVigente.setAllSelected();
 
 		String[] filtroHistorico = { "SQLH", "PDCH" };
 		List<Script> historicos = new ArrayList<Script>(
@@ -222,5 +224,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		ScriptsTableModel tableModelHistorico = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
 				.getModel();
 		tableModelHistorico.setData(historicos);
+		// En principio estarán todos seleccionados
+		tableModelHistorico.setAllSelected();
 	}
 }
