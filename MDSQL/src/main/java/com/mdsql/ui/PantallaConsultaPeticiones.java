@@ -15,12 +15,14 @@ import javax.swing.JTextField;
 
 import com.mdsql.ui.listener.PantallaConsultaPeticionesListener;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
  * @author USUARIO1
  */
-public class PantallaConsultaPeticiones extends FrameSupport {
+public class PantallaConsultaPeticiones extends DialogSupport {
 
     private static final long serialVersionUID = 1L;
 	
@@ -218,8 +220,4 @@ public class PantallaConsultaPeticiones extends FrameSupport {
         btnCargar.setText("Cargar Procesado");
         btnCancelar.setText("CANCELAR");
     }
-    
-    @Override
-	protected void initMenuBar() {}
-   
 }
