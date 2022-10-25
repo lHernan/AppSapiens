@@ -2,9 +2,6 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import org.apache.commons.collections.Closure;
-import org.apache.commons.collections.CollectionUtils;
-
 import com.mdsql.bussiness.entities.Script;
 import com.mdval.ui.model.DefaultTableModel;
 
@@ -63,17 +60,5 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		return (0 == columnIndex) ? true : false;
-	}
-
-	public void setAllSelected() {
-		CollectionUtils.forAllDo(data, new Closure() {
-
-			@Override
-			public void execute(Object input) {
-				Script script = (Script) input;
-				script.setSelected(Boolean.TRUE);
-			}
-
-		});
 	}
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 
+import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.mdsql.bussiness.entities.BBDD;
@@ -211,20 +212,36 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		String[] filtroVigentes = { "SQL", "PDC" };
 		List<Script> vigentes = new ArrayList<Script>(
 				CollectionUtils.select(scripts, new ScriptPredicate(filtroVigentes)));
+		// En principio estarán todos seleccionados
+		CollectionUtils.forAllDo(vigentes, new Closure() {
+
+			@Override
+			public void execute(Object input) {
+				Script script = (Script) input;
+				script.setSelected(Boolean.TRUE);
+			}
+
+		});
 
 		ScriptsTableModel tableModelVigente = (ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel();
 		tableModelVigente.setData(vigentes);
-		// En principio estarán todos seleccionados
-		tableModelVigente.setAllSelected();
 
 		String[] filtroHistorico = { "SQLH", "PDCH" };
 		List<Script> historicos = new ArrayList<Script>(
 				CollectionUtils.select(scripts, new ScriptPredicate(filtroHistorico)));
-		
+		// En principio estarán todos seleccionados
+		CollectionUtils.forAllDo(historicos, new Closure() {
+
+			@Override
+			public void execute(Object input) {
+				Script script = (Script) input;
+				script.setSelected(Boolean.TRUE);
+			}
+
+		});
+
 		ScriptsTableModel tableModelHistorico = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
 				.getModel();
 		tableModelHistorico.setData(historicos);
-		// En principio estarán todos seleccionados
-		tableModelHistorico.setAllSelected();
 	}
 }
