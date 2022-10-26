@@ -130,6 +130,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
 
 	private JLabel jLabel14;
 
+	@Getter
 	private JButton btnVerCuadres;
 
 	@Getter

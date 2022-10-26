@@ -52,6 +52,12 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Script row = data.get(rowIndex);
 		if (0 == columnIndex) {
+			if ("Ejecutado".equals(row.getDescripcionEstadoScript())) {
+				row.setSelected(Boolean.FALSE);
+				fireTableCellUpdated(rowIndex, columnIndex);
+				return;
+			}
+			
 			row.setSelected((Boolean) aValue);
 			fireTableCellUpdated(rowIndex, columnIndex);
 		} 
@@ -59,6 +65,16 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 	
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return (0 == columnIndex) ? true : false;
+		Script row = data.get(rowIndex);
+		
+		if (0 == columnIndex) {
+			if ("Ejecutado".equals(row.getDescripcionEstadoScript())) {
+				return false;
+			}
+			
+			return true;
+		}
+		
+		return false;
 	}
 }
