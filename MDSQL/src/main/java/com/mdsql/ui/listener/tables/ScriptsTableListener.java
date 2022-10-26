@@ -1,6 +1,5 @@
 package com.mdsql.ui.listener.tables;
 
-import java.awt.Color;
 import java.util.Objects;
 
 import javax.swing.ListSelectionModel;
