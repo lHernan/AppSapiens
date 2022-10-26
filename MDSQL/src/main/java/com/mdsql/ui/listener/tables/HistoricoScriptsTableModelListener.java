@@ -29,6 +29,7 @@ public class HistoricoScriptsTableModelListener implements TableModelListener {
 		LogWrapper.debug(log, "Orden script seleccionado: %d", numeroOrden);
 		
 		if (numeroOrden >= 3) {
+			// Están en orden en la tabla
 			for (int i = e.getFirstRow(); i >= 0; i--) {
 				Script scr = tableModel.getSelectedRow(i);
 				scr.setSelected(selected);
@@ -40,6 +41,7 @@ public class HistoricoScriptsTableModelListener implements TableModelListener {
 				scr.setSelected(selected);
 			}
 			
+			// Forzamos el repintado de las tablas para actualizar los cambios
 			pantallaEjecutarScripts.getTblVigente().repaint();
 			pantallaEjecutarScripts.getTblHistorico().repaint();
 		}

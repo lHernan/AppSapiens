@@ -29,11 +29,13 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 		LogWrapper.debug(log, "Orden script seleccionado: %d", numeroOrden);
 		
 		if (numeroOrden > 1) {
+			// Están en orden en la tabla
 			for (int i = e.getFirstRow(); i >= 0; i--) {
 				Script scr = tableModel.getSelectedRow(i);
 				scr.setSelected(selected);
 			}
 			
+			// Forzamos el repintado de la tabla para actualizar los cambios
 			pantallaEjecutarScripts.getTblVigente().repaint();
 		}
 	}
