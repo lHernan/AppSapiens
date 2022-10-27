@@ -10,20 +10,25 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.LayoutStyle;
+import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.listener.PantallaVerErroresScriptListener;
-import com.mdsql.ui.model.SeleccionHistoricoTableModel;
+import com.mdsql.ui.model.VerErroresScriptTableModel;
+import com.mdsql.ui.model.VerParchesScriptTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 /**
  *
  * @author USUARIO1
  */
-public class PantallaVerErroresScript extends FrameSupport {
+public class PantallaVerErroresScript extends DialogSupport {
 
     private static final long serialVersionUID = 1L;
     
@@ -32,8 +37,8 @@ public class PantallaVerErroresScript extends FrameSupport {
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
-    private JTable tblErroresScript;
-    private JTable tblParches;
+    private TableSupport tblErroresScript;
+    private TableSupport tblParches;
     // End of variables declaration//GEN-END:variables
 
     private PantallaVerErroresScriptListener pantallaVerErroresScriptListener;
@@ -48,25 +53,42 @@ public class PantallaVerErroresScript extends FrameSupport {
     
     @Override
    	protected void setupComponents() {
-    	jScrollPane1 = new javax.swing.JScrollPane();
-        tblErroresScript = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblParches = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
-        
-        GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    	jScrollPane1 = new JScrollPane();
+        tblErroresScript = new TableSupport(Boolean.FALSE);
+        jScrollPane2 = new JScrollPane();
+        tblParches = new TableSupport(Boolean.FALSE);
+        jLabel1 = new JLabel();
+        btnCancelar = new JButton();
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane1.setViewportView(tblErroresScript);
+
+        tblParches.setModel(new DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Orden", "Estado", "Fecha", "Procesado", "Ejecucion", "Iteracion", "Script", "Comentario"
+            }
+        ));
+        jScrollPane2.setViewportView(tblParches);
+
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2)
                             .addComponent(jScrollPane1))
                         .addGap(14, 14, 14))))
@@ -76,17 +98,17 @@ public class PantallaVerErroresScript extends FrameSupport {
                 .addGap(0, 465, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }
     
@@ -104,8 +126,11 @@ public class PantallaVerErroresScript extends FrameSupport {
     @Override
 	protected void initModels() {
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_ERRORES_TABLA_CABECERA);
-		tblErroresScript.setModel(new SeleccionHistoricoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
-	}	
+		tblErroresScript.setModel(new VerErroresScriptTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+	
+		cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_PARCHES_TABLA_CABECERA);
+		tblParches.setModel(new VerParchesScriptTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+    }	
     
     @Override
 	protected void initialState() {}
@@ -117,7 +142,4 @@ public class PantallaVerErroresScript extends FrameSupport {
 		jLabel1.setText("Parches asociados");
 		btnCancelar.setText("CANCELAR");
 	}
-
-	@Override
-	protected void initMenuBar() {}
 }

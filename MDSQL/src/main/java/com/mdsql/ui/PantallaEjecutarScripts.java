@@ -144,6 +144,10 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	@Getter
 	@Setter
 	private Script seleccionado;
+	
+	@Getter
+	@Setter
+	private Proceso proceso;
 
 	public PantallaEjecutarScripts(FrameSupport parent, Boolean modal) {
 		super(parent, modal);
@@ -359,6 +363,14 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		btnAceptar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR);
 
+		btnRechazar.addActionListener(actionListener);
+		btnVerLog.addActionListener(actionListener);
+		btnDetalleScript.addActionListener(actionListener);
+		btnDescartar.addActionListener(actionListener);
+		btnReparar.addActionListener(actionListener);
+		btnVerCuadres.addActionListener(actionListener);
+		btnVerErrores.addActionListener(actionListener);
+		btnExcepcion.addActionListener(actionListener);
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 		
@@ -407,10 +419,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		
 		disableButtons();
 		
-		// Rellena los campos
-		Proceso proceso = (Proceso) params.get("proceso");
-		
 		if (!Objects.isNull(proceso)) {
+			txtEstadoEjecucion.setText(proceso.getDescripcionEstadoProceso());
 			txtModelo.setText(proceso.getModelo().getCodigoProyecto());
 			txtSubmodelo.setText(proceso.getSubproyecto().getDescripcionSubProyecto());
 			txtPeticion.setText(proceso.getCodigoPeticion());
