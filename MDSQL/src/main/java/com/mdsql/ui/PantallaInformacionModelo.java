@@ -18,7 +18,7 @@ import com.mdsql.ui.listener.PantallaInformacionModeloListener;
  *
  * @author USUARIO1
  */
-public class PantallaInformacionModelo extends FrameSupport {
+public class PantallaInformacionModelo extends DialogSupport {
 
     private static final long serialVersionUID = 1L;
     
