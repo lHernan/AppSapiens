@@ -10,24 +10,20 @@ import javax.swing.JButton;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ProcesoService;
-import com.mdsql.ui.PantallaConsultaPeticiones;
 import com.mdsql.ui.PantallaHistoricoCambios;
-import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.utils.OnLoadListener;
 
-public class PantallaHistoricoCambiosListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
+public class PantallaHistoricoCambiosListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private PantallaHistoricoCambios pantallaHistoricoCambios;
 	
 	public PantallaHistoricoCambiosListener(PantallaHistoricoCambios pantallaHistoricoCambios) {
 		super();
 		this.pantallaHistoricoCambios = pantallaHistoricoCambios;
-	}
-	
-	public void addObservador(Observer o) {
-		this.addObserver(o);
 	}
 	
 	@Override
@@ -90,12 +86,6 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 	}
 
 	private void buscarModelo() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void update(Observable o, Object cmd) {
 		// TODO Auto-generated method stub
 		
 	}

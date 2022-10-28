@@ -17,6 +17,7 @@ import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
+import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.BBDDComboBoxModel;
@@ -94,10 +95,14 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		Map<String, Object> params = new HashMap<>();
 
 		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
+		Proceso proceso = pantallaEjecutarScripts.getProceso();
 
 		params.put("script", seleccionado);
+		params.put("proceso", proceso);
 
-		// TODO - Falta pantalla detalle script
+		PantallaDetalleScript pantallaDetalleScript = (PantallaDetalleScript) MDSQLUIHelper
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_DETALLE_SCRIPT, params);
+		MDSQLUIHelper.show(pantallaDetalleScript);
 	}
 
 	private void eventBtnDescartar() {

@@ -273,6 +273,7 @@ public class Constants {
 	public static final String CMD_PROCESADO_EN_CURSO = "CMD_PROCESADO_EN_CURSO";
 	public static final String CMD_ENTREGAR_SCRIPT = "CMD_ENTREGAR_SCRIPT";
 	public static final String CMD_VER_ERRORES_SCRIPT = "CMD_VER_ERRORES_SCRIPT";
+	public static final String CMD_DETALLE_SCRIPT = "CMD_DETALLE_SCRIPT";
 
 	/**
 	 * Panel principal
