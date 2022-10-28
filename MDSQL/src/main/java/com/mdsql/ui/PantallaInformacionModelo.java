@@ -13,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.mdsql.ui.listener.PantallaInformacionModeloListener;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
@@ -28,8 +30,6 @@ public class PantallaInformacionModelo extends DialogSupport {
     private JTable tblInformacion;
     private JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
-    
-    private PantallaInformacionModeloListener pantallaInformacionModeloListener;
     
     public PantallaInformacionModelo(FrameSupport parent, Boolean modal) {
         super(parent, modal);
@@ -78,7 +78,8 @@ public class PantallaInformacionModelo extends DialogSupport {
     
     @Override
    	protected void initEvents() {
-    	
+    	PantallaInformacionModeloListener pantallaInformacionModeloListener = new PantallaInformacionModeloListener(this);
+    	addOnLoadListener(pantallaInformacionModeloListener);
     }
     
     @Override
@@ -92,9 +93,5 @@ public class PantallaInformacionModelo extends DialogSupport {
    	@Override
    	protected void setupLiterals() {
    		jLabel1.setText("Modelo o proyecto");
-   	}
-   	
-   	@Override
-	protected void initMenuBar() {}
-        
+   	}    
 }

@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.swing.JButton;
 
 import com.mdsql.bussiness.entities.ErrorScript;
+import com.mdsql.bussiness.entities.Proceso;
+import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.service.ErroresService;
 import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.utils.ListenerSupport;
@@ -16,10 +18,9 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
-import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 
-public class PantallaVerErroresScriptListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
+public class PantallaVerErroresScriptListener extends ListenerSupport implements ActionListener, OnLoadListener {
 	
 	private PantallaVerErroresScript pantallaVerErroresScript;
 	
@@ -37,37 +38,25 @@ public class PantallaVerErroresScriptListener extends ListenerSupport implements
 		JButton jButton = (JButton) e.getSource();
 
 		if (Constants.PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR.equals(jButton.getActionCommand())) {
-			cancelar();
+			pantallaVerErroresScript.dispose();
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onLoad() {
 		try {
 			ErroresService erroresService = (ErroresService) getService(Constants.ERRORES_SERVICE);
-
-			String s_idProceso = (String) pantallaVerErroresScript.getParams().get("idProceso");
-			String s_numeroOrden = (String) pantallaVerErroresScript.getParams().get("numeroOrden");
 			
-			BigDecimal idProceso = BigDecimal.valueOf(Long.valueOf(s_idProceso));
-			BigDecimal numeroOrden = BigDecimal.valueOf(Long.valueOf(s_numeroOrden));
+			Script script = (Script) pantallaVerErroresScript.getParams().get("script");
+			Proceso proceso = (Proceso) pantallaVerErroresScript.getParams().get("proceso");
+			
+			BigDecimal idProceso = proceso.getIdProceso();
+			BigDecimal numeroOrden = script.getNumeroOrden();
 			List<ErrorScript> seleccion = erroresService.consultaErroresType(idProceso, numeroOrden);
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaVerErroresScript.getFrameParent(), Constants.CMD_ERROR, params);
 		}
-	}
-	
-	private void cancelar() {
-		pantallaVerErroresScript.dispose();
-		
-	}
-
-	@Override
-	public void update(Observable o, Object cmd) {
-		// TODO Auto-generated method stub
-		
 	}
 }

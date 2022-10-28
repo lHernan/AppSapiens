@@ -40,7 +40,7 @@ public class ScriptTableCellRenderer extends DefaultTableCellRenderer {
 
 		c.setForeground(Color.black);
 
-		Color color = (col == 0) ? bgColor
+		Color color = (col == 2) ? bgColor
 				: (!isSelected) ? Color.WHITE : Constants.CELL_SELECTED_BGCOLOR;
 		c.setBackground(color);
 	}

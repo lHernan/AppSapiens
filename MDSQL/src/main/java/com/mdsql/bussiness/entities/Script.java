@@ -31,4 +31,5 @@ public class Script implements Serializable {
     private String txtScriptLanza;
     private String nombreScriptLog;
     private Date fecha;
+    private Boolean selected;
 }

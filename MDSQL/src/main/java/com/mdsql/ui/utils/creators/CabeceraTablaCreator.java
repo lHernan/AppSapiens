@@ -3,8 +3,10 @@ package com.mdsql.ui.utils.creators;
 import java.util.Map;
 
 import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.model.cabeceras.TablaErroresCabecera;
 import com.mdsql.ui.model.cabeceras.TablaModelosCabecera;
 import com.mdsql.ui.model.cabeceras.TablaNotasCabecera;
+import com.mdsql.ui.model.cabeceras.TablaParchesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoObjetosCabecera;
 import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoOperacionesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoScriptsCabecera;
@@ -67,6 +69,14 @@ public class CabeceraTablaCreator extends Creator {
 		
 		if (Constants.SCRIPTS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaScriptsCabecera();
+		}
+		
+		if (Constants.VER_ERRORES_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaErroresCabecera();
+		}
+		
+		if (Constants.VER_PARCHES_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaParchesCabecera();
 		}
 		
 		return cabecera;

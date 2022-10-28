@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 
@@ -16,13 +18,15 @@ import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaEjecutarScripts;
+import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.ui.utils.collections.ScriptSelectedClosure;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.collections.ScriptPredicate;
 import com.mdval.ui.utils.OnLoadListener;
-import com.mdval.ui.utils.observer.Observer;
 
 public class PantallaEjecutarScriptsListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
@@ -31,10 +35,6 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	public PantallaEjecutarScriptsListener(PantallaEjecutarScripts pantallaEjecutarScripts) {
 		super();
 		this.pantallaEjecutarScripts = pantallaEjecutarScripts;
-	}
-
-	public void addObservador(Observer o) {
-		this.addObserver(o);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		}
 
 		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
-			eventBtnCancelar();
+			pantallaEjecutarScripts.dispose();
 		}
 	}
 
@@ -91,7 +91,13 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	}
 
 	private void eventBtnDetalleScript() {
+		Map<String, Object> params = new HashMap<>();
 
+		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
+
+		params.put("script", seleccionado);
+
+		// TODO - Falta pantalla detalle script
 	}
 
 	private void eventBtnDescartar() {
@@ -107,7 +113,17 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	}
 
 	private void eventBtnVerErrores() {
+		Map<String, Object> params = new HashMap<>();
 
+		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
+		Proceso proceso = pantallaEjecutarScripts.getProceso();
+
+		params.put("script", seleccionado);
+		params.put("proceso", proceso);
+
+		PantallaVerErroresScript pantallaVerErroresScript = (PantallaVerErroresScript) MDSQLUIHelper
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_VER_ERRORES_SCRIPT, params);
+		MDSQLUIHelper.show(pantallaVerErroresScript);
 	}
 
 	private void eventBtnExcepcion() {
@@ -190,14 +206,10 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 	}
 
-	private void eventBtnCancelar() {
-		pantallaEjecutarScripts.dispose();
-	}
-
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onLoad() {
 		Proceso proceso = (Proceso) pantallaEjecutarScripts.getParams().get("proceso");
+		pantallaEjecutarScripts.setProceso(proceso);
 
 		List<BBDD> bbdds = proceso.getBbdds();
 		if (CollectionUtils.isNotEmpty(bbdds)) {
@@ -205,22 +217,36 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			pantallaEjecutarScripts.getCmbBBDD().setModel(modelBBDD);
 		}
 
+		// Obtiene los scripts
 		List<Script> scripts = proceso.getScripts();
 
 		// Actualiza las tablas
 		String[] filtroVigentes = { "SQL", "PDC" };
-		List<Script> vigentes = new ArrayList<Script>(
-				CollectionUtils.select(scripts, new ScriptPredicate(filtroVigentes)));
+		List<Script> vigentes = filterListScriptsFrom(scripts, filtroVigentes);
 
 		ScriptsTableModel tableModelVigente = (ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel();
 		tableModelVigente.setData(vigentes);
 
 		String[] filtroHistorico = { "SQLH", "PDCH" };
-		List<Script> historicos = new ArrayList<Script>(
-				CollectionUtils.select(scripts, new ScriptPredicate(filtroHistorico)));
-		
+		List<Script> historicos = filterListScriptsFrom(scripts, filtroHistorico);
+
 		ScriptsTableModel tableModelHistorico = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
 				.getModel();
 		tableModelHistorico.setData(historicos);
+	}
+	
+	/**
+	 * @param scripts
+	 * @param filtro
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private List<Script> filterListScriptsFrom(List<Script> scripts, String[] filtro) {
+		List<Script> filteredList = new ArrayList<Script>(
+				CollectionUtils.select(scripts, new ScriptPredicate(filtro)));
+		// En principio estarán todos seleccionados
+		CollectionUtils.forAllDo(filteredList, new ScriptSelectedClosure());
+		
+		return filteredList;
 	}
 }

@@ -55,7 +55,6 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 			this.data.clear();
 		}
 		this.data.addAll(newData);
-		this.fireTableDataChanged();
 	}
 	
 	/**

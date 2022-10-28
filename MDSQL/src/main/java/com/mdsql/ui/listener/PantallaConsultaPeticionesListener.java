@@ -2,30 +2,27 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.Map;
 
 import javax.swing.JButton;
 
 import com.mdsql.bussiness.entities.OutputConsultaProcesado;
 import com.mdsql.bussiness.service.ProcesoService;
-import org.hibernate.service.spi.ServiceException;
-
 import com.mdsql.ui.PantallaConsultaPeticiones;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.utils.OnLoadListener;
 
-public class PantallaConsultaPeticionesListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
+public class PantallaConsultaPeticionesListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private PantallaConsultaPeticiones pantallaConsultaPeticiones;
 	
 	public PantallaConsultaPeticionesListener(PantallaConsultaPeticiones pantallaConsultaPeticiones) {
 		super();
 		this.pantallaConsultaPeticiones = pantallaConsultaPeticiones;
-	}
-	
-	public void addObservador(Observer o) {
-		this.addObserver(o);
 	}
 	
 	@Override
@@ -47,9 +44,11 @@ public class PantallaConsultaPeticionesListener extends ListenerSupport implemen
 		try {
 			ProcesoService procesadoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
 			
+			// TODO - Ver de donde sale el id proceso, si es del procesado en curso
+			BigDecimal idProceso = new BigDecimal(0);
 			OutputConsultaProcesado consultaProcesado = procesadoService.consultaProcesado(idProceso);
 			
-		}catch (ServiceException e) {
+		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaConsultaPeticiones.getFrameParent(), Constants.CMD_ERROR, params);
 		}
@@ -63,12 +62,6 @@ public class PantallaConsultaPeticionesListener extends ListenerSupport implemen
 	
 	private void cancelar() {
 		pantallaConsultaPeticiones.dispose();
-	}
-	
-	@Override
-	public void update(Observable o, Object cmd) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

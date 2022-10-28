@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 
 import com.mdsql.bussiness.entities.BBDD;
@@ -27,7 +26,9 @@ import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.listener.PantallaEjecutarScriptsListener;
 import com.mdsql.ui.listener.combo.EjecutarScriptBBDDItemListener;
 import com.mdsql.ui.listener.tables.HistoricoScriptsTableListener;
+import com.mdsql.ui.listener.tables.HistoricoScriptsTableModelListener;
 import com.mdsql.ui.listener.tables.VigenteScriptsTableListener;
+import com.mdsql.ui.listener.tables.VigenteScriptsTableModelListener;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
@@ -129,6 +130,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
 
 	private JLabel jLabel14;
 
+	@Getter
 	private JButton btnVerCuadres;
 
 	@Getter
@@ -142,6 +144,10 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	@Getter
 	@Setter
 	private Script seleccionado;
+	
+	@Getter
+	@Setter
+	private Proceso proceso;
 
 	public PantallaEjecutarScripts(FrameSupport parent, Boolean modal) {
 		super(parent, modal);
@@ -342,8 +348,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	@Override
 	protected void initEvents() {
 		PantallaEjecutarScriptsListener actionListener = new PantallaEjecutarScriptsListener(this);
-		ListSelectionListener vigenteSelectionListener = new VigenteScriptsTableListener(this);
-		ListSelectionListener historicoSelectionListener = new HistoricoScriptsTableListener(this);
+		VigenteScriptsTableListener vigenteSelectionListener = new VigenteScriptsTableListener(this);
+		HistoricoScriptsTableListener historicoSelectionListener = new HistoricoScriptsTableListener(this);
 		ItemListener bbddItemListener = new EjecutarScriptBBDDItemListener(this);
 		
 		btnRechazar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR);
@@ -357,6 +363,14 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		btnAceptar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR);
 
+		btnRechazar.addActionListener(actionListener);
+		btnVerLog.addActionListener(actionListener);
+		btnDetalleScript.addActionListener(actionListener);
+		btnDescartar.addActionListener(actionListener);
+		btnReparar.addActionListener(actionListener);
+		btnVerCuadres.addActionListener(actionListener);
+		btnVerErrores.addActionListener(actionListener);
+		btnExcepcion.addActionListener(actionListener);
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 		
@@ -381,8 +395,11 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		TableModel vigenteTableModel = new ScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses());
 		TableModel historicoTableModel = new ScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses());
 		
+		// Hay que escuchar por cambios en el modelo, ya que se van a marcar / desmarcar los checks
 		tblVigente.setModel(vigenteTableModel);
+		tblVigente.getModel().addTableModelListener(new VigenteScriptsTableModelListener(this));
 		tblHistorico.setModel(historicoTableModel);
+		tblHistorico.getModel().addTableModelListener(new HistoricoScriptsTableModelListener(this));
 		
 		tblVigente.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
 		tblHistorico.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
@@ -402,10 +419,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		
 		disableButtons();
 		
-		// Rellena los campos
-		Proceso proceso = (Proceso) params.get("proceso");
-		
 		if (!Objects.isNull(proceso)) {
+			txtEstadoEjecucion.setText(proceso.getDescripcionEstadoProceso());
 			txtModelo.setText(proceso.getModelo().getCodigoProyecto());
 			txtSubmodelo.setText(proceso.getSubproyecto().getDescripcionSubProyecto());
 			txtPeticion.setText(proceso.getCodigoPeticion());
