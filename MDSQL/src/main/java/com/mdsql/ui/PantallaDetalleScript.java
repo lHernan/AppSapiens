@@ -7,8 +7,14 @@ package com.mdsql.ui;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.LayoutStyle;
 
 import com.mdsql.ui.listener.PantallaDetalleScriptListener;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
@@ -19,9 +25,9 @@ public class PantallaDetalleScript extends DialogSupport {
     private static final long serialVersionUID = 1L;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblDetalle;
+    private JButton jButton1;
+    private JScrollPane jScrollPane1;
+    private JTable tblDetalle;
     // End of variables declaration//GEN-END:variables
     
     private PantallaDetalleScriptListener pantallaDetalleScriptListener;
@@ -36,29 +42,29 @@ public class PantallaDetalleScript extends DialogSupport {
     
     @Override
    	protected void setupComponents() {
-    	jScrollPane1 = new javax.swing.JScrollPane();
-        tblDetalle = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+    	jScrollPane1 = new JScrollPane();
+        tblDetalle = new JTable();
+        jButton1 = new JButton();
         
-        GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jScrollPane1)
                 .addGap(22, 22, 22))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(468, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(442, 442, 442))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -82,8 +88,5 @@ public class PantallaDetalleScript extends DialogSupport {
    	protected void setupLiterals() {
    		jButton1.setText("CANCELAR");
    	}
-   	
-   	@Override
-	protected void initMenuBar() {}
        
 }
