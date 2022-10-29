@@ -11,8 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
-import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.listener.PantallaVerErroresScriptListener;
 import com.mdsql.ui.model.VerErroresScriptTableModel;
@@ -60,21 +58,8 @@ public class PantallaVerErroresScript extends DialogSupport {
         jLabel1 = new JLabel();
         btnCancelar = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         jScrollPane1.setViewportView(tblErroresScript);
 
-        tblParches.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Orden", "Estado", "Fecha", "Procesado", "Ejecucion", "Iteracion", "Script", "Comentario"
-            }
-        ));
         jScrollPane2.setViewportView(tblParches);
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -87,28 +72,27 @@ public class PantallaVerErroresScript extends DialogSupport {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jScrollPane1))
-                        .addGap(14, 14, 14))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(478, 478, 478)
-                .addComponent(btnCancelar)
-                .addGap(0, 465, Short.MAX_VALUE))
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnCancelar))
+                            .addComponent(jScrollPane2, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }
     

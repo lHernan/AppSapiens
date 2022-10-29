@@ -19,6 +19,8 @@ import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
+import com.mdsql.ui.PantallaRepararScript;
+import com.mdsql.ui.PantallaVerCuadresScript;
 import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.model.ScriptsTableModel;
@@ -62,8 +64,8 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			eventBtnReparar();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_CUADROS.equals(jButton.getActionCommand())) {
-			eventBtnVerCuadros();
+		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_CUADRES.equals(jButton.getActionCommand())) {
+			eventBtnVerCuadres();
 		}
 
 		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_ERRORES.equals(jButton.getActionCommand())) {
@@ -110,11 +112,31 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	}
 
 	private void eventBtnReparar() {
+		Map<String, Object> params = new HashMap<>();
 
+		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
+		Proceso proceso = pantallaEjecutarScripts.getProceso();
+
+		params.put("script", seleccionado);
+		params.put("proceso", proceso);
+
+		PantallaRepararScript pantallaRepararScript = (PantallaRepararScript) MDSQLUIHelper
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_REPARAR_SCRIPT, params);
+		MDSQLUIHelper.show(pantallaRepararScript);
 	}
 
-	private void eventBtnVerCuadros() {
+	private void eventBtnVerCuadres() {
+		Map<String, Object> params = new HashMap<>();
 
+		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
+		Proceso proceso = pantallaEjecutarScripts.getProceso();
+
+		params.put("script", seleccionado);
+		params.put("proceso", proceso);
+
+		PantallaVerCuadresScript pantallaVerCuadresScript = (PantallaVerCuadresScript) MDSQLUIHelper
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_VER_CUADRES_SCRIPT, params);
+		MDSQLUIHelper.show(pantallaVerCuadresScript);
 	}
 
 	private void eventBtnVerErrores() {

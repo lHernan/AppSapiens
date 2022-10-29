@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.swing.JButton;
 
 import com.mdsql.bussiness.entities.CuadreObjeto;
+import com.mdsql.bussiness.entities.Proceso;
+import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.service.CuadreService;
 import com.mdsql.ui.PantallaVerCuadresScript;
 import com.mdsql.ui.utils.ListenerSupport;
@@ -41,17 +43,16 @@ public class PantallaVerCuadresScriptListener extends ListenerSupport implements
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onLoad() {
 		try {
 			CuadreService cuadreService = (CuadreService) getService(Constants.CUADRE_SERVICE);
 
-			String s_idProceso = (String) pantallaVerCuadresScript.getParams().get("idProceso");
-			String s_numeroOrden = (String) pantallaVerCuadresScript.getParams().get("numeroOrden");
+			Script script = (Script) pantallaVerCuadresScript.getParams().get("script");
+			Proceso proceso = (Proceso) pantallaVerCuadresScript.getParams().get("proceso");
 			
-			BigDecimal idProceso = BigDecimal.valueOf(Long.valueOf(s_idProceso));
-			BigDecimal numeroOrden = BigDecimal.valueOf(Long.valueOf(s_numeroOrden));
+			BigDecimal idProceso = proceso.getIdProceso();
+			BigDecimal numeroOrden = script.getNumeroOrden();
 			List<CuadreObjeto> seleccion = cuadreService.consultaCuadreOperacionesObjetoScript(idProceso, numeroOrden);
 
 		} catch (ServiceException e) {

@@ -10,21 +10,24 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.LayoutStyle;
 
 import com.mdsql.ui.listener.PantallaVerCuadresScriptListener;
-import com.mdsql.ui.model.SeleccionHistoricoTableModel;
+import com.mdsql.ui.model.CuadresObjetosTableModel;
+import com.mdsql.ui.model.CuadresOperacionesTableModel;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 
 /**
  *
  * @author USUARIO1
  */
-public class PantallaVerCuadresScript extends FrameSupport {
+public class PantallaVerCuadresScript extends DialogSupport {
 
     private static final long serialVersionUID = 1L;
     
@@ -34,8 +37,8 @@ public class PantallaVerCuadresScript extends FrameSupport {
     private JLabel jLabel2;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
-    private JTable tblOperaciones;
-    private JTable tblObjetos;
+    private TableSupport tblOperaciones;
+    private TableSupport tblObjetos;
     // End of variables declaration//GEN-END:variables
     
     private PantallaVerCuadresScriptListener pantallaVerCuadresScriptListener;
@@ -50,47 +53,51 @@ public class PantallaVerCuadresScript extends FrameSupport {
     
     @Override
    	protected void setupComponents() {
-    	jScrollPane1 = new javax.swing.JScrollPane();
-        tblOperaciones = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblObjetos = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        
-        GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    	jScrollPane1 = new JScrollPane();
+        tblOperaciones = new TableSupport(Boolean.FALSE);
+        jScrollPane2 = new JScrollPane();
+        tblObjetos = new TableSupport(Boolean.FALSE);
+        jLabel1 = new JLabel();
+        btnCancelar = new JButton();
+        jLabel2 = new JLabel();
+
+        jScrollPane1.setViewportView(tblOperaciones);
+        jScrollPane2.setViewportView(tblObjetos);
+
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
-                    .addComponent(jLabel2))
-                .addGap(25, 25, 25))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(469, 469, 469))
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                            .addComponent(jLabel2))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(26, 26, 26)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar)
-                .addGap(28, 28, 28))
+                .addContainerGap())
         );
 
     }
@@ -108,8 +115,11 @@ public class PantallaVerCuadresScript extends FrameSupport {
     
     @Override
 	protected void initModels() {
-		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_CUADRES_TABLA_CABECERA);
-		tblOperaciones.setModel(new SeleccionHistoricoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_CUADRES_OPERACIONES_TABLA_CABECERA);
+		tblOperaciones.setModel(new CuadresOperacionesTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		
+		cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_CUADRES_OBJETOS_TABLA_CABECERA);
+		tblObjetos.setModel(new CuadresObjetosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
 	}	
     
     @Override
@@ -123,7 +133,4 @@ public class PantallaVerCuadresScript extends FrameSupport {
 		jLabel2.setText("Objetos");
         btnCancelar.setText("CANCELAR");
 	}
-
-	@Override
-	protected void initMenuBar() {}    
 }

@@ -37,42 +37,51 @@ public abstract class ScriptsTableListener extends ListenerSupport implements Li
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			pantallaEjecutarScripts.setSeleccionado(seleccionado);
 
-			pantallaEjecutarScripts.disableButtons();
+			pantallaEjecutarScripts.enableButtons(Boolean.FALSE);
 			pantallaEjecutarScripts.getBtnDetalleScript().setEnabled(Boolean.TRUE);
 
-			// Según el estado del script, habilitar el resto de botones
-			if ("Ejecutado".equals(seleccionado.getDescripcionEstadoScript())) {
-				pantallaEjecutarScripts.getBtnVerCuadres().setEnabled(Boolean.TRUE);
-				pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
-			}
+			//enableButtons(seleccionado);
+			
+			// FIXME - For testing purposes
+			pantallaEjecutarScripts.enableButtons(Boolean.TRUE);
+		}
+	}
 
-			if ("Error".equals(seleccionado.getDescripcionEstadoScript())) {
-				pantallaEjecutarScripts.getBtnVerErrores().setEnabled(Boolean.TRUE);
-				pantallaEjecutarScripts.getBtnReparar().setEnabled(Boolean.TRUE);
-				pantallaEjecutarScripts.getBtnExcepcion().setEnabled(Boolean.TRUE);
-				pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
-			}
+	/**
+	 * @param seleccionado
+	 */
+	private void enableButtons(Script seleccionado) {
+		// Según el estado del script, habilitar el resto de botones
+		if ("Ejecutado".equals(seleccionado.getDescripcionEstadoScript())) {
+			pantallaEjecutarScripts.getBtnVerCuadres().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
+		}
 
-			if ("Descuadrado".equals(seleccionado.getDescripcionEstadoScript())) {
-				pantallaEjecutarScripts.getBtnVerCuadres().setEnabled(Boolean.TRUE);
-				pantallaEjecutarScripts.getBtnReparar().setEnabled(Boolean.TRUE);
-				pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
-			}
+		if ("Error".equals(seleccionado.getDescripcionEstadoScript())) {
+			pantallaEjecutarScripts.getBtnVerErrores().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnReparar().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnExcepcion().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
+		}
 
-			if ("Reparado".equals(seleccionado.getDescripcionEstadoScript())) {
-				pantallaEjecutarScripts.getBtnVerErrores().setEnabled(Boolean.TRUE);
-				pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
-			}
+		if ("Descuadrado".equals(seleccionado.getDescripcionEstadoScript())) {
+			pantallaEjecutarScripts.getBtnVerCuadres().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnReparar().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
+		}
 
-			if ("Descartado".equals(seleccionado.getDescripcionEstadoScript())) {
-				pantallaEjecutarScripts.getBtnVerErrores().setEnabled(Boolean.TRUE);
-				pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
-			}
+		if ("Reparado".equals(seleccionado.getDescripcionEstadoScript())) {
+			pantallaEjecutarScripts.getBtnVerErrores().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
+		}
 
-			if ("Excepción".equals(seleccionado.getDescripcionEstadoScript())) {
-				pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
-			}
+		if ("Descartado".equals(seleccionado.getDescripcionEstadoScript())) {
+			pantallaEjecutarScripts.getBtnVerErrores().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
+		}
 
+		if ("Excepción".equals(seleccionado.getDescripcionEstadoScript())) {
+			pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
 		}
 	}
 

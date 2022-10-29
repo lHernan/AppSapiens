@@ -8,9 +8,11 @@ import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaProcesadoEnCurso;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.PantallaRepararScript;
 import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.PantallaSeleccionModelos;
+import com.mdsql.ui.PantallaVerCuadresScript;
 import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
@@ -91,6 +93,14 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_DETALLE_SCRIPT.equals(option)) {
 			dialog = new PantallaDetalleScript(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_VER_CUADRES_SCRIPT.equals(option)) {
+			dialog = new PantallaVerCuadresScript(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_REPARAR_SCRIPT.equals(option)) {
+			dialog = new PantallaRepararScript(frameParent, modal, params);
 		}
 		
 		return dialog;

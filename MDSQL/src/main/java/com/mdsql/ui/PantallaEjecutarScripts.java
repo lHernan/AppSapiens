@@ -357,7 +357,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		btnDetalleScript.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DETALLE_SCRIPT);
 		btnDescartar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DESCARTAR);
 		btnReparar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_REPARAR);
-		btnVerCuadres.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_CUADROS);
+		btnVerCuadres.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_CUADRES);
 		btnVerErrores.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_ERRORES);
 		btnExcepcion.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_EXCEPCION);
 		btnAceptar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
@@ -417,7 +417,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		txtEsquemaHistorico.setEditable(Boolean.FALSE);
 		txtDemanda.setEditable(Boolean.FALSE);
 		
-		disableButtons();
+		enableButtons(Boolean.FALSE);
 		
 		if (!Objects.isNull(proceso)) {
 			txtEstadoEjecucion.setText(proceso.getDescripcionEstadoProceso());
@@ -464,13 +464,13 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	/**
 	 * 
 	 */
-	public void disableButtons() {
-		btnVerLog.setEnabled(Boolean.FALSE);
-		btnDetalleScript.setEnabled(Boolean.FALSE);
-		btnDescartar.setEnabled(Boolean.FALSE);
-		btnReparar.setEnabled(Boolean.FALSE);
-		btnVerErrores.setEnabled(Boolean.FALSE);
-		btnVerCuadres.setEnabled(Boolean.FALSE);
-		btnExcepcion.setEnabled(Boolean.FALSE);
+	public void enableButtons(Boolean val) {
+		btnVerLog.setEnabled(val);
+		btnDetalleScript.setEnabled(val);
+		btnDescartar.setEnabled(val);
+		btnReparar.setEnabled(val);
+		btnVerErrores.setEnabled(val);
+		btnVerCuadres.setEnabled(val);
+		btnExcepcion.setEnabled(val);
 	}
 }
