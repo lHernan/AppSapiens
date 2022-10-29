@@ -6,7 +6,9 @@ package com.mdsql.ui;
 
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,22 +16,23 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
 
+import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.listener.PantallaRepararScriptListener;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
  * @author USUARIO1
  */
-public class PantallaRepararScript extends FrameSupport {
+public class PantallaRepararScript extends DialogSupport {
 
     private static final long serialVersionUID = 1L;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnAbrirScriptReprocesar;
-    private JButton btnAbrirScriptReparar;
     private JButton btnAceptar;
     private JButton btnCancelar;
     private JLabel jLabel1;
@@ -47,11 +50,17 @@ public class PantallaRepararScript extends FrameSupport {
     private JRadioButton jRadioButton4;
     private JScrollPane jScrollPane1;
     private JTextArea jTextArea1;
-    private JTextField txtRutaReprocesar;
-    private JTextField txtRutaReparacion;
     // End of variables declaration//GEN-END:variables
     
     private PantallaRepararScriptListener pantallaRepararScriptListener;
+
+	private JButton btnAbrirFichero;
+
+	private JTextField txtScript;
+
+	private JButton btnAbrirFicheroReparacion;
+
+	private JTextField txtScriptReparacion;
     
     public PantallaRepararScript(FrameSupport parent, Boolean modal) {
         super(parent, modal);
@@ -63,64 +72,162 @@ public class PantallaRepararScript extends FrameSupport {
     
     @Override
    	protected void setupComponents() {
-    	jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        btnAbrirScriptReprocesar = new javax.swing.JButton();
-        txtRutaReprocesar = new javax.swing.JTextField();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jPanel2 = new javax.swing.JPanel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        btnAbrirScriptReparar = new javax.swing.JButton();
-        txtRutaReparacion = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        btnAceptar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+    	jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        jPanel1 = new JPanel();
+        jLabel3 = new JLabel();
+        jLabel4 = new JLabel();
+        jLabel5 = new JLabel();
+        jRadioButton1 = new JRadioButton();
+        btnAbrirFichero = new JButton();
+        txtScript = new JTextField();
+        jRadioButton2 = new JRadioButton();
+        jPanel2 = new JPanel();
+        jRadioButton3 = new JRadioButton();
+        jRadioButton4 = new JRadioButton();
+        btnAbrirFicheroReparacion = new JButton();
+        txtScriptReparacion = new JTextField();
+        jLabel6 = new JLabel();
+        jLabel7 = new JLabel();
+        jScrollPane1 = new JScrollPane();
+        jTextArea1 = new JTextArea();
+        btnAceptar = new JButton();
+        btnCancelar = new JButton();
+
+        jPanel1.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnAbrirFichero.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
         
-        GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAbrirScriptReprocesar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRutaReprocesar, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAbrirFichero)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtScript, GroupLayout.PREFERRED_SIZE, 611, GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jRadioButton2))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
-                    .addComponent(btnAbrirScriptReprocesar)
-                    .addComponent(txtRutaReprocesar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(btnAbrirFichero)
+                    .addComponent(txtScript, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButton2)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnAbrirFicheroReparacion.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
+        
+        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton3)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jRadioButton4)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAbrirFicheroReparacion)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtScriptReparacion, GroupLayout.PREFERRED_SIZE, 633, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButton3)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(txtScriptReparacion)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAbrirFicheroReparacion)
+                            .addComponent(jRadioButton4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+        
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1))
+                    .addComponent(jPanel2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(494, 494, 494))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(344, 344, 344)
+                .addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCancelar))
+                .addContainerGap())
         );
     }
     
@@ -149,23 +256,20 @@ public class PantallaRepararScript extends FrameSupport {
    	protected void setupLiterals() {
    		setTitle("Reparar Script");
    		
-   		jLabel1.setText("NombreScript.sql");
-        jLabel2.setText("Reprocasar Script");
+   		Script script = (Script) getParams().get("script");
+   		
+   		jLabel1.setText(script.getNombreScript());
+        jLabel2.setText("Reprocesar Script");
         jLabel3.setText("Se debe espacificar si la reparacion implica reprocesar el script.");
         jLabel4.setText("En tal caso, se volverá a leer el fichero y enviar la información a la lógica de negocio para que reprocese los scripts, generando de nuevo los scripts resultantes.");
         jLabel5.setText("Los scripts con estado Ejecutado, no se cambiaran en su estado.");
         jRadioButton1.setText("Si, se debe reprocesar el script");
-        btnAbrirScriptReprocesar.setText("jbutton1");
         jRadioButton2.setText("No, no debe reprocesar el script");
         jRadioButton3.setText("Ejecutar script procesado");
         jRadioButton4.setText("Ejecutar script reparación");
-        btnAbrirScriptReparar.setText("jbutton1");
         jLabel6.setText("Script Reparación");
         jLabel7.setText("Comentario");
         btnAceptar.setText("ACEPTAR");
         btnCancelar.setText("CANCELAR");
    	}
-
-	@Override
-	protected void initMenuBar() {}
 }

@@ -27,16 +27,16 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblErroresScript = new javax.swing.JTable();
+        tblOperaciones = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblParches = new javax.swing.JTable();
+        tblObjetos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblErroresScript.setModel(new javax.swing.table.DefaultTableModel(
+        tblOperaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -55,9 +55,9 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblErroresScript);
+        jScrollPane1.setViewportView(tblOperaciones);
 
-        tblParches.setModel(new javax.swing.table.DefaultTableModel(
+        tblObjetos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -68,14 +68,14 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
                 "Nombre Objeto", "Tipo Objeto", "Accion", "BBDD", "SCRIPT"
             }
         ));
-        jScrollPane2.setViewportView(tblParches);
+        jScrollPane2.setViewportView(tblObjetos);
 
         jLabel1.setText("Operaciones");
 
-        jButton1.setText("CANCELAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -86,12 +86,12 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                             .addComponent(jLabel1))
@@ -113,16 +113,16 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnCancelar)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,12 +161,12 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblErroresScript;
-    private javax.swing.JTable tblParches;
+    private javax.swing.JTable tblObjetos;
+    private javax.swing.JTable tblOperaciones;
     // End of variables declaration//GEN-END:variables
 }
