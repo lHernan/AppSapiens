@@ -17,6 +17,8 @@ import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
+import com.mdsql.ui.DlgExcepcion;
+import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaRepararScript;
@@ -86,7 +88,16 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	}
 
 	private void eventBtnRechazar() {
+		Map<String, Object> params = new HashMap<>();
 
+		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
+		Proceso proceso = pantallaEjecutarScripts.getProceso();
+
+		params.put("proceso", proceso);
+
+		DlgRechazar dlgRechazar = (DlgRechazar) MDSQLUIHelper
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_RECHAZAR_PROCESADO, params);
+		MDSQLUIHelper.show(dlgRechazar);
 	}
 
 	private void eventBtnVerLog() {
@@ -154,7 +165,17 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	}
 
 	private void eventBtnExcepcion() {
+		Map<String, Object> params = new HashMap<>();
 
+		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
+		Proceso proceso = pantallaEjecutarScripts.getProceso();
+
+		params.put("script", seleccionado);
+		params.put("proceso", proceso);
+
+		DlgExcepcion dlgExcepcion = (DlgExcepcion) MDSQLUIHelper
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_EXCEPCION_SCRIPT, params);
+		MDSQLUIHelper.show(dlgExcepcion);
 	}
 
 	private void eventBtnAceptar() {

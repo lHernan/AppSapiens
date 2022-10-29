@@ -3,6 +3,8 @@ package com.mdsql.ui.utils.creators;
 import java.util.Map;
 
 import com.mdsql.ui.DlgErrores;
+import com.mdsql.ui.DlgExcepcion;
+import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
@@ -101,6 +103,14 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_REPARAR_SCRIPT.equals(option)) {
 			dialog = new PantallaRepararScript(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_EXCEPCION_SCRIPT.equals(option)) {
+			dialog = new DlgExcepcion(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_RECHAZAR_PROCESADO.equals(option)) {
+			dialog = new DlgRechazar(frameParent, modal, params);
 		}
 		
 		return dialog;

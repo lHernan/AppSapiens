@@ -276,6 +276,8 @@ public class Constants {
 	public static final String CMD_DETALLE_SCRIPT = "CMD_DETALLE_SCRIPT";
 	public static final String CMD_VER_CUADRES_SCRIPT = "CMD_VER_CUADRES_SCRIPT";
 	public static final String CMD_REPARAR_SCRIPT = "CMD_REPARAR_SCRIPT";
+	public static final String CMD_EXCEPCION_SCRIPT = "CMD_EXCEPCION_SCRIPT";
+	public static final String CMD_RECHAZAR_PROCESADO = "CMD_RECHAZAR_PROCESADO";
 
 	/**
 	 * Panel principal
@@ -552,5 +554,8 @@ public class Constants {
 	
 	public static final String DLG_EXCEPTION_BTN_ACEPTAR = "DLG_EXCEPTION_BTN_ACEPTAR";
 	public static final String DLG_EXCEPTION_BTN_CANCELAR = "DLG_EXCEPTION_BTN_CANCELAR";
+	
+	public static final String DLG_RECHAZAR_BTN_ACEPTAR = "DLG_RECHAZAR_BTN_ACEPTAR";
+	public static final String DLG_RECHAZAR_BTN_CANCELAR = "DLG_RECHAZAR_BTN_CANCELAR";
 	
 }
