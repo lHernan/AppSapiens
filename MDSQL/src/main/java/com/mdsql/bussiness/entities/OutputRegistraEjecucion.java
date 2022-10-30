@@ -14,7 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class OutputRegistraEjecucion implements Serializable {
 
-    private BigDecimal codigoEstadoProceso;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private BigDecimal codigoEstadoProceso;
     private String descripcionEstadoProceso;
     private String nombreScript;
     private BigDecimal codigoEstadoScript;

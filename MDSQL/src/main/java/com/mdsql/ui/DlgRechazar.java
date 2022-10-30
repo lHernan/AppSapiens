@@ -47,7 +47,6 @@ public class DlgRechazar extends DialogSupport {
 	private JButton btnCancelar;
 	
 	@Getter
-	private JTextArea txtMotivoExcepcion;
 	private JTextArea txtMotivoRechazo;
 
     /**

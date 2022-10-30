@@ -13,6 +13,7 @@ import com.mdsql.bussiness.entities.OutputExcepcionScript;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
 import com.mdsql.bussiness.entities.OutputReparaScript;
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdval.exceptions.ServiceException;
 
@@ -25,7 +26,7 @@ public interface ScriptService {
 
     OutputExcepcionScript excepcionScript(BigDecimal idProceso, BigDecimal numeroOrden, String txtComentario, String codigoUsuario);
 
-    List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> listaVigente, List<Script> listaHistorico);
+    OutputRegistraEjecucion executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException;
 
     OutputReparaScript repararScript(InputReparaScript inputReparaScript);
 
@@ -36,5 +37,7 @@ public interface ScriptService {
 	OutputReparaScript repararScript(String inputReparaScript) throws ServiceException;
 
 	OutputDescartarScript descartarScript(String inputDescartarScript) throws ServiceException;
+
+	void excepcionScript(Proceso proceso, Script script, String txtMotivoExcepcion, String codUsr) throws ServiceException;
 
 }

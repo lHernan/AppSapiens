@@ -45,4 +45,12 @@ public interface ProcesoService {
      * @return OutputConsultaProcesado
      */
     OutputConsultaProcesado consultaProcesado(BigDecimal idProceso) throws ServiceException;
+
+    /**
+     * @param idProceso
+     * @param txtComentario
+     * @param codUsr
+     * @throws ServiceException
+     */
+    void rechazarProcesado(BigDecimal idProceso, String txtComentario, String codUsr) throws ServiceException;
 }

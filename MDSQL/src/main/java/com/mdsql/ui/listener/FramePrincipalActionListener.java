@@ -571,17 +571,18 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Proceso proceso = session.getProceso();
 		
 		if (Constants.CMD_PROCESAR_SCRIPT.equals(cmd)) {
-			// Poner el proceso devuelto en procesado en curso
 			proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
 		}
 		
 		if (Constants.CMD_EJECUTAR_SCRIPT.equals(cmd)) {
-			// Poner el proceso devuelto en procesado en curso
-			//proceso = (Proceso) pantallaEjecutarScript.getReturnParams().get("proceso");
+			proceso = (Proceso) pantallaEjecutarScript.getReturnParams().get("proceso");
+			
+			if ("Rechazado".equals(proceso.getDescripcionEstadoProceso())) {
+				proceso = null;
+			}
 		}
 		
 		if (Constants.CMD_ENTREGAR_SCRIPT.equals(cmd)) {
-			// Poner el proceso devuelto en procesado en curso
 			proceso = null;
 		}
 		

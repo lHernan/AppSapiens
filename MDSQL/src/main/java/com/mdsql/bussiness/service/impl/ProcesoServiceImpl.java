@@ -333,5 +333,35 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
         }
     }
 
+	@Override
+	public void rechazarProcesado(BigDecimal idProceso, String txtComentario, String codUsr) throws ServiceException {
+		String runSP = createCall("p_rechazar_procesado", Constants.CALL_05_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, idProceso, txtComentario, codUsr);
+
+            callableStatement.setBigDecimal(1, idProceso);
+            callableStatement.setString(2, txtComentario);
+            callableStatement.setString(3, codUsr);
+            callableStatement.registerOutParameter(4, Types.INTEGER);
+            callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(4);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(5));
+            }
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[ProcesoService.rechazarProcesado] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+	}
+
 
 }
