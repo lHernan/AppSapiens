@@ -18,6 +18,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.mdsql.ui.listener.PantallaHistoricoCambiosListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -62,16 +63,12 @@ public class PantallaHistoricoCambios extends DialogSupport {
     private JTextField txtObjetoPadre;
     // End of variables declaration//GEN-END:variables
 
-    /**
-	 * @param params
-	 */
+    private PantallaHistoricoCambiosListener pantallaHistoricoCambiosListener;
+   
 	public PantallaHistoricoCambios(FrameSupport parent, Boolean modal) {
 		super(parent, modal);
 	}
 
-	/**
-	 * Creates new form
-	 */
 	public PantallaHistoricoCambios(FrameSupport parent, Boolean modal, Map<String, Object> params) {
 		super(parent, modal, params);
 	}
@@ -107,68 +104,7 @@ public class PantallaHistoricoCambios extends DialogSupport {
         btnInforme = new JButton();
         btnVerDetalle = new JButton();
         btnResumen = new JButton();
-        btnCancelar = new JButton();
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Modelo o Proyecto");
-
-        btnBuscarModelo.setText("jButton1");
-
-        jLabel2.setText("Objeto");
-
-        jLabel3.setText("Tipo Objeto");
-
-        jLabel4.setText("Tipo Objeto");
-
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));        
-
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel5.setText("Estado Script");
-
-        jComboBox3.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        
-        jLabel6.setText("Objeto Padre");
-
-        jLabel7.setText("Tipo Obj.Padre");
-
-        jComboBox4.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        
-        jLabel8.setText("Operación Padre");
-
-        jComboBox5.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        
-        jLabel9.setText("Operación Padre");
-
-        jComboBox6.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        
-        jLabel10.setText("Desde");
-
-        jLabel11.setText("Hasta");
-
-        btnBuscar.setText("Buscar");
-
-        tblDetalleScript.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Petición", "Estado", "Fecha", "Submodelo", "Solicitado", "Usuario", "Operación", "Oper.Padre", "Script", "Estado"
-            }
-        ));
-        jScrollPane1.setViewportView(tblDetalleScript);
-
-        btnInforme.setText("Informe Cambios");
-
-        btnVerDetalle.setText("Ver Detalle Script");
-
-        btnResumen.setText("Resumen Procesado");
-
-        btnCancelar.setText("CANCELAR");
+        btnCancelar = new JButton();        
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -307,8 +243,29 @@ public class PantallaHistoricoCambios extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		// TODO Auto-generated method stub
-		
+		 jLabel1.setText("Modelo o Proyecto");
+		 btnBuscarModelo.setText("jButton1");
+		 jLabel2.setText("Objeto");
+		 jLabel3.setText("Tipo Objeto");
+		 jLabel4.setText("Tipo Objeto");
+		 jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));        
+		 jComboBox2.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+		 jLabel5.setText("Estado Script");
+		 jComboBox3.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+		 jLabel6.setText("Objeto Padre");
+		 jLabel7.setText("Tipo Obj.Padre");
+		 jComboBox4.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+		 jLabel8.setText("Operación Padre");
+		 jComboBox5.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+		 jLabel9.setText("Operación Padre");
+		 jComboBox6.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+		 jLabel10.setText("Desde");
+		 jLabel11.setText("Hasta");
+		 btnBuscar.setText("Buscar");
+		 btnInforme.setText("Informe Cambios");
+		 btnVerDetalle.setText("Ver Detalle Script");
+		 btnResumen.setText("Resumen Procesado");
+		 btnCancelar.setText("CANCELAR"); 
 	}
 
 	@Override
