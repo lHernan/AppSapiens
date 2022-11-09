@@ -3,6 +3,7 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +13,10 @@ import javax.swing.JButton;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.DlgExcepcion;
 import com.mdsql.ui.DlgRechazar;
@@ -28,7 +31,9 @@ import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.ui.utils.collections.ScriptSelectedClosure;
 import com.mdsql.ui.utils.collections.ScriptSelectedPredicate;
+import com.mdsql.ui.utils.collections.UpdateScriptsClosure;
 import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.collections.ScriptPredicate;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
@@ -94,10 +99,10 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 		params.put("proceso", proceso);
 
-		DlgRechazar dlgRechazar = (DlgRechazar) MDSQLUIHelper
-				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_RECHAZAR_PROCESADO, params);
+		DlgRechazar dlgRechazar = (DlgRechazar) MDSQLUIHelper.createDialog(pantallaEjecutarScripts.getFrameParent(),
+				Constants.CMD_RECHAZAR_PROCESADO, params);
 		MDSQLUIHelper.show(dlgRechazar);
-		
+
 		proceso = (Proceso) dlgRechazar.getReturnParams().get("proceso");
 		pantallaEjecutarScripts.getReturnParams().put("proceso", proceso);
 		pantallaEjecutarScripts.dispose();
@@ -176,8 +181,8 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("script", seleccionado);
 		params.put("proceso", proceso);
 
-		DlgExcepcion dlgExcepcion = (DlgExcepcion) MDSQLUIHelper
-				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_EXCEPCION_SCRIPT, params);
+		DlgExcepcion dlgExcepcion = (DlgExcepcion) MDSQLUIHelper.createDialog(pantallaEjecutarScripts.getFrameParent(),
+				Constants.CMD_EXCEPCION_SCRIPT, params);
 		MDSQLUIHelper.show(dlgExcepcion);
 	}
 
@@ -188,17 +193,33 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 			Proceso proceso = pantallaEjecutarScripts.getProceso();
 			BBDD bbdd = proceso.getBbdd();
-			
+
 			List<Script> vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
-			List<Script> historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
-			
+			List<Script> historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel())
+					.getData();
+
 			// Filtrar los scripts seleccionados
 			vigente = new ArrayList<>(CollectionUtils.select(vigente, new ScriptSelectedPredicate()));
 			historico = new ArrayList<>(CollectionUtils.select(historico, new ScriptSelectedPredicate()));
-			
-			// Une los scripts ya ordenados
+
+			// Une los scripts y los ordena
 			List<Script> scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
-			scriptService.executeScripts(bbdd, scripts);
+			Collections.sort(scripts, (left, right) -> left.getNumeroOrden().compareTo(right.getNumeroOrden()));
+
+			// Ejecuta los scripts
+			List<OutputRegistraEjecucion> ejecuciones = scriptService.executeScripts(bbdd, scripts);
+
+			// Actualizar los scripts de las tablas y las repinta
+			scripts = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
+			CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
+			pantallaEjecutarScripts.getTblVigente().repaint();
+			
+			scripts = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
+			CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
+			pantallaEjecutarScripts.getTblHistorico().repaint();
+			
+			// Actualizar los scripts en el proceso en sesión
+			updateCurrentProcess(ejecuciones);
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_ERROR, errParams);
@@ -233,7 +254,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 				.getModel();
 		tableModelHistorico.setData(historicos);
 	}
-	
+
 	/**
 	 * @param scripts
 	 * @param filtro
@@ -241,11 +262,21 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	 */
 	@SuppressWarnings("unchecked")
 	private List<Script> filterListScriptsFrom(List<Script> scripts, String[] filtro) {
-		List<Script> filteredList = new ArrayList<Script>(
-				CollectionUtils.select(scripts, new ScriptPredicate(filtro)));
+		List<Script> filteredList = new ArrayList<Script>(CollectionUtils.select(scripts, new ScriptPredicate(filtro)));
 		// En principio estarán todos seleccionados
 		CollectionUtils.forAllDo(filteredList, new ScriptSelectedClosure());
-		
+
 		return filteredList;
+	}
+	
+	/**
+	 * @param ejecuciones
+	 */
+	private void updateCurrentProcess(List<OutputRegistraEjecucion> ejecuciones) {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = session.getProceso();
+		
+		List<Script> scripts = proceso.getScripts();
+		CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
 	}
 }

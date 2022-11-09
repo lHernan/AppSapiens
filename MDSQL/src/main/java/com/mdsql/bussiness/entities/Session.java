@@ -19,5 +19,9 @@ public class Session implements Serializable {
 	@Getter
 	@Setter
 	private String codUsr;
+	
+	@Getter
+	@Setter
+	private String selectedRoute;
 
 }

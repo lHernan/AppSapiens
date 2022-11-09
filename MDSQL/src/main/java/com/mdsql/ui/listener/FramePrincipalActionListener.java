@@ -405,9 +405,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			file = chooser.getSelectedFile();
 			LogWrapper.debug(log, "Archivo seleccionado: %s", file.getAbsolutePath());
 			String ruta = file.getParent();
-			AppGlobalSingleton.getInstance().setProperty(Constants.SELECTED_ROUTE, ruta);
-			LogWrapper.debug(log, "Ruta global: %s",
-					(String) AppGlobalSingleton.getInstance().getProperty(Constants.SELECTED_ROUTE));
+			
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			session.setSelectedRoute(ruta);
+			LogWrapper.debug(log, "Ruta global: %s", session.getSelectedRoute());
 		}
 
 		return file;
@@ -575,10 +576,15 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 		
 		if (Constants.CMD_EJECUTAR_SCRIPT.equals(cmd)) {
-			proceso = (Proceso) pantallaEjecutarScript.getReturnParams().get("proceso");
+			Proceso p = (Proceso) pantallaEjecutarScript.getReturnParams().get("proceso");
 			
-			if ("Rechazado".equals(proceso.getDescripcionEstadoProceso())) {
-				proceso = null;
+			if ((!Objects.isNull(p))) {
+				if ("Rechazado".equals(p.getDescripcionEstadoProceso())) {
+					proceso = null;
+				}
+				else {
+					proceso = p;
+				}
 			}
 		}
 		

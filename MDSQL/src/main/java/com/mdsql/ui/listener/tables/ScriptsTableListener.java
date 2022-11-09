@@ -40,10 +40,10 @@ public abstract class ScriptsTableListener extends ListenerSupport implements Li
 			pantallaEjecutarScripts.enableButtons(Boolean.FALSE);
 			pantallaEjecutarScripts.getBtnDetalleScript().setEnabled(Boolean.TRUE);
 
-			//enableButtons(seleccionado);
+			enableButtons(seleccionado);
 			
-			// FIXME - For testing purposes
-			pantallaEjecutarScripts.enableButtons(Boolean.TRUE);
+			// FIXME - For develop purposes
+//			pantallaEjecutarScripts.enableButtons(Boolean.TRUE);
 		}
 	}
 

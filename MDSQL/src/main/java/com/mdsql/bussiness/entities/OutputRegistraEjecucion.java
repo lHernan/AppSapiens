@@ -21,6 +21,7 @@ public class OutputRegistraEjecucion implements Serializable {
 	private BigDecimal codigoEstadoProceso;
     private String descripcionEstadoProceso;
     private String nombreScript;
+    private BigDecimal numOrden;
     private BigDecimal codigoEstadoScript;
     private String descripcionEstadoScript;
     private String txtCuadreOperacion;

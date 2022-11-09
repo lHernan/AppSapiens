@@ -363,18 +363,18 @@ public class PantallaResumenProcesado extends DialogSupport {
 			btnEntregar.setEnabled(Boolean.FALSE);
 		}
 		
-		txtModelo.setEnabled(Boolean.FALSE);
-        txtPeticion.setEnabled(Boolean.FALSE);
-        txtSolicitadaPor.setEnabled(Boolean.FALSE);
-        txtFecha.setEnabled(Boolean.FALSE);
-        txtEsquemaHistorico.setEnabled(Boolean.FALSE);
-        txtSubmodelo.setEnabled(Boolean.FALSE);
-        txtUsuario.setEnabled(Boolean.FALSE);
-        txtBBDD.setEnabled(Boolean.FALSE);
-        txtEsquema.setEnabled(Boolean.FALSE);
-        txtBBDDHistorico.setEnabled(Boolean.FALSE);
-        txtEstado.setEnabled(Boolean.FALSE);
-        txtRuta.setEnabled(Boolean.FALSE);
+		txtModelo.setEditable(Boolean.FALSE);
+        txtPeticion.setEditable(Boolean.FALSE);
+        txtSolicitadaPor.setEditable(Boolean.FALSE);
+        txtFecha.setEditable(Boolean.FALSE);
+        txtEsquemaHistorico.setEditable(Boolean.FALSE);
+        txtSubmodelo.setEditable(Boolean.FALSE);
+        txtUsuario.setEditable(Boolean.FALSE);
+        txtBBDD.setEditable(Boolean.FALSE);
+        txtEsquema.setEditable(Boolean.FALSE);
+        txtBBDDHistorico.setEditable(Boolean.FALSE);
+        txtEstado.setEditable(Boolean.FALSE);
+        txtRuta.setEditable(Boolean.FALSE);
 	}
 
 	@Override

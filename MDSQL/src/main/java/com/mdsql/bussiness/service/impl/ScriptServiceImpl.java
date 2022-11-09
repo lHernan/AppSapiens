@@ -51,7 +51,6 @@ import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
 
@@ -277,27 +276,38 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@Override
-	public OutputRegistraEjecucion executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException {
+	public List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException {
 		try {
-			String selectedRoute = (String) AppGlobalSingleton.getInstance().getProperty(Constants.SELECTED_ROUTE);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			String selectedRoute = session.getSelectedRoute();
 			String ruta = selectedRoute.concat(FileSystems.getDefault().getSeparator());
 			String nombreEsquema = StringUtils.EMPTY;
 			String nombreBBDD = StringUtils.EMPTY;
 
-			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 			Proceso proceso = session.getProceso();
 			proceso.setRutaTrabajo(ruta);
 			String codigoUsuario = session.getCodUsr();
-			OutputRegistraEjecucion outputRegistraEjecucion = new OutputRegistraEjecucion();
+			List<OutputRegistraEjecucion> ejecuciones = new ArrayList<>();
 			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 			String txtClaveEncriptada = configuration.getConfig(Constants.TOKEN).substring(17, 29);
 
-			if (!CollectionUtils.isNotEmpty(scripts)) {
+			if (CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
 					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript());
 
-					nombreEsquema = bbdd.getNombreEsquema();
-					nombreBBDD = bbdd.getNombreBBDD();
+					/**
+					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
+					 * de datos o la de histórico para su ejecución
+					 */
+					if ("SQL".equals(script.getTipoScript()) || "PDC".equals(script.getTipoScript())) {
+						nombreEsquema = bbdd.getNombreEsquema();
+						nombreBBDD = bbdd.getNombreBBDD();
+					}
+
+					if ("SQLH".equals(script.getTipoScript()) || "PDCH".equals(script.getTipoScript())) {
+						nombreEsquema = bbdd.getNombreEsquemaHis();
+						nombreBBDD = bbdd.getNombreBBDDHis();
+					}
 
 					String lanzaFile = ruta.concat(script.getNombreScriptLanza());
 					writeFileFromString(Paths.get(lanzaFile),
@@ -307,14 +317,17 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile);
 					String logFile = ruta.concat(script.getNombreScriptLog());
 					List<TextoLinea> logLinesList = readLogFile(logFile);
-					outputRegistraEjecucion = ejecucionService.registraEjecucion(proceso.getIdProceso(),
-							script.getNumeroOrden(), codigoUsuario, logLinesList);
+					OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(
+							proceso.getIdProceso(), script.getNumeroOrden(), codigoUsuario, logLinesList);
+					outputRegistraEjecucion.setNumOrden(script.getNumeroOrden());
+					ejecuciones.add(outputRegistraEjecucion);
 
 				}
 			}
 
-			return outputRegistraEjecucion;
+			return ejecuciones;
 		} catch (IOException e) {
+			LogWrapper.error(log, "[ScriptService.executeScripts] Error", e);
 			throw new ServiceException(e);
 		}
 	}
@@ -735,7 +748,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 	@SneakyThrows
 	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation) {
-
+		
 		String connection = String.format(Constants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
 		ProcessBuilder processBuilder = new ProcessBuilder(Constants.SQL_PLUS, connection,
 				String.format(Constants.FORMATO_FICHERO, fileLocation));
@@ -743,15 +756,15 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		processBuilder.redirectErrorStream(true);
 		Process process = processBuilder.start();
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		String currentLine;
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+			String line;
 
-		LogWrapper.debug(log, "[ScriptService.executeScriptFile] Inicio Ejecucion fichero: %s", fileLocation);
-		while (((currentLine = in.readLine()) != null)) {
-			LogWrapper.debug(log, " ".concat(currentLine));
+			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Inicio Ejecucion fichero: %s", fileLocation);
+			while (((line = in.readLine()) != null)) {
+				LogWrapper.debug(log, " ".concat(line));
+			}
 		}
 
-		in.close();
 		int exitCode = process.waitFor();
 
 		LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
@@ -762,13 +775,18 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		Files.write(path, content.getBytes(StandardCharsets.US_ASCII), StandardOpenOption.CREATE);
 	}
 
-	@SneakyThrows
+	@SneakyThrows(IOException.class)
 	private static void writeFileFromList(Path path, List<TextoLinea> textoLineaList) {
-		List<String> scriptLines = new ArrayList<>();
-		for (TextoLinea texto : textoLineaList) {
-			scriptLines.add(texto.getValor());
+		try {
+			List<String> scriptLines = new ArrayList<>();
+			for (TextoLinea texto : textoLineaList) {
+				scriptLines.add(texto.getValor());
+			}
+			Files.write(path, scriptLines, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+		} catch (IOException e) {
+			LogWrapper.error(log, "[writeFileFromList] Error", e);
+			throw e;
 		}
-		Files.write(path, scriptLines, StandardCharsets.US_ASCII, StandardOpenOption.CREATE);
 	}
 
 	@SneakyThrows

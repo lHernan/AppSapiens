@@ -30,7 +30,7 @@ import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.driver.OracleConnection;
+import oracle.jdbc.internal.OracleConnection;
 
 
 /**
@@ -112,8 +112,7 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
 
             return outputRegistraEjecucion;
 
-        } catch (
-                SQLException e) {
+        } catch (SQLException e) {
             LogWrapper.error(log, "[EjecucionService.registraEjecucion] Error: %s", e.getMessage());
             throw new ServiceException(e);
         }

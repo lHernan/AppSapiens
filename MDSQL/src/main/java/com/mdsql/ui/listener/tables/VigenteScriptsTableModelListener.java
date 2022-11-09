@@ -32,7 +32,10 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 			// Están en orden en la tabla
 			for (int i = e.getFirstRow(); i >= 0; i--) {
 				Script scr = tableModel.getSelectedRow(i);
-				scr.setSelected(selected);
+				
+				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())) {
+					scr.setSelected(selected);
+				}
 			}
 			
 			// Forzamos el repintado de la tabla para actualizar los cambios

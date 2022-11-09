@@ -12,12 +12,13 @@ import org.hibernate.service.spi.ServiceException;
 
 import com.mdsql.bussiness.entities.LogEjecucion;
 import com.mdsql.bussiness.entities.Proceso;
+import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.service.LogService;
 import com.mdsql.ui.PantallaAjustarLogEjecucion;
-import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.OnLoadListener;
 
 public class PantallaAjustarLogEjecucionListener extends ListenerSupport implements ActionListener, OnLoadListener {
 

@@ -14,12 +14,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.mdsql.ui.listener.PantallaAjustarLogEjecucionListener;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
  * @author USUARIO1
  */
-public class PantallaAjustarLogEjecucion extends javax.swing.JFrame {
+public class PantallaAjustarLogEjecucion extends DialogSupport {
 
     private static final long serialVersionUID = 1L;
     

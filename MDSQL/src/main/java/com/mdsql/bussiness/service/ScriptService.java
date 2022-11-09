@@ -26,7 +26,7 @@ public interface ScriptService {
 
     OutputExcepcionScript excepcionScript(BigDecimal idProceso, BigDecimal numeroOrden, String txtComentario, String codigoUsuario);
 
-    OutputRegistraEjecucion executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException;
+    List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException;
 
     OutputReparaScript repararScript(InputReparaScript inputReparaScript);
 

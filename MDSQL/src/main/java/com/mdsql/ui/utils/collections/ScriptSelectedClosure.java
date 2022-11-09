@@ -9,7 +9,10 @@ public class ScriptSelectedClosure implements Closure {
 	@Override
 	public void execute(Object input) {
 		Script script = (Script) input;
-		script.setSelected(Boolean.TRUE);
+		
+		if (!"Ejecutado".equals(script.getDescripcionEstadoScript())) {
+			script.setSelected(Boolean.TRUE);
+		}
 	}
 
 }
