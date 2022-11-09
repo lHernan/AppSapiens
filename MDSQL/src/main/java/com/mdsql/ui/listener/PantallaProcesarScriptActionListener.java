@@ -34,6 +34,7 @@ import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.AvisoService;
 import com.mdsql.bussiness.service.BBDDService;
+import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.bussiness.service.TypeService;
@@ -192,19 +193,31 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 * 
 	 */
 	private void eventBtnSearchModel() {
-		Map<String, Object> params = new HashMap<>();
-		
-		String codigoProyecto = pantallaProcesarScript.getTxtModelo().getText();
-		
-		if (StringUtils.isNotBlank(codigoProyecto)) {
-			params.put("codigoProyecto", codigoProyecto);
+		try {
+			Modelo seleccionado = null;
+			Map<String, Object> params = new HashMap<>();
+			
+			String codigoProyecto = pantallaProcesarScript.getTxtModelo().getText();
+			
+			List<Modelo> modelos = buscar(codigoProyecto, null, null);
+			if (modelos.size() == 1) {
+				seleccionado = modelos.get(0);
+			}
+			else {
+				if (StringUtils.isNotBlank(codigoProyecto)) {
+					params.put("codigoProyecto", codigoProyecto);
+				}
+				
+				pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
+						Constants.CMD_SEARCH_MODEL, params);
+				MDSQLUIHelper.show(pantallaSeleccionModelos);
+				seleccionado = pantallaSeleccionModelos.getSeleccionado();
+			}
+			establecerModelo(seleccionado);
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
 		}
-		
-		pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
-				Constants.CMD_SEARCH_MODEL, params);
-		MDSQLUIHelper.show(pantallaSeleccionModelos);
-		
-		establecerModelo();
 	}
 
 	/**
@@ -501,16 +514,28 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	/**
 	 * 
 	 */
-	private void establecerModelo() {
+	private void establecerModelo(Modelo modelo) {
 		try {
-			Modelo seleccionado = pantallaSeleccionModelos.getSeleccionado();
-			if (!Objects.isNull(seleccionado)) {
-				pantallaProcesarScript.setModeloSeleccionado(seleccionado);
+			if (!Objects.isNull(modelo)) {
+				pantallaProcesarScript.setModeloSeleccionado(modelo);
 				procesarModelo();
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
 		}
+	}
+	
+	/**
+	 * @param codModelo
+	 * @param nombreModelo
+	 * @param codSubmodelo
+	 * @return
+	 * @throws ServiceException 
+	 */
+	private List<Modelo> buscar(String codModelo, String nombreModelo, String codSubmodelo) throws ServiceException {
+		ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+		
+		return modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
 	}
 }

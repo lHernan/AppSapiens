@@ -91,6 +91,8 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 		SeleccionModelosTableModel tableModel = (SeleccionModelosTableModel) pantallaSeleccionModelos
 				.getTblModelos().getModel();
 		tableModel.setData(modelos);
+		
+		pantallaSeleccionModelos.getTblModelos().repaint();
 	}
 
 	@Override
