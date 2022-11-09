@@ -88,6 +88,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		}
 
 		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+			pantallaEjecutarScripts.getReturnParams().put("estado", "EN_CURSO");
 			pantallaEjecutarScripts.dispose();
 		}
 	}
@@ -105,6 +106,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 		proceso = (Proceso) dlgRechazar.getReturnParams().get("proceso");
 		pantallaEjecutarScripts.getReturnParams().put("proceso", proceso);
+		pantallaEjecutarScripts.getReturnParams().put("estado", "RECHAZADO");
 		pantallaEjecutarScripts.dispose();
 	}
 

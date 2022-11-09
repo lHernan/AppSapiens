@@ -39,7 +39,6 @@ import com.mdsql.utils.Constants.Procesado;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.OnLoadListener;
-import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -341,6 +340,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			
 			pantallaEjecutarScript = (PantallaEjecutarScripts) MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT, params);
 			MDSQLUIHelper.show(pantallaEjecutarScript);
+			
+			String estado = (String) pantallaEjecutarScript.getReturnParams().get("estado");
+			if ("RECHAZADO".equals(estado)) {
+				resetFramePrincipal();
+			}
 			
 			updateProcesadoEnCurso(Constants.CMD_EJECUTAR_SCRIPT);
 		} else {

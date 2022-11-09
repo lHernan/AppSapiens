@@ -312,6 +312,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					String lanzaFile = ruta.concat(script.getNombreScriptLanza());
 					writeFileFromString(Paths.get(lanzaFile),
 							script.getTxtScriptLanza().concat(System.lineSeparator()));
+					
 					String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
 					bbdd.setPassword(password);
 					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile);
@@ -771,12 +772,12 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@SneakyThrows
-	private static void writeFileFromString(Path path, String content) {
+	private void writeFileFromString(Path path, String content) {
 		Files.write(path, content.getBytes(StandardCharsets.US_ASCII), StandardOpenOption.CREATE);
 	}
 
 	@SneakyThrows(IOException.class)
-	private static void writeFileFromList(Path path, List<TextoLinea> textoLineaList) {
+	private void writeFileFromList(Path path, List<TextoLinea> textoLineaList) {
 		try {
 			List<String> scriptLines = new ArrayList<>();
 			for (TextoLinea texto : textoLineaList) {
