@@ -215,8 +215,13 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				Object[] subs = (Object[]) arrayScript.getArray();
 				for (Object sub : subs) {
 					Object[] texto_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
-
-					TextoLinea textoLinea = TextoLinea.builder().valor((String) texto_cols[0]).build();
+					String linea = (String) texto_cols[0];
+					
+					TextoLinea textoLinea = TextoLinea.builder().valor(StringUtils.EMPTY).build();
+					if (StringUtils.isNotBlank(linea)) {
+						textoLinea = TextoLinea.builder().valor(linea).build();
+					}
+					
 					arrayTextoLinea.add(textoLinea);
 				}
 
@@ -544,7 +549,12 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				for (Object sub : subs) {
 					Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
 
-					TextoLinea textoLinea = TextoLinea.builder().valor((String) sub_cols[0]).build();
+					String linea = (String) sub_cols[0];
+					
+					TextoLinea textoLinea = TextoLinea.builder().valor(StringUtils.EMPTY).build();
+					if (StringUtils.isNotBlank(linea)) {
+						textoLinea = TextoLinea.builder().valor(linea).build();
+					}
 					textoLineas.add(textoLinea);
 				}
 
