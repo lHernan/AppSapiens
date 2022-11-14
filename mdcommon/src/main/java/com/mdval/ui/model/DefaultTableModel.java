@@ -54,7 +54,10 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 		if (!CollectionUtils.isEmpty(this.data)) {
 			this.data.clear();
 		}
-		this.data.addAll(newData);
+		
+		if (!CollectionUtils.isEmpty(newData)) {
+			this.data.addAll(newData);
+		}
 	}
 	
 	/**
