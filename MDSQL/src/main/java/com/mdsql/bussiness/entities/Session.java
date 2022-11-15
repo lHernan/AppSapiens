@@ -2,6 +2,8 @@ package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
 
+import com.mdsql.utils.Constants.Procesado;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,5 +25,8 @@ public class Session implements Serializable {
 	@Getter
 	@Setter
 	private String selectedRoute;
-
+	
+	@Getter
+	@Setter
+	private Procesado procesado;
 }

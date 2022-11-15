@@ -30,6 +30,7 @@ import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.PantallaEjecutarScripts;
+import com.mdsql.ui.PantallaEjecutarTypes;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
@@ -54,7 +55,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 	private PantallaProcesarScript pantallaProcesarScript;
 	
-	private PantallaEjecutarScripts pantallaEjecutarScript;
+	private DialogSupport pantallaEjecutar;
 
 	/**
 	 * @param framePrincipal
@@ -91,7 +92,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		}
 
 		if (Constants.FRAME_PRINCIPAL_EXECUTE.equals(jButton.getActionCommand())) {
-			evtEjecutarScript();
+			evtEjecutar();
 		}
 
 		if (Constants.FRAME_PRINCIPAL_PROCESADO_CURSO.equals(jButton.getActionCommand())) {
@@ -301,7 +302,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		} else {
 			Map<String, Object> params = new HashMap<>();
 			params.put("procesado", framePrincipal.getProcesado());
-
+			// Update session
+			session.setProcesado(framePrincipal.getProcesado());
+			
 			// Las líneas del script vienen directamente del text area
 			params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
 			params.put("file", framePrincipal.getCurrentFile());
@@ -309,6 +312,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createDialog(framePrincipal,
 					Constants.CMD_PROCESAR_SCRIPT, params);
 			MDSQLUIHelper.show(pantallaProcesarScript);
+			
 			
 			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
 				List<Script> scripts = (List<Script>) pantallaProcesarScript.getReturnParams().get("scripts");
@@ -330,7 +334,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	/**
 	 * 
 	 */
-	private void evtEjecutarScript() {
+	private void evtEjecutar() {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		Proceso proceso = session.getProceso();
 
@@ -338,15 +342,25 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			Map<String, Object> params = new HashMap<>();
 			params.put("proceso", proceso);
 			
-			pantallaEjecutarScript = (PantallaEjecutarScripts) MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_EJECUTAR_SCRIPT, params);
-			MDSQLUIHelper.show(pantallaEjecutarScript);
+			String item = StringUtils.EMPTY;
+			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
+				item = Constants.CMD_EJECUTAR_SCRIPT;
+				pantallaEjecutar = (PantallaEjecutarScripts) MDSQLUIHelper.createDialog(framePrincipal, item, params);
+				MDSQLUIHelper.show(pantallaEjecutar);
+			}
+
+			if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
+				item = Constants.CMD_EJECUTAR_TYPE;
+				pantallaEjecutar = (PantallaEjecutarTypes) MDSQLUIHelper.createDialog(framePrincipal, item, params);
+				MDSQLUIHelper.show(pantallaEjecutar);
+			}
 			
-			String estado = (String) pantallaEjecutarScript.getReturnParams().get("estado");
+			String estado = (String) pantallaEjecutar.getReturnParams().get("estado");
 			if ("RECHAZADO".equals(estado)) {
 				resetFramePrincipal();
 			}
 			
-			updateProcesadoEnCurso(Constants.CMD_EJECUTAR_SCRIPT);
+			updateProcesadoEnCurso(item);
 		} else {
 			// Aviso de que no hay procesado en curso
 			JOptionPane.showMessageDialog(framePrincipal, "Es necesario procesar un script");
@@ -579,8 +593,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
 		}
 		
-		if (Constants.CMD_EJECUTAR_SCRIPT.equals(cmd)) {
-			Proceso p = (Proceso) pantallaEjecutarScript.getReturnParams().get("proceso");
+		if (Constants.CMD_EJECUTAR_SCRIPT.equals(cmd) || Constants.CMD_EJECUTAR_TYPE.equals(cmd)) {
+			Proceso p = (Proceso) pantallaEjecutar.getReturnParams().get("proceso");
 			
 			if ((!Objects.isNull(p))) {
 				if ("Rechazado".equals(p.getDescripcionEstadoProceso())) {

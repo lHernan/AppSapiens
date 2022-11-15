@@ -23,6 +23,7 @@ import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaRepararScript;
+import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.PantallaVerCuadresScript;
 import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.BBDDComboBoxModel;
@@ -221,7 +222,24 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			pantallaEjecutarScripts.getTblHistorico().repaint();
 			
 			// Actualizar los scripts en el proceso en sesión
-			updateCurrentProcess(ejecuciones);
+			updateCurrentProcess(proceso, ejecuciones);
+			
+			pantallaEjecutarScripts.getTxtEstadoEjecucion().setText(proceso.getDescripcionEstadoProceso());
+			
+			/** 
+			 * Ver si todos los scripts están ejecutados y el estado del proceso 
+			 * es Ejecutado para mostrar la pantalla de resumen del procesado
+			 */
+			if (isAllExecuted(proceso.getScripts()) && "Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
+				Map<String, Object> params = new HashMap<>();
+
+				params.put("idProceso", proceso.getIdProceso());
+				params.put("entregar", Boolean.TRUE);
+
+				PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
+						.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_RESUMEN_PROCESADO, params);
+				MDSQLUIHelper.show(pantallaResumenProcesado);
+			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_ERROR, errParams);
@@ -274,11 +292,30 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	/**
 	 * @param ejecuciones
 	 */
-	private void updateCurrentProcess(List<OutputRegistraEjecucion> ejecuciones) {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
-		Proceso proceso = session.getProceso();
-		
+	private void updateCurrentProcess(Proceso proceso, List<OutputRegistraEjecucion> ejecuciones) {
 		List<Script> scripts = proceso.getScripts();
 		CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
+		
+		if (CollectionUtils.isNotEmpty(ejecuciones)) {
+			OutputRegistraEjecucion ejecucion = ejecuciones.get(0);
+			proceso.setCodigoEstadoProceso(ejecucion.getCodigoEstadoProceso());
+			proceso.setDescripcionEstadoProceso(ejecucion.getDescripcionEstadoProceso());
+		}
+		
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		session.setProceso(proceso);
+	}
+
+	/**
+	 * @param scripts
+	 * @return
+	 */
+	private Boolean isAllExecuted(List<Script> scripts) {
+		for (Script script: scripts) {
+			if (!"Ejecutado".equals(script.getDescripcionEstadoScript())) {
+				return Boolean.FALSE;
+			}
+		}
+		return Boolean.TRUE;
 	}
 }

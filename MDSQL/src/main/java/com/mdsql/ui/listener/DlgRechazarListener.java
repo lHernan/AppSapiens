@@ -13,6 +13,7 @@ import java.util.Optional;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Proceso;
@@ -92,14 +93,16 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 		List<Script> scripts = proceso.getScripts();
 		String ruta = proceso.getRutaTrabajo();
 
-		for (Script script : scripts) {
-			String lanzaFile = StringUtils.EMPTY;
+		if (CollectionUtils.isNotEmpty(scripts)) {
+			for (Script script : scripts) {
+				String lanzaFile = StringUtils.EMPTY;
 
-			try {
-				lanzaFile = ruta.concat(script.getNombreScriptLanza());
-				Files.delete(Paths.get(lanzaFile));
-			} catch (IOException e) {
-				LogWrapper.warn(log, "No existe el fichero %s", lanzaFile);
+				try {
+					lanzaFile = ruta.concat(script.getNombreScriptLanza());
+					Files.delete(Paths.get(lanzaFile));
+				} catch (IOException e) {
+					LogWrapper.warn(log, "No existe el fichero %s", lanzaFile);
+				}
 			}
 		}
 	}
@@ -113,31 +116,32 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 			List<Script> scripts = proceso.getScripts();
 			String ruta = proceso.getRutaTrabajo();
 
-			for (Script script : scripts) {
-				String nombreFileLog = script.getNombreScriptLog();
-				String logFile = ruta.concat(nombreFileLog);
-				File file = new File(logFile);
-				
-				String name = nombreFileLog.substring(0, nombreFileLog.lastIndexOf('.'));
-				String extension = getExtensionByStringHandling(nombreFileLog).get();
-				String rechazado = name.concat("_" + sufijoRechazo);
-				String fileNameRechazado = rechazado + "." + extension;
-				File newFile = new File(ruta.concat(fileNameRechazado));
-				file.renameTo(newFile);
+			if (CollectionUtils.isNotEmpty(scripts)) {
+				for (Script script : scripts) {
+					String nombreFileLog = script.getNombreScriptLog();
+					String logFile = ruta.concat(nombreFileLog);
+					File file = new File(logFile);
+
+					String name = nombreFileLog.substring(0, nombreFileLog.lastIndexOf('.'));
+					String extension = getExtensionByStringHandling(nombreFileLog).get();
+					String rechazado = name.concat("_" + sufijoRechazo);
+					String fileNameRechazado = rechazado + "." + extension;
+					File newFile = new File(ruta.concat(fileNameRechazado));
+					file.renameTo(newFile);
+				}
 			}
 
 		} catch (IOException e) {
 			LogWrapper.warn(log, "¡¡¡SufijoRechazoProcesado!!!");
 		}
 	}
-	
+
 	/**
 	 * @param filename
 	 * @return
 	 */
 	private Optional<String> getExtensionByStringHandling(String filename) {
-	    return Optional.ofNullable(filename)
-	      .filter(f -> f.contains("."))
-	      .map(f -> f.substring(filename.lastIndexOf(".") + 1));
+		return Optional.ofNullable(filename).filter(f -> f.contains("."))
+				.map(f -> f.substring(filename.lastIndexOf(".") + 1));
 	}
 }

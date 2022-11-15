@@ -2,14 +2,19 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.mdsql.bussiness.service.TypeService;
+import com.mdsql.bussiness.entities.Proceso;
+import com.mdsql.bussiness.entities.Script;
+import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaEjecutarTypes;
+import com.mdsql.ui.model.TypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.OnLoadListener;
 
@@ -42,26 +47,26 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		}
 		
 		if (Constants.PANTALLA_EJECUTAR_TYPES_BTN_CANCELAR.equals(jButton.getActionCommand())) {
-			eventBtnCancelar();
+			pantallaEjecutarTypes.dispose();
 		}
 		
 	}
 	
 	public void eventBtnRechazar() {
-		pantallaEjecutarTypes.getTxtEstadoEjecucion().setText(StringUtils.EMPTY);
-		pantallaEjecutarTypes.getTxtModelo().setText(StringUtils.EMPTY);
-		pantallaEjecutarTypes.getTxtSubmodelo().setText(StringUtils.EMPTY);
-		pantallaEjecutarTypes.getTxtSD().setText(StringUtils.EMPTY);
-		pantallaEjecutarTypes.getTxtSolicitadaPor().setText(StringUtils.EMPTY);
-		pantallaEjecutarTypes.getTxtEsquema().setText(StringUtils.EMPTY);
-		pantallaEjecutarTypes.getTxtBBDD().setText(StringUtils.EMPTY);
-		
-//		((EjecutarTypesTableModel) pantallaEjecutarTypes.getTblTypes().getModel().clearData()).clearData();
-		
-		pantallaEjecutarTypes.getBtnRechazar().setEnabled(Boolean.FALSE);
-		pantallaEjecutarTypes.getBtnVerCuadres().setEnabled(Boolean.FALSE);
-		pantallaEjecutarTypes.getBtnVerErrores().setEnabled(Boolean.FALSE);
-		pantallaEjecutarTypes.getBtnAceptar().setEnabled(Boolean.FALSE);
+		Map<String, Object> params = new HashMap<>();
+
+		Proceso proceso = pantallaEjecutarTypes.getProceso();
+
+		params.put("proceso", proceso);
+
+		DlgRechazar dlgRechazar = (DlgRechazar) MDSQLUIHelper.createDialog(pantallaEjecutarTypes.getFrameParent(),
+				Constants.CMD_RECHAZAR_PROCESADO, params);
+		MDSQLUIHelper.show(dlgRechazar);
+
+		proceso = (Proceso) dlgRechazar.getReturnParams().get("proceso");
+		pantallaEjecutarTypes.getReturnParams().put("proceso", proceso);
+		pantallaEjecutarTypes.getReturnParams().put("estado", "RECHAZADO");
+		pantallaEjecutarTypes.dispose();
 	}
 
 	public void eventBtnVerCuadres() {
@@ -76,16 +81,15 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		
 	}
 	
-	public void eventBtnCancelar() {
-		pantallaEjecutarTypes.dispose();
-	}
-	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onLoad() {
-		TypeService typeService = (TypeService) getService(Constants.PROCESO_SERVICE);
+		Proceso proceso = (Proceso) pantallaEjecutarTypes.getParams().get("proceso");
+		pantallaEjecutarTypes.setProceso(proceso);
 
-		String typeProyecto = (String) pantallaEjecutarTypes.getParams().get("codigoProyecto");
-
+		// Obtiene los scripts
+		List<Script> scripts = proceso.getScripts();
+		TypesTableModel tableModelTypes = (TypesTableModel) pantallaEjecutarTypes.getTblTypes()
+				.getModel();
+		tableModelTypes.setData(scripts);
 	}
 }

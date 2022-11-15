@@ -8,6 +8,7 @@ import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
+import com.mdsql.ui.PantallaEjecutarTypes;
 import com.mdsql.ui.PantallaProcesadoEnCurso;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.PantallaRepararScript;
@@ -111,6 +112,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_RECHAZAR_PROCESADO.equals(option)) {
 			dialog = new DlgRechazar(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_EJECUTAR_TYPE.equals(option)) {
+			dialog = new PantallaEjecutarTypes(frameParent, modal, params);
 		}
 		
 		return dialog;

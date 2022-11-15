@@ -49,7 +49,7 @@ public class PantallaEjecutarTypes extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         btnVerCuadres = new javax.swing.JButton();
         btnVerErrores = new javax.swing.JButton();
-        txtEsquema1 = new javax.swing.JTextField();
+        txtBBDD = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,9 +147,9 @@ public class PantallaEjecutarTypes extends javax.swing.JFrame {
 
         btnVerErrores.setText("Ver errores");
 
-        txtEsquema1.addActionListener(new java.awt.event.ActionListener() {
+        txtBBDD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEsquema1ActionPerformed(evt);
+                txtBBDDActionPerformed(evt);
             }
         });
 
@@ -181,7 +181,7 @@ public class PantallaEjecutarTypes extends javax.swing.JFrame {
                             .addComponent(txtModelo)
                             .addComponent(txtSD)
                             .addComponent(txtEsquema)
-                            .addComponent(txtEsquema1)))
+                            .addComponent(txtBBDD)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnRechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,7 +193,6 @@ public class PantallaEjecutarTypes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -230,7 +229,7 @@ public class PantallaEjecutarTypes extends javax.swing.JFrame {
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEsquema1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -245,7 +244,7 @@ public class PantallaEjecutarTypes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAceptar)
                             .addComponent(btnCancelar))))
                 .addContainerGap())
@@ -286,9 +285,9 @@ public class PantallaEjecutarTypes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEsquemaActionPerformed
 
-    private void txtEsquema1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEsquema1ActionPerformed
+    private void txtBBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBBDDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEsquema1ActionPerformed
+    }//GEN-LAST:event_txtBBDDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,9 +343,9 @@ public class PantallaEjecutarTypes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblTypes;
+    private javax.swing.JTextField txtBBDD;
     private javax.swing.JTextField txtDemanda;
     private javax.swing.JTextField txtEsquema;
-    private javax.swing.JTextField txtEsquema1;
     private javax.swing.JTextField txtEstadoEjecucion;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtSD;

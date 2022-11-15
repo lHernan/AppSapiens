@@ -95,6 +95,7 @@ public class MDSQLApplication implements CommandLineRunner {
 				MDSQLAppHelper.setGlobalProperty(Constants.SESSION, session);
 				
 				FramePrincipal framePrincipal = new FramePrincipal();
+				framePrincipal.setProcesado(session.getProcesado());
 				MDSQLUIHelper.showMaximized(framePrincipal);
 				framePrincipal.setVisible(Boolean.TRUE);
 			} catch (IOException e) {
