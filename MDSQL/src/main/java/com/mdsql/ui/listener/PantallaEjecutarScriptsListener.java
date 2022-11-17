@@ -231,14 +231,11 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			 * es Ejecutado para mostrar la pantalla de resumen del procesado
 			 */
 			if (isAllExecuted(proceso.getScripts()) && "Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
-				Map<String, Object> params = new HashMap<>();
+				pantallaEjecutarScripts.getReturnParams().put("idProceso", proceso.getIdProceso());
+				pantallaEjecutarScripts.getReturnParams().put("entregar", Boolean.TRUE);
+				pantallaEjecutarScripts.getReturnParams().put("cmd", Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
 
-				params.put("idProceso", proceso.getIdProceso());
-				params.put("entregar", Boolean.TRUE);
-
-				PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
-						.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_RESUMEN_PROCESADO, params);
-				MDSQLUIHelper.show(pantallaResumenProcesado);
+				pantallaEjecutarScripts.dispose();
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);

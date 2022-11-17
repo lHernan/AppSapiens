@@ -28,15 +28,11 @@ public interface ScriptService {
 
     List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException;
 
-    OutputReparaScript repararScript(InputReparaScript inputReparaScript);
+    OutputReparaScript repararScript(InputReparaScript inputReparaScript) throws ServiceException;
 
-    OutputDescartarScript descartarScript(InputDescartarScript inputDescartarScript);
+    OutputDescartarScript descartarScript(InputDescartarScript inputDescartarScript) throws ServiceException;
 
     List<DetObjeto> detalleObjetosScripts(BigDecimal idProceso, BigDecimal numeroOrden);
-
-	OutputReparaScript repararScript(String inputReparaScript) throws ServiceException;
-
-	OutputDescartarScript descartarScript(String inputDescartarScript) throws ServiceException;
 
 	void excepcionScript(Proceso proceso, Script script, String txtMotivoExcepcion, String codUsr) throws ServiceException;
 

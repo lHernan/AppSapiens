@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
+import com.mdsql.bussiness.entities.InputReparaScript;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaRepararScript;
@@ -46,7 +47,9 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		try {
 			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
 
-			String inputReparaScript = (String) pantallaRepararScript.getParams().get("inputReparaScript");
+			InputReparaScript inputReparaScript = new InputReparaScript();
+			String script = (String) pantallaRepararScript.getParams().get("inputReparaScript");
+			inputReparaScript.setNombreScriptNew(script);
 			
 			OutputReparaScript repararScript = scriptService.repararScript(inputReparaScript);
 

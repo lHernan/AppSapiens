@@ -389,8 +389,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@Override
-	@SneakyThrows
-	public OutputReparaScript repararScript(InputReparaScript inputReparaScript) {
+	public OutputReparaScript repararScript(InputReparaScript inputReparaScript) throws ServiceException {
 		String runSP = createCall("p_repara_script", Constants.CALL_21_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
@@ -540,6 +539,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		}
 	}
 
+	/**
+	 * @param script
+	 * @param cols
+	 * @throws SQLException
+	 */
 	private void fillLineasScript(Script script, Object[] cols) throws SQLException {
 		try {
 			Array arrayLineasScript = (Array) cols[1];
@@ -566,8 +570,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@Override
-	@SneakyThrows
-	public OutputDescartarScript descartarScript(InputDescartarScript inputDescartarScript) {
+	public OutputDescartarScript descartarScript(InputDescartarScript inputDescartarScript) throws ServiceException {
 		String runSP = createCall("p_descartar_script", Constants.CALL_18_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
@@ -818,18 +821,6 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			logLinesList.add(textoLinea);
 		}
 		return logLinesList;
-	}
-
-	@Override
-	public OutputReparaScript repararScript(String inputReparaScript) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public OutputDescartarScript descartarScript(String inputDescartarScript) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

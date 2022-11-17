@@ -32,6 +32,7 @@ import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaEjecutarTypes;
 import com.mdsql.ui.PantallaProcesarScript;
+import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -54,7 +55,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	private FramePrincipal framePrincipal;
 
 	private PantallaProcesarScript pantallaProcesarScript;
-	
+
 	private DialogSupport pantallaEjecutar;
 
 	/**
@@ -131,7 +132,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (!Objects.isNull(proceso) && "Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
 			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_ENTREGAR_SCRIPT);
 			MDSQLUIHelper.show(dialog);
-		
+
 			updateProcesadoEnCurso(Constants.CMD_ENTREGAR_SCRIPT);
 		}
 	}
@@ -215,7 +216,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	private void evtLimpiarScript() {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		Proceso proceso = session.getProceso();
-		
+
 		if (Objects.isNull(proceso)) {
 			resetFramePrincipal();
 		} else {
@@ -304,7 +305,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			params.put("procesado", framePrincipal.getProcesado());
 			// Update session
 			session.setProcesado(framePrincipal.getProcesado());
-			
+
 			// Las líneas del script vienen directamente del text area
 			params.put("script", MDSQLUIHelper.toTextoLineas(framePrincipal.getTxtSQLCode()));
 			params.put("file", framePrincipal.getCurrentFile());
@@ -312,8 +313,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createDialog(framePrincipal,
 					Constants.CMD_PROCESAR_SCRIPT, params);
 			MDSQLUIHelper.show(pantallaProcesarScript);
-			
-			
+
 			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
 				List<Script> scripts = (List<Script>) pantallaProcesarScript.getReturnParams().get("scripts");
 				fillProcesadoScript(scripts);
@@ -341,7 +341,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (!Objects.isNull(proceso)) {
 			Map<String, Object> params = new HashMap<>();
 			params.put("proceso", proceso);
-			
+
 			String item = StringUtils.EMPTY;
 			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
 				item = Constants.CMD_EJECUTAR_SCRIPT;
@@ -354,12 +354,25 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				pantallaEjecutar = (PantallaEjecutarTypes) MDSQLUIHelper.createDialog(framePrincipal, item, params);
 				MDSQLUIHelper.show(pantallaEjecutar);
 			}
-			
+
 			String estado = (String) pantallaEjecutar.getReturnParams().get("estado");
 			if ("RECHAZADO".equals(estado)) {
 				resetFramePrincipal();
 			}
-			
+
+			String cmd = (String) pantallaEjecutar.getReturnParams().get("cmd");
+			if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR.equals(cmd)
+					|| Constants.PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR.equals(cmd)) {
+				params = new HashMap<>();
+
+				params.put("idProceso", pantallaEjecutar.getReturnParams().get("idProceso"));
+				params.put("entregar", pantallaEjecutar.getReturnParams().get("entregar"));
+
+				PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
+						.createDialog(framePrincipal, Constants.CMD_RESUMEN_PROCESADO, params);
+				MDSQLUIHelper.show(pantallaResumenProcesado);
+			}
+
 			updateProcesadoEnCurso(item);
 		} else {
 			// Aviso de que no hay procesado en curso
@@ -423,7 +436,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			file = chooser.getSelectedFile();
 			LogWrapper.debug(log, "Archivo seleccionado: %s", file.getAbsolutePath());
 			String ruta = file.getParent();
-			
+
 			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 			session.setSelectedRoute(ruta);
 			LogWrapper.debug(log, "Ruta global: %s", session.getSelectedRoute());
@@ -588,30 +601,29 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	private void updateProcesadoEnCurso(String cmd) {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		Proceso proceso = session.getProceso();
-		
+
 		if (Constants.CMD_PROCESAR_SCRIPT.equals(cmd)) {
 			proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
 		}
-		
+
 		if (Constants.CMD_EJECUTAR_SCRIPT.equals(cmd) || Constants.CMD_EJECUTAR_TYPE.equals(cmd)) {
 			Proceso p = (Proceso) pantallaEjecutar.getReturnParams().get("proceso");
-			
+
 			if ((!Objects.isNull(p))) {
 				if ("Rechazado".equals(p.getDescripcionEstadoProceso())) {
 					proceso = null;
-				}
-				else {
+				} else {
 					proceso = p;
 				}
 			}
 		}
-		
+
 		if (Constants.CMD_ENTREGAR_SCRIPT.equals(cmd)) {
 			proceso = null;
 		}
-		
+
 		session.setProceso(proceso);
-		
+
 		// Save session to disk
 		MDSQLAppHelper.serializeToDisk(session, Constants.SESSION);
 	}
@@ -624,7 +636,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		FramePrincipalTypesTableModel tableModel = (FramePrincipalTypesTableModel) framePrincipal.getJTable1()
 				.getModel();
 		tableModel.setData(types);
-		
+
 		framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
 		framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
 		framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
@@ -635,7 +647,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 */
 	private void fillProcesadoScript(List<Script> scripts) {
 		if (CollectionUtils.isNotEmpty(scripts)) {
-			for (Script script: scripts) {
+			for (Script script : scripts) {
 				if ("SQL".equals(script.getTipoScript())) {
 					framePrincipal.getIfrmSQLModificado().setTitle(script.getNombreScript());
 					framePrincipal.getTxtSQLModificado().setText(StringUtils.EMPTY);
@@ -643,7 +655,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 					framePrincipal.getIfrmLanzaSQLModificado().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaSQLModificado().setText(script.getTxtScriptLanza());
 				}
-		
+
 				if ("PDC".equals(script.getTipoScript())) {
 					framePrincipal.getIfrmPDC().setTitle(script.getNombreScript());
 					framePrincipal.getTxtPDC().setText(StringUtils.EMPTY);
@@ -651,7 +663,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 					framePrincipal.getIfrmLanzaPDC().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaPDC().setText(script.getTxtScriptLanza());
 				}
-		
+
 				if ("SQLH".equals(script.getTipoScript())) {
 					framePrincipal.getIfrmSQLH().setTitle(script.getNombreScript());
 					framePrincipal.getTxtSQLH().setText(StringUtils.EMPTY);
@@ -659,7 +671,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 					framePrincipal.getIfrmLanzaSQLH().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaSQLH().setText(script.getTxtScriptLanza());
 				}
-		
+
 				if ("PDCH".equals(script.getTipoScript())) {
 					framePrincipal.getIfrmPDCH().setTitle(script.getNombreScript());
 					framePrincipal.getTxtPDCH().setText(StringUtils.EMPTY);
@@ -668,7 +680,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 					framePrincipal.getTxtLanzaPDCH().setText(script.getTxtScriptLanza());
 				}
 			}
-			
+
 			framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
 			framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
 			framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);

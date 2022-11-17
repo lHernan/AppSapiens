@@ -49,7 +49,9 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 		try {
 			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
 			
-			String inputDescartarScript = (String) pantallaDescartarScript.getParams().get("inputDescartarScript");
+			InputDescartarScript inputDescartarScript = new InputDescartarScript();
+			String script = (String) pantallaDescartarScript.getParams().get("inputDescartarScript");
+			inputDescartarScript.setNombreScript(script);
 			
 			OutputDescartarScript descartarScript = scriptService.descartarScript(inputDescartarScript);
 			

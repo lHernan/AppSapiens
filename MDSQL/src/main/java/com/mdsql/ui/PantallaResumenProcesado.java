@@ -334,8 +334,10 @@ public class PantallaResumenProcesado extends DialogSupport {
 	protected void initEvents() {
 		PantallaResumenProcesadoActionListener actionListener = new PantallaResumenProcesadoActionListener(this);
 		
+		btnEntregar.setActionCommand(Constants.PANTALLA_RESUMEN_PROCESADO_ENTREGAR);
 		btnCancelar.setActionCommand(Constants.PANTALLA_RESUMEN_PROCESADO_CANCELAR);
 
+		btnEntregar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 		
 		this.addOnLoadListener(actionListener);
