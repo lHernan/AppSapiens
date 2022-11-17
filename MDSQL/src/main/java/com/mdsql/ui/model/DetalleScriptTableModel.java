@@ -34,7 +34,27 @@ public class DetalleScriptTableModel extends DefaultTableModel<DetObjeto> {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		DetObjeto row = data.get(rowIndex);
 
-		
+		if (columnIndex == 0) {
+			return row.getNumeroSentencia();
+		} else if (1 == columnIndex) {
+			return row.getNombreObjetoPadre();
+		} else if (2 == columnIndex) {
+			return row.getTipoObjetoPadre();
+		} else if (3 == columnIndex) {
+			return row.getTipoAccion();
+		} else if (4 == columnIndex) {
+			return row.getNombreObjeto();
+		} else if (5 == columnIndex) {
+			return row.getTipoObjeto();
+		} else if (6 == columnIndex) {
+			return row.getTipoAccionPadre();
+		} else if (7 == columnIndex) {
+			return row.getTipoDato();
+		} else if (8 == columnIndex) {
+			return row.getNumeroDecimal();
+		} else if (9 == columnIndex) {
+			return row.getNumeroLongitud();
+		}
 
 		return null;
 	}

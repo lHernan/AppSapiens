@@ -1,6 +1,6 @@
 package com.mdsql.ui.model.cabeceras;
 
-import java.util.Date;
+import java.math.BigDecimal;
 
 /**
  * @author federico
@@ -20,6 +20,7 @@ public class TablaDetalleScriptCabecera extends Cabecera {
 		columnIdentifiers.add("Precisión");
 		columnIdentifiers.add("Escala");
 		
+		columnClasses.add(BigDecimal.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
@@ -27,8 +28,7 @@ public class TablaDetalleScriptCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
-		columnClasses.add(String.class);
-		columnClasses.add(String.class);
-		columnClasses.add(String.class);
+		columnClasses.add(BigDecimal.class);
+		columnClasses.add(BigDecimal.class);
 	}
 }
