@@ -15,11 +15,11 @@ import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaDetalleScript;
+import com.mdsql.ui.model.DetalleScriptTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.OnLoadListener;
-import com.mdval.ui.utils.observer.Observable;
 
 public class PantallaDetalleScriptListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
@@ -57,10 +57,24 @@ public class PantallaDetalleScriptListener extends ListenerSupport implements Ac
 			
 			List<DetObjeto> detalleObjetosScripts = scriptService.detalleObjetosScripts(idProceso, numeroOrden);
 			
-		}catch (ServiceException e) {
+			populateModel(detalleObjetosScripts);
+			
+		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaDetalleScript.getFrameParent(), Constants.CMD_ERROR, params);
 		}
+	}
+	
+	/**
+	 * @param modelos
+	 */
+	private void populateModel(List<DetObjeto> objetos) {
+		// Obtiene el modelo y lo actualiza
+		DetalleScriptTableModel tableModel = (DetalleScriptTableModel) pantallaDetalleScript
+				.getTblDetalle().getModel();
+		tableModel.setData(objetos);
+		
+		pantallaDetalleScript.getTblDetalle().repaint();
 	}
 
 }

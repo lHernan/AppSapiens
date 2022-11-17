@@ -9,12 +9,19 @@ import java.util.Map;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.LayoutStyle;
+import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaDetalleScriptListener;
+import com.mdsql.ui.model.DetalleScriptTableModel;
+import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
+
+import lombok.Getter;
 
 /**
  *
@@ -27,10 +34,10 @@ public class PantallaDetalleScript extends DialogSupport {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton jButton1;
     private JScrollPane jScrollPane1;
-    private JTable tblDetalle;
-    // End of variables declaration//GEN-END:variables
     
-    private PantallaDetalleScriptListener pantallaDetalleScriptListener;
+    @Getter
+    private TableSupport tblDetalle;
+    // End of variables declaration//GEN-END:variables
     
     public PantallaDetalleScript(FrameSupport parent, Boolean modal) {
         super(parent, modal);
@@ -43,8 +50,10 @@ public class PantallaDetalleScript extends DialogSupport {
     @Override
    	protected void setupComponents() {
     	jScrollPane1 = new JScrollPane();
-        tblDetalle = new JTable();
+        tblDetalle = new TableSupport(Boolean.FALSE);
         jButton1 = new JButton();
+        
+        jScrollPane1.setViewportView(tblDetalle);
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,12 +82,21 @@ public class PantallaDetalleScript extends DialogSupport {
     
     @Override
    	protected void initEvents() {
-    	
+    	PantallaDetalleScriptListener actionListener = new PantallaDetalleScriptListener(this);
+		
+		jButton1.setActionCommand(Constants.PANTALLA_DETALLE_SCRIPT_CANCELAR);
+
+		jButton1.addActionListener(actionListener);
+		
+		this.addOnLoadListener(actionListener);
     }
     
     @Override
 	protected void initModels() {
-    	
+    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_DETALLE_SCRIPT_TABLA_CABECERA);
+    	TableModel detalleScriptTableModel = new DetalleScriptTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
+    
+    	tblDetalle.setModel(detalleScriptTableModel);
     }
     
     @Override

@@ -5,6 +5,7 @@ import java.util.Map;
 import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.model.cabeceras.TablaCuadresObjetosCabecera;
 import com.mdsql.ui.model.cabeceras.TablaCuadresOperacionesCabecera;
+import com.mdsql.ui.model.cabeceras.TablaDetalleScriptCabecera;
 import com.mdsql.ui.model.cabeceras.TablaEjecutarTypesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaErroresCabecera;
 import com.mdsql.ui.model.cabeceras.TablaModelosCabecera;
@@ -92,6 +93,10 @@ public class CabeceraTablaCreator extends Creator {
 		
 		if (Constants.VER_CUADRES_OBJETOS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaCuadresObjetosCabecera();
+		}
+		
+		if (Constants.DLG_DETALLE_SCRIPT_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaDetalleScriptCabecera();
 		}
 		
 		return cabecera;
