@@ -107,6 +107,13 @@ public class CabeceraTablaCreator extends Creator {
 			cabecera = new TablaInformacionModeloCabecera();
 		}
 		
+		if (Constants.DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaAjustarLogEjecucionCabecera();
+		}
+		
+		
+		DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA
+		
 		return cabecera;
 	}
 

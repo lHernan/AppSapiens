@@ -12,8 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaAjustarLogEjecucionListener;
+import com.mdsql.ui.model.AjustarLogEjecucionTableModel;
+import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
