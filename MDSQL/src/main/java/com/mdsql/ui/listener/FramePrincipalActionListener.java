@@ -373,9 +373,15 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				params.put("idProceso", pantallaEjecutar.getReturnParams().get("idProceso"));
 				params.put("entregar", pantallaEjecutar.getReturnParams().get("entregar"));
 
+				item = Constants.CMD_ENTREGAR_SCRIPT;
 				PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
 						.createDialog(framePrincipal, Constants.CMD_RESUMEN_PROCESADO, params);
 				MDSQLUIHelper.show(pantallaResumenProcesado);
+				
+				estado = (String) pantallaResumenProcesado.getReturnParams().get("estado");
+				if ("Entregado".equals(estado)) {
+					resetFramePrincipal();
+				}
 			}
 
 			updateProcesadoEnCurso(item);
