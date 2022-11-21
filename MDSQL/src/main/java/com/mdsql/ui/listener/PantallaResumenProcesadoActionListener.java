@@ -205,8 +205,10 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @return
 	 */
 	private boolean tieneScriptsHistoricos(List<Script> scripts) {
+		List<String> scriptTypes = Arrays.asList(new String[] { "SQLH", "PDCH" });
+		
 		for (Script script : scripts) {
-			if ("SQLH".equals(script.getTipoScript()) || "PDCH".equals(script.getTipoScript())) {
+			if (scriptTypes.contains(script.getTipoScript())) {
 				return true;
 			}
 		}
@@ -218,58 +220,55 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param outputConsultaEntrega
 	 */
 	private void moveZipVigente(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
+		moveZip(outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroVigente());
+	}
+	
+	/**
+	 * @param outputConsultaEntrega
+	 */
+	private void moveZipHistorico(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
+		moveZip(outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroHistorico());
+	}
+	
+	/**
+	 * @param rutaEntrega
+	 * @param nombreZip
+	 * @throws IOException
+	 */
+	private void moveZip(String rutaEntrega, String nombreZip) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
 		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
 		log.info("Ruta entregados: {}", rutaEntregados);
 
-		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + File.separator
-				+ outputConsultaEntrega.getNombreFicheroVigente();
-		moveFile(zipFile, rutaEntregados + File.separator + outputConsultaEntrega.getNombreFicheroVigente());
+		String zipFile = rutaEntrega + File.separator + nombreZip;
+		moveFile(zipFile, rutaEntregados + File.separator + nombreZip);
 	}
 
 	/**
 	 * @param scripts
 	 */
 	private void moveFilesVigente(List<Script> scripts) throws IOException {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
-		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
-		log.info("Ruta entregados: {}", rutaEntregados);
-
-		for (Script script : scripts) {
-			if ("SQL".equals(script.getTipoScript()) || "PDC".equals(script.getTipoScript())) {
-				String rutaScript = session.getSelectedRoute() + File.separator + script.getNombreScript();
-				moveFile(rutaScript, rutaEntregados + File.separator + script.getNombreScript());
-			}
-		}
+		moveFiles(scripts, Arrays.asList(new String[] { "SQL", "PDC" }));
 	}
-
-	/**
-	 * @param outputConsultaEntrega
-	 */
-	private void moveZipHistorico(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
-		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
-		log.info("Ruta entregados: {}", rutaEntregados);
-
-		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + File.separator
-				+ outputConsultaEntrega.getNombreFicheroHistorico();
-		moveFile(zipFile, rutaEntregados + File.separator + outputConsultaEntrega.getNombreFicheroHistorico());
-	}
-
+	
 	/**
 	 * @param scripts
 	 */
 	private void moveFilesHistorico(List<Script> scripts) throws IOException {
+		moveFiles(scripts, Arrays.asList(new String[] { "SQLH", "PDCH" }));
+	}
+	
+	/**
+	 * @param scripts
+	 */
+	private void moveFiles(List<Script> scripts, List<String> scriptTypes) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
 		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
-		log.info("Ruta entregados: {}", rutaEntregados);
 
 		for (Script script : scripts) {
-			if ("SQLH".equals(script.getTipoScript()) || "PDCH".equals(script.getTipoScript())) {
+			if (scriptTypes.contains(script.getTipoScript())) {
 				String rutaScript = session.getSelectedRoute() + File.separator + script.getNombreScript();
 				moveFile(rutaScript, rutaEntregados + File.separator + script.getNombreScript());
 			}
