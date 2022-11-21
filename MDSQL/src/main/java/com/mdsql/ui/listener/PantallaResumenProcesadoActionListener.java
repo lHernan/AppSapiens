@@ -172,14 +172,14 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		
-		String stringUri = "jar:file:" + outputConsultaEntrega.getTxtRutaEntrega() + "/"
-				+ outputConsultaEntrega.getNombreFicheroVigente() + ".zip";
+		String stringUri = "jar:file:" + outputConsultaEntrega.getTxtRutaEntrega() + "\\"
+				+ outputConsultaEntrega.getNombreFicheroVigente();
 		URI uri = URI.create(stringUri);
 		
 		try (FileSystem zipfs = FileSystems.newFileSystem(uri, env)) {
 			for (Script script : proceso.getScripts()) {
 				if ("SQL".equals(script.getTipoScript()) || "PDC".equals(script.getTipoScript())) {
-					Path externalTxtFile = Paths.get(session.getSelectedRoute() + "/" + script.getNombreScript());
+					Path externalTxtFile = Paths.get(session.getSelectedRoute() + "\\" + script.getNombreScript());
 				    Path pathInZipfile = zipfs.getPath(script.getNombreScript());          
 				    // Copy a file into the zip file
 				    Files.copy(externalTxtFile, pathInZipfile, StandardCopyOption.REPLACE_EXISTING); 
@@ -199,14 +199,14 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		
-		String stringUri = "jar:file:" + outputConsultaEntrega.getTxtRutaEntrega() + "/"
-				+ outputConsultaEntrega.getNombreFicheroHistorico() + ".zip";
+		String stringUri = "jar:file:" + outputConsultaEntrega.getTxtRutaEntrega() + "\\"
+				+ outputConsultaEntrega.getNombreFicheroHistorico();
 		URI uri = URI.create(stringUri);
 		
 		try (FileSystem zipfs = FileSystems.newFileSystem(uri, env)) {
 			for (Script script : proceso.getScripts()) {
 				if ("SQLH".equals(script.getTipoScript()) || "PDCH".equals(script.getTipoScript())) {
-					Path externalTxtFile = Paths.get(session.getSelectedRoute() + "/" + script.getNombreScript());
+					Path externalTxtFile = Paths.get(session.getSelectedRoute() + "\\" + script.getNombreScript());
 				    Path pathInZipfile = zipfs.getPath(script.getNombreScript());          
 				    // Copy a file into the zip file
 				    Files.copy(externalTxtFile, pathInZipfile, StandardCopyOption.REPLACE_EXISTING); 
@@ -235,11 +235,11 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	private void moveZipVigente(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + "/" + carpetaEntregados;
+		String rutaEntregados = session.getSelectedRoute() + "\\" + carpetaEntregados;
 		
-		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + "/"
-				+ outputConsultaEntrega.getNombreFicheroVigente() + ".zip";
-		moveFile(zipFile, rutaEntregados + "/" + outputConsultaEntrega.getNombreFicheroVigente() + ".zip");
+		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + "\\"
+				+ outputConsultaEntrega.getNombreFicheroVigente();
+		moveFile(zipFile, rutaEntregados + "\\" + outputConsultaEntrega.getNombreFicheroVigente());
 	}
 	
 	/**
@@ -248,12 +248,12 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	private void moveFilesVigente(List<Script> scripts) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + "/" + carpetaEntregados;
+		String rutaEntregados = session.getSelectedRoute() + "\\" + carpetaEntregados;
 		
 		for (Script script : scripts) {
 			if ("SQL".equals(script.getTipoScript()) || "PDC".equals(script.getTipoScript())) {
-				String rutaScript = session.getSelectedRoute() + "/" + script.getNombreScript();
-				moveFile(rutaScript, rutaEntregados + "/" + script.getNombreScript());
+				String rutaScript = session.getSelectedRoute() + "\\" + script.getNombreScript();
+				moveFile(rutaScript, rutaEntregados + "\\" + script.getNombreScript());
 			}
 		}
 	}
@@ -264,11 +264,11 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	private void moveZipHistorico(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + "/" + carpetaEntregados;
+		String rutaEntregados = session.getSelectedRoute() + "\\" + carpetaEntregados;
 		
-		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + "/"
-				+ outputConsultaEntrega.getNombreFicheroHistorico() + ".zip";
-		moveFile(zipFile, rutaEntregados + "/" + outputConsultaEntrega.getNombreFicheroHistorico() + ".zip");
+		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + "\\"
+				+ outputConsultaEntrega.getNombreFicheroHistorico();
+		moveFile(zipFile, rutaEntregados + "\\" + outputConsultaEntrega.getNombreFicheroHistorico());
 	}
 	
 	/**
@@ -277,12 +277,12 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	private void moveFilesHistorico(List<Script> scripts) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + "/" + carpetaEntregados;
+		String rutaEntregados = session.getSelectedRoute() + "\\" + carpetaEntregados;
 		
 		for (Script script : scripts) {
 			if ("SQLH".equals(script.getTipoScript()) || "PDCH".equals(script.getTipoScript())) {
-				String rutaScript = session.getSelectedRoute() + "/" + script.getNombreScript();
-				moveFile(rutaScript, rutaEntregados + "/" + script.getNombreScript());
+				String rutaScript = session.getSelectedRoute() + "\\" + script.getNombreScript();
+				moveFile(rutaScript, rutaEntregados + "\\" + script.getNombreScript());
 			}
 		}
 	}
