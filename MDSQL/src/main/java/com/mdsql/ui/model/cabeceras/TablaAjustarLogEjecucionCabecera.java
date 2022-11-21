@@ -1,0 +1,36 @@
+package com.mdsql.ui.model.cabeceras;
+
+import java.math.BigDecimal;
+
+/**
+ * @author federico
+ *
+ */
+public class TablaAjustarLogEjecucionCabecera extends Cabecera {
+	
+	public void setupCabecera() {
+		columnIdentifiers.add("Script");
+		columnIdentifiers.add("Procesado");
+		columnIdentifiers.add("Iteración");
+		columnIdentifiers.add("Ejecución");
+		columnIdentifiers.add("Sentencia");
+		columnIdentifiers.add("Tipo objeto");
+		columnIdentifiers.add("Acción");
+		columnIdentifiers.add("Nombre");
+		columnIdentifiers.add("Estado");
+		columnIdentifiers.add("Eliminado");
+		columnIdentifiers.add("Comentario");
+		
+		columnClasses.add(BigDecimal.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
+		columnClasses.add(String.class);
+	}
+}
