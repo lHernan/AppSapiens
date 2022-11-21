@@ -2,16 +2,13 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URI;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -39,6 +36,7 @@ import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.UIHelper;
 
 import lombok.extern.slf4j.Slf4j;
+import net.lingala.zip4j.ZipFile;
 
 /**
  * @author federico
@@ -91,22 +89,22 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				createZipVigente(proceso, outputConsultaEntrega);
 				moveZipVigente(outputConsultaEntrega);
 				moveFilesVigente(proceso.getScripts());
-				
+
 				if (tieneScriptsHistoricos(proceso.getScripts())) {
 					createZipHistorico(proceso, outputConsultaEntrega);
 					moveZipHistorico(outputConsultaEntrega);
 					moveFilesHistorico(proceso.getScripts());
 				}
-				
+
 				// Entregar petición
 				String txtComentario = pantallaResumenProcesado.getTxtComentarios().getText();
 				String codUsr = session.getCodUsr();
-				
+
 				String estado = entregaService.entregarPeticion(proceso.getIdProceso(), codUsr, txtComentario);
 				proceso.setDescripcionEstadoProceso(estado);
 				pantallaResumenProcesado.getReturnParams().put("cmd", Constants.CMD_ENTREGAR_SCRIPT);
 				pantallaResumenProcesado.getReturnParams().put("estado", estado);
-				
+
 				pantallaResumenProcesado.dispose();
 			}
 		} catch (IOException e) {
@@ -166,26 +164,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param outputConsultaEntrega
 	 */
 	private void createZipVigente(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega) throws IOException {
-		Map<String, String> env = new HashMap<>();
-		// Create the zip file if it doesn't exist
-		env.put("create", "true");
-		
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
-		
-		String stringUri = "jar:file:" + outputConsultaEntrega.getTxtRutaEntrega() + "\\"
-				+ outputConsultaEntrega.getNombreFicheroVigente();
-		URI uri = URI.create(stringUri);
-		
-		try (FileSystem zipfs = FileSystems.newFileSystem(uri, env)) {
-			for (Script script : proceso.getScripts()) {
-				if ("SQL".equals(script.getTipoScript()) || "PDC".equals(script.getTipoScript())) {
-					Path externalTxtFile = Paths.get(session.getSelectedRoute() + "\\" + script.getNombreScript());
-				    Path pathInZipfile = zipfs.getPath(script.getNombreScript());          
-				    // Copy a file into the zip file
-				    Files.copy(externalTxtFile, pathInZipfile, StandardCopyOption.REPLACE_EXISTING); 
-				}
-			}
-		}
+		createZip(proceso, outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroVigente(),
+				Arrays.asList(new String[] { "SQL", "PDC" }));
 	}
 
 	/**
@@ -193,28 +173,33 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param outputConsultaEntrega
 	 */
 	private void createZipHistorico(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega) throws IOException {
-		Map<String, String> env = new HashMap<>();
-		// Create the zip file if it doesn't exist
-		env.put("create", "true");
-		
+		createZip(proceso, outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroHistorico(),
+				Arrays.asList(new String[] { "SQLH", "PDCH" }));
+	}
+
+	/**
+	 * @param proceso
+	 * @param rutaEntrega
+	 * @param nombreFichero
+	 * @param scriptTypes
+	 * @throws IOException
+	 */
+	private void createZip(Proceso proceso, String rutaEntrega, String nombreFichero, List<String> scriptTypes)
+			throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
-		
-		String stringUri = "jar:file:" + outputConsultaEntrega.getTxtRutaEntrega() + "\\"
-				+ outputConsultaEntrega.getNombreFicheroHistorico();
-		URI uri = URI.create(stringUri);
-		
-		try (FileSystem zipfs = FileSystems.newFileSystem(uri, env)) {
+
+		String zipFileName = rutaEntrega + File.separator + nombreFichero;
+		log.info("Zip file name: {}", zipFileName);
+
+		try (ZipFile zipFile = new ZipFile(zipFileName)) {
 			for (Script script : proceso.getScripts()) {
-				if ("SQLH".equals(script.getTipoScript()) || "PDCH".equals(script.getTipoScript())) {
-					Path externalTxtFile = Paths.get(session.getSelectedRoute() + "\\" + script.getNombreScript());
-				    Path pathInZipfile = zipfs.getPath(script.getNombreScript());          
-				    // Copy a file into the zip file
-				    Files.copy(externalTxtFile, pathInZipfile, StandardCopyOption.REPLACE_EXISTING); 
+				if (scriptTypes.contains(script.getTipoScript())) {
+					zipFile.addFile(new File(session.getSelectedRoute() + File.separator + script.getNombreScript()));
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * @param scripts
 	 * @return
@@ -222,86 +207,90 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	private boolean tieneScriptsHistoricos(List<Script> scripts) {
 		for (Script script : scripts) {
 			if ("SQLH".equals(script.getTipoScript()) || "PDCH".equals(script.getTipoScript())) {
-				return true; 
+				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * @param outputConsultaEntrega
 	 */
 	private void moveZipVigente(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + "\\" + carpetaEntregados;
-		
-		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + "\\"
+		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
+		log.info("Ruta entregados: {}", rutaEntregados);
+
+		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + File.separator
 				+ outputConsultaEntrega.getNombreFicheroVigente();
-		moveFile(zipFile, rutaEntregados + "\\" + outputConsultaEntrega.getNombreFicheroVigente());
+		moveFile(zipFile, rutaEntregados + File.separator + outputConsultaEntrega.getNombreFicheroVigente());
 	}
-	
+
 	/**
 	 * @param scripts
 	 */
 	private void moveFilesVigente(List<Script> scripts) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + "\\" + carpetaEntregados;
-		
+		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
+		log.info("Ruta entregados: {}", rutaEntregados);
+
 		for (Script script : scripts) {
 			if ("SQL".equals(script.getTipoScript()) || "PDC".equals(script.getTipoScript())) {
-				String rutaScript = session.getSelectedRoute() + "\\" + script.getNombreScript();
-				moveFile(rutaScript, rutaEntregados + "\\" + script.getNombreScript());
+				String rutaScript = session.getSelectedRoute() + File.separator + script.getNombreScript();
+				moveFile(rutaScript, rutaEntregados + File.separator + script.getNombreScript());
 			}
 		}
 	}
-	
+
 	/**
 	 * @param outputConsultaEntrega
 	 */
 	private void moveZipHistorico(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + "\\" + carpetaEntregados;
-		
-		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + "\\"
+		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
+		log.info("Ruta entregados: {}", rutaEntregados);
+
+		String zipFile = outputConsultaEntrega.getTxtRutaEntrega() + File.separator
 				+ outputConsultaEntrega.getNombreFicheroHistorico();
-		moveFile(zipFile, rutaEntregados + "\\" + outputConsultaEntrega.getNombreFicheroHistorico());
+		moveFile(zipFile, rutaEntregados + File.separator + outputConsultaEntrega.getNombreFicheroHistorico());
 	}
-	
+
 	/**
 	 * @param scripts
 	 */
 	private void moveFilesHistorico(List<Script> scripts) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + "\\" + carpetaEntregados;
-		
+		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
+		log.info("Ruta entregados: {}", rutaEntregados);
+
 		for (Script script : scripts) {
 			if ("SQLH".equals(script.getTipoScript()) || "PDCH".equals(script.getTipoScript())) {
-				String rutaScript = session.getSelectedRoute() + "\\" + script.getNombreScript();
-				moveFile(rutaScript, rutaEntregados + "\\" + script.getNombreScript());
+				String rutaScript = session.getSelectedRoute() + File.separator + script.getNombreScript();
+				moveFile(rutaScript, rutaEntregados + File.separator + script.getNombreScript());
 			}
 		}
 	}
-	
+
 	/**
 	 * @param sourcePath
 	 * @param targetPath
 	 * @return
 	 */
 	private boolean moveFile(String sourcePath, String targetPath) {
-	    boolean fileMoved = true;
+		boolean fileMoved = true;
 
-	    try {
-	        Files.move(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
-	    } catch (Exception e) {
-	        fileMoved = false;
-	        log.error(e.getMessage());
-	    }
+		try {
+			Files.move(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
+		} catch (Exception e) {
+			fileMoved = false;
+			log.error(e.getMessage());
+		}
 
-	    return fileMoved;
+		return fileMoved;
 	}
 }
