@@ -17,6 +17,7 @@ import com.mdsql.ui.listener.PantallaAjustarLogEjecucionListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
+import lombok.Getter;
 /**
  *
  * @author USUARIO1
@@ -31,7 +32,10 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JScrollPane jScrollPane1;
+    
+    @Getter
     private JTable tblAjustarLog;
+    
     private JTextField txtComentario;
     // End of variables declaration//GEN-END:variables
     
@@ -104,7 +108,10 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
     
     @Override
 	protected void initModels() {
+    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA);
+    	TableModel ajustarLogEjecucion = new AjustarLogEjecucionTableModel(cabecera.getColumnIdentifires(), cabecera.getColumnClasses());
     	
+    	tblAjustarLog.setModel(ajustarLogEjecucion);
     }
     
     @Override

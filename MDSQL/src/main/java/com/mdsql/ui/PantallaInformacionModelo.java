@@ -16,6 +16,8 @@ import com.mdsql.ui.listener.PantallaInformacionModeloListener;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
+import lombok.Getter;
+
 /**
  *
  * @author USUARIO1
@@ -27,7 +29,10 @@ public class PantallaInformacionModelo extends DialogSupport {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
+    
+    @Getter
     private JTable tblInformacion;
+    
     private JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
     
@@ -84,7 +89,10 @@ public class PantallaInformacionModelo extends DialogSupport {
     
     @Override
 	protected void initModels() {
+    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_INFORMACION_MODELO_TABLA_CABECERA);
+    	TableModel informacionModeloTableModel = new InformacionModeloTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
     	
+    	tblInformacion.setModel(informacionModeloTableModel);
     }
     
     @Override

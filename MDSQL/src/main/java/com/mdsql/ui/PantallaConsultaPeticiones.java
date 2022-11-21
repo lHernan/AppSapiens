@@ -18,6 +18,8 @@ import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
+import lombok.Getter;
+
 /**
  *
  * @author USUARIO1
@@ -39,7 +41,10 @@ public class PantallaConsultaPeticiones extends DialogSupport {
     private JLabel jLabel7;
     private JLabel jLabel8;
     private JScrollPane jScrollPane1;
+    
+    @Getter
     private JTable tblPericiones;
+    
     private JTextField txtDesde;
     private JTextField txtEstado;
     private JTextField txtHasta;
@@ -200,7 +205,10 @@ public class PantallaConsultaPeticiones extends DialogSupport {
     
     @Override
    	protected void initModels() {
-       	
+    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_CONSULTA_PETICIONES_TABLA_CABECERA);
+    	TableModel consultaPeticionesTableModel = new ConsultaPeticionesTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
+    	
+    	tblPericiones.setModel(consultaPeticionesTableModel);
     }
       
     @Override

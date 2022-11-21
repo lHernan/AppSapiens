@@ -99,6 +99,14 @@ public class CabeceraTablaCreator extends Creator {
 			cabecera = new TablaDetalleScriptCabecera();
 		}
 		
+		if (Constants.DLG_CONSULTA_PETICIONES_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaConsultaPeticionesCabecera();
+		}
+		
+		if (Constants.DLG_INFORMACION_MODELO_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaInformacionModeloCabecera();
+		}
+		
 		return cabecera;
 	}
 
