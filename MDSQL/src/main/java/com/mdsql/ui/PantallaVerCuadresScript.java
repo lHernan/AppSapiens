@@ -22,6 +22,8 @@ import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
+import lombok.Getter;
+
 
 /**
  *
@@ -37,7 +39,11 @@ public class PantallaVerCuadresScript extends DialogSupport {
     private JLabel jLabel2;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
+    
+    @Getter
     private TableSupport tblOperaciones;
+    
+    @Getter
     private TableSupport tblObjetos;
     // End of variables declaration//GEN-END:variables
     

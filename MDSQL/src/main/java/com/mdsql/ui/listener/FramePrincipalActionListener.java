@@ -130,10 +130,15 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Proceso proceso = session.getProceso();
 
 		if (!Objects.isNull(proceso) && "Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
-			DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_ENTREGAR_SCRIPT);
-			MDSQLUIHelper.show(dialog);
+			Map<String, Object> params = new HashMap<>();
 
-			updateProcesadoEnCurso(Constants.CMD_ENTREGAR_SCRIPT);
+			params.put("idProceso", pantallaEjecutar.getReturnParams().get("idProceso"));
+			params.put("entregar", pantallaEjecutar.getReturnParams().get("entregar"));
+
+			PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
+					.createDialog(framePrincipal, Constants.CMD_RESUMEN_PROCESADO, params);
+			MDSQLUIHelper.show(pantallaResumenProcesado);
+
 		}
 	}
 

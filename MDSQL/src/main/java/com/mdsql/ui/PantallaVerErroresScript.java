@@ -98,13 +98,13 @@ public class PantallaVerErroresScript extends DialogSupport {
     
     @Override
 	protected void initEvents() {
-		pantallaVerErroresScriptListener = new PantallaVerErroresScriptListener(this);
+		PantallaVerErroresScriptListener actionListener = new PantallaVerErroresScriptListener(this);
 		
 		btnCancelar.setActionCommand(Constants.PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR);
 
-		btnCancelar.addActionListener(pantallaVerErroresScriptListener);
+		btnCancelar.addActionListener(actionListener);
 		
-		this.addOnLoadListener(pantallaVerErroresScriptListener);
+		this.addOnLoadListener(actionListener);
 	}
     
     @Override

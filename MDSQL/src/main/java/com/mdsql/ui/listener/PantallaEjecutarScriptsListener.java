@@ -217,6 +217,9 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
 			pantallaEjecutarScripts.getTblVigente().repaint();
 			
+			// TODO Mirar si hay un script seleccionado, si esta seleccionado hay que refrescar los botones
+			// segun su estado 
+			
 			scripts = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
 			CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
 			pantallaEjecutarScripts.getTblHistorico().repaint();
@@ -230,7 +233,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			 * Ver si todos los scripts están ejecutados y el estado del proceso 
 			 * es Ejecutado para mostrar la pantalla de resumen del procesado
 			 */
-			if (isAllExecuted(proceso.getScripts()) && "Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
+			if (isAllExecuted(proceso.getScripts())) {
 				pantallaEjecutarScripts.getReturnParams().put("idProceso", proceso.getIdProceso());
 				pantallaEjecutarScripts.getReturnParams().put("entregar", Boolean.TRUE);
 				pantallaEjecutarScripts.getReturnParams().put("cmd", Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
