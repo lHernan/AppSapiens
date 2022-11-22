@@ -27,19 +27,24 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 		Integer numeroOrden = script.getNumeroOrden().intValue();
 		Boolean selected = script.getSelected();
 		LogWrapper.debug(log, "Orden script seleccionado: %d", numeroOrden);
-		
-		if (numeroOrden > 1) {
-			// Están en orden en la tabla
-			for (int i = e.getFirstRow(); i >= 0; i--) {
-				Script scr = tableModel.getSelectedRow(i);
-				
-				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())) {
-					scr.setSelected(selected);
-				}
+
+		// Están en orden en la tabla
+		for (int i = e.getFirstRow(); i < 2; i++) {
+			Script scr = tableModel.getSelectedRow(i);
+
+			if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())) {
+				scr.setSelected(selected);
 			}
-			
-			// Forzamos el repintado de la tabla para actualizar los cambios
-			pantallaEjecutarScripts.getTblVigente().repaint();
 		}
+		
+		ScriptsTableModel historicoTableModel = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel();
+		for (int i = 0; i < historicoTableModel.getRowCount(); i++) {
+			Script scr = historicoTableModel.getSelectedRow(i);
+			scr.setSelected(selected);
+		}
+
+		// Forzamos el repintado de la tabla para actualizar los cambios
+		pantallaEjecutarScripts.getTblVigente().repaint();
+		pantallaEjecutarScripts.getTblHistorico().repaint();
 	}
 }
