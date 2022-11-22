@@ -329,6 +329,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 							proceso.getIdProceso(), script.getNumeroOrden(), codigoUsuario, logLinesList);
 					outputRegistraEjecucion.setNumOrden(script.getNumeroOrden());
 					ejecuciones.add(outputRegistraEjecucion);
+					
+					// Si el script ha dado error, no ejecuta el resto
+					if ("Error".equals(outputRegistraEjecucion.getDescripcionEstadoScript())) {
+						break;
+					}
 
 				}
 			}
