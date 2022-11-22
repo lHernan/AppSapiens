@@ -41,7 +41,11 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 			return row.getDescripcionEstadoScript();
 		} else if (3 == columnIndex) {
 			return row.getFecha();
-		} else if (7 == columnIndex) {
+		} else if (4 == columnIndex) {
+			return row.getOperaciones();
+		} else if (5 == columnIndex) {
+			return row.getObjetos();
+		} else if (6 == columnIndex) {
 			return row.getNombreScript();
 		}
 

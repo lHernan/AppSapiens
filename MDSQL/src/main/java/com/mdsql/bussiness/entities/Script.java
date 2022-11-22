@@ -30,6 +30,8 @@ public class Script implements Serializable {
     private String nombreScriptLanza;
     private String txtScriptLanza;
     private String nombreScriptLog;
+    private String operaciones;
+    private String objetos;
     private Date fecha;
     private Boolean selected;
 }

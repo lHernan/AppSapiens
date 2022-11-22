@@ -30,6 +30,9 @@ public class UpdateScriptsClosure implements Closure {
 			if (script.getNumeroOrden().equals(ej.getNumOrden())) {
 				script.setCodigoEstadoScript(ej.getCodigoEstadoScript());
 				script.setDescripcionEstadoScript(ej.getDescripcionEstadoScript());
+				script.setFecha(ej.getFechaEjecucion());
+				script.setOperaciones(ej.getTxtCuadreOperacion());
+				script.setObjetos(ej.getTxtCuadreObj());
 				
 				if ("Ejecutado".equals(ej.getDescripcionEstadoScript())) {
 					script.setSelected(Boolean.FALSE);

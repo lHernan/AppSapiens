@@ -2,6 +2,7 @@ package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,5 +27,6 @@ public class OutputRegistraEjecucion implements Serializable {
     private String descripcionEstadoScript;
     private String txtCuadreOperacion;
     private String txtCuadreObj;
+    private Date fechaEjecucion;
 
 }
