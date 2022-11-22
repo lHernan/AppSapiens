@@ -636,7 +636,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		session.setProceso(proceso);
 
 		// Save session to disk
-		MDSQLAppHelper.serializeToDisk(session, Constants.SESSION);
+//		MDSQLAppHelper.serializeToDisk(session, Constants.SESSION);
 	}
 
 	/**
