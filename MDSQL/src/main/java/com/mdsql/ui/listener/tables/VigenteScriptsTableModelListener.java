@@ -46,5 +46,10 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 		// Forzamos el repintado de la tabla para actualizar los cambios
 		pantallaEjecutarScripts.getTblVigente().repaint();
 		pantallaEjecutarScripts.getTblHistorico().repaint();
+		
+		pantallaEjecutarScripts.getTblVigente().clearSelection();
+		pantallaEjecutarScripts.getTblHistorico().clearSelection();
+		pantallaEjecutarScripts.setSeleccionado(null);
+		pantallaEjecutarScripts.enableButtons(Boolean.FALSE);
 	}
 }

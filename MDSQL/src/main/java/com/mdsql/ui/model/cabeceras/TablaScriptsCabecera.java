@@ -15,7 +15,6 @@ public class TablaScriptsCabecera extends Cabecera {
 		columnIdentifiers.add("Orden");
 		columnIdentifiers.add("Estado");
 		columnIdentifiers.add("Fecha");
-		columnIdentifiers.add("Ejecución");
 		columnIdentifiers.add("Operaciones");
 		columnIdentifiers.add("Objetos");
 		columnIdentifiers.add("Script");
@@ -24,7 +23,6 @@ public class TablaScriptsCabecera extends Cabecera {
 		columnClasses.add(Integer.class);
 		columnClasses.add(String.class);
 		columnClasses.add(Date.class);
-		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);

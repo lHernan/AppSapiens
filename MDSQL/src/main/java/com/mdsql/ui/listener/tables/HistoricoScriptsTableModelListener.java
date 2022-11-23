@@ -38,5 +38,8 @@ public class HistoricoScriptsTableModelListener implements TableModelListener {
 
 		// Forzamos el repintado de las tablas para actualizar los cambios
 		pantallaEjecutarScripts.getTblHistorico().repaint();
+		pantallaEjecutarScripts.getTblHistorico().clearSelection();
+		pantallaEjecutarScripts.setSeleccionado(null);
+		pantallaEjecutarScripts.enableButtons(Boolean.FALSE);
 	}
 }
