@@ -217,9 +217,6 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
 			pantallaEjecutarScripts.getTblVigente().repaint();
 			
-			// TODO Mirar si hay un script seleccionado, si esta seleccionado hay que refrescar los botones
-			// segun su estado 
-			
 			scripts = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
 			CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
 			pantallaEjecutarScripts.getTblHistorico().repaint();
