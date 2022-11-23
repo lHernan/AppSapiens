@@ -23,7 +23,6 @@ import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaRepararScript;
-import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.PantallaVerCuadresScript;
 import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.BBDDComboBoxModel;
