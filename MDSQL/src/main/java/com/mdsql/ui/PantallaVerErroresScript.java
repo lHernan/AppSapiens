@@ -22,6 +22,8 @@ import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
+import lombok.Getter;
+
 /**
  *
  * @author USUARIO1
@@ -35,7 +37,11 @@ public class PantallaVerErroresScript extends DialogSupport {
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
+    
+    @Getter
     private TableSupport tblErroresScript;
+    
+    @Getter
     private TableSupport tblParches;
     // End of variables declaration//GEN-END:variables
 

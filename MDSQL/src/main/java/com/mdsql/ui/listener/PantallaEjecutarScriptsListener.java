@@ -168,6 +168,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 		params.put("script", seleccionado);
 		params.put("proceso", proceso);
+		params.put("tipo", "scripts");
 
 		PantallaVerErroresScript pantallaVerErroresScript = (PantallaVerErroresScript) MDSQLUIHelper
 				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_VER_ERRORES_SCRIPT, params);
