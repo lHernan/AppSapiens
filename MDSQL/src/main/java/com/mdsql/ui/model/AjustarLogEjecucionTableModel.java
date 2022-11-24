@@ -2,11 +2,10 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.DetObjeto;
-import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.LogEjecucion;
 import com.mdval.ui.model.DefaultTableModel;
 
-public class AjustarLogEjecucionTableModel extends DefaultTableModel<DetObjeto> {
+public class AjustarLogEjecucionTableModel extends DefaultTableModel<LogEjecucion> {
 
 	/**
 	 * 
@@ -26,36 +25,36 @@ public class AjustarLogEjecucionTableModel extends DefaultTableModel<DetObjeto> 
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public AjustarLogEjecucionTableModel(List<DetObjeto> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public AjustarLogEjecucionTableModel(List<LogEjecucion> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		DetObjeto row = data.get(rowIndex);
+		LogEjecucion row = data.get(rowIndex);
 
 		if (columnIndex == 0) {
-			return row.getScript();
+			return row.getNombreScript();
 		} else if (1 == columnIndex) {
-			return row.getProcesado();
+			return row.getIdProceso();
 		} else if (2 == columnIndex) {
-			return row.getIteracion();
+			return row.getNumeroIteracion();
 		} else if (3 == columnIndex) {
-			return row.getEjecucion();
+			return row.getNumeroEjecucion();
 		} else if (4 == columnIndex) {
-			return row.getSentencia();
+			return row.getNumeroSentencia();
 		} else if (5 == columnIndex) {
 			return row.getTipoObjeto();
 		} else if (6 == columnIndex) {
-			return row.getAccion();
+			return row.getTipoAccion();
 		} else if (7 == columnIndex) {
-			return row.getNombre();
+			return row.getNombreObjeto();
 		} else if (8 == columnIndex) {
-			return row.getEstado();
+			return row.getDescripcionEstadoEjecucion();
 		} else if (9 == columnIndex) {
-			return row.getEliminado();
+			return row.getMcaEliminada();
 		} else if (10 == columnIndex) {
-			return row.getCOmentado();
+			return row.getTxtObsElimina();
 		}
 
 		return null;
