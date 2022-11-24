@@ -87,13 +87,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 						.consultaRutaEntrega(proceso.getModelo().getCodigoProyecto(), proceso.getIdProceso());
 
 				createZipVigente(proceso, outputConsultaEntrega);
-				moveZipVigente(outputConsultaEntrega);
-				moveFilesVigente(proceso.getScripts());
+				copyZipVigente(outputConsultaEntrega);
+				copyFilesVigente(proceso.getScripts());
 
 				if (tieneScriptsHistoricos(proceso.getScripts())) {
 					createZipHistorico(proceso, outputConsultaEntrega);
-					moveZipHistorico(outputConsultaEntrega);
-					moveFilesHistorico(proceso.getScripts());
+					copyZipHistorico(outputConsultaEntrega);
+					copyFilesHistorico(proceso.getScripts());
 				}
 
 				// Entregar petición
@@ -219,15 +219,15 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	/**
 	 * @param outputConsultaEntrega
 	 */
-	private void moveZipVigente(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
-		moveZip(outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroVigente());
+	private void copyZipVigente(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
+		copyZip(outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroVigente());
 	}
 	
 	/**
 	 * @param outputConsultaEntrega
 	 */
-	private void moveZipHistorico(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
-		moveZip(outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroHistorico());
+	private void copyZipHistorico(OutputConsultaEntrega outputConsultaEntrega) throws IOException {
+		copyZip(outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroHistorico());
 	}
 	
 	/**
@@ -235,34 +235,34 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param nombreZip
 	 * @throws IOException
 	 */
-	private void moveZip(String rutaEntrega, String nombreZip) throws IOException {
+	private void copyZip(String rutaEntrega, String nombreZip) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
 		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
 		log.info("Ruta entregados: {}", rutaEntregados);
 
 		String zipFile = rutaEntrega + File.separator + nombreZip;
-		moveFile(zipFile, rutaEntregados + File.separator + nombreZip);
+		copyFile(zipFile, rutaEntregados + File.separator + nombreZip);
 	}
 
 	/**
 	 * @param scripts
 	 */
-	private void moveFilesVigente(List<Script> scripts) throws IOException {
-		moveFiles(scripts, Arrays.asList(new String[] { "SQL", "PDC" }));
+	private void copyFilesVigente(List<Script> scripts) throws IOException {
+		copyFiles(scripts, Arrays.asList(new String[] { "SQL", "PDC" }));
 	}
 	
 	/**
 	 * @param scripts
 	 */
-	private void moveFilesHistorico(List<Script> scripts) throws IOException {
-		moveFiles(scripts, Arrays.asList(new String[] { "SQLH", "PDCH" }));
+	private void copyFilesHistorico(List<Script> scripts) throws IOException {
+		copyFiles(scripts, Arrays.asList(new String[] { "SQLH", "PDCH" }));
 	}
 	
 	/**
 	 * @param scripts
 	 */
-	private void moveFiles(List<Script> scripts, List<String> scriptTypes) throws IOException {
+	private void copyFiles(List<Script> scripts, List<String> scriptTypes) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
 		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
@@ -270,7 +270,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		for (Script script : scripts) {
 			if (scriptTypes.contains(script.getTipoScript())) {
 				String rutaScript = session.getSelectedRoute() + File.separator + script.getNombreScript();
-				moveFile(rutaScript, rutaEntregados + File.separator + script.getNombreScript());
+				copyFile(rutaScript, rutaEntregados + File.separator + script.getNombreScript());
 			}
 		}
 	}
@@ -280,16 +280,16 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param targetPath
 	 * @return
 	 */
-	private boolean moveFile(String sourcePath, String targetPath) {
-		boolean fileMoved = true;
+	private boolean copyFile(String sourcePath, String targetPath) {
+		boolean fileCopied = true;
 
 		try {
-			Files.move(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
 		} catch (Exception e) {
-			fileMoved = false;
+			fileCopied = false;
 			log.error(e.getMessage());
 		}
 
-		return fileMoved;
+		return fileCopied;
 	}
 }
