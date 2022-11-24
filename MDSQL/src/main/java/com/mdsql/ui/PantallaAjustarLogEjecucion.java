@@ -10,7 +10,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
@@ -21,6 +20,7 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
 /**
@@ -39,12 +39,10 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
     private JScrollPane jScrollPane1;
     
     @Getter
-    private JTable tblAjustarLog;
+    private TableSupport tblAjustarLog;
     
     private JTextField txtComentario;
     // End of variables declaration//GEN-END:variables
-    
-    private PantallaAjustarLogEjecucionListener pantallaAjustarLogEjecucionListener;
     
    	public PantallaAjustarLogEjecucion(FrameSupport parent, Boolean modal) {
    		super(parent, modal);
@@ -58,7 +56,7 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
 	protected void setupComponents() {
    		jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAjustarLog = new javax.swing.JTable();
+        tblAjustarLog = new TableSupport(Boolean.FALSE);
         jLabel2 = new javax.swing.JLabel();
         txtComentario = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
@@ -108,13 +106,21 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
     
    	@Override
    	protected void initEvents() {
-    	
+   		PantallaAjustarLogEjecucionListener pantallaAjustarLogEjecucionListener = new PantallaAjustarLogEjecucionListener(this);
+   	
+   		btnEliminar.setActionCommand(Constants.PANTALLA_AJUSTAR_LOG_EJECUCION_ELIMINAR);
+   		btnCancelar.setActionCommand(Constants.PANTALLA_AJUSTAR_LOG_EJECUCION_CANCELAR);
+   		
+   		btnEliminar.addActionListener(pantallaAjustarLogEjecucionListener);
+   		btnCancelar.addActionListener(pantallaAjustarLogEjecucionListener);
+   		
+   		this.addOnLoadListener(pantallaAjustarLogEjecucionListener);
     }
     
     @Override
 	protected void initModels() {
     	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA);
-    	TableModel ajustarLogEjecucion = new AjustarLogEjecucionTableModel(cabecera.getColumnIdentifires(), cabecera.getColumnClasses());
+    	TableModel ajustarLogEjecucion = new AjustarLogEjecucionTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
     	
     	tblAjustarLog.setModel(ajustarLogEjecucion);
     }

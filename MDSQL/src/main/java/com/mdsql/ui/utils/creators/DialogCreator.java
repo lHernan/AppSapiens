@@ -5,6 +5,7 @@ import java.util.Map;
 import com.mdsql.ui.DlgErrores;
 import com.mdsql.ui.DlgExcepcion;
 import com.mdsql.ui.DlgRechazar;
+import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
@@ -116,6 +117,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_EJECUTAR_TYPE.equals(option)) {
 			dialog = new PantallaEjecutarTypes(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_AJUSTAR_LOG_EJECUCION.equals(option)) {
+			dialog = new PantallaAjustarLogEjecucion(frameParent, modal, params);
 		}
 		
 		return dialog;

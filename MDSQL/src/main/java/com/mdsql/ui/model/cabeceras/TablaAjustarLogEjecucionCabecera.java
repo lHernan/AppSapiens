@@ -21,11 +21,11 @@ public class TablaAjustarLogEjecucionCabecera extends Cabecera {
 		columnIdentifiers.add("Eliminado");
 		columnIdentifiers.add("Comentario");
 		
+		columnClasses.add(String.class);
 		columnClasses.add(BigDecimal.class);
-		columnClasses.add(String.class);
-		columnClasses.add(String.class);
-		columnClasses.add(String.class);
-		columnClasses.add(String.class);
+		columnClasses.add(BigDecimal.class);
+		columnClasses.add(BigDecimal.class);
+		columnClasses.add(BigDecimal.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);

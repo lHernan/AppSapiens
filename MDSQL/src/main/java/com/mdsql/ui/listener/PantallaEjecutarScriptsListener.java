@@ -20,6 +20,7 @@ import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.DlgExcepcion;
 import com.mdsql.ui.DlgRechazar;
+import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaRepararScript;
@@ -111,7 +112,17 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	}
 
 	private void eventBtnVerLog() {
+		Map<String, Object> params = new HashMap<>();
 
+		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
+		Proceso proceso = pantallaEjecutarScripts.getProceso();
+
+		params.put("script", seleccionado);
+		params.put("proceso", proceso);
+
+		PantallaAjustarLogEjecucion pantallaAjustarLogEjecucion = (PantallaAjustarLogEjecucion) MDSQLUIHelper
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_AJUSTAR_LOG_EJECUCION, params);
+		MDSQLUIHelper.show(pantallaAjustarLogEjecucion);
 	}
 
 	private void eventBtnDetalleScript() {
