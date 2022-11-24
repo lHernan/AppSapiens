@@ -12,9 +12,9 @@ import com.mdsql.bussiness.entities.Script;
  *
  */
 public class UpdateScriptsClosure implements Closure {
-	
+
 	private List<OutputRegistraEjecucion> ejecuciones;
-	
+
 	/**
 	 * @param ejecuciones
 	 */
@@ -33,8 +33,10 @@ public class UpdateScriptsClosure implements Closure {
 				script.setFecha(ej.getFechaEjecucion());
 				script.setOperaciones(ej.getTxtCuadreOperacion());
 				script.setObjetos(ej.getTxtCuadreObj());
-				
-				if ("Ejecutado".equals(ej.getDescripcionEstadoScript())) {
+
+				if ("Ejecutado".equals(ej.getDescripcionEstadoScript())
+						|| "Error".equals(ej.getDescripcionEstadoScript())
+						|| "Descuadrado".equals(ej.getDescripcionEstadoScript())) {
 					script.setSelected(Boolean.FALSE);
 				}
 			}

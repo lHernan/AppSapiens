@@ -75,7 +75,9 @@ public class PantallaEjecutarScripts extends DialogSupport {
 	@Getter
 	private JButton btnExcepcion;
 	
+	@Getter
 	private JButton btnAceptar;
+	
 	private JButton btnCancelar;
 
 	private JLabel jLabel1;

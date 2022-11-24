@@ -61,24 +61,25 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 				fireTableCellUpdated(rowIndex, columnIndex);
 				return;
 			}
-			
+
 			row.setSelected((Boolean) aValue);
 			fireTableCellUpdated(rowIndex, columnIndex);
-		} 
+		}
 	}
-	
+
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		Script row = data.get(rowIndex);
-		
+
 		if (0 == columnIndex) {
-			if ("Ejecutado".equals(row.getDescripcionEstadoScript())) {
+			if ("Ejecutado".equals(row.getDescripcionEstadoScript()) || "Error".equals(row.getDescripcionEstadoScript())
+					|| "Descuadrado".equals(row.getDescripcionEstadoScript())) {
 				return false;
 			}
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
 }

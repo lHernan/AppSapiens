@@ -213,22 +213,32 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			List<OutputRegistraEjecucion> ejecuciones = scriptService.executeScripts(bbdd, scripts);
 
 			// Actualizar los scripts de las tablas y las repinta
-			scripts = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
-			CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
+			vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
+			CollectionUtils.forAllDo(vigente, new UpdateScriptsClosure(ejecuciones));
+
+			historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
+			CollectionUtils.forAllDo(historico, new UpdateScriptsClosure(ejecuciones));
+
 			pantallaEjecutarScripts.getTblVigente().repaint();
-			
-			scripts = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
-			CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
 			pantallaEjecutarScripts.getTblHistorico().repaint();
-			
+
+			/**
+			 * Si hay scripts en estado Descuadrado o Error, hay que desmarcar los
+			 * siguientes y deshabilitar el botón Aceptar
+			 */
+			scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
+			if (hayErrores(scripts)) {
+				pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
+			}
+
 			// Actualizar los scripts en el proceso en sesión
 			updateCurrentProcess(proceso, ejecuciones);
-			
+
 			pantallaEjecutarScripts.getTxtEstadoEjecucion().setText(proceso.getDescripcionEstadoProceso());
-			
-			/** 
-			 * Ver si todos los scripts están ejecutados y el estado del proceso 
-			 * es Ejecutado para mostrar la pantalla de resumen del procesado
+
+			/**
+			 * Ver si todos los scripts están ejecutados y el estado del proceso es
+			 * Ejecutado para mostrar la pantalla de resumen del procesado
 			 */
 			if (isAllExecuted(proceso.getScripts())) {
 				pantallaEjecutarScripts.getReturnParams().put("idProceso", proceso.getIdProceso());
@@ -285,20 +295,20 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 		return filteredList;
 	}
-	
+
 	/**
 	 * @param ejecuciones
 	 */
 	private void updateCurrentProcess(Proceso proceso, List<OutputRegistraEjecucion> ejecuciones) {
 		List<Script> scripts = proceso.getScripts();
 		CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
-		
+
 		if (CollectionUtils.isNotEmpty(ejecuciones)) {
 			OutputRegistraEjecucion ejecucion = ejecuciones.get(0);
 			proceso.setCodigoEstadoProceso(ejecucion.getCodigoEstadoProceso());
 			proceso.setDescripcionEstadoProceso(ejecucion.getDescripcionEstadoProceso());
 		}
-		
+
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		session.setProceso(proceso);
 	}
@@ -308,11 +318,25 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	 * @return
 	 */
 	private Boolean isAllExecuted(List<Script> scripts) {
-		for (Script script: scripts) {
+		for (Script script : scripts) {
 			if (!"Ejecutado".equals(script.getDescripcionEstadoScript())) {
 				return Boolean.FALSE;
 			}
 		}
 		return Boolean.TRUE;
+	}
+
+	/**
+	 * @param scripts
+	 * @return
+	 */
+	private boolean hayErrores(List<Script> scripts) {
+		for (Script script : scripts) {
+			if ("Error".equals(script.getDescripcionEstadoScript())
+					|| "Descuadrado".equals(script.getDescripcionEstadoScript())) {
+				return Boolean.TRUE;
+			}
+		}
+		return Boolean.FALSE;
 	}
 }
