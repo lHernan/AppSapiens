@@ -216,12 +216,12 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				for (Object sub : subs) {
 					Object[] texto_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
 					String linea = (String) texto_cols[0];
-					
+
 					TextoLinea textoLinea = TextoLinea.builder().valor(StringUtils.EMPTY).build();
 					if (StringUtils.isNotBlank(linea)) {
 						textoLinea = TextoLinea.builder().valor(linea).build();
 					}
-					
+
 					arrayTextoLinea.add(textoLinea);
 				}
 
@@ -319,20 +319,27 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					String lanzaFile = ruta.concat(script.getNombreScriptLanza());
 					writeFileFromString(Paths.get(lanzaFile),
 							script.getTxtScriptLanza().concat(System.lineSeparator()));
-					
+
 					String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
 					bbdd.setPassword(password);
+
+					// Ejecución del script
 					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile);
+
+					// Obtiene el log
 					String logFile = ruta.concat(script.getNombreScriptLog());
 					List<TextoLinea> logLinesList = readLogFile(logFile);
+
+					// Registra la ejecución
 					OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(
 							proceso.getIdProceso(), script.getNumeroOrden(), codigoUsuario, logLinesList);
 					outputRegistraEjecucion.setNumOrden(script.getNumeroOrden());
 					outputRegistraEjecucion.setFechaEjecucion(new Date());
 					ejecuciones.add(outputRegistraEjecucion);
-					
+
 					// Si el script ha dado error, no ejecuta el resto
-					if ("Error".equals(outputRegistraEjecucion.getDescripcionEstadoScript())) {
+					if ("Error".equals(outputRegistraEjecucion.getDescripcionEstadoScript())
+							|| "Descuadrado".equals(outputRegistraEjecucion.getDescripcionEstadoScript())) {
 						break;
 					}
 
@@ -560,7 +567,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					Object[] sub_cols = ((oracle.jdbc.OracleStruct) sub).getAttributes();
 
 					String linea = (String) sub_cols[0];
-					
+
 					TextoLinea textoLinea = TextoLinea.builder().valor(StringUtils.EMPTY).build();
 					if (StringUtils.isNotBlank(linea)) {
 						textoLinea = TextoLinea.builder().valor(linea).build();
@@ -770,7 +777,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 	@SneakyThrows
 	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation) {
-		
+
 		String connection = String.format(Constants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
 		ProcessBuilder processBuilder = new ProcessBuilder(Constants.SQL_PLUS, connection,
 				String.format(Constants.FORMATO_FICHERO, fileLocation));
@@ -815,15 +822,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	private static List<TextoLinea> readLogFile(String logPath) {
 		List<TextoLinea> logLinesList = new ArrayList<>();
 		Scanner scanner = new Scanner(new File(logPath));
-		
+
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();
-			
-			TextoLinea textoLinea = TextoLinea.builder().valor(StringUtils.EMPTY).build();
-			if (StringUtils.isNotBlank(line)) {
-				textoLinea = TextoLinea.builder().valor(line).build();
-			}
-			
+
+			TextoLinea textoLinea = TextoLinea.builder().valor(line).build();
 			logLinesList.add(textoLinea);
 		}
 		return logLinesList;
