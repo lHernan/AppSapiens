@@ -3,11 +3,14 @@ package com.mdsql.ui.utils.creators;
 import java.util.Map;
 
 import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.model.cabeceras.TablaAjustarLogEjecucionCabecera;
+import com.mdsql.ui.model.cabeceras.TablaConsultaPeticionesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaCuadresObjetosCabecera;
 import com.mdsql.ui.model.cabeceras.TablaCuadresOperacionesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaDetalleScriptCabecera;
 import com.mdsql.ui.model.cabeceras.TablaEjecutarTypesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaErroresCabecera;
+import com.mdsql.ui.model.cabeceras.TablaInformacionModeloCabecera;
 import com.mdsql.ui.model.cabeceras.TablaModelosCabecera;
 import com.mdsql.ui.model.cabeceras.TablaNotasCabecera;
 import com.mdsql.ui.model.cabeceras.TablaParchesCabecera;
@@ -110,9 +113,6 @@ public class CabeceraTablaCreator extends Creator {
 		if (Constants.DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaAjustarLogEjecucionCabecera();
 		}
-		
-		
-		DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA
 		
 		return cabecera;
 	}
