@@ -126,7 +126,14 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
     }
     
     @Override
-   	protected void initialState() {}
+   	protected void initialState() {
+    	Boolean consulta = (Boolean) this.getParams().get("consulta");
+    	
+    	if (consulta) {
+    		txtComentario.setEnabled(Boolean.FALSE);
+    		btnEliminar.setEnabled(Boolean.FALSE);
+    	}
+    }
 
    	@Override
    	protected void setupLiterals() {

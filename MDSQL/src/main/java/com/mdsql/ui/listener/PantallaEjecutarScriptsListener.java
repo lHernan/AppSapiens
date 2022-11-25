@@ -119,6 +119,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 		params.put("script", seleccionado);
 		params.put("proceso", proceso);
+		params.put("consulta", Boolean.TRUE);
 
 		PantallaAjustarLogEjecucion pantallaAjustarLogEjecucion = (PantallaAjustarLogEjecucion) MDSQLUIHelper
 				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_AJUSTAR_LOG_EJECUCION, params);
