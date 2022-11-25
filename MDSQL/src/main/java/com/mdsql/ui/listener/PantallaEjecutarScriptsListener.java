@@ -231,17 +231,20 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
 			CollectionUtils.forAllDo(historico, new UpdateScriptsClosure(ejecuciones));
 
-			pantallaEjecutarScripts.getTblVigente().repaint();
-			pantallaEjecutarScripts.getTblHistorico().repaint();
-
 			/**
 			 * Si hay scripts en estado Descuadrado o Error, hay que desmarcar los
 			 * siguientes y deshabilitar el botón Aceptar
 			 */
 			scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
-			if (hayErrores(scripts)) {
+			Integer numeroOrden = hayErrores(scripts);
+			if (numeroOrden > 0) {
+				desmarcar(vigente, numeroOrden);
+				desmarcar(historico, numeroOrden);
 				pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
 			}
+			
+			pantallaEjecutarScripts.getTblVigente().repaint();
+			pantallaEjecutarScripts.getTblHistorico().repaint();
 
 			// Actualizar los scripts en el proceso en sesión
 			updateCurrentProcess(proceso, ejecuciones);
@@ -342,13 +345,28 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	 * @param scripts
 	 * @return
 	 */
-	private boolean hayErrores(List<Script> scripts) {
+	private Integer hayErrores(List<Script> scripts) {
 		for (Script script : scripts) {
 			if ("Error".equals(script.getDescripcionEstadoScript())
 					|| "Descuadrado".equals(script.getDescripcionEstadoScript())) {
-				return Boolean.TRUE;
+				return script.getNumeroOrden().intValue();
 			}
 		}
-		return Boolean.FALSE;
+		return 0;
+	}
+	
+	/**
+	 * @param scripts
+	 * @param numeroOrden
+	 */
+	private void desmarcar(List<Script> scripts, Integer numeroOrden) {
+		for (Script script : scripts) {
+			Integer orden = script.getNumeroOrden().intValue();
+			
+			if (orden > numeroOrden) {
+				script.setSelected(Boolean.FALSE);
+			}
+		}
+		
 	}
 }
