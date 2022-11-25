@@ -12,6 +12,20 @@
   
   Código fuente.
   
+ - Versión 1.0.0-SNAPSHOT (23/11/2022), Entregable-1.0.17
+ 
+  Se incluye
+  
+  - Se agrega pantalla Ajustar log ejecución, se activa como consulta con el botón Ver log en pantalla Ejecutar scripts
+
+  Incidencias que se corrigen: 
+  
+  - Se copian los archivos en lugar de moverlos
+  - Se corrige selección de scripts a ejecutar cuando dan error o descuadrado
+  - Se corrige ejecución de scripts, si uno de ellos da error, desmarcar el resto de orden inferior
+  
+  Código fuente.
+  
   
   
        
