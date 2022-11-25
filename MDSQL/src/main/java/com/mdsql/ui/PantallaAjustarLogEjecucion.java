@@ -62,6 +62,8 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
         btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         
+        jScrollPane1.setViewportView(tblAjustarLog);
+        
         GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
