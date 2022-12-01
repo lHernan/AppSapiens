@@ -14,7 +14,12 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class CuadreObjeto implements Serializable {
 
-    private String nombreObjeto;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4389402952115195404L;
+	
+	private String nombreObjeto;
     private String tipoObjeto;
     private String tipoAccion;
     private BigDecimal numeroOperacionBBDD;
