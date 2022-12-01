@@ -8,12 +8,12 @@ import java.util.Map;
 import javax.swing.JTextArea;
 
 import com.mdsql.bussiness.entities.TextoLinea;
-import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.creators.CabeceraTablaCreator;
 import com.mdsql.ui.utils.creators.Creator;
 import com.mdsql.ui.utils.creators.DialogCreator;
 import com.mdsql.ui.utils.creators.FrameCreator;
 import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;

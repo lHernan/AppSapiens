@@ -120,9 +120,9 @@ public class CuadreServiceImpl extends ServiceSupport implements CuadreService {
 				for (Object row : rows) {
 					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
-					CuadreObjeto cuadreObjeto = CuadreObjeto.builder().tipoObjeto((String) cols[0])
-							.tipoAccion((String) cols[1]).numeroOperacionBBDD((BigDecimal) cols[2])
-							.numeroOperacionScript((BigDecimal) cols[3]).build();
+					CuadreObjeto cuadreObjeto = CuadreObjeto.builder().nombreObjeto((String) cols[0]).tipoObjeto((String) cols[1])
+							.tipoAccion((String) cols[2]).numeroOperacionBBDD((BigDecimal) cols[3])
+							.numeroOperacionScript((BigDecimal) cols[4]).build();
 
 					cuadreObjetos.add(cuadreObjeto);
 				}

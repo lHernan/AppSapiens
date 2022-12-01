@@ -14,9 +14,9 @@ import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaDetalleScriptListener;
 import com.mdsql.ui.model.DetalleScriptTableModel;
-import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
@@ -32,7 +32,7 @@ public class PantallaDetalleScript extends DialogSupport {
     private static final long serialVersionUID = 1L;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton jButton1;
+    private JButton btnCancelar;
     private JScrollPane jScrollPane1;
     
     @Getter
@@ -51,31 +51,32 @@ public class PantallaDetalleScript extends DialogSupport {
    	protected void setupComponents() {
     	jScrollPane1 = new JScrollPane();
         tblDetalle = new TableSupport(Boolean.FALSE);
-        jButton1 = new JButton();
-        
+        btnCancelar = new JButton();
+
         jScrollPane1.setViewportView(tblDetalle);
-        
+
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane1)
-                .addGap(22, 22, 22))
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(468, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(442, 442, 442))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addComponent(btnCancelar)
+                .addGap(16, 16, 16))
         );
 
     }
@@ -84,9 +85,9 @@ public class PantallaDetalleScript extends DialogSupport {
    	protected void initEvents() {
     	PantallaDetalleScriptListener actionListener = new PantallaDetalleScriptListener(this);
 		
-		jButton1.setActionCommand(Constants.PANTALLA_DETALLE_SCRIPT_CANCELAR);
+    	btnCancelar.setActionCommand(Constants.PANTALLA_DETALLE_SCRIPT_CANCELAR);
 
-		jButton1.addActionListener(actionListener);
+    	btnCancelar.addActionListener(actionListener);
 		
 		this.addOnLoadListener(actionListener);
     }
@@ -97,6 +98,7 @@ public class PantallaDetalleScript extends DialogSupport {
     	TableModel detalleScriptTableModel = new DetalleScriptTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
     
     	tblDetalle.setModel(detalleScriptTableModel);
+    	tblDetalle.setColumnWidths(cabecera);
     }
     
     @Override
@@ -104,7 +106,7 @@ public class PantallaDetalleScript extends DialogSupport {
 
    	@Override
    	protected void setupLiterals() {
-   		jButton1.setText("CANCELAR");
+   		btnCancelar.setText("CANCELAR");
    	}
        
 }

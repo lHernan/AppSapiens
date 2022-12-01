@@ -15,9 +15,9 @@ import javax.swing.LayoutStyle;
 import com.mdsql.ui.listener.PantallaVerErroresScriptListener;
 import com.mdsql.ui.model.VerErroresScriptTableModel;
 import com.mdsql.ui.model.VerParchesScriptTableModel;
-import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
@@ -45,8 +45,6 @@ public class PantallaVerErroresScript extends DialogSupport {
     private TableSupport tblParches;
     // End of variables declaration//GEN-END:variables
 
-    private PantallaVerErroresScriptListener pantallaVerErroresScriptListener;
-    
     public PantallaVerErroresScript(FrameSupport parent, Boolean modal) {
         super(parent, modal);
     }

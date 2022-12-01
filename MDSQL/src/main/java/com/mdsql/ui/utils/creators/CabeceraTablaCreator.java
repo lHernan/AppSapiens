@@ -2,7 +2,6 @@ package com.mdsql.ui.utils.creators;
 
 import java.util.Map;
 
-import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.model.cabeceras.TablaAjustarLogEjecucionCabecera;
 import com.mdsql.ui.model.cabeceras.TablaConsultaPeticionesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaCuadresObjetosCabecera;
@@ -22,6 +21,7 @@ import com.mdsql.ui.model.cabeceras.TablaSeleccionHistoricoCabecera;
 import com.mdsql.ui.model.cabeceras.TablaTypesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaUltimasPeticionesCabecera;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 /**
  * Factory method para gestionar la creación centralizada de la cabecera de 

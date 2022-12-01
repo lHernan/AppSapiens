@@ -14,7 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class OutputErroresScript implements Serializable {
 
-    private List<ErrorScript> listaErroresScript;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5390268979309006361L;
+	private List<ErrorScript> listaErroresScript;
     private List<ScriptParche> listaScriptParche;
 
 }

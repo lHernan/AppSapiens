@@ -34,21 +34,21 @@ public class InformacionModeloTableModel extends DefaultTableModel<DetObjeto> {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		DetObjeto row = data.get(rowIndex);
 
-		if (columnIndex == 0) {
-			return row.getNivel();
-		} else if (1 == columnIndex) {
-			return row.getTitulo();
-		} else if (2 == columnIndex) {
-			return row.getDescripcion();
-		} else if (3 == columnIndex) {
-			return row.getPeticion();
-		} else if (4 == columnIndex) {
-			return row.getHabilitado();
-		} else if (5 == columnIndex) {
-			return row.getUsuario();
-		} else if (6 == columnIndex) {
-			return row.getActualizado();
-		} 
+//		if (columnIndex == 0) {
+//			return row.getNivel();
+//		} else if (1 == columnIndex) {
+//			return row.getTitulo();
+//		} else if (2 == columnIndex) {
+//			return row.getDescripcion();
+//		} else if (3 == columnIndex) {
+//			return row.getPeticion();
+//		} else if (4 == columnIndex) {
+//			return row.getHabilitado();
+//		} else if (5 == columnIndex) {
+//			return row.getUsuario();
+//		} else if (6 == columnIndex) {
+//			return row.getActualizado();
+//		} 
 
 		return null;
 	}

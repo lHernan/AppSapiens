@@ -2,6 +2,8 @@ package com.mdsql.ui.model.cabeceras;
 
 import java.math.BigDecimal;
 
+import com.mdval.ui.model.cabeceras.Cabecera;
+
 /**
  * @author federico
  *
@@ -30,5 +32,16 @@ public class TablaDetalleScriptCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(BigDecimal.class);
 		columnClasses.add(BigDecimal.class);
+		
+		columnSizes.add(75);
+		columnSizes.add(250);
+		columnSizes.add(100);
+		columnSizes.add(75);
+		columnSizes.add(250);
+		columnSizes.add(100);
+		columnSizes.add(50);
+		columnSizes.add(75);
+		columnSizes.add(75);
+		columnSizes.add(75);
 	}
 }

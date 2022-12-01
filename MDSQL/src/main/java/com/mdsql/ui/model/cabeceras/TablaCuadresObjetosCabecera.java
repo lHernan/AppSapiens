@@ -1,5 +1,7 @@
 package com.mdsql.ui.model.cabeceras;
 
+import com.mdval.ui.model.cabeceras.Cabecera;
+
 /**
  * @author federico
  *

@@ -283,6 +283,7 @@ public class Constants {
 	public static final String CMD_EXCEPCION_SCRIPT = "CMD_EXCEPCION_SCRIPT";
 	public static final String CMD_RECHAZAR_PROCESADO = "CMD_RECHAZAR_PROCESADO";
 	public static final String CMD_EJECUTAR_TYPE = "CMD_EJECUTAR_TYPE";
+	public static final String CMD_AJUSTAR_LOG_EJECUCION = "CMD_AJUSTAR_LOG_EJECUCION";
 
 	/**
 	 * Panel principal
@@ -574,5 +575,6 @@ public class Constants {
 	public static final String DLG_INFORMACION_MODELO_TABLA_CABECERA = "DLG_INFORMACION_MODELO_TABLA_CABECERA";
 	
 	public static final String DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA = "DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA";
+	
 	
 }

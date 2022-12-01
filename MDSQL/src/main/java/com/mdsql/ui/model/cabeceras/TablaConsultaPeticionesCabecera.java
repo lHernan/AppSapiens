@@ -2,7 +2,7 @@ package com.mdsql.ui.model.cabeceras;
 
 import java.math.BigDecimal;
 
-import lombok.Getter;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 /**
  * @author federico

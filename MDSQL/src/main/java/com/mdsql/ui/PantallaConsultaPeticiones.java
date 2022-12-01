@@ -15,9 +15,10 @@ import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaConsultaPeticionesListener;
-import com.mdsql.ui.model.cabeceras.Cabecera;
+import com.mdsql.ui.model.ConsultaPeticionesTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 

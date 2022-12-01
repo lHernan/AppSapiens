@@ -17,9 +17,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
 import com.mdsql.ui.model.SeleccionHistoricoTableModel;
-import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 

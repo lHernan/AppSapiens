@@ -39,10 +39,10 @@ import com.mdsql.ui.listener.FramePrincipalActionListener;
 import com.mdsql.ui.listener.FramePrincipalWindowListener;
 import com.mdsql.ui.menu.MainMenuBar;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
-import com.mdsql.ui.model.cabeceras.Cabecera;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.FrameSupport;
 
 import lombok.Getter;

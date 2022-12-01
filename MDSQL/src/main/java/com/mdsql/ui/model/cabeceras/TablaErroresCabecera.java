@@ -2,6 +2,8 @@ package com.mdsql.ui.model.cabeceras;
 
 import java.util.Date;
 
+import com.mdval.ui.model.cabeceras.Cabecera;
+
 /**
  * @author federico
  *

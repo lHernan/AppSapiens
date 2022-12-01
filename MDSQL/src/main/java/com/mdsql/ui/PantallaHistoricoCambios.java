@@ -15,8 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.ui.listener.PantallaHistoricoCambiosListener;
 import com.mdval.ui.utils.DialogSupport;

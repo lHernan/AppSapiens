@@ -1,36 +1,6 @@
 --------------------------------------------------------
--- Archivo creado  - miércoles-octubre-19-2022   
+-- Archivo creado  - martes-noviembre-22-2022   
 --------------------------------------------------------
-DROP TYPE "SAPIENS"."T_R_SCRIPT_LANZA";
-DROP SEQUENCE "SAPIENS"."SEQ_ID_LINEA_SCRIPT";
-DROP SEQUENCE "SAPIENS"."SEQ_ID_PROCESO";
-DROP SEQUENCE "SAPIENS"."SEQ_ID_SCRIPT";
-DROP SEQUENCE "SAPIENS"."SEQ_ID_SCRIPT_LANZA";
-DROP SEQUENCE "SAPIENS"."SEQ_NUM_ORDEN";
-DROP TABLE "SAPIENS"."AVISO" cascade constraints;
-DROP TABLE "SAPIENS"."BBDD" cascade constraints;
-DROP TABLE "SAPIENS"."CAMPO_GLOSARIO" cascade constraints;
-DROP TABLE "SAPIENS"."DET_VALIDACION" cascade constraints;
-DROP TABLE "SAPIENS"."ELEMENTO" cascade constraints;
-DROP TABLE "SAPIENS"."ELEMENTO_NORMA" cascade constraints;
-DROP TABLE "SAPIENS"."GLOSARIO" cascade constraints;
-DROP TABLE "SAPIENS"."LINEAS_SCRIPT" cascade constraints;
-DROP TABLE "SAPIENS"."MODELO" cascade constraints;
-DROP TABLE "SAPIENS"."NORMA" cascade constraints;
-DROP TABLE "SAPIENS"."OBJ_HIS" cascade constraints;
-DROP TABLE "SAPIENS"."PARTICULA" cascade constraints;
-DROP TABLE "SAPIENS"."PARTICULA_NORMA" cascade constraints;
-DROP TABLE "SAPIENS"."PROCESO" cascade constraints;
-DROP TABLE "SAPIENS"."PROPERTIES" cascade constraints;
-DROP TABLE "SAPIENS"."SCRIPT" cascade constraints;
-DROP TABLE "SAPIENS"."SCRIPTS_LANZA" cascade constraints;
-DROP TABLE "SAPIENS"."SUBPROYECTO" cascade constraints;
-DROP TABLE "SAPIENS"."TIPO_DATO" cascade constraints;
-DROP TABLE "SAPIENS"."VALIDA_PARTICULA" cascade constraints;
-DROP TABLE "SAPIENS"."VAL_PARTICULA" cascade constraints;
-DROP PACKAGE "SAPIENS"."SM2_K_LD_MDSQL";
-DROP PACKAGE BODY "SAPIENS"."SM2_K_LD_MDSQL";
-DROP FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA";
 --------------------------------------------------------
 --  DDL for Type T_R_SCRIPT_LANZA
 --------------------------------------------------------
@@ -46,17 +16,17 @@ DROP FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA";
 --  DDL for Sequence SEQ_ID_LINEA_SCRIPT
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_LINEA_SCRIPT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 360 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_LINEA_SCRIPT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 2622 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_ID_PROCESO
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_PROCESO"  MINVALUE 1 MAXVALUE 100000 INCREMENT BY 1 START WITH 47 NOCACHE  ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_PROCESO"  MINVALUE 1 MAXVALUE 100000 INCREMENT BY 1 START WITH 110 NOCACHE  ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_ID_SCRIPT
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_SCRIPT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 96 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SAPIENS"."SEQ_ID_SCRIPT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 340 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_ID_SCRIPT_LANZA
 --------------------------------------------------------
@@ -66,7 +36,7 @@ DROP FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA";
 --  DDL for Sequence SEQ_NUM_ORDEN
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SAPIENS"."SEQ_NUM_ORDEN"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 76 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SAPIENS"."SEQ_NUM_ORDEN"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 139 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Table AVISO
 --------------------------------------------------------
@@ -101,7 +71,8 @@ DROP FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA";
 	"NOM_ESQUEMA" VARCHAR2(30 BYTE), 
 	"NOM_BBDD_HIS" VARCHAR2(30 BYTE), 
 	"NOM_ESQUEMA_HIS" VARCHAR2(30 BYTE), 
-	"MCA_DEFECTO" VARCHAR2(1 BYTE)
+	"MCA_DEFECTO" VARCHAR2(1 BYTE), 
+	"PASSWORD" VARCHAR2(20 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -347,22 +318,7 @@ DROP FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA";
 	"MCA_INICIAL" VARCHAR2(1 BYTE), 
 	"TXT_DESCRIPCION" VARCHAR2(500 BYTE), 
 	"TXT_OBS_ENTREGA" VARCHAR2(500 BYTE), 
-	"MCA_ERRORES" VARCHAR2(1 BYTE), 
-	"ID_SCRIPT" NUMBER
-   ) SEGMENT CREATION IMMEDIATE 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table PROPERTIES
---------------------------------------------------------
-
-  CREATE TABLE "SAPIENS"."PROPERTIES" 
-   (	"NOMBRE" VARCHAR2(20 BYTE), 
-	"VALOR" VARCHAR2(500 BYTE)
+	"MCA_ERRORES" VARCHAR2(1 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -384,7 +340,8 @@ DROP FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA";
 	"NUM_ORDEN" NUMBER, 
 	"NOM_SCRIPT_LANZA" VARCHAR2(100 BYTE), 
 	"TXT_SCRIPT_LANZA" VARCHAR2(4000 BYTE), 
-	"NOM_SCRIPT_LOG" VARCHAR2(20 BYTE)
+	"NOM_SCRIPT_LOG" VARCHAR2(50 BYTE), 
+	"ID_PROCESO" NUMBER
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -404,7 +361,7 @@ DROP FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA";
    (	"ID" NUMBER, 
 	"NOMBRE" VARCHAR2(100 BYTE), 
 	"TXT" VARCHAR2(4000 BYTE), 
-	"PLATAFORMA" VARCHAR2(20 BYTE)
+	"TIPO" VARCHAR2(20 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -480,9 +437,9 @@ Insert into SAPIENS.AVISO (COD_PROYECTO,COD_NIVEL_AVISO,DES_NIVEL_AVISO,COD_AVIS
 Insert into SAPIENS.AVISO (COD_PROYECTO,COD_NIVEL_AVISO,DES_NIVEL_AVISO,COD_AVISO,DES_AVISO,TXT_AVISO,COD_PETICION,FEC_ALTA,COD_USR_ALTA,MCA_HABILITADO,FEC_ACTU,COD_USR) values ('PROY1','3','CRITICA','4','AVISO 4','AVISO CRITICO',null,to_date('23/09/22','DD/MM/RR'),null,null,to_date('23/09/22','DD/MM/RR'),null);
 REM INSERTING into SAPIENS.BBDD
 SET DEFINE OFF;
-Insert into SAPIENS.BBDD (COD_PROYECTO,NOM_BBDD,NOM_ESQUEMA,NOM_BBDD_HIS,NOM_ESQUEMA_HIS,MCA_DEFECTO) values ('SMD','FD012','SMD_LD','FD012_HIS','SMD_LD','N');
-Insert into SAPIENS.BBDD (COD_PROYECTO,NOM_BBDD,NOM_ESQUEMA,NOM_BBDD_HIS,NOM_ESQUEMA_HIS,MCA_DEFECTO) values ('PROY1','BD1','ESQUEMA1','BBDD0','ESQUEMA0','S');
-Insert into SAPIENS.BBDD (COD_PROYECTO,NOM_BBDD,NOM_ESQUEMA,NOM_BBDD_HIS,NOM_ESQUEMA_HIS,MCA_DEFECTO) values ('PROY1','BD2','ESQUEMA2','BBDD0','ESQUEMA0','S');
+Insert into SAPIENS.BBDD (COD_PROYECTO,NOM_BBDD,NOM_ESQUEMA,NOM_BBDD_HIS,NOM_ESQUEMA_HIS,MCA_DEFECTO,PASSWORD) values ('SMD','HR','HR','HR','HR','N','hr');
+Insert into SAPIENS.BBDD (COD_PROYECTO,NOM_BBDD,NOM_ESQUEMA,NOM_BBDD_HIS,NOM_ESQUEMA_HIS,MCA_DEFECTO,PASSWORD) values ('PROY1','BD1','ESQUEMA1','BBDD0','ESQUEMA0','S','PROY1');
+Insert into SAPIENS.BBDD (COD_PROYECTO,NOM_BBDD,NOM_ESQUEMA,NOM_BBDD_HIS,NOM_ESQUEMA_HIS,MCA_DEFECTO,PASSWORD) values ('PROY1','BD2','ESQUEMA2','BBDD0','ESQUEMA0','S','PROY1');
 REM INSERTING into SAPIENS.CAMPO_GLOSARIO
 SET DEFINE OFF;
 REM INSERTING into SAPIENS.DET_VALIDACION
@@ -495,325 +452,1801 @@ REM INSERTING into SAPIENS.GLOSARIO
 SET DEFINE OFF;
 REM INSERTING into SAPIENS.LINEAS_SCRIPT
 SET DEFINE OFF;
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('116','29','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('117','29','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('118','29','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('119','29','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('120','29','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('121','29','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('122','29','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('123','29','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('124','29','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('125','29','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('126','29','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('127','29','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('128','29',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('129','29','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('130','30','--PRACTICA4- ASTERISCOS');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('131','30','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('132','30','    nombre     VARCHAR2(100);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('133','30','    asteriscos VARCHAR2(100);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('134','30','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('135','30','    nombre := ''ALBERTO'';');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('136','30','    FOR i IN 1..length(nombre) LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('137','30','        asteriscos := asteriscos || ''*'';');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('138','30','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('139','30',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('140','30','    dbms_output.put_line(nombre');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('141','30','                         || ''-->''');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('142','30','                         || asteriscos);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('143','30','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('144','30','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('156','49','-- Práctica 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('157','49','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('158','49','    maximo     NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('159','49','    minimo     NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('160','49','    diferencia NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('161','49','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('162','49','    SELECT');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('163','49','        MAX(salary),');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('164','49','        MIN(salary)');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('165','49','    INTO');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('166','49','        maximo,');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('167','49','        minimo');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('168','49','    FROM');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('169','49','        employees;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('170','49',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('171','49','    dbms_output.put_line(''EL SALARIO MÁXIMO ES:'' || maximo);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('172','49','    dbms_output.put_line(''EL SALARIO MÍNIMO ES:'' || minimo);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('173','49','    diferencia := maximo - minimo;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('174','49','    dbms_output.put_line(''LA DIFERENCIA ES:'' || diferencia);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('175','49','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('176','49','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('177','50','-- Práctica 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('178','50','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('179','50','    maximo     NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('180','50','    minimo     NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('181','50','    diferencia NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('182','50','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('183','50','    SELECT');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('184','50','        MAX(salary),');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('185','50','        MIN(salary)');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('186','50','    INTO');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('187','50','        maximo,');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('188','50','        minimo');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('189','50','    FROM');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('190','50','        employees;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('191','50',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('192','50','    dbms_output.put_line(''EL SALARIO MÁXIMO ES:'' || maximo);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('193','50','    dbms_output.put_line(''EL SALARIO MÍNIMO ES:'' || minimo);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('194','50','    diferencia := maximo - minimo;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('195','50','    dbms_output.put_line(''LA DIFERENCIA ES:'' || diferencia);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('196','50','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('197','50','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('238','71','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('239','71','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('240','71','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('241','71','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('242','71','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('243','71','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('244','71','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('245','71','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('246','71','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('247','71','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('248','71','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('249','71','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('250','71',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('251','71','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('291','74','--PRACTICA4- ASTERISCOS');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('292','74','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('293','74','    nombre     VARCHAR2(100);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('294','74','    asteriscos VARCHAR2(100);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('295','74','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('296','74','    nombre := ''ALBERTO'';');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('297','74','    FOR i IN 1..length(nombre) LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('298','74','        asteriscos := asteriscos || ''*'';');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('299','74','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('300','74',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('301','74','    dbms_output.put_line(nombre');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('302','74','                         || ''-->''');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('303','74','                         || asteriscos);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('304','74','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('305','74','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('306','75','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('307','75','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('308','75','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('309','75','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('310','75','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('311','75','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('312','75','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('313','75','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('314','75','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('315','75','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('316','75','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('317','75','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('318','75',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('319','75','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('320','76','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('321','76','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('322','76','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('323','76','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('324','76','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('325','76','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('326','76','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('327','76','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('328','76','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('329','76','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('330','76','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('331','76','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('332','76',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('333','76','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('334','77','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('335','77','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('336','77','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('337','77','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('338','77','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('339','77','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('340','77','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('341','77','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('342','77','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('343','77','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('344','77','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('345','77','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('346','77',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('347','77','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('21','23','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('22','23','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('23','23','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('24','23','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('25','23','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('26','23','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('27','23','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('28','23','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('29','23','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('30','23','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('31','23','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('32','23','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('33','23',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('34','23','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('35','23','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('36','24','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('37','24','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('38','24','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('39','24','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('40','24','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('41','24','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('42','24','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('43','24','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('44','24','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('45','24','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('46','24','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('47','24','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('48','24',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('49','24','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('50','24','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('51','25','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('52','25','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('53','25','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('54','25','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('55','25','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('56','25','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('57','25','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('58','25','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('59','25','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('60','25','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('61','25','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('62','25','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('63','25',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('64','25','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('65','25','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('66','26','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('67','26','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('68','26','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('69','26','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('70','26','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('71','26','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('72','26','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('73','26','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('74','26','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('75','26','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('76','26','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('77','26','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('78','26',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('79','26','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('80','26','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('81','27','-- Práctica 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('82','27','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('83','27','    maximo     NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('84','27','    minimo     NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('85','27','    diferencia NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('86','27','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('87','27','    SELECT');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('88','27','        MAX(salary),');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('89','27','        MIN(salary)');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('90','27','    INTO');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('91','27','        maximo,');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('92','27','        minimo');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('93','27','    FROM');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('94','27','        employees;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('95','27',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('96','27','    dbms_output.put_line(''EL SALARIO MÁXIMO ES:'' || maximo);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('97','27','    dbms_output.put_line(''EL SALARIO MÍNIMO ES:'' || minimo);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('98','27','    diferencia := maximo - minimo;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('99','27','    dbms_output.put_line(''LA DIFERENCIA ES:'' || diferencia);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('100','27','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('101','27','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('102','28','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('103','28','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('104','28','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('105','28','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('106','28','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('107','28','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('108','28','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('109','28','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('110','28','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('111','28','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('112','28','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('113','28','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('114','28',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('115','28','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('252','72','-- Práctica 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('253','72','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('254','72','    maximo     NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('255','72','    minimo     NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('256','72','    diferencia NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('257','72','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('258','72','    SELECT');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('259','72','        MAX(salary),');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('260','72','        MIN(salary)');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('261','72','    INTO');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('262','72','        maximo,');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('263','72','        minimo');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('264','72','    FROM');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('265','72','        employees;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('266','72',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('267','72','    dbms_output.put_line(''EL SALARIO MÁXIMO ES:'' || maximo);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('268','72','    dbms_output.put_line(''EL SALARIO MÍNIMO ES:'' || minimo);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('269','72','    diferencia := maximo - minimo;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('270','72','    dbms_output.put_line(''LA DIFERENCIA ES:'' || diferencia);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('271','72','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('272','72','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('273','73','--PRACTICA2- FRASE AL REVES');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('274','73','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('275','73','    frase          VARCHAR2(100);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('276','73','    limite         NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('277','73','    contador       NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('278','73','    frase_al_reves VARCHAR2(100);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('279','73','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('280','73','    frase := ''ESTO ES UNA PRUEBA DE FRASE'';');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('281','73','    limite := length(frase);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('282','73','    WHILE limite > 0 LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('283','73','        frase_al_reves := frase_al_reves');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('284','73','                          || substr(frase, limite, 1);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('285','73','        limite := limite - 1;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('286','73','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('287','73',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('288','73','    dbms_output.put_line(frase_al_reves);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('289','73','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('290','73','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1','1','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2','1','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('3','1','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('4','1','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('5','1','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('6','1','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('7','1','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('8','1','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('9','1','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('10','1','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('11','1','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('12','1','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('13','1',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('14','1','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('15','1','/');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('198','51','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('199','51','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('200','51','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('201','51','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('202','51','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('203','51','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('204','51','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('205','51','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('206','51','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('207','51','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('208','51','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('209','51','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('210','51',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('211','51','END;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('212','52','--PRACTICA 5- MULTIPLOS DE 4');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('213','52','DECLARE');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('214','52','    inicio NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('215','52','    final  NUMBER;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('216','52','BEGIN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('217','52','    inicio := 10;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('218','52','    final := 200;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('219','52','    FOR i IN inicio..final LOOP');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('220','52','        IF MOD(i, 4) = 0 THEN');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('221','52','            dbms_output.put_line(i);');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('222','52','        END IF;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('223','52','    END LOOP;');
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('224','52',null);
-Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('225','52','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1052','185','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1053','185','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1054','185','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1055','185','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1056','185','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1057','185','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1058','185','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1059','185','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1060','185','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1061','185','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1062','185','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1063','185','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1064','185','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1065','185','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1066','185','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1067','185','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1068','185','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1069','185','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1070','185','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1071','185','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1072','185','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1073','185','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1074','185','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1075','185','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1076','185','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1077','186','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1078','186','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1079','186','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1080','186','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1081','186','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1082','186','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1083','186','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1084','186','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1085','186','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1086','186','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1087','186','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1088','186','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1089','186','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1090','186','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1091','186','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1092','186','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1093','186','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1094','186','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1095','186','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1096','186','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1097','186','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1098','186','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1099','186','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1100','186','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1101','186','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1102','187','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1103','187','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1104','187','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1105','187','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1106','187','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1107','187','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1108','187','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1109','187','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1110','187','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1111','187','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1112','187','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1113','187','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1114','187','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1115','187','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1116','187','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1117','187','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1118','187','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1119','187','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1120','187','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1121','187','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1122','187','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1123','187','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1124','187','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1125','187','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1126','187','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1127','188','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1128','188','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1129','188','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1130','188','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1131','188','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1132','188','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1133','188','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1134','188','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1135','188','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1136','188','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1137','188','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1138','188','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1139','188','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1140','188','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1141','188','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1142','188','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1143','188','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1144','188','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1145','188','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1146','188','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1147','188','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1148','188','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1149','188','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1150','188','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1151','188','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1152','189','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1153','189','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1154','189','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1155','189','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1156','189','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1157','189','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1158','189','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1159','189','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1160','189','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1161','189','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1162','189','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1163','189','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1164','189','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1165','189','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1166','189','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1167','189','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1168','189','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1169','189','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1170','189','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1171','189','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1172','189','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1173','189','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1174','189','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1175','189','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('782','160','--PRACTICA 5- MULTIPLOS DE 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('783','160','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('784','160','    inicio NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('785','160','    final  NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('786','160','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('787','160','    inicio := 10;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('788','160','    final := 200;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('789','160','    FOR i IN inicio..final LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('790','160','        IF MOD(i, 4) = 0 THEN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('791','160','            dbms_output.put_line(i);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('792','160','        END IF;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('793','160','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('794','160','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('795','160','/');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('796','161','--PRACTICA 5- MULTIPLOS DE 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('797','161','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('798','161','    inicio NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('799','161','    final  NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('800','161','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('801','161','    inicio := 10;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('802','161','    final := 200;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('803','161','    FOR i IN inicio..final LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('804','161','        IF MOD(i, 4) = 0 THEN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('805','161','            dbms_output.put_line(i);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('806','161','        END IF;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('807','161','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('808','161','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('809','161','/');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('810','162','--PRACTICA 5- MULTIPLOS DE 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('811','162','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('812','162','    inicio NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('813','162','    final  NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('814','162','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('815','162','    inicio := 10;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('816','162','    final := 200;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('817','162','    FOR i IN inicio..final LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('818','162','        IF MOD(i, 4) = 0 THEN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('819','162','            dbms_output.put_line(i);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('820','162','        END IF;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('821','162','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('822','162','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('823','162','/');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('824','163','--PRACTICA 5- MULTIPLOS DE 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('825','163','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('826','163','    inicio NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('827','163','    final  NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('828','163','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('829','163','    inicio := 10;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('830','163','    final := 200;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('831','163','    FOR i IN inicio..final LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('832','163','        IF MOD(i, 4) = 0 THEN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('833','163','            dbms_output.put_line(i);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('834','163','        END IF;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('835','163','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('836','163','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('837','163','/');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('838','164','--PRACTICA 5- MULTIPLOS DE 4');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('839','164','DECLARE');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('840','164','    inicio NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('841','164','    final  NUMBER;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('842','164','BEGIN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('843','164','    inicio := 10;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('844','164','    final := 200;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('845','164','    FOR i IN inicio..final LOOP');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('846','164','        IF MOD(i, 4) = 0 THEN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('847','164','            dbms_output.put_line(i);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('848','164','        END IF;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('849','164','    END LOOP;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('850','164','END;');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('851','164','/');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1346','196','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1347','196','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1348','196','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1349','196','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1350','196','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1351','196','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1352','197','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1353','197','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1354','197','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1355','197','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1356','197','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1357','197','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1358','197','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1359','197','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1360','197','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1361','197','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1362','197','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1363','197','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1364','197','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1365','197','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1366','197','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1367','197','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1368','197','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1369','197','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1370','197','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1371','197','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1372','197','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1373','197','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1374','197',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1375','197','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1376','197','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1377','198','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1378','198','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1379','198','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1380','198','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1381','198','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1382','198','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1383','198','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1384','198','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1385','198','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1386','198','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1387','198','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1388','198','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1389','198','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1390','198','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1391','198','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1392','198','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1393','198','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1394','198','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1395','198','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1396','198','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1397','198','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1398','198','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1399','198',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1400','198','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1401','198','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1402','199','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1403','199','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1404','199','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1405','199','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1406','199','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1407','199','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1408','199','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1409','199','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1410','199','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1411','199','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1412','199','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1413','199','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1414','199','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1415','199','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1416','199','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1417','199','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1418','199','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1419','199','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1420','199','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1421','199','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1422','199','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1423','199','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1424','199',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1425','199','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1426','199','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1427','200','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1428','200','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1429','200','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1430','200','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1431','200','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1432','200','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1433','200','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('852','165','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('853','165','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('854','165','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('855','165','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('856','165','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('857','165','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('858','165','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('859','165','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('860','165','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('861','165','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('862','165','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('863','165','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('864','165','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('865','165','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('866','165','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('867','165','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('868','165','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('869','165','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('870','165','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('871','165','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('872','165','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('873','165','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('874','165',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('875','165','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('876','165','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('877','166','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('878','166','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('879','166','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('880','166','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('881','166','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('882','166','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('883','166','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('884','166','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('885','166','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('886','166','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('887','166','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('888','166','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('889','166','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('890','166','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('891','166','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('892','166','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('893','166','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('894','166','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('895','166','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('896','166','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('897','166','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('898','166','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('899','166',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('900','166','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('901','166','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('902','167','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('903','167','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('904','167','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('905','167','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('906','167','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('907','167','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('908','167','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('909','167','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('910','167','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('911','167','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('912','167','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('913','167','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('914','167','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('915','167','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('916','167','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('917','167','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('918','167','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('919','167','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('920','167','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('921','167','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('922','167','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('923','167','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('924','167',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('925','167','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('926','167','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('927','168','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('928','168','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('929','168','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('930','168','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('931','168','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('932','168','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('933','168','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('934','168','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('935','168','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('936','168','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('937','168','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('938','168','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('939','168','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('940','168','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('941','168','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('942','168','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('943','168','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('944','168','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('945','168','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('946','168','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('947','168','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('948','168','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('949','168',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('950','168','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('951','168','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('952','169','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('953','169','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('954','169','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('955','169','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('956','169','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('957','169','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('958','169','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('959','169','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('960','169','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('961','169','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('962','169','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('963','169','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('964','169','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('965','169','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('966','169','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('967','169','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('968','169','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('969','169','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('970','169','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('971','169','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('972','169','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('973','169','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('974','169','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('975','169','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('976','169','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('977','170','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('978','170','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('979','170','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('980','170','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('981','170','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('982','170','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('983','170','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('984','170','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('985','170','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('986','170','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('987','170','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('988','170','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('989','170','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('990','170','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('991','170','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('992','170','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('993','170','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('994','170','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('995','170','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('996','170','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('997','170','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('998','170','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('999','170','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1000','170','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1001','170','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1002','171','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1003','171','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1004','171','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1005','171','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1006','171','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1007','171','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1008','171','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1009','171','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1010','171','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1011','171','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1012','171','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1013','171','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1014','171','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1015','171','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1016','171','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1017','171','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1018','171','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1019','171','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1020','171','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1021','171','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1022','171','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1023','171','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1024','171','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1025','171','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1026','171','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1027','172','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1028','172','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1029','172','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1030','172','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1031','172','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1032','172','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1033','172','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1034','172','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1035','172','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1036','172','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1037','172','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1038','172','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1039','172','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1040','172','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1041','172','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1042','172','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1043','172','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1044','172','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1045','172','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1046','172','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1047','172','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1048','172','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1049','172','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1050','172','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1051','172','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1252','193','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1253','193','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1254','193','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1255','193','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1256','193','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1257','193','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1258','193','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1259','193','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1260','193','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1261','193','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1262','193','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1263','193','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1264','193','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1265','193','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1266','193','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1267','193','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1268','193','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1269','193','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1270','193','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1271','193','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1272','193','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1273','193','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1274','193','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1275','193','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1276','193','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1277','194','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1278','194','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1279','194','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1280','194','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1281','194','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1282','194','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1283','194','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1284','194','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1285','194','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1286','194','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1287','194','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1288','194','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1289','194','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1290','194','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1291','194','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1292','194','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1293','194','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1294','194','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1295','194','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1296','194','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1297','194','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1298','194','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1299','194','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1176','189','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1177','190','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1178','190','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1179','190','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1180','190','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1181','190','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1182','190','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1183','190','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1184','190','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1185','190','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1186','190','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1187','190','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1188','190','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1189','190','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1190','190','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1191','190','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1192','190','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1193','190','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1194','190','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1195','190','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1196','190','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1197','190','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1198','190','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1199','190','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1200','190','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1201','190','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1202','191','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1203','191','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1204','191','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1205','191','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1206','191','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1207','191','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1208','191','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1209','191','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1210','191','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1211','191','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1212','191','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1213','191','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1214','191','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1215','191','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1216','191','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1217','191','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1218','191','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1219','191','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1220','191','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1221','191','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1222','191','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1223','191','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1224','191','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1225','191','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1226','191','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1227','192','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1228','192','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1229','192','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1230','192','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1231','192','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1232','192','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1233','192','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1234','192','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1235','192','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1236','192','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1237','192','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1238','192','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1239','192','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1240','192','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1241','192','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1242','192','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1243','192','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1244','192','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1245','192','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1246','192','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1247','192','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1248','192','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1249','192','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1250','192','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1251','192','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1300','194','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1301','194','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1302','195','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1303','195','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1304','195','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1305','195','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1306','195','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1307','195','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1308','195','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1309','195','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1310','195','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1311','195','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1312','195','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1313','195','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1314','195','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1315','195','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1316','195','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1317','195','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1318','195','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1319','195','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1320','195','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1321','195','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1322','195','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1323','195','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1324','195','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1325','195','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1326','195','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1327','196','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1328','196','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1329','196','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1330','196','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1331','196','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1332','196','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1333','196','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1334','196','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1335','196','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1336','196','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1337','196','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1338','196','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1339','196','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1340','196','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1341','196','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1342','196','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1343','196','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1344','196','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1345','196','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1560','205','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1561','205','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1562','205','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1563','205','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1564','205','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1565','205','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1566','205','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1567','205','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1568','205','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1569','205','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1570','205','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1571','205','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1572','205','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1573','205','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1574','205',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1575','205','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1576','205','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1577','206','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1578','206','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1579','206','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1580','206','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1581','206','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1582','206','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1583','206','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1584','206','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1585','206','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1586','206','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1587','206','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1588','206','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1589','206','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1590','206','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1591','206','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1592','206','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1593','206','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1594','206','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1595','206','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1596','206','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1597','206','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1598','206','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1599','206',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1600','206','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1601','206','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1602','207','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1603','207','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1604','207','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1605','207','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1606','207','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1607','207','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1608','207','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1609','207','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1610','207','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1611','207','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1612','207','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1613','207','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1614','207','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1615','207','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1616','207','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1617','207','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1618','207','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1619','207','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1620','207','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1621','207','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1622','207','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1623','207','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1624','207',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1625','207','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1626','207','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1627','208','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1628','208','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1629','208','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1630','208','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1631','208','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1632','208','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1633','208','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1634','208','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1635','208','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1636','208','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1637','208','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1638','208','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1639','208','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1640','208','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1641','208','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1642','208','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1643','208','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1644','208','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1645','208','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1646','208','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1647','208','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1648','208','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1649','208',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1650','208','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1651','208','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1652','209','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1653','209','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1654','209','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1655','209','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1656','209','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1657','209','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1658','209','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1659','209','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1660','209','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1661','209','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1662','209','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1663','209','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1664','209','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1665','209','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1666','209','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1667','209','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1668','209','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1669','209','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1670','209','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1671','209','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1672','209','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1673','209','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1674','209','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1675','209','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1676','209','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1677','210','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1678','210','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1679','210','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1680','210','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1681','210','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1682','210','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1683','210','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1684','210','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1685','210','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1686','210','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1687','210','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1688','210','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1689','210','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1690','210','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1691','210','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1692','210','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1693','210','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1694','210','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1695','210','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1696','210','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1697','210','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1698','210','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1699','210','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1700','210','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1701','210','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1702','211','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1703','211','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1704','211','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1705','211','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1706','211','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1707','211','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1708','211','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1709','211','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1710','211','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1711','211','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1712','211','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1713','211','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1714','211','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1715','211','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1716','211','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1717','211','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1718','211','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1719','211','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1720','211','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1721','211','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1722','211','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1723','211','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1724','211','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1725','211','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1726','211','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1727','212','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1728','212','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1729','212','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1730','212','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1731','212','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1732','212','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1733','212','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1734','212','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1735','212','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1736','212','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1737','212','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1738','212','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1739','212','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1740','212','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1741','212','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1742','212','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1743','212','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1744','212','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1745','212','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1746','212','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1747','212','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1748','212','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1749','212','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1750','212','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1751','212','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1752','213','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1753','213','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1754','213','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1755','213','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1756','213','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1757','213','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1758','213','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1759','213','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1760','213','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1761','213','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1762','213','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1763','213','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1764','213','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1765','213','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1766','213','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1767','213','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1768','213','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1769','213','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1770','213','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1771','213','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1772','213','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1773','213','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1774','213','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1775','213','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1776','213','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1777','214','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1778','214','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1779','214','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1780','214','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1781','214','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1782','214','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1783','214','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1784','214','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1785','214','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1786','214','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1787','214','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1788','214','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1789','214','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1790','214','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1791','214','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1792','214','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1793','214','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1794','214','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1795','214','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1796','214','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1797','214','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1798','214','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1799','214','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1800','214','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1801','214','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1802','215','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1803','215','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1804','215','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1805','215','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1806','215','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1807','215','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1808','215','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1809','215','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1810','215','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2052','237','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2053','237','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2054','237','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2055','237','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2056','237','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2057','237','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2058','237','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2059','237','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2060','237','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2061','237','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2062','237','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2063','237','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2064','237','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2065','237','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2066','237','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2067','237','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2068','237','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2069','237','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2070','237','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2071','237','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2072','237','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2073','237','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2074','237',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2075','237','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2076','237','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2077','238','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2078','238','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2079','238','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2080','238','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2081','238','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2082','238','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2083','238','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2084','238','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2085','238','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2086','238','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2087','238','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2088','238','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2089','238','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2090','238','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2091','238','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2092','238','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2093','238','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2094','238','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2095','238','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2096','238','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2097','238','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2098','238','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2099','238',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2100','238','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2101','238','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2102','239','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2103','239','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2104','239','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2105','239','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2106','239','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2107','239','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2108','239','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2109','239','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2110','239','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2111','239','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2112','239','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2113','239','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2114','239','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2115','239','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2116','239','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2117','239','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2118','239','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2119','239','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2120','239','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2121','239','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2122','239','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2123','239','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2124','239',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2125','239','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2126','239','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2127','240','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2128','240','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2129','240','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2130','240','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2131','240','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2132','240','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2133','240','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2134','240','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2135','240','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2136','240','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2137','240','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2138','240','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2139','240','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2140','240','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2141','240','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2142','240','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2143','240','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2144','240','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2145','240','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2146','240','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2147','240','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2148','240','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2149','240',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2150','240','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2151','240','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2161','257','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2162','257','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2163','257','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2164','257','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2165','257','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2166','257','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2167','257','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2168','257','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2169','257','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2170','257','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2171','257','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2172','257','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2173','257','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2174','257','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2175','257','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2176','257','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2177','258','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2178','258','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2179','258','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2180','258','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2181','258','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2182','258','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2183','258','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2184','258','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2185','258','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2186','258','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2202','260','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2203','260','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2204','260','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2205','260','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2206','260','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2207','260','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2208','260','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2209','260','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2210','260','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2211','260','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2212','260','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2213','260','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2214','260','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2215','260','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2216','260','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2217','260','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2218','260','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2219','260','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2220','260','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2221','260','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2222','260','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2223','260','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2224','260','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2225','260','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2226','260','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2227','261','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2228','261','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2229','261','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2230','261','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2231','261','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2232','261','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2233','261','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2234','261','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2235','261','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2236','261','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2237','261','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2238','261','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2239','261','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2240','261','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2241','261','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2242','261','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2243','261','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2244','261','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2245','261','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2246','261','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2247','261','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2248','261','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2249','261','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2250','261','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2251','261','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2262','280','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2263','280','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2264','280','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2265','280','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2266','280','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2267','280','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2268','280','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2269','280','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2270','280','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2271','280','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2272','280','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2273','280','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2274','280','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2275','280','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2276','280','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2277','280','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2278','280','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2279','280','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2280','280','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2281','280','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2282','280','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2283','280','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2284','280','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2285','280','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2286','280','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2287','281','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2288','281','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2289','281','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2290','281','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2291','281','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2292','281','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2293','281','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2294','281','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2295','281','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2296','281','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2297','281','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2298','281','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2299','281','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2300','281','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2301','281','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2302','281','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2303','281','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2304','281','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2305','281','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2306','281','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2307','281','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2308','281','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2309','281','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2310','281','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2311','281','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2312','282','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2313','282','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2314','282','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2315','282','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2316','282','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2317','282','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2318','282','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2319','282','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2320','282','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2321','282','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2322','282','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2323','282','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2324','282','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2325','282','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2326','282','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2327','282','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2328','282','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2329','282','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2330','282','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2331','282','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2332','282','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2333','282','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2334','282','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2335','282','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2336','282','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2187','258','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2188','258','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2189','258','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2190','258','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2191','258','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2192','258','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2193','258','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2194','258','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2195','258','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2196','258','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2197','258','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2198','258','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2199','258','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2200','258','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2201','258','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2337','283','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2338','283','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2339','283','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2340','283','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2341','283','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2342','283','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2343','283','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2344','283','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2345','283','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2346','283','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2347','283','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2348','283','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2349','283','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2350','283','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2351','283','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2352','283','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2353','283','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2354','283','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2355','283','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2356','283','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2357','283','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2358','283','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2359','283','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2360','283','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2361','283','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2362','284','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2363','284','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2364','284','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2365','284','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2366','284','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2367','284','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2368','284','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2369','284','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2370','284','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2371','284','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2372','284','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2373','284','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2374','284','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2375','284','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2376','284','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2377','284','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2378','284','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2379','284','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2380','284','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2381','284','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2382','284','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2383','284','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2384','284','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2385','284','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2386','284','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2387','285','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2388','285','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2389','285','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2390','285','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2391','285','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2392','285','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2393','285','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2394','285','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2395','285','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2396','285','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2397','285','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2398','285','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2399','285','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2400','285','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2401','285','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2402','285','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2403','285','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2404','285','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2405','285','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2406','285','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2407','285','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2408','285','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2409','285','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2410','285','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2411','285','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2412','286','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2413','286','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2414','286','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2415','286','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2416','286','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2417','286','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2418','286','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2419','286','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2420','286','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2421','286','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2422','286','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2423','286','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2424','286','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2425','286','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2426','286','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2427','286','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2428','286','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2429','286','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2430','286','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2431','286','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2432','286','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2433','286','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2434','286','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2435','286','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2436','286','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2437','287','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2438','287','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2439','287','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2440','287','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2441','287','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2442','287','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2443','287','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2444','287','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2445','287','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2446','287','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1811','215','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1812','215','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1813','215','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1814','215','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1815','215','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1816','215','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1817','215','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1818','215','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1819','215','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1820','215','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1821','215','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1822','215','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1823','215','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1824','215','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1825','215','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1826','215','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1827','216','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1828','216','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1829','216','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1830','216','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1831','216','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1832','216','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1833','216','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1834','216','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1835','216','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1836','216','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1837','216','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1838','216','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1839','216','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1840','216','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1841','216','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1842','216','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1843','216','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1844','216','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1845','216','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1846','216','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1847','216','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1848','216','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1849','216','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1850','216','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1851','216','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1852','217','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1853','217','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1854','217','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1855','217','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1856','217','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1857','217','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1858','217','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1859','217','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1860','217','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1861','217','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1862','217','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1863','217','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1864','217','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1865','217','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1866','217','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1867','217','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1868','217','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1869','217','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1870','217','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1871','217','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1872','217','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1873','217','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1874','217','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1875','217','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1876','217','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1877','218','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1878','218','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1879','218','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1880','218','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1881','218','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1882','218','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1883','218','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1884','218','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1885','218','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1886','218','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1887','218','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1888','218','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1889','218','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1890','218','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1891','218','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1892','218','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1893','218','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1894','218','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1895','218','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1896','218','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1897','218','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1898','218','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1899','218','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1900','218','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1901','218','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1902','219','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1903','219','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1904','219','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1905','219','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1906','219','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1907','219','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1908','219','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1909','219','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1910','219','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1911','219','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1912','219','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1913','219','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1914','219','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1915','219','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1916','219','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1917','219','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1918','219','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1919','219','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1920','219','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1921','219','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1922','219','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1923','219','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1924','219','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1925','219','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1926','219','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1927','220','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1928','220','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1929','220','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1930','220','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1931','220','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1932','220','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1933','220','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1934','220','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1935','220','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1936','220','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1937','220','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1938','220','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1939','220','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1940','220','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1941','220','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1942','220','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1943','220','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1944','220','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1945','220','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1946','220','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1947','220','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1948','220','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1949','220','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1950','220','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1951','220','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1952','233','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1953','233','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1954','233','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1955','233','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1956','233','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1957','233','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1958','233','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1959','233','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1960','233','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1961','233','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1962','233','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1963','233','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1964','233','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1965','233','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1966','233','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1967','233','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1968','233','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1969','233','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1970','233','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1971','233','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1972','233','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1973','233','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1974','233','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1975','233','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1976','233','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1977','234','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1978','234','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1979','234','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1980','234','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1981','234','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1982','234','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1983','234','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1984','234','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1985','234','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1986','234','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1987','234','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1988','234','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1989','234','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1990','234','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1991','234','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1992','234','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1993','234','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1994','234','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1995','234','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1996','234','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1997','234','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1998','234','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1999','234','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2000','234','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2001','234','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2002','235','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2003','235','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2004','235','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2005','235','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2006','235','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2007','235','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2008','235','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2009','235','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2010','235','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2011','235','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2012','235','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2013','235','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2014','235','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2015','235','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2016','235','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2017','235','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2018','235','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2019','235','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2020','235','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2021','235','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2022','235','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2023','235','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2024','235','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2025','235','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2026','235','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2027','236','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2028','236','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2029','236','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2030','236','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2031','236','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2032','236','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2033','236','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2034','236','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2035','236','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2036','236','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2037','236','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2038','236','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2039','236','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2040','236','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2041','236','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2042','236','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2043','236','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2044','236','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2045','236','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2046','236','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2047','236','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2048','236','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2049','236','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2050','236','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2051','236','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2152','257','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2153','257','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2154','257','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2155','257','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2156','257','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2157','257','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2158','257','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2159','257','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2160','257','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1434','200','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1435','200','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1436','200','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1437','200','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1438','200','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1439','200','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1440','200','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1441','200','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1442','200','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1443','200','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1444','200','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1445','200','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1446','200','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1447','200','CREATE TABLE &&USROWN._LD.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1448','200','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1449','200',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1450','200','COMMENT ON TABLE &&USROWN._LD.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1451','200','COMMENT ON COLUMN &&USROWN._LD.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1452','201','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1453','201','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1454','201','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1455','201','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1456','201','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1457','201','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1458','201','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1459','201','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1460','201','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1461','201','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1462','201','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1463','201','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1464','201','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1465','201','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1466','201','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1467','201','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1468','201','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1469','201','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1470','201','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1471','201','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1472','201','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1473','201','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1474','201',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1475','201','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1476','201','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1477','202','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1478','202','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1479','202','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1480','202','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1481','202','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1482','202','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1483','202','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1484','202','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1485','202','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1486','202','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1487','202','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1488','202','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1489','202','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1490','202','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1491','202','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1492','202','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1493','202','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1494','202','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1495','202','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1496','202','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1497','202','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1498','202','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1499','202',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1500','202','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1501','202','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1502','203','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1503','203','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1504','203','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1505','203','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1506','203','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1507','203','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1508','203','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1509','203','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1510','203','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1511','203','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1512','203','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1513','203','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1514','203','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1515','203','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1516','203','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1517','203','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1518','203','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1519','203','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1520','203','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1521','203','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1522','203','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1523','203','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1524','203',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1525','203','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1526','203','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1527','204','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1528','204','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1529','204','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1530','204','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1531','204','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1532','204','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1533','204','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1534','204','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1535','204','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1536','204','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1537','204','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1538','204','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1539','204','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1540','204','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1541','204','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1542','204','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1543','204','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1544','204','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1545','204','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1546','204','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1547','204','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1548','204','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1549','204',null);
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1550','204','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN._LD.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1551','204','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1552','205','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1553','205','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1554','205','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1555','205','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1556','205','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1557','205','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1558','205','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('1559','205','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2502','300','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2503','300','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2504','300','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2505','300','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2506','300','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2507','300','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2508','300','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2509','300','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2510','300','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2511','300','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2512','300','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2513','300','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2514','300','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2515','300','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2516','300','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2517','300','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2518','300','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2519','300','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2520','300','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2521','300','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2522','300','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2523','300','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2524','300','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2525','300','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2526','300','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2447','287','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2448','287','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2449','287','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2450','287','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2451','287','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2452','287','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2453','287','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2454','287','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2455','287','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2456','287','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2457','287','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2458','287','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2459','287','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2460','287','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2461','287','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2462','288','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2463','288','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2464','288','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2465','288','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2466','288','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2467','288','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2468','288','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2469','288','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2470','288','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2471','288','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2472','288','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2473','288','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2474','288','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2475','288','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2476','288','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2477','288','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2478','288','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2479','288','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2480','288','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2481','288','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2482','288','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2483','288','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2484','288','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2485','288','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2486','288','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2542','320','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2543','320','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2544','320','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2545','320','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2546','320','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2547','320','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2548','320','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2549','320','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2550','320','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2551','320','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2552','320','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2553','320','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2554','320','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2555','320','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2556','320','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2557','320','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2558','320','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2559','320','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2560','320','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2561','320','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2562','320','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2563','320','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2564','320','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2565','320','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2566','320','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2567','321','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2568','321','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2569','321','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2570','321','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2571','321','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2572','321','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2573','321','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2574','321','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2575','321','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2576','321','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2577','321','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2578','321','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2579','321','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2580','321','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2581','321','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2582','321','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2583','321','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2584','321','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2585','321','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2586','321','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2587','321','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2588','321','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2589','321','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2590','321','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2591','321','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2592','322','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2593','322','---MAPFRE DGTP - Modelo de datos ---- MDSQL v9 ------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2594','322','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2595','322','---Nº PETICIÓN:       PR-EJ');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2596','322','---FECHA:             07/11/2022 17:01:47');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2597','322','---SOLICITADA POR:    MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2598','322','---OBJETOS AFECTADOS: AAA');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2599','322','---PROYECTO:          MDSQL_SMD');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2600','322','---ENTORNO:           FD012');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2601','322','---REALIZADO POR:     MARIPAM');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2602','322','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2603','322','---TOTAL TABLAS      - CREADAS: 1, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2604','322','---TOTAL INDICES     - CREADOS: 0, MODIFICADOS: 0, ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2605','322','---TOTAL VISTAS      - CREADAS: 0,                 ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2606','322','---TOTAL VISTAS MAT. - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2607','322','---TOTAL SECUENCIAS  - CREADAS: 0, MODIFICADAS: 0, ELIMINADAS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2608','322','---TOTAL TYPES       - CREADOS: 0,                 ELIMINADOS: 0');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2609','322','---TOTAL OBJETOS AFECTADOS: 1');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2610','322','---VARIABLES UTILIZADAS: &&USROWN');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2611','322','-----------------------------------------------------------');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2612','322','CREATE TABLE &&USROWN.AAA (');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2613','322','A NUMBER);');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2614','322','null');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2615','322','COMMENT ON TABLE &&USROWN.AAA IS ''TABLA &&USROWN.AAA'';');
+Insert into SAPIENS.LINEAS_SCRIPT (ID,ID_SCRIPT,LINEA) values ('2616','322','COMMENT ON COLUMN &&USROWN.AAA.A IS ''COLUMNA A''; ');
 REM INSERTING into SAPIENS.MODELO
 SET DEFINE OFF;
 Insert into SAPIENS.MODELO (COD_PROYECTO,NOM_MODELO,NOM_ESQUEMA,NOM_BBDD,COD_GRUPO_BDS,NOM_CARPETA_ADJ,COD_NORMA,DES_NORMA,NOM_APN_CMDB,COD_GLOSARIO,DES_GLOSARIO,COD_HERRAMIENTA,OBS_MODELO,COD_USR,FEC_ACTU,COD_CAPA_USROWN,MCA_VARIABLES,MCA_GRANT_ALL,MCA_GRANT_PUBLIC,MCA_INH,MCA_HIS,MCA_PDC) values ('PROY1','PROYECTO1','ESQUEMA1','BD1',null,'BDS',null,null,null,null,null,null,'MODELO DE PRUEBA 1',null,null,'CCU1','S','S','S','N','S','S');
@@ -831,59 +2264,793 @@ REM INSERTING into SAPIENS.PARTICULA_NORMA
 SET DEFINE OFF;
 REM INSERTING into SAPIENS.PROCESO
 SET DEFINE OFF;
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','4','AA133-BB456','USER2',to_date('13/10/22','DD/MM/RR'),'USER1','1','Generado','N','descricion',null,'N',null);
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','34','prueba petición','federico',to_date('16/10/22','DD/MM/RR'),'federico','1','Generado','N','descripción',null,'N','29');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','35','petición ejercicio 9','federico',to_date('16/10/22','DD/MM/RR'),'federico','1','Generado','N','Se procesa el script del ejercicio 9',null,'N','30');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','37','RE-EJ4','federico',to_date('16/10/22','DD/MM/RR'),'federico','1','Generado','N','Se requiere ejecutar el script del ejercicio 4',null,'N','50');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','40','REQ-EJ10','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba de creación',null,'N','71');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','43','RQ-EJ9','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba petición',null,'N','74');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','44',null,null,to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N',null,null,'N','75');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','45','peticion','federico',to_date('19/10/22','DD/MM/RR'),'federico','1','Generado','N','descripcion',null,'N','76');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','46',null,null,to_date('19/10/22','DD/MM/RR'),'federico','1','Generado','N',null,null,'N','77');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','28','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','Prueba de creación de un proceso',null,'N','23');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','29','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba de devolución de script',null,'N','24');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','30','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba descripción',null,'N','25');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','31','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba descripción',null,'N','26');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','32','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','descripción',null,'N','27');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','33','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','descripción',null,'N','28');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','41','REQ-EJ4','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba descripción',null,'N','72');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','42','REQ-EJ7','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','Prueba descripción',null,'N','73');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('PROY1','3','RQ1','federico',to_date('11/10/22','DD/MM/RR'),'federico','1','Generado','S','PRUEBA DE PETICIÓN NUMERO 1',null,'N',null);
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','19','prueba petición','federico',to_date('13/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba descripción',null,'N',null);
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','27','prueba petición','federico',to_date('15/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba de que se crea un script',null,'N','1');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','38','RED-EJ10','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba procesado ejercicio 10',null,'N','51');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('SMD','39','REQ-EJ10','federico',to_date('18/10/22','DD/MM/RR'),'federico','1','Generado','N','prueba de Ejercicio 10',null,'N','52');
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('PROY1','1','PET1',null,to_date('24/09/22','DD/MM/RR'),null,'0','PENDIENTE',null,'CREAR CAMPO','NO DEBE CONTENER VALORES NULOS',null,null);
-Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES,ID_SCRIPT) values ('PROY1','2','PET2',null,to_date('24/09/22','DD/MM/RR'),null,'1','INICIADA',null,'BORRAR DATOS','ATENCIÓN A LAS DEPENDENCIAS EN CASCADA',null,null);
-REM INSERTING into SAPIENS.PROPERTIES
-SET DEFINE OFF;
-Insert into SAPIENS.PROPERTIES (NOMBRE,VALOR) values ('platform','Linux');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','81','petición','federico',to_date('08/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','sql incorrecto','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','82','petición','federico',to_date('08/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Se ha corregido la conexión','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','95','petición','federico',to_date('17/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Volver a ejecutar de nuevo','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','96','procesado completo','federico',to_date('20/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Volver a probar','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','97','procesado completo 2','federico',to_date('20/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxxx','Rechazar para completar el procedimiento','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','99','procesado_completo','federico',to_date('20/11/22','DD/MM/RR'),'federico','1','Rechazado','N','Prueba de procesado completo con zip','Descartar prueba','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','100','peticion_completa','federico',to_date('20/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxxx  xxxxxxxx','xxxx','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','101','peticion','federico',to_date('20/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxxx','Probar de nuevo','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','102','peticion','federico',to_date('20/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxxx','xxxxxx','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','103','peticion','federico',to_date('20/11/22','DD/MM/RR'),'federico','1','Entregado','N','xxxxx','Entregado','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','104','peticion','federico',to_date('20/11/22','DD/MM/RR'),'federico','1','Entregado','N','xxxx','Entregado','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','105','peticion','federico',to_date('20/11/22','DD/MM/RR'),'federico','1','Entregado','N','xxxxx','Entrega completada','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','76','peticion','federico',to_date('06/11/22','DD/MM/RR'),'federico','1','Generado','N','xxx',null,'N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','77','peticion','federico',to_date('06/11/22','DD/MM/RR'),'federico','1','Generado','N','xxx',null,'N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','78','peticion','federico',to_date('06/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxx','Reseteo para pruebas','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','92','petición','federico',to_date('11/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxxx','Activar resumen del procesado','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','93','petición','federico',to_date('11/11/22','DD/MM/RR'),'federico','1','Generado','N','xxxxx',null,'N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','79','peticion','federico',to_date('07/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Fallo en el fichero de log','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','80','petición','federico',to_date('07/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Script sql devuelto incorrecto','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','83','petición','federico',to_date('09/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxx','Se debe chequear el script','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','94','petición','federico',to_date('17/11/22','DD/MM/RR'),'federico','1','Generado','N','xxxx',null,'N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','84','petición','federico',to_date('09/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxx','Corregir el script','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','85','petición','federico',to_date('09/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Script modificado','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','86','petición','federico',to_date('09/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Se rechaza el procesado','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','87','petición','federico',to_date('09/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Rechazado','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','88','petición','federico',to_date('09/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Probar rechazo','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','89','petición','federico',to_date('09/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxx','Prueba de rechazo','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','90','petición','federico',to_date('09/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxxx xxxxxxxxx xxxxxxxx','Los scripts de orden 1 y 2 están duplicados','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','91','petición 1','federico',to_date('10/11/22','DD/MM/RR'),'federico','1','Rechazado','N','xxxxx','Log incorrecto','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','106','peticion','federico',to_date('21/11/22','DD/MM/RR'),'federico','1','Entregado','N','xxxxx','Entrega','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','107','petición','federico',to_date('21/11/22','DD/MM/RR'),'federico','1','Entregado','N','xxxxx','Ejecutado','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','108','pt1','federico',to_date('21/11/22','DD/MM/RR'),'federico','1','Entregado','N','xxxx','Entrega','N');
+Insert into SAPIENS.PROCESO (COD_PROYECTO,ID_PROCESO,COD_PETICION,COD_USR_PETICION,FEC_INICIO,COD_USR,COD_ESTADO_PROC,DES_ESTADO_PROC,MCA_INICIAL,TXT_DESCRIPCION,TXT_OBS_ENTREGA,MCA_ERRORES) values ('SMD','109','pt2','federico',to_date('21/11/22','DD/MM/RR'),'federico','1','Entregado','N','xxxxx','Entregado','N');
 REM INSERTING into SAPIENS.SCRIPT
 SET DEFINE OFF;
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('29','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','9','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('30','ejercicio-9.sql','/home/federico/SQL','SQL','1','Pendiente','10','Lanza_ejercicio-9.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-9.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('49','ejercicio-4.sql','/home/federico/SQL','SQL','1','Pendiente','29','Lanza_ejercicio-4.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-4.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('50','ejercicio-4.sql','/home/federico/SQL','SQL','1','Pendiente','30','Lanza_ejercicio-4.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-4.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('71','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','51','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('74','ejercicio-9.sql','/home/federico/SQL','SQL','1','Pendiente','54','Lanza_ejercicio-9.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-9.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('75','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','55','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('76','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','56','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('77','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','57','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('23','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','3','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('24','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','4','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('25','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','5','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('26','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','6','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('27','ejercicio-4.sql','/home/federico/SQL','SQL','1','Pendiente','7','Lanza_ejercicio-4.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-4.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('28','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','8','Lanza_ejercicio-10.sql.sh','exit | sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('72','ejercicio-4.sql','/home/federico/SQL','SQL','1','Pendiente','52','Lanza_ejercicio-4.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-4.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('73','ejercicio-7.sql','/home/federico/SQL','SQL','1','Pendiente','53','Lanza_ejercicio-7.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-7.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('1','ejercicio-10.sql','/home/federico/SQL','SQL',null,null,null,'1_Lanza_20220922_10_00_VARIABLES_DD_RF0123456_SD0123456.bat.txt','exit | sqlplus usuario/pwd@bbdd  @"c:\pruebaLOG\Lanza_20220922_10_00_VARIABLES_DD_RF0123456_SD0123456.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('51','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','31','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
-Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG) values ('52','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','32','Lanza_ejercicio-10.sql.sh','sqlplus sapiens/sapiens@FD012  @"/home/federico/SQL/ejercicio-10.sql"',null);
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('185','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql.log','81');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('186','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql.log','81');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('187','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql.log','81');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('188','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql.log','81');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('189','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','82');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('190','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','82');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('191','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','82');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('192','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','82');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('261','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','95');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('280','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','96');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('281','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','97');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('282','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','99');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('283','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','100');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('284','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','101');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('285','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','102');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('286','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','103');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('287','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','104');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('288','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','105');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('160','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_ejercicio-10.sql','SET DEFINE ON
+SET VERIFY	ON
+SET ECHO OFF
+spool "/home/federico/SQL/ejercicio-10.sql_sqlplus.log"
+@"/home/federico/SQL/ejercicio-10.sql"
+spool off
+EXIT;','ejercicio-10.sql_sqlplus.log','77');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('161','ejercicio-10.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_ejercicio-10.sql','SET DEFINE ON
+SET VERIFY	ON
+SET ECHO OFF
+spool "/home/federico/SQL/ejercicio-10.sql_sqlplus.log"
+@"/home/federico/SQL/ejercicio-10.sql"
+spool off
+EXIT;','ejercicio-10.sql_sqlplus.log','78');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('162','ejercicio-10.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_ejercicio-10.sql','SET DEFINE ON
+SET VERIFY	ON
+SET ECHO OFF
+spool "/home/federico/SQL/ejercicio-10.sql_sqlplus.log"
+@"/home/federico/SQL/ejercicio-10.sql"
+spool off
+EXIT;','ejercicio-10.sql_sqlplus.log','78');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('163','ejercicio-10.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_ejercicio-10.sql','SET DEFINE ON
+SET VERIFY	ON
+SET ECHO OFF
+spool "/home/federico/SQL/ejercicio-10.sql_sqlplus.log"
+@"/home/federico/SQL/ejercicio-10.sql"
+spool off
+EXIT;','ejercicio-10.sql_sqlplus.log','78');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('164','ejercicio-10.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_ejercicio-10.sql','SET DEFINE ON
+SET VERIFY	ON
+SET ECHO OFF
+spool "/home/federico/SQL/ejercicio-10.sql_sqlplus.log"
+@"/home/federico/SQL/ejercicio-10.sql"
+spool off
+EXIT;','ejercicio-10.sql_sqlplus.log','78');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('257','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','92');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('258','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','93');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('165','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql_sqlplus.log','79');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('166','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql_sqlplus.log','79');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('167','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql_sqlplus.log','79');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('168','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql_sqlplus.log','79');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('169','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql.log','80');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('170','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql.log','80');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('171','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql.log','80');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('172','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql.sql"
+SPOOL OFF
+EXIT','test.sql.log','80');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('193','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','83');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('194','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','83');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('195','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','83');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('196','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=SMD_LD
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','83');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('260','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','94');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('197','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','84');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('198','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','84');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('199','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','84');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('200','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','84');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('201','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','85');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('202','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','85');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('203','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','85');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('204','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','85');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('205','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','86');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('206','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','86');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('207','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','86');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('208','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','86');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('209','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','87');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('210','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','87');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('211','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','87');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('212','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','87');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('213','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','88');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('214','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','88');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('215','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','88');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('216','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','88');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('217','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','89');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('218','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','89');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('219','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','89');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('220','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','89');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('233','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','90');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('234','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','90');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('235','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','90');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('236','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','90');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('237','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','91');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('238','test.sql','/home/federico/SQL','PDC','1','Pendiente','2','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','91');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('239','test.sql','/home/federico/SQL','SQLH','1','Pendiente','3','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','91');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('240','test.sql','/home/federico/SQL','PDCH','1','Pendiente','4','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','91');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('300','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','106');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('320','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','107');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('321','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','108');
+Insert into SAPIENS.SCRIPT (ID,NOMBRE,RUTA,TIPO,COD_ESTADO,DES_ESTADO,NUM_ORDEN,NOM_SCRIPT_LANZA,TXT_SCRIPT_LANZA,NOM_SCRIPT_LOG,ID_PROCESO) values ('322','test.sql','/home/federico/SQL','SQL','1','Pendiente','1','Lanza_test.sql','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "/home/federico/SQL/test.sql.log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=HR
+@"/home/federico/SQL/test.sql"
+SPOOL OFF
+EXIT','test.sql.log','109');
 REM INSERTING into SAPIENS.SCRIPTS_LANZA
 SET DEFINE OFF;
-Insert into SAPIENS.SCRIPTS_LANZA (ID,NOMBRE,TXT,PLATAFORMA) values ('1','Lanza_script_name.sh','sqlplus usuario/pwd@bbdd  @"ruta/script_name"','Linux');
-Insert into SAPIENS.SCRIPTS_LANZA (ID,NOMBRE,TXT,PLATAFORMA) values ('2','Lanza_script_name.bat','exit | sqlplus usuario/pwd@bbdd  @"ruta/script_name"','Windows');
+Insert into SAPIENS.SCRIPTS_LANZA (ID,NOMBRE,TXT,TIPO) values ('2','Lanza_script_name','SET DEFINE ON
+SET VERIFY	ON
+SET ECHO OFF
+spool "[ruta]/[script]_sqlplus.log"
+@"[ruta]/[script]"
+spool off
+EXIT;',null);
+Insert into SAPIENS.SCRIPTS_LANZA (ID,NOMBRE,TXT,TIPO) values ('1','Lanza_script_name','SET DEFINE ON
+SET VERIFY	ON
+SET ECHO OFF
+spool "[script]_sqlplus.log"
+@"[script].pdc"
+spool off
+drop synonym CLIENTES_VIG;
+EXIT;','PDC');
+Insert into SAPIENS.SCRIPTS_LANZA (ID,NOMBRE,TXT,TIPO) values ('3','Lanza_script_name','SET DEFINE ON
+SET VERIFY ON
+SET ECHO OFF
+SPOOL "[ruta]/[script].log"
+DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
+DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
+DEFINE USROWN=[usr]
+@"[ruta]/[script]"
+SPOOL OFF
+EXIT','SQL');
 REM INSERTING into SAPIENS.SUBPROYECTO
 SET DEFINE OFF;
 Insert into SAPIENS.SUBPROYECTO (COD_PROYECTO,COD_SUB_PROY,DES_SUB_PROY,COD_USR,FEC_ACTU) values ('SMD','SUB_SMD_LD_FD012','SUB_SMD_LD_FD012',null,null);
@@ -919,6 +3086,16 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "SAPIENS"."PK_ID" ON "SAPIENS"."SCRIPT" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index PROCESO_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SAPIENS"."PROCESO_PK" ON "SAPIENS"."PROCESO" ("ID_PROCESO") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
@@ -2146,22 +4323,29 @@ END sm2_k_ld_MDSQL;
     p_cod_estado_proc := 1;
     p_des_estado_proc := 'Generado';
     v_mca_errores := 'N';
-    v_tipo_script := 'SQL';
     v_cod_estado_script := 1;
     v_des_estado_script := 'Pendiente';
     
-    -- Crea el script
+    
+    -- Crea el proceso
+    select SEQ_ID_PROCESO.nextval INTO p_id_proceso from dual;
+    
+    insert into proceso
+        values(p_cod_proyecto, p_id_proceso, p_cod_peticion, p_cod_usr_peticion, 
+            v_sysdate, p_cod_usr, p_cod_estado_proc, p_des_estado_proc, 
+            p_mca_HIS, p_txt_descripcion, '', v_mca_errores);
+    
+    -- Crea los scripts
     select SEQ_ID_SCRIPT.nextval INTO v_script_id from dual;
-    select SEQ_NUM_ORDEN.nextval INTO v_num_orden from dual;
-    
-    v_script_lanza := create_script_lanza(p_nom_fich_entrada, p_txt_ruta_entrada, 
-                        'sapiens', 'sapiens', p_nom_BBDD);
-    
+    v_script_lanza := create_script_lanza(p_nom_fich_entrada, p_txt_ruta_entrada, p_nom_esquema);
+    v_num_orden := 1;
+    v_tipo_script := 'SQL';
     insert into script
         values(v_script_id, p_nom_fich_entrada, 
             p_txt_ruta_entrada, v_tipo_script, 
             v_cod_estado_script, v_des_estado_script, 
-            v_num_orden, v_script_lanza.nombre, v_script_lanza.txt, '');
+            v_num_orden, v_script_lanza.nombre, v_script_lanza.txt, 
+            p_nom_fich_entrada || '.log', p_id_proceso);
         
     -- Crea las líneas para el script
     FOR I IN p_script.first .. p_script.last LOOP
@@ -2171,33 +4355,114 @@ END sm2_k_ld_MDSQL;
             values(v_linea_script_id, v_script_id, p_script(I).txt_linea);
     END LOOP;
     
-    -- Crea el proceso
-    select SEQ_ID_PROCESO.nextval INTO p_id_proceso from dual;
-    
-    insert into proceso
-        values(p_cod_proyecto, p_id_proceso, p_cod_peticion, p_cod_usr_peticion, 
-            v_sysdate, p_cod_usr, p_cod_estado_proc, p_des_estado_proc, 
-            p_mca_HIS, p_txt_descripcion, '', v_mca_errores, v_script_id);
-            
-    -- TODO - Falta crear la lógica para guardar el script en el histórico
-    if p_mca_HIS = 'S' then
-        DBMS_OUTPUT.PUT_LINE('Se va a guardar el script en el histórico');
-    end if;
-    
-    -- Crear la lista de scripts a devolver
     p_lista_scripts(1).tip_script := v_tipo_script;
-    -- Crea las líneas para el script
-    FOR I IN p_script.first .. p_script.last LOOP
-        p_lista_scripts(1).txt_script(I).txt_linea := p_script(I).txt_linea; 
-    END LOOP;
-    
     p_lista_scripts(1).nom_script := p_nom_fich_entrada;
     p_lista_scripts(1).cod_estado_scrip := v_cod_estado_script;
     p_lista_scripts(1).des_estado_scrip := v_des_estado_script;
     p_lista_scripts(1).num_orden := v_num_orden;
     p_lista_scripts(1).nom_script_lanza := v_script_lanza.nombre;
     p_lista_scripts(1).txt_script_lanza := v_script_lanza.txt;
-    p_lista_scripts(1).nom_script_log := '';
+    p_lista_scripts(1).nom_script_log := p_nom_fich_entrada || '.log';
+    -- Crea las líneas para el script
+    FOR I IN p_script.first .. p_script.last LOOP
+        p_lista_scripts(1).txt_script(I).txt_linea := p_script(I).txt_linea; 
+    END LOOP;
+    
+    select SEQ_ID_SCRIPT.nextval INTO v_script_id from dual;
+    v_script_lanza := create_script_lanza(p_nom_fich_entrada, p_txt_ruta_entrada, p_nom_esquema);
+    v_num_orden := 2;
+    v_tipo_script := 'PDC';
+    insert into script
+        values(v_script_id, p_nom_fich_entrada, 
+            p_txt_ruta_entrada, v_tipo_script, 
+            v_cod_estado_script, v_des_estado_script, 
+            v_num_orden, v_script_lanza.nombre, v_script_lanza.txt, 
+            p_nom_fich_entrada || '.log', p_id_proceso);
+        
+    -- Crea las líneas para el script
+    FOR I IN p_script.first .. p_script.last LOOP
+        select SEQ_ID_LINEA_SCRIPT.nextval INTO v_linea_script_id from dual;  
+        
+        insert into lineas_script
+            values(v_linea_script_id, v_script_id, p_script(I).txt_linea);
+    END LOOP;
+    
+    p_lista_scripts(2).tip_script := v_tipo_script;
+    p_lista_scripts(2).nom_script := p_nom_fich_entrada;
+    p_lista_scripts(2).cod_estado_scrip := v_cod_estado_script;
+    p_lista_scripts(2).des_estado_scrip := v_des_estado_script;
+    p_lista_scripts(2).num_orden := v_num_orden;
+    p_lista_scripts(2).nom_script_lanza := v_script_lanza.nombre;
+    p_lista_scripts(2).txt_script_lanza := v_script_lanza.txt;
+    p_lista_scripts(2).nom_script_log := p_nom_fich_entrada || '.log';
+    -- Crea las líneas para el script
+    FOR I IN p_script.first .. p_script.last LOOP
+        p_lista_scripts(2).txt_script(I).txt_linea := p_script(I).txt_linea; 
+    END LOOP;
+--    
+--    select SEQ_ID_SCRIPT.nextval INTO v_script_id from dual;
+--    v_script_lanza := create_script_lanza(p_nom_fich_entrada, p_txt_ruta_entrada, p_nom_esquema);
+--    v_num_orden := 3;
+--    v_tipo_script := 'SQLH';
+--    insert into script
+--        values(v_script_id, p_nom_fich_entrada, 
+--            p_txt_ruta_entrada, v_tipo_script, 
+--            v_cod_estado_script, v_des_estado_script, 
+--            v_num_orden, v_script_lanza.nombre, v_script_lanza.txt, 
+--            p_nom_fich_entrada || '.log', p_id_proceso);
+--        
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        select SEQ_ID_LINEA_SCRIPT.nextval INTO v_linea_script_id from dual;  
+--        
+--        insert into lineas_script
+--            values(v_linea_script_id, v_script_id, p_script(I).txt_linea);
+--    END LOOP;
+--    
+--    p_lista_scripts(3).tip_script := v_tipo_script;
+--    p_lista_scripts(3).nom_script := p_nom_fich_entrada;
+--    p_lista_scripts(3).cod_estado_scrip := v_cod_estado_script;
+--    p_lista_scripts(3).des_estado_scrip := v_des_estado_script;
+--    p_lista_scripts(3).num_orden := v_num_orden;
+--    p_lista_scripts(3).nom_script_lanza := v_script_lanza.nombre;
+--    p_lista_scripts(3).txt_script_lanza := v_script_lanza.txt;
+--    p_lista_scripts(3).nom_script_log := p_nom_fich_entrada || '.log';
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        p_lista_scripts(3).txt_script(I).txt_linea := p_script(I).txt_linea; 
+--    END LOOP;
+--    
+--    select SEQ_ID_SCRIPT.nextval INTO v_script_id from dual;
+--    v_script_lanza := create_script_lanza(p_nom_fich_entrada, p_txt_ruta_entrada, p_nom_esquema);
+--    v_num_orden := 4;
+--    v_tipo_script := 'PDCH';
+--    insert into script
+--        values(v_script_id, p_nom_fich_entrada, 
+--            p_txt_ruta_entrada, v_tipo_script, 
+--            v_cod_estado_script, v_des_estado_script, 
+--            v_num_orden, v_script_lanza.nombre, v_script_lanza.txt, 
+--            p_nom_fich_entrada || '.log', p_id_proceso);
+--        
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        select SEQ_ID_LINEA_SCRIPT.nextval INTO v_linea_script_id from dual;  
+--        
+--        insert into lineas_script
+--            values(v_linea_script_id, v_script_id, p_script(I).txt_linea);
+--    END LOOP;
+--    
+--    p_lista_scripts(4).tip_script := v_tipo_script;
+--    p_lista_scripts(4).nom_script := p_nom_fich_entrada;
+--    p_lista_scripts(4).cod_estado_scrip := v_cod_estado_script;
+--    p_lista_scripts(4).des_estado_scrip := v_des_estado_script;
+--    p_lista_scripts(4).num_orden := v_num_orden;
+--    p_lista_scripts(4).nom_script_lanza := v_script_lanza.nombre;
+--    p_lista_scripts(4).txt_script_lanza := v_script_lanza.txt;
+--    p_lista_scripts(4).nom_script_log := p_nom_fich_entrada || '.log';
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        p_lista_scripts(4).txt_script(I).txt_linea := p_script(I).txt_linea; 
+--    END LOOP;
     
 	EXCEPTION
 		WHEN OTHERS THEN
@@ -2231,8 +4496,123 @@ END sm2_k_ld_MDSQL;
                            p_lista_type       OUT NOCOPY t_t_type,
                            p_resultado        IN OUT NOCOPY INTEGER,
                            p_lista_errores    IN OUT NOCOPY t_t_error) AS
+    v_sysdate DATE;
+    v_mca_errores VARCHAR2(1);
+    v_script_id NUMBER;
+    v_linea_script_id NUMBER;
+    v_tipo_script VARCHAR2(20);
+    v_script_lanza t_r_script_lanza;
+    v_num_orden NUMBER;
+    v_cod_estado_script NUMBER;
+    v_des_estado_script VARCHAR(20);
   BEGIN
     p_resultado := C_RESULTADO_OK;
+    
+    p_resultado := C_RESULTADO_OK;
+	v_sysdate := SYSDATE;
+    p_cod_estado_proc := 1;
+    p_des_estado_proc := 'Generado';
+    v_mca_errores := 'N';
+    v_cod_estado_script := 1;
+    v_des_estado_script := 'Pendiente';
+    
+    p_nom_script_lanza := v_script_lanza.nombre;
+    
+--    select SEQ_ID_SCRIPT.nextval INTO v_script_id from dual;
+--    v_script_lanza := create_script_lanza(p_nom_fich_entrada, p_txt_ruta_entrada, p_nom_esquema);
+--    v_num_orden := 2;
+--    v_tipo_script := 'PDC';
+--    insert into script
+--        values(v_script_id, p_nom_fich_entrada, 
+--            p_txt_ruta_entrada, v_tipo_script, 
+--            v_cod_estado_script, v_des_estado_script, 
+--            v_num_orden, v_script_lanza.nombre, v_script_lanza.txt, 
+--            p_nom_fich_entrada || '.log', p_id_proceso);
+--        
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        select SEQ_ID_LINEA_SCRIPT.nextval INTO v_linea_script_id from dual;  
+--        
+--        insert into lineas_script
+--            values(v_linea_script_id, v_script_id, p_script(I).txt_linea);
+--    END LOOP;
+--    
+--    p_lista_scripts(2).tip_script := v_tipo_script;
+--    p_lista_scripts(2).nom_script := p_nom_fich_entrada;
+--    p_lista_scripts(2).cod_estado_scrip := v_cod_estado_script;
+--    p_lista_scripts(2).des_estado_scrip := v_des_estado_script;
+--    p_lista_scripts(2).num_orden := v_num_orden;
+--    p_lista_scripts(2).nom_script_lanza := v_script_lanza.nombre;
+--    p_lista_scripts(2).txt_script_lanza := v_script_lanza.txt;
+--    p_lista_scripts(2).nom_script_log := p_nom_fich_entrada || '.log';
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        p_lista_scripts(2).txt_script(I).txt_linea := p_script(I).txt_linea; 
+--    END LOOP;
+--    
+--    select SEQ_ID_SCRIPT.nextval INTO v_script_id from dual;
+--    v_script_lanza := create_script_lanza(p_nom_fich_entrada, p_txt_ruta_entrada, p_nom_esquema);
+--    v_num_orden := 3;
+--    v_tipo_script := 'SQLH';
+--    insert into script
+--        values(v_script_id, p_nom_fich_entrada, 
+--            p_txt_ruta_entrada, v_tipo_script, 
+--            v_cod_estado_script, v_des_estado_script, 
+--            v_num_orden, v_script_lanza.nombre, v_script_lanza.txt, 
+--            p_nom_fich_entrada || '.log', p_id_proceso);
+--        
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        select SEQ_ID_LINEA_SCRIPT.nextval INTO v_linea_script_id from dual;  
+--        
+--        insert into lineas_script
+--            values(v_linea_script_id, v_script_id, p_script(I).txt_linea);
+--    END LOOP;
+--    
+--    p_lista_scripts(3).tip_script := v_tipo_script;
+--    p_lista_scripts(3).nom_script := p_nom_fich_entrada;
+--    p_lista_scripts(3).cod_estado_scrip := v_cod_estado_script;
+--    p_lista_scripts(3).des_estado_scrip := v_des_estado_script;
+--    p_lista_scripts(3).num_orden := v_num_orden;
+--    p_lista_scripts(3).nom_script_lanza := v_script_lanza.nombre;
+--    p_lista_scripts(3).txt_script_lanza := v_script_lanza.txt;
+--    p_lista_scripts(3).nom_script_log := p_nom_fich_entrada || '.log';
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        p_lista_scripts(3).txt_script(I).txt_linea := p_script(I).txt_linea; 
+--    END LOOP;
+--    
+--    select SEQ_ID_SCRIPT.nextval INTO v_script_id from dual;
+--    v_script_lanza := create_script_lanza(p_nom_fich_entrada, p_txt_ruta_entrada, p_nom_esquema);
+--    v_num_orden := 4;
+--    v_tipo_script := 'PDCH';
+--    insert into script
+--        values(v_script_id, p_nom_fich_entrada, 
+--            p_txt_ruta_entrada, v_tipo_script, 
+--            v_cod_estado_script, v_des_estado_script, 
+--            v_num_orden, v_script_lanza.nombre, v_script_lanza.txt, 
+--            p_nom_fich_entrada || '.log', p_id_proceso);
+--        
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        select SEQ_ID_LINEA_SCRIPT.nextval INTO v_linea_script_id from dual;  
+--        
+--        insert into lineas_script
+--            values(v_linea_script_id, v_script_id, p_script(I).txt_linea);
+--    END LOOP;
+--    
+--    p_lista_scripts(4).tip_script := v_tipo_script;
+--    p_lista_scripts(4).nom_script := p_nom_fich_entrada;
+--    p_lista_scripts(4).cod_estado_scrip := v_cod_estado_script;
+--    p_lista_scripts(4).des_estado_scrip := v_des_estado_script;
+--    p_lista_scripts(4).num_orden := v_num_orden;
+--    p_lista_scripts(4).nom_script_lanza := v_script_lanza.nombre;
+--    p_lista_scripts(4).txt_script_lanza := v_script_lanza.txt;
+--    p_lista_scripts(4).nom_script_log := p_nom_fich_entrada || '.log';
+--    -- Crea las líneas para el script
+--    FOR I IN p_script.first .. p_script.last LOOP
+--        p_lista_scripts(4).txt_script(I).txt_linea := p_script(I).txt_linea; 
+--    END LOOP;
 	
 	EXCEPTION
 		WHEN OTHERS THEN
@@ -2463,6 +4843,11 @@ END sm2_k_ld_MDSQL;
   BEGIN
     p_resultado := C_RESULTADO_OK;
 	
+    select b.password into p_txt_pwd
+    from bbdd b
+    where b.nom_bbdd = p_nom_bbdd
+    and b.nom_esquema = p_nom_esquema;
+    
 	EXCEPTION
 		WHEN OTHERS THEN
 	    	p_resultado := C_RESULTADO_NOK;
@@ -2488,6 +4873,22 @@ END sm2_k_ld_MDSQL;
                                  p_lista_errores    IN OUT NOCOPY t_t_error) AS
   BEGIN
     p_resultado := C_RESULTADO_OK;
+    
+    for reg_script in 
+        (SELECT *
+        FROM script
+        WHERE num_orden = p_num_orden
+        and id_proceso = p_id_proceso) loop
+        
+        p_nom_script := reg_script.nombre;
+        p_cod_estado_scrip := 2;
+        p_des_estado_scrip := 'Ejecutado';
+            
+    end loop;
+    
+    p_cod_estado_proc := 2;
+    p_des_estado_proc := 'Ejecutado';
+    
 	
 	EXCEPTION
 		WHEN OTHERS THEN
@@ -2574,7 +4975,7 @@ END sm2_k_ld_MDSQL;
             cod_usr_peticion, fec_inicio,
             cod_usr, cod_estado_proc,
             des_estado_proc, mca_inicial,
-            txt_descripcion, id_script
+            txt_descripcion
         FROM PROCESO
         WHERE id_proceso = p_id_proceso) loop
 
@@ -2620,7 +5021,8 @@ END sm2_k_ld_MDSQL;
         for reg_script in 
             (SELECT nombre, ruta
             FROM script
-            WHERE id = reg_proceso.id_script) loop
+            WHERE id_proceso = p_id_proceso
+            AND tipo = 'SQL') loop
         
             p_txt_ruta_entrada := reg_script.ruta;
             
@@ -2662,8 +5064,16 @@ END sm2_k_ld_MDSQL;
                                     p_resultado     IN OUT NOCOPY INTEGER,
                                     p_lista_errores IN OUT NOCOPY t_t_error) AS
   BEGIN
-    -- TAREA: Se necesita implantación para procedure SM2_K_LD_MDSQL.p_con_cuadre_obj_script
-    NULL;
+    p_resultado := C_RESULTADO_OK;
+    
+    EXCEPTION
+		WHEN OTHERS THEN
+	    	p_resultado := C_RESULTADO_NOK;
+
+			p_lista_errores(1).txt_error := substr('p_con_cuadre_obj_script: ' ||
+	                                             sqlerrm,
+	                                             1,
+	                                             200);
   END p_con_cuadre_obj_script;
 
   procedure p_con_ruta_entrega(p_cod_proyecto     IN VARCHAR2,
@@ -2676,6 +5086,11 @@ END sm2_k_ld_MDSQL;
                                p_lista_errores    IN OUT NOCOPY t_t_error) AS
   BEGIN
     p_resultado := C_RESULTADO_OK;
+    
+    p_txt_ruta_entrega := '/home/federico/tmp';
+    p_nom_fichero_vig := 'entrega.zip';
+    p_nom_fichero_his := 'entrega-historico.zip';
+    p_nom_fichero_typ := 'entrega-tipo.zip';
     
     EXCEPTION
 		WHEN OTHERS THEN
@@ -2695,6 +5110,12 @@ END sm2_k_ld_MDSQL;
                                 p_lista_errores   IN OUT NOCOPY t_t_error) AS
   BEGIN
     p_resultado := C_RESULTADO_OK;
+    
+    update proceso
+    set des_estado_proc = 'Entregado', txt_obs_entrega = p_txt_comentario
+    where id_proceso = p_id_proceso;
+    
+    p_des_estado_proc := 'Entregado';
     
     EXCEPTION
 		WHEN OTHERS THEN
@@ -2750,6 +5171,13 @@ END sm2_k_ld_MDSQL;
                                  p_lista_errores  IN OUT NOCOPY t_t_error) AS
   BEGIN
     p_resultado := C_RESULTADO_OK;
+    
+    update proceso
+    set 
+        des_estado_proc = 'Rechazado',
+        txt_obs_entrega = p_txt_comentario
+    where
+        id_proceso = p_id_proceso;
 	
 	EXCEPTION
 		WHEN OTHERS THEN
@@ -3028,29 +5456,18 @@ END SM2_K_LD_MDSQL;
   CREATE OR REPLACE NONEDITIONABLE FUNCTION "SAPIENS"."CREATE_SCRIPT_LANZA" (
     script_name varchar2,
     ruta varchar2,
-    usuario varchar2,
-    pwd varchar2,
-    bbdd varchar2) RETURN T_R_SCRIPT_LANZA
+    nom_esquema varchar2) RETURN T_R_SCRIPT_LANZA
 IS
     script_lanza T_R_SCRIPT_LANZA;
     v_plataforma VARCHAR2(500);
 BEGIN
     -- Se crea una instancia de T_R_SCRIPT_LANZA
     script_lanza := T_R_SCRIPT_LANZA('', '');
-    
-    -- Se lee la plataforma
-    for reg_platform in (SELECT valor 
-                FROM properties 
-                WHERE nombre = 'platform') loop
-
-        v_plataforma := reg_platform.valor;
-
-    end loop;	
 
     for reg in (SELECT 
                     nombre, txt 
                 FROM SCRIPTS_LANZA 
-                WHERE PLATAFORMA = v_plataforma) loop
+                WHERE TIPO = 'SQL') loop
 
         script_lanza.nombre := reg.nombre;
         script_lanza.txt := reg.txt;
@@ -3059,12 +5476,10 @@ BEGIN
 
     -- Reemplazar las cadenas especificadas
     script_lanza.nombre := REPLACE(script_lanza.nombre, 'script_name', script_name);
-    script_lanza.txt := REPLACE(script_lanza.txt, 'usuario', usuario);
-    script_lanza.txt := REPLACE(script_lanza.txt, 'pwd', pwd);
-    script_lanza.txt := REPLACE(script_lanza.txt, 'bbdd', bbdd);
-    script_lanza.txt := REPLACE(script_lanza.txt, 'ruta', ruta);
-    script_lanza.txt := REPLACE(script_lanza.txt, 'script_name', script_name);
-
+    script_lanza.txt := REPLACE(script_lanza.txt, '[ruta]', ruta);
+    script_lanza.txt := REPLACE(script_lanza.txt, '[script]', script_name);
+    script_lanza.txt := REPLACE(script_lanza.txt, '[usr]', nom_esquema);
+    
     RETURN script_lanza;
 
 EXCEPTION
@@ -3075,11 +5490,35 @@ END;
 
 /
 --------------------------------------------------------
---  Constraints for Table PROPERTIES
+--  Constraints for Table PROCESO
 --------------------------------------------------------
 
-  ALTER TABLE "SAPIENS"."PROPERTIES" MODIFY ("NOMBRE" NOT NULL ENABLE);
-  ALTER TABLE "SAPIENS"."PROPERTIES" MODIFY ("VALOR" NOT NULL ENABLE);
+  ALTER TABLE "SAPIENS"."PROCESO" MODIFY ("FEC_INICIO" NOT NULL ENABLE);
+  ALTER TABLE "SAPIENS"."PROCESO" MODIFY ("ID_PROCESO" NOT NULL ENABLE);
+  ALTER TABLE "SAPIENS"."PROCESO" ADD CONSTRAINT "PROCESO_PK" PRIMARY KEY ("ID_PROCESO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table LINEAS_SCRIPT
+--------------------------------------------------------
+
+  ALTER TABLE "SAPIENS"."LINEAS_SCRIPT" MODIFY ("ID" NOT NULL ENABLE);
+  ALTER TABLE "SAPIENS"."LINEAS_SCRIPT" MODIFY ("ID_SCRIPT" NOT NULL ENABLE);
+  ALTER TABLE "SAPIENS"."LINEAS_SCRIPT" ADD CONSTRAINT "LINEAS_SCRIPT_PK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table AVISO
+--------------------------------------------------------
+
+  ALTER TABLE "SAPIENS"."AVISO" MODIFY ("FEC_ALTA" NOT NULL ENABLE);
+  ALTER TABLE "SAPIENS"."AVISO" MODIFY ("FEC_ACTU" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table SCRIPT
 --------------------------------------------------------
@@ -3095,6 +5534,7 @@ END;
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" )  ENABLE;
   ALTER TABLE "SAPIENS"."SCRIPT" MODIFY ("TIPO" NOT NULL ENABLE);
+  ALTER TABLE "SAPIENS"."SCRIPT" MODIFY ("ID_PROCESO" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table GLOSARIO
 --------------------------------------------------------
@@ -3106,37 +5546,14 @@ END;
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "TBS_PERM_SAPIENS"  ENABLE;
 --------------------------------------------------------
---  Constraints for Table PROCESO
---------------------------------------------------------
-
-  ALTER TABLE "SAPIENS"."PROCESO" MODIFY ("FEC_INICIO" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table AVISO
---------------------------------------------------------
-
-  ALTER TABLE "SAPIENS"."AVISO" MODIFY ("FEC_ALTA" NOT NULL ENABLE);
-  ALTER TABLE "SAPIENS"."AVISO" MODIFY ("FEC_ACTU" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table LINEAS_SCRIPT
---------------------------------------------------------
-
-  ALTER TABLE "SAPIENS"."LINEAS_SCRIPT" MODIFY ("ID" NOT NULL ENABLE);
-  ALTER TABLE "SAPIENS"."LINEAS_SCRIPT" MODIFY ("ID_SCRIPT" NOT NULL ENABLE);
-  ALTER TABLE "SAPIENS"."LINEAS_SCRIPT" ADD CONSTRAINT "LINEAS_SCRIPT_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
 --  Ref Constraints for Table LINEAS_SCRIPT
 --------------------------------------------------------
 
   ALTER TABLE "SAPIENS"."LINEAS_SCRIPT" ADD CONSTRAINT "LINEAS_SCRIPT_SCRIPT_FK" FOREIGN KEY ("ID_SCRIPT")
 	  REFERENCES "SAPIENS"."SCRIPT" ("ID") ENABLE;
 --------------------------------------------------------
---  Ref Constraints for Table PROCESO
+--  Ref Constraints for Table SCRIPT
 --------------------------------------------------------
 
-  ALTER TABLE "SAPIENS"."PROCESO" ADD CONSTRAINT "PROCESO_SCRIPT_FK" FOREIGN KEY ("ID_SCRIPT")
-	  REFERENCES "SAPIENS"."SCRIPT" ("ID") ENABLE;
+  ALTER TABLE "SAPIENS"."SCRIPT" ADD CONSTRAINT "SCRIPT_PROCESO_FK" FOREIGN KEY ("ID_PROCESO")
+	  REFERENCES "SAPIENS"."PROCESO" ("ID_PROCESO") ENABLE;

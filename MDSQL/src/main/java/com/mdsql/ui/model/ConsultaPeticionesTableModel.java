@@ -34,23 +34,23 @@ public class ConsultaPeticionesTableModel extends DefaultTableModel<DetObjeto> {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		DetObjeto row = data.get(rowIndex);
 
-		if (columnIndex == 0) {
-			return row.getPeticion();
-		} else if (1 == columnIndex) {
-			return row.getEstado();
-		} else if (2 == columnIndex) {
-			return row.getFecha();
-		} else if (3 == columnIndex) {
-			return row.getModelo();
-		} else if (4 == columnIndex) {
-			return row.getSubmodelo();
-		} else if (5 == columnIndex) {
-			return row.getSolicitado();
-		} else if (6 == columnIndex) {
-			return row.getDescripcion();
-		} else if (7 == columnIndex) {
-			return row.getUsuario();
-		}
+//		if (columnIndex == 0) {
+//			return row.getPeticion();
+//		} else if (1 == columnIndex) {
+//			return row.getEstado();
+//		} else if (2 == columnIndex) {
+//			return row.getFecha();
+//		} else if (3 == columnIndex) {
+//			return row.getModelo();
+//		} else if (4 == columnIndex) {
+//			return row.getSubmodelo();
+//		} else if (5 == columnIndex) {
+//			return row.getSolicitado();
+//		} else if (6 == columnIndex) {
+//			return row.getDescripcion();
+//		} else if (7 == columnIndex) {
+//			return row.getUsuario();
+//		}
 
 		return null;
 	}
