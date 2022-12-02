@@ -1,7 +1,7 @@
 package com.mdsql.bussiness.service.impl;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Scanner;
 
 import javax.sql.DataSource;
 
@@ -821,14 +820,21 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	@SneakyThrows
 	private static List<TextoLinea> readLogFile(String logPath) {
 		List<TextoLinea> logLinesList = new ArrayList<>();
-		Scanner scanner = new Scanner(new File(logPath));
 
-		while (scanner.hasNextLine()) {
-			String line = scanner.nextLine();
+		try (BufferedReader reader = new BufferedReader(new FileReader(logPath))) {
+			String line = reader.readLine();
 
-			TextoLinea textoLinea = TextoLinea.builder().valor(line).build();
-			logLinesList.add(textoLinea);
-		}
+			while (line != null) {
+				// read next line
+				TextoLinea textoLinea = TextoLinea.builder().valor(line).build();
+				logLinesList.add(textoLinea);
+				
+				line = reader.readLine();
+			}
+
+			reader.close();
+		} 
+		
 		return logLinesList;
 	}
 
