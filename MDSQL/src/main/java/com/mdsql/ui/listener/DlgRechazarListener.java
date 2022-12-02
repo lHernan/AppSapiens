@@ -118,16 +118,27 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 
 			if (CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
-					String nombreFileLog = script.getNombreScriptLog();
-					String logFile = ruta.concat(nombreFileLog);
-					File file = new File(logFile);
-
-					String name = nombreFileLog.substring(0, nombreFileLog.lastIndexOf('.'));
-					String extension = getExtensionByStringHandling(nombreFileLog).get();
-					String rechazado = name.concat("_" + sufijoRechazo);
-					String fileNameRechazado = rechazado + "." + extension;
-					File newFile = new File(ruta.concat(fileNameRechazado));
-					file.renameTo(newFile);
+					String nombreFile = script.getNombreScript();
+					File f = new File(ruta.concat(nombreFile));
+					if (f.exists()) {
+						String name = nombreFile.substring(0, nombreFile.lastIndexOf('.'));
+						String extension = getExtensionByStringHandling(nombreFile).get();
+						String rechazado = name.concat("_" + sufijoRechazo);
+						String fileNameRechazado = rechazado + "." + extension;
+						File newFile = new File(ruta.concat(fileNameRechazado));
+						f.renameTo(newFile);
+					}
+					
+					nombreFile = script.getNombreScriptLog();
+					f = new File(ruta.concat(nombreFile));
+					if (f.exists()) {
+						String name = nombreFile.substring(0, nombreFile.lastIndexOf('.'));
+						String extension = getExtensionByStringHandling(nombreFile).get();
+						String rechazado = name.concat("_" + sufijoRechazo);
+						String fileNameRechazado = rechazado + "." + extension;
+						File newFile = new File(ruta.concat(fileNameRechazado));
+						f.renameTo(newFile);
+					}
 				}
 			}
 
