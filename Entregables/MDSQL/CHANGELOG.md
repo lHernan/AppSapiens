@@ -26,6 +26,17 @@
   
   Código fuente.
   
+ - Versión 1.0.0-SNAPSHOT (02/12/2022), Entregable-1.0.18
+
+  Incidencias que se corrigen: 
+  
+  - Ajuste de pantalla detalle script
+  - Se corrige selección de scripts a ejecutar cuando están pendientes
+  - Se lectura del fichero de log
+  - Se corrige rechazo de scripts
+  
+  Código fuente.
+  
   
   
        
