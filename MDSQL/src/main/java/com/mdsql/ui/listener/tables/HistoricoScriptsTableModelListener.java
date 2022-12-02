@@ -21,18 +21,42 @@ public class HistoricoScriptsTableModelListener implements TableModelListener {
 
 		Script script = tableModel.getSelectedRow(e.getFirstRow());
 		Boolean selected = script.getSelected();
-
-		for (int i = e.getFirstRow(); i < 2; i++) {
-			Script scr = tableModel.getSelectedRow(i);
-
-			if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
-					|| !"Error".equals(scr.getDescripcionEstadoScript())
-					|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
-				scr.setSelected(selected);
+		if (Boolean.FALSE.equals(selected)) {
+			for (int i = e.getFirstRow(); i < 2; i++) {
+				Script scr = tableModel.getSelectedRow(i);
+	
+				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
+						|| !"Error".equals(scr.getDescripcionEstadoScript())
+						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+					scr.setSelected(selected);
+				}
+			}
+		}
+		else {
+			for (int i = e.getFirstRow(); i >= 0; i--) {
+				Script scr = tableModel.getSelectedRow(i);
+	
+				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
+						|| !"Error".equals(scr.getDescripcionEstadoScript())
+						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+					scr.setSelected(selected);
+				}
+			}
+	
+			ScriptsTableModel vigenteTableModel = (ScriptsTableModel) pantallaEjecutarScripts.getTblVigente()
+					.getModel();
+			for (int i = 0; i < vigenteTableModel.getRowCount(); i++) {
+				Script scr = vigenteTableModel.getSelectedRow(i);
+				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
+						|| !"Error".equals(scr.getDescripcionEstadoScript())
+						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+					scr.setSelected(selected);
+				}
 			}
 		}
 
 		// Forzamos el repintado de las tablas para actualizar los cambios
+		pantallaEjecutarScripts.getTblVigente().repaint();
 		pantallaEjecutarScripts.getTblHistorico().repaint();
 		
 		pantallaEjecutarScripts.getTblHistorico().clearSelection();

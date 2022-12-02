@@ -23,27 +23,40 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 		Boolean selected = script.getSelected();
 
 		// Están en orden en la tabla
-		for (int i = e.getFirstRow(); i < 2; i++) {
-			Script scr = tableModel.getSelectedRow(i);
-
-			if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
-					|| !"Error".equals(scr.getDescripcionEstadoScript())
-					|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
-				scr.setSelected(selected);
+		if (Boolean.FALSE.equals(selected)) {
+			for (int i = e.getFirstRow(); i < 2; i++) {
+				Script scr = tableModel.getSelectedRow(i);
+	
+				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
+						|| !"Error".equals(scr.getDescripcionEstadoScript())
+						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+					scr.setSelected(selected);
+				}
+			}
+	
+			ScriptsTableModel historicoTableModel = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
+					.getModel();
+			for (int i = 0; i < historicoTableModel.getRowCount(); i++) {
+				Script scr = historicoTableModel.getSelectedRow(i);
+				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
+						|| !"Error".equals(scr.getDescripcionEstadoScript())
+						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+					scr.setSelected(selected);
+				}
 			}
 		}
-
-		ScriptsTableModel historicoTableModel = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
-				.getModel();
-		for (int i = 0; i < historicoTableModel.getRowCount(); i++) {
-			Script scr = historicoTableModel.getSelectedRow(i);
-			if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
-					|| !"Error".equals(scr.getDescripcionEstadoScript())
-					|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
-				scr.setSelected(selected);
+		else {
+			for (int i = e.getFirstRow(); i >= 0; i--) {
+				Script scr = tableModel.getSelectedRow(i);
+	
+				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
+						|| !"Error".equals(scr.getDescripcionEstadoScript())
+						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+					scr.setSelected(selected);
+				}
 			}
 		}
-
+			
 		// Forzamos el repintado de la tabla para actualizar los cambios
 		pantallaEjecutarScripts.getTblVigente().repaint();
 		pantallaEjecutarScripts.getTblHistorico().repaint();
