@@ -38,20 +38,16 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 					.getModel();
 			for (int i = 0; i < historicoTableModel.getRowCount(); i++) {
 				Script scr = historicoTableModel.getSelectedRow(i);
-				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
-						|| !"Error".equals(scr.getDescripcionEstadoScript())
-						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+				if ("Pendiente".equals(scr.getDescripcionEstadoScript())) {
 					scr.setSelected(selected);
-				}
+				} 
 			}
 		}
 		else {
 			for (int i = e.getFirstRow(); i >= 0; i--) {
 				Script scr = tableModel.getSelectedRow(i);
 	
-				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
-						|| !"Error".equals(scr.getDescripcionEstadoScript())
-						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+				if ("Pendiente".equals(scr.getDescripcionEstadoScript())) {
 					scr.setSelected(selected);
 				}
 			}

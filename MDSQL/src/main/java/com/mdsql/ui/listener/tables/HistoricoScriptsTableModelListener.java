@@ -25,9 +25,7 @@ public class HistoricoScriptsTableModelListener implements TableModelListener {
 			for (int i = e.getFirstRow(); i < 2; i++) {
 				Script scr = tableModel.getSelectedRow(i);
 	
-				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
-						|| !"Error".equals(scr.getDescripcionEstadoScript())
-						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+				if ("Pendiente".equals(scr.getDescripcionEstadoScript())) {
 					scr.setSelected(selected);
 				}
 			}
@@ -36,9 +34,7 @@ public class HistoricoScriptsTableModelListener implements TableModelListener {
 			for (int i = e.getFirstRow(); i >= 0; i--) {
 				Script scr = tableModel.getSelectedRow(i);
 	
-				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
-						|| !"Error".equals(scr.getDescripcionEstadoScript())
-						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+				if ("Pendiente".equals(scr.getDescripcionEstadoScript())) {
 					scr.setSelected(selected);
 				}
 			}
@@ -47,9 +43,7 @@ public class HistoricoScriptsTableModelListener implements TableModelListener {
 					.getModel();
 			for (int i = 0; i < vigenteTableModel.getRowCount(); i++) {
 				Script scr = vigenteTableModel.getSelectedRow(i);
-				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
-						|| !"Error".equals(scr.getDescripcionEstadoScript())
-						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+				if ("Pendiente".equals(scr.getDescripcionEstadoScript())) {
 					scr.setSelected(selected);
 				}
 			}
