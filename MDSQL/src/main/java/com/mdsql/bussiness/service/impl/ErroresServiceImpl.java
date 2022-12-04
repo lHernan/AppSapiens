@@ -77,6 +77,7 @@ public class ErroresServiceImpl extends ServiceSupport implements ErroresService
 							.numeroIteracion((BigDecimal) cols[3]).numeroEjecucion((BigDecimal) cols[4])
 							.nombreScript((String) cols[5]).numeroSentencia((BigDecimal) cols[6])
 							.txtError((String) cols[7]).build();
+					log.info("{}", errorScript.toString());
 					errorScripts.add(errorScript);
 				}
 			}
