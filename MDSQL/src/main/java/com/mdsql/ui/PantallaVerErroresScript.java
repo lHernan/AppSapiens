@@ -115,9 +115,11 @@ public class PantallaVerErroresScript extends DialogSupport {
 	protected void initModels() {
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_ERRORES_TABLA_CABECERA);
 		tblErroresScript.setModel(new VerErroresScriptTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblErroresScript.setColumnWidths(cabecera);
 	
 		cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_PARCHES_TABLA_CABECERA);
 		tblParches.setModel(new VerParchesScriptTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblParches.setColumnWidths(cabecera);
     }	
     
     @Override

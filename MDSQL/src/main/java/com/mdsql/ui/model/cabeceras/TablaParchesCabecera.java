@@ -28,5 +28,14 @@ public class TablaParchesCabecera extends Cabecera {
 		columnClasses.add(Integer.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
+		
+		columnSizes.add(75);
+		columnSizes.add(100);
+		columnSizes.add(100);
+		columnSizes.add(150);
+		columnSizes.add(150);
+		columnSizes.add(150);
+		columnSizes.add(350);
+		columnSizes.add(500);
 	}
 }
