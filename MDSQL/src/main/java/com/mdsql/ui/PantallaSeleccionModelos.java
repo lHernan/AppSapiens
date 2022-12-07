@@ -12,7 +12,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
@@ -29,6 +28,7 @@ import com.mdsql.utils.Constants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -51,6 +51,8 @@ public class PantallaSeleccionModelos extends DialogSupport {
     private JLabel jLabel3;
     private JLabel jLabel4;
     private JLabel jLabel5;
+    
+    @Getter
     private JScrollPane jScrollPane2;
     
     @Getter
@@ -63,7 +65,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
     private JTextField txtCodSubmodelo;
     
     @Getter
-    private JTable tblModelos;
+    private TableSupport tblModelos;
     
     @Getter
     private JButton btnSeleccionar;
@@ -97,7 +99,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
         txtCodSubmodelo = new JTextField();
         btnBuscar = new JButton();
         jScrollPane2 = new JScrollPane();
-        tblModelos = new JTable();
+        tblModelos = new TableSupport(Boolean.FALSE);
         btnSeleccionar = new JButton();
         lblTitulo = new JLabel();
         
