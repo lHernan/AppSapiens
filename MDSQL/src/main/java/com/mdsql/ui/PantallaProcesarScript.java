@@ -403,6 +403,9 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
 				.createCabeceraTabla(Constants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA);
 		tblUltimasPeticiones.setModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraUltimasPeticiones.getColumnIdentifiers(),
 				cabeceraUltimasPeticiones.getColumnClasses()));
+		
+		tblNotas.setColumnWidths(cabeceraNotas);
+		tblUltimasPeticiones.setColumnWidths(cabeceraUltimasPeticiones);
 	}
 
 	@SuppressWarnings("unchecked")
