@@ -405,6 +405,9 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		
 		tblVigente.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
 		tblHistorico.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
+		
+		tblVigente.setColumnWidths(cabeceraScripts);
+		tblHistorico.setColumnWidths(cabeceraScripts);
 	}
 
 	@Override
