@@ -106,7 +106,7 @@ public class PantallaDetalleScript extends DialogSupport {
 
    	@Override
    	protected void setupLiterals() {
-   		btnCancelar.setText("CANCELAR");
+   		btnCancelar.setText(literales.getLiteral("PantallaDetalleScript.cancelar"));
    	}
        
 }
