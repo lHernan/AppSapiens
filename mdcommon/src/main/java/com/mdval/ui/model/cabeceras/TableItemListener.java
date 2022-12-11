@@ -19,13 +19,14 @@ public class TableItemListener implements ItemListener {
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		Object source = e.getSource();
+		Integer column = ((CheckBoxHeader) source).getColumn();
 		
 		if (source instanceof AbstractButton == false)
 			return;
 		
 		boolean checked = e.getStateChange() == ItemEvent.SELECTED;
 		for (int x = 0, y = table.getRowCount(); x < y; x++) {
-			table.setValueAt(new Boolean(checked), x, 0);
+			table.setValueAt(new Boolean(checked), x, column);
 		}
 	}
 
