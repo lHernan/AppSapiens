@@ -6,7 +6,7 @@ import javax.swing.table.*;
 import java.awt.event.*;
 
 public class JTableHeaderCheckBox {
-	Object colNames[] = { "", "String", "String" };
+	Object colNames[] = { "", "String", "String", "" };
 	Object[][] data = {};
 	DefaultTableModel dtm;
 	JTable table;
@@ -15,13 +15,19 @@ public class JTableHeaderCheckBox {
 		dtm = new DefaultTableModel(data, colNames);
 		table = new JTable(dtm);
 		for (int x = 0; x < 5; x++) {
-			dtm.addRow(new Object[] { new Boolean(false), "Row " + (x + 1) + " Col 2", "Row " + (x + 1) + " Col 3" });
+			dtm.addRow(new Object[] { new Boolean(false), "Row " + (x + 1) + " Col 2", "Row " + (x + 1) + " Col 3", new Boolean(false) });
 		}
 		JScrollPane sp = new JScrollPane(table);
 		TableColumn tc = table.getColumnModel().getColumn(0);
 		tc.setCellEditor(table.getDefaultEditor(Boolean.class));
 		tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 		tc.setHeaderRenderer(new CheckBoxHeader(new MyItemListener()));
+		
+		tc = table.getColumnModel().getColumn(3);
+		tc.setCellEditor(table.getDefaultEditor(Boolean.class));
+		tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
+		tc.setHeaderRenderer(new CheckBoxHeader(new MyItemListener()));
+		
 		JFrame f = new JFrame();
 		f.getContentPane().add(sp);
 		f.pack();
@@ -33,11 +39,13 @@ public class JTableHeaderCheckBox {
 	class MyItemListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e) {
 			Object source = e.getSource();
+			Integer column = ((CheckBoxHeader) source).getColumn();
+			
 			if (source instanceof AbstractButton == false)
 				return;
 			boolean checked = e.getStateChange() == ItemEvent.SELECTED;
 			for (int x = 0, y = table.getRowCount(); x < y; x++) {
-				table.setValueAt(new Boolean(checked), x, 0);
+				table.setValueAt(new Boolean(checked), x, column);
 			}
 		}
 	}
