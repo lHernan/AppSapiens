@@ -7,9 +7,9 @@ import javax.swing.AbstractButton;
 
 import com.mdval.ui.utils.TableSupport;
 
-public class TableItemListener implements ItemListener {
+public abstract class TableItemListener implements ItemListener {
 
-	private TableSupport table;
+	protected TableSupport table;
 
 	public TableItemListener(TableSupport table) {
 		super();
@@ -26,8 +26,9 @@ public class TableItemListener implements ItemListener {
 		
 		boolean checked = e.getStateChange() == ItemEvent.SELECTED;
 		for (int x = 0, y = table.getRowCount(); x < y; x++) {
-			table.setValueAt(new Boolean(checked), x, column);
+			setValueAt(new Boolean(checked), x, column);
 		}
 	}
 
+	public abstract void setValueAt(Boolean checked, int row, int column);
 }

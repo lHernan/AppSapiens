@@ -5,9 +5,10 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
-import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -20,10 +21,21 @@ public class CheckBoxHeader extends JCheckBox implements TableCellRenderer, Mous
 	protected CheckBoxHeader rendererComponent;
 	protected int column;
 	protected boolean mousePressed = false;
+	
+	private Boolean selected;
+	
+	private String text;
 
 	public CheckBoxHeader(ItemListener itemListener) {
 		rendererComponent = this;
 		rendererComponent.addItemListener(itemListener);
+	}
+	
+	public CheckBoxHeader(ItemListener itemListener, String text, Boolean selected) {
+		rendererComponent = this;
+		rendererComponent.addItemListener(itemListener);
+		this.text = text;
+		this.setSelected(selected);
 	}
 
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
@@ -34,12 +46,14 @@ public class CheckBoxHeader extends JCheckBox implements TableCellRenderer, Mous
 				rendererComponent.setForeground(header.getForeground());
 				rendererComponent.setBackground(header.getBackground());
 				rendererComponent.setFont(header.getFont());
+				
 				header.addMouseListener(rendererComponent);
 			}
 		}
 		setColumn(column);
-		rendererComponent.setText("Check All");
-		setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+		setBorder(raisedbevel);
+		rendererComponent.setText(text);
 		return rendererComponent;
 	}
 

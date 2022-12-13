@@ -58,4 +58,28 @@ public abstract class Cabecera {
 	 * 
 	 */
 	public abstract void setupCabecera();
+	
+	/**
+	 * @param index
+	 * @return
+	 */
+	public String getIdentifierAt(Integer index) {
+		return columnIdentifiers.get(index);
+	}
+	
+	/**
+	 * @param index
+	 * @return
+	 */
+	public Class<?> getClassAt(Integer index) {
+		return columnClasses.get(index);
+	}
+	
+	/**
+	 * @param index
+	 * @return
+	 */
+	public Integer getSizeColumn(Integer index) {
+		return columnSizes.get(index);
+	}
 }
