@@ -22,8 +22,6 @@ public class CheckBoxHeader extends JCheckBox implements TableCellRenderer, Mous
 	protected int column;
 	protected boolean mousePressed = false;
 	
-	private Boolean selected;
-	
 	private String text;
 
 	public CheckBoxHeader(ItemListener itemListener) {
