@@ -22,7 +22,6 @@ import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.AppGlobalSingleton;
 
 public class PantallaSeleccionHistoricoListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
 
@@ -66,8 +65,9 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 
 			populateModelSeleccion(seleccion);
 
-			if (checkAllConfigured(
-					(SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico().getModel())) {
+			SeleccionHistoricoTableModel model = (SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico().getModel();
+			
+			if (model.checkAllConfigured()) {
 				pantallaSeleccionHistorico.getBtnAddHistorico().setEnabled(Boolean.FALSE);
 			}
 		} catch (ServiceException e) {
@@ -127,20 +127,6 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 		SeleccionHistoricoTableModel tableModel = (SeleccionHistoricoTableModel) pantallaSeleccionHistorico
 				.getTblHistorico().getModel();
 		tableModel.setData(seleccion);
-	}
-
-	/**
-	 * @param model
-	 * @return
-	 */
-	private boolean checkAllConfigured(SeleccionHistoricoTableModel model) {
-		for (SeleccionHistorico sel : model.getData()) {
-			if (!sel.getConfigurado()) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	@Override

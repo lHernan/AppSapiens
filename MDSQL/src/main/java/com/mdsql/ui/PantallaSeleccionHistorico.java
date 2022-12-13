@@ -10,18 +10,21 @@ import java.util.Map;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.LayoutStyle;
+import javax.swing.table.TableColumn;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
+import com.mdsql.ui.listener.tables.SeleccionHistoricoTableItemListener;
 import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.model.cabeceras.Cabecera;
+import com.mdval.ui.model.cabeceras.CheckBoxHeader;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
 
@@ -42,7 +45,7 @@ public class PantallaSeleccionHistorico extends DialogSupport {
     // End of variables declaration//GEN-END:variables
     
     @Getter
-	private JTable tblHistorico;
+	private TableSupport tblHistorico;
 
     @Getter
 	private JButton btnAddHistorico;
@@ -65,7 +68,7 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 	protected void setupComponents() {
 
     	jScrollPane1 = new JScrollPane();
-        tblHistorico = new JTable();
+        tblHistorico = new TableSupport(Boolean.FALSE);
         btnAddHistorico = new JButton();
         btnGenerarHistorico = new JButton();
         btnCancelar = new JButton();
@@ -123,8 +126,30 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
 	@Override
 	protected void initModels() {
+		SeleccionHistoricoTableModel model;
+
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.SELECCION_HISTORICO_TABLA_CABECERA);
-		tblHistorico.setModel(new SeleccionHistoricoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		model = new SeleccionHistoricoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
+		tblHistorico.setModel(model);
+		tblHistorico.setColumnWidths(cabecera);
+
+		TableColumn tc = tblHistorico.getColumnModel().getColumn(0);
+		tc.setCellEditor(tblHistorico.getDefaultEditor(Boolean.class));
+		tc.setCellRenderer(tblHistorico.getDefaultRenderer(Boolean.class));
+		tc.setHeaderRenderer(new CheckBoxHeader(new SeleccionHistoricoTableItemListener(model, tblHistorico),
+				cabecera.getIdentifierAt(0), Boolean.FALSE));
+
+		tc = tblHistorico.getColumnModel().getColumn(3);
+		tc.setCellEditor(tblHistorico.getDefaultEditor(Boolean.class));
+		tc.setCellRenderer(tblHistorico.getDefaultRenderer(Boolean.class));
+		tc.setHeaderRenderer(new CheckBoxHeader(new SeleccionHistoricoTableItemListener(model, tblHistorico),
+				cabecera.getIdentifierAt(3), Boolean.FALSE));
+
+		tc = tblHistorico.getColumnModel().getColumn(4);
+		tc.setCellEditor(tblHistorico.getDefaultEditor(Boolean.class));
+		tc.setCellRenderer(tblHistorico.getDefaultRenderer(Boolean.class));
+		tc.setHeaderRenderer(new CheckBoxHeader(new SeleccionHistoricoTableItemListener(model, tblHistorico),
+				cabecera.getIdentifierAt(4), model.checkAllVigente()));
 	}	
 		
 	@Override

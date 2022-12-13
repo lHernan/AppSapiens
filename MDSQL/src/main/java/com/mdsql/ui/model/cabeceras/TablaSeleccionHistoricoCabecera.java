@@ -20,5 +20,11 @@ public class TablaSeleccionHistoricoCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(Boolean.class);
 		columnClasses.add(Boolean.class);
+		
+		columnSizes.add(100);
+		columnSizes.add(700);
+		columnSizes.add(100);
+		columnSizes.add(75);
+		columnSizes.add(75);
 	}
 }
