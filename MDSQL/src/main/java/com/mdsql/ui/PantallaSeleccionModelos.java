@@ -218,13 +218,13 @@ public class PantallaSeleccionModelos extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Definición de modelos");
+		setTitle(literales.getLiteral("PantallaSeleccionModelos.titulo"));
 		
-		lblTitulo.setText("Modelos");
-		jLabel3.setText("Cod. modelo");
-		jLabel4.setText("Nombre modelo");
-		jLabel5.setText("Cod. submodelo");
-        btnBuscar.setText("BUSCAR");
-        btnSeleccionar.setText("SELECCIONAR");
+		lblTitulo.setText(literales.getLiteral("PantallaSeleccionModelos.lblTitulo"));
+		jLabel3.setText(literales.getLiteral("PantallaSeleccionModelos.label3"));
+		jLabel4.setText(literales.getLiteral("PantallaSeleccionModelos.label4"));
+		jLabel5.setText(literales.getLiteral("PantallaSeleccionModelos.label5"));
+        btnBuscar.setText(literales.getLiteral("PantallaSeleccionModelos.buscar"));
+        btnSeleccionar.setText(literales.getLiteral("PantallaSeleccionModelos.seleccionar"));
 	}
 }

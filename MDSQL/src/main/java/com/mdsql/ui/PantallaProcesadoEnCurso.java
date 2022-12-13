@@ -408,24 +408,24 @@ public class PantallaProcesadoEnCurso extends DialogSupport implements PantallaP
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Procesado en curso");
+		setTitle(literales.getLiteral("PantallaProcesadoEnCurso.titulo"));
 		
-		jLabel1.setText("Modelo o proyecto");
-		jLabel2.setText("Submodelo");
-		jLabel3.setText("Petición");
-		jLabel4.setText("Solicitada por");
-		jLabel5.setText("Esquema");
-		jLabel6.setText("BBDD");
-		jLabel7.setText("Generar histórico");
-		jLabel8.setText("BBDD histórico");
-		jLabel9.setText("Esquema histórico");
-		jLabel13.setText("Demanda");
-		jLabel10.setText("Descripción");
-		btnLimpiar.setText("Limpiar");
-		jLabel11.setText("Notas / avisos");
-		jLabel12.setText("Últimas peticiones");
-		btnVerProcesado.setText("Ver procesado");
-		btnProcesar.setText("Procesar");
-		btnCancelar.setText("Cancelar");
+		jLabel1.setText(literales.getLiteral("PantallaProcesadoEnCurso.label1"));
+		jLabel2.setText(literales.getLiteral("PantallaProcesadoEnCurso.label2"));
+		jLabel3.setText(literales.getLiteral("PantallaProcesadoEnCurso.label3"));
+		jLabel4.setText(literales.getLiteral("PantallaProcesadoEnCurso.label4"));
+		jLabel5.setText(literales.getLiteral("PantallaProcesadoEnCurso.label5"));
+		jLabel6.setText(literales.getLiteral("PantallaProcesadoEnCurso.label6"));
+		jLabel7.setText(literales.getLiteral("PantallaProcesadoEnCurso.label7"));
+		jLabel8.setText(literales.getLiteral("PantallaProcesadoEnCurso.label8"));
+		jLabel9.setText(literales.getLiteral("PantallaProcesadoEnCurso.label9"));
+		jLabel10.setText(literales.getLiteral("PantallaProcesadoEnCurso.label10"));
+		btnLimpiar.setText(literales.getLiteral("PantallaProcesadoEnCurso.limpiar"));
+		jLabel11.setText(literales.getLiteral("PantallaProcesadoEnCurso.label11"));
+		jLabel12.setText(literales.getLiteral("PantallaProcesadoEnCurso.label12"));
+		jLabel13.setText(literales.getLiteral("PantallaProcesadoEnCurso.label13"));
+		btnVerProcesado.setText(literales.getLiteral("PantallaProcesadoEnCurso.verProcesado"));
+		btnProcesar.setText(literales.getLiteral("PantallaProcesadoEnCurso.procesar"));
+		btnCancelar.setText(literales.getLiteral("PantallaProcesadoEnCurso.cancelar"));
 	}
 }

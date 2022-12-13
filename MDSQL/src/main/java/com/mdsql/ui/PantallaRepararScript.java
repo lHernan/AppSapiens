@@ -254,22 +254,22 @@ public class PantallaRepararScript extends DialogSupport {
 
    	@Override
    	protected void setupLiterals() {
-   		setTitle("Reparar Script");
+   		setTitle(literales.getLiteral("PantallaRepararScript.title"));
    		
    		Script script = (Script) getParams().get("script");
    		
-   		jLabel1.setText(script.getNombreScript());
-        jLabel2.setText("Reprocesar Script");
-        jLabel3.setText("Se debe espacificar si la reparacion implica reprocesar el script.");
-        jLabel4.setText("En tal caso, se volverá a leer el fichero y enviar la información a la lógica de negocio para que reprocese los scripts, generando de nuevo los scripts resultantes.");
-        jLabel5.setText("Los scripts con estado Ejecutado, no se cambiaran en su estado.");
-        jRadioButton1.setText("Si, se debe reprocesar el script");
-        jRadioButton2.setText("No, no debe reprocesar el script");
-        jRadioButton3.setText("Ejecutar script procesado");
-        jRadioButton4.setText("Ejecutar script reparación");
-        jLabel6.setText("Script Reparación");
-        jLabel7.setText("Comentario");
-        btnAceptar.setText("ACEPTAR");
-        btnCancelar.setText("CANCELAR");
+   		jLabel1.setText(literales.getLiteral("PantallaRepararScript.label1"));
+        jLabel2.setText(literales.getLiteral("PantallaRepararScript.label2"));
+        jLabel3.setText(literales.getLiteral("PantallaRepararScript.label3"));
+        jLabel4.setText(literales.getLiteral("PantallaRepararScript.label4"));
+        jLabel5.setText(literales.getLiteral("PantallaRepararScript.label5"));
+        jRadioButton1.setText(literales.getLiteral("PantallaRepararScript.radioButton1"));
+        jRadioButton2.setText(literales.getLiteral("PantallaRepararScript.radioButton2"));
+        jRadioButton3.setText(literales.getLiteral("PantallaRepararScript.radioButton3"));
+        jRadioButton4.setText(literales.getLiteral("PantallaRepararScript.radioButton4"));
+        jLabel6.setText(literales.getLiteral("PantallaRepararScript.label6"));
+        jLabel7.setText(literales.getLiteral("PantallaRepararScript.label7"));
+        btnAceptar.setText(literales.getLiteral("PantallaRepararScript.aceptar"));
+        btnCancelar.setText(literales.getLiteral("PantallaRepararScript.cancelar"));
    	}
 }

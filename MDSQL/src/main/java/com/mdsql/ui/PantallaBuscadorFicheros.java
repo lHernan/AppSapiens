@@ -119,10 +119,10 @@ public class PantallaBuscadorFicheros extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle(StringUtils.EMPTY);
+		setTitle(literales.getLiteral("PantallaBuscadorFicheros.title"));
 
-		jLabel1.setText("Ruta");
-		btnAceptar.setText("ACEPTAR");
-		btnCancelar.setText("CANCELAR");
+		jLabel1.setText(literales.getLiteral("PantallaBuscadorFicheros.label1"));
+		btnAceptar.setText(literales.getLiteral("PantallaBuscadorFicheros.aceptar"));
+		btnCancelar.setText(literales.getLiteral("PantallaBuscadorFicheros.cancelar"));
 	}
 }

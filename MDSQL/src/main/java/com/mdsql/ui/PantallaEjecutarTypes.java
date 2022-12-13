@@ -283,19 +283,19 @@ public class PantallaEjecutarTypes extends DialogSupport {
     
     @Override
     protected void setupLiterals() {
-    	jLabel1.setText("Estado ejecución");
-        jLabel2.setText("Modelo o proyecto");
-        jLabel3.setText("Submodelo");
-        jLabel4.setText("Solicitada por");
-        jLabel7.setText("Demanda");
-        jLabel8.setText("BBDD");
-        btnRechazar.setText("Rechazar");
-        btnAceptar.setText("ACEPTAR");
-        btnCancelar.setText("CANCELAR");
-        jLabel13.setText("SD");
-        jLabel14.setText("Esquema");
-        btnVerCuadres.setText("Ver cuadres");
-        btnVerErrores.setText("Ver errores");
+    	jLabel1.setText(literales.getLiteral("PantallaEjecutarTypes.label1"));
+        jLabel2.setText(literales.getLiteral("PantallaEjecutarTypes.label2"));
+        jLabel3.setText(literales.getLiteral("PantallaEjecutarTypes.label3"));
+        jLabel4.setText(literales.getLiteral("PantallaEjecutarTypes.label4"));
+        jLabel7.setText(literales.getLiteral("PantallaEjecutarTypes.label7"));
+        jLabel8.setText(literales.getLiteral("PantallaEjecutarTypes.label8"));
+        btnRechazar.setText(literales.getLiteral("PantallaEjecutarTypes.rechazar"));
+        btnAceptar.setText(literales.getLiteral("PantallaEjecutarTypes.aceptar"));
+        btnCancelar.setText(literales.getLiteral("PantallaEjecutarTypes.cancelar"));
+        jLabel13.setText(literales.getLiteral("PantallaEjecutarTypes.label13"));
+        jLabel14.setText(literales.getLiteral("PantallaEjecutarTypes.label14"));
+        btnVerCuadres.setText(literales.getLiteral("PantallaEjecutarTypes.verCuadres"));
+        btnVerErrores.setText(literales.getLiteral("PantallaEjecutarTypes.verErrores"));
     }
     
     /**

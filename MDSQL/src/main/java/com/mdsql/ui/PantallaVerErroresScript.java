@@ -127,9 +127,9 @@ public class PantallaVerErroresScript extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Ver Errores Script");
+		setTitle(literales.getLiteral("PantallaVerErroresScipt.titulo"));
 		
-		jLabel1.setText("Parches asociados");
-		btnCancelar.setText("CANCELAR");
+		jLabel1.setText(literales.getLiteral("PantallaVerErroresScipt.label1"));
+		btnCancelar.setText(literales.getLiteral("PantallaVerErroresScipt.cancelar"));
 	}
 }

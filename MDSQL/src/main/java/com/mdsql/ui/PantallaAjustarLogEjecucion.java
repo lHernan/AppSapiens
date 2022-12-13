@@ -145,9 +145,9 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
 
    	@Override
    	protected void setupLiterals() {
-   		jLabel1.setText("Si alguna de las sentencias ejecutadas correctamente se han eliminado del script procesado una vez ejecutado, se pueden eliminar del cuadre de objetos desde esta pantalla");
-   		jLabel2.setText("Comentario");
-        btnEliminar.setText("Eliminar");
-        btnCancelar.setText("CANCELAR");
+   		jLabel1.setText(literales.getLiteral("PantallaAjustarLogEjecucion.label1"));
+   		jLabel2.setText(literales.getLiteral("PantallaAjustarLogEjecucion.label2"));
+        btnEliminar.setText(literales.getLiteral("PantallaAjustarLogEjecucion.eliminar"));
+        btnCancelar.setText(literales.getLiteral("PantallaAjustarLogEjecucion.cancelar"));
    	}   
 }

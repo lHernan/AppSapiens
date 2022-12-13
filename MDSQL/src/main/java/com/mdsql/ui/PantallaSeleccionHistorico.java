@@ -132,10 +132,10 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle(StringUtils.EMPTY);
+		setTitle(literales.getLiteral("PantallaSeleccionHistorico.titulo"));
 		
-		btnAddHistorico.setText("Añadir a histórico");
-		btnGenerarHistorico.setText("Generar histórico");
-		btnCancelar.setText("CANCELAR");
+		btnAddHistorico.setText(literales.getLiteral("PantallaSeleccionHistorico.addHistorico"));
+		btnGenerarHistorico.setText(literales.getLiteral("PantallaSeleccionHistorico.generarHistorico"));
+		btnCancelar.setText(literales.getLiteral("PantallaSeleccionHistorico.cancelar"));
 	}
 }

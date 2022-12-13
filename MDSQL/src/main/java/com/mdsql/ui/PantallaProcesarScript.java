@@ -450,24 +450,24 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Procesar script");
+		setTitle(literales.getLiteral("PantallaProcesarScript.titulo"));
 		
-		jLabel1.setText("Modelo o proyecto");
-		jLabel2.setText("Submodelo");
-		jLabel3.setText("Petición");
-		jLabel4.setText("Solicitada por");
-		jLabel5.setText("Esquema");
-		jLabel6.setText("BBDD");
-		jLabel7.setText("Generar histórico");
-		jLabel8.setText("BBDD histórico");
-		jLabel9.setText("Esquema histórico");
-		jLabel13.setText("Demanda");
-		jLabel10.setText("Descripción");
-		btnLimpiar.setText("Limpiar");
-		jLabel11.setText("Notas / avisos");
-		jLabel12.setText("Últimas peticiones");
-		btnVerProcesado.setText("Ver procesado");
-		btnProcesar.setText("Procesar");
-		btnCancelar.setText("Cancelar");
+		jLabel1.setText(literales.getLiteral("PantallaProcesarScript.label1"));
+		jLabel2.setText(literales.getLiteral("PantallaProcesarScript.label2"));
+		jLabel3.setText(literales.getLiteral("PantallaProcesarScript.label3"));
+		jLabel4.setText(literales.getLiteral("PantallaProcesarScript.label4"));
+		jLabel5.setText(literales.getLiteral("PantallaProcesarScript.label5"));
+		jLabel6.setText(literales.getLiteral("PantallaProcesarScript.label6"));
+		jLabel7.setText(literales.getLiteral("PantallaProcesarScript.label7"));
+		jLabel8.setText(literales.getLiteral("PantallaProcesarScript.label8"));
+		jLabel9.setText(literales.getLiteral("PantallaProcesarScript.label9"));
+		jLabel10.setText(literales.getLiteral("PantallaProcesarScript.label10"));
+		btnLimpiar.setText(literales.getLiteral("PantallaProcesarScript.limpiar"));
+		jLabel11.setText(literales.getLiteral("PantallaProcesarScript.label11"));
+		jLabel12.setText(literales.getLiteral("PantallaProcesarScript.label12"));
+		jLabel13.setText(literales.getLiteral("PantallaProcesarScript.label13"));
+		btnVerProcesado.setText(literales.getLiteral("PantallaProcesarScript.verProcesado"));
+		btnProcesar.setText(literales.getLiteral("PantallaProcesarScript.procesar"));
+		btnCancelar.setText(literales.getLiteral("PantallaProcesarScript.crocesar"));
 	}
 }

@@ -220,16 +220,16 @@ public class PantallaConsultaPeticiones extends DialogSupport {
 
     @Override
     protected void setupLiterals() {
-    	jLabel1.setText("Modelo o Proyecto");
-        jLabel2.setText("Submodelo");
-        jLabel3.setText("Peticion");
-        jLabel4.setText("Solicitada por");
-        jLabel5.setText("Estado");
-        jLabel6.setText("Usuario");
-        jLabel7.setText("Desde");
-        jLabel8.setText("Hasta");
-        btnBuscar.setText("Buscar");
-        btnCargar.setText("Cargar Procesado");
-        btnCancelar.setText("CANCELAR");
+    	jLabel1.setText(literales.getLiteral("PantallaConsultaPeticiones.label1"));
+        jLabel2.setText(literales.getLiteral("PantallaConsultaPeticiones.label2"));
+        jLabel3.setText(literales.getLiteral("PantallaConsultaPeticiones.label3"));
+        jLabel4.setText(literales.getLiteral("PantallaConsultaPeticiones.label4"));
+        jLabel5.setText(literales.getLiteral("PantallaConsultaPeticiones.label5"));
+        jLabel6.setText(literales.getLiteral("PantallaConsultaPeticiones.label6"));
+        jLabel7.setText(literales.getLiteral("PantallaConsultaPeticiones.label7"));
+        jLabel8.setText(literales.getLiteral("PantallaConsultaPeticiones.label8"));
+        btnBuscar.setText(literales.getLiteral("PantallaConsultaPeticiones.buscar"));
+        btnCargar.setText(literales.getLiteral("PantallaConsultaPeticiones.cargarProcesado"));
+        btnCancelar.setText(literales.getLiteral("PantallaConsultaPeticiones.cancelar"));
     }
 }

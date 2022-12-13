@@ -440,30 +440,30 @@ public class PantallaEjecutarScripts extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Ejecutar script");
+		setTitle(literales.getLiteral("PantallaEjecutarScripts.title"));
 
-		jLabel1.setText("Estado ejecución");
-		jLabel2.setText("Modelo o proyecto");
-		jLabel3.setText("Submodelo");
-		jLabel4.setText("Solicitada por");
-		jLabel7.setText("BBDD histórico");
-		jLabel8.setText("BBDD");
-		jLabel9.setText("Esquema histórico");
-		btnRechazar.setText("Rechazar");
-		jLabel11.setText("Vigente");
-		jLabel12.setText("Histórico");
-		jLabel13.setText("Petición");
-		jLabel14.setText("Esquema");
-		jLabel5.setText("Demanda");
-		btnVerLog.setText("Ver log");
-		btnDetalleScript.setText("Detalle script");
-		btnDescartar.setText("Descartar");
-		btnReparar.setText("Reparar");
-		btnVerCuadres.setText("Ver cuadres");
-		btnVerErrores.setText("Ver errores");
-		btnExcepcion.setText("Excepción");
-		btnAceptar.setText("ACEPTAR");
-		btnCancelar.setText("CANCELAR");
+		jLabel1.setText(literales.getLiteral("PantallaEjecutarScripts.label1"));
+		jLabel2.setText(literales.getLiteral("PantallaEjecutarScripts.label2"));
+		jLabel3.setText(literales.getLiteral("PantallaEjecutarScripts.label3"));
+		jLabel4.setText(literales.getLiteral("PantallaEjecutarScripts.label4"));
+		jLabel5.setText(literales.getLiteral("PantallaEjecutarScripts.label5"));
+		jLabel7.setText(literales.getLiteral("PantallaEjecutarScripts.label7"));
+		jLabel8.setText(literales.getLiteral("PantallaEjecutarScripts.label8"));
+		jLabel9.setText(literales.getLiteral("PantallaEjecutarScripts.label9"));
+		btnRechazar.setText(literales.getLiteral("PantallaEjecutarScripts.rechazar"));
+		jLabel11.setText(literales.getLiteral("PantallaEjecutarScripts.label11"));
+		jLabel12.setText(literales.getLiteral("PantallaEjecutarScripts.label12"));
+		jLabel13.setText(literales.getLiteral("PantallaEjecutarScripts.label13"));
+		jLabel14.setText(literales.getLiteral("PantallaEjecutarScripts.label14"));	
+		btnVerLog.setText(literales.getLiteral("PantallaEjecutarScripts.verLog"));
+		btnDetalleScript.setText(literales.getLiteral("PantallaEjecutarScripts.detalleScript"));
+		btnDescartar.setText(literales.getLiteral("PantallaEjecutarScripts.descartar"));
+		btnReparar.setText(literales.getLiteral("PantallaEjecutarScripts.reparar"));
+		btnVerCuadres.setText(literales.getLiteral("PantallaEjecutarScripts.verCuadres"));
+		btnVerErrores.setText(literales.getLiteral("PantallaEjecutarScripts.verErrores"));
+		btnExcepcion.setText(literales.getLiteral("PantallaEjecutarScripts.excepcion"));
+		btnAceptar.setText(literales.getLiteral("PantallaEjecutarScripts.aceptar"));
+		btnCancelar.setText(literales.getLiteral("PantallaEjecutarScripts.cancelar"));
 	}
 	
 	/**

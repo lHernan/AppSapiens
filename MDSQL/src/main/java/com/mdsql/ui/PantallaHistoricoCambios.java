@@ -241,29 +241,29 @@ public class PantallaHistoricoCambios extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		 jLabel1.setText("Modelo o Proyecto");
-		 btnBuscarModelo.setText("jButton1");
-		 jLabel2.setText("Objeto");
-		 jLabel3.setText("Tipo Objeto");
-		 jLabel4.setText("Tipo Objeto");
-		 jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));        
-		 jComboBox2.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-		 jLabel5.setText("Estado Script");
-		 jComboBox3.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-		 jLabel6.setText("Objeto Padre");
-		 jLabel7.setText("Tipo Obj.Padre");
-		 jComboBox4.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-		 jLabel8.setText("Operación Padre");
-		 jComboBox5.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-		 jLabel9.setText("Operación Padre");
-		 jComboBox6.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-		 jLabel10.setText("Desde");
-		 jLabel11.setText("Hasta");
-		 btnBuscar.setText("Buscar");
-		 btnInforme.setText("Informe Cambios");
-		 btnVerDetalle.setText("Ver Detalle Script");
-		 btnResumen.setText("Resumen Procesado");
-		 btnCancelar.setText("CANCELAR"); 
+		 jLabel1.setText(literales.getLiteral("PantallaHistoricoCambios.label1"));
+		 btnBuscarModelo.setText(literales.getLiteral("PantallaHistoricoCambios.buscarModelo"));
+		 jLabel2.setText(literales.getLiteral("PantallaHistoricoCambios.label2"));
+		 jLabel3.setText(literales.getLiteral("PantallaHistoricoCambios.label3"));
+		 jLabel4.setText(literales.getLiteral("PantallaHistoricoCambios.label4"));
+		 jComboBox1.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox1"));        
+		 jComboBox2.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox2"));
+		 jLabel5.setText(literales.getLiteral("PantallaHistoricoCambios.label5"));
+		 jComboBox3.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox3"));
+		 jLabel6.setText(literales.getLiteral("PantallaHistoricoCambios.label6"));
+		 jLabel7.setText(literales.getLiteral("PantallaHistoricoCambios.label7"));
+		 jComboBox4.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox4"));
+		 jLabel8.setText(literales.getLiteral("PantallaHistoricoCambios.label8"));
+		 jComboBox5.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox5"));
+		 jLabel9.setText(literales.getLiteral("PantallaHistoricoCambios.label9"));
+		 jComboBox6.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox6"));
+		 jLabel10.setText(literales.getLiteral("PantallaHistoricoCambios.label10"));
+		 jLabel11.setText(literales.getLiteral("PantallaHistoricoCambios.label11"));
+		 btnBuscar.setText(literales.getLiteral("PantallaHistoricoCambios.buscar"));
+		 btnInforme.setText(literales.getLiteral("PantallaHistoricoCambios.informe"));
+		 btnVerDetalle.setText(literales.getLiteral("PantallaHistoricoCambios.verDetalle"));
+		 btnResumen.setText(literales.getLiteral("PantallaHistoricoCambios.resumen"));
+		 btnCancelar.setText(literales.getLiteral("PantallaHistoricoCambios.cancelar")); 
 	}
 
 	@Override

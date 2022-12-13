@@ -185,18 +185,18 @@ public class PantallaDescartarScript extends FrameSupport {
 
     @Override
     protected void setupLiterals() {
-    	setTitle("Descartar Script");
+    	setTitle(literales.getLiteral("PantallaDescartarScript.title"));
     	
-    	jLabel1.setText("Al producirse un cambio en la petición es necesario seleccionar de nuevo el script a pocesar. Una vez seleccionado se volverá a generar los scripts a entregar.");
-        jLabel2.setText("Scripts a procesar");
-        btnAbrirScriptProcesar.setText("jButton1");
-        jLabel3.setText("Motivo del descarte");
-        jRadioButton1.setText("Se reducen los requisitos");
-        jRadioButton2.setText("Se amplian los requisitos. Selecciona el script de Parche para ejecutar los nuevos cambios.");
-        btnAbrirScriptProcesar1.setText("jButton1");
-        jLabel4.setText("Comentario");
-        btnAceptar.setText("ACEPTAR");
-        btnCancelar.setText("CANCELAR");
+    	jLabel1.setText(literales.getLiteral("PantallaDescartarScript.label1"));
+        jLabel2.setText(literales.getLiteral("PantallaDescartarScript.label2"));
+        btnAbrirScriptProcesar.setText(literales.getLiteral("PantallaDescartarScript.abrirScriptProcesar1"));
+        jLabel3.setText(literales.getLiteral("PantallaDescartarScript.label3"));
+        jRadioButton1.setText(literales.getLiteral("PantallaDescartarScript.radioButton1"));
+        jRadioButton2.setText(literales.getLiteral("PantallaDescartarScript.radioButton2"));
+        btnAbrirScriptProcesar1.setText(literales.getLiteral("PantallaDescartarScript.abrirScriptProcesar2"));
+        jLabel4.setText(literales.getLiteral("PantallaDescartarScript.label4"));
+        btnAceptar.setText(literales.getLiteral("PantallaDescartarScript.aceptar"));
+        btnCancelar.setText(literales.getLiteral("PantallaDescartarScript.cancelar"));
     }
     
     @Override

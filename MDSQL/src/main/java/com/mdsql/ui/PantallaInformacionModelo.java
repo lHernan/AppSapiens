@@ -105,6 +105,6 @@ public class PantallaInformacionModelo extends DialogSupport {
 
    	@Override
    	protected void setupLiterals() {
-   		jLabel1.setText("Modelo o proyecto");
+   		jLabel1.setText(literales.getLiteral("PantallaInformacionModelo.label1"));
    	}    
 }

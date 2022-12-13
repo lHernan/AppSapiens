@@ -381,27 +381,28 @@ public class PantallaResumenProcesado extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Resumen ejecución");
+		setTitle(literales.getLiteral("PantallaResumenProcesado.titulo"));
 		
-		jLabel1.setText("Modelo o proyecto");
-        jLabel2.setText("Submodelo");
-        jLabel3.setText("Petición");
-        jLabel4.setText("Solicitada por");
-        jLabel7.setText("BBDD histórico");
-        jLabel8.setText("BBDD");
-        jLabel9.setText("Esquema histórico");
-        btnVerLog.setText("Ver log");
-        btnCancelar.setText("CANCELAR");
-        jLabel13.setText("Usuario");
-        jLabel14.setText("Esquema");
-        btnVerErrores.setText("Ver errores");
-        btnDetalleScript.setText("Detalle script");
-        btnEntregar.setText("Entregar");
-        jLabel5.setText("Fecha");
-        jLabel6.setText("Estado");
-        jLabel10.setText("Ruta");
-        jLabel15.setText("Comentarios");
-        jLabel11.setText("Operaciones");
-        jLabel12.setText("Objetos");
+		jLabel1.setText(literales.getLiteral("PantallaResumenProcesado.label1"));
+        jLabel2.setText(literales.getLiteral("PantallaResumenProcesado.label2"));
+        jLabel3.setText(literales.getLiteral("PantallaResumenProcesado.label3"));
+        jLabel4.setText(literales.getLiteral("PantallaResumenProcesado.label4"));
+        jLabel5.setText(literales.getLiteral("PantallaResumenProcesado.label5"));
+        jLabel6.setText(literales.getLiteral("PantallaResumenProcesado.label6"));
+        jLabel7.setText(literales.getLiteral("PantallaResumenProcesado.label7"));
+        jLabel8.setText(literales.getLiteral("PantallaResumenProcesado.label8"));
+        jLabel9.setText(literales.getLiteral("PantallaResumenProcesado.label9"));
+        btnVerLog.setText(literales.getLiteral("PantallaResumenProcesado.verLog"));
+        btnCancelar.setText(literales.getLiteral("PantallaResumenProcesado.cancelar"));
+        jLabel10.setText(literales.getLiteral("PantallaResumenProcesado.label10"));
+        jLabel11.setText(literales.getLiteral("PantallaResumenProcesado.label11"));
+        jLabel12.setText(literales.getLiteral("PantallaResumenProcesado.label12"));
+        jLabel13.setText(literales.getLiteral("PantallaResumenProcesado.label13"));
+        jLabel14.setText(literales.getLiteral("PantallaResumenProcesado.label14"));
+        jLabel15.setText(literales.getLiteral("PantallaResumenProcesado.label15"));
+        btnVerErrores.setText(literales.getLiteral("PantallaResumenProcesado.verErrores"));
+        btnDetalleScript.setText(literales.getLiteral("PantallaResumenProcesado.detalleScript"));
+        btnEntregar.setText(literales.getLiteral("PantallaResumenProcesado.entrega"));
+        
 	}
 }

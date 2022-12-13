@@ -133,10 +133,10 @@ public class PantallaVerCuadresScript extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		setTitle("Ver Descuadres Script");
+		setTitle(literales.getLiteral("PantallaVerCuadresScipt.titulo"));
 		
-		jLabel1.setText("Operaciones");
-		jLabel2.setText("Objetos");
-        btnCancelar.setText("CANCELAR");
+		jLabel1.setText(literales.getLiteral("PantallaVerCuadresScipt.label1"));
+		jLabel2.setText(literales.getLiteral("PantallaVerCuadresScipt.label2"));
+        btnCancelar.setText(literales.getLiteral("PantallaVerCuadresScipt.cancelar"));
 	}
 }
