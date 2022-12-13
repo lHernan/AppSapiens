@@ -196,6 +196,10 @@ public class PrintAction implements Printable {
 	 */
 	private class PrintingMessageBox extends JDialog {
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -5985489985329175081L;
 		private JLabel lbStatusMsg; // etiqueta que muestra el estado de impresión
 
 		/**

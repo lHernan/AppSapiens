@@ -16,4 +16,5 @@ public class SeleccionHistorico {
 	private String tipo;
 	private Boolean historico;
 	private Boolean vigente;
+	private Boolean editable;
 }

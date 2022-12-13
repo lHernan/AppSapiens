@@ -17,12 +17,15 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.text.BadLocationException;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
+
+import lombok.extern.slf4j.Slf4j;
  
 /**
  * Clase que ejecuta las operaciones solicitadas.
  * 
  * @author Dark[byte]
  */
+@Slf4j
 public class ActionPerformer {
  
     private final TPEditor tpEditor;    //instancia de TPEditor (la clase principal)
@@ -218,6 +221,7 @@ public class ActionPerformer {
         if (tpEditor.getJTextArea().getText().trim().equals("") == false) {
             //invoca nuestra la clase PrintAction para presentar el dialogo de impresión
             result = PrintAction.print(tpEditor.getJTextArea(), tpEditor.getJFrame());
+            log.info("Result: {}", result);
         }
     }
  

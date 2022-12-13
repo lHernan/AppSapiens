@@ -40,6 +40,10 @@ import javax.swing.text.Position;
  */
 public class JFontChooser extends JComponent {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2765039778690787648L;
 	private final Font initialFont; // fuente inicial
 	private Font font; // fuente seleccionado por el usuario
 
@@ -102,12 +106,16 @@ public class JFontChooser extends JComponent {
 
 class FontChooserDialog extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8829237167562068703L;
 	private JTextField textFieldNames; // campo de texto para el nombre del fuente
 	private JTextField textFieldStyles; // campo de texto para el estilo del fuente
 	private JTextField textFieldSizes; // campo de texto para el tamaño del fuente
-	private JList listFontNames; // lista para nombres de fuente
-	private JList listFontStyles; // lista para estilos de fuente
-	private JList listFontSizes; // lista para tamaños de fuente
+	private JList<String> listFontNames; // lista para nombres de fuente
+	private JList<String> listFontStyles; // lista para estilos de fuente
+	private JList<String> listFontSizes; // lista para tamaños de fuente
 	private JLabel textExample; // etiqueta que muestra un ejemplo del fuente seleccionado
 	// arreglo con nombres de fuente disponibles
 	private static final String[] FONT_NAMES = GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -211,7 +219,7 @@ class FontChooserDialog extends JDialog {
 		gbc.gridheight = 1;
 		cp.add(textFieldSizes, gbc); // añade el campo de texto, coordenadas X:3 - Y:2
 
-		listFontNames = new JList(FONT_NAMES); // construye la lista para nombres de fuente
+		listFontNames = new JList<>(FONT_NAMES); // construye la lista para nombres de fuente
 		jScrollPane = new JScrollPane(listFontNames);
 		String fontName = jFontChooser.getInitialFont().getName();
 		listFontNames.setSelectedValue(fontName, true); // selecciona el nombre de fuente inicial
@@ -223,7 +231,7 @@ class FontChooserDialog extends JDialog {
 		gbc.gridheight = 1;
 		cp.add(jScrollPane, gbc); // añade la lista, coordenadas X:1 - Y:3
 
-		listFontStyles = new JList(FONT_STYLES); // construye la lista para estilos de fuente
+		listFontStyles = new JList<>(FONT_STYLES); // construye la lista para estilos de fuente
 		jScrollPane = new JScrollPane(listFontStyles);
 		int fontSyle = jFontChooser.getInitialFont().getStyle();
 		listFontStyles.setSelectedIndex(fontSyle); // selecciona el estilo de fuente inicial
@@ -235,7 +243,7 @@ class FontChooserDialog extends JDialog {
 		gbc.gridheight = 1;
 		cp.add(jScrollPane, gbc); // añade la lista, coordenadas X:2 - Y:3
 
-		listFontSizes = new JList(FONT_SIZES); // construye la lista para tamaños de fuente
+		listFontSizes = new JList<>(FONT_SIZES); // construye la lista para tamaños de fuente
 		jScrollPane = new JScrollPane(listFontSizes);
 		String fontSize = String.valueOf(jFontChooser.getInitialFont().getSize());
 		listFontSizes.setSelectedValue(fontSize, true); // selecciona el tamaño de fuente inicial

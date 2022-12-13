@@ -1,12 +1,23 @@
 package com.mdval;
 
-//Java Program to create a text editor using java
-import java.awt.*;
-import javax.swing.*;
-import java.io.*;
-import java.awt.event.*;
-import javax.swing.plaf.metal.*;
-import javax.swing.text.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.OceanTheme;
 
 public class Editor extends JFrame implements ActionListener {
 	/**

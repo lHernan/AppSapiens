@@ -50,4 +50,69 @@ public class SeleccionHistoricoTableModel extends DefaultTableModel<SeleccionHis
 		
 		return null;
 	}
+	
+	@Override
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		SeleccionHistorico row = data.get(rowIndex);
+		if (0 == columnIndex) {
+			row.setConfigurado((Boolean) aValue);
+			fireTableCellUpdated(rowIndex, columnIndex);
+		}
+		
+		if (3 == columnIndex) {
+			row.setHistorico((Boolean) aValue);
+			fireTableCellUpdated(rowIndex, columnIndex);
+		}
+		
+		if (4 == columnIndex) {
+			row.setVigente((Boolean) aValue);
+			fireTableCellUpdated(rowIndex, columnIndex);
+		}
+	}
+	
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		SeleccionHistorico row = data.get(rowIndex);
+		if (0 == columnIndex) {
+			return (row.getConfigurado() && !row.getEditable()) ? false : true;
+		}
+		
+		if (3 == columnIndex) {
+			return (row.getHistorico() && !row.getEditable()) ? false : true;
+		}
+		
+		if (4 == columnIndex) {
+			return true;
+		}
+
+		return false;
+	}
+	
+	/**
+	 * @param model
+	 * @return
+	 */
+	public boolean checkAllConfigured() {
+		for (SeleccionHistorico sel : data) {
+			if (!sel.getConfigurado()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+	
+	/**
+	 * @param model
+	 * @return
+	 */
+	public boolean checkAllVigente() {
+		for (SeleccionHistorico sel : data) {
+			if (!sel.getVigente()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
