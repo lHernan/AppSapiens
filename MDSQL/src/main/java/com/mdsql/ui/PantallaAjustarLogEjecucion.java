@@ -62,9 +62,11 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
         jLabel2 = new JLabel();
         txtComentario = new JTextField();
         btnEliminar = new JButton();
-        btnCancelar = new JButton();
+        btnCancelar = new JButton();       
         
-        setPreferredSize(new Dimension(1521, 612));
+        Dimension dimension = new Dimension(950, 400);
+        setPreferredSize(dimension);
+        setMinimunSize(dimension);
         setResizable(Boolean.TRUE);
         
         jScrollPane1.setViewportView(tblAjustarLog);
@@ -145,6 +147,8 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
 
    	@Override
    	protected void setupLiterals() {
+   		setTitle(literales.getLiteral("PantallaAjustarLogEjecucion.titulo"));
+   		
    		jLabel1.setText(literales.getLiteral("PantallaAjustarLogEjecucion.label1"));
    		jLabel2.setText(literales.getLiteral("PantallaAjustarLogEjecucion.label2"));
         btnEliminar.setText(literales.getLiteral("PantallaAjustarLogEjecucion.eliminar"));

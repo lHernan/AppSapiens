@@ -66,6 +66,11 @@ public class PantallaVerCuadresScript extends DialogSupport {
         jLabel1 = new JLabel();
         btnCancelar = new JButton();
         jLabel2 = new JLabel();
+        
+        Dimension dimension = new Dimension(1200, 400);
+        setPreferredSize(dimension);
+        setMinimunSize(dimension);
+        setResizable(Boolean.TRUE);
 
         jScrollPane1.setViewportView(tblOperaciones);
         jScrollPane2.setViewportView(tblObjetos);

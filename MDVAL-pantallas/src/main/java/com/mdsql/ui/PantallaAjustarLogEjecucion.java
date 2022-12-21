@@ -35,6 +35,7 @@ public class PantallaAjustarLogEjecucion extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(950, 400));
 
         jLabel1.setText("Si alguna de las sentencias ejecutadas correctamente se han eliminado del script procesado una vez ejecutado, se pueden eliminar del cuadre de objetos desde esta pantalla");
 
@@ -77,7 +78,7 @@ public class PantallaAjustarLogEjecucion extends javax.swing.JFrame {
                                 .addComponent(txtComentario))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 23, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1))))
                 .addGap(15, 15, 15))
         );
@@ -87,7 +88,7 @@ public class PantallaAjustarLogEjecucion extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)

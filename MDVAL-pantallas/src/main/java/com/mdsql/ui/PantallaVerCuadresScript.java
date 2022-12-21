@@ -35,6 +35,8 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1200, 400));
+        setPreferredSize(new java.awt.Dimension(1200, 400));
 
         tblOperaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
