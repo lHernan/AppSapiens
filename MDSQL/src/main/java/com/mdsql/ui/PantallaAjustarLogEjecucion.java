@@ -4,7 +4,6 @@
  */
 package com.mdsql.ui;
 
-import java.awt.Dimension;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -64,10 +63,7 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
         btnEliminar = new JButton();
         btnCancelar = new JButton();       
         
-        Dimension dimension = new Dimension(950, 400);
-        setPreferredSize(dimension);
-        setMinimunSize(dimension);
-        setResizable(Boolean.TRUE);
+        setBounds(950, 400);
         
         jScrollPane1.setViewportView(tblAjustarLog);
         

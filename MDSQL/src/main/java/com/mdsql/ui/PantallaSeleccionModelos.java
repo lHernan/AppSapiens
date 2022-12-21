@@ -5,8 +5,6 @@
  */
 package com.mdsql.ui;
 
-import java.awt.Dimension;
-import java.awt.Font;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -14,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 
@@ -103,10 +100,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
            btnSeleccionar = new JButton();
            lblTitulo = new JLabel();
            
-           Dimension dimension = new Dimension(1350, 500);
-           setPreferredSize(dimension);
-           setMinimunSize(dimension);
-           setResizable(Boolean.TRUE);
+           setBounds(1350, 500);
            
            jScrollPane2.setViewportView(tblModelos);
            
