@@ -49,6 +49,23 @@
   
   Código fuente.
   
+  - Versión 1.0.0-SNAPSHOT (22/12/2022), Entregable-1.0.20
+
+  Incidencias que se corrigen: 
+  
+  - Incidencias Pantalla Detalle Script.v.1
+  - Incidencias Pantalla Ejecutar Script sin historico.v.2
+  - Incidencias Pantalla Ejecutar Scripts CON Historico.v.2
+  - Incidencias Pantalla Principal
+  - Incidencias Pantalla Procesado
+  - Incidencias Pantalla Resumen Procesado.v.2
+  - Incidencias Pantalla Ver Cuadres.v.1
+  - Incidencias Pantalla Ver errores.v.2
+  - Incidencias Pantalla Ver Log.v.2
+  
+  
+  Código fuente.
+  
   
   
        
