@@ -4,7 +4,6 @@
  */
 package com.mdsql.ui;
 
-import java.awt.Dimension;
 import java.awt.event.ItemListener;
 import java.util.Map;
 import java.util.Objects;
@@ -178,10 +177,10 @@ public class PantallaEjecutarScripts extends DialogSupport {
         btnRechazar = new JButton();
         jLabel11 = new JLabel();
         jScrollPane2 = new JScrollPane();
-        tblVigente = new TableSupport(Boolean.FALSE);
+        tblVigente = new TableSupport();
         jLabel12 = new JLabel();
         jScrollPane3 = new JScrollPane();
-        tblHistorico = new TableSupport(Boolean.FALSE);
+        tblHistorico = new TableSupport();
         btnAceptar = new JButton();
         btnCancelar = new JButton();
         txtModelo = new JTextField();
@@ -199,7 +198,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
         txtDemanda = new JTextField();
         jLabel5 = new JLabel();
         
-        setPreferredSize(new Dimension(1543, 876));
+        setBounds(1543, 876);
 
         jLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
         

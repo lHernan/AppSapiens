@@ -5,6 +5,7 @@
  */
 package com.mdsql.ui;
 
+import java.awt.Dimension;
 import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.Map;
@@ -199,15 +200,19 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
         jButton1 = new JButton();
         jLabel11 = new JLabel();
         jScrollPane2 = new JScrollPane();
-        tblNotas = new TableSupport(Boolean.FALSE);
+        tblNotas = new TableSupport();
         jLabel12 = new JLabel();
         jScrollPane3 = new JScrollPane();
-        tblUltimasPeticiones = new TableSupport(Boolean.FALSE);
+        tblUltimasPeticiones = new TableSupport();
         btnVerProcesado = new JButton();
         btnProcesar = new JButton();
         btnCancelar = new JButton();
         txtDemanda = new JTextField();
         jLabel13 = new JLabel();
+        
+        Dimension dimension = new Dimension(1430, 896);
+        setMinimumSize(dimension);
+        setPreferredSize(dimension);
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -468,6 +473,6 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
 		jLabel13.setText(literales.getLiteral("PantallaProcesarScript.label13"));
 		btnVerProcesado.setText(literales.getLiteral("PantallaProcesarScript.verProcesado"));
 		btnProcesar.setText(literales.getLiteral("PantallaProcesarScript.procesar"));
-		btnCancelar.setText(literales.getLiteral("PantallaProcesarScript.crocesar"));
+		btnCancelar.setText(literales.getLiteral("PantallaProcesarScript.cancelar"));
 	}
 }

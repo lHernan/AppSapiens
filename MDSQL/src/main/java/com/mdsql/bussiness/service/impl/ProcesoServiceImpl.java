@@ -162,13 +162,15 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
 
                     seleccionHistorico.setObjeto((String) cols[0]);
                     seleccionHistorico.setTipo((String) cols[1]);
-                    seleccionHistorico.setVigente(AppHelper.normalizeCheckValue((String) cols[2]));
                     
                     Boolean historico = AppHelper.normalizeCheckValue((String) cols[3]);
                     seleccionHistorico.setHistorico(historico);
                     
                     seleccionHistorico.setConfigurado(historico);
                     seleccionHistorico.setEditable(!historico);
+                    
+                    // Vigente siempre a TRUE
+                    seleccionHistorico.setVigente(Boolean.TRUE);
 
                     seleccion.add(seleccionHistorico);
                 }

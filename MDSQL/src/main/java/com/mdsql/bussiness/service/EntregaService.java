@@ -3,6 +3,7 @@ package com.mdsql.bussiness.service;
 import java.math.BigDecimal;
 
 import com.mdsql.bussiness.entities.OutputConsultaEntrega;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno
@@ -23,7 +24,7 @@ public interface EntregaService {
      * @param txtComentario
      * @return descripcionEstadoProceso
      */
-    String entregarPeticion(BigDecimal idProceso, String codigoUsuario, String txtComentario);
+    String entregarPeticion(BigDecimal idProceso, String codigoUsuario, String txtComentario) throws ServiceException;
 
 
 }

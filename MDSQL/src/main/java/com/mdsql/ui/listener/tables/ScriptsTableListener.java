@@ -55,6 +55,7 @@ public abstract class ScriptsTableListener extends ListenerSupport implements Li
 		if ("Ejecutado".equals(seleccionado.getDescripcionEstadoScript())) {
 			pantallaEjecutarScripts.getBtnVerCuadres().setEnabled(Boolean.TRUE);
 			pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnDescartar().setEnabled(Boolean.TRUE);
 		}
 
 		if ("Error".equals(seleccionado.getDescripcionEstadoScript())) {

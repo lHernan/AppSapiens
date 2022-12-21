@@ -246,17 +246,11 @@ public class PantallaHistoricoCambios extends DialogSupport {
 		 jLabel2.setText(literales.getLiteral("PantallaHistoricoCambios.label2"));
 		 jLabel3.setText(literales.getLiteral("PantallaHistoricoCambios.label3"));
 		 jLabel4.setText(literales.getLiteral("PantallaHistoricoCambios.label4"));
-		 jComboBox1.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox1"));        
-		 jComboBox2.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox2"));
 		 jLabel5.setText(literales.getLiteral("PantallaHistoricoCambios.label5"));
-		 jComboBox3.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox3"));
 		 jLabel6.setText(literales.getLiteral("PantallaHistoricoCambios.label6"));
 		 jLabel7.setText(literales.getLiteral("PantallaHistoricoCambios.label7"));
-		 jComboBox4.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox4"));
 		 jLabel8.setText(literales.getLiteral("PantallaHistoricoCambios.label8"));
-		 jComboBox5.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox5"));
 		 jLabel9.setText(literales.getLiteral("PantallaHistoricoCambios.label9"));
-		 jComboBox6.setModel(literales.getLiteral("PantallaHistoricoCambios.comboBox6"));
 		 jLabel10.setText(literales.getLiteral("PantallaHistoricoCambios.label10"));
 		 jLabel11.setText(literales.getLiteral("PantallaHistoricoCambios.label11"));
 		 btnBuscar.setText(literales.getLiteral("PantallaHistoricoCambios.buscar"));

@@ -63,6 +63,7 @@ public class PantallaProcesarScript extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1430, 896));
 
         jLabel1.setText("Modelo o proyecto");
 

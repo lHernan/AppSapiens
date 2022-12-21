@@ -85,8 +85,7 @@ public class EntregaServiceImpl extends ServiceSupport implements EntregaService
     }
 
     @Override
-    @SneakyThrows
-    public String entregarPeticion(BigDecimal idProceso, String codigoUsuario, String txtComentario) {
+    public String entregarPeticion(BigDecimal idProceso, String codigoUsuario, String txtComentario) throws ServiceException {
         String runSP = createCall("p_entregar_peticion", Constants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();

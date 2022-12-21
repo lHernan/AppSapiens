@@ -85,6 +85,12 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 				OutputConsultaEntrega outputConsultaEntrega = entregaService
 						.consultaRutaEntrega(proceso.getModelo().getCodigoProyecto(), proceso.getIdProceso());
+				
+				// Entregar petición antes de hacer los ficheros, para controlar el comentario
+				String txtComentario = pantallaResumenProcesado.getTxtComentarios().getText();
+				String codUsr = session.getCodUsr();
+
+				String estado = entregaService.entregarPeticion(proceso.getIdProceso(), codUsr, txtComentario);
 
 				createZipVigente(proceso, outputConsultaEntrega);
 				copyZipVigente(outputConsultaEntrega);
@@ -96,18 +102,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 					copyFilesHistorico(proceso.getScripts());
 				}
 
-				// Entregar petición
-				String txtComentario = pantallaResumenProcesado.getTxtComentarios().getText();
-				String codUsr = session.getCodUsr();
-
-				String estado = entregaService.entregarPeticion(proceso.getIdProceso(), codUsr, txtComentario);
 				proceso.setDescripcionEstadoProceso(estado);
 				pantallaResumenProcesado.getReturnParams().put("cmd", Constants.CMD_ENTREGAR_SCRIPT);
 				pantallaResumenProcesado.getReturnParams().put("estado", estado);
 
 				pantallaResumenProcesado.dispose();
 			}
-		} catch (IOException e) {
+		} catch (ServiceException | IOException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), Constants.CMD_ERROR, errParams);
 		}

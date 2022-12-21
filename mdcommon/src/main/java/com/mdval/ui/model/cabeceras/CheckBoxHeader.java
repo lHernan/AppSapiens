@@ -1,14 +1,14 @@
 package com.mdval.ui.model.cabeceras;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.border.Border;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -43,14 +43,14 @@ public class CheckBoxHeader extends JCheckBox implements TableCellRenderer, Mous
 			if (header != null) {
 				rendererComponent.setForeground(header.getForeground());
 				rendererComponent.setBackground(header.getBackground());
-				rendererComponent.setFont(header.getFont());
-				
+				rendererComponent.setFont(new Font("Dialog", 0, 12));
+				rendererComponent.setHorizontalAlignment(JLabel.CENTER);
+				rendererComponent.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.LOWERED));
+				rendererComponent.setBorderPainted(true);
 				header.addMouseListener(rendererComponent);
 			}
 		}
 		setColumn(column);
-		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
-		setBorder(raisedbevel);
 		rendererComponent.setText(text);
 		return rendererComponent;
 	}

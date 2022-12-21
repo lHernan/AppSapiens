@@ -154,4 +154,15 @@ public abstract class DialogSupport extends JDialog {
 		
 		setupLiterals();
 	}
+	
+	/**
+	 * @param width
+	 * @param height
+	 */
+	protected void setBounds(int width, int height) {
+		Dimension dimension = new Dimension(width, height); 
+        setPreferredSize(dimension);
+        setMinimumSize(dimension);
+        setResizable(Boolean.TRUE);
+	}
 }

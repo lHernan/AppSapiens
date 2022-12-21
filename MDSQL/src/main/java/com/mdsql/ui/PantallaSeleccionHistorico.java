@@ -10,11 +10,9 @@ import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle;
 import javax.swing.table.TableColumn;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
 import com.mdsql.ui.listener.tables.SeleccionHistoricoTableItemListener;
@@ -26,7 +24,6 @@ import com.mdval.ui.model.cabeceras.CheckBoxHeader;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
-import com.mdval.ui.utils.JCheckBox;
 
 import lombok.Getter;
 
@@ -34,7 +31,7 @@ import lombok.Getter;
  *
  * @author federico
  */
-public class PantallaSeleccionHistorico extends javax.swing.JFrame {
+public class PantallaSeleccionHistorico extends DialogSupport {
 
 	/**
 	 * 
@@ -43,9 +40,6 @@ public class PantallaSeleccionHistorico extends javax.swing.JFrame {
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnCancelar;
-    private JCheckBox cbConfigurarTodo;
-    private JCheckBox cbTodosHistoricos;
-    private JCheckBox cbTodosVigente;
     private JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 	
@@ -73,27 +67,23 @@ public class PantallaSeleccionHistorico extends javax.swing.JFrame {
 	protected void setupComponents() {
     	
     	jScrollPane1 = new JScrollPane();
-        tblHistorico = new JTable();
+        tblHistorico = new TableSupport();
         btnAddHistorico = new JButton();
         btnGenerarHistorico = new JButton();
         btnCancelar = new JButton();
-        cbTodosHistoricos = new JCheckBox();
-        cbConfigurarTodo = new JCheckBox();
-        cbTodosVigente = new JCheckBox();
         
-        setPreferredSize(new Dimension(1418, 586));
-        setResizable(Boolean.TRUE);
+        setBounds(1418, 586); 
 
         jScrollPane1.setViewportView(tblHistorico);
         
-        GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1171, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAddHistorico)
@@ -102,25 +92,12 @@ public class PantallaSeleccionHistorico extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(cbConfigurarTodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(595, 595, 595)
-                .addComponent(cbTodosHistoricos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(140, 140, 140)
-                .addComponent(cbTodosVigente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbTodosHistoricos)
-                    .addComponent(cbTodosVigente)
-                    .addComponent(cbConfigurarTodo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddHistorico)
@@ -153,7 +130,7 @@ public class PantallaSeleccionHistorico extends javax.swing.JFrame {
 		model = new SeleccionHistoricoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
 		tblHistorico.setModel(model);
 		tblHistorico.setColumnWidths(cabecera);
-
+		
 		TableColumn tc = tblHistorico.getColumnModel().getColumn(0);
 		tc.setCellEditor(tblHistorico.getDefaultEditor(Boolean.class));
 		tc.setCellRenderer(tblHistorico.getDefaultRenderer(Boolean.class));
@@ -179,10 +156,6 @@ public class PantallaSeleccionHistorico extends javax.swing.JFrame {
 	@Override
 	protected void setupLiterals() {
 		setTitle(literales.getLiteral("PantallaSeleccionHistorico.titulo"));
-		
-		cbConfigurarTodo.setText(literales.getLiteral("PantallaSeleccionHistorico.cbConfigurarTodo"));
-		cbTodosVigente.setText(literales.getLiteral("PantallaSeleccionHistorico.cbTodosVigente"));
-		cbTodosHistoricos.setText(literales.getLiteral("PantallaSeleccionHistorico.cbTodosHistoricos"));
 		
 		btnAddHistorico.setText(literales.getLiteral("PantallaSeleccionHistorico.addHistorico"));
 		btnGenerarHistorico.setText(literales.getLiteral("PantallaSeleccionHistorico.generarHistorico"));
