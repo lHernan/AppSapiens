@@ -340,7 +340,7 @@ public class FramePrincipal extends FrameSupport {
         jToolBar1.add(btnEntregarProcesado);
 
         btnLimpiarScripts.setIcon(new ImageIcon(getClass().getResource("/clean.png"))); // NOI18N
-        btnLimpiarScripts.setToolTipText("Limpar scripts");
+        btnLimpiarScripts.setToolTipText("Limpiar scripts");
         btnLimpiarScripts.setFocusable(false);
         btnLimpiarScripts.setHorizontalTextPosition(SwingConstants.CENTER);
         btnLimpiarScripts.setMaximumSize(new Dimension(60, 60));
@@ -643,6 +643,8 @@ public class FramePrincipal extends FrameSupport {
 		btnEntregarProcesado.setActionCommand(Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO);
 		btnLimpiarScripts.setActionCommand(Constants.FRAME_PRINCIPAL_LIMPIAR_SCRIPT);
 		btnProcesadoEnCurso.setActionCommand(Constants.FRAME_PRINCIPAL_PROCESADO_CURSO);
+		btnRefrescarFichero.setActionCommand(Constants.FRAME_PRINCIPAL_REFRESCAR_FICHERO);
+		btnInformacionModelo.setActionCommand(Constants.FRAME_PRINCIPAL_INFORMACION_MODELO);
 
 		btnUndo.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_UNDO);
 		btnRedo.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_REDO);
@@ -663,6 +665,8 @@ public class FramePrincipal extends FrameSupport {
 		btnCopy.addActionListener(actionListener);
 		btnPaste.addActionListener(actionListener);
 		btnProcesadoEnCurso.addActionListener(actionListener);
+		btnRefrescarFichero.addActionListener(actionListener);
+		btnInformacionModelo.addActionListener(actionListener);
 
 		// Manejador de eventos del editor
 		txtSQLCode.getDocument().addUndoableEditListener(editorEventHandler);

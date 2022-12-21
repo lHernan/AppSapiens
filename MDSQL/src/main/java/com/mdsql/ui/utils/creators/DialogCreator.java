@@ -10,6 +10,7 @@ import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaEjecutarTypes;
+import com.mdsql.ui.PantallaInformacionModelo;
 import com.mdsql.ui.PantallaProcesadoEnCurso;
 import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.PantallaRepararScript;
@@ -121,6 +122,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_AJUSTAR_LOG_EJECUCION.equals(option)) {
 			dialog = new PantallaAjustarLogEjecucion(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_INFORMACION_MODELO.equals(option)) {
+			dialog = new PantallaInformacionModelo(frameParent, modal, params);
 		}
 		
 		return dialog;

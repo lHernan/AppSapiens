@@ -26,5 +26,13 @@ public class TablaInformacionModeloCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
+		
+		columnSizes.add(75);
+		columnSizes.add(400);
+		columnSizes.add(400);
+		columnSizes.add(100);
+		columnSizes.add(75);
+		columnSizes.add(100);
+		columnSizes.add(100);
 	}
 }

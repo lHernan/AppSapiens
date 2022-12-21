@@ -16,11 +16,13 @@ import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaInformacionModeloListener;
 import com.mdsql.ui.model.InformacionModeloTableModel;
+import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
 
@@ -37,7 +39,7 @@ public class PantallaInformacionModelo extends DialogSupport {
     private JScrollPane jScrollPane1;
     
     @Getter
-    private JTable tblInformacion;
+    private TableSupport tblInformacion;
     
     private JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
@@ -55,34 +57,38 @@ public class PantallaInformacionModelo extends DialogSupport {
     	jLabel1 = new JLabel();
         txtModelo = new JTextField();
         jScrollPane1 = new JScrollPane();
-        tblInformacion = new JTable();
+        tblInformacion = new TableSupport();
         
-        GroupLayout layout = new GroupLayout(getContentPane());
+        setBounds(881, 387);
+        
+        jScrollPane1.setViewportView(tblInformacion);
+        
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jLabel1)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtModelo, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 857, GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
     }
@@ -99,10 +105,17 @@ public class PantallaInformacionModelo extends DialogSupport {
     	TableModel informacionModeloTableModel = new InformacionModeloTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
     	
     	tblInformacion.setModel(informacionModeloTableModel);
+    	tblInformacion.setDefaultRenderer(String.class, new NivelAvisosTableCellRenderer());
+    	
+    	tblInformacion.setColumnWidths(cabecera);
     }
     
     @Override
-   	protected void initialState() {}
+   	protected void initialState() {
+    	txtModelo.setEnabled(Boolean.FALSE);
+    	String codigoProyecto = (String) params.get("codigoProyecto");
+    	txtModelo.setText(codigoProyecto);
+    }
 
    	@Override
    	protected void setupLiterals() {

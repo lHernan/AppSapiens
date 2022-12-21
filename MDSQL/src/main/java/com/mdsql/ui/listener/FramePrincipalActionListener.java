@@ -28,6 +28,7 @@ import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
+import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaEjecutarTypes;
@@ -36,9 +37,11 @@ import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdsql.utils.MDSQLAppHelper;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.utils.LogWrapper;
@@ -99,6 +102,14 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (Constants.FRAME_PRINCIPAL_PROCESADO_CURSO.equals(jButton.getActionCommand())) {
 			evtProcesadoEnCurso();
 		}
+		
+		if (Constants.FRAME_PRINCIPAL_REFRESCAR_FICHERO.equals(jButton.getActionCommand())) {
+			evtRefrescarFichero();
+		}
+		
+		if (Constants.FRAME_PRINCIPAL_INFORMACION_MODELO.equals(jButton.getActionCommand())) {
+			evtInformacionModelo();
+		}
 
 		if (Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO.equals(jButton.getActionCommand())) {
 			evtEntregarScript();
@@ -122,6 +133,47 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 		if (Constants.FRAME_PRINCIPAL_BTN_PASTE.equals(jButton.getActionCommand())) {
 			framePrincipal.getTxtSQLCode().paste();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void evtInformacionModelo() {
+		Map<String, Object> params = new HashMap<>();
+
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = session.getProceso();
+
+		if (!Objects.isNull(proceso)) {
+			params.put("codigoProyecto", proceso.getModelo().getCodigoProyecto());
+
+			DialogSupport informacionModelo = MDSQLUIHelper.createDialog(framePrincipal,
+					Constants.CMD_INFORMACION_MODELO, params);
+			MDSQLUIHelper.show(informacionModelo);
+		} else {
+			// Aviso de que no hay procesado en curso
+			JOptionPane.showMessageDialog(framePrincipal, "No hay procesado en curso");
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void evtRefrescarFichero() {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = session.getProceso();
+
+		if (Objects.isNull(proceso)) {
+			loadFileInFramePrincipal(framePrincipal.getCurrentFile());
+		}
+		else {
+			if ("Generado".equals(proceso.getDescripcionEstadoProceso())) {
+				rechazarProceso(proceso);
+				session.setProceso(null);
+				resetFramePrincipal(framePrincipal.getCurrentFile());
+				loadFileInFramePrincipal(framePrincipal.getCurrentFile());
+			}
 		}
 	}
 
@@ -223,10 +275,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Proceso proceso = session.getProceso();
 
 		if (Objects.isNull(proceso)) {
-			resetFramePrincipal();
+			resetFramePrincipal(null);
 		} else {
 			if ("Entregado".equals(proceso.getDescripcionEstadoProceso())) {
-				resetFramePrincipal();
+				resetFramePrincipal(null);
 			}
 		}
 	}
@@ -239,26 +291,30 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			actionSave();
 		}
 
-		resetFramePrincipal();
+		resetFramePrincipal(null);
 
 		File file = loadScript();
 		if (!Objects.isNull(file)) {
-			try {
-				setContent(file);
-				framePrincipal.setCurrentFile(file);
+			loadFileInFramePrincipal(file);
+		}
+	}
 
-				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
-				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
-				framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);
+	private void loadFileInFramePrincipal(File file) {
+		try {
+			setContent(file);
+			framePrincipal.setCurrentFile(file);
 
-				framePrincipal.getTabPanel().setSelectedIndex(0);
+			framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
+			framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
+			framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);
 
-				// set the procesado
-				framePrincipal.setProcesado(Procesado.SCRIPT);
-			} catch (IOException e1) {
-				Map<String, Object> params = MDSQLUIHelper.buildError(e1);
-				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
-			}
+			framePrincipal.getTabPanel().setSelectedIndex(0);
+
+			// set the procesado
+			framePrincipal.setProcesado(Procesado.SCRIPT);
+		} catch (IOException e1) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
+			MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
 		}
 	}
 
@@ -270,7 +326,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			actionSave();
 		}
 
-		resetFramePrincipal();
+		resetFramePrincipal(null);
 
 		File file = loadScript();
 		if (!Objects.isNull(file)) {
@@ -362,7 +418,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 			String estado = (String) pantallaEjecutar.getReturnParams().get("estado");
 			if ("RECHAZADO".equals(estado)) {
-				resetFramePrincipal();
+				resetFramePrincipal(null);
 			}
 
 			String cmd = (String) pantallaEjecutar.getReturnParams().get("cmd");
@@ -380,7 +436,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				
 				estado = (String) pantallaResumenProcesado.getReturnParams().get("estado");
 				if ("Entregado".equals(estado)) {
-					resetFramePrincipal();
+					resetFramePrincipal(null);
 				}
 			}
 
@@ -390,7 +446,27 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			JOptionPane.showMessageDialog(framePrincipal, "Es necesario procesar un script");
 		}
 	}
+	
+	/**
+	 * @param proceso
+	 */
+	private void rechazarProceso(Proceso proceso) {
+		try {
+			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+			String txtRechazo = configuration.getConfig("literalRechazoRefresco");
+			
+			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 
+			String txtMotivoRechazo = txtRechazo;
+			procesoService.rechazarProcesado(proceso.getIdProceso(), txtMotivoRechazo, session.getCodUsr());
+
+		} catch (ServiceException | IOException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, errParams);
+		}
+	}
+	
 	/**
 	 * @return
 	 */
@@ -588,7 +664,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	/**
 	 * 
 	 */
-	private void resetFramePrincipal() {
+	private void resetFramePrincipal(File file) {
 		/// limpia el contenido del area de edición
 		framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
 		framePrincipal.getFrmSQLScript().setTitle(StringUtils.EMPTY);
@@ -603,7 +679,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		framePrincipal.disableTabs();
 		framePrincipal.resetFrames();
 
-		framePrincipal.setCurrentFile(null);
+		framePrincipal.setCurrentFile(file);
 	}
 
 	/**
