@@ -468,6 +468,6 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
 		jLabel13.setText(literales.getLiteral("PantallaProcesarScript.label13"));
 		btnVerProcesado.setText(literales.getLiteral("PantallaProcesarScript.verProcesado"));
 		btnProcesar.setText(literales.getLiteral("PantallaProcesarScript.procesar"));
-		btnCancelar.setText(literales.getLiteral("PantallaProcesarScript.crocesar"));
+		btnCancelar.setText(literales.getLiteral("PantallaProcesarScript.cancelar"));
 	}
 }

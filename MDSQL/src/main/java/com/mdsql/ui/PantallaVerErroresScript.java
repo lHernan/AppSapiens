@@ -61,6 +61,11 @@ public class PantallaVerErroresScript extends DialogSupport {
         tblParches = new TableSupport(Boolean.FALSE);
         jLabel1 = new JLabel();
         btnCancelar = new JButton();
+        
+        Dimension dimension = new Dimension(1500, 600);
+        setPreferredSize(dimension);
+        setMinimunSize(dimension);
+        setResizable(Boolean.TRUE);
 
         jScrollPane1.setViewportView(tblErroresScript);
 

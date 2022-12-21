@@ -41,6 +41,8 @@ public class PantallaSeleccionModelos extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1350, 500));
+        setPreferredSize(new java.awt.Dimension(1350, 500));
 
         jLabel3.setText("Cod. modelo");
 
@@ -75,13 +77,13 @@ public class PantallaSeleccionModelos extends javax.swing.JFrame {
 
         tblModelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "Descripción", "Esquema", "BBDD", "Carpeta", "Capa USROWN", "Grenera Variables", "GRANT ALL", "GRANT PUBLIC", "Inhabilitado", "Observaciones", "Entrega PDC"
             }
         ));
         jScrollPane2.setViewportView(tblModelos);
