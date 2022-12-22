@@ -810,7 +810,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			for (TextoLinea texto : textoLineaList) {
 				scriptLines.add(texto.getValor());
 			}
-			Files.write(path, scriptLines, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+			Files.write(path, scriptLines, StandardCharsets.US_ASCII, StandardOpenOption.CREATE);
 		} catch (IOException e) {
 			LogWrapper.error(log, "[writeFileFromList] Error", e);
 			throw e;
