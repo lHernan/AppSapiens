@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -85,13 +86,13 @@ public class AppHelper {
 				Long valor = Long.parseLong(sCodigo);
 				return new BigDecimal(valor);
 			}
-	
+
 			return null;
 		} catch (NumberFormatException e) {
 			throw new Exception(errMessage);
 		}
 	}
-	
+
 	/**
 	 * @param num
 	 * @return
@@ -99,7 +100,7 @@ public class AppHelper {
 	public static String toString(BigDecimal num) {
 		return (!Objects.isNull(num)) ? num.toString() : StringUtils.EMPTY;
 	}
-	
+
 	/**
 	 * @param s
 	 * @return
@@ -107,7 +108,7 @@ public class AppHelper {
 	public static String toValidString(String s) {
 		return (StringUtils.isNotBlank(s)) ? s : StringUtils.EMPTY;
 	}
-	
+
 	/**
 	 * @param s
 	 * @return
@@ -123,7 +124,7 @@ public class AppHelper {
 		}
 		return StringUtils.EMPTY;
 	}
-	
+
 	/**
 	 * @param data
 	 */
@@ -133,10 +134,9 @@ public class AppHelper {
 			oos.writeObject(data);
 		} catch (IOException e) {
 			LogWrapper.warn(log, e.getMessage());
-		} 
+		}
 	}
-	
-	
+
 	/**
 	 * @return
 	 */
@@ -147,6 +147,19 @@ public class AppHelper {
 		} catch (IOException | ClassNotFoundException e) {
 			LogWrapper.warn(log, e.getMessage());
 			return null;
-		} 
+		}
+	}
+
+	/**
+	 * @param input
+	 * @param charsetInput
+	 * @param charsetOutput
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public static String parseString(String input, String charsetInput, String charsetOutput)
+			throws UnsupportedEncodingException {
+		byte[] bytes = input.getBytes(charsetInput); // Get each char as single byte
+		return new String(bytes, charsetOutput); // Recreate String as charsetOutput
 	}
 }
