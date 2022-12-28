@@ -542,7 +542,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			String line = reader.readLine();
 
 			while (line != null) {
-				txtScript.append(line);
+				String linea = MDSQLAppHelper.parseString(line, "US-ASCII", "UTF-8");
+				txtScript.append(linea);
 				txtScript.append("\n");
 
 				line = reader.readLine();
@@ -597,6 +598,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				// abre un flujo de datos hacia el archivo asociado al documento actual
 				BufferedWriter bw = new BufferedWriter(new FileWriter(framePrincipal.getCurrentFile()));
 				// escribe desde el flujo de datos hacia el archivo
+				// TODO - hay que recodificar de UTF-8 a US-ASCII
 				framePrincipal.getTxtSQLCode().write(bw);
 				bw.close(); // cierra el flujo
 

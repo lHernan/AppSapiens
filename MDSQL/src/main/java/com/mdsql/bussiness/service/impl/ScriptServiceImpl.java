@@ -808,7 +808,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		try {
 			List<String> scriptLines = new ArrayList<>();
 			for (TextoLinea texto : textoLineaList) {
-				scriptLines.add(texto.getValor());
+				String linea = MDSQLAppHelper.parseString(texto.getValor(), "US-ASCII", "UTF-8");
+				scriptLines.add(linea);
 			}
 			Files.write(path, scriptLines, StandardCharsets.US_ASCII, StandardOpenOption.CREATE);
 		} catch (IOException e) {
