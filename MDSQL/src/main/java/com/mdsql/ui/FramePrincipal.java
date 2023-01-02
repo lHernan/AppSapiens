@@ -623,7 +623,7 @@ public class FramePrincipal extends FrameSupport {
 
 	@Override
 	protected void initMenuBar() {
-		menuBar = new MainMenuBar();
+		menuBar = new MainMenuBar(this);
 	}
 
 	@Override

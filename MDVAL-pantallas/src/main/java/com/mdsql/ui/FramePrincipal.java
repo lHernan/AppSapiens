@@ -89,6 +89,15 @@ public class FramePrincipal extends javax.swing.JFrame {
         jInternalFrame8 = new javax.swing.JInternalFrame();
         jInternalFrame9 = new javax.swing.JInternalFrame();
         jInternalFrame10 = new javax.swing.JInternalFrame();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -463,6 +472,35 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
+        jMenu1.setText("Permisos");
+
+        jMenuItem1.setText("Permisos generales");
+        jMenu1.add(jMenuItem1);
+
+        jMenu3.setText("Permisos personalizados");
+
+        jMenuItem2.setText("Consulta de permisos");
+        jMenu3.add(jMenuItem2);
+
+        jMenuItem3.setText("Mantenimiento de permisos personalizados por modelo");
+        jMenu3.add(jMenuItem3);
+
+        jMenuItem4.setText("Generar permisos personalizados");
+        jMenu3.add(jMenuItem4);
+
+        jMenu1.add(jMenu3);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Variables");
+
+        jMenuItem5.setText("Variables");
+        jMenu2.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -533,6 +571,15 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrame7;
     private javax.swing.JInternalFrame jInternalFrame8;
     private javax.swing.JInternalFrame jInternalFrame9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;

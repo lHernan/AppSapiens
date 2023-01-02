@@ -3,10 +3,11 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdval.ui.utils.DialogSupport;
+import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
 
 /**
@@ -19,8 +20,11 @@ import com.mdval.ui.utils.UIHelper;
  */
 public class MenuListener implements ActionListener {
 	
-	public MenuListener() {
+	private FrameSupport frameParent;
+	
+	public MenuListener(FrameSupport frameParent) {
 		super();
+		this.frameParent = frameParent;
 	}
 
 	/**
@@ -29,7 +33,7 @@ public class MenuListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
-		JFrame frame = MDSQLUIHelper.createFrame(item.getActionCommand(), Boolean.FALSE);
-		UIHelper.show(frame);
+		DialogSupport dialog = MDSQLUIHelper.createDialog(frameParent, item.getActionCommand());
+		UIHelper.show(dialog);
 	}
 }

@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import com.mdsql.ui.listener.MenuListener;
 import com.mdsql.ui.utils.MenuSupport;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.FrameSupport;
 
 /**
  *
@@ -24,12 +25,19 @@ public class MainMenuBar extends MenuSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = -519829056044806094L;
+	
+	private FrameSupport frameParent;
 
     private JMenu mnuPermisos;
     private JMenu mnuVariables;
+    private JMenuItem mnuItemVariables;
     private JMenu mnuEntornos;
+    private JMenuItem mnuItemEntornos;
     private JMenu mnuNotasModelos;
-    private JMenu mnuConsultaHistoricoCambios;
+    private JMenuItem mnuItemNotasModelos;
+    private JMenu mnuConsultas;
+    private JMenuItem mnuConsultaHistoricoCambios;
+    private JMenuItem mnuConsultaPeticiones;
     private JMenu mnuScriptInicial;
     private JMenu mnuMantenimientoHistorico;
     
@@ -43,8 +51,9 @@ public class MainMenuBar extends MenuSupport {
     private JMenuItem mnuEjecucionScriptInicial;
     private JMenuItem mnuConfiguracionEntornosPrueba;
     
-    public MainMenuBar() {
+    public MainMenuBar(FrameSupport frameParent) {
         super();
+        this.frameParent = frameParent;
     }
 
 	/**
@@ -73,16 +82,28 @@ public class MainMenuBar extends MenuSupport {
         mnuPermisos.add(mnuPermisosPersonalizados);
         
         mnuEntornos = new JMenu();
-        mnuEntornos.setActionCommand(Constants.MNU_ENTORNOS); // NOI18N
+        mnuItemEntornos = new JMenuItem();
+        mnuItemEntornos.setActionCommand(Constants.MNU_ENTORNOS); // NOI18N
+        mnuEntornos.add(mnuItemEntornos);
         
         mnuVariables = new JMenu();
-        mnuVariables.setActionCommand(Constants.MNU_VARIABLES); // NOI18N
+        mnuItemVariables = new JMenuItem();
+        mnuItemVariables.setActionCommand(Constants.MNU_VARIABLES); // NOI18N
+        mnuVariables.add(mnuItemVariables);
         
         mnuNotasModelos = new JMenu();
-        mnuNotasModelos.setActionCommand(Constants.MNU_NOTAS_MODELOS); // NOI18N
+        mnuItemNotasModelos = new JMenuItem();
+        mnuItemNotasModelos.setActionCommand(Constants.MNU_NOTAS_MODELOS); // NOI18N
+        mnuNotasModelos.add(mnuItemNotasModelos);
         
-        mnuConsultaHistoricoCambios = new JMenu();
+        mnuConsultas = new JMenu();
+        mnuConsultaHistoricoCambios = new JMenuItem();
         mnuConsultaHistoricoCambios.setActionCommand(Constants.MNU_CONSULTA_HISTORICO_CAMBIOS); // NOI18N
+        mnuConsultas.add(mnuConsultaHistoricoCambios);
+        
+        mnuConsultaPeticiones = new JMenuItem();
+        mnuConsultaPeticiones.setActionCommand(Constants.MNU_CONSULTA_PETICIONES); // NOI18N
+        mnuConsultas.add(mnuConsultaPeticiones);
         
         mnuScriptInicial = new JMenu();
         mnuMantenimientoEntornosPruebas = new JMenuItem();
@@ -104,7 +125,7 @@ public class MainMenuBar extends MenuSupport {
         add(mnuEntornos);
         add(mnuVariables);
         add(mnuNotasModelos);
-        add(mnuConsultaHistoricoCambios);
+        add(mnuConsultas);
         add(mnuScriptInicial);
         add(mnuMantenimientoHistorico);
     }
@@ -120,9 +141,14 @@ public class MainMenuBar extends MenuSupport {
 		mnuMantenimientoPermisos.setText(literales.getLiteral("menu.permisos.personalizados.mantenimiento"));
 		mnuGenerarPermisos.setText(literales.getLiteral("menu.permisos.personalizados.generar"));
         mnuEntornos.setText(literales.getLiteral("menu.entornos"));
+        mnuItemEntornos.setText(literales.getLiteral("menu.entornos"));
         mnuVariables.setText(literales.getLiteral("menu.variables"));
+        mnuItemVariables.setText(literales.getLiteral("menu.variables"));
         mnuNotasModelos.setText(literales.getLiteral("menu.notasModelos"));
-        mnuConsultaHistoricoCambios.setText(literales.getLiteral("menu.consultaHistorico"));
+        mnuItemNotasModelos.setText(literales.getLiteral("menu.notasModelos"));
+        mnuConsultas.setText(literales.getLiteral("menu.consultas"));
+        mnuConsultaHistoricoCambios.setText(literales.getLiteral("menu.consultas.consultaHistorico"));
+        mnuConsultaPeticiones.setText(literales.getLiteral("menu.consultas.consultaPeticiones"));
         mnuScriptInicial.setText(literales.getLiteral("menu.scriptInicial"));
         mnuMantenimientoEntornosPruebas.setText(literales.getLiteral("menu.scriptInicial.mantenimientoEntornos"));
         mnuEjecucionScriptInicial.setText(literales.getLiteral("menu.scriptInicial.ejecucionScript"));
@@ -134,7 +160,7 @@ public class MainMenuBar extends MenuSupport {
 	 *
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new MenuListener();
+		ActionListener actionListener = new MenuListener(frameParent);
 		
 		mnuPermisosGenerales.addActionListener(actionListener);
 		
@@ -142,10 +168,11 @@ public class MainMenuBar extends MenuSupport {
 		mnuMantenimientoPermisos.addActionListener(actionListener);
 		mnuGenerarPermisos.addActionListener(actionListener);
         
-		mnuEntornos.addActionListener(actionListener);
-        mnuVariables.addActionListener(actionListener);
-        mnuNotasModelos.addActionListener(actionListener);
+		mnuItemEntornos.addActionListener(actionListener);
+        mnuItemVariables.addActionListener(actionListener);
+        mnuItemNotasModelos.addActionListener(actionListener);
         mnuConsultaHistoricoCambios.addActionListener(actionListener);
+        mnuConsultaPeticiones.addActionListener(actionListener);
         
         mnuMantenimientoEntornosPruebas.addActionListener(actionListener);
         mnuEjecucionScriptInicial.addActionListener(actionListener);

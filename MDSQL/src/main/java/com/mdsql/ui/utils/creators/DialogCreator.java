@@ -7,9 +7,11 @@ import com.mdsql.ui.DlgExcepcion;
 import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.PantallaBuscadorFicheros;
+import com.mdsql.ui.PantallaConsultaPeticiones;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaEjecutarTypes;
+import com.mdsql.ui.PantallaHistoricoCambios;
 import com.mdsql.ui.PantallaInformacionModelo;
 import com.mdsql.ui.PantallaProcesadoEnCurso;
 import com.mdsql.ui.PantallaProcesarScript;
@@ -126,6 +128,14 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_INFORMACION_MODELO.equals(option)) {
 			dialog = new PantallaInformacionModelo(frameParent, modal, params);
+		}
+		
+		if (Constants.MNU_CONSULTA_HISTORICO_CAMBIOS.equals(option)) {
+			dialog = new PantallaHistoricoCambios(frameParent, modal, params);
+		}
+		
+		if (Constants.MNU_CONSULTA_PETICIONES.equals(option)) {
+			dialog = new PantallaConsultaPeticiones(frameParent, modal, params);
 		}
 		
 		return dialog;
