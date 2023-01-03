@@ -106,9 +106,12 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		MDSQLUIHelper.show(dlgRechazar);
 
 		proceso = (Proceso) dlgRechazar.getReturnParams().get("proceso");
-		pantallaEjecutarScripts.getReturnParams().put("proceso", proceso);
-		pantallaEjecutarScripts.getReturnParams().put("estado", "RECHAZADO");
-		pantallaEjecutarScripts.dispose();
+		
+		if ("Rechazado".equals(proceso.getDescripcionEstadoProceso())) {
+			pantallaEjecutarScripts.getReturnParams().put("proceso", proceso);
+			pantallaEjecutarScripts.getReturnParams().put("estado", "RECHAZADO");
+			pantallaEjecutarScripts.dispose();
+		}
 	}
 
 	private void eventBtnVerLog() {
