@@ -118,7 +118,7 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 			List<Script> scripts = proceso.getScripts();
 			String ruta = proceso.getRutaTrabajo();
 
-			if (CollectionUtils.isNotEmpty(scripts)) {
+			if (StringUtils.isNotBlank(ruta) && CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
 					String nombreFile = script.getNombreScript();
 					File f = new File(ruta.concat(nombreFile));

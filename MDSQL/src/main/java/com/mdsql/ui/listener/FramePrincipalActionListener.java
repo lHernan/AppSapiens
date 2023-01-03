@@ -287,15 +287,25 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtLoadScript() {
-		if (confirmSave()) {
-			actionSave();
-		}
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Proceso proceso = session.getProceso();
 
-		resetFramePrincipal(null);
-
-		File file = loadScript();
-		if (!Objects.isNull(file)) {
-			loadFileInFramePrincipal(file);
+		if (!Objects.isNull(proceso)) {
+			// Aviso de que no hay procesado en curso
+			JOptionPane.showMessageDialog(framePrincipal,
+					"Ya hay un procesado en curso. Debe finalizarlo o rechazarlo pulsando sobre Ejecutar script");
+		} else {
+		
+			if (confirmSave()) {
+				actionSave();
+			}
+	
+			resetFramePrincipal(null);
+	
+			File file = loadScript();
+			if (!Objects.isNull(file)) {
+				loadFileInFramePrincipal(file);
+			}
 		}
 	}
 
