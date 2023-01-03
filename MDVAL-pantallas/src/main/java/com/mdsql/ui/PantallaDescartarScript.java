@@ -29,13 +29,13 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAbrirScriptProcesar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtScriptProcesar = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        btnAbrirScriptProcesar1 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        btnAbrirScriptParche = new javax.swing.JButton();
+        txtScriptParche = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -50,9 +50,10 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
 
         btnAbrirScriptProcesar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtScriptProcesar.setEditable(false);
+        txtScriptProcesar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtScriptProcesarActionPerformed(evt);
             }
         });
 
@@ -74,16 +75,17 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
             }
         });
 
-        btnAbrirScriptProcesar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
-        btnAbrirScriptProcesar1.addActionListener(new java.awt.event.ActionListener() {
+        btnAbrirScriptParche.setIcon(new javax.swing.ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
+        btnAbrirScriptParche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirScriptProcesar1ActionPerformed(evt);
+                btnAbrirScriptParcheActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtScriptParche.setEditable(false);
+        txtScriptParche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtScriptParcheActionPerformed(evt);
             }
         });
 
@@ -101,9 +103,9 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(125, 125, 125)
-                        .addComponent(btnAbrirScriptProcesar1)
+                        .addComponent(btnAbrirScriptParche)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2)))
+                        .addComponent(txtScriptParche)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -116,9 +118,9 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAbrirScriptProcesar1)
+                        .addComponent(btnAbrirScriptParche)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField2))
+                    .addComponent(txtScriptParche))
                 .addContainerGap())
         );
 
@@ -156,7 +158,7 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(btnAbrirScriptProcesar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1)))
+                        .addComponent(txtScriptProcesar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -168,7 +170,7 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(btnAbrirScriptProcesar)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtScriptProcesar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -176,7 +178,7 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
@@ -187,17 +189,17 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAbrirScriptProcesar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirScriptProcesar1ActionPerformed
+    private void btnAbrirScriptParcheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirScriptParcheActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAbrirScriptProcesar1ActionPerformed
+    }//GEN-LAST:event_btnAbrirScriptParcheActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtScriptProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtScriptProcesarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtScriptProcesarActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtScriptParcheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtScriptParcheActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtScriptParcheActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
@@ -243,8 +245,8 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbrirScriptParche;
     private javax.swing.JButton btnAbrirScriptProcesar;
-    private javax.swing.JButton btnAbrirScriptProcesar1;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
@@ -256,7 +258,7 @@ public class PantallaDescartarScript extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtScriptParche;
+    private javax.swing.JTextField txtScriptProcesar;
     // End of variables declaration//GEN-END:variables
 }
