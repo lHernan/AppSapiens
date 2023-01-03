@@ -86,6 +86,8 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 	}
 
 	/**
+	 * Borra los scripts lanza si se han generado
+	 * 
 	 * @param proceso
 	 */
 	private void borrarScriptsLanza(Proceso proceso) {
@@ -93,7 +95,7 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 		List<Script> scripts = proceso.getScripts();
 		String ruta = proceso.getRutaTrabajo();
 
-		if (CollectionUtils.isNotEmpty(scripts)) {
+		if (StringUtils.isNotBlank(ruta) && CollectionUtils.isNotEmpty(scripts)) {
 			for (Script script : scripts) {
 				String lanzaFile = StringUtils.EMPTY;
 
