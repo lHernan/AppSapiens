@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
-import javax.swing.JButton;
+import javax.swing.AbstractButton;
 
 import com.mdsql.bussiness.entities.InputDescartarScript;
 import com.mdsql.bussiness.entities.OutputDescartarScript;
@@ -18,22 +18,25 @@ import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 
-public class PantallaDescartarScriptListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
+public class PantallaDescartarScriptListener extends ListenerSupport implements ActionListener {
 
 	private PantallaDescartarScript pantallaDescartarScript;
 	
 	public PantallaDescartarScriptListener(PantallaDescartarScript pantallaDescartarScript) {
-		super();
 		this.pantallaDescartarScript = pantallaDescartarScript;
-	}
-
-	public void addObservador(Observer o) {
-		this.addObserver(o);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton jButton = (JButton) e.getSource();
+		AbstractButton jButton = (AbstractButton) e.getSource();
+		
+		if (Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PROCESAR.equals(jButton.getActionCommand())) {
+			
+		}
+		
+		if (Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PARCHE.equals(jButton.getActionCommand())) {
+			
+		}
 		
 		if (Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			aceptar();
@@ -43,8 +46,27 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 			cancelar();
 		}
 		
+		if (Constants.PANTALLA_DESCARTAR_SCRIPT_RBTN_REDUCIR.equals(jButton.getActionCommand())) {
+			enableLoadParche(Boolean.FALSE);
+		}
+		
+		if (Constants.PANTALLA_DESCARTAR_SCRIPT_RBTN_AMPLIAR.equals(jButton.getActionCommand())) {
+			enableLoadParche(Boolean.TRUE);
+		}
+		
 	}
 
+	/**
+	 * @param value
+	 */
+	private void enableLoadParche(Boolean value) {
+		pantallaDescartarScript.getBtnAbrirScriptParche().setEnabled(value);
+		pantallaDescartarScript.getTxtScriptParche().setEnabled(value);
+	}
+
+	/**
+	 * 
+	 */
 	private void aceptar() {
 		try {
 			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
@@ -63,17 +85,5 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 	
 	private void cancelar() {
 		pantallaDescartarScript.dispose();
-	}
-	
-	@Override
-	public void update(Observable o, Object cmd) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onLoad() {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -4,9 +4,14 @@
  */
 package com.mdsql.ui;
 
+import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,22 +19,27 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.border.LineBorder;
 
 import com.mdsql.ui.listener.PantallaDescartarScriptListener;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+
+import lombok.Getter;
 
 /**
  *
  * @author USUARIO1
  */
-public class PantallaDescartarScript extends FrameSupport {
+public class PantallaDescartarScript extends DialogSupport {
 
     private static final long serialVersionUID = 1L;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnAbrirScriptProcesar;
-    private JButton btnAbrirScriptProcesar1;
+    
     private JButton btnAceptar;
     private JButton btnCancelar;
     private JLabel jLabel1;
@@ -37,15 +47,23 @@ public class PantallaDescartarScript extends FrameSupport {
     private JLabel jLabel3;
     private JLabel jLabel4;
     private JPanel jPanel1;
-    private JRadioButton jRadioButton1;
-    private JRadioButton jRadioButton2;
+    private JRadioButton rbtnReducir;
+    private JRadioButton rbtnAmpliar;
     private JScrollPane jScrollPane1;
-    private JTextArea jTextArea1;
-    private JTextField jTextField1;
-    private JTextField jTextField2;
+    
+    @Getter
+    private JTextField txtScriptProcesar;
+    
+    @Getter
+    private JButton btnAbrirScriptParche;
+    
+    @Getter
+    private JTextField txtScriptParche;
+    
+    @Getter
+    private JTextArea txtComentario;
     // End of variables declaration//GEN-END:variables
     
-    private PantallaDescartarScriptListener pantallaDescartarScriptListener;
     
     public PantallaDescartarScript(FrameSupport parent, Boolean modal) {
         super(parent, modal);
@@ -57,122 +75,149 @@ public class PantallaDescartarScript extends FrameSupport {
     
     @Override
    	protected void setupComponents() {
-    	jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnAbrirScriptProcesar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        btnAbrirScriptProcesar1 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        btnAceptar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        btnAbrirScriptProcesar = new JButton();
+        txtScriptProcesar = new JTextField();
+        jLabel3 = new JLabel();
+        jPanel1 = new JPanel();
+        rbtnReducir = new JRadioButton();
+        rbtnAmpliar = new JRadioButton();
+        btnAbrirScriptParche = new JButton();
+        txtScriptParche = new JTextField();
+        jLabel4 = new JLabel();
+        jScrollPane1 = new JScrollPane();
+        txtComentario = new JTextArea();
+        btnAceptar = new JButton();
+        btnCancelar = new JButton();
+
+        setBounds(954, 462);
+
+        btnAbrirScriptProcesar.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
+
+        txtScriptProcesar.setEditable(false);
         
-        GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setBorder(BorderFactory.createTitledBorder(new LineBorder(new Color(0, 0, 0), 1, true)));
+
+        btnAbrirScriptParche.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
+
+        txtScriptParche.setEditable(false);
+
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton1)))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnAmpliar)
+                            .addComponent(rbtnReducir))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(125, 125, 125)
-                        .addComponent(btnAbrirScriptProcesar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2)))
-                .addGap(107, 107, 107))
+                        .addComponent(btnAbrirScriptParche)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtScriptParche)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAbrirScriptProcesar1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(rbtnReducir)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbtnAmpliar)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAbrirScriptParche)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtScriptParche))
+                .addContainerGap())
         );
-        GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+
+        txtComentario.setColumns(20);
+        txtComentario.setRows(5);
+        jScrollPane1.setViewportView(txtComentario);
+
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAceptar)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(23, 23, 23))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(35, 35, 35)
                         .addComponent(btnAbrirScriptProcesar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)))
-                .addGap(145, 145, 145))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAceptar)
-                .addGap(18, 18, 18)
-                .addComponent(btnCancelar)
-                .addGap(431, 431, 431))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtScriptProcesar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(btnAbrirScriptProcesar)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtScriptProcesar, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }
     
     @Override
    	protected void initEvents() {
-    	pantallaDescartarScriptListener = new PantallaDescartarScriptListener(this);
+    	ActionListener pantallaDescartarScriptListener = new PantallaDescartarScriptListener(this);
     	
+    	btnAbrirScriptProcesar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PROCESAR);
+    	btnAbrirScriptParche.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PARCHE);
+    	rbtnReducir.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_RBTN_REDUCIR);
+    	rbtnAmpliar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_RBTN_AMPLIAR);
     	btnAceptar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ACEPTAR);
     	btnCancelar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_CANCELAR);
     	
+    	btnAbrirScriptProcesar.addActionListener(pantallaDescartarScriptListener);
+    	btnAbrirScriptParche.addActionListener(pantallaDescartarScriptListener);
     	btnAceptar.addActionListener(pantallaDescartarScriptListener);
     	btnCancelar.addActionListener(pantallaDescartarScriptListener);
     	
-    	this.addOnLoadListener(pantallaDescartarScriptListener);
+    	// Group the radioButtons
+    	ButtonGroup group = new ButtonGroup();
+        group.add(rbtnReducir);
+        group.add(rbtnAmpliar);
+        
+        rbtnReducir.addActionListener(pantallaDescartarScriptListener);
+        rbtnAmpliar.addActionListener(pantallaDescartarScriptListener);
     }
     
     @Override
@@ -181,7 +226,11 @@ public class PantallaDescartarScript extends FrameSupport {
     }
        
     @Override
-    protected void initialState() {}
+    protected void initialState() {
+    	rbtnReducir.setSelected(Boolean.TRUE);
+    	btnAbrirScriptParche.setEnabled(Boolean.FALSE);
+    	txtScriptParche.setEnabled(Boolean.FALSE);
+    }
 
     @Override
     protected void setupLiterals() {
@@ -189,17 +238,11 @@ public class PantallaDescartarScript extends FrameSupport {
     	
     	jLabel1.setText(literales.getLiteral("PantallaDescartarScript.label1"));
         jLabel2.setText(literales.getLiteral("PantallaDescartarScript.label2"));
-        btnAbrirScriptProcesar.setText(literales.getLiteral("PantallaDescartarScript.abrirScriptProcesar1"));
         jLabel3.setText(literales.getLiteral("PantallaDescartarScript.label3"));
-        jRadioButton1.setText(literales.getLiteral("PantallaDescartarScript.radioButton1"));
-        jRadioButton2.setText(literales.getLiteral("PantallaDescartarScript.radioButton2"));
-        btnAbrirScriptProcesar1.setText(literales.getLiteral("PantallaDescartarScript.abrirScriptProcesar2"));
+        rbtnReducir.setText(literales.getLiteral("PantallaDescartarScript.radioButton1"));
+        rbtnAmpliar.setText(literales.getLiteral("PantallaDescartarScript.radioButton2"));
         jLabel4.setText(literales.getLiteral("PantallaDescartarScript.label4"));
         btnAceptar.setText(literales.getLiteral("PantallaDescartarScript.aceptar"));
         btnCancelar.setText(literales.getLiteral("PantallaDescartarScript.cancelar"));
     }
-    
-    @Override
-	protected void initMenuBar() {}
-   
 }

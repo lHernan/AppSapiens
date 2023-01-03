@@ -8,6 +8,7 @@ import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaConsultaPeticiones;
+import com.mdsql.ui.PantallaDescartarScript;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.PantallaEjecutarTypes;
@@ -108,6 +109,10 @@ public class DialogCreator extends Creator {
 		
 		if (Constants.CMD_REPARAR_SCRIPT.equals(option)) {
 			dialog = new PantallaRepararScript(frameParent, modal, params);
+		}
+		
+		if (Constants.CMD_DESCARTAR_SCRIPT.equals(option)) {
+			dialog = new PantallaDescartarScript(frameParent, modal, params);
 		}
 		
 		if (Constants.CMD_EXCEPCION_SCRIPT.equals(option)) {
