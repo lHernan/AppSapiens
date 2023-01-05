@@ -36,6 +36,7 @@ public class PantallaAjustarLogEjecucion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(950, 400));
+        setPreferredSize(new java.awt.Dimension(1300, 500));
 
         jLabel1.setText("Si alguna de las sentencias ejecutadas correctamente se han eliminado del script procesado una vez ejecutado, se pueden eliminar del cuadre de objetos desde esta pantalla");
 
@@ -51,6 +52,19 @@ public class PantallaAjustarLogEjecucion extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tblAjustarLog);
+        if (tblAjustarLog.getColumnModel().getColumnCount() > 0) {
+            tblAjustarLog.getColumnModel().getColumn(0).setPreferredWidth(500);
+            tblAjustarLog.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(5).setPreferredWidth(200);
+            tblAjustarLog.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(7).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(8).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(9).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(10).setPreferredWidth(500);
+        }
 
         jLabel2.setText("Comentario");
 
@@ -78,7 +92,7 @@ public class PantallaAjustarLogEjecucion extends javax.swing.JFrame {
                                 .addComponent(txtComentario))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 367, Short.MAX_VALUE))
                             .addComponent(jScrollPane1))))
                 .addGap(15, 15, 15))
         );

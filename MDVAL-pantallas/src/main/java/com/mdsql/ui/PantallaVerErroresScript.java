@@ -35,7 +35,7 @@ public class PantallaVerErroresScript extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1500, 600));
-        setPreferredSize(new java.awt.Dimension(1500, 600));
+        setPreferredSize(new java.awt.Dimension(1700, 600));
 
         tblErroresScript.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -49,6 +49,15 @@ public class PantallaVerErroresScript extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tblErroresScript);
+        if (tblErroresScript.getColumnModel().getColumnCount() > 0) {
+            tblErroresScript.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblErroresScript.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblErroresScript.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblErroresScript.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblErroresScript.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tblErroresScript.getColumnModel().getColumn(5).setPreferredWidth(350);
+            tblErroresScript.getColumnModel().getColumn(6).setPreferredWidth(800);
+        }
 
         tblParches.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -62,6 +71,16 @@ public class PantallaVerErroresScript extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(tblParches);
+        if (tblParches.getColumnModel().getColumnCount() > 0) {
+            tblParches.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblParches.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(6).setPreferredWidth(350);
+            tblParches.getColumnModel().getColumn(7).setPreferredWidth(500);
+        }
 
         jLabel1.setText("Parches asociados");
 
@@ -85,7 +104,7 @@ public class PantallaVerErroresScript extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCancelar))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1279, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
