@@ -10,7 +10,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
-import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaDetalleScriptListener;
 import com.mdsql.ui.model.DetalleScriptTableModel;
@@ -95,10 +94,7 @@ public class PantallaDetalleScript extends DialogSupport {
     @Override
 	protected void initModels() {
     	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_DETALLE_SCRIPT_TABLA_CABECERA);
-    	TableModel detalleScriptTableModel = new DetalleScriptTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
-    
-    	tblDetalle.setModel(detalleScriptTableModel);
-    	tblDetalle.setColumnWidths(cabecera);
+    	tblDetalle.setModel(new DetalleScriptTableModel(cabecera));
     }
     
     @Override

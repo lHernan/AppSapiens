@@ -346,16 +346,16 @@ public class PantallaResumenProcesado extends DialogSupport {
 	@Override
 	protected void initModels() {
 		Cabecera cabeceraScripts = MDSQLUIHelper.createCabeceraTabla(Constants.RESUMEN_PROCESADO_SCRIPTS_TABLA_CABECERA);
-		tblScripts.setModel(
-				new ResumenProcesadoScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses()));
+		tblScripts.initModel(
+				new ResumenProcesadoScriptsTableModel(cabeceraScripts));
 		
 		Cabecera cabeceraOperaciones = MDSQLUIHelper.createCabeceraTabla(Constants.RESUMEN_PROCESADO_OPERACIONES_TABLA_CABECERA);
-		tblOperaciones.setModel(
-				new ResumenProcesadoOperacionesTableModel(cabeceraOperaciones.getColumnIdentifiers(), cabeceraOperaciones.getColumnClasses()));
+		tblOperaciones.initModel(
+				new ResumenProcesadoOperacionesTableModel(cabeceraOperaciones));
 		
 		Cabecera cabeceraObjetos = MDSQLUIHelper.createCabeceraTabla(Constants.RESUMEN_PROCESADO_OBJETOS_TABLA_CABECERA);
-		tblObjetos.setModel(
-				new ResumenProcesadoObjetosTableModel(cabeceraObjetos.getColumnIdentifiers(), cabeceraObjetos.getColumnClasses()));
+		tblObjetos.initModel(
+				new ResumenProcesadoObjetosTableModel(cabeceraObjetos));
 	}
 
 	@Override

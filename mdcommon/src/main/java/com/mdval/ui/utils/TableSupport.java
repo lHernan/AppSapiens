@@ -7,6 +7,7 @@ import javax.swing.JTable;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
 /**
@@ -32,6 +33,24 @@ public class TableSupport extends JTable {
 		
 		if (!isAutoresized) {
 			setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		}
+	}
+	
+	public void initModel(DefaultTableModel<?> tableModel) {
+		this.setModel(tableModel);
+		
+		List<Integer> widths = tableModel.getCabecera().getColumnSizes();
+		
+		if (CollectionUtils.isNotEmpty(widths)) {
+	        for (int i = 0; i < widths.size(); i++) {
+	            if (i < columnModel.getColumnCount()) {
+	            	Integer width = widths.get(i);
+	            	if (!Objects.isNull(width)) {
+	            		columnModel.getColumn(i).setPreferredWidth(width);
+	            	}
+	            }
+	            else break;
+	        }
 		}
 	}
 	

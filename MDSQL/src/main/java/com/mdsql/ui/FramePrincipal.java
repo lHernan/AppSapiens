@@ -23,7 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
@@ -44,6 +43,7 @@ import com.mdsql.utils.Constants;
 import com.mdsql.utils.Constants.Procesado;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -196,7 +196,7 @@ public class FramePrincipal extends FrameSupport {
 	private JTextArea txtLanzaPDCH;
 	
 	@Getter
-	private JTable jTable1;
+	private TableSupport jTable1;
 
 	/**
 	 * Creates new form Principal
@@ -265,7 +265,7 @@ public class FramePrincipal extends FrameSupport {
         panelTypes = new JPanel();
         jInternalFrame6 = new JInternalFrame();
         jScrollPane2 = new JScrollPane();
-        jTable1 = new JTable();
+        jTable1 = new TableSupport();
         jInternalFrame7 = new JInternalFrame();
         jInternalFrame8 = new JInternalFrame();
         jInternalFrame9 = new JInternalFrame();
@@ -687,7 +687,7 @@ public class FramePrincipal extends FrameSupport {
 	@Override
 	protected void initModels() {
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.FRAME_PRINCIPAL_TYPES_TABLA_CABECERA);
-		jTable1.setModel(new FramePrincipalTypesTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		jTable1.initModel(new FramePrincipalTypesTableModel(cabecera));
 	}
 
 	@Override

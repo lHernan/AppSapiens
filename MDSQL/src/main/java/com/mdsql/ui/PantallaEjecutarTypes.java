@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.table.TableModel;
 
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.ui.listener.PantallaEjecutarTypesActionListener;
@@ -251,9 +250,8 @@ public class PantallaEjecutarTypes extends DialogSupport {
     
     @Override
     protected void initModels() {
-    	Cabecera cabeceraTypes = MDSQLUIHelper.createCabeceraTabla(Constants.TYPES_TABLA_CABECERA);
-		TableModel typesTableModel = new TypesTableModel(cabeceraTypes.getColumnIdentifiers(), cabeceraTypes.getColumnClasses());
-		tblTypes.setModel(typesTableModel);
+    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.TYPES_TABLA_CABECERA);
+		tblTypes.initModel(new TypesTableModel(cabecera));
     }
     
     @Override

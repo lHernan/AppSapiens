@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.table.TableModel;
 
 import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.Proceso;
@@ -392,21 +391,16 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		cmbBBDD.setModel(bbddModel);
 		cmbBBDD.setRenderer(new BBDDRenderer());
 		
-		Cabecera cabeceraScripts = MDSQLUIHelper.createCabeceraTabla(Constants.SCRIPTS_TABLA_CABECERA);
-		TableModel vigenteTableModel = new ScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses());
-		TableModel historicoTableModel = new ScriptsTableModel(cabeceraScripts.getColumnIdentifiers(), cabeceraScripts.getColumnClasses());
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.SCRIPTS_TABLA_CABECERA);
 		
 		// Hay que escuchar por cambios en el modelo, ya que se van a marcar / desmarcar los checks
-		tblVigente.setModel(vigenteTableModel);
+		tblVigente.initModel(new ScriptsTableModel(cabecera));
 		tblVigente.getModel().addTableModelListener(new VigenteScriptsTableModelListener(this));
-		tblHistorico.setModel(historicoTableModel);
+		tblHistorico.initModel(new ScriptsTableModel(cabecera));
 		tblHistorico.getModel().addTableModelListener(new HistoricoScriptsTableModelListener(this));
 		
 		tblVigente.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
 		tblHistorico.setDefaultRenderer(String.class, new ScriptTableCellRenderer());
-		
-		tblVigente.setColumnWidths(cabeceraScripts);
-		tblHistorico.setColumnWidths(cabeceraScripts);
 	}
 
 	@Override

@@ -6,13 +6,10 @@ package com.mdsql.ui;
 
 import java.util.Map;
 
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaConsultaPeticionesListener;
 import com.mdsql.ui.model.ConsultaPeticionesTableModel;
@@ -21,6 +18,7 @@ import com.mdsql.utils.Constants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
 
@@ -47,7 +45,7 @@ public class PantallaConsultaPeticiones extends DialogSupport {
     private JScrollPane jScrollPane1;
     
     @Getter
-    private JTable tblPericiones;
+    private TableSupport tblPeticiones;
     
     private JTextField txtDesde;
     private JTextField txtEstado;
@@ -89,7 +87,7 @@ public class PantallaConsultaPeticiones extends DialogSupport {
         txtHasta = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPericiones = new javax.swing.JTable();
+        tblPeticiones = new TableSupport();
         btnCargar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         
@@ -203,9 +201,7 @@ public class PantallaConsultaPeticiones extends DialogSupport {
     @Override
    	protected void initModels() {
     	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_CONSULTA_PETICIONES_TABLA_CABECERA);
-    	TableModel consultaPeticionesTableModel = new ConsultaPeticionesTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
-    	
-    	tblPericiones.setModel(consultaPeticionesTableModel);
+    	tblPeticiones.initModel(new ConsultaPeticionesTableModel(cabecera));
     }
       
     @Override

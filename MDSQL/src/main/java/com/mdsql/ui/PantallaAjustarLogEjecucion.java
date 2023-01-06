@@ -11,12 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaAjustarLogEjecucionListener;
 import com.mdsql.ui.model.AjustarLogEjecucionTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -128,10 +128,7 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
     @Override
 	protected void initModels() {
     	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA);
-    	TableModel ajustarLogEjecucion = new AjustarLogEjecucionTableModel(cabecera);
-    	
-    	tblAjustarLog.setModel(ajustarLogEjecucion);
-    	tblAjustarLog.setColumnWidths(cabecera);
+    	tblAjustarLog.initModel(new AjustarLogEjecucionTableModel(cabecera));
     }
     
     @Override

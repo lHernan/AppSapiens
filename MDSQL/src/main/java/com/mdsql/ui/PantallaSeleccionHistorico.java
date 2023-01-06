@@ -5,12 +5,10 @@
  */
 package com.mdsql.ui;
 
-import java.awt.Dimension;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableColumn;
 
@@ -124,10 +122,8 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
 	@Override
 	protected void initModels() {
-		SeleccionHistoricoTableModel model;
-
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.SELECCION_HISTORICO_TABLA_CABECERA);
-		model = new SeleccionHistoricoTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
+		SeleccionHistoricoTableModel model = new SeleccionHistoricoTableModel(cabecera);
 		tblHistorico.setModel(model);
 		tblHistorico.setColumnWidths(cabecera);
 		

@@ -6,13 +6,9 @@ package com.mdsql.ui;
 
 import java.util.Map;
 
-import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
-import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaInformacionModeloListener;
 import com.mdsql.ui.model.InformacionModeloTableModel;
@@ -102,12 +98,9 @@ public class PantallaInformacionModelo extends DialogSupport {
     @Override
 	protected void initModels() {
     	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_INFORMACION_MODELO_TABLA_CABECERA);
-    	TableModel informacionModeloTableModel = new InformacionModeloTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
     	
-    	tblInformacion.setModel(informacionModeloTableModel);
+    	tblInformacion.initModel(new InformacionModeloTableModel(cabecera));
     	tblInformacion.setDefaultRenderer(String.class, new NivelAvisosTableCellRenderer());
-    	
-    	tblInformacion.setColumnWidths(cabecera);
     }
     
     @Override

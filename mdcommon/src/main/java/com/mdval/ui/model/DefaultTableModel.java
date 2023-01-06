@@ -25,6 +25,9 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 	@Getter
 	protected List<T> data;
 	
+	@Getter
+	protected Cabecera cabecera;
+	
 	private final List<String> columnNames;
 	private final List<Class<?>> columnClasses ;
 	
@@ -34,6 +37,7 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 	 */
 	public DefaultTableModel(Cabecera cabecera) {
 		this.data = new ArrayList<>();
+		this.cabecera = cabecera;
 		this.columnNames = cabecera.getColumnIdentifiers();
 		this.columnClasses = cabecera.getColumnClasses();
 	}

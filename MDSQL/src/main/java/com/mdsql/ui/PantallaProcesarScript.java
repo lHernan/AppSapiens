@@ -400,17 +400,13 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
 		cmbBBDD.setRenderer(new BBDDRenderer());
 		
 		Cabecera cabeceraNotas = MDSQLUIHelper.createCabeceraTabla(Constants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA);
-		tblNotas.setModel(
-				new ProcesarScriptNotaTableModel(cabeceraNotas.getColumnIdentifiers(), cabeceraNotas.getColumnClasses()));
+		tblNotas.initModel(
+				new ProcesarScriptNotaTableModel(cabeceraNotas));
 		tblNotas.setDefaultRenderer(String.class, new NivelAvisosTableCellRenderer());
 		
 		Cabecera cabeceraUltimasPeticiones = MDSQLUIHelper
 				.createCabeceraTabla(Constants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA);
-		tblUltimasPeticiones.setModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraUltimasPeticiones.getColumnIdentifiers(),
-				cabeceraUltimasPeticiones.getColumnClasses()));
-		
-		tblNotas.setColumnWidths(cabeceraNotas);
-		tblUltimasPeticiones.setColumnWidths(cabeceraUltimasPeticiones);
+		tblUltimasPeticiones.initModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraUltimasPeticiones));
 	}
 
 	@SuppressWarnings("unchecked")

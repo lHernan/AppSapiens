@@ -198,7 +198,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
 	@Override
 	protected void initModels() {
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_SELECCION_MODELOS_TABLA_CABECERA);
-		tblModelos.setModel(new SeleccionModelosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblModelos.initModel(new SeleccionModelosTableModel(cabecera));
 	}
 
 	@Override
