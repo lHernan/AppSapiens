@@ -30,7 +30,7 @@ import lombok.Getter;
  */
 public class PantallaVerErroresScript extends DialogSupport {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnCancelar;
@@ -61,47 +61,67 @@ public class PantallaVerErroresScript extends DialogSupport {
         tblParches = new TableSupport(Boolean.FALSE);
         jLabel1 = new JLabel();
         btnCancelar = new JButton();
+    	
+        Dimension dimension = new Dimension(1700, 600);
+        setMinimumSize(dimension);
+        setPreferredSize(dimension);
         
-        setBounds(1500, 600);
-
         jScrollPane1.setViewportView(tblErroresScript);
-
+        if (tblErroresScript.getColumnModel().getColumnCount() > 0) {
+            tblErroresScript.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblErroresScript.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblErroresScript.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblErroresScript.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblErroresScript.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tblErroresScript.getColumnModel().getColumn(5).setPreferredWidth(350);
+            tblErroresScript.getColumnModel().getColumn(6).setPreferredWidth(800);
+        }
         jScrollPane2.setViewportView(tblParches);
-
-        GroupLayout layout = new GroupLayout(getContentPane());
+        if (tblParches.getColumnModel().getColumnCount() > 0) {
+            tblParches.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblParches.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(6).setPreferredWidth(350);
+            tblParches.getColumnModel().getColumn(7).setPreferredWidth(500);
+        }
+        
+        GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnCancelar))
-                            .addComponent(jScrollPane2, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING))
-                        .addContainerGap())))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancelar))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1279, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar)
                 .addContainerGap())
         );
+
+        pack();
     }
-    
+	
     @Override
 	protected void initEvents() {
 		PantallaVerErroresScriptListener actionListener = new PantallaVerErroresScriptListener(this);

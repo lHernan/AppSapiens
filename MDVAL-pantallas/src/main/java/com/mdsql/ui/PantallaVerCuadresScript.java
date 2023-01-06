@@ -36,7 +36,7 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 400));
-        setPreferredSize(new java.awt.Dimension(1200, 400));
+        setPreferredSize(new java.awt.Dimension(1400, 400));
 
         tblOperaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,6 +58,12 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblOperaciones);
+        if (tblOperaciones.getColumnModel().getColumnCount() > 0) {
+            tblOperaciones.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tblOperaciones.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblOperaciones.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblOperaciones.getColumnModel().getColumn(3).setPreferredWidth(500);
+        }
 
         tblObjetos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -71,6 +77,13 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(tblObjetos);
+        if (tblObjetos.getColumnModel().getColumnCount() > 0) {
+            tblObjetos.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tblObjetos.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblObjetos.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblObjetos.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblObjetos.getColumnModel().getColumn(4).setPreferredWidth(500);
+        }
 
         jLabel1.setText("Operaciones");
 
@@ -95,11 +108,11 @@ public class PantallaVerCuadresScript extends javax.swing.JFrame {
                         .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
                             .addComponent(jLabel2))))
                 .addContainerGap())
         );

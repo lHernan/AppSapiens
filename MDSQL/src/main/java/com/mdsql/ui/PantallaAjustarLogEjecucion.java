@@ -24,13 +24,14 @@ import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
+
 /**
  *
  * @author USUARIO1
  */
 public class PantallaAjustarLogEjecucion extends DialogSupport {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnCancelar;
@@ -61,55 +62,72 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
         jLabel2 = new JLabel();
         txtComentario = new JTextField();
         btnEliminar = new JButton();
-        btnCancelar = new JButton();       
+        btnCancelar = new JButton();
         
-        setBounds(950, 400);
+        Dimension dimension = new Dimension(1300, 500);
+        setMinimumSize(dimension);
+        setPreferredSize(dimension);
         
         jScrollPane1.setViewportView(tblAjustarLog);
+        if (tblAjustarLog.getColumnModel().getColumnCount() > 0) {
+            tblAjustarLog.getColumnModel().getColumn(0).setPreferredWidth(500);
+            tblAjustarLog.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(5).setPreferredWidth(200);
+            tblAjustarLog.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(7).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(8).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(9).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(10).setPreferredWidth(500);
+        }
         
-        GroupLayout layout = new GroupLayout(getContentPane());
+        GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(39, 39, 39)
                                 .addComponent(txtComentario))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 23, Short.MAX_VALUE))
+                                .addGap(0, 367, Short.MAX_VALUE))
                             .addComponent(jScrollPane1))))
                 .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtComentario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtComentario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
                     .addComponent(btnCancelar))
                 .addGap(15, 15, 15))
         );
+
+        pack();
    	}
-    
+	
    	@Override
    	protected void initEvents() {
    		PantallaAjustarLogEjecucionListener pantallaAjustarLogEjecucionListener = new PantallaAjustarLogEjecucionListener(this);
