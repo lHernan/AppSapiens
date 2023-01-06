@@ -829,19 +829,19 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				// read next line
 				TextoLinea textoLinea = TextoLinea.builder().valor(line).build();
 				logLinesList.add(textoLinea);
-				
+
 				line = reader.readLine();
 			}
 
 			reader.close();
-		} 
-		
+		}
+
 		return logLinesList;
 	}
 
 	@Override
-	public void excepcionScript(Proceso proceso, Script script, String txtMotivoExcepcion, String codUsr)
-			throws ServiceException {
+	public OutputExcepcionScript excepcionScript(Proceso proceso, Script script, String txtMotivoExcepcion,
+			String codUsr) throws ServiceException {
 		String runSP = createCall("p_excepcion_script", Constants.CALL_10_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
@@ -869,6 +869,19 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			if (result == 0) {
 				throw buildException(callableStatement.getArray(10));
 			}
+
+			BigDecimal codigoEstadoProceso = callableStatement.getBigDecimal(5);
+			String descripcionEstadoProceso = callableStatement.getString(6);
+			BigDecimal codigoEstadoScript = callableStatement.getBigDecimal(7);
+			String descripcionEstadoScript = callableStatement.getString(8);
+
+			OutputExcepcionScript outputExcepcionScript = OutputExcepcionScript.builder()
+					.codigoEstadoProceso(codigoEstadoProceso).descripcionEstadoProceso(descripcionEstadoProceso)
+					.codigoEstadoScript(codigoEstadoScript)
+					.descripcionEstadoScript(descripcionEstadoScript)
+					.build();
+
+			return outputExcepcionScript;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ProcesoService.rechazarProcesado] Error:  %s", e.getMessage());
 			throw new ServiceException(e);

@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JButton;
 
@@ -213,6 +214,16 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		DlgExcepcion dlgExcepcion = (DlgExcepcion) MDSQLUIHelper.createDialog(pantallaEjecutarScripts.getFrameParent(),
 				Constants.CMD_EXCEPCION_SCRIPT, params);
 		MDSQLUIHelper.show(dlgExcepcion);
+		
+		Map<String, Object> returnParams = dlgExcepcion.getReturnParams();
+		if (!Objects.isNull(returnParams.get("estadoScript"))) {
+			String estado = (String) returnParams.get("estadoScript");
+			List<Script> vigentes = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
+			CollectionUtils.forAllDo(vigentes, new UpdateScriptsClosure(seleccionado.getNumeroOrden(), estado));
+			
+			// Repinta la tabla vigente
+			pantallaEjecutarScripts.getTblVigente().repaint();
+		}
 	}
 
 	@SuppressWarnings("unchecked")

@@ -34,6 +34,6 @@ public interface ScriptService {
 
     List<DetObjeto> detalleObjetosScripts(BigDecimal idProceso, BigDecimal numeroOrden);
 
-	void excepcionScript(Proceso proceso, Script script, String txtMotivoExcepcion, String codUsr) throws ServiceException;
+    OutputExcepcionScript excepcionScript(Proceso proceso, Script script, String txtMotivoExcepcion, String codUsr) throws ServiceException;
 
 }

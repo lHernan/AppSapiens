@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
+import com.mdsql.bussiness.entities.OutputExcepcionScript;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
@@ -47,7 +48,9 @@ public class DlgExcepcionListener extends ListenerSupport implements ActionListe
 			Proceso proceso = (Proceso) dlgExcepcion.getParams().get("proceso");
 			Script script = (Script) dlgExcepcion.getParams().get("script");
 			String txtMotivoExcepcion = dlgExcepcion.getTxtMotivoExcepcion().getText();
-			scriptService.excepcionScript(proceso, script, txtMotivoExcepcion, session.getCodUsr());
+			OutputExcepcionScript outputExcepcionScript = scriptService.excepcionScript(proceso, script, txtMotivoExcepcion, session.getCodUsr());
+			
+			dlgExcepcion.getReturnParams().put("estadoScript", outputExcepcionScript.getDescripcionEstadoScript());
 			
 			dlgExcepcion.dispose();
 			
