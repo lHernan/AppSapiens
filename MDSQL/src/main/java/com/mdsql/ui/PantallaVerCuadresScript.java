@@ -10,7 +10,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle;
 
 import com.mdsql.ui.listener.PantallaVerCuadresScriptListener;
 import com.mdsql.ui.model.CuadresObjetosTableModel;
@@ -65,9 +64,7 @@ public class PantallaVerCuadresScript extends DialogSupport {
         btnCancelar = new JButton();
         jLabel2 = new JLabel();
         
-        Dimension dimension = new Dimension(1400, 400);
-        setMinimumSize(dimension);
-        setPreferredSize(dimension);
+        setBounds(1400, 400);
 
         jScrollPane1.setViewportView(tblOperaciones);
         if (tblOperaciones.getColumnModel().getColumnCount() > 0) {

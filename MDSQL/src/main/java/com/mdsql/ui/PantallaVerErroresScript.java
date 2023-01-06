@@ -10,7 +10,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle;
 
 import com.mdsql.ui.listener.PantallaVerErroresScriptListener;
 import com.mdsql.ui.model.VerErroresScriptTableModel;
@@ -62,9 +61,7 @@ public class PantallaVerErroresScript extends DialogSupport {
         jLabel1 = new JLabel();
         btnCancelar = new JButton();
     	
-        Dimension dimension = new Dimension(1700, 600);
-        setMinimumSize(dimension);
-        setPreferredSize(dimension);
+        setBounds(1700, 600);
         
         jScrollPane1.setViewportView(tblErroresScript);
         if (tblErroresScript.getColumnModel().getColumnCount() > 0) {

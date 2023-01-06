@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
 import javax.swing.table.TableModel;
 
 import com.mdsql.ui.listener.PantallaAjustarLogEjecucionListener;
@@ -64,9 +63,7 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
         btnEliminar = new JButton();
         btnCancelar = new JButton();
         
-        Dimension dimension = new Dimension(1300, 500);
-        setMinimumSize(dimension);
-        setPreferredSize(dimension);
+        setBounds(1300, 500);
         
         jScrollPane1.setViewportView(tblAjustarLog);
         if (tblAjustarLog.getColumnModel().getColumnCount() > 0) {
