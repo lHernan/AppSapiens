@@ -18,5 +18,10 @@ public class TablaCuadresOperacionesCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
+		
+		columnSizes.add(200);
+		columnSizes.add(120);
+		columnSizes.add(120);
+		columnSizes.add(500);
 	}
 }

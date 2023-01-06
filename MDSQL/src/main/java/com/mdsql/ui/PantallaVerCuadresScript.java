@@ -67,20 +67,7 @@ public class PantallaVerCuadresScript extends DialogSupport {
         setBounds(1400, 400);
 
         jScrollPane1.setViewportView(tblOperaciones);
-        if (tblOperaciones.getColumnModel().getColumnCount() > 0) {
-            tblOperaciones.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tblOperaciones.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tblOperaciones.getColumnModel().getColumn(2).setPreferredWidth(120);
-            tblOperaciones.getColumnModel().getColumn(3).setPreferredWidth(500);
-        }
         jScrollPane2.setViewportView(tblObjetos);
-        if (tblObjetos.getColumnModel().getColumnCount() > 0) {
-            tblObjetos.getColumnModel().getColumn(0).setPreferredWidth(300);
-            tblObjetos.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tblObjetos.getColumnModel().getColumn(2).setPreferredWidth(120);
-            tblObjetos.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tblObjetos.getColumnModel().getColumn(4).setPreferredWidth(500);
-        }
         
         GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,9 +123,11 @@ public class PantallaVerCuadresScript extends DialogSupport {
 	protected void initModels() {
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_CUADRES_OPERACIONES_TABLA_CABECERA);
 		tblOperaciones.setModel(new CuadresOperacionesTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblOperaciones.setColumnWidths(cabecera);
 		
 		cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_CUADRES_OBJETOS_TABLA_CABECERA);
 		tblObjetos.setModel(new CuadresObjetosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblObjetos.setColumnWidths(cabecera);
 	}	
     
     @Override
