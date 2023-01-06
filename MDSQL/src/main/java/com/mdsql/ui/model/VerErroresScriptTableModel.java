@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.ErrorScript;
 import com.mdval.ui.model.DefaultTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 public class VerErroresScriptTableModel extends DefaultTableModel<ErrorScript> {
 	
@@ -12,6 +13,13 @@ public class VerErroresScriptTableModel extends DefaultTableModel<ErrorScript> {
 	 * 
 	 */
 	private static final long serialVersionUID = -5715520235047183111L;
+	
+	/**
+	 * @param cabecera
+	 */
+	public VerErroresScriptTableModel(Cabecera cabecera) {
+		super(cabecera);
+	}
 
 	/**
 	 * @param columnNames

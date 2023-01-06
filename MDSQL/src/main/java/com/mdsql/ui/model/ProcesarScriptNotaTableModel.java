@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdval.ui.model.DefaultTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 /**
  * @author federico
@@ -15,6 +16,13 @@ public class ProcesarScriptNotaTableModel extends DefaultTableModel<Aviso> {
 	 * 
 	 */
 	private static final long serialVersionUID = -4191724356955356391L;
+	
+	/**
+	 * @param cabecera
+	 */
+	public ProcesarScriptNotaTableModel(Cabecera cabecera) {
+		super(cabecera);
+	}
 
 	/**
 	 * @param columnNames

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.ScriptParche;
 import com.mdval.ui.model.DefaultTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 public class VerParchesScriptTableModel extends DefaultTableModel<ScriptParche> {
 	
@@ -12,6 +13,13 @@ public class VerParchesScriptTableModel extends DefaultTableModel<ScriptParche> 
 	 * 
 	 */
 	private static final long serialVersionUID = -5715520235047183111L;
+	
+	/**
+	 * @param cabecera
+	 */
+	public VerParchesScriptTableModel(Cabecera cabecera) {
+		super(cabecera);
+	}
 
 	/**
 	 * @param columnNames

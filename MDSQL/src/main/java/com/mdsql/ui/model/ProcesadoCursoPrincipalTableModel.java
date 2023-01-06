@@ -4,8 +4,21 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdval.ui.model.DefaultTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 public class ProcesadoCursoPrincipalTableModel extends DefaultTableModel<Aviso> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3636892590687425699L;
+	
+	/**
+	 * @param cabecera
+	 */
+	public ProcesadoCursoPrincipalTableModel(Cabecera cabecera) {
+		super(cabecera);
+	}
 
 	/**
 	 * @param columnNames

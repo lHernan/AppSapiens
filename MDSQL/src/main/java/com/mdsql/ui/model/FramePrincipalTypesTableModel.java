@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.Type;
 import com.mdval.ui.model.DefaultTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 public class FramePrincipalTypesTableModel extends DefaultTableModel<Type> {
 
@@ -11,6 +12,13 @@ public class FramePrincipalTypesTableModel extends DefaultTableModel<Type> {
 	 * 
 	 */
 	private static final long serialVersionUID = -8306918464859990294L;
+	
+	/**
+	 * @param cabecera
+	 */
+	public FramePrincipalTypesTableModel(Cabecera cabecera) {
+		super(cabecera);
+	}
 
 	/**
 	 * @param columnNames

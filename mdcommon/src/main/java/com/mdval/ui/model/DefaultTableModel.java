@@ -7,6 +7,8 @@ import javax.swing.table.AbstractTableModel;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.mdval.ui.model.cabeceras.Cabecera;
+
 import lombok.Getter;
 
 /**
@@ -25,6 +27,16 @@ public abstract class DefaultTableModel<T> extends AbstractTableModel {
 	
 	private final List<String> columnNames;
 	private final List<Class<?>> columnClasses ;
+	
+	
+	/**
+	 * @param cabecera
+	 */
+	public DefaultTableModel(Cabecera cabecera) {
+		this.data = new ArrayList<>();
+		this.columnNames = cabecera.getColumnIdentifiers();
+		this.columnClasses = cabecera.getColumnClasses();
+	}
 	
 	/**
 	 * @param columnNames

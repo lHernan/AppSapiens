@@ -3,8 +3,8 @@ package com.mdsql.ui.model;
 import java.util.List;
 
 import com.mdsql.bussiness.entities.DetObjeto;
-import com.mdsql.bussiness.entities.Script;
 import com.mdval.ui.model.DefaultTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 public class InformacionModeloTableModel extends DefaultTableModel<DetObjeto> {
 
@@ -12,6 +12,13 @@ public class InformacionModeloTableModel extends DefaultTableModel<DetObjeto> {
 	 * 
 	 */
 	private static final long serialVersionUID = -8306918464859990294L;
+	
+	/**
+	 * @param cabecera
+	 */
+	public InformacionModeloTableModel(Cabecera cabecera) {
+		super(cabecera);
+	}
 
 	/**
 	 * @param columnNames

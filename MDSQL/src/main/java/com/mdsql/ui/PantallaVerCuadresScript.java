@@ -122,11 +122,11 @@ public class PantallaVerCuadresScript extends DialogSupport {
     @Override
 	protected void initModels() {
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_CUADRES_OPERACIONES_TABLA_CABECERA);
-		tblOperaciones.setModel(new CuadresOperacionesTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblOperaciones.setModel(new CuadresOperacionesTableModel(cabecera));
 		tblOperaciones.setColumnWidths(cabecera);
 		
 		cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_CUADRES_OBJETOS_TABLA_CABECERA);
-		tblObjetos.setModel(new CuadresObjetosTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses()));
+		tblObjetos.setModel(new CuadresObjetosTableModel(cabecera));
 		tblObjetos.setColumnWidths(cabecera);
 	}	
     

@@ -128,7 +128,7 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
     @Override
 	protected void initModels() {
     	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA);
-    	TableModel ajustarLogEjecucion = new AjustarLogEjecucionTableModel(cabecera.getColumnIdentifiers(), cabecera.getColumnClasses());
+    	TableModel ajustarLogEjecucion = new AjustarLogEjecucionTableModel(cabecera);
     	
     	tblAjustarLog.setModel(ajustarLogEjecucion);
     	tblAjustarLog.setColumnWidths(cabecera);

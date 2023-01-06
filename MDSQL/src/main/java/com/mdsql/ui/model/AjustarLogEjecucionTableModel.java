@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.LogEjecucion;
 import com.mdval.ui.model.DefaultTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 public class AjustarLogEjecucionTableModel extends DefaultTableModel<LogEjecucion> {
 
@@ -11,6 +12,13 @@ public class AjustarLogEjecucionTableModel extends DefaultTableModel<LogEjecucio
 	 * 
 	 */
 	private static final long serialVersionUID = -8306918464859990294L;
+	
+	/**
+	 * @param cabecera
+	 */
+	public AjustarLogEjecucionTableModel(Cabecera cabecera) {
+		super(cabecera);
+	}
 
 	/**
 	 * @param columnNames

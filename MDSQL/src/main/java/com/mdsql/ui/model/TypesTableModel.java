@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.Script;
 import com.mdval.ui.model.DefaultTableModel;
+import com.mdval.ui.model.cabeceras.Cabecera;
 
 public class TypesTableModel extends DefaultTableModel<Script> {
 
@@ -11,6 +12,13 @@ public class TypesTableModel extends DefaultTableModel<Script> {
 	 * 
 	 */
 	private static final long serialVersionUID = -8306918464859990294L;
+	
+	/**
+	 * @param cabecera
+	 */
+	public TypesTableModel(Cabecera cabecera) {
+		super(cabecera);
+	}
 
 	/**
 	 * @param columnNames
