@@ -161,6 +161,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				Map<String, Object> params = new HashMap<>();
 				params.put("codigoProyecto", seleccionado.getCodigoProyecto());
 				params.put("script", pantallaProcesarScript.getParams().get("script"));
+				params.put("codigoPeticion", pantallaProcesarScript.getTxtPeticion().getText());
 				
 				pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
 						Constants.CMD_SELECCION_HISTORICO, params);
