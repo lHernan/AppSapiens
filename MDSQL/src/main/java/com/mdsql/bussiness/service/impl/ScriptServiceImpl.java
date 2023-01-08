@@ -810,6 +810,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 //			}
 		}
 
+		// Si se fuerza la parada del proceso, se sale con error 137
 		int exitCode = process.waitFor();
 
 		LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
