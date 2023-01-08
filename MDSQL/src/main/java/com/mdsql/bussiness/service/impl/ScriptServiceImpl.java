@@ -321,12 +321,13 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 					String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
 					bbdd.setPassword(password);
+					
+					String logFile = ruta.concat(script.getNombreScriptLog());
 
 					// Ejecución del script
-					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile);
+					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile, logFile);
 
 					// Obtiene el log
-					String logFile = ruta.concat(script.getNombreScriptLog());
 					List<TextoLinea> logLinesList = readLogFile(logFile);
 
 					// Registra la ejecución
@@ -353,7 +354,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@SneakyThrows
-	private void ejecutarRepararScript(Boolean isReparacion, Boolean isSameScript,
+	private void ejecutarRepararScript(Script script, Boolean isReparacion, Boolean isSameScript,
 			OutputReparaScript outputReparaScript) {
 		// TODO return OutputRegistraEjecucion or OutputRegistraEjecucionParche
 		// separate?
@@ -366,13 +367,14 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				: bbdd.getNombreEsquemaHis();
 		String nombreBBDD = StringUtils.isNotBlank(bbdd.getNombreBBDD()) ? bbdd.getNombreBBDD()
 				: bbdd.getNombreBBDDHis();
+		
+		String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
+		writeFileFromList(Paths.get(lanzaFile), outputReparaScript.getScriptRepara());
+		String logFile = ruta.concat(script.getNombreScriptLog());
 
 		if (isReparacion.equals(Boolean.TRUE)) {
-			String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
-			writeFileFromList(Paths.get(lanzaFile), outputReparaScript.getScriptRepara());
-			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile);
-			// String logFile = ruta.concat(script.getNombreScriptLog()); TODO obtener
-			// nombreScript log
+			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile);
+			 
 			// List<TextoLinea> logLinesList = readLogFile(logFile);
 			// TODO replace Bidecimal.ZERO with idProceso
 			// TODO como se relaciona la listaScript con la listaScript old para obtener el
@@ -383,9 +385,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			// listOutputLogs.add(outputRegistraEjecucion);
 		}
 		if (isSameScript.equals(Boolean.TRUE)) {
-			String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
-			writeFileFromList(Paths.get(lanzaFile), outputReparaScript.getScriptRepara());
-			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile);
+			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile);
 			// String logFile = ruta.concat(script.getNombreScriptLog()); TODO obtener
 			// nombreScript log
 			// List<TextoLinea> logLinesList = readLogFile(logFile);
@@ -775,7 +775,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@SneakyThrows
-	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation) {
+	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation, String logFile) {
 		/**
 		 * FIXME - Si en Windows falla, descomentar las líneas comentadas y
 		 * quitar la opción "-L" en la creación de la instancia de ProcessBuilder
@@ -787,6 +787,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		
 //		Boolean invalidLogon = Boolean.FALSE;
 
+		List<TextoLinea> logLines = new ArrayList<>();
+		
 		processBuilder.redirectErrorStream(true);
 		Process process = processBuilder.start();
 
@@ -795,8 +797,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Inicio Ejecucion fichero: %s", fileLocation);
 			while (((line = in.readLine()) != null)) {
+				String logLine = " ".concat(line);
 				
-				LogWrapper.debug(log, " ".concat(line));
+				TextoLinea textoLinea = TextoLinea.builder().valor(logLine).build();
+				logLines.add(textoLinea);
+				LogWrapper.debug(log, logLine);
 				
 				// Error de clave incorrecta
 //				if (line.contains("ORA-01017")) {
@@ -812,6 +817,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 		// Si se fuerza la parada del proceso, se sale con error 137
 		int exitCode = process.waitFor();
+		
+		// Si ha dado error, escribe el fichero de log
+		if (exitCode > 0) {
+			writeFileFromList(Paths.get(logFile), logLines);
+		}
 
 		LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
 	}
