@@ -92,7 +92,7 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 				.getTblModelos().getModel();
 		tableModel.setData(modelos);
 		
-		pantallaSeleccionModelos.getJScrollPane2().repaint();
+		pantallaSeleccionModelos.getTblModelos().repaint();
 	}
 
 	@Override
