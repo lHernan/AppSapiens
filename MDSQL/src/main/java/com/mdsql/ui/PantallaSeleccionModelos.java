@@ -100,7 +100,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
            btnSeleccionar = new JButton();
            lblTitulo = new JLabel();
            
-           setBounds(1350, 500);
+           setBounds(1550, 500);
            
            jScrollPane2.setViewportView(tblModelos);
            

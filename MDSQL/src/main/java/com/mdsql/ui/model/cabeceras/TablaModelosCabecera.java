@@ -34,5 +34,18 @@ public class TablaModelosCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
+		
+		columnSizes.add(100);
+		columnSizes.add(350);
+		columnSizes.add(150);
+		columnSizes.add(150);
+		columnSizes.add(250);
+		columnSizes.add(150);
+		columnSizes.add(150);
+		columnSizes.add(100);
+		columnSizes.add(100);
+		columnSizes.add(100);
+		columnSizes.add(150);
+		columnSizes.add(150);
 	}
 }

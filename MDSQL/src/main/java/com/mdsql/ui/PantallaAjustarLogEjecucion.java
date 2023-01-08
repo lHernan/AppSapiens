@@ -16,7 +16,6 @@ import com.mdsql.ui.listener.PantallaAjustarLogEjecucionListener;
 import com.mdsql.ui.model.AjustarLogEjecucionTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
-import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
