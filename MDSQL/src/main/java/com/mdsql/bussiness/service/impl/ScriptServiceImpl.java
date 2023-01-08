@@ -776,10 +776,16 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 	@SneakyThrows
 	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation) {
-
+		/**
+		 * FIXME - Si en Windows falla, descomentar las líneas comentadas y
+		 * quitar la opción "-L" en la creación de la instancia de ProcessBuilder
+		 */
+		
 		String connection = String.format(Constants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
-		ProcessBuilder processBuilder = new ProcessBuilder(Constants.SQL_PLUS, connection,
+		ProcessBuilder processBuilder = new ProcessBuilder(Constants.SQL_PLUS, "-L", connection,
 				String.format(Constants.FORMATO_FICHERO, fileLocation));
+		
+//		Boolean invalidLogon = Boolean.FALSE;
 
 		processBuilder.redirectErrorStream(true);
 		Process process = processBuilder.start();
@@ -789,8 +795,19 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Inicio Ejecucion fichero: %s", fileLocation);
 			while (((line = in.readLine()) != null)) {
+				
 				LogWrapper.debug(log, " ".concat(line));
+				
+				// Error de clave incorrecta
+//				if (line.contains("ORA-01017")) {
+//					invalidLogon = Boolean.TRUE;
+//					break;
+//				}
 			}
+			
+//			if (invalidLogon) {
+//				process.destroyForcibly();
+//			}
 		}
 
 		int exitCode = process.waitFor();
