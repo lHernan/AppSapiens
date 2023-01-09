@@ -11,8 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 
+import com.mdsql.bussiness.entities.LogEjecucion;
 import com.mdsql.ui.listener.PantallaAjustarLogEjecucionListener;
+import com.mdsql.ui.listener.tables.PantallaAjustarLogTableListener;
 import com.mdsql.ui.model.AjustarLogEjecucionTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
@@ -22,6 +26,7 @@ import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -33,6 +38,8 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnCancelar;
+    
+    @Getter
     private JButton btnEliminar;
     private JLabel jLabel1;
     private JLabel jLabel2;
@@ -41,8 +48,13 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
     @Getter
     private TableSupport tblAjustarLog;
     
+    @Getter
     private JTextField txtComentario;
     // End of variables declaration//GEN-END:variables
+ 
+    @Getter
+    @Setter
+    private LogEjecucion seleccionado;
     
    	public PantallaAjustarLogEjecucion(FrameSupport parent, Boolean modal) {
    		super(parent, modal);
@@ -114,6 +126,7 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
    	@Override
    	protected void initEvents() {
    		PantallaAjustarLogEjecucionListener pantallaAjustarLogEjecucionListener = new PantallaAjustarLogEjecucionListener(this);
+   		ListSelectionListener listSelectionListener = new PantallaAjustarLogTableListener(this);
    	
    		btnEliminar.setActionCommand(Constants.PANTALLA_AJUSTAR_LOG_EJECUCION_ELIMINAR);
    		btnCancelar.setActionCommand(Constants.PANTALLA_AJUSTAR_LOG_EJECUCION_CANCELAR);
@@ -122,6 +135,9 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
    		btnCancelar.addActionListener(pantallaAjustarLogEjecucionListener);
    		
    		this.addOnLoadListener(pantallaAjustarLogEjecucionListener);
+   		
+   		ListSelectionModel rowSM = tblAjustarLog.getSelectionModel();
+		rowSM.addListSelectionListener(listSelectionListener);
     }
     
     @Override
@@ -134,9 +150,10 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
    	protected void initialState() {
     	Boolean consulta = (Boolean) this.getParams().get("consulta");
     	
+    	btnEliminar.setEnabled(Boolean.FALSE);
+    	
     	if (consulta) {
     		txtComentario.setEnabled(Boolean.FALSE);
-    		btnEliminar.setEnabled(Boolean.FALSE);
     	}
     }
 
