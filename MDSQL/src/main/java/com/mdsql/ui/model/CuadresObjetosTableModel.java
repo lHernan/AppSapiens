@@ -2,7 +2,7 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.Objeto;
+import com.mdsql.bussiness.entities.CuadreObjeto;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
@@ -10,7 +10,7 @@ import com.mdval.ui.model.cabeceras.Cabecera;
  * @author federico
  *
  */
-public class CuadresObjetosTableModel extends DefaultTableModel<Objeto> {
+public class CuadresObjetosTableModel extends DefaultTableModel<CuadreObjeto> {
 
 	/**
 	 * 
@@ -37,12 +37,24 @@ public class CuadresObjetosTableModel extends DefaultTableModel<Objeto> {
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public CuadresObjetosTableModel(List<Objeto> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public CuadresObjetosTableModel(List<CuadreObjeto> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Objeto row = data.get(rowIndex);
+		CuadreObjeto row = data.get(rowIndex);
+		
+		if (columnIndex == 0) {
+			return row.getNombreObjeto();
+		} else if (1 == columnIndex) {
+			return row.getTipoObjeto();
+		} else if (2 == columnIndex) {
+			return row.getTipoAccion();
+		} else if (3 == columnIndex) {
+			return row.getNumeroOperacionBBDD();
+		} else if (4 == columnIndex) {
+			return row.getNumeroOperacionScript();
+		} 
 		
 		return null;
 	}

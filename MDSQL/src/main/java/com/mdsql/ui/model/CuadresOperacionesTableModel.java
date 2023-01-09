@@ -2,7 +2,7 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.Operacion;
+import com.mdsql.bussiness.entities.CuadreOperacion;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
@@ -10,7 +10,7 @@ import com.mdval.ui.model.cabeceras.Cabecera;
  * @author federico
  *
  */
-public class CuadresOperacionesTableModel extends DefaultTableModel<Operacion> {
+public class CuadresOperacionesTableModel extends DefaultTableModel<CuadreOperacion> {
 
 	/**
 	 * 
@@ -37,12 +37,22 @@ public class CuadresOperacionesTableModel extends DefaultTableModel<Operacion> {
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public CuadresOperacionesTableModel(List<Operacion> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public CuadresOperacionesTableModel(List<CuadreOperacion> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Operacion row = data.get(rowIndex);
+		CuadreOperacion row = data.get(rowIndex);
+		
+		if (columnIndex == 0) {
+			return row.getTipoObjeto();
+		} else if (1 == columnIndex) {
+			return row.getTipoAccion();
+		} else if (2 == columnIndex) {
+			return row.getNumeroOperacionBBDD();
+		} else if (3 == columnIndex) {
+			return row.getNumeroOperacionScript();
+		} 
 		
 		return null;
 	}
