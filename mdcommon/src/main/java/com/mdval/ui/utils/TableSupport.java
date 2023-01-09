@@ -21,6 +21,9 @@ public class TableSupport extends JTable {
 	 */
 	private static final long serialVersionUID = 2528825112240587759L;
 	
+	/**
+	 * 
+	 */
 	public TableSupport() {
 		super();
 	}
@@ -36,22 +39,13 @@ public class TableSupport extends JTable {
 		}
 	}
 	
+	/**
+	 * @param tableModel
+	 */
 	public void initModel(DefaultTableModel<?> tableModel) {
 		this.setModel(tableModel);
 		
-		List<Integer> widths = tableModel.getCabecera().getColumnSizes();
-		
-		if (CollectionUtils.isNotEmpty(widths)) {
-	        for (int i = 0; i < widths.size(); i++) {
-	            if (i < columnModel.getColumnCount()) {
-	            	Integer width = widths.get(i);
-	            	if (!Objects.isNull(width)) {
-	            		columnModel.getColumn(i).setPreferredWidth(width);
-	            	}
-	            }
-	            else break;
-	        }
-		}
+		setColumnWidths(tableModel.getCabecera());
 	}
 	
 	/**
