@@ -48,19 +48,19 @@ public class DetalleScriptTableModel extends DefaultTableModel<DetObjeto> {
 		} else if (2 == columnIndex) {
 			return row.getTipoObjetoPadre();
 		} else if (3 == columnIndex) {
-			return row.getTipoAccion();
+			return row.getTipoAccionPadre();
 		} else if (4 == columnIndex) {
 			return row.getNombreObjeto();
 		} else if (5 == columnIndex) {
 			return row.getTipoObjeto();
 		} else if (6 == columnIndex) {
-			return row.getTipoAccionPadre();
+			return row.getTipoAccion();
 		} else if (7 == columnIndex) {
 			return row.getTipoDato();
 		} else if (8 == columnIndex) {
-			return row.getNumeroDecimal();
-		} else if (9 == columnIndex) {
 			return row.getNumeroLongitud();
+		} else if (9 == columnIndex) {
+			return row.getNumeroDecimal();
 		}
 
 		return null;
