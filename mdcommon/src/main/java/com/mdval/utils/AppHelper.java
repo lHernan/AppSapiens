@@ -1,12 +1,17 @@
 package com.mdval.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -157,9 +162,23 @@ public class AppHelper {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public static String parseString(String input, String charsetInput, String charsetOutput)
-			throws UnsupportedEncodingException {
-		byte[] bytes = input.getBytes(charsetInput); // Get each char as single byte
-		return new String(bytes, charsetOutput); // Recreate String as charsetOutput
+	public static String parseString(String input, Charset charsetInput, Charset charsetOutput)
+			throws IOException {
+		
+		ByteArrayInputStream bis = new ByteArrayInputStream(input.getBytes());
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		
+		try (InputStreamReader in = new InputStreamReader(bis, charsetInput);
+				OutputStreamWriter out = new OutputStreamWriter(bos, charsetOutput)) {
+			int c = in.read();
+
+			while (c != -1) {
+				out.write(c);
+				c = in.read();
+			}
+		} 
+		
+		String s = new String(bos.toByteArray(), charsetOutput); 
+		return s;
 	}
 }
