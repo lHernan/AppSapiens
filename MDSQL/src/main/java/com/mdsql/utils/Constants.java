@@ -1,6 +1,8 @@
 package com.mdsql.utils;
 
 import java.awt.Color;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import lombok.Getter;
 
@@ -9,6 +11,8 @@ import lombok.Getter;
  *
  */
 public class Constants {
+	
+	public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
 	/**
 	 * App globals

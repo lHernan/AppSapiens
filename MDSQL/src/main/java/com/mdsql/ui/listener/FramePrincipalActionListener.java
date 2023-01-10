@@ -2,12 +2,16 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
+import org.apache.any23.encoding.TikaEncodingDetector;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -547,17 +552,57 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * @param txtScript
 	 */
 	private void dumpContentToText(File file, JTextArea txtScript) throws IOException {
-		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+		// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
+		Charset charset = null;
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		
+		try (InputStream is = new FileInputStream(file)) {
+			charset = Charset.forName(new TikaEncodingDetector().guessEncoding(is));
+			LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
+			session.setFileCharset(charset);
+		} catch (IOException e) {
+			throw e;
+		}
 
-			String line = reader.readLine();
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		
+		try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), charset);
+				OutputStreamWriter out = new OutputStreamWriter(bos, Constants.DEFAULT_CHARSET)) {
+			int c = in.read();
 
-			while (line != null) {
-				String linea = MDSQLAppHelper.parseString(line, "US-ASCII", "UTF-8");
-				txtScript.append(linea);
-				txtScript.append("\n");
-
-				line = reader.readLine();
+			while (c != -1) {
+				out.write(c);
+				c = in.read();
 			}
+		} catch (IOException e) {
+			throw e;
+		}
+		
+		byte[] bytes = bos.toByteArray();
+		String s = new String(bytes);
+		
+		txtScript.setText(s);
+	}
+	
+	/**
+	 * @param file
+	 * @param txtScript
+	 */
+	private void dumpTextToFile(JTextArea txtScript, File file) throws IOException {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Charset charset = session.getFileCharset();
+		String content = txtScript.getText();
+		
+		try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(content.getBytes()), Constants.DEFAULT_CHARSET);
+				OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), charset)) {
+			int c = in.read();
+
+			while (c != -1) {
+				out.write(c);
+				c = in.read();
+			}
+		} catch (IOException e) {
+			throw e;
 		}
 	}
 
@@ -605,13 +650,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			actionSaveAs(); // invoca el método actionSaveAs()
 		} else if (framePrincipal.getHasChanged()) { // si el documento esta marcado como modificado
 			try {
-				// abre un flujo de datos hacia el archivo asociado al documento actual
-				BufferedWriter bw = new BufferedWriter(new FileWriter(framePrincipal.getCurrentFile()));
-				// escribe desde el flujo de datos hacia el archivo
-				// TODO - hay que recodificar de UTF-8 a US-ASCII
-				framePrincipal.getTxtSQLCode().write(bw);
-				bw.close(); // cierra el flujo
-
+				dumpTextToFile(framePrincipal.getTxtSQLCode(), framePrincipal.getCurrentFile());
+				
 				// marca el estado del documento como no modificado
 				framePrincipal.setHasChanged(Boolean.FALSE);
 
@@ -639,20 +679,16 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		// presenta un dialogo modal para que el usuario seleccione un archivo
 		int state = fc.showSaveDialog(framePrincipal);
 		if (state == JFileChooser.APPROVE_OPTION) { // si elige guardar en el archivo
-			File f = fc.getSelectedFile(); // obtiene el archivo seleccionado
+			File file = fc.getSelectedFile(); // obtiene el archivo seleccionado
 
 			try {
-				// abre un flujo de datos hacia el archivo asociado seleccionado
-				BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-				// escribe desde el flujo de datos hacia el archivo
-				framePrincipal.getTxtSQLCode().write(bw);
-				bw.close(); // cierra el flujo
+				dumpTextToFile(framePrincipal.getTxtSQLCode(), file);
 
 				// nuevo título de la ventana con el nombre del archivo guardado
-				framePrincipal.getFrmSQLScript().setTitle(f.getName());
+				framePrincipal.getFrmSQLScript().setTitle(file.getName());
 
 				// establece el archivo guardado como el archivo actual
-				framePrincipal.setCurrentFile(f);
+				framePrincipal.setCurrentFile(file);
 				// marca el estado del documento como no modificado
 				framePrincipal.setHasChanged(Boolean.FALSE);
 			} catch (IOException ex) { // en caso de que ocurra una excepción

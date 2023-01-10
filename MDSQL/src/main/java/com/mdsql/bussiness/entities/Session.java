@@ -1,6 +1,7 @@
 package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
 
 import com.mdsql.utils.Constants.Procesado;
 
@@ -29,4 +30,8 @@ public class Session implements Serializable {
 	@Getter
 	@Setter
 	private Procesado procesado;
+	
+	@Getter
+	@Setter
+	private Charset fileCharset;
 }

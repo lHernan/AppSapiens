@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -285,6 +286,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	public List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException {
 		try {
 			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			Charset charset = session.getFileCharset();
 			String selectedRoute = session.getSelectedRoute();
 			String ruta = selectedRoute.concat(FileSystems.getDefault().getSeparator());
 			String nombreEsquema = StringUtils.EMPTY;
@@ -299,7 +301,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 			if (CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
-					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript());
+					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(), charset);
 
 					/**
 					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
@@ -317,7 +319,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 					String lanzaFile = ruta.concat(script.getNombreScriptLanza());
 					writeFileFromString(Paths.get(lanzaFile),
-							script.getTxtScriptLanza().concat(System.lineSeparator()));
+							script.getTxtScriptLanza().concat(System.lineSeparator()), charset);
 
 					String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
 					bbdd.setPassword(password);
@@ -362,6 +364,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		String codigoUsuario = session.getCodUsr();
 		String ruta = session.getProceso().getRutaTrabajo();
+		Charset charset = session.getFileCharset();
 		BBDD bbdd = session.getProceso().getBbdd();
 		String nombreEsquema = StringUtils.isNotBlank(bbdd.getNombreEsquema()) ? bbdd.getNombreEsquema()
 				: bbdd.getNombreEsquemaHis();
@@ -369,7 +372,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				: bbdd.getNombreBBDDHis();
 		
 		String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
-		writeFileFromList(Paths.get(lanzaFile), outputReparaScript.getScriptRepara());
+		writeFileFromList(Paths.get(lanzaFile), outputReparaScript.getScriptRepara(), charset);
 		String logFile = ruta.concat(script.getNombreScriptLog());
 
 		if (isReparacion.equals(Boolean.TRUE)) {
@@ -820,23 +823,23 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		
 		// Si ha dado error, escribe el fichero de log
 		if (exitCode > 0) {
-			writeFileFromList(Paths.get(logFile), logLines);
+			writeFileFromList(Paths.get(logFile), logLines, Constants.DEFAULT_CHARSET);
 		}
 
 		LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
 	}
 
 	@SneakyThrows
-	private void writeFileFromString(Path path, String content) {
-		Files.write(path, content.getBytes(StandardCharsets.US_ASCII), StandardOpenOption.CREATE);
+	private void writeFileFromString(Path path, String content, Charset outputCharset) {
+		Files.write(path, content.getBytes(outputCharset), StandardOpenOption.CREATE);
 	}
 
 	@SneakyThrows(IOException.class)
-	private void writeFileFromList(Path path, List<TextoLinea> textoLineaList) {
+	private void writeFileFromList(Path path, List<TextoLinea> textoLineaList, Charset inputCharset) {
 		try {
 			List<String> scriptLines = new ArrayList<>();
 			for (TextoLinea texto : textoLineaList) {
-				String linea = MDSQLAppHelper.parseString(texto.getValor(), "US-ASCII", "UTF-8");
+				String linea = MDSQLAppHelper.parseString(texto.getValor(), inputCharset, Constants.DEFAULT_CHARSET);
 				scriptLines.add(linea);
 			}
 			Files.write(path, scriptLines, StandardCharsets.US_ASCII, StandardOpenOption.CREATE);
