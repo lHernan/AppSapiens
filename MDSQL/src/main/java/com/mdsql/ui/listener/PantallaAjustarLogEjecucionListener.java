@@ -8,8 +8,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
-import org.hibernate.service.spi.ServiceException;
-
+import com.mdsql.bussiness.entities.InputEliminaLog;
 import com.mdsql.bussiness.entities.LogEjecucion;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
@@ -19,6 +18,7 @@ import com.mdsql.ui.model.AjustarLogEjecucionTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 
 public class PantallaAjustarLogEjecucionListener extends ListenerSupport implements ActionListener, OnLoadListener {
@@ -35,7 +35,7 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 		JButton jButton = (JButton) e.getSource();
 
 		if (Constants.PANTALLA_AJUSTAR_LOG_EJECUCION_ELIMINAR.equals(jButton.getActionCommand())) {
-			eliminar();
+			eliminarEvt();
 		}
 		if (Constants.PANTALLA_AJUSTAR_LOG_EJECUCION_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaAjustarLogEjecucion.dispose();
@@ -43,31 +43,64 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 
 	}
 
-	private void eliminar() {
-		// TODO Auto-generated method stub
-
+	private void eliminarEvt() {
+		try {
+			eliminarRegistro();
+			
+			loadLogEjecucion();
+		} catch (ServiceException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaAjustarLogEjecucion.getFrameParent(), Constants.CMD_ERROR, params);
+		}
 	}
 
 	@Override
 	public void onLoad() {
 		try {
-			LogService logService = (LogService) getService(Constants.LOG_SERVICE);
-
-			Script script = (Script) pantallaAjustarLogEjecucion.getParams().get("script");
-			Proceso proceso = (Proceso) pantallaAjustarLogEjecucion.getParams().get("proceso");
-
-			BigDecimal idProceso = proceso.getIdProceso();
-			BigDecimal numeroOrden = script.getNumeroOrden();
-
-			List<LogEjecucion> logEjecucion = logService.logEjecucion(idProceso, numeroOrden);
-			
-			AjustarLogEjecucionTableModel tableModel = (AjustarLogEjecucionTableModel) pantallaAjustarLogEjecucion.getTblAjustarLog().getModel();
-			tableModel.setData(logEjecucion);
-			
+			loadLogEjecucion();
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaAjustarLogEjecucion.getFrameParent(), Constants.CMD_ERROR, params);
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void eliminarRegistro() throws ServiceException {
+		LogService logService = (LogService) getService(Constants.LOG_SERVICE);
+
+		LogEjecucion seleccionado = pantallaAjustarLogEjecucion.getSeleccionado();
+		
+		InputEliminaLog inputEliminaLog = new InputEliminaLog();
+		inputEliminaLog.setIdProceso(seleccionado.getIdProceso());
+		inputEliminaLog.setNumeroOrden(seleccionado.getNumeroOrden());
+		inputEliminaLog.setNumeroIteracion(seleccionado.getNumeroIteracion());
+		inputEliminaLog.setNumeroEjecucion(seleccionado.getNumeroEjecucion());
+		inputEliminaLog.setNumeroParche(seleccionado.getNumeroParche());
+		inputEliminaLog.setNumeroSentencia(seleccionado.getNumeroSentencia());
+		String comentario = pantallaAjustarLogEjecucion.getTxtComentario().getText();
+		inputEliminaLog.setTxtComentario(comentario);
+		
+		logService.eliminaLog(inputEliminaLog);
+	}
+
+	/**
+	 * 
+	 */
+	private void loadLogEjecucion() throws ServiceException {
+		LogService logService = (LogService) getService(Constants.LOG_SERVICE);
+
+		Script script = (Script) pantallaAjustarLogEjecucion.getParams().get("script");
+		Proceso proceso = (Proceso) pantallaAjustarLogEjecucion.getParams().get("proceso");
+
+		BigDecimal idProceso = proceso.getIdProceso();
+		BigDecimal numeroOrden = script.getNumeroOrden();
+
+		List<LogEjecucion> logEjecucion = logService.logEjecucion(idProceso, numeroOrden);
+		
+		AjustarLogEjecucionTableModel tableModel = (AjustarLogEjecucionTableModel) pantallaAjustarLogEjecucion.getTblAjustarLog().getModel();
+		tableModel.setData(logEjecucion);
 	}
 
 }

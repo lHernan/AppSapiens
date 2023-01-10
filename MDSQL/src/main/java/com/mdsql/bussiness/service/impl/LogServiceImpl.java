@@ -21,7 +21,6 @@ import com.mdsql.utils.Constants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -35,8 +34,7 @@ public class LogServiceImpl extends ServiceSupport implements LogService {
     private DataSource dataSource;
 
     @Override
-    @SneakyThrows
-    public List<LogEjecucion> logEjecucion(BigDecimal idProceso, BigDecimal numeroOrden) {
+    public List<LogEjecucion> logEjecucion(BigDecimal idProceso, BigDecimal numeroOrden) throws ServiceException {
         String runSP = createCall("p_log_ejecucion", Constants.CALL_05_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -94,8 +92,7 @@ public class LogServiceImpl extends ServiceSupport implements LogService {
     }
 
     @Override
-    @SneakyThrows
-    public void eliminaLog(InputEliminaLog inputEliminaLog) {
+    public void eliminaLog(InputEliminaLog inputEliminaLog) throws ServiceException {
         String runSP = createCall("p_elimina_log", Constants.CALL_09_ARGS);
 
         try (Connection conn = dataSource.getConnection();

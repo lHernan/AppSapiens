@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.InputEliminaLog;
 import com.mdsql.bussiness.entities.LogEjecucion;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno
@@ -16,11 +17,11 @@ public interface LogService {
      * @param numeroOrden
      * @return LogEjecucionList
      */
-    List<LogEjecucion> logEjecucion(BigDecimal idProceso, BigDecimal numeroOrden);
+    List<LogEjecucion> logEjecucion(BigDecimal idProceso, BigDecimal numeroOrden) throws ServiceException;
 
     /**
      * @param inputEliminaLog
      */
-    void eliminaLog(InputEliminaLog inputEliminaLog);
+    void eliminaLog(InputEliminaLog inputEliminaLog) throws ServiceException;
 
 }
