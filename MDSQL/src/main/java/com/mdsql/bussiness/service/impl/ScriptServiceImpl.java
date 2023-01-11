@@ -376,7 +376,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		String logFile = ruta.concat(script.getNombreScriptLog());
 
 		if (isReparacion.equals(Boolean.TRUE)) {
-			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile);
+			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile, charset);
 			 
 			// List<TextoLinea> logLinesList = readLogFile(logFile);
 			// TODO replace Bidecimal.ZERO with idProceso
@@ -388,7 +388,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			// listOutputLogs.add(outputRegistraEjecucion);
 		}
 		if (isSameScript.equals(Boolean.TRUE)) {
-			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile);
+			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile, charset);
 			// String logFile = ruta.concat(script.getNombreScriptLog()); TODO obtener
 			// nombreScript log
 			// List<TextoLinea> logLinesList = readLogFile(logFile);
@@ -778,7 +778,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@SneakyThrows
-	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation, String logFile) {
+	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation, String logFile, Charset charset) {
 		/**
 		 * FIXME - Si en Windows falla, descomentar las líneas comentadas y
 		 * quitar la opción "-L" en la creación de la instancia de ProcessBuilder
