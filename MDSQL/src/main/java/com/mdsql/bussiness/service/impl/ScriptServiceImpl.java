@@ -300,7 +300,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 			if (CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
-					//writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(), charset);
+					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(), charset);
 
 					/**
 					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
