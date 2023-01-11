@@ -327,7 +327,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					String logFile = ruta.concat(script.getNombreScriptLog());
 
 					// Ejecución del script
-					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile, logFile);
+					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile, logFile, charset);
 
 					// Obtiene el log
 					List<TextoLinea> logLinesList = readLogFile(logFile);
