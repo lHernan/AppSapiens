@@ -46,6 +46,7 @@ public class MDSQLApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		String version = System.getProperty("java.version");
 		LogWrapper.debug(log, "Java version: %s", version);
+		LogWrapper.debug(log, "Default charset for application: %s", Constants.DEFAULT_CHARSET.toString());
 
 		setupSpringContext();
 		setupUIEnvironment();

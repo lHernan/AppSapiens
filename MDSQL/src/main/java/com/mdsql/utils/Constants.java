@@ -12,8 +12,9 @@ import lombok.Getter;
  */
 public class Constants {
 	
-	//public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-	public static final Charset DEFAULT_CHARSET = Charset.forName("windows-1252");
+	public static final Charset CHARSET_UNX = StandardCharsets.UTF_8;
+	public static final Charset CHARSET_WIN = Charset.forName("windows-1252");
+	public static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
 
 	/**
 	 * App globals

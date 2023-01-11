@@ -547,7 +547,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		
-		Charset charset = MDSQLAppHelper.detectCharset(file);
+		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
 		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
 		session.setFileCharset(charset);
 

@@ -43,7 +43,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	public static Charset detectCharset(File file) throws IOException {
+	public static Charset detectCharsetFromFile(File file) throws IOException {
 		Charset charset = null;
 		try (InputStream is = new FileInputStream(file)) {
 			charset = Charset.forName(new TikaEncodingDetector().guessEncoding(is));
