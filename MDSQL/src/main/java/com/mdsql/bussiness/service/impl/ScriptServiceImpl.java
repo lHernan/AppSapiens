@@ -301,7 +301,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 			if (CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
-					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(), charset);
+					//writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(), charset);
 
 					/**
 					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
@@ -839,10 +839,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		try {
 			List<String> scriptLines = new ArrayList<>();
 			for (TextoLinea texto : textoLineaList) {
-				String linea = MDSQLAppHelper.parseString(texto.getValor(), inputCharset, Constants.DEFAULT_CHARSET);
-				scriptLines.add(linea);
+				scriptLines.add(texto.getValor());
 			}
-			Files.write(path, scriptLines, StandardCharsets.US_ASCII, StandardOpenOption.CREATE);
+			Files.write(path, scriptLines, inputCharset, StandardOpenOption.CREATE);
 		} catch (IOException e) {
 			LogWrapper.error(log, "[writeFileFromList] Error", e);
 			throw e;
