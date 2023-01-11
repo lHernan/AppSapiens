@@ -551,7 +551,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
 		session.setFileCharset(charset);
 
-		String s = MDSQLAppHelper.writeFileToText(file, charset, Constants.DEFAULT_CHARSET);
+		String s = MDSQLAppHelper.writeFileToString(file, charset, Constants.DEFAULT_CHARSET);
 		
 		txtScript.setText(s);
 	}

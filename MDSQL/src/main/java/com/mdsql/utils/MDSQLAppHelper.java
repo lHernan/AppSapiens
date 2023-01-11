@@ -81,7 +81,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String writeFileToText(File file, Charset inCharset, Charset outCharset) throws IOException {
+	public static String writeFileToString(File file, Charset inCharset, Charset outCharset) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
 		try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), inCharset);
