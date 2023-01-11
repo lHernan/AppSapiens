@@ -785,6 +785,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		 */
 		
 		String connection = String.format(Constants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
+		
+		/**
+		 * FIXME - El juego de caracteres a usar se establece mediante la variable de entorno NLS_LANG, 
+		 * por lo que habrá que habilitar la funcionalidad de environment en ProcessBuilder
+		 */
 		ProcessBuilder processBuilder = new ProcessBuilder(Constants.SQL_PLUS, "-L", connection,
 				String.format(Constants.FORMATO_FICHERO, fileLocation));
 		
