@@ -56,8 +56,8 @@
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="jComboBox2" max="32767" attributes="0"/>
-                                                  <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="cmbOperacion" max="32767" attributes="0"/>
+                                                  <Component id="cmbTipoObjeto" alignment="0" max="32767" attributes="0"/>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="txtModelo" min="-2" pref="139" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
@@ -84,10 +84,10 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jComboBox5" min="-2" pref="195" max="-2" attributes="0"/>
+                                  <Component id="cmbOperacionPadre" min="-2" pref="195" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jComboBox4" alignment="0" pref="195" max="32767" attributes="0"/>
-                                      <Component id="jComboBox3" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cmbTipoObjetoPadre" alignment="0" pref="195" max="32767" attributes="0"/>
+                                      <Component id="cmbEstadoScript" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="txtObjetoPadre" min="-2" pref="195" max="-2" attributes="0"/>
                               </Group>
@@ -107,7 +107,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jComboBox6" min="-2" pref="195" max="-2" attributes="0"/>
+                                  <Component id="cmbEstadoProcesado" min="-2" pref="195" max="-2" attributes="0"/>
                                   <Component id="txtDesde" alignment="1" min="-2" pref="195" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -133,14 +133,14 @@
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbEstadoScript" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jComboBox6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbEstadoProcesado" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -157,22 +157,22 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbTipoObjeto" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbTipoObjetoPadre" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbOperacion" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbOperacionPadre" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -234,40 +234,50 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tipo Objeto"/>
+        <Property name="text" type="java.lang.String" value="Operaci&#xf3;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="cmbTipoObjeto">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="15">
+            <StringItem index="0" value="Tabla"/>
+            <StringItem index="1" value="Columna"/>
+            <StringItem index="2" value="Comentario"/>
+            <StringItem index="3" value="Vista"/>
+            <StringItem index="4" value="Vista Materializada"/>
+            <StringItem index="5" value="Secuencia"/>
+            <StringItem index="6" value="PK"/>
+            <StringItem index="7" value="FK"/>
+            <StringItem index="8" value="&#xcd;ndice"/>
+            <StringItem index="9" value="Partici&#xf3;n"/>
+            <StringItem index="10" value="Subpartici&#xf3;n"/>
+            <StringItem index="11" value="Sin&#xf3;nimo"/>
+            <StringItem index="12" value="Type"/>
+            <StringItem index="13" value="Check constraints"/>
+            <StringItem index="14" value="Permiso"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTipoObjetoActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox2">
+    <Component class="javax.swing.JComboBox" name="cmbOperacion">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Creaci&#xf3;n"/>
+            <StringItem index="1" value="Modificaci&#xf3;n"/>
+            <StringItem index="2" value="Borrado"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbOperacionActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -278,19 +288,22 @@
         <Property name="text" type="java.lang.String" value="Estado Script"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox3">
+    <Component class="javax.swing.JComboBox" name="cmbEstadoScript">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="7">
+            <StringItem index="0" value="Pendiente"/>
+            <StringItem index="1" value="Ejecutado"/>
+            <StringItem index="2" value="Error"/>
+            <StringItem index="3" value="Descuadrado"/>
+            <StringItem index="4" value="Reparado"/>
+            <StringItem index="5" value="Descartado"/>
+            <StringItem index="6" value="Excepci&#xf3;n"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbEstadoScriptActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -306,19 +319,30 @@
         <Property name="text" type="java.lang.String" value="Tipo Obj.Padre"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox4">
+    <Component class="javax.swing.JComboBox" name="cmbTipoObjetoPadre">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="15">
+            <StringItem index="0" value="Tabla"/>
+            <StringItem index="1" value="Columna"/>
+            <StringItem index="2" value="Comentario"/>
+            <StringItem index="3" value="Vista"/>
+            <StringItem index="4" value="Vista Materializada"/>
+            <StringItem index="5" value="Secuencia"/>
+            <StringItem index="6" value="PK"/>
+            <StringItem index="7" value="FK"/>
+            <StringItem index="8" value="&#xcd;ndice"/>
+            <StringItem index="9" value="Partici&#xf3;n"/>
+            <StringItem index="10" value="Subpartici&#xf3;n"/>
+            <StringItem index="11" value="Sin&#xf3;nimo"/>
+            <StringItem index="12" value="Type"/>
+            <StringItem index="13" value="Check constraints"/>
+            <StringItem index="14" value="Permiso"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTipoObjetoPadreActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -329,19 +353,18 @@
         <Property name="text" type="java.lang.String" value="Operaci&#xf3;n Padre"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox5">
+    <Component class="javax.swing.JComboBox" name="cmbOperacionPadre">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Creaci&#xf3;n"/>
+            <StringItem index="1" value="Modificaci&#xf3;n"/>
+            <StringItem index="2" value="Borrado"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbOperacionPadreActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -349,22 +372,24 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Operaci&#xf3;n Padre"/>
+        <Property name="text" type="java.lang.String" value="Estado procesado"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox6">
+    <Component class="javax.swing.JComboBox" name="cmbEstadoProcesado">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="6">
+            <StringItem index="0" value="Generado"/>
+            <StringItem index="1" value="En ejecuci&#xf3;n"/>
+            <StringItem index="2" value="Error"/>
+            <StringItem index="3" value="Ejecutado"/>
+            <StringItem index="4" value="Rechazado"/>
+            <StringItem index="5" value="Entregado"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox6ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbEstadoProcesadoActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
