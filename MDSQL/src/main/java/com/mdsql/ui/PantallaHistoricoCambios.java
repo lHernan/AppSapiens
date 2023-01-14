@@ -288,9 +288,10 @@ public class PantallaHistoricoCambios extends DialogSupport {
 		PantallaHistoricoCambiosListener actionListener = new PantallaHistoricoCambiosListener(this);
 		
 		btnBuscarModelo.setActionCommand(Constants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR_MODELO);
+		btnCancelar.setActionCommand(Constants.PANTALLA_HISTORICO_CAMBIOS_CANCELAR);
 		
 		btnBuscarModelo.addActionListener(actionListener);
-		
+		btnCancelar.addActionListener(actionListener);
 	}
 
 	@Override
