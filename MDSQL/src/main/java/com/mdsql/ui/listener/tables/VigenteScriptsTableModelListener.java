@@ -29,7 +29,8 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 	
 				if (!"Ejecutado".equals(scr.getDescripcionEstadoScript())
 						|| !"Error".equals(scr.getDescripcionEstadoScript())
-						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())) {
+						|| !"Descuadrado".equals(scr.getDescripcionEstadoScript())
+						|| !"Excepción".equals(scr.getDescripcionEstadoScript())) {
 					scr.setSelected(selected);
 				}
 			}
