@@ -300,7 +300,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 			if (CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
-					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(), charset);
+					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(),
+							charset);
 
 					/**
 					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
@@ -317,12 +318,12 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					}
 
 					String lanzaFile = ruta.concat(script.getNombreScriptLanza());
-					writeFileFromString(Paths.get(lanzaFile),
-							script.getTxtScriptLanza().concat(System.lineSeparator()), charset);
+					writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(System.lineSeparator()),
+							charset);
 
 					String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
 					bbdd.setPassword(password);
-					
+
 					String logFile = ruta.concat(script.getNombreScriptLog());
 
 					// Ejecución del script
@@ -369,14 +370,14 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				: bbdd.getNombreEsquemaHis();
 		String nombreBBDD = StringUtils.isNotBlank(bbdd.getNombreBBDD()) ? bbdd.getNombreBBDD()
 				: bbdd.getNombreBBDDHis();
-		
+
 		String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
 		writeFileFromList(Paths.get(lanzaFile), outputReparaScript.getScriptRepara(), charset);
 		String logFile = ruta.concat(script.getNombreScriptLog());
 
 		if (isReparacion.equals(Boolean.TRUE)) {
 			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile, charset);
-			 
+
 			// List<TextoLinea> logLinesList = readLogFile(logFile);
 			// TODO replace Bidecimal.ZERO with idProceso
 			// TODO como se relaciona la listaScript con la listaScript old para obtener el
@@ -776,61 +777,73 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		}
 	}
 
-	@SneakyThrows
-	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation, String logFile, Charset charset) {
-		/**
-		 * FIXME - Si en Windows falla, descomentar las líneas comentadas y
-		 * quitar la opción "-L" en la creación de la instancia de ProcessBuilder
-		 */
-		
+	/**
+	 * @param nombreEsquema
+	 * @param nombreBBDD
+	 * @param password
+	 * @param fileLocation
+	 * @param logFile
+	 * @param charset
+	 * @throws ServiceException
+	 */
+	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation, String logFile, Charset charset)  throws ServiceException {
 		String connection = String.format(Constants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
 		
-		/**
-		 * FIXME - El juego de caracteres a usar se establece mediante la variable de entorno NLS_LANG, 
-		 * por lo que habrá que habilitar la funcionalidad de environment en ProcessBuilder
-		 */
-		ProcessBuilder processBuilder = new ProcessBuilder(Constants.SQL_PLUS, "-L", connection,
+		ProcessBuilder processBuilder = new ProcessBuilder(Constants.SQL_PLUS, connection,
 				String.format(Constants.FORMATO_FICHERO, fileLocation));
 		
-//		Boolean invalidLogon = Boolean.FALSE;
+		Boolean invalidLogon = Boolean.FALSE;
+		String lineError = StringUtils.EMPTY;
 
 		List<TextoLinea> logLines = new ArrayList<>();
 		
 		processBuilder.redirectErrorStream(true);
-		Process process = processBuilder.start();
-
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-			String line;
-
-			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Inicio Ejecucion fichero: %s", fileLocation);
-			while (((line = in.readLine()) != null)) {
-				String logLine = " ".concat(line);
-				
-				TextoLinea textoLinea = TextoLinea.builder().valor(logLine).build();
-				logLines.add(textoLinea);
-				LogWrapper.debug(log, logLine);
-				
-				// Error de clave incorrecta
-//				if (line.contains("ORA-01017")) {
-//					invalidLogon = Boolean.TRUE;
-//					break;
-//				}
-			}
-			
-//			if (invalidLogon) {
-//				process.destroyForcibly();
-//			}
-		}
-
-		// Si se fuerza la parada del proceso, se sale con error 137
-		int exitCode = process.waitFor();
 		
-		// Si ha dado error, escribe el fichero de log
-		if (exitCode > 0) {
-			writeFileFromList(Paths.get(logFile), logLines, Constants.DEFAULT_CHARSET);
+		try {
+			Process process = processBuilder.start();
+	
+			try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+				String line;
+	
+				LogWrapper.debug(log, "[ScriptService.executeScriptFile] Inicio Ejecucion fichero: %s", fileLocation);
+				while (((line = in.readLine()) != null)) {
+					String logLine = " ".concat(line);
+					
+					TextoLinea textoLinea = TextoLinea.builder().valor(logLine).build();
+					logLines.add(textoLinea);
+					LogWrapper.debug(log, logLine);
+					
+					// Error de clave incorrecta
+					if (line.contains("ORA-01017")) {
+						invalidLogon = Boolean.TRUE;
+						lineError = line;
+						break;
+					}
+				}
+				
+				if (invalidLogon) {
+					process.destroyForcibly();
+				}
+			} catch (IOException e) {
+				LogWrapper.error(log, e.getMessage());
+				throw new ServiceException(e);
+			}
+	
+			// Si se fuerza la parada del proceso, se sale con error 137
+			int exitCode = process.waitFor();
+			
+			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
+			// Si ha dado error, escribe el fichero de log
+			if (exitCode == 1) {
+				writeFileFromList(Paths.get(logFile), logLines, Constants.DEFAULT_CHARSET);
+			}
+			else if (exitCode == 137) {
+				throw new ServiceException(lineError);
+			}
+		} catch (IOException | InterruptedException e) {
+			LogWrapper.error(log, e.getMessage());
+			throw new ServiceException(e);
 		}
-
-		LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
 	}
 
 	@SneakyThrows
@@ -843,7 +856,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		try {
 			List<String> scriptLines = new ArrayList<>();
 			for (TextoLinea texto : textoLineaList) {
-				scriptLines.add(texto.getValor());
+				String line = texto.getValor().trim();
+				if (StringUtils.isNotBlank(line)) {
+					scriptLines.add(line);
+				}
 			}
 			Files.write(path, scriptLines, inputCharset, StandardOpenOption.CREATE);
 		} catch (IOException e) {
@@ -911,9 +927,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 			OutputExcepcionScript outputExcepcionScript = OutputExcepcionScript.builder()
 					.codigoEstadoProceso(codigoEstadoProceso).descripcionEstadoProceso(descripcionEstadoProceso)
-					.codigoEstadoScript(codigoEstadoScript)
-					.descripcionEstadoScript(descripcionEstadoScript)
-					.build();
+					.codigoEstadoScript(codigoEstadoScript).descripcionEstadoScript(descripcionEstadoScript).build();
 
 			return outputExcepcionScript;
 		} catch (SQLException e) {
