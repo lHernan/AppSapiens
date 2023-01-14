@@ -22,7 +22,7 @@ public class ServiceException extends Exception {
 	
 	@Getter
 	@Setter
-	private String type;
+	private Integer type;
 
 	/**
 	 * 
@@ -34,9 +34,16 @@ public class ServiceException extends Exception {
 	/**
 	 * 
 	 */
-	public ServiceException(String type) {
+	public ServiceException(Integer type) {
 		super();
 		this.type = type;
+	}
+	
+	/**
+	 * @param message
+	 */
+	public ServiceException(String message) {
+		super(message);
 	}
 
 	/**
