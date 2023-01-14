@@ -629,7 +629,7 @@ public class FramePrincipal extends FrameSupport {
 	@Override
 	protected void initEvents() {
 		FramePrincipalActionListener actionListener = new FramePrincipalActionListener(this);
-		WindowListener windowListener = new FramePrincipalWindowListener(this);
+		WindowListener windowListener = new FramePrincipalWindowListener();
 		editorEventHandler = new EditorEventHandler(this);
 		
 		addWindowListener(windowListener);

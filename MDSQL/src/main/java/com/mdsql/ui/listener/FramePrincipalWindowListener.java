@@ -10,7 +10,6 @@ import java.util.Objects;
 
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Session;
-import com.mdsql.ui.FramePrincipal;
 import com.mdsql.utils.Constants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.utils.LogWrapper;
@@ -19,13 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class FramePrincipalWindowListener implements WindowListener {
-	
-	private FramePrincipal framePrincipal;
-	
-	public FramePrincipalWindowListener(FramePrincipal framePrincipal) {
-		super();
-		this.framePrincipal = framePrincipal;
-	}
 
 	@Override
 	public void windowOpened(WindowEvent e) {}
