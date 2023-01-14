@@ -12,7 +12,7 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 	 * 
 	 */
 	private static final long serialVersionUID = -8306918464859990294L;
-	
+
 	/**
 	 * @param cabecera
 	 */
@@ -81,7 +81,8 @@ public class ScriptsTableModel extends DefaultTableModel<Script> {
 
 		if (0 == columnIndex) {
 			if ("Ejecutado".equals(row.getDescripcionEstadoScript()) || "Error".equals(row.getDescripcionEstadoScript())
-					|| "Descuadrado".equals(row.getDescripcionEstadoScript())) {
+					|| "Descuadrado".equals(row.getDescripcionEstadoScript())
+					|| "Excepción".equals(row.getDescripcionEstadoScript())) {
 				return false;
 			}
 
