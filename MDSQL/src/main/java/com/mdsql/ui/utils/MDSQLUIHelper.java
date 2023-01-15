@@ -7,7 +7,9 @@ import java.util.Map;
 
 import javax.swing.JTextArea;
 
+import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
+import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.utils.creators.CabeceraTablaCreator;
 import com.mdsql.ui.utils.creators.Creator;
 import com.mdsql.ui.utils.creators.DialogCreator;
@@ -129,5 +131,20 @@ public class MDSQLUIHelper extends UIHelper {
 		}
 		
 		return lineas;
+	}
+	
+	/**
+	 * @param model
+	 * @return
+	 */
+	public static Boolean isAnySelected(ScriptsTableModel model) {
+		for (int i = 0; i < model.getRowCount(); i++) {
+			Script scr = model.getSelectedRow(i);
+			if (scr.getSelected()) {
+				return Boolean.TRUE;
+			}
+		}
+		
+		return Boolean.FALSE;
 	}
 }

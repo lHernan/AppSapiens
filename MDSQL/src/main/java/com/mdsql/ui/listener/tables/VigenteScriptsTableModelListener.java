@@ -6,6 +6,7 @@ import javax.swing.event.TableModelListener;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.model.ScriptsTableModel;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 
 public class VigenteScriptsTableModelListener implements TableModelListener {
 
@@ -18,6 +19,8 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 	@Override
 	public void tableChanged(TableModelEvent e) {
 		ScriptsTableModel tableModel = (ScriptsTableModel) e.getSource();
+		ScriptsTableModel historicoTableModel = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
+				.getModel();
 
 		Script script = tableModel.getSelectedRow(e.getFirstRow());
 		Boolean selected = script.getSelected();
@@ -35,8 +38,7 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 				}
 			}
 	
-			ScriptsTableModel historicoTableModel = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
-					.getModel();
+			
 			for (int i = 0; i < historicoTableModel.getRowCount(); i++) {
 				Script scr = historicoTableModel.getSelectedRow(i);
 				if ("Pendiente".equals(scr.getDescripcionEstadoScript())) {
@@ -52,6 +54,13 @@ public class VigenteScriptsTableModelListener implements TableModelListener {
 					scr.setSelected(selected);
 				}
 			}
+		}
+		
+		if (MDSQLUIHelper.isAnySelected(tableModel) || MDSQLUIHelper.isAnySelected(historicoTableModel)) {
+			pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.TRUE);
+		}
+		else {
+			pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
 		}
 			
 		// Forzamos el repintado de la tabla para actualizar los cambios
