@@ -27,11 +27,11 @@ public class TablaErroresCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		
-		columnSizes.add(100);
+		columnSizes.add(70);
 		columnSizes.add(120);
 		columnSizes.add(100);
-		columnSizes.add(120);
-		columnSizes.add(120);
+		columnSizes.add(100);
+		columnSizes.add(100);
 		columnSizes.add(350);
 		columnSizes.add(800);
 	}
