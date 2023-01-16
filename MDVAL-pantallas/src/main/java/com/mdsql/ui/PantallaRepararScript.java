@@ -32,13 +32,13 @@ public class PantallaRepararScript extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        rbtnReprocesar = new javax.swing.JRadioButton();
         btnAbrirFichero = new javax.swing.JButton();
         txtScript = new javax.swing.JTextField();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbtnNoReprocesar = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        rbtnEjecutarScriptProcesado = new javax.swing.JRadioButton();
+        rbtnEjecutarScriptReparacion = new javax.swing.JRadioButton();
         btnAbrirFicheroReparacion = new javax.swing.JButton();
         txtScriptReparacion = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -50,6 +50,7 @@ public class PantallaRepararScript extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("NombreScript.sql");
 
         jLabel2.setText("Reprocesar Script");
@@ -62,10 +63,10 @@ public class PantallaRepararScript extends javax.swing.JFrame {
 
         jLabel5.setText("Los scripts con estado Ejecutado, no se cambiaran en su estado.");
 
-        jRadioButton1.setText("Si, se debe reprocesar el script");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        rbtnReprocesar.setText("Si, se debe reprocesar el script");
+        rbtnReprocesar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rbtnReprocesarActionPerformed(evt);
             }
         });
 
@@ -76,10 +77,10 @@ public class PantallaRepararScript extends javax.swing.JFrame {
             }
         });
 
-        jRadioButton2.setText("No, no debe reprocesar el script");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        rbtnNoReprocesar.setText("No, no debe reprocesar el script");
+        rbtnNoReprocesar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                rbtnNoReprocesarActionPerformed(evt);
             }
         });
 
@@ -91,7 +92,7 @@ public class PantallaRepararScript extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbtnReprocesar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAbrirFichero)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -99,7 +100,7 @@ public class PantallaRepararScript extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rbtnNoReprocesar))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -113,19 +114,19 @@ public class PantallaRepararScript extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
+                    .addComponent(rbtnReprocesar)
                     .addComponent(btnAbrirFichero)
                     .addComponent(txtScript, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(rbtnNoReprocesar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jRadioButton3.setText("Ejecutar script procesado");
+        rbtnEjecutarScriptProcesado.setText("Ejecutar script procesado");
 
-        jRadioButton4.setText("Ejecutar script reparación");
+        rbtnEjecutarScriptReparacion.setText("Ejecutar script reparación");
 
         btnAbrirFicheroReparacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
         btnAbrirFicheroReparacion.addActionListener(new java.awt.event.ActionListener() {
@@ -141,9 +142,9 @@ public class PantallaRepararScript extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton3)
+                    .addComponent(rbtnEjecutarScriptProcesado)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jRadioButton4)
+                        .addComponent(rbtnEjecutarScriptReparacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAbrirFicheroReparacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -154,14 +155,14 @@ public class PantallaRepararScript extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton3)
+                .addComponent(rbtnEjecutarScriptProcesado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtScriptReparacion)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAbrirFicheroReparacion)
-                            .addComponent(jRadioButton4))
+                            .addComponent(rbtnEjecutarScriptReparacion))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -200,18 +201,13 @@ public class PantallaRepararScript extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(494, 494, 494))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(344, 344, 344)
-                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +225,7 @@ public class PantallaRepararScript extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
@@ -240,17 +236,17 @@ public class PantallaRepararScript extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rbtnReprocesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnReprocesarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rbtnReprocesarActionPerformed
 
     private void btnAbrirFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirFicheroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAbrirFicheroActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void rbtnNoReprocesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNoReprocesarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_rbtnNoReprocesarActionPerformed
 
     private void btnAbrirFicheroReparacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirFicheroReparacionActionPerformed
         // TODO add your handling code here:
@@ -309,12 +305,12 @@ public class PantallaRepararScript extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JRadioButton rbtnEjecutarScriptProcesado;
+    private javax.swing.JRadioButton rbtnEjecutarScriptReparacion;
+    private javax.swing.JRadioButton rbtnNoReprocesar;
+    private javax.swing.JRadioButton rbtnReprocesar;
     private javax.swing.JTextField txtScript;
     private javax.swing.JTextField txtScriptReparacion;
     // End of variables declaration//GEN-END:variables
