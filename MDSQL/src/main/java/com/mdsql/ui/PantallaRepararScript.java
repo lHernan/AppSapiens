@@ -4,9 +4,11 @@
  */
 package com.mdsql.ui;
 
+import java.awt.Color;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,12 +19,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.SwingConstants;
 
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.listener.PantallaRepararScriptListener;
 import com.mdsql.utils.Constants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+
+import lombok.Getter;
 
 /**
  *
@@ -44,23 +49,31 @@ public class PantallaRepararScript extends DialogSupport {
     private JLabel jLabel7;
     private JPanel jPanel1;
     private JPanel jPanel2;
-    private JRadioButton jRadioButton1;
-    private JRadioButton jRadioButton2;
-    private JRadioButton jRadioButton3;
-    private JRadioButton jRadioButton4;
     private JScrollPane jScrollPane1;
     private JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
     
     private PantallaRepararScriptListener pantallaRepararScriptListener;
 
+    @Getter
 	private JButton btnAbrirFichero;
 
+    @Getter
 	private JTextField txtScript;
 
+    @Getter
 	private JButton btnAbrirFicheroReparacion;
 
+    @Getter
 	private JTextField txtScriptReparacion;
+
+	private JRadioButton rbtnReprocesar;
+
+	private JRadioButton rbtnNoReprocesar;
+
+	private JRadioButton rbtnEjecutarScriptProcesado;
+
+	private JRadioButton rbtnEjecutarScriptReparacion;
     
     public PantallaRepararScript(FrameSupport parent, Boolean modal) {
         super(parent, modal);
@@ -78,13 +91,13 @@ public class PantallaRepararScript extends DialogSupport {
         jLabel3 = new JLabel();
         jLabel4 = new JLabel();
         jLabel5 = new JLabel();
-        jRadioButton1 = new JRadioButton();
+        rbtnReprocesar = new JRadioButton();
         btnAbrirFichero = new JButton();
         txtScript = new JTextField();
-        jRadioButton2 = new JRadioButton();
+        rbtnNoReprocesar = new JRadioButton();
         jPanel2 = new JPanel();
-        jRadioButton3 = new JRadioButton();
-        jRadioButton4 = new JRadioButton();
+        rbtnEjecutarScriptProcesado = new JRadioButton();
+        rbtnEjecutarScriptReparacion = new JRadioButton();
         btnAbrirFicheroReparacion = new JButton();
         txtScriptReparacion = new JTextField();
         jLabel6 = new JLabel();
@@ -93,11 +106,15 @@ public class PantallaRepararScript extends DialogSupport {
         jTextArea1 = new JTextArea();
         btnAceptar = new JButton();
         btnCancelar = new JButton();
-
-        jPanel1.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        btnAbrirFichero.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
         
+        setBounds(1009, 570);
+        
+        txtScript.setEditable(false);
+        txtScriptReparacion.setEditable(false);
+
+        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+        jPanel1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -106,7 +123,7 @@ public class PantallaRepararScript extends DialogSupport {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbtnReprocesar)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAbrirFichero)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -114,7 +131,7 @@ public class PantallaRepararScript extends DialogSupport {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rbtnNoReprocesar))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -128,18 +145,16 @@ public class PantallaRepararScript extends DialogSupport {
                 .addComponent(jLabel5)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
+                    .addComponent(rbtnReprocesar)
                     .addComponent(btnAbrirFichero)
                     .addComponent(txtScript, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(rbtnNoReprocesar)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
-        btnAbrirFicheroReparacion.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
-        
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -147,9 +162,9 @@ public class PantallaRepararScript extends DialogSupport {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton3)
+                    .addComponent(rbtnEjecutarScriptProcesado)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jRadioButton4)
+                        .addComponent(rbtnEjecutarScriptReparacion)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAbrirFicheroReparacion)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -160,14 +175,14 @@ public class PantallaRepararScript extends DialogSupport {
             jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton3)
+                .addComponent(rbtnEjecutarScriptProcesado)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(txtScriptReparacion)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(btnAbrirFicheroReparacion)
-                            .addComponent(jRadioButton4))
+                            .addComponent(rbtnEjecutarScriptReparacion))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -175,7 +190,7 @@ public class PantallaRepararScript extends DialogSupport {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
-        
+
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,18 +208,13 @@ public class PantallaRepararScript extends DialogSupport {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(494, 494, 494))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(344, 344, 344)
-                .addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -222,7 +232,7 @@ public class PantallaRepararScript extends DialogSupport {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
@@ -237,9 +247,26 @@ public class PantallaRepararScript extends DialogSupport {
     	
     	btnAceptar.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_BTN_ACEPTAR);
     	btnCancelar.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_BTN_CANCELAR);
+    	rbtnReprocesar.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_RBTN_REPROCESAR_SCRIPT);
+    	rbtnNoReprocesar.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_RBTN_NO_REPROCESAR_SCRIPT);
+    	rbtnEjecutarScriptProcesado.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_PROCESADO);
+    	rbtnEjecutarScriptReparacion.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_REPARACION);
     	
     	btnAceptar.addActionListener(pantallaRepararScriptListener);
     	btnCancelar.addActionListener(pantallaRepararScriptListener);
+    	rbtnReprocesar.addActionListener(pantallaRepararScriptListener);
+    	rbtnNoReprocesar.addActionListener(pantallaRepararScriptListener);
+    	rbtnEjecutarScriptProcesado.addActionListener(pantallaRepararScriptListener);
+    	rbtnEjecutarScriptReparacion.addActionListener(pantallaRepararScriptListener);
+    	
+    	// Group the radioButtons
+    	ButtonGroup groupReprocesar = new ButtonGroup();
+        groupReprocesar.add(rbtnReprocesar);
+        groupReprocesar.add(rbtnNoReprocesar);
+        
+    	ButtonGroup groupReparacion = new ButtonGroup();
+    	groupReparacion.add(rbtnEjecutarScriptProcesado);
+    	groupReparacion.add(rbtnEjecutarScriptReparacion);
     	
     	this.addOnLoadListener(pantallaRepararScriptListener);
     }
@@ -250,7 +277,14 @@ public class PantallaRepararScript extends DialogSupport {
     }
     
     @Override
-   	protected void initialState() {}
+   	protected void initialState() {
+    	rbtnReprocesar.setSelected(Boolean.TRUE);
+    	rbtnEjecutarScriptProcesado.setSelected(Boolean.TRUE);
+    	btnAbrirFichero.setEnabled(Boolean.TRUE);
+    	txtScript.setEnabled(Boolean.FALSE);
+    	btnAbrirFicheroReparacion.setEnabled(Boolean.FALSE);
+    	txtScriptReparacion.setEnabled(Boolean.FALSE);
+    }
 
    	@Override
    	protected void setupLiterals() {
@@ -258,15 +292,18 @@ public class PantallaRepararScript extends DialogSupport {
    		
    		Script script = (Script) getParams().get("script");
    		
-   		jLabel1.setText(literales.getLiteral("PantallaRepararScript.label1"));
+   		btnAbrirFichero.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
+   		btnAbrirFicheroReparacion.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
+   		
+   		jLabel1.setText(script.getNombreScript());
         jLabel2.setText(literales.getLiteral("PantallaRepararScript.label2"));
         jLabel3.setText(literales.getLiteral("PantallaRepararScript.label3"));
         jLabel4.setText(literales.getLiteral("PantallaRepararScript.label4"));
         jLabel5.setText(literales.getLiteral("PantallaRepararScript.label5"));
-        jRadioButton1.setText(literales.getLiteral("PantallaRepararScript.radioButton1"));
-        jRadioButton2.setText(literales.getLiteral("PantallaRepararScript.radioButton2"));
-        jRadioButton3.setText(literales.getLiteral("PantallaRepararScript.radioButton3"));
-        jRadioButton4.setText(literales.getLiteral("PantallaRepararScript.radioButton4"));
+        rbtnReprocesar.setText(literales.getLiteral("PantallaRepararScript.radioButton1"));
+        rbtnNoReprocesar.setText(literales.getLiteral("PantallaRepararScript.radioButton2"));
+        rbtnEjecutarScriptProcesado.setText(literales.getLiteral("PantallaRepararScript.radioButton3"));
+        rbtnEjecutarScriptReparacion.setText(literales.getLiteral("PantallaRepararScript.radioButton4"));
         jLabel6.setText(literales.getLiteral("PantallaRepararScript.label6"));
         jLabel7.setText(literales.getLiteral("PantallaRepararScript.label7"));
         btnAceptar.setText(literales.getLiteral("PantallaRepararScript.aceptar"));

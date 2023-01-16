@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
-import javax.swing.JButton;
+import javax.swing.AbstractButton;
 
 import com.mdsql.bussiness.entities.InputReparaScript;
 import com.mdsql.bussiness.entities.OutputReparaScript;
@@ -33,14 +33,41 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton jButton = (JButton) e.getSource();
+		AbstractButton jButton = (AbstractButton) e.getSource();
 		
 		if (Constants.PANTALLA_REPARAR_SCRIPT_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			aceptar();
 		}
+		
 		if (Constants.PANTALLA_REPARAR_SCRIPT_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			cancelar();
 		}
+		
+		if (Constants.PANTALLA_REPARAR_SCRIPT_RBTN_REPROCESAR_SCRIPT.equals(jButton.getActionCommand())) {
+			enablePreprocesarScript(Boolean.TRUE);
+		}
+		
+		if (Constants.PANTALLA_REPARAR_SCRIPT_RBTN_NO_REPROCESAR_SCRIPT.equals(jButton.getActionCommand())) {
+			enablePreprocesarScript(Boolean.FALSE);
+		}
+		
+		if (Constants.PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_PROCESADO.equals(jButton.getActionCommand())) {
+			enableScriptReparacion(Boolean.FALSE);
+		}
+		
+		if (Constants.PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_REPARACION.equals(jButton.getActionCommand())) {
+			enableScriptReparacion(Boolean.TRUE);
+		}
+	}
+
+	private void enableScriptReparacion(Boolean value) {
+		pantallaRepararScript.getBtnAbrirFicheroReparacion().setEnabled(value);
+		pantallaRepararScript.getTxtScriptReparacion().setEnabled(value);
+	}
+
+	private void enablePreprocesarScript(Boolean value) {
+		pantallaRepararScript.getBtnAbrirFichero().setEnabled(value);
+		pantallaRepararScript.getTxtScript().setEnabled(value);
 	}
 
 	private void aceptar() {
