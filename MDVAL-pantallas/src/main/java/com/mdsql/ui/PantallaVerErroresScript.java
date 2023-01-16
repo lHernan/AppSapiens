@@ -50,11 +50,11 @@ public class PantallaVerErroresScript extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblErroresScript);
         if (tblErroresScript.getColumnModel().getColumnCount() > 0) {
-            tblErroresScript.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblErroresScript.getColumnModel().getColumn(0).setPreferredWidth(70);
             tblErroresScript.getColumnModel().getColumn(1).setPreferredWidth(120);
             tblErroresScript.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tblErroresScript.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tblErroresScript.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tblErroresScript.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblErroresScript.getColumnModel().getColumn(4).setPreferredWidth(100);
             tblErroresScript.getColumnModel().getColumn(5).setPreferredWidth(350);
             tblErroresScript.getColumnModel().getColumn(6).setPreferredWidth(800);
         }
@@ -112,11 +112,11 @@ public class PantallaVerErroresScript extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar)
                 .addContainerGap())
