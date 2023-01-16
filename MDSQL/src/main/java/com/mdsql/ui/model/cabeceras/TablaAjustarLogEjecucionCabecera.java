@@ -35,16 +35,16 @@ public class TablaAjustarLogEjecucionCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		
-		columnSizes.add(500);
-		columnSizes.add(120);
-		columnSizes.add(120);
-		columnSizes.add(120);
-		columnSizes.add(120);
+		columnSizes.add(300);
+		columnSizes.add(90);
+		columnSizes.add(90);
+		columnSizes.add(90);
+		columnSizes.add(90);
 		columnSizes.add(200);
-		columnSizes.add(120);
-		columnSizes.add(120);
-		columnSizes.add(120);
-		columnSizes.add(120);
+		columnSizes.add(50);
+		columnSizes.add(200);
+		columnSizes.add(90);
+		columnSizes.add(90);
 		columnSizes.add(500);
 	}
 }

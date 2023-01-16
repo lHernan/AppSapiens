@@ -39,6 +39,7 @@ public class PantallaAjustarLogTableListener extends ListenerSupport implements 
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			pantallaAjustarLogEjecucion.setSeleccionado(seleccionado);
 			pantallaAjustarLogEjecucion.getBtnEliminar().setEnabled(Boolean.TRUE);
+			pantallaAjustarLogEjecucion.getTxtComentario().setEnabled(Boolean.TRUE);
 		}
 	}
 
