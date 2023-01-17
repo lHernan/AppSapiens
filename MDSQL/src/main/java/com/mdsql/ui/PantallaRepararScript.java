@@ -267,8 +267,6 @@ public class PantallaRepararScript extends DialogSupport {
     	ButtonGroup groupReparacion = new ButtonGroup();
     	groupReparacion.add(rbtnEjecutarScriptProcesado);
     	groupReparacion.add(rbtnEjecutarScriptReparacion);
-    	
-    	this.addOnLoadListener(pantallaRepararScriptListener);
     }
     
     @Override

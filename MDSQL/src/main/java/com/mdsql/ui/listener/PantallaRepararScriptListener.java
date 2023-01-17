@@ -14,11 +14,9 @@ import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.Constants;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.ui.utils.OnLoadListener;
-import com.mdval.ui.utils.observer.Observable;
 import com.mdval.ui.utils.observer.Observer;
 
-public class PantallaRepararScriptListener extends ListenerSupport implements ActionListener, OnLoadListener, Observer {
+public class PantallaRepararScriptListener extends ListenerSupport implements ActionListener {
 
 	private PantallaRepararScript pantallaRepararScript;
 	
@@ -88,18 +86,6 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 
 	private void cancelar() {
 		pantallaRepararScript.dispose();
-	}
-
-	@Override
-	public void update(Observable o, Object cmd) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onLoad() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
