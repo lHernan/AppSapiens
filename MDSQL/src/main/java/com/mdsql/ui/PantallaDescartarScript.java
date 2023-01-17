@@ -93,13 +93,9 @@ public class PantallaDescartarScript extends DialogSupport {
 
         setBounds(954, 462);
 
-        btnAbrirScriptProcesar.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
-
         txtScriptProcesar.setEditable(false);
         
         jPanel1.setBorder(BorderFactory.createTitledBorder(new LineBorder(new Color(0, 0, 0), 1, true)));
-
-        btnAbrirScriptParche.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
 
         txtScriptParche.setEditable(false);
 
@@ -235,6 +231,9 @@ public class PantallaDescartarScript extends DialogSupport {
     @Override
     protected void setupLiterals() {
     	setTitle(literales.getLiteral("PantallaDescartarScript.title"));
+    	
+    	btnAbrirScriptProcesar.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
+    	btnAbrirScriptParche.setIcon(new ImageIcon(getClass().getResource("/folder-open.png"))); // NOI18N
     	
     	jLabel1.setText(literales.getLiteral("PantallaDescartarScript.label1"));
         jLabel2.setText(literales.getLiteral("PantallaDescartarScript.label2"));
