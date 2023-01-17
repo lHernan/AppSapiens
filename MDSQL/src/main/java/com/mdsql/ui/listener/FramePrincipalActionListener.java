@@ -99,11 +99,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (Constants.FRAME_PRINCIPAL_PROCESADO_CURSO.equals(jButton.getActionCommand())) {
 			evtProcesadoEnCurso();
 		}
-		
+
 		if (Constants.FRAME_PRINCIPAL_REFRESCAR_FICHERO.equals(jButton.getActionCommand())) {
 			evtRefrescarFichero();
 		}
-		
+
 		if (Constants.FRAME_PRINCIPAL_INFORMACION_MODELO.equals(jButton.getActionCommand())) {
 			evtInformacionModelo();
 		}
@@ -163,8 +163,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 		if (Objects.isNull(proceso)) {
 			loadFileInFramePrincipal(framePrincipal.getCurrentFile());
-		}
-		else {
+		} else {
 			if ("Generado".equals(proceso.getDescripcionEstadoProceso())) {
 				rechazarProceso(proceso);
 				session.setProceso(null);
@@ -284,26 +283,31 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtLoadScript() {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
-		Proceso proceso = session.getProceso();
-
-		if (!Objects.isNull(proceso)) {
-			// Aviso de que no hay procesado en curso
-			JOptionPane.showMessageDialog(framePrincipal,
-					"Ya hay un procesado en curso. Debe finalizarlo o rechazarlo pulsando sobre Ejecutar script");
-		} else {
-		
-			if (confirmSave()) {
-				actionSave();
-			}
+		try {
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			Proceso proceso = session.getProceso();
 	
-			resetFramePrincipal(null);
+			if (!Objects.isNull(proceso)) {
+				// Aviso de que no hay procesado en curso
+				JOptionPane.showMessageDialog(framePrincipal,
+						"Ya hay un procesado en curso. Debe finalizarlo o rechazarlo pulsando sobre Ejecutar script");
+			} else {
 	
-			File file = loadScript();
-			if (!Objects.isNull(file)) {
-				loadFileInFramePrincipal(file);
+				if (confirmSave()) {
+					actionSave();
+				}
+	
+				resetFramePrincipal(null);
+	
+				File file = loadScript();
+				if (!Objects.isNull(file)) {
+					loadFileInFramePrincipal(file);
+				}
 			}
-		}
+		} catch (IOException e1) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
+			MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
+		}	
 	}
 
 	private void loadFileInFramePrincipal(File file) {
@@ -329,15 +333,16 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtLoadScriptObjects() {
-		if (confirmSave()) {
-			actionSave();
-		}
+		try {
+			if (confirmSave()) {
+				actionSave();
+			}
 
-		resetFramePrincipal(null);
+			resetFramePrincipal(null);
 
-		File file = loadScript();
-		if (!Objects.isNull(file)) {
-			try {
+			File file = loadScript();
+			if (!Objects.isNull(file)) {
+			
 				setContent(file);
 				framePrincipal.setCurrentFile(file);
 
@@ -349,10 +354,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 				// set the procesado
 				framePrincipal.setProcesado(Procesado.TYPE);
-			} catch (IOException e1) {
-				Map<String, Object> params = MDSQLUIHelper.buildError(e1);
-				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
 			}
+		} catch (IOException e1) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
+			MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
 		}
 	}
 
@@ -440,7 +445,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
 						.createDialog(framePrincipal, Constants.CMD_RESUMEN_PROCESADO, params);
 				MDSQLUIHelper.show(pantallaResumenProcesado);
-				
+
 				estado = (String) pantallaResumenProcesado.getReturnParams().get("estado");
 				if ("Entregado".equals(estado)) {
 					resetFramePrincipal(null);
@@ -453,7 +458,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			JOptionPane.showMessageDialog(framePrincipal, "Es necesario procesar un script");
 		}
 	}
-	
+
 	/**
 	 * @param proceso
 	 */
@@ -461,7 +466,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		try {
 			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 			String txtRechazo = configuration.getConfig("literalRechazoRefresco");
-			
+
 			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
 			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 
@@ -473,11 +478,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, errParams);
 		}
 	}
-	
+
 	/**
 	 * @return
 	 */
-	private File loadScript() {
+	private File loadScript() throws IOException {
 		File file = null;
 
 		DialogSupport dialog = MDSQLUIHelper.createDialog(framePrincipal, Constants.CMD_LOAD_SCRIPT);
@@ -516,11 +521,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * @param rutaInicial
 	 * @return
 	 */
-	private File selectFile(String rutaInicial) {
+	private File selectFile(String rutaInicial) throws IOException {
 		File file = null;
 
-		JFileChooser chooser = getJFileChooser();
-		chooser.setCurrentDirectory(new File(rutaInicial));
+		JFileChooser chooser = MDSQLUIHelper.getJFileChooser(rutaInicial);
 		//
 		// disable the "All files" option.
 		//
@@ -546,16 +550,16 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	private void dumpContentToText(File file, JTextArea txtScript) throws IOException {
 		// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
-		
+
 		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
 		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
 		session.setFileCharset(charset);
 
 		String s = MDSQLAppHelper.writeFileToString(file, charset, Constants.DEFAULT_CHARSET);
-		
+
 		txtScript.setText(s);
 	}
-	
+
 	/**
 	 * @param file
 	 * @param txtScript
@@ -564,7 +568,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		Charset charset = session.getFileCharset();
 		String content = txtScript.getText();
-		
+
 		MDSQLAppHelper.writeToFile(content, file, Constants.DEFAULT_CHARSET, charset);
 	}
 
@@ -613,7 +617,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		} else if (framePrincipal.getHasChanged()) { // si el documento esta marcado como modificado
 			try {
 				dumpTextToFile(framePrincipal.getTxtSQLCode(), framePrincipal.getCurrentFile());
-				
+
 				// marca el estado del documento como no modificado
 				framePrincipal.setHasChanged(Boolean.FALSE);
 
@@ -636,14 +640,17 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * actual.
 	 */
 	private void actionSaveAs() {
-		JFileChooser fc = getJFileChooser(); // obtiene un JFileChooser
+		try {
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			String rutaInicial = session.getSelectedRoute();
+			
+			JFileChooser fc = MDSQLUIHelper.getJFileChooser(rutaInicial); // obtiene un JFileChooser
 
-		// presenta un dialogo modal para que el usuario seleccione un archivo
-		int state = fc.showSaveDialog(framePrincipal);
-		if (state == JFileChooser.APPROVE_OPTION) { // si elige guardar en el archivo
-			File file = fc.getSelectedFile(); // obtiene el archivo seleccionado
+			// presenta un dialogo modal para que el usuario seleccione un archivo
+			int state = fc.showSaveDialog(framePrincipal);
+			if (state == JFileChooser.APPROVE_OPTION) { // si elige guardar en el archivo
+				File file = fc.getSelectedFile(); // obtiene el archivo seleccionado
 
-			try {
 				dumpTextToFile(framePrincipal.getTxtSQLCode(), file);
 
 				// nuevo título de la ventana con el nombre del archivo guardado
@@ -653,22 +660,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				framePrincipal.setCurrentFile(file);
 				// marca el estado del documento como no modificado
 				framePrincipal.setHasChanged(Boolean.FALSE);
-			} catch (IOException ex) { // en caso de que ocurra una excepción
-				Map<String, Object> params = MDSQLUIHelper.buildError(ex);
-				MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
 			}
+		} catch (IOException ex) { // en caso de que ocurra una excepción
+			Map<String, Object> params = MDSQLUIHelper.buildError(ex);
+			MDSQLUIHelper.showPopup(framePrincipal, Constants.CMD_ERROR, params);
 		}
-	}
-
-	/**
-	 * @return
-	 */
-	private JFileChooser getJFileChooser() {
-		JFileChooser chooser = new JFileChooser();
-		chooser.setDialogTitle(literales.getLiteral("panelPrincipal.tituloChooser"));
-		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
-		return chooser;
 	}
 
 	/**
@@ -787,17 +783,17 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	@Override
 	public void onLoad() {
 		framePrincipal.disableTabs();
-		
+
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
 		if (!Objects.isNull(session)) {
 			Proceso proceso = session.getProceso();
-	
+
 			if (!Objects.isNull(proceso)) {
 				List<Script> scripts = proceso.getScripts();
 				if (CollectionUtils.isNotEmpty(scripts)) {
 					fillProcesadoScript(scripts);
 				}
-				
+
 				List<Type> types = proceso.getTypes();
 				if (CollectionUtils.isNotEmpty(types)) {
 					fillProcesadoType(types);

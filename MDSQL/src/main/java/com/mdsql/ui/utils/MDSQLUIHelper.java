@@ -1,10 +1,13 @@
 package com.mdsql.ui.utils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 
 import com.mdsql.bussiness.entities.Script;
@@ -14,6 +17,7 @@ import com.mdsql.ui.utils.creators.CabeceraTablaCreator;
 import com.mdsql.ui.utils.creators.Creator;
 import com.mdsql.ui.utils.creators.DialogCreator;
 import com.mdsql.ui.utils.creators.FrameCreator;
+import com.mdsql.utils.LiteralesSingleton;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
@@ -146,5 +150,19 @@ public class MDSQLUIHelper extends UIHelper {
 		}
 		
 		return Boolean.FALSE;
+	}
+	
+	/**
+	 * @return
+	 */
+	public static JFileChooser getJFileChooser(String rutaInicial) throws IOException {
+		LiteralesSingleton literales = LiteralesSingleton.getInstance();
+		
+		JFileChooser chooser = new JFileChooser();
+		chooser.setDialogTitle(literales.getLiteral("panelPrincipal.tituloChooser"));
+		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		chooser.setCurrentDirectory(new File(rutaInicial));
+		
+		return chooser;
 	}
 }
