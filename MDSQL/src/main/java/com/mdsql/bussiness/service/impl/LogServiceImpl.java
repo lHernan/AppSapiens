@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.mdsql.bussiness.entities.InputEliminaLog;
 import com.mdsql.bussiness.entities.LogEjecucion;
 import com.mdsql.bussiness.service.LogService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.LOG_SERVICE)
+@Service(MDSQLConstants.LOG_SERVICE)
 @Slf4j
 public class LogServiceImpl extends ServiceSupport implements LogService {
 
@@ -35,12 +35,12 @@ public class LogServiceImpl extends ServiceSupport implements LogService {
 
     @Override
     public List<LogEjecucion> logEjecucion(BigDecimal idProceso, BigDecimal numeroOrden) throws ServiceException {
-        String runSP = createCall("p_log_ejecucion", Constants.CALL_05_ARGS);
+        String runSP = createCall("p_log_ejecucion", MDSQLConstants.CALL_05_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeLogEjecucion = createCallType(Constants.T_T_LOG_EJECUCION);
+            String typeLogEjecucion = createCallType(MDSQLConstants.T_T_LOG_EJECUCION);
             String typeError = createCallTypeError();
 
             logProcedure(runSP, idProceso, numeroOrden);
@@ -93,7 +93,7 @@ public class LogServiceImpl extends ServiceSupport implements LogService {
 
     @Override
     public void eliminaLog(InputEliminaLog inputEliminaLog) throws ServiceException {
-        String runSP = createCall("p_elimina_log", Constants.CALL_09_ARGS);
+        String runSP = createCall("p_elimina_log", MDSQLConstants.CALL_09_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

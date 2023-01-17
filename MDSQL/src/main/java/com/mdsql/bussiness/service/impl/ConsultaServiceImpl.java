@@ -17,7 +17,7 @@ import com.mdsql.bussiness.entities.Estado;
 import com.mdsql.bussiness.entities.Operacion;
 import com.mdsql.bussiness.entities.TipoObjeto;
 import com.mdsql.bussiness.service.ConsultaService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.CONSULTA_SERVICE)
+@Service(MDSQLConstants.CONSULTA_SERVICE)
 @Slf4j
 public class ConsultaServiceImpl extends ServiceSupport implements ConsultaService {
 
@@ -37,12 +37,12 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
     @Override
     @SneakyThrows
     public List<TipoObjeto> consultaTiposObjeto() {
-        String runSP = createCall("p_con_tipos_objeto", Constants.CALL_03_ARGS);
+        String runSP = createCall("p_con_tipos_objeto", MDSQLConstants.CALL_03_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeTipoObjeto = createCallType(Constants.T_T_TIP_OBJETO);
+            String typeTipoObjeto = createCallType(MDSQLConstants.T_T_TIP_OBJETO);
             String typeError = createCallTypeError();
 
             logProcedure(runSP);
@@ -82,12 +82,12 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
     @Override
     @SneakyThrows
     public List<Estado> consultaEstadosProcesado() {
-        String runSP = createCall("p_con_estados_proc", Constants.CALL_03_ARGS);
+        String runSP = createCall("p_con_estados_proc", MDSQLConstants.CALL_03_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeEstado = createCallType(Constants.T_T_ESTADO);
+            String typeEstado = createCallType(MDSQLConstants.T_T_ESTADO);
             String typeError = createCallTypeError();
 
             logProcedure(runSP);
@@ -128,12 +128,12 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
     @Override
     @SneakyThrows
     public List<Estado> consultaEstadosScript() {
-        String runSP = createCall("p_con_estados_scrip", Constants.CALL_03_ARGS);
+        String runSP = createCall("p_con_estados_scrip", MDSQLConstants.CALL_03_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeOperacion = createCallType(Constants.T_T_OPERACION);
+            String typeOperacion = createCallType(MDSQLConstants.T_T_OPERACION);
             String typeError = createCallTypeError();
 
             logProcedure(runSP);
@@ -174,12 +174,12 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
     @Override
     @SneakyThrows
     public List<Operacion> consultaOperaciones() {
-        String runSP = createCall("p_con_operaciones", Constants.CALL_03_ARGS);
+        String runSP = createCall("p_con_operaciones", MDSQLConstants.CALL_03_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeEstado = createCallType(Constants.T_T_ESTADO);
+            String typeEstado = createCallType(MDSQLConstants.T_T_ESTADO);
             String typeError = createCallTypeError();
 
             logProcedure(runSP);

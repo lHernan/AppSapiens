@@ -19,7 +19,7 @@ import com.mdsql.bussiness.entities.ErrorScript;
 import com.mdsql.bussiness.entities.OutputErroresScript;
 import com.mdsql.bussiness.entities.ScriptParche;
 import com.mdsql.bussiness.service.ErroresService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.ERRORES_SERVICE)
+@Service(MDSQLConstants.ERRORES_SERVICE)
 @Slf4j
 public class ErroresServiceImpl extends ServiceSupport implements ErroresService {
 
@@ -38,13 +38,13 @@ public class ErroresServiceImpl extends ServiceSupport implements ErroresService
 	@Override
 	public OutputErroresScript consultaErroresScript(BigDecimal idProceso, BigDecimal numeroOrden)
 			throws ServiceException {
-		String runSP = createCall("p_con_errores_script", Constants.CALL_06_ARGS);
+		String runSP = createCall("p_con_errores_script", MDSQLConstants.CALL_06_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeErrorScript = createCallType(Constants.T_T_ERROR_SCRIPT);
-			String typeScriptParche = createCallType(Constants.T_T_SCRIPT_PARCHE);
+			String typeErrorScript = createCallType(MDSQLConstants.T_T_ERROR_SCRIPT);
+			String typeScriptParche = createCallType(MDSQLConstants.T_T_SCRIPT_PARCHE);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, idProceso, numeroOrden);
@@ -111,12 +111,12 @@ public class ErroresServiceImpl extends ServiceSupport implements ErroresService
 
 	@Override
 	public List<ErrorScript> consultaErroresType(BigDecimal idProceso, BigDecimal numeroOrden) throws ServiceException {
-		String runSP = createCall("p_con_errores_type", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_con_errores_type", MDSQLConstants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeErrorScript = createCallType(Constants.T_T_ERROR_SCRIPT);
+			String typeErrorScript = createCallType(MDSQLConstants.T_T_ERROR_SCRIPT);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, idProceso, numeroOrden);

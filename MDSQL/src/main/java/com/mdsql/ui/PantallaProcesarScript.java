@@ -43,8 +43,8 @@ import com.mdsql.ui.renderer.BBDDRenderer;
 import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
 import com.mdsql.ui.renderer.SubProyectoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
-import com.mdsql.utils.Constants.Procesado;
+import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.MDSQLConstants.Procesado;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -365,11 +365,11 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
 		ItemListener bbddItemListener = new ProcesarScriptBBDDItemListener(this);
 		ItemListener subproyectoItemListener = new SubproyectoItemListener(this);
 
-		jButton1.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);
-		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
-		btnProcesar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
-		btnLimpiar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_LIMPIAR);
-		btnVerProcesado.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO);
+		jButton1.setActionCommand(MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL);
+		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
+		btnProcesar.setActionCommand(MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_PROCESAR);
+		btnLimpiar.setActionCommand(MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_LIMPIAR);
+		btnVerProcesado.setActionCommand(MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO);
 
 		jButton1.addActionListener(pantallaProcesarScriptActionListener);
 		btnCancelar.addActionListener(pantallaProcesarScriptActionListener);
@@ -399,13 +399,13 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
 		cmbSubmodelo.setRenderer(new SubProyectoRenderer());
 		cmbBBDD.setRenderer(new BBDDRenderer());
 		
-		Cabecera cabeceraNotas = MDSQLUIHelper.createCabeceraTabla(Constants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA);
+		Cabecera cabeceraNotas = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA);
 		tblNotas.initModel(
 				new ProcesarScriptNotaTableModel(cabeceraNotas));
 		tblNotas.setDefaultRenderer(String.class, new NivelAvisosTableCellRenderer());
 		
 		Cabecera cabeceraUltimasPeticiones = MDSQLUIHelper
-				.createCabeceraTabla(Constants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA);
+				.createCabeceraTabla(MDSQLConstants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA);
 		tblUltimasPeticiones.initModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraUltimasPeticiones));
 	}
 

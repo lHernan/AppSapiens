@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.service.BBDDService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.BBDD_SERVICE)
+@Service(MDSQLConstants.BBDD_SERVICE)
 @Slf4j
 public class BBDDServiceImpl extends ServiceSupport implements BBDDService {
 
@@ -34,12 +34,12 @@ public class BBDDServiceImpl extends ServiceSupport implements BBDDService {
 
     @Override
     public List<BBDD> consultaBBDDModelo(String codigoProyecto, String codSubproyecto) throws ServiceException {
-        String runSP = createCall("p_con_bbdd_modelo", Constants.CALL_05_ARGS);
+        String runSP = createCall("p_con_bbdd_modelo", MDSQLConstants.CALL_05_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeBBDD = createCallType(Constants.T_T_BBDD);
+            String typeBBDD = createCallType(MDSQLConstants.T_T_BBDD);
             String typeError = createCallTypeError();
 
             logProcedure(runSP, codigoProyecto, codSubproyecto);
@@ -87,7 +87,7 @@ public class BBDDServiceImpl extends ServiceSupport implements BBDDService {
     @Override
     @SneakyThrows
     public String consultaPasswordBBDD(String nombreBBDD, String nombreEsquema, String txtClaveEncriptada) {
-        String runSP = createCall("p_con_pass_bbdd", Constants.CALL_06_ARGS);
+        String runSP = createCall("p_con_pass_bbdd", MDSQLConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

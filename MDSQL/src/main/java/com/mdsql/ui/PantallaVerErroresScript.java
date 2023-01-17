@@ -15,7 +15,7 @@ import com.mdsql.ui.listener.PantallaVerErroresScriptListener;
 import com.mdsql.ui.model.VerErroresScriptTableModel;
 import com.mdsql.ui.model.VerParchesScriptTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -104,7 +104,7 @@ public class PantallaVerErroresScript extends DialogSupport {
 	protected void initEvents() {
 		PantallaVerErroresScriptListener actionListener = new PantallaVerErroresScriptListener(this);
 		
-		btnCancelar.setActionCommand(Constants.PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR);
+		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR);
 
 		btnCancelar.addActionListener(actionListener);
 		
@@ -113,10 +113,10 @@ public class PantallaVerErroresScript extends DialogSupport {
     
     @Override
 	protected void initModels() {
-		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_ERRORES_TABLA_CABECERA);
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.VER_ERRORES_TABLA_CABECERA);
 		tblErroresScript.initModel(new VerErroresScriptTableModel(cabecera));
 	
-		cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_PARCHES_TABLA_CABECERA);
+		cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.VER_PARCHES_TABLA_CABECERA);
 		tblParches.initModel(new VerParchesScriptTableModel(cabecera));
     }	
     

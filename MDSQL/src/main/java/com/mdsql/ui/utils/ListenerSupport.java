@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.DateFormatter;
 import com.mdsql.utils.LiteralesSingleton;
 import com.mdval.exceptions.ServiceException;
@@ -109,9 +109,9 @@ public abstract class ListenerSupport extends Observable {
 		Map<String, Object> params = new HashMap<>();
 
 		if (e instanceof ServiceException) {
-			params.put(Constants.SERVICE_ERROR, e);
+			params.put(MDSQLConstants.SERVICE_ERROR, e);
 		} else {
-			params.put(Constants.ERROR, e);
+			params.put(MDSQLConstants.ERROR, e);
 		}
 		return params;
 	}
@@ -123,8 +123,8 @@ public abstract class ListenerSupport extends Observable {
 	protected Map<String, Object> buildWarning(ServiceException e) {
 		Map<String, Object> params = new HashMap<>();
 
-		params.put(Constants.SERVICE_ERROR, e);
-		params.put(Constants.TYPE, Constants.WARN);
+		params.put(MDSQLConstants.SERVICE_ERROR, e);
+		params.put(MDSQLConstants.TYPE, MDSQLConstants.WARN);
 		
 		return params;
 	}

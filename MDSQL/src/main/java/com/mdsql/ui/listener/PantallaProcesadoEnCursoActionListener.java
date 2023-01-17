@@ -23,7 +23,7 @@ import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observer;
@@ -54,11 +54,11 @@ public class PantallaProcesadoEnCursoActionListener extends ListenerSupport impl
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaProcesadoEnCurso.dispose();
 		}
 
-		if (Constants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO.equals(jButton.getActionCommand())) {
 			eventBtnVerProcesado();
 		}
 	}
@@ -72,7 +72,7 @@ public class PantallaProcesadoEnCursoActionListener extends ListenerSupport impl
 		params.put("entregar", Boolean.FALSE);
 
 		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
-				.createDialog(pantallaProcesadoEnCurso.getFrameParent(), Constants.CMD_RESUMEN_PROCESADO, params);
+				.createDialog(pantallaProcesadoEnCurso.getFrameParent(), MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
 		MDSQLUIHelper.show(pantallaResumenProcesado);
 	}
 
@@ -86,7 +86,7 @@ public class PantallaProcesadoEnCursoActionListener extends ListenerSupport impl
 			fillAvisos(proceso.getModelo());
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesadoEnCurso.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesadoEnCurso.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 
@@ -104,7 +104,7 @@ public class PantallaProcesadoEnCursoActionListener extends ListenerSupport impl
 		inputSeleccionarProcesados.setPCodigoproyecto(seleccionado.getCodigoProyecto());
 		inputSeleccionarProcesados.setPUltimas(new BigDecimal(1));
 
-		ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
+		ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
 		List<Proceso> peticiones = procesoService.seleccionarProcesados(inputSeleccionarProcesados);
 
 		if (CollectionUtils.isNotEmpty(peticiones)) {
@@ -120,7 +120,7 @@ public class PantallaProcesadoEnCursoActionListener extends ListenerSupport impl
 		((ProcesarScriptNotaTableModel) pantallaProcesadoEnCurso.getTblNotas().getModel()).clearData();
 
 		// Hacer la consulta
-		AvisoService avisoService = (AvisoService) getService(Constants.AVISO_SERVICE);
+		AvisoService avisoService = (AvisoService) getService(MDSQLConstants.AVISO_SERVICE);
 		List<Aviso> avisos = avisoService.consultaAvisosModelo(seleccionado.getCodigoProyecto());
 
 		if (CollectionUtils.isNotEmpty(avisos)) {

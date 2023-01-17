@@ -23,7 +23,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.border.LineBorder;
 
 import com.mdsql.ui.listener.PantallaDescartarScriptListener;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -195,12 +195,12 @@ public class PantallaDescartarScript extends DialogSupport {
    	protected void initEvents() {
     	ActionListener pantallaDescartarScriptListener = new PantallaDescartarScriptListener(this);
     	
-    	btnAbrirScriptProcesar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PROCESAR);
-    	btnAbrirScriptParche.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PARCHE);
-    	rbtnReducir.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_RBTN_REDUCIR);
-    	rbtnAmpliar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_RBTN_AMPLIAR);
-    	btnAceptar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_ACEPTAR);
-    	btnCancelar.setActionCommand(Constants.PANTALLA_DESCARTAR_SCRIPT_BTN_CANCELAR);
+    	btnAbrirScriptProcesar.setActionCommand(MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PROCESAR);
+    	btnAbrirScriptParche.setActionCommand(MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PARCHE);
+    	rbtnReducir.setActionCommand(MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_RBTN_REDUCIR);
+    	rbtnAmpliar.setActionCommand(MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_RBTN_AMPLIAR);
+    	btnAceptar.setActionCommand(MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_BTN_ACEPTAR);
+    	btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_BTN_CANCELAR);
     	
     	btnAbrirScriptProcesar.addActionListener(pantallaDescartarScriptListener);
     	btnAbrirScriptParche.addActionListener(pantallaDescartarScriptListener);

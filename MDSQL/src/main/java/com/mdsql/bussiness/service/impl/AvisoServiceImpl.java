@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.service.AvisoService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.AVISO_SERVICE)
+@Service(MDSQLConstants.AVISO_SERVICE)
 @Slf4j
 public class AvisoServiceImpl extends ServiceSupport implements AvisoService {
 
@@ -37,12 +37,12 @@ public class AvisoServiceImpl extends ServiceSupport implements AvisoService {
 
     @Override
     public List<Aviso> consultaAvisosModelo(String codigoProyecto) throws ServiceException {
-        String runSP = createCall("p_con_avisos_modelo", Constants.CALL_04_ARGS);
+        String runSP = createCall("p_con_avisos_modelo", MDSQLConstants.CALL_04_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeAviso = createCallType(Constants.T_T_AVISO);
+            String typeAviso = createCallType(MDSQLConstants.T_T_AVISO);
             String typeError = createCallTypeError();
 
             logProcedure(runSP, codigoProyecto);

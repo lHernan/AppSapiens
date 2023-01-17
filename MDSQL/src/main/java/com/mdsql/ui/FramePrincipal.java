@@ -39,8 +39,8 @@ import com.mdsql.ui.listener.FramePrincipalWindowListener;
 import com.mdsql.ui.menu.MainMenuBar;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
-import com.mdsql.utils.Constants.Procesado;
+import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.MDSQLConstants.Procesado;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
@@ -612,22 +612,22 @@ public class FramePrincipal extends FrameSupport {
 		addWindowListener(windowListener);
 		addOnLoadListener(actionListener);
 
-		btnLoadScript.setActionCommand(Constants.FRAME_PRINCIPAL_LOAD_SCRIPT);
-		btnCargarScriptObjetos.setActionCommand(Constants.FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS);
-		btnProcesarScript.setActionCommand(Constants.FRAME_PRINCIPAL_PROCESAR_SCRIPT);
-		btnSave.setActionCommand(Constants.FRAME_PRINCIPAL_SAVE);
-		btnExecute.setActionCommand(Constants.FRAME_PRINCIPAL_EXECUTE);
-		btnEntregarProcesado.setActionCommand(Constants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO);
-		btnLimpiarScripts.setActionCommand(Constants.FRAME_PRINCIPAL_LIMPIAR_SCRIPT);
-		btnProcesadoEnCurso.setActionCommand(Constants.FRAME_PRINCIPAL_PROCESADO_CURSO);
-		btnRefrescarFichero.setActionCommand(Constants.FRAME_PRINCIPAL_REFRESCAR_FICHERO);
-		btnInformacionModelo.setActionCommand(Constants.FRAME_PRINCIPAL_INFORMACION_MODELO);
+		btnLoadScript.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_LOAD_SCRIPT);
+		btnCargarScriptObjetos.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_CARGAR_SCRIPT_OBJETOS);
+		btnProcesarScript.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_PROCESAR_SCRIPT);
+		btnSave.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_SAVE);
+		btnExecute.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_EXECUTE);
+		btnEntregarProcesado.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO);
+		btnLimpiarScripts.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_LIMPIAR_SCRIPT);
+		btnProcesadoEnCurso.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_PROCESADO_CURSO);
+		btnRefrescarFichero.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_REFRESCAR_FICHERO);
+		btnInformacionModelo.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_INFORMACION_MODELO);
 
-		btnUndo.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_UNDO);
-		btnRedo.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_REDO);
-		btnCut.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_CUT);
-		btnCopy.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_COPY);
-		btnPaste.setActionCommand(Constants.FRAME_PRINCIPAL_BTN_PASTE);
+		btnUndo.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_BTN_UNDO);
+		btnRedo.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_BTN_REDO);
+		btnCut.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_BTN_CUT);
+		btnCopy.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_BTN_COPY);
+		btnPaste.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_BTN_PASTE);
 
 		btnLoadScript.addActionListener(actionListener);
 		btnCargarScriptObjetos.addActionListener(actionListener);
@@ -663,7 +663,7 @@ public class FramePrincipal extends FrameSupport {
 
 	@Override
 	protected void initModels() {
-		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.FRAME_PRINCIPAL_TYPES_TABLA_CABECERA);
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.FRAME_PRINCIPAL_TYPES_TABLA_CABECERA);
 		jTable1.initModel(new FramePrincipalTypesTableModel(cabecera));
 	}
 

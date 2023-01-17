@@ -4,13 +4,15 @@ import java.awt.Color;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import com.mdval.utils.Constants;
+
 import lombok.Getter;
 
 /**
  * @author federico
  *
  */
-public class Constants {
+public class MDSQLConstants extends Constants {
 	
 	public static final Charset CHARSET_UNX = StandardCharsets.UTF_8;
 	public static final Charset CHARSET_WIN = Charset.forName("windows-1252");
@@ -33,7 +35,6 @@ public class Constants {
 	public static final String SELECTED_ROUTE = "selectedRoute";
 	public static final String TOKEN = "TOKEN";
 	public static final String PROCESADO_EN_CURSO = "PROCESADO_EN_CURSO";
-	public static final String SESSION = "SESSION";
 
 	/**
 	 * Report templates
@@ -85,29 +86,6 @@ public class Constants {
 	public static final String FORMATO_FICHERO = "@%s";
 	public static final String SQL_PLUS = "sqlplus";
 	public static final String EXIT = "exit";
-
-	public static final String CALL_03_ARGS = "{call %s(?,?,?)}";
-	public static final String CALL_04_ARGS = "{call %s(?,?,?,?)}";
-	public static final String CALL_05_ARGS = "{call %s(?,?,?,?,?)}";
-	public static final String CALL_06_ARGS = "{call %s(?,?,?,?,?,?)}";
-	public static final String CALL_07_ARGS = "{call %s(?,?,?,?,?,?,?)}";
-	public static final String CALL_08_ARGS = "{call %s(?,?,?,?,?,?,?,?)}";
-	public static final String CALL_09_ARGS = "{call %s(?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_10_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_11_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_12_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_13_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_14_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_15_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_16_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_17_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_18_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_19_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_20_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_21_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_22_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_23_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-	public static final String CALL_24_ARGS = "{call %s(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 
 	// TODO eliminar sin utilizar al finalizar desarollo
 	public static final String T_R_LINEA = "T_R_LINEA";
@@ -278,8 +256,6 @@ public class Constants {
 	public static final String CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS = "CMD_MODIFICACION_MANTENIMIENTO_PARTICULAS";
 	public static final String CMD_ALTA_MODELOS = "CMD_ALTA_MODELOS";
 	public static final String CMD_MODIFICACION_MODELOS = "CMD_MODIFICACION_MODELOS";
-	public static final String CMD_ERROR = "CMD_ERROR";
-	public static final String CMD_WARN = "CMD_WARN";
 	public static final String CMD_BUSCAR_MODELOS = "CMD_BUSCAR_MODELOS";
 	public static final String CMD_PROCESADO_EN_CURSO = "CMD_PROCESADO_EN_CURSO";
 	public static final String CMD_ENTREGAR_SCRIPT = "CMD_ENTREGAR_SCRIPT";
@@ -556,6 +532,8 @@ public class Constants {
 	public static final String PANTALLA_REPARAR_SCRIPT_RBTN_NO_REPROCESAR_SCRIPT = "PANTALLA_REPARAR_SCRIPT_RBTN_NO_REPROCESAR_SCRIPT";
 	public static final String PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_PROCESADO = "PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_PROCESADO";
 	public static final String PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_REPARACION = "PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_REPARACION";
+	public static final String PANTALLA_REPARAR_SCRIPT_BTN_ABRIR_FICHERO = "PANTALLA_REPARAR_SCRIPT_BTN_ABRIR_FICHERO";
+	public static final String PANTALLA_REPARAR_SCRIPT_BTN_ABRIR_FICHERO_REPARACION = "PANTALLA_REPARAR_SCRIPT_BTN_ABRIR_FICHERO_REPARACION";
 
 	public static final String PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PROCESAR = "PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PROCESAR";
 	public static final String PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PARCHE = "PANTALLA_DESCARTAR_SCRIPT_BTN_ABRIR_PARCHE";

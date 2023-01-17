@@ -22,7 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.mdsql.ui.listener.DlgRechazarListener;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -110,8 +110,8 @@ public class DlgRechazar extends DialogSupport {
 	protected void initEvents() {
 		ActionListener actionListener = new DlgRechazarListener(this);
 		
-		btnAceptar.setActionCommand(Constants.DLG_RECHAZAR_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.DLG_RECHAZAR_BTN_CANCELAR);
+		btnAceptar.setActionCommand(MDSQLConstants.DLG_RECHAZAR_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDSQLConstants.DLG_RECHAZAR_BTN_CANCELAR);
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);

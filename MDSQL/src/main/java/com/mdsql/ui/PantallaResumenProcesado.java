@@ -22,7 +22,7 @@ import com.mdsql.ui.model.ResumenProcesadoObjetosTableModel;
 import com.mdsql.ui.model.ResumenProcesadoOperacionesTableModel;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -334,8 +334,8 @@ public class PantallaResumenProcesado extends DialogSupport {
 	protected void initEvents() {
 		PantallaResumenProcesadoActionListener actionListener = new PantallaResumenProcesadoActionListener(this);
 		
-		btnEntregar.setActionCommand(Constants.PANTALLA_RESUMEN_PROCESADO_ENTREGAR);
-		btnCancelar.setActionCommand(Constants.PANTALLA_RESUMEN_PROCESADO_CANCELAR);
+		btnEntregar.setActionCommand(MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_ENTREGAR);
+		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_CANCELAR);
 
 		btnEntregar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
@@ -345,15 +345,15 @@ public class PantallaResumenProcesado extends DialogSupport {
 
 	@Override
 	protected void initModels() {
-		Cabecera cabeceraScripts = MDSQLUIHelper.createCabeceraTabla(Constants.RESUMEN_PROCESADO_SCRIPTS_TABLA_CABECERA);
+		Cabecera cabeceraScripts = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.RESUMEN_PROCESADO_SCRIPTS_TABLA_CABECERA);
 		tblScripts.initModel(
 				new ResumenProcesadoScriptsTableModel(cabeceraScripts));
 		
-		Cabecera cabeceraOperaciones = MDSQLUIHelper.createCabeceraTabla(Constants.RESUMEN_PROCESADO_OPERACIONES_TABLA_CABECERA);
+		Cabecera cabeceraOperaciones = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.RESUMEN_PROCESADO_OPERACIONES_TABLA_CABECERA);
 		tblOperaciones.initModel(
 				new ResumenProcesadoOperacionesTableModel(cabeceraOperaciones));
 		
-		Cabecera cabeceraObjetos = MDSQLUIHelper.createCabeceraTabla(Constants.RESUMEN_PROCESADO_OBJETOS_TABLA_CABECERA);
+		Cabecera cabeceraObjetos = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.RESUMEN_PROCESADO_OBJETOS_TABLA_CABECERA);
 		tblObjetos.initModel(
 				new ResumenProcesadoObjetosTableModel(cabeceraObjetos));
 	}

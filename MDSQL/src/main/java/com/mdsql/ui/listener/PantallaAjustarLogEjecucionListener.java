@@ -17,7 +17,7 @@ import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.model.AjustarLogEjecucionTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 
@@ -34,10 +34,10 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_AJUSTAR_LOG_EJECUCION_ELIMINAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_AJUSTAR_LOG_EJECUCION_ELIMINAR.equals(jButton.getActionCommand())) {
 			eliminarEvt();
 		}
-		if (Constants.PANTALLA_AJUSTAR_LOG_EJECUCION_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_AJUSTAR_LOG_EJECUCION_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaAjustarLogEjecucion.dispose();
 		}
 
@@ -50,7 +50,7 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 			loadLogEjecucion();
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaAjustarLogEjecucion.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaAjustarLogEjecucion.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 			loadLogEjecucion();
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaAjustarLogEjecucion.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaAjustarLogEjecucion.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 	 * 
 	 */
 	private void eliminarRegistro() throws ServiceException {
-		LogService logService = (LogService) getService(Constants.LOG_SERVICE);
+		LogService logService = (LogService) getService(MDSQLConstants.LOG_SERVICE);
 
 		LogEjecucion seleccionado = pantallaAjustarLogEjecucion.getSeleccionado();
 		
@@ -89,7 +89,7 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 	 * 
 	 */
 	private void loadLogEjecucion() throws ServiceException {
-		LogService logService = (LogService) getService(Constants.LOG_SERVICE);
+		LogService logService = (LogService) getService(MDSQLConstants.LOG_SERVICE);
 
 		Script script = (Script) pantallaAjustarLogEjecucion.getParams().get("script");
 		Proceso proceso = (Proceso) pantallaAjustarLogEjecucion.getParams().get("proceso");

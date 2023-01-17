@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.mdsql.bussiness.entities.CuadreObjeto;
 import com.mdsql.bussiness.entities.CuadreOperacion;
 import com.mdsql.bussiness.service.CuadreService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.CUADRE_SERVICE)
+@Service(MDSQLConstants.CUADRE_SERVICE)
 @Slf4j
 public class CuadreServiceImpl extends ServiceSupport implements CuadreService {
 
@@ -37,12 +37,12 @@ public class CuadreServiceImpl extends ServiceSupport implements CuadreService {
 	@Override
 	public List<CuadreOperacion> consultaCuadreOperacionesScript(BigDecimal idProceso, BigDecimal numeroOrden)
 			throws ServiceException {
-		String runSP = createCall("p_con_cuadre_oper_script", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_con_cuadre_oper_script", MDSQLConstants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeCuadreOperaciones = createCallType(Constants.T_T_CUADRE_OPER);
+			String typeCuadreOperaciones = createCallType(MDSQLConstants.T_T_CUADRE_OPER);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, idProceso, numeroOrden);
@@ -88,12 +88,12 @@ public class CuadreServiceImpl extends ServiceSupport implements CuadreService {
 	@SneakyThrows
 	public List<CuadreObjeto> consultaCuadreOperacionesObjetoScript(BigDecimal idProceso, BigDecimal numeroOrden)
 			throws ServiceException {
-		String runSP = createCall("p_con_cuadre_obj_script", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_con_cuadre_obj_script", MDSQLConstants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeCuadreObjetoScript = createCallType(Constants.T_T_CUADRE_OBJ);
+			String typeCuadreObjetoScript = createCallType(MDSQLConstants.T_T_CUADRE_OBJ);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, idProceso, numeroOrden);

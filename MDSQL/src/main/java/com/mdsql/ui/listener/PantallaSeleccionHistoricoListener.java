@@ -16,7 +16,7 @@ import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
@@ -40,15 +40,15 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_SELECCION_HISTORICA_BTN_ADD.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_SELECCION_HISTORICA_BTN_ADD.equals(jButton.getActionCommand())) {
 			addToHistorico();
 		}
 
-		if (Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR.equals(jButton.getActionCommand())) {
 			generarHistorico();
 		}
 
-		if (Constants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			cancelar();
 		}
 	}
@@ -57,7 +57,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 	@Override
 	public void onLoad() {
 		try {
-			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
+			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
 
 			String codigoProyecto = (String) pantallaSeleccionHistorico.getParams().get("codigoProyecto");
 			List<TextoLinea> lineas = (List<TextoLinea>) pantallaSeleccionHistorico.getParams().get("script");
@@ -72,7 +72,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaSeleccionHistorico.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaSeleccionHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -81,9 +81,9 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 	 */
 	private void addToHistorico() {
 		try {
-			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
+			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
 
-			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 	        String codigoUsuario = session.getCodUsr();
 			String codigoProyecto = (String) pantallaSeleccionHistorico.getParams().get("codigoProyecto");
 			String codigoPeticion = (String) pantallaSeleccionHistorico.getParams().get("codigoPeticion");
@@ -93,7 +93,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 			procesoService.altaHistorico(listaObjetos, codigoProyecto, codigoPeticion, codigoUsuario);
 		} catch (Exception e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaSeleccionHistorico.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaSeleccionHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -110,7 +110,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 		List<SeleccionHistorico> list = ((SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico().getModel()).getData();
 		pantallaSeleccionHistorico.getReturnParams().put("objetosHistorico", list);
 		
-		updateObservers(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
+		updateObservers(MDSQLConstants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		pantallaSeleccionHistorico.dispose();
 	}
 

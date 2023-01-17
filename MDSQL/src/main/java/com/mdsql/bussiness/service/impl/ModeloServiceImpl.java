@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.service.ModeloService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.MODELO_SERVICE)
+@Service(MDSQLConstants.MODELO_SERVICE)
 @Slf4j
 public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
@@ -37,12 +37,12 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	@Override
 	public List<Modelo> consultaModelos(String codigoProyecto, String nombreModelo,
 			String codigoSubProyecto) throws ServiceException {
-		String runSP = createCall("p_con_modelos", Constants.CALL_06_ARGS);
+		String runSP = createCall("p_con_modelos", MDSQLConstants.CALL_06_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeModelo = createCallType(Constants.T_T_MODELO);
+			String typeModelo = createCallType(MDSQLConstants.T_T_MODELO);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigoProyecto, nombreModelo, codigoSubProyecto);

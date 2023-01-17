@@ -14,7 +14,7 @@ import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.DlgExcepcion;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 
@@ -31,19 +31,19 @@ public class DlgExcepcionListener extends ListenerSupport implements ActionListe
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (Constants.DLG_EXCEPTION_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.DLG_EXCEPTION_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			excepcion();
 		}
 
-		if (Constants.DLG_EXCEPTION_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.DLG_EXCEPTION_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			dlgExcepcion.dispose();
 		}
 	}
 	
 	private void excepcion() {
 		try {
-			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
-			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 			
 			Proceso proceso = (Proceso) dlgExcepcion.getParams().get("proceso");
 			Script script = (Script) dlgExcepcion.getParams().get("script");
@@ -56,7 +56,7 @@ public class DlgExcepcionListener extends ListenerSupport implements ActionListe
 			
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(dlgExcepcion.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(dlgExcepcion.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 }

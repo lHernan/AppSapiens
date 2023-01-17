@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import com.mdsql.bussiness.entities.HistoricoProceso;
 import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
 import com.mdsql.bussiness.service.HistoricoService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.HISTORICO_SERVICE)
+@Service(MDSQLConstants.HISTORICO_SERVICE)
 @Slf4j
 public class HistoricoServiceImpl extends ServiceSupport implements HistoricoService {
 
@@ -37,12 +37,12 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
     @Override
     @SneakyThrows
     public List<HistoricoProceso> consultarHistoricoProceso(InputConsutaHistoricoProceso inputConsutaHistoricoProceso) {
-        String runSP = createCall("p_con_historico_objeto", Constants.CALL_14_ARGS);
+        String runSP = createCall("p_con_historico_objeto", MDSQLConstants.CALL_14_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeHisProc = createCallType(Constants.T_T_HIS_PROC);
+            String typeHisProc = createCallType(MDSQLConstants.T_T_HIS_PROC);
             String typeError = createCallTypeError();
 
             logProcedure(runSP, inputConsutaHistoricoProceso.getCodigoProyecto(), inputConsutaHistoricoProceso.getNombreObjetoPadre(), inputConsutaHistoricoProceso.getTipoObjetoPadre(), inputConsutaHistoricoProceso.getTipoAccionPadre()

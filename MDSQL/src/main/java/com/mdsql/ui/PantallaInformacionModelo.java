@@ -14,7 +14,7 @@ import com.mdsql.ui.listener.PantallaInformacionModeloListener;
 import com.mdsql.ui.model.InformacionModeloTableModel;
 import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -97,7 +97,7 @@ public class PantallaInformacionModelo extends DialogSupport {
     
     @Override
 	protected void initModels() {
-    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_INFORMACION_MODELO_TABLA_CABECERA);
+    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_INFORMACION_MODELO_TABLA_CABECERA);
     	
     	tblInformacion.initModel(new InformacionModeloTableModel(cabecera));
     	tblInformacion.setDefaultRenderer(String.class, new NivelAvisosTableCellRenderer());

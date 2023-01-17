@@ -14,7 +14,7 @@ import javax.swing.LayoutStyle;
 import com.mdsql.ui.listener.PantallaDetalleScriptListener;
 import com.mdsql.ui.model.DetalleScriptTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -84,7 +84,7 @@ public class PantallaDetalleScript extends DialogSupport {
    	protected void initEvents() {
     	PantallaDetalleScriptListener actionListener = new PantallaDetalleScriptListener(this);
 		
-    	btnCancelar.setActionCommand(Constants.PANTALLA_DETALLE_SCRIPT_CANCELAR);
+    	btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_DETALLE_SCRIPT_CANCELAR);
 
     	btnCancelar.addActionListener(actionListener);
 		
@@ -93,7 +93,7 @@ public class PantallaDetalleScript extends DialogSupport {
     
     @Override
 	protected void initModels() {
-    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_DETALLE_SCRIPT_TABLA_CABECERA);
+    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_DETALLE_SCRIPT_TABLA_CABECERA);
     	tblDetalle.setModel(new DetalleScriptTableModel(cabecera));
     }
     

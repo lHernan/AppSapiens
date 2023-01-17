@@ -10,7 +10,7 @@ import java.util.Objects;
 
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Session;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.utils.LogWrapper;
 
@@ -24,13 +24,13 @@ public class FramePrincipalWindowListener implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		if (!Objects.isNull(session)) {
 			Proceso proceso = session.getProceso();
 			
 			if (Objects.isNull(proceso)) {
 				try {
-					Path fileToDeletePath = Paths.get(Constants.SESSION + ".ser");
+					Path fileToDeletePath = Paths.get(MDSQLConstants.SESSION + ".ser");
 					Files.delete(fileToDeletePath);
 				} catch (IOException e1) {
 					LogWrapper.warn(log, "El archivo de sesión no existe");

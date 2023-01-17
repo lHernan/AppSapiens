@@ -23,7 +23,7 @@ import com.mdsql.bussiness.entities.ScriptType;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.TypeService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -34,7 +34,7 @@ import oracle.jdbc.internal.OracleConnection;
 /**
  * @author hcarreno
  */
-@Service(Constants.TYPE_SERVICE)
+@Service(MDSQLConstants.TYPE_SERVICE)
 @Slf4j
 public class TypeServiceImpl extends ServiceSupport implements TypeService {
 
@@ -44,15 +44,15 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
 
     @Override
     public OutputProcesaType procesarType(InputProcesaType inputProcesaType) throws ServiceException {
-        String runSP = createCall("p_procesa_type", Constants.CALL_22_ARGS);
+        String runSP = createCall("p_procesa_type", MDSQLConstants.CALL_22_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String tableLinea = createCallType(Constants.T_T_LINEA);
-            String recordLinea = createCallType(Constants.T_R_LINEA);
+            String tableLinea = createCallType(MDSQLConstants.T_T_LINEA);
+            String recordLinea = createCallType(MDSQLConstants.T_R_LINEA);
 
-            String typeType = createCallType(Constants.T_T_TYPE);
+            String typeType = createCallType(MDSQLConstants.T_T_TYPE);
 
             String typeError = createCallTypeError();
 

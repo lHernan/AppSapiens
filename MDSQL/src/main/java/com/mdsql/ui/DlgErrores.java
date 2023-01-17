@@ -26,7 +26,7 @@ import javax.swing.WindowConstants;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -83,12 +83,12 @@ public class DlgErrores extends DialogSupport {
         jLabel1.setHorizontalAlignment(SwingConstants.LEFT);
         
         // Por defecto error
-        String type = (String) params.get(Constants.TYPE);
+        String type = (String) params.get(MDSQLConstants.TYPE);
         if (StringUtils.isNotBlank(type)) {
-        	if (Constants.ERROR.equals(type)) {
+        	if (MDSQLConstants.ERROR.equals(type)) {
         		jLabel1.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
         	}
-        	if (Constants.WARN.equals(type)) {
+        	if (MDSQLConstants.WARN.equals(type)) {
         		jLabel1.setIcon(new ImageIcon(getClass().getResource("/warning.png"))); // NOI18N
         	}
         }
@@ -132,13 +132,13 @@ public class DlgErrores extends DialogSupport {
 
 	@Override
 	protected void setupLiterals() {
-		String type = (String) params.get(Constants.TYPE);
+		String type = (String) params.get(MDSQLConstants.TYPE);
         if (StringUtils.isNotBlank(type)) {
-        	if (Constants.ERROR.equals(type)) {
+        	if (MDSQLConstants.ERROR.equals(type)) {
         		setTitle(literales.getLiteral("error.titulo"));
         		jLabel1.setText(literales.getLiteral("error.label"));
         	}
-        	if (Constants.WARN.equals(type)) {
+        	if (MDSQLConstants.WARN.equals(type)) {
         		setTitle(literales.getLiteral("aviso.titulo"));
         		jLabel1.setText(literales.getLiteral("aviso.label"));
         	}
@@ -159,8 +159,8 @@ public class DlgErrores extends DialogSupport {
 		txtErrors.setEditable(Boolean.FALSE);
 		
 		if (!Objects.isNull(params)) {
-			ServiceException serviceException = (ServiceException) params.get(Constants.SERVICE_ERROR);
-			Exception exception = (Exception) params.get(Constants.ERROR);
+			ServiceException serviceException = (ServiceException) params.get(MDSQLConstants.SERVICE_ERROR);
+			Exception exception = (Exception) params.get(MDSQLConstants.ERROR);
 			
 			if (!Objects.isNull(serviceException)) {
 				if (CollectionUtils.isNotEmpty(serviceException.getErrors())) {

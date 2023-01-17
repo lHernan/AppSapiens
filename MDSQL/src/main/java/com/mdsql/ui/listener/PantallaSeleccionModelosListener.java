@@ -15,7 +15,7 @@ import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 
@@ -36,11 +36,11 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_SELECCION_MODELOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_BUSCAR.equals(jButton.getActionCommand())) {
 			eventBtnBuscar();
 		}
 		
-		if (Constants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR.equals(jButton.getActionCommand())) {
 			evntBtnSeleccionar();
 		}
 	}
@@ -59,7 +59,7 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 			
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 
@@ -78,7 +78,7 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 	 * @throws ServiceException 
 	 */
 	private List<Modelo> buscar(String codModelo, String nombreModelo, String codSubmodelo) throws ServiceException {
-		ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+		ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
 		
 		return modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
 	}
@@ -108,7 +108,7 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 }

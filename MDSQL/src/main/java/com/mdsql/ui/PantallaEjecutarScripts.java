@@ -32,7 +32,7 @@ import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.renderer.BBDDRenderer;
 import com.mdsql.ui.renderer.ScriptTableCellRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -352,16 +352,16 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		HistoricoScriptsTableListener historicoSelectionListener = new HistoricoScriptsTableListener(this);
 		ItemListener bbddItemListener = new EjecutarScriptBBDDItemListener(this);
 		
-		btnRechazar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR);
-		btnVerLog.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_LOG);
-		btnDetalleScript.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DETALLE_SCRIPT);
-		btnDescartar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DESCARTAR);
-		btnReparar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_REPARAR);
-		btnVerCuadres.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_CUADRES);
-		btnVerErrores.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_ERRORES);
-		btnExcepcion.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_EXCEPCION);
-		btnAceptar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR);
+		btnRechazar.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR);
+		btnVerLog.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_LOG);
+		btnDetalleScript.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DETALLE_SCRIPT);
+		btnDescartar.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DESCARTAR);
+		btnReparar.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_REPARAR);
+		btnVerCuadres.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_CUADRES);
+		btnVerErrores.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_ERRORES);
+		btnExcepcion.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_EXCEPCION);
+		btnAceptar.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR);
 
 		btnRechazar.addActionListener(actionListener);
 		btnVerLog.addActionListener(actionListener);
@@ -391,7 +391,7 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		cmbBBDD.setModel(bbddModel);
 		cmbBBDD.setRenderer(new BBDDRenderer());
 		
-		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.SCRIPTS_TABLA_CABECERA);
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.SCRIPTS_TABLA_CABECERA);
 		
 		// Hay que escuchar por cambios en el modelo, ya que se van a marcar / desmarcar los checks
 		tblVigente.initModel(new ScriptsTableModel(cabecera));

@@ -24,7 +24,7 @@ import com.mdsql.bussiness.entities.ScriptType;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.EjecucionService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -36,7 +36,7 @@ import oracle.jdbc.internal.OracleConnection;
 /**
  * @author hcarreno
  */
-@Service(Constants.EJECUCION_SERVICE)
+@Service(MDSQLConstants.EJECUCION_SERVICE)
 @Slf4j
 public class EjecucionServiceImpl extends ServiceSupport implements EjecucionService {
 
@@ -47,13 +47,13 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
     @Override
     @SneakyThrows
     public OutputRegistraEjecucion registraEjecucion(BigDecimal idProceso, BigDecimal numeroOrden, String codigoUsuario, List<TextoLinea> lineas) {
-        String runSP = createCall("p_registra_ejecucion", Constants.CALL_13_ARGS);
+        String runSP = createCall("p_registra_ejecucion", MDSQLConstants.CALL_13_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String tableLinea = createCallType(Constants.T_T_LINEA);
-            String recordLinea = createCallType(Constants.T_R_LINEA);
+            String tableLinea = createCallType(MDSQLConstants.T_T_LINEA);
+            String recordLinea = createCallType(MDSQLConstants.T_R_LINEA);
 
             String typeError = createCallTypeError();
 
@@ -121,16 +121,16 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
     @Override
     @SneakyThrows
     public OutputRegistraEjecucionType registraEjecucionType(BigDecimal idProceso, String codigoUsuario, List<TextoLinea> logScript) {
-        String runSP = createCall("p_registra_ejecucion_type", Constants.CALL_08_ARGS);
+        String runSP = createCall("p_registra_ejecucion_type", MDSQLConstants.CALL_08_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String tableLinea = createCallType(Constants.T_T_LINEA);
-            String recordLinea = createCallType(Constants.T_R_LINEA);
+            String tableLinea = createCallType(MDSQLConstants.T_T_LINEA);
+            String recordLinea = createCallType(MDSQLConstants.T_R_LINEA);
 
             String typeError = createCallTypeError();
-            String typeType = createCallType(Constants.T_T_TYPE);
+            String typeType = createCallType(MDSQLConstants.T_T_TYPE);
 
             logProcedure(runSP, idProceso, codigoUsuario, logScript);
 
@@ -210,13 +210,13 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
     @Override
     @SneakyThrows
     public OutputRegistraEjecucionParche registraEjecucionParche(BigDecimal idProceso, BigDecimal numeroOrden, String codigoUsuario, List<TextoLinea> logScript, String indRepara) {
-        String runSP = createCall("p_registra_ejecucion_parche", Constants.CALL_14_ARGS);
+        String runSP = createCall("p_registra_ejecucion_parche", MDSQLConstants.CALL_14_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String tableLinea = createCallType(Constants.T_T_LINEA);
-            String recordLinea = createCallType(Constants.T_R_LINEA);
+            String tableLinea = createCallType(MDSQLConstants.T_T_LINEA);
+            String recordLinea = createCallType(MDSQLConstants.T_R_LINEA);
 
             String typeError = createCallTypeError();
 

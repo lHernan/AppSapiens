@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
@@ -24,7 +25,11 @@ import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
+import com.mdval.utils.LogWrapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MDSQLUIHelper extends UIHelper {
 	
 	/**
@@ -162,7 +167,29 @@ public class MDSQLUIHelper extends UIHelper {
 		chooser.setDialogTitle(literales.getLiteral("panelPrincipal.tituloChooser"));
 		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		chooser.setCurrentDirectory(new File(rutaInicial));
+		chooser.setAcceptAllFileFilterUsed(false);
 		
 		return chooser;
+	}
+	
+	/**
+	 * @param rutaInicial
+	 * @param textField
+	 * @param file
+	 * @param frameParent
+	 */
+	public static void abrirScript(String rutaInicial, JTextField textField, File file, FrameSupport frameParent) {
+		try {
+			JFileChooser chooser = MDSQLUIHelper.getJFileChooser(rutaInicial);
+			if (chooser.showOpenDialog(frameParent) == JFileChooser.APPROVE_OPTION) {
+				file = chooser.getSelectedFile();
+				String rutaArchivo = file.getAbsolutePath();
+				LogWrapper.debug(log, "Archivo seleccionado: %s", rutaArchivo);
+				textField.setText(rutaArchivo);
+			}
+		} catch (IOException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			showPopup(frameParent, Constants.CMD_ERROR, params);
+		}	
 	}
 }

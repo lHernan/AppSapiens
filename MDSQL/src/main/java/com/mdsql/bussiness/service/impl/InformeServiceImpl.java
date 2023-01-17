@@ -20,7 +20,7 @@ import com.mdsql.bussiness.entities.DetValidacion;
 import com.mdsql.bussiness.entities.InformeCambios;
 import com.mdsql.bussiness.entities.InformeValidacion;
 import com.mdsql.bussiness.service.InformeService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.INFORME_SERVICE)
+@Service(MDSQLConstants.INFORME_SERVICE)
 @Slf4j
 public class InformeServiceImpl extends ServiceSupport implements InformeService {
 
@@ -40,13 +40,13 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
     @Override
     @SneakyThrows
     public InformeValidacion generarInformeValidacion(BigDecimal codigoValidacion) {
-        String runSP = createCall("p_generar_informe_val", Constants.CALL_06_ARGS);
+        String runSP = createCall("p_generar_informe_val", MDSQLConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeDetValidacion = createCallType(Constants.T_T_DET_VALIDACION);
-            String typeCampoGlosario = createCallType(Constants.T_T_CAMPO_GLOSARIO);
+            String typeDetValidacion = createCallType(MDSQLConstants.T_T_DET_VALIDACION);
+            String typeCampoGlosario = createCallType(MDSQLConstants.T_T_CAMPO_GLOSARIO);
             String typeError = createCallTypeError();
 
             logProcedure(runSP, codigoValidacion);
@@ -89,12 +89,12 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
     @Override
     @SneakyThrows
     public List<InformeCambios> informeCambios(String codigoProyecto, Date fechaDesde, Date fechaHasta) {
-        String runSP = createCall("p_informe_cambios", Constants.CALL_06_ARGS);
+        String runSP = createCall("p_informe_cambios", MDSQLConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeInformeCambios = createCallType(Constants.T_T_INFORME_CAMBIOS);
+            String typeInformeCambios = createCallType(MDSQLConstants.T_T_INFORME_CAMBIOS);
             String typeError = createCallTypeError();
 
             logProcedure(runSP, codigoProyecto, fechaDesde, fechaHasta);

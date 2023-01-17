@@ -15,7 +15,7 @@ import com.mdsql.ui.PantallaEjecutarTypes;
 import com.mdsql.ui.model.TypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.OnLoadListener;
 
 public class PantallaEjecutarTypesActionListener extends ListenerSupport implements ActionListener, OnLoadListener {
@@ -30,23 +30,23 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (Constants.PANTALLA_EJECUTAR_TYPES_BTN_RECHAZAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_RECHAZAR.equals(jButton.getActionCommand())) {
 			eventBtnRechazar();
 		}
 		
-		if (Constants.PANTALLA_EJECUTAR_TYPES_BTN_VER_CUADRES.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_VER_CUADRES.equals(jButton.getActionCommand())) {
 			eventBtnVerCuadres();
 		}
 		
-		if (Constants.PANTALLA_EJECUTAR_TYPES_BTN_VER_ERRORES.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_VER_ERRORES.equals(jButton.getActionCommand())) {
 			eventBtnVerErrores();
 		}
 		
-		if (Constants.PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAceptar();
 		}
 		
-		if (Constants.PANTALLA_EJECUTAR_TYPES_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaEjecutarTypes.dispose();
 		}
 		
@@ -60,7 +60,7 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		params.put("proceso", proceso);
 
 		DlgRechazar dlgRechazar = (DlgRechazar) MDSQLUIHelper.createDialog(pantallaEjecutarTypes.getFrameParent(),
-				Constants.CMD_RECHAZAR_PROCESADO, params);
+				MDSQLConstants.CMD_RECHAZAR_PROCESADO, params);
 		MDSQLUIHelper.show(dlgRechazar);
 
 		proceso = (Proceso) dlgRechazar.getReturnParams().get("proceso");

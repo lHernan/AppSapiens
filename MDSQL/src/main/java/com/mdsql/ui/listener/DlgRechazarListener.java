@@ -24,7 +24,7 @@ import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.UIHelper;
@@ -46,7 +46,7 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.DLG_RECHAZAR_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.DLG_RECHAZAR_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			Integer response = UIHelper.showConfirm("Al rechazar el procesado en curso,\n"
 					+ "se desecharán los scripts actuales, incluidos aquellos \n que se han ejecutado sin errores, "
 					+ "¿desea continuar?", "Rechazar");
@@ -56,15 +56,15 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 			}
 		}
 
-		if (Constants.DLG_RECHAZAR_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.DLG_RECHAZAR_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			dlgRechazar.dispose();
 		}
 	}
 
 	private void rechazarProceso() {
 		try {
-			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
-			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 
 			Proceso proceso = (Proceso) dlgRechazar.getParams().get("proceso");
 			String txtMotivoRechazo = dlgRechazar.getTxtMotivoRechazo().getText();
@@ -81,7 +81,7 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(dlgRechazar.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(dlgRechazar.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 

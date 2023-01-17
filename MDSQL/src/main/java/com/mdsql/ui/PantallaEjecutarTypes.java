@@ -18,7 +18,7 @@ import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.ui.listener.PantallaEjecutarTypesActionListener;
 import com.mdsql.ui.model.TypesTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -233,11 +233,11 @@ public class PantallaEjecutarTypes extends DialogSupport {
     protected void initEvents() {      
     	PantallaEjecutarTypesActionListener actionListener = new PantallaEjecutarTypesActionListener(this);
     	
-    	btnRechazar.setActionCommand(Constants.PANTALLA_EJECUTAR_TYPES_BTN_RECHAZAR);
-    	btnVerCuadres.setActionCommand(Constants.PANTALLA_EJECUTAR_TYPES_BTN_VER_CUADRES);
-    	btnVerErrores.setActionCommand(Constants.PANTALLA_EJECUTAR_TYPES_BTN_VER_ERRORES);
-    	btnAceptar.setActionCommand(Constants.PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR);
-    	btnCancelar.setActionCommand(Constants.PANTALLA_EJECUTAR_TYPES_BTN_CANCELAR);
+    	btnRechazar.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_RECHAZAR);
+    	btnVerCuadres.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_VER_CUADRES);
+    	btnVerErrores.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_VER_ERRORES);
+    	btnAceptar.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR);
+    	btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_CANCELAR);
     	
     	btnRechazar.addActionListener(actionListener);
     	btnVerCuadres.addActionListener(actionListener);
@@ -250,7 +250,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
     
     @Override
     protected void initModels() {
-    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.TYPES_TABLA_CABECERA);
+    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.TYPES_TABLA_CABECERA);
 		tblTypes.initModel(new TypesTableModel(cabecera));
     }
     

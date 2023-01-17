@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import com.mdsql.ui.listener.PantallaConsultaPeticionesListener;
 import com.mdsql.ui.model.ConsultaPeticionesTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -187,9 +187,9 @@ public class PantallaConsultaPeticiones extends DialogSupport {
    	protected void initEvents() {
     	pantallaConsultaPeticionesListener = new PantallaConsultaPeticionesListener(this);
     	
-    	btnBuscar.setActionCommand(Constants.PANTALLA_CONSULTA_PETICIONES_BUSCAR);
-    	btnCargar.setActionCommand(Constants.PANTALLA_CONSULTA_PETICIONES_CARGAR_PROCESADO);
-    	btnCancelar.setActionCommand(Constants.PANTALLA_CONSULTA_PETICIONES_CANCELAR);
+    	btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_CONSULTA_PETICIONES_BUSCAR);
+    	btnCargar.setActionCommand(MDSQLConstants.PANTALLA_CONSULTA_PETICIONES_CARGAR_PROCESADO);
+    	btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_CONSULTA_PETICIONES_CANCELAR);
     	
     	btnBuscar.addActionListener(pantallaConsultaPeticionesListener);
     	btnCargar.addActionListener(pantallaConsultaPeticionesListener);
@@ -200,7 +200,7 @@ public class PantallaConsultaPeticiones extends DialogSupport {
     
     @Override
    	protected void initModels() {
-    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_CONSULTA_PETICIONES_TABLA_CABECERA);
+    	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_CONSULTA_PETICIONES_TABLA_CABECERA);
     	tblPeticiones.initModel(new ConsultaPeticionesTableModel(cabecera));
     }
       

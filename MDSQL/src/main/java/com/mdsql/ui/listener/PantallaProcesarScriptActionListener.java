@@ -48,8 +48,8 @@ import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.SubProyectoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
-import com.mdsql.utils.Constants.Procesado;
+import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.MDSQLConstants.Procesado;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 
@@ -81,23 +81,23 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_SEARCH_MODEL.equals(jButton.getActionCommand())) {
 			eventBtnSearchModel();
 		}
 
-		if (Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaProcesarScript.dispose();
 		}
 
-		if (Constants.PANTALLA_PROCESADO_SCRIPT_PROCESAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_PROCESAR.equals(jButton.getActionCommand())) {
 			eventBtnProcesar();
 		}
 
-		if (Constants.PANTALLA_PROCESADO_SCRIPT_LIMPIAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_LIMPIAR.equals(jButton.getActionCommand())) {
 			eventBtnLimpiar();
 		}
 		
-		if (Constants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO.equals(jButton.getActionCommand())) {
 			eventBtnVerProcesado();
 		}
 	}
@@ -111,7 +111,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		params.put("entregar", Boolean.FALSE);
 		
 		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
-				Constants.CMD_RESUMEN_PROCESADO, params);
+				MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
 		MDSQLUIHelper.show(pantallaResumenProcesado);
 	}
 
@@ -157,14 +157,14 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		
 		if (!Objects.isNull(seleccionado)) {
 			// El modelo tiene histórico
-			if (Constants.S.equals(seleccionado.getMcaHis())) {
+			if (MDSQLConstants.S.equals(seleccionado.getMcaHis())) {
 				Map<String, Object> params = new HashMap<>();
 				params.put("codigoProyecto", seleccionado.getCodigoProyecto());
 				params.put("script", pantallaProcesarScript.getParams().get("script"));
 				params.put("codigoPeticion", pantallaProcesarScript.getTxtPeticion().getText());
 				
 				pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
-						Constants.CMD_SELECCION_HISTORICO, params);
+						MDSQLConstants.CMD_SELECCION_HISTORICO, params);
 				MDSQLUIHelper.show(pantallaSeleccionHistorico);
 				
 				Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
@@ -210,14 +210,14 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				}
 				
 				pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
-						Constants.CMD_SEARCH_MODEL, params);
+						MDSQLConstants.CMD_SEARCH_MODEL, params);
 				MDSQLUIHelper.show(pantallaSeleccionModelos);
 				seleccionado = pantallaSeleccionModelos.getSeleccionado();
 			}
 			establecerModelo(seleccionado);
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 
@@ -277,7 +277,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		inputSeleccionarProcesados.setPCodigoproyecto(seleccionado.getCodigoProyecto());
 		inputSeleccionarProcesados.setPUltimas(new BigDecimal(1));
 
-		ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
+		ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
 		List<Proceso> peticiones = procesoService.seleccionarProcesados(inputSeleccionarProcesados);
 
 		if (CollectionUtils.isNotEmpty(peticiones)) {
@@ -293,7 +293,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		((ProcesarScriptNotaTableModel) pantallaProcesarScript.getTblNotas().getModel()).clearData();
 		
 		// Hacer la consulta
-		AvisoService avisoService = (AvisoService) getService(Constants.AVISO_SERVICE);
+		AvisoService avisoService = (AvisoService) getService(MDSQLConstants.AVISO_SERVICE);
 		List<Aviso> avisos = avisoService.consultaAvisosModelo(seleccionado.getCodigoProyecto());
 
 		if (CollectionUtils.isNotEmpty(avisos)) {
@@ -305,7 +305,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 * @param seleccionado
 	 */
 	private void fillBBDD(Modelo modelo, SubProyecto subproyecto) throws ServiceException {
-		BBDDService bbddService = (BBDDService) getService(Constants.BBDD_SERVICE);
+		BBDDService bbddService = (BBDDService) getService(MDSQLConstants.BBDD_SERVICE);
 
 		String codigoProyecto = modelo.getCodigoProyecto();
 		String codigoSubproyecto = !Objects.isNull(subproyecto)
@@ -338,7 +338,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		// En caso de no tener histórico el check de Generar histórico estará desmarcado
 		// y deshabilitado.
 		String tieneHistorico = seleccionado.getMcaHis();
-		if (Constants.N.equals(tieneHistorico)) {
+		if (MDSQLConstants.N.equals(tieneHistorico)) {
 			pantallaProcesarScript.getChkGenerarHistorico().setSelected(Boolean.FALSE);
 			pantallaProcesarScript.getChkGenerarHistorico().setEnabled(Boolean.FALSE);
 		} else {
@@ -372,10 +372,10 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void procesarScript(List<SeleccionHistorico> objetosHistorico) {
 		try {
-			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 	        String usuario = session.getCodUsr();
 			
-	        ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
+	        ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 			
 			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
 			if (!Objects.isNull(seleccionado)) {
@@ -388,7 +388,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				inputProcesaScript.setPCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
 				inputProcesaScript.setPCodigoPeticion(pantallaProcesarScript.getTxtPeticion().getText());
 				inputProcesaScript.setPCodigoDemanda(pantallaProcesarScript.getTxtDemanda().getText());
-				inputProcesaScript.setPMcaReprocesa(Constants.N);
+				inputProcesaScript.setPMcaReprocesa(MDSQLConstants.N);
 				inputProcesaScript.setPCodigoUsr(usuario);
 				inputProcesaScript.setPCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
 				inputProcesaScript.setPMcaHIS(MDSQLAppHelper.normalizeValueToCheck(pantallaProcesarScript.getChkGenerarHistorico().isSelected()));
@@ -431,7 +431,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 	
@@ -440,10 +440,10 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 */
 	private void procesarType() {
 		try {
-			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 	        String usuario = session.getCodUsr();
 	        
-			TypeService typeService = (TypeService) getService(Constants.TYPE_SERVICE);
+			TypeService typeService = (TypeService) getService(MDSQLConstants.TYPE_SERVICE);
 			
 			Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
 			SubProyecto subProyecto = pantallaProcesarScript.getSubproyectoSeleccionado();
@@ -489,7 +489,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			pantallaProcesarScript.dispose();
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 
@@ -523,7 +523,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 	
@@ -535,7 +535,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	 * @throws ServiceException 
 	 */
 	private List<Modelo> buscar(String codModelo, String nombreModelo, String codSubmodelo) throws ServiceException {
-		ModeloService modeloService = (ModeloService) getService(Constants.MODELO_SERVICE);
+		ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
 		
 		return modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
 	}

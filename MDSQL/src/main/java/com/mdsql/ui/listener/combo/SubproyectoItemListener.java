@@ -16,7 +16,7 @@ import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.model.BBDDComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -46,7 +46,7 @@ public class SubproyectoItemListener extends ListenerSupport implements ItemList
 					fillBBDD(modeloSeleccionado, subproyecto);
 				} catch (ServiceException e) {
 					Map<String, Object> params = MDSQLUIHelper.buildError(e);
-					MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), Constants.CMD_ERROR, params);
+					MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 				}
 			}
 		}
@@ -56,7 +56,7 @@ public class SubproyectoItemListener extends ListenerSupport implements ItemList
 	 * @param seleccionado
 	 */
 	private void fillBBDD(Modelo modelo, SubProyecto subproyecto) throws ServiceException {
-		BBDDService bbddService = (BBDDService) getService(Constants.BBDD_SERVICE);
+		BBDDService bbddService = (BBDDService) getService(MDSQLConstants.BBDD_SERVICE);
 
 		String codigoProyecto = modelo.getCodigoProyecto();
 		String codigoSubproyecto = !Objects.isNull(subproyecto) ? subproyecto.getCodigoSubProyecto() : null;

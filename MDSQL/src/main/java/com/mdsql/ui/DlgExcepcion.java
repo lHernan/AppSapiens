@@ -21,7 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import com.mdsql.ui.listener.DlgExcepcionListener;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -107,8 +107,8 @@ public class DlgExcepcion extends DialogSupport {
 	protected void initEvents() {
 		ActionListener actionListener = new DlgExcepcionListener(this);
 		
-		btnAceptar.setActionCommand(Constants.DLG_EXCEPTION_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.DLG_EXCEPTION_BTN_CANCELAR);
+		btnAceptar.setActionCommand(MDSQLConstants.DLG_EXCEPTION_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDSQLConstants.DLG_EXCEPTION_BTN_CANCELAR);
 		
 		btnAceptar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);

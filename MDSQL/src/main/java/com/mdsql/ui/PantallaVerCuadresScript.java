@@ -15,7 +15,7 @@ import com.mdsql.ui.listener.PantallaVerCuadresScriptListener;
 import com.mdsql.ui.model.CuadresObjetosTableModel;
 import com.mdsql.ui.model.CuadresOperacionesTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -110,7 +110,7 @@ public class PantallaVerCuadresScript extends DialogSupport {
    	protected void initEvents() {
    		pantallaVerCuadresScriptListener = new PantallaVerCuadresScriptListener(this);
    		
-   		btnCancelar.setActionCommand(Constants.PANTALLA_VER_CUADRES_SCRIPT_BTN_CANCELAR);
+   		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_VER_CUADRES_SCRIPT_BTN_CANCELAR);
 
    		btnCancelar.addActionListener(pantallaVerCuadresScriptListener);
    		
@@ -119,10 +119,10 @@ public class PantallaVerCuadresScript extends DialogSupport {
     
     @Override
 	protected void initModels() {
-		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_CUADRES_OPERACIONES_TABLA_CABECERA);
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.VER_CUADRES_OPERACIONES_TABLA_CABECERA);
 		tblOperaciones.initModel(new CuadresOperacionesTableModel(cabecera));
 		
-		cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.VER_CUADRES_OBJETOS_TABLA_CABECERA);
+		cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.VER_CUADRES_OBJETOS_TABLA_CABECERA);
 		tblObjetos.initModel(new CuadresObjetosTableModel(cabecera));
 	}	
     

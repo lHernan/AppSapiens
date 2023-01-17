@@ -20,7 +20,7 @@ import com.mdsql.ui.model.cabeceras.TablaScriptsCabecera;
 import com.mdsql.ui.model.cabeceras.TablaSeleccionHistoricoCabecera;
 import com.mdsql.ui.model.cabeceras.TablaTypesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaUltimasPeticionesCabecera;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
 /**
@@ -42,75 +42,75 @@ public class CabeceraTablaCreator extends Creator {
 	public Object factoryMethod() {
 		Cabecera cabecera = null;
 		
-		if (Constants.DLG_SELECCION_MODELOS_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.DLG_SELECCION_MODELOS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaModelosCabecera();
 		}
 		
-		if (Constants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaNotasCabecera();
 		}
 		
-		if (Constants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaUltimasPeticionesCabecera();
 		}
 		
-		if (Constants.SELECCION_HISTORICO_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.SELECCION_HISTORICO_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaSeleccionHistoricoCabecera();
 		}
 		
-		if (Constants.RESUMEN_PROCESADO_SCRIPTS_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.RESUMEN_PROCESADO_SCRIPTS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaResumenProcesadoScriptsCabecera();
 		}
 		
-		if (Constants.RESUMEN_PROCESADO_OBJETOS_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.RESUMEN_PROCESADO_OBJETOS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaResumenProcesadoObjetosCabecera();
 		}
 		
-		if (Constants.RESUMEN_PROCESADO_OPERACIONES_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.RESUMEN_PROCESADO_OPERACIONES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaResumenProcesadoOperacionesCabecera();
 		}
 		
-		if (Constants.FRAME_PRINCIPAL_TYPES_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.FRAME_PRINCIPAL_TYPES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaTypesCabecera();
 		}
 		
-		if (Constants.SCRIPTS_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.SCRIPTS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaScriptsCabecera();
 		}
 		
-		if (Constants.TYPES_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.TYPES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaEjecutarTypesCabecera();
 		}
 		
-		if (Constants.VER_ERRORES_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.VER_ERRORES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaErroresCabecera();
 		}
 		
-		if (Constants.VER_PARCHES_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.VER_PARCHES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaParchesCabecera();
 		}
 		
-		if (Constants.VER_CUADRES_OPERACIONES_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.VER_CUADRES_OPERACIONES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaCuadresOperacionesCabecera();
 		}
 		
-		if (Constants.VER_CUADRES_OBJETOS_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.VER_CUADRES_OBJETOS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaCuadresObjetosCabecera();
 		}
 		
-		if (Constants.DLG_DETALLE_SCRIPT_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.DLG_DETALLE_SCRIPT_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaDetalleScriptCabecera();
 		}
 		
-		if (Constants.DLG_CONSULTA_PETICIONES_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.DLG_CONSULTA_PETICIONES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaConsultaPeticionesCabecera();
 		}
 		
-		if (Constants.DLG_INFORMACION_MODELO_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.DLG_INFORMACION_MODELO_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaInformacionModeloCabecera();
 		}
 		
-		if (Constants.DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA.equals(item)) {
+		if (MDSQLConstants.DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaAjustarLogEjecucionCabecera();
 		}
 		

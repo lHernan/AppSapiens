@@ -24,7 +24,7 @@ import com.mdsql.bussiness.entities.DetValidacion;
 import com.mdsql.bussiness.entities.InformeValidacion;
 import com.mdsql.bussiness.service.ExcelGeneratorService;
 import com.mdsql.utils.ConfigurationSingleton;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.LiteralesSingleton;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.EXCEL_GENERATOR_SERVICE)
+@Service(MDSQLConstants.EXCEL_GENERATOR_SERVICE)
 @Slf4j
 public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGeneratorService {
 
@@ -51,7 +51,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		String nombreReporteGlosario = configuration.getConfig("nombreReporteGlosario");
 		String hoja = configuration.getConfig("nombreHojaGlosario");
 
-		InputStream inputStream = getClass().getResourceAsStream(Constants.CAMPO_GLOSARIO_TEMPLATE_LOCATION);
+		InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.CAMPO_GLOSARIO_TEMPLATE_LOCATION);
 		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(hoja);
 
@@ -166,12 +166,12 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 		if (CollectionUtils.isNotEmpty(listaError)) {
 			generateReporteValidacion(listaError, nombreReporteValidacionErroneos, nombreHojaValidacionErroneos,
-					Constants.NOMENCLATURA_ERRORES_TEMPLATE_LOCATION, path, numeroValidacion, rf, sd);
+					MDSQLConstants.NOMENCLATURA_ERRORES_TEMPLATE_LOCATION, path, numeroValidacion, rf, sd);
 		}
 
 		if (CollectionUtils.isNotEmpty(listaOtraDefinicion)) {
 			generateReporteValidacion(listaOtraDefinicion, nombreReporteValidacionOtraDefinicion, nombreHojaValidacionOtraDefinicion,
-					Constants.NOMENCLATURA_OTRA_DEFINICION_TEMPLATE_LOCATION, path, numeroValidacion, rf, sd);
+					MDSQLConstants.NOMENCLATURA_OTRA_DEFINICION_TEMPLATE_LOCATION, path, numeroValidacion, rf, sd);
 		}
 		
 		if (CollectionUtils.isNotEmpty(listaGlosario)) {
@@ -285,7 +285,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	@SneakyThrows
 	private void generateReporteValidacionGlosario(List<CampoGlosario> listaDefinicionGlosario,
 			String nombreReporteValidacionGlosario, String nombreHojaValidacionGlosario, String path, BigDecimal numeroValidacion, String rf, String sd) {
-		InputStream inputStream = getClass().getResourceAsStream(Constants.NOMENCLATURA_GLOSARIO_TEMPLATE_LOCATION);
+		InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.NOMENCLATURA_GLOSARIO_TEMPLATE_LOCATION);
 		Workbook workbook = new HSSFWorkbook(inputStream);
 		Sheet sheet = workbook.getSheet(nombreHojaValidacionGlosario);
 

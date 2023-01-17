@@ -16,7 +16,7 @@ import com.mdsql.ui.listener.PantallaSeleccionHistoricoListener;
 import com.mdsql.ui.listener.tables.SeleccionHistoricoTableItemListener;
 import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.model.cabeceras.CheckBoxHeader;
 import com.mdval.ui.utils.DialogSupport;
@@ -109,9 +109,9 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 	protected void initEvents() {
 		pantallaSeleccionHistoricoListener = new PantallaSeleccionHistoricoListener(this);
 		
-		btnAddHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_ADD);
-		btnGenerarHistorico.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
-		btnCancelar.setActionCommand(Constants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR);
+		btnAddHistorico.setActionCommand(MDSQLConstants.PANTALLA_SELECCION_HISTORICA_BTN_ADD);
+		btnGenerarHistorico.setActionCommand(MDSQLConstants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
+		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_SELECCION_HISTORICA_BTN_CANCELAR);
 		
 		btnAddHistorico.addActionListener(pantallaSeleccionHistoricoListener);
 		btnGenerarHistorico.addActionListener(pantallaSeleccionHistoricoListener);
@@ -122,7 +122,7 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 
 	@Override
 	protected void initModels() {
-		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.SELECCION_HISTORICO_TABLA_CABECERA);
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.SELECCION_HISTORICO_TABLA_CABECERA);
 		SeleccionHistoricoTableModel model = new SeleccionHistoricoTableModel(cabecera);
 		tblHistorico.setModel(model);
 		tblHistorico.setColumnWidths(cabecera);

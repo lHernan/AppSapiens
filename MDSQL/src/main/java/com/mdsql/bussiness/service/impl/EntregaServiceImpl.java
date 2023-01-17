@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.OutputConsultaEntrega;
 import com.mdsql.bussiness.service.EntregaService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.ENTREGA_SERVICE)
+@Service(MDSQLConstants.ENTREGA_SERVICE)
 @Slf4j
 public class EntregaServiceImpl extends ServiceSupport implements EntregaService {
 
@@ -35,7 +35,7 @@ public class EntregaServiceImpl extends ServiceSupport implements EntregaService
     @Override
     @SneakyThrows
     public OutputConsultaEntrega consultaRutaEntrega(String codigoProyecto, BigDecimal idProceso) {
-        String runSP = createCall("p_con_ruta_entrega", Constants.CALL_08_ARGS);
+        String runSP = createCall("p_con_ruta_entrega", MDSQLConstants.CALL_08_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -86,7 +86,7 @@ public class EntregaServiceImpl extends ServiceSupport implements EntregaService
 
     @Override
     public String entregarPeticion(BigDecimal idProceso, String codigoUsuario, String txtComentario) throws ServiceException {
-        String runSP = createCall("p_entregar_peticion", Constants.CALL_06_ARGS);
+        String runSP = createCall("p_entregar_peticion", MDSQLConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

@@ -22,7 +22,7 @@ import com.mdsql.ui.listener.PantallaSeleccionModelosListener;
 import com.mdsql.ui.listener.tables.PantallaSeleccionModelosTableListener;
 import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -183,8 +183,8 @@ public class PantallaSeleccionModelos extends DialogSupport {
 		pantallaSeleccionModelosListener = new PantallaSeleccionModelosListener(this);
 		ListSelectionListener listSelectionListener = new PantallaSeleccionModelosTableListener(this);
 		
-		btnBuscar.setActionCommand(Constants.PANTALLA_SELECCION_MODELOS_BTN_BUSCAR);
-		btnSeleccionar.setActionCommand(Constants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR);
+		btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_BUSCAR);
+		btnSeleccionar.setActionCommand(MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR);
 		
 		btnBuscar.addActionListener(pantallaSeleccionModelosListener);
 		btnSeleccionar.addActionListener(pantallaSeleccionModelosListener);
@@ -197,7 +197,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
 
 	@Override
 	protected void initModels() {
-		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(Constants.DLG_SELECCION_MODELOS_TABLA_CABECERA);
+		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_SELECCION_MODELOS_TABLA_CABECERA);
 		tblModelos.initModel(new SeleccionModelosTableModel(cabecera));
 	}
 

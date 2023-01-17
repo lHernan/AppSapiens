@@ -7,7 +7,7 @@ import javax.swing.JButton;
 
 import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.utils.ListenerSupport;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 
 public class PantallaBuscadorFicherosListener extends ListenerSupport implements ActionListener {
 
@@ -22,13 +22,13 @@ public class PantallaBuscadorFicherosListener extends ListenerSupport implements
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_BUSCADOR_FICHEROS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_BUSCADOR_FICHEROS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			pantallaBuscadorFicheros.getReturnParams().put("RutaInicial",
 					pantallaBuscadorFicheros.getTxtRuta().getText());
 			pantallaBuscadorFicheros.dispose();
 		}
 
-		if (Constants.PANTALLA_BUSCADOR_FICHEROS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_BUSCADOR_FICHEROS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaBuscadorFicheros.dispose();
 		}
 	}

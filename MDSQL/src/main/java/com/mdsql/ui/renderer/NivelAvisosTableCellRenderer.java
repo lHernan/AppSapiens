@@ -9,8 +9,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
-import com.mdsql.utils.Constants;
-import com.mdsql.utils.Constants.ColorCeldaNota;
+import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.MDSQLConstants.ColorCeldaNota;
 
 public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
 
@@ -41,7 +41,7 @@ public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
 		c.setForeground(Color.black);
 
 		Color color = (col == 0) ? bgColor
-				: (!isSelected) ? Color.WHITE : Constants.CELL_SELECTED_BGCOLOR;
+				: (!isSelected) ? Color.WHITE : MDSQLConstants.CELL_SELECTED_BGCOLOR;
 		c.setBackground(color);
 	}
 }

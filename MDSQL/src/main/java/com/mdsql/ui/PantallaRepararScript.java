@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.listener.PantallaRepararScriptListener;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -245,15 +245,19 @@ public class PantallaRepararScript extends DialogSupport {
    	protected void initEvents() {
     	pantallaRepararScriptListener = new PantallaRepararScriptListener(this);
     	
-    	btnAceptar.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_BTN_ACEPTAR);
-    	btnCancelar.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_BTN_CANCELAR);
-    	rbtnReprocesar.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_RBTN_REPROCESAR_SCRIPT);
-    	rbtnNoReprocesar.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_RBTN_NO_REPROCESAR_SCRIPT);
-    	rbtnEjecutarScriptProcesado.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_PROCESADO);
-    	rbtnEjecutarScriptReparacion.setActionCommand(Constants.PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_REPARACION);
+    	btnAceptar.setActionCommand(MDSQLConstants.PANTALLA_REPARAR_SCRIPT_BTN_ACEPTAR);
+    	btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_REPARAR_SCRIPT_BTN_CANCELAR);
+    	btnAbrirFichero.setActionCommand(MDSQLConstants.PANTALLA_REPARAR_SCRIPT_BTN_ABRIR_FICHERO);
+    	btnAbrirFicheroReparacion.setActionCommand(MDSQLConstants.PANTALLA_REPARAR_SCRIPT_BTN_ABRIR_FICHERO_REPARACION);
+    	rbtnReprocesar.setActionCommand(MDSQLConstants.PANTALLA_REPARAR_SCRIPT_RBTN_REPROCESAR_SCRIPT);
+    	rbtnNoReprocesar.setActionCommand(MDSQLConstants.PANTALLA_REPARAR_SCRIPT_RBTN_NO_REPROCESAR_SCRIPT);
+    	rbtnEjecutarScriptProcesado.setActionCommand(MDSQLConstants.PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_PROCESADO);
+    	rbtnEjecutarScriptReparacion.setActionCommand(MDSQLConstants.PANTALLA_REPARAR_SCRIPT_RBTN_SCRIPT_REPARACION);
     	
     	btnAceptar.addActionListener(pantallaRepararScriptListener);
     	btnCancelar.addActionListener(pantallaRepararScriptListener);
+    	btnAbrirFichero.addActionListener(pantallaRepararScriptListener);
+    	btnAbrirFicheroReparacion.addActionListener(pantallaRepararScriptListener);
     	rbtnReprocesar.addActionListener(pantallaRepararScriptListener);
     	rbtnNoReprocesar.addActionListener(pantallaRepararScriptListener);
     	rbtnEjecutarScriptProcesado.addActionListener(pantallaRepararScriptListener);
@@ -279,7 +283,7 @@ public class PantallaRepararScript extends DialogSupport {
     	rbtnReprocesar.setSelected(Boolean.TRUE);
     	rbtnEjecutarScriptProcesado.setSelected(Boolean.TRUE);
     	btnAbrirFichero.setEnabled(Boolean.TRUE);
-    	txtScript.setEnabled(Boolean.FALSE);
+    	txtScript.setEnabled(Boolean.TRUE);
     	btnAbrirFicheroReparacion.setEnabled(Boolean.FALSE);
     	txtScriptReparacion.setEnabled(Boolean.FALSE);
     }

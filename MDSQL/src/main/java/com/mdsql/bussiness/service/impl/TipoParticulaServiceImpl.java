@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.TipoParticula;
 import com.mdsql.bussiness.service.TipoParticulaService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.TIPO_PARTICULA_SERVICE)
+@Service(MDSQLConstants.TIPO_PARTICULA_SERVICE)
 @Slf4j
 public class TipoParticulaServiceImpl extends ServiceSupport implements TipoParticulaService {
 
@@ -36,7 +36,7 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@Override
 	@SneakyThrows
 	public void altaTipoParticula(TipoParticula particula) {
-		String runSP = createCall("p_alta_tipo_particula", Constants.CALL_06_ARGS);
+		String runSP = createCall("p_alta_tipo_particula", MDSQLConstants.CALL_06_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -69,7 +69,7 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@Override
 	@SneakyThrows
 	public void modificarTipoParticula(TipoParticula particula) {
-		String runSP = createCall("p_modifcar_tipo_particula", Constants.CALL_07_ARGS);
+		String runSP = createCall("p_modifcar_tipo_particula", MDSQLConstants.CALL_07_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -103,12 +103,12 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@Override
 	@SneakyThrows
 	public List<TipoParticula> consultarDefinicionTiposParticula(String descripcionParticula) {
-		String runSP = createCall("p_con_def_tipos_particulas", Constants.CALL_04_ARGS);
+		String runSP = createCall("p_con_def_tipos_particulas", MDSQLConstants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = createCallType(Constants.T_T_PARTICULA);
+			String typeTipoParticula = createCallType(MDSQLConstants.T_T_PARTICULA);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, descripcionParticula);
@@ -152,12 +152,12 @@ public class TipoParticulaServiceImpl extends ServiceSupport implements TipoPart
 	@SneakyThrows
 	public List<TipoParticula> consultarTiposParticula(BigDecimal codigo, String sDescripcion, String mcaProyecto,
 			String mcaSubproyecto) {
-		String runSP = createCall("p_con_particulas", Constants.CALL_07_ARGS);
+		String runSP = createCall("p_con_particulas", MDSQLConstants.CALL_07_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeTipoParticula = createCallType(Constants.T_T_PARTICULA);
+			String typeTipoParticula = createCallType(MDSQLConstants.T_T_PARTICULA);
 			String typeError = createCallTypeError();
 
 			logProcedure(runSP, codigo, sDescripcion, mcaProyecto, mcaSubproyecto);

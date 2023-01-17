@@ -49,7 +49,7 @@ import com.mdsql.bussiness.service.BBDDService;
 import com.mdsql.bussiness.service.EjecucionService;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.utils.ConfigurationSingleton;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.AppHelper;
@@ -62,7 +62,7 @@ import oracle.jdbc.internal.OracleConnection;
 /**
  * @author hcarreno
  */
-@Service(Constants.SCRIPT_SERVICE)
+@Service(MDSQLConstants.SCRIPT_SERVICE)
 @Slf4j
 public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
@@ -77,18 +77,18 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 	@Override
 	public OutputProcesaScript procesarScript(InputProcesaScript inputProcesaScript) throws ServiceException {
-		String runSP = createCall("p_procesa_script", Constants.CALL_24_ARGS);
+		String runSP = createCall("p_procesa_script", MDSQLConstants.CALL_24_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String tableLinea = createCallType(Constants.T_T_LINEA);
-			String recordLinea = createCallType(Constants.T_R_LINEA);
+			String tableLinea = createCallType(MDSQLConstants.T_T_LINEA);
+			String recordLinea = createCallType(MDSQLConstants.T_R_LINEA);
 
-			String tableObjHis = createCallType(Constants.T_T_OBJ_HIS);
-			String recordObjHis = createCallType(Constants.T_R_OBJ_HIS);
+			String tableObjHis = createCallType(MDSQLConstants.T_T_OBJ_HIS);
+			String recordObjHis = createCallType(MDSQLConstants.T_R_OBJ_HIS);
 
-			String typeScript = createCallType(Constants.T_T_SCRIPT);
+			String typeScript = createCallType(MDSQLConstants.T_T_SCRIPT);
 
 			String typeError = createCallTypeError();
 
@@ -235,7 +235,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	@SneakyThrows
 	public OutputExcepcionScript excepcionScript(BigDecimal idProceso, BigDecimal numeroOrden, String txtComentario,
 			String codigoUsuario) {
-		String runSP = createCall("p_excepcion_script", Constants.CALL_10_ARGS);
+		String runSP = createCall("p_excepcion_script", MDSQLConstants.CALL_10_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -284,7 +284,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	@Override
 	public List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException {
 		try {
-			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 			Charset charset = session.getFileCharset();
 			String selectedRoute = session.getSelectedRoute();
 			String ruta = selectedRoute.concat(FileSystems.getDefault().getSeparator());
@@ -296,7 +296,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			String codigoUsuario = session.getCodUsr();
 			List<OutputRegistraEjecucion> ejecuciones = new ArrayList<>();
 			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-			String txtClaveEncriptada = configuration.getConfig(Constants.TOKEN).substring(17, 29);
+			String txtClaveEncriptada = configuration.getConfig(MDSQLConstants.TOKEN).substring(17, 29);
 
 			if (CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
@@ -361,7 +361,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		// TODO return OutputRegistraEjecucion or OutputRegistraEjecucionParche
 		// separate?
 
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String codigoUsuario = session.getCodUsr();
 		String ruta = session.getProceso().getRutaTrabajo();
 		Charset charset = session.getFileCharset();
@@ -405,16 +405,16 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 	@Override
 	public OutputReparaScript repararScript(InputReparaScript inputReparaScript) throws ServiceException {
-		String runSP = createCall("p_repara_script", Constants.CALL_21_ARGS);
+		String runSP = createCall("p_repara_script", MDSQLConstants.CALL_21_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String tableLinea = createCallType(Constants.T_T_LINEA);
-			String recordLinea = createCallType(Constants.T_R_LINEA);
+			String tableLinea = createCallType(MDSQLConstants.T_T_LINEA);
+			String recordLinea = createCallType(MDSQLConstants.T_R_LINEA);
 
-			String typeScriptOld = createCallType(Constants.T_T_SCRIPT_OLD);
-			String typeScript = createCallType(Constants.T_T_SCRIPT);
+			String typeScriptOld = createCallType(MDSQLConstants.T_T_SCRIPT_OLD);
+			String typeScript = createCallType(MDSQLConstants.T_T_SCRIPT);
 
 			String typeError = createCallTypeError();
 
@@ -586,16 +586,16 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 	@Override
 	public OutputDescartarScript descartarScript(InputDescartarScript inputDescartarScript) throws ServiceException {
-		String runSP = createCall("p_descartar_script", Constants.CALL_18_ARGS);
+		String runSP = createCall("p_descartar_script", MDSQLConstants.CALL_18_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String tableLinea = createCallType(Constants.T_T_LINEA);
-			String recordLinea = createCallType(Constants.T_R_LINEA);
+			String tableLinea = createCallType(MDSQLConstants.T_T_LINEA);
+			String recordLinea = createCallType(MDSQLConstants.T_R_LINEA);
 
-			String typeScriptOld = createCallType(Constants.T_T_SCRIPT_OLD);
-			String typeScript = createCallType(Constants.T_T_SCRIPT);
+			String typeScriptOld = createCallType(MDSQLConstants.T_T_SCRIPT_OLD);
+			String typeScript = createCallType(MDSQLConstants.T_T_SCRIPT);
 
 			String typeError = createCallTypeError();
 
@@ -726,12 +726,12 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	@Override
 	@SneakyThrows
 	public List<DetObjeto> detalleObjetosScripts(BigDecimal idProceso, BigDecimal numeroOrden) {
-		String runSP = createCall("p_detalle_objetos_scripts", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_detalle_objetos_scripts", MDSQLConstants.CALL_05_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-			String typeDetObjeto = createCallType(Constants.T_T_DET_OBJETO);
+			String typeDetObjeto = createCallType(MDSQLConstants.T_T_DET_OBJETO);
 
 			String typeError = createCallTypeError();
 
@@ -787,10 +787,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	 * @throws ServiceException
 	 */
 	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation, String logFile, Charset charset)  throws ServiceException {
-		String connection = String.format(Constants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
+		String connection = String.format(MDSQLConstants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
 		
-		ProcessBuilder processBuilder = new ProcessBuilder(Constants.SQL_PLUS, connection,
-				String.format(Constants.FORMATO_FICHERO, fileLocation));
+		ProcessBuilder processBuilder = new ProcessBuilder(MDSQLConstants.SQL_PLUS, connection,
+				String.format(MDSQLConstants.FORMATO_FICHERO, fileLocation));
 		
 		Boolean invalidLogon = Boolean.FALSE;
 		String lineError = StringUtils.EMPTY;
@@ -835,7 +835,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
 			// Si ha dado error, escribe el fichero de log
 			if (exitCode == 1) {
-				writeFileFromList(Paths.get(logFile), logLines, Constants.DEFAULT_CHARSET);
+				writeFileFromList(Paths.get(logFile), logLines, MDSQLConstants.DEFAULT_CHARSET);
 			}
 			else if (exitCode == 137) {
 				throw new ServiceException(lineError);
@@ -892,7 +892,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	@Override
 	public OutputExcepcionScript excepcionScript(Proceso proceso, Script script, String txtMotivoExcepcion,
 			String codUsr) throws ServiceException {
-		String runSP = createCall("p_excepcion_script", Constants.CALL_10_ARGS);
+		String runSP = createCall("p_excepcion_script", MDSQLConstants.CALL_10_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {

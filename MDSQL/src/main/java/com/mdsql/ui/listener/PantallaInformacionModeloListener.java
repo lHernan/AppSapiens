@@ -11,7 +11,7 @@ import com.mdsql.ui.PantallaInformacionModelo;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 
@@ -27,7 +27,7 @@ public class PantallaInformacionModeloListener extends ListenerSupport implement
 	@Override
 	public void onLoad() {
 		try {
-			AvisoService avisoService = (AvisoService) getService(Constants.AVISO_SERVICE);
+			AvisoService avisoService = (AvisoService) getService(MDSQLConstants.AVISO_SERVICE);
 			
 			String codigoProyecto = (String) pantallaInformacionModelo.getParams().get("codigoProyecto");
 			
@@ -39,7 +39,7 @@ public class PantallaInformacionModeloListener extends ListenerSupport implement
 			
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaInformacionModelo.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaInformacionModelo.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 	

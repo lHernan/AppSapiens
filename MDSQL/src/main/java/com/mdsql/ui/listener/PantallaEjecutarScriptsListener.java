@@ -35,7 +35,7 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.ui.utils.collections.ScriptSelectedClosure;
 import com.mdsql.ui.utils.collections.ScriptSelectedPredicate;
 import com.mdsql.ui.utils.collections.UpdateScriptsClosure;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.collections.ScriptPredicate;
 import com.mdval.exceptions.ServiceException;
@@ -54,43 +54,43 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_RECHAZAR.equals(jButton.getActionCommand())) {
 			eventBtnRechazar();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_LOG.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_LOG.equals(jButton.getActionCommand())) {
 			eventBtnVerLog();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DETALLE_SCRIPT.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DETALLE_SCRIPT.equals(jButton.getActionCommand())) {
 			eventBtnDetalleScript();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DESCARTAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_DESCARTAR.equals(jButton.getActionCommand())) {
 			eventBtnDescartar();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_REPARAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_REPARAR.equals(jButton.getActionCommand())) {
 			eventBtnReparar();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_CUADRES.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_CUADRES.equals(jButton.getActionCommand())) {
 			eventBtnVerCuadres();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_ERRORES.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_VER_ERRORES.equals(jButton.getActionCommand())) {
 			eventBtnVerErrores();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_EXCEPCION.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_EXCEPCION.equals(jButton.getActionCommand())) {
 			eventBtnExcepcion();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR.equals(jButton.getActionCommand())) {
 			eventBtnAceptar();
 		}
 
-		if (Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaEjecutarScripts.getReturnParams().put("estado", "EN_CURSO");
 			pantallaEjecutarScripts.dispose();
 		}
@@ -104,7 +104,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("proceso", proceso);
 
 		DlgRechazar dlgRechazar = (DlgRechazar) MDSQLUIHelper.createDialog(pantallaEjecutarScripts.getFrameParent(),
-				Constants.CMD_RECHAZAR_PROCESADO, params);
+				MDSQLConstants.CMD_RECHAZAR_PROCESADO, params);
 		MDSQLUIHelper.show(dlgRechazar);
 
 		proceso = (Proceso) dlgRechazar.getReturnParams().get("proceso");
@@ -127,7 +127,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("consulta", Boolean.TRUE);
 
 		PantallaAjustarLogEjecucion pantallaAjustarLogEjecucion = (PantallaAjustarLogEjecucion) MDSQLUIHelper
-				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_AJUSTAR_LOG_EJECUCION, params);
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_AJUSTAR_LOG_EJECUCION, params);
 		MDSQLUIHelper.show(pantallaAjustarLogEjecucion);
 	}
 
@@ -141,7 +141,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("proceso", proceso);
 
 		PantallaDetalleScript pantallaDetalleScript = (PantallaDetalleScript) MDSQLUIHelper
-				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_DETALLE_SCRIPT, params);
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_DETALLE_SCRIPT, params);
 		MDSQLUIHelper.show(pantallaDetalleScript);
 	}
 
@@ -155,7 +155,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("proceso", proceso);
 
 		PantallaDescartarScript pantallaDescartarScript = (PantallaDescartarScript) MDSQLUIHelper
-				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_DESCARTAR_SCRIPT, params);
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_DESCARTAR_SCRIPT, params);
 		MDSQLUIHelper.show(pantallaDescartarScript);
 	}
 
@@ -169,7 +169,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("proceso", proceso);
 
 		PantallaRepararScript pantallaRepararScript = (PantallaRepararScript) MDSQLUIHelper
-				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_REPARAR_SCRIPT, params);
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_REPARAR_SCRIPT, params);
 		MDSQLUIHelper.show(pantallaRepararScript);
 	}
 
@@ -183,7 +183,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("proceso", proceso);
 
 		PantallaVerCuadresScript pantallaVerCuadresScript = (PantallaVerCuadresScript) MDSQLUIHelper
-				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_VER_CUADRES_SCRIPT, params);
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_VER_CUADRES_SCRIPT, params);
 		MDSQLUIHelper.show(pantallaVerCuadresScript);
 	}
 
@@ -198,7 +198,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("tipo", "scripts");
 
 		PantallaVerErroresScript pantallaVerErroresScript = (PantallaVerErroresScript) MDSQLUIHelper
-				.createDialog(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_VER_ERRORES_SCRIPT, params);
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_VER_ERRORES_SCRIPT, params);
 		MDSQLUIHelper.show(pantallaVerErroresScript);
 	}
 
@@ -212,7 +212,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("proceso", proceso);
 
 		DlgExcepcion dlgExcepcion = (DlgExcepcion) MDSQLUIHelper.createDialog(pantallaEjecutarScripts.getFrameParent(),
-				Constants.CMD_EXCEPCION_SCRIPT, params);
+				MDSQLConstants.CMD_EXCEPCION_SCRIPT, params);
 		MDSQLUIHelper.show(dlgExcepcion);
 		
 		Map<String, Object> returnParams = dlgExcepcion.getReturnParams();
@@ -229,7 +229,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	@SuppressWarnings("unchecked")
 	private void eventBtnAceptar() {
 		try {
-			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
+			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 
 			Proceso proceso = pantallaEjecutarScripts.getProceso();
 			BBDD bbdd = proceso.getBbdd();
@@ -283,13 +283,13 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			if (isAllExecuted(proceso.getScripts())) {
 				pantallaEjecutarScripts.getReturnParams().put("idProceso", proceso.getIdProceso());
 				pantallaEjecutarScripts.getReturnParams().put("entregar", Boolean.TRUE);
-				pantallaEjecutarScripts.getReturnParams().put("cmd", Constants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
+				pantallaEjecutarScripts.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
 
 				pantallaEjecutarScripts.dispose();
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaEjecutarScripts.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 
@@ -349,7 +349,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			proceso.setDescripcionEstadoProceso(ejecucion.getDescripcionEstadoProceso());
 		}
 
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		session.setProceso(proceso);
 	}
 

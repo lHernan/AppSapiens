@@ -19,7 +19,7 @@ import com.mdsql.ui.model.VerErroresScriptTableModel;
 import com.mdsql.ui.model.VerParchesScriptTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observer;
@@ -41,7 +41,7 @@ public class PantallaVerErroresScriptListener extends ListenerSupport implements
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaVerErroresScript.dispose();
 		}
 	}
@@ -49,7 +49,7 @@ public class PantallaVerErroresScriptListener extends ListenerSupport implements
 	@Override
 	public void onLoad() {
 		try {
-			ErroresService erroresService = (ErroresService) getService(Constants.ERRORES_SERVICE);
+			ErroresService erroresService = (ErroresService) getService(MDSQLConstants.ERRORES_SERVICE);
 
 			Script script = (Script) pantallaVerErroresScript.getParams().get("script");
 			Proceso proceso = (Proceso) pantallaVerErroresScript.getParams().get("proceso");
@@ -77,7 +77,7 @@ public class PantallaVerErroresScriptListener extends ListenerSupport implements
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaVerErroresScript.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaVerErroresScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 

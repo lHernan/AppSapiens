@@ -9,8 +9,6 @@ import java.util.Objects;
 
 import javax.swing.JButton;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.TextoLinea;
@@ -19,7 +17,7 @@ import com.mdsql.ui.PantallaHistoricoCambios;
 import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 
@@ -36,22 +34,22 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR_MODELO.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR_MODELO.equals(jButton.getActionCommand())) {
 			buscarModelo();
 		}
-		if (Constants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR.equals(jButton.getActionCommand())) {
 			buscar();
 		}
-		if (Constants.PANTALLA_HISTORICO_CAMBIOS_INFORME_CAMBIOS.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_INFORME_CAMBIOS.equals(jButton.getActionCommand())) {
 			informeCambios();
 		}
-		if (Constants.PANTALLA_HISTORICO_CAMBIOS_VER_DETALLE_SCRIPT.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_VER_DETALLE_SCRIPT.equals(jButton.getActionCommand())) {
 			verDetalleScript();
 		}
-		if (Constants.PANTALLA_HISTORICO_CAMBIOS_RESUMEN_PROCESADO.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_RESUMEN_PROCESADO.equals(jButton.getActionCommand())) {
 			resumenProcesado();
 		}
-		if (Constants.PANTALLA_HISTORICO_CAMBIOS_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_CANCELAR.equals(jButton.getActionCommand())) {
 			cancelar();
 		}
 	}
@@ -78,7 +76,7 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 
 	private void buscar() {
 		try {
-			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
+			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
 
 			String codigoProyecto = (String) pantallaHistoricoCambios.getParams().get("codigoProyecto");
 			List<TextoLinea> lineas = (List<TextoLinea>) pantallaHistoricoCambios.getParams().get("script");
@@ -86,7 +84,7 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 
 	}
@@ -95,7 +93,7 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 		Map<String, Object> params = new HashMap<>();
 
 		PantallaSeleccionModelos pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper
-				.createDialog(pantallaHistoricoCambios.getFrameParent(), Constants.CMD_SEARCH_MODEL, params);
+				.createDialog(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_SEARCH_MODEL, params);
 		MDSQLUIHelper.show(pantallaSeleccionModelos);
 		Modelo seleccionado = pantallaSeleccionModelos.getSeleccionado();
 		

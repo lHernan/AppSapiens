@@ -17,7 +17,7 @@ import javax.swing.LayoutStyle;
 import com.mdsql.ui.listener.PantallaBuscadorFicherosListener;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
@@ -92,8 +92,8 @@ public class PantallaBuscadorFicheros extends DialogSupport {
 	protected void initEvents() {
 		pantallaBuscadorFicherosListener = new PantallaBuscadorFicherosListener(this);
 
-		btnAceptar.setActionCommand(Constants.PANTALLA_BUSCADOR_FICHEROS_BTN_ACEPTAR);
-		btnCancelar.setActionCommand(Constants.PANTALLA_BUSCADOR_FICHEROS_BTN_CANCELAR);
+		btnAceptar.setActionCommand(MDSQLConstants.PANTALLA_BUSCADOR_FICHEROS_BTN_ACEPTAR);
+		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_BUSCADOR_FICHEROS_BTN_CANCELAR);
 
 		btnAceptar.addActionListener(pantallaBuscadorFicherosListener);
 		btnCancelar.addActionListener(pantallaBuscadorFicherosListener);
@@ -111,7 +111,7 @@ public class PantallaBuscadorFicheros extends DialogSupport {
 			txtRuta.setText(rutaInicial);
 		} catch (IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(this.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(this.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 

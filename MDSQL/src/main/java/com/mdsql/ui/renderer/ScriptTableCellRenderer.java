@@ -9,8 +9,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.model.ScriptsTableModel;
-import com.mdsql.utils.Constants;
-import com.mdsql.utils.Constants.ColorCeldaScript;
+import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.MDSQLConstants.ColorCeldaScript;
 
 public class ScriptTableCellRenderer extends DefaultTableCellRenderer {
 
@@ -41,7 +41,7 @@ public class ScriptTableCellRenderer extends DefaultTableCellRenderer {
 		c.setForeground(Color.black);
 
 		Color color = (col == 2) ? bgColor
-				: (!isSelected) ? Color.WHITE : Constants.CELL_SELECTED_BGCOLOR;
+				: (!isSelected) ? Color.WHITE : MDSQLConstants.CELL_SELECTED_BGCOLOR;
 		c.setBackground(color);
 	}
 }

@@ -19,7 +19,7 @@ import com.mdsql.bussiness.entities.Session;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.LogWrapper;
@@ -46,7 +46,7 @@ public class MDSQLApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		String version = System.getProperty("java.version");
 		LogWrapper.debug(log, "Java version: %s", version);
-		LogWrapper.debug(log, "Default charset for application: %s", Constants.DEFAULT_CHARSET.toString());
+		LogWrapper.debug(log, "Default charset for application: %s", MDSQLConstants.DEFAULT_CHARSET.toString());
 
 		setupSpringContext();
 		setupUIEnvironment();
@@ -61,7 +61,7 @@ public class MDSQLApplication implements CommandLineRunner {
 		AppGlobalSingleton appGlobalSingleton = AppGlobalSingleton.getInstance();
 
 		LogWrapper.debug(log, "%s", applicationContext.getDisplayName());
-		appGlobalSingleton.setProperty(Constants.SPRING_CONTEXT, applicationContext);
+		appGlobalSingleton.setProperty(MDSQLConstants.SPRING_CONTEXT, applicationContext);
 
 		LogWrapper.debug(log, "Connection Polling datasource: %s", dataSource);
 	}
@@ -85,7 +85,7 @@ public class MDSQLApplication implements CommandLineRunner {
 				ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 				
 				// If has session saved, set in global properties. If not, creates it
-				Session session = (Session) MDSQLAppHelper.deserializeFromDisk(Constants.SESSION);
+				Session session = (Session) MDSQLAppHelper.deserializeFromDisk(MDSQLConstants.SESSION);
 				if (Objects.isNull(session)) {
 					session = new Session();
 					String codUsr = System.getenv(configuration.getConfig("user.field"));
@@ -93,7 +93,7 @@ public class MDSQLApplication implements CommandLineRunner {
 					LogWrapper.debug(log, "Usuario: %s", codUsr);
 				}
 				
-				MDSQLAppHelper.setGlobalProperty(Constants.SESSION, session);
+				MDSQLAppHelper.setGlobalProperty(MDSQLConstants.SESSION, session);
 				
 				FramePrincipal framePrincipal = new FramePrincipal();
 				framePrincipal.setProcesado(session.getProcesado());
@@ -101,7 +101,7 @@ public class MDSQLApplication implements CommandLineRunner {
 				framePrincipal.setVisible(Boolean.TRUE);
 			} catch (IOException e) {
 				Map<String, Object> params = MDSQLUIHelper.buildError(e);
-				MDSQLUIHelper.showPopup(null, Constants.CMD_ERROR, params);
+				MDSQLUIHelper.showPopup(null, MDSQLConstants.CMD_ERROR, params);
 			}
 		});
 	}

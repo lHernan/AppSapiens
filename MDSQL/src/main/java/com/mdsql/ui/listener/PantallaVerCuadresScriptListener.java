@@ -18,7 +18,7 @@ import com.mdsql.ui.model.CuadresObjetosTableModel;
 import com.mdsql.ui.model.CuadresOperacionesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observer;
@@ -40,7 +40,7 @@ public class PantallaVerCuadresScriptListener extends ListenerSupport implements
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_VER_ERRORES_SCRIPT_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			cancelar();
 		}
 	}
@@ -48,7 +48,7 @@ public class PantallaVerCuadresScriptListener extends ListenerSupport implements
 	@Override
 	public void onLoad() {
 		try {
-			CuadreService cuadreService = (CuadreService) getService(Constants.CUADRE_SERVICE);
+			CuadreService cuadreService = (CuadreService) getService(MDSQLConstants.CUADRE_SERVICE);
 
 			Script script = (Script) pantallaVerCuadresScript.getParams().get("script");
 			Proceso proceso = (Proceso) pantallaVerCuadresScript.getParams().get("proceso");
@@ -64,7 +64,7 @@ public class PantallaVerCuadresScriptListener extends ListenerSupport implements
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaVerCuadresScript.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaVerCuadresScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 

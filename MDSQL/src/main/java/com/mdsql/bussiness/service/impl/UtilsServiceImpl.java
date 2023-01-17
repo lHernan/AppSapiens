@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.service.UtilsService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
 
@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author hcarreno
  */
-@Service(Constants.UTILS_SERVICE)
+@Service(MDSQLConstants.UTILS_SERVICE)
 @Slf4j
 public class UtilsServiceImpl extends ServiceSupport implements UtilsService {
 
@@ -33,7 +33,7 @@ public class UtilsServiceImpl extends ServiceSupport implements UtilsService {
     @Override
     @SneakyThrows
     public void rechazarProcesado(BigDecimal idProceso, String txtComentario, String codigoUsuario) {
-        String runSP = createCall("p_rechazar_procesado", Constants.CALL_05_ARGS);
+        String runSP = createCall("p_rechazar_procesado", MDSQLConstants.CALL_05_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

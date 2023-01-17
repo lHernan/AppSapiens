@@ -30,8 +30,8 @@ import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
-import com.mdsql.utils.Constants.Procesado;
+import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.MDSQLConstants.Procesado;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -346,8 +346,8 @@ public class PantallaProcesadoEnCurso extends DialogSupport implements PantallaP
 		PantallaProcesadoEnCursoActionListener actionListener = new PantallaProcesadoEnCursoActionListener(this);
 		ListSelectionListener ultimasPeticionesSelectionListener = new UltimasPeticionesTableListener(this);
 
-		btnCancelar.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
-		btnVerProcesado.setActionCommand(Constants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO);
+		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_CANCELAR);
+		btnVerProcesado.setActionCommand(MDSQLConstants.PANTALLA_PROCESADO_SCRIPT_VER_PROCESADO);
 
 		btnCancelar.addActionListener(actionListener);
 		btnVerProcesado.addActionListener(actionListener);
@@ -360,13 +360,13 @@ public class PantallaProcesadoEnCurso extends DialogSupport implements PantallaP
 
 	@Override
 	protected void initModels() {
-		Cabecera cabeceraNotas = MDSQLUIHelper.createCabeceraTabla(Constants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA);
+		Cabecera cabeceraNotas = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.PROCESAR_SCRIPT_NOTAS_TABLA_CABECERA);
 		tblNotas.initModel(
 				new ProcesarScriptNotaTableModel(cabeceraNotas));
 		tblNotas.setDefaultRenderer(String.class, new NivelAvisosTableCellRenderer());
 		
 		Cabecera cabeceraUltimasPeticiones = MDSQLUIHelper
-				.createCabeceraTabla(Constants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA);
+				.createCabeceraTabla(MDSQLConstants.PROCESAR_SCRIPT_ULTIMAS_PETICIONES_TABLA_CABECERA);
 		tblUltimasPeticiones.initModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraUltimasPeticiones));
 	}
 

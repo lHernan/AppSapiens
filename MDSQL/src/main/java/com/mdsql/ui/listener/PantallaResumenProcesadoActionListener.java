@@ -29,7 +29,7 @@ import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
@@ -61,11 +61,11 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 
-		if (Constants.PANTALLA_RESUMEN_PROCESADO_ENTREGAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_ENTREGAR.equals(jButton.getActionCommand())) {
 			evtEntregar();
 		}
 
-		if (Constants.PANTALLA_RESUMEN_PROCESADO_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaResumenProcesado.dispose();
 		}
 	}
@@ -75,13 +75,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 */
 	private void evtEntregar() {
 		try {
-			Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 			Proceso proceso = session.getProceso();
 
 			Integer response = UIHelper.showConfirm("¿Desea entregar el procesado?", "Entregar");
 
 			if (response == JOptionPane.YES_OPTION) {
-				EntregaService entregaService = (EntregaService) getService(Constants.ENTREGA_SERVICE);
+				EntregaService entregaService = (EntregaService) getService(MDSQLConstants.ENTREGA_SERVICE);
 
 				OutputConsultaEntrega outputConsultaEntrega = entregaService
 						.consultaRutaEntrega(proceso.getModelo().getCodigoProyecto(), proceso.getIdProceso());
@@ -103,21 +103,21 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				}
 
 				proceso.setDescripcionEstadoProceso(estado);
-				pantallaResumenProcesado.getReturnParams().put("cmd", Constants.CMD_ENTREGAR_SCRIPT);
+				pantallaResumenProcesado.getReturnParams().put("cmd", MDSQLConstants.CMD_ENTREGAR_SCRIPT);
 				pantallaResumenProcesado.getReturnParams().put("estado", estado);
 
 				pantallaResumenProcesado.dispose();
 			}
 		} catch (ServiceException | IOException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 
 	@Override
 	public void onLoad() {
 		try {
-			ProcesoService procesoService = (ProcesoService) getService(Constants.PROCESO_SERVICE);
+			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
 
 			BigDecimal idProceso = (BigDecimal) pantallaResumenProcesado.getParams().get("idProceso");
 			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(idProceso);
@@ -128,7 +128,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), Constants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 
@@ -187,7 +187,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 */
 	private void createZip(Proceso proceso, String rutaEntrega, String nombreFichero, List<String> scriptTypes)
 			throws IOException {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 
 		String zipFileName = rutaEntrega + File.separator + nombreFichero;
 		log.info("Zip file name: {}", zipFileName);
@@ -237,7 +237,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @throws IOException
 	 */
 	private void copyZip(String rutaEntrega, String nombreZip) throws IOException {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
 		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
 		log.info("Ruta entregados: {}", rutaEntregados);
@@ -264,7 +264,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param scripts
 	 */
 	private void copyFiles(List<Script> scripts, List<String> scriptTypes) throws IOException {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(Constants.SESSION);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
 		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
 

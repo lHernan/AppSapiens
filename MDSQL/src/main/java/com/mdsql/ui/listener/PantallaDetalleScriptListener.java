@@ -18,7 +18,7 @@ import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.model.DetalleScriptTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.OnLoadListener;
 
 public class PantallaDetalleScriptListener extends ListenerSupport implements ActionListener, OnLoadListener {
@@ -34,7 +34,7 @@ public class PantallaDetalleScriptListener extends ListenerSupport implements Ac
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (Constants.PANTALLA_DETALLE_SCRIPT_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_DETALLE_SCRIPT_CANCELAR.equals(jButton.getActionCommand())) {
 			cancelar();
 		}
 		
@@ -47,7 +47,7 @@ public class PantallaDetalleScriptListener extends ListenerSupport implements Ac
 	@Override
 	public void onLoad() {
 		try {
-			ScriptService scriptService = (ScriptService) getService(Constants.SCRIPT_SERVICE);
+			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 			
 			Script script = (Script) pantallaDetalleScript.getParams().get("script");
 			Proceso proceso = (Proceso) pantallaDetalleScript.getParams().get("proceso");
@@ -61,7 +61,7 @@ public class PantallaDetalleScriptListener extends ListenerSupport implements Ac
 			
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaDetalleScript.getFrameParent(), Constants.CMD_ERROR, params);
+			MDSQLUIHelper.showPopup(pantallaDetalleScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 	

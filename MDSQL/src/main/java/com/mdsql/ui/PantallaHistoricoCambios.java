@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaHistoricoCambiosListener;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
@@ -287,8 +287,8 @@ public class PantallaHistoricoCambios extends DialogSupport {
 	protected void initEvents() {
 		PantallaHistoricoCambiosListener actionListener = new PantallaHistoricoCambiosListener(this);
 		
-		btnBuscarModelo.setActionCommand(Constants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR_MODELO);
-		btnCancelar.setActionCommand(Constants.PANTALLA_HISTORICO_CAMBIOS_CANCELAR);
+		btnBuscarModelo.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR_MODELO);
+		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_CANCELAR);
 		
 		btnBuscarModelo.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);

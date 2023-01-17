@@ -24,7 +24,7 @@ import com.mdsql.bussiness.entities.ScriptEjecutado;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ProcesoService;
-import com.mdsql.utils.Constants;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
@@ -35,7 +35,7 @@ import oracle.jdbc.internal.OracleConnection;
 /**
  * @author hcarreno
  */
-@Service(Constants.PROCESO_SERVICE)
+@Service(MDSQLConstants.PROCESO_SERVICE)
 @Slf4j
 public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService {
 
@@ -45,12 +45,12 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
     @Override
     public List<Proceso> seleccionarProcesados(InputSeleccionarProcesados inputSeleccionarProcesados)
             throws ServiceException {
-        String runSP = createCall("p_sel_procesados", Constants.CALL_12_ARGS);
+        String runSP = createCall("p_sel_procesados", MDSQLConstants.CALL_12_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeProceso = createCallType(Constants.T_T_PROCESO);
+            String typeProceso = createCallType(MDSQLConstants.T_T_PROCESO);
             String typeError = createCallTypeError();
 
             logProcedure(runSP, inputSeleccionarProcesados.getPCodigoPeticion(),
@@ -110,14 +110,14 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
     @Override
     public List<SeleccionHistorico> seleccionarHistorico(String codProyecto, List<TextoLinea> lineas)
             throws ServiceException {
-        String runSP = createCall("p_sel_historico", Constants.CALL_05_ARGS);
+        String runSP = createCall("p_sel_historico", MDSQLConstants.CALL_05_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeHistorico = createCallType(Constants.T_T_OBJ_HIS);
-            String trLinea = createCallType(Constants.T_R_LINEA);
-            String tableLinea = createCallType(Constants.T_T_LINEA);
+            String typeHistorico = createCallType(MDSQLConstants.T_T_OBJ_HIS);
+            String trLinea = createCallType(MDSQLConstants.T_R_LINEA);
+            String tableLinea = createCallType(MDSQLConstants.T_T_LINEA);
             String typeError = createCallTypeError();
 
             if (CollectionUtils.isEmpty(lineas)) {
@@ -186,13 +186,13 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
     @Override
     public void altaHistorico(List<SeleccionHistorico> listaObjetos, String codigoProyecto, String codigoPeticion,
                               String codigoUsuario) throws ServiceException {
-        String runSP = createCall("p_alta_historico", Constants.CALL_06_ARGS);
+        String runSP = createCall("p_alta_historico", MDSQLConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String tableObjetos = createCallType(Constants.T_T_OBJETOS);
-            String recordObjetos = createCallType(Constants.T_R_OBJETOS);
+            String tableObjetos = createCallType(MDSQLConstants.T_T_OBJETOS);
+            String recordObjetos = createCallType(MDSQLConstants.T_R_OBJETOS);
 
             String typeError = createCallTypeError();
 
@@ -231,14 +231,14 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
 
     @Override
     public OutputConsultaProcesado consultaProcesado(BigDecimal idProceso) throws ServiceException {
-        String runSP = createCall("p_con_procesado", Constants.CALL_19_ARGS);
+        String runSP = createCall("p_con_procesado", MDSQLConstants.CALL_19_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 
             String typeError = createCallTypeError();
-            String typeScriptEjecutado = createCallType(Constants.T_T_SCRIPT_EJEC);
+            String typeScriptEjecutado = createCallType(MDSQLConstants.T_T_SCRIPT_EJEC);
 
             logProcedure(runSP, idProceso);
 
@@ -341,7 +341,7 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
 
 	@Override
 	public void rechazarProcesado(BigDecimal idProceso, String txtComentario, String codUsr) throws ServiceException {
-		String runSP = createCall("p_rechazar_procesado", Constants.CALL_05_ARGS);
+		String runSP = createCall("p_rechazar_procesado", MDSQLConstants.CALL_05_ARGS);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {

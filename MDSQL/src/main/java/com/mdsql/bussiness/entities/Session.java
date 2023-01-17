@@ -3,7 +3,7 @@ package com.mdsql.bussiness.entities;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 
-import com.mdsql.utils.Constants.Procesado;
+import com.mdsql.utils.MDSQLConstants.Procesado;
 
 import lombok.Getter;
 import lombok.Setter;
