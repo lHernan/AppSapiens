@@ -4,12 +4,9 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
-import javax.swing.JFileChooser;
-import javax.swing.JTextField;
 
 import com.mdsql.bussiness.entities.InputReparaScript;
 import com.mdsql.bussiness.entities.OutputReparaScript;
@@ -18,15 +15,11 @@ import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaRepararScript;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.observer.Observer;
-import com.mdval.utils.LogWrapper;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class PantallaRepararScriptListener extends ListenerSupport implements ActionListener {
 
 	private PantallaRepararScript pantallaRepararScript;
@@ -73,34 +66,34 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		}
 		
 		if (MDSQLConstants.PANTALLA_REPARAR_SCRIPT_BTN_ABRIR_FICHERO.equals(jButton.getActionCommand())) {
-			abrirScript(pantallaRepararScript.getTxtScript(), archivoReprocesado);
+			abrirScript();
 		}
 		
 		if (MDSQLConstants.PANTALLA_REPARAR_SCRIPT_BTN_ABRIR_FICHERO_REPARACION.equals(jButton.getActionCommand())) {
-			abrirScript(pantallaRepararScript.getTxtScriptReparacion(), archivoReparacion);
+			abrirScriptReparacion();
 		}
 	}
 
 	/**
-	 * @param textField
-	 * @param file
+	 * 
 	 */
-	private void abrirScript(JTextField textField, File file) {
-		try {
-			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-			String rutaInicial = session.getSelectedRoute();
+	private void abrirScript() {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String rutaInicial = session.getSelectedRoute();
 	
-			JFileChooser chooser = MDSQLUIHelper.getJFileChooser(rutaInicial);
-			if (chooser.showOpenDialog(pantallaRepararScript.getFrameParent()) == JFileChooser.APPROVE_OPTION) {
-				file = chooser.getSelectedFile();
-				String rutaArchivo = file.getAbsolutePath();
-				LogWrapper.debug(log, "Archivo seleccionado: %s", rutaArchivo);
-				textField.setText(rutaArchivo);
-			}
-		} catch (IOException e) {
-			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaRepararScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
-		}	
+		MDSQLUIHelper.abrirScript(rutaInicial, pantallaRepararScript.getTxtScript(), archivoReprocesado,
+				pantallaRepararScript.getFrameParent());	
+	}
+	
+	/**
+	 * 
+	 */
+	private void abrirScriptReparacion() {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String rutaInicial = session.getSelectedRoute();
+	
+		MDSQLUIHelper.abrirScript(rutaInicial, pantallaRepararScript.getTxtScriptReparacion(), archivoReparacion,
+				pantallaRepararScript.getFrameParent());		
 	}
 
 	/**
