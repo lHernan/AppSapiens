@@ -30,7 +30,7 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	
 	public PantallaRepararScriptListener(PantallaRepararScript pantallaRepararScript) {
 		super();
-		this.pantallaRepararScript= pantallaRepararScript;
+		this.pantallaRepararScript = pantallaRepararScript;
 	}
 	
 	public void addObservador(Observer o) {

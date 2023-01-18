@@ -188,7 +188,7 @@ public class MDSQLUIHelper extends UIHelper {
 				textField.setText(rutaArchivo);
 			}
 		} catch (IOException e) {
-			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			Map<String, Object> params = buildError(e);
 			showPopup(frameParent, Constants.CMD_ERROR, params);
 		}	
 	}
