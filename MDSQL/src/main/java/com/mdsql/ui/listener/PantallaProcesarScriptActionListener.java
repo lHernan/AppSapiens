@@ -48,11 +48,10 @@ import com.mdsql.ui.model.ProcesarScriptUltimasPeticionesTableModel;
 import com.mdsql.ui.model.SubProyectoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.Procesado;
-import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.ui.utils.UIHelper;
 
 /**
  * @author federico
@@ -401,7 +400,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				inputProcesaScript.setPNombreEsquemaHis(selectedBBDD.getNombreEsquemaHis());
 				inputProcesaScript.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
 				
-				if (objetosHistorico != null) {
+				// Si la lista de objetos del histórico está vacía, no informa la lista a procesar
+				if (CollectionUtils.isNotEmpty(objetosHistorico)) {
 					inputProcesaScript.setListaObjetoHis(objetosHistorico);
 				}
 				

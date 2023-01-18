@@ -108,15 +108,19 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void generarHistorico() {
 		int dialogResult = MDSQLUIHelper.showConfirm("¿Desea continuar con el procesado?", "Atención");
 
 		Boolean result = (dialogResult == JOptionPane.YES_OPTION) ? Boolean.TRUE : Boolean.FALSE;
 		pantallaSeleccionHistorico.getReturnParams().put("procesado", result);
 
-		List<SeleccionHistorico> list = ((SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico()
+		List<SeleccionHistorico> listaObjetos = ((SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico()
 				.getModel()).getData();
-		pantallaSeleccionHistorico.getReturnParams().put("objetosHistorico", list);
+		
+		List<SeleccionHistorico> listaSeleccionados = (List<SeleccionHistorico>) CollectionUtils
+				.select(listaObjetos, new SeleccionHistoricoPredicate());
+		pantallaSeleccionHistorico.getReturnParams().put("objetosHistorico", listaSeleccionados);
 
 		updateObservers(MDSQLConstants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		pantallaSeleccionHistorico.dispose();
