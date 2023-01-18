@@ -52,6 +52,7 @@ import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.Procesado;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.utils.UIHelper;
 
 /**
  * @author federico

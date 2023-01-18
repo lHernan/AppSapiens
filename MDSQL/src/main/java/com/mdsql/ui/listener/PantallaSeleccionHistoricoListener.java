@@ -16,8 +16,8 @@ import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.ui.utils.observer.Observable;
@@ -98,14 +98,10 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport implemen
 	}
 
 	private void generarHistorico() {
-		int dialogResult = JOptionPane.showConfirmDialog(pantallaSeleccionHistorico.getFrameParent(),
-				"¿Desea continuar con el procesado?", "Atención", JOptionPane.YES_NO_OPTION);
+		int dialogResult = MDSQLUIHelper.showConfirm("¿Desea continuar con el procesado?", "Atención");
 
-		if (dialogResult == JOptionPane.YES_OPTION) {
-			pantallaSeleccionHistorico.getReturnParams().put("procesado", Boolean.TRUE);
-		} else {
-			pantallaSeleccionHistorico.getReturnParams().put("procesado", Boolean.FALSE);
-		}
+		Boolean result = (dialogResult == JOptionPane.YES_OPTION) ? Boolean.TRUE: Boolean.FALSE; 
+		pantallaSeleccionHistorico.getReturnParams().put("procesado", result);
 
 		List<SeleccionHistorico> list = ((SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico().getModel()).getData();
 		pantallaSeleccionHistorico.getReturnParams().put("objetosHistorico", list);
