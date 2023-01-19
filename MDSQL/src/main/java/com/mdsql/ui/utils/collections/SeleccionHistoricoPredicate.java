@@ -9,6 +9,6 @@ public class SeleccionHistoricoPredicate implements Predicate {
 	@Override
 	public boolean evaluate(Object object) {
 		SeleccionHistorico seleccionHistorico = (SeleccionHistorico) object;
-		return seleccionHistorico.getHistorico();
+		return seleccionHistorico.getHistorico() && !seleccionHistorico.getConfigurado();
 	}
 }
