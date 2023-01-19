@@ -75,17 +75,17 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 	}
 
 	private void buscar() {
-		try {
+//		try {
 			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
 
 			String codigoProyecto = (String) pantallaHistoricoCambios.getParams().get("codigoProyecto");
 			List<TextoLinea> lineas = (List<TextoLinea>) pantallaHistoricoCambios.getParams().get("script");
-			List<SeleccionHistorico> seleccionarHistorico = procesoService.seleccionarHistorico(codigoProyecto, lineas);
+//			List<SeleccionHistorico> seleccionarHistorico = procesoService.seleccionarHistorico(codigoProyecto, lineas);
 
-		} catch (ServiceException e) {
-			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
-		}
+//		} catch (ServiceException e) {
+//			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+//			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
+//		}
 
 	}
 
