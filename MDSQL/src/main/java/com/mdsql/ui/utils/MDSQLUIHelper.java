@@ -11,6 +11,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.ui.model.ScriptsTableModel;
@@ -19,6 +21,7 @@ import com.mdsql.ui.utils.creators.Creator;
 import com.mdsql.ui.utils.creators.DialogCreator;
 import com.mdsql.ui.utils.creators.FrameCreator;
 import com.mdsql.utils.LiteralesSingleton;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
@@ -191,5 +194,28 @@ public class MDSQLUIHelper extends UIHelper {
 			Map<String, Object> params = buildError(e);
 			showPopup(frameParent, Constants.CMD_ERROR, params);
 		}	
+	}
+
+	/**
+	 * @param warnings
+	 * @return
+	 */
+	public static Map<String, Object> buildWarnings(List<Object[]> warnings) {
+		Map<String, Object> params = new HashMap<>();
+
+		params.put(Constants.WARN, warnings);
+		
+		return params;
+	}
+	
+	/**
+	 * @param warnings
+	 * @param frameSupport
+	 */
+	public static void showWarningsIfExists(List<Object[]> warnings, FrameSupport frameSupport) {
+		if (CollectionUtils.isNotEmpty(warnings)) {
+			Map<String, Object> params = MDSQLUIHelper.buildWarnings(warnings);
+			MDSQLUIHelper.showPopup(frameSupport, MDSQLConstants.CMD_WARN, params);
+		}
 	}
 }

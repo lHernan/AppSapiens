@@ -60,6 +60,22 @@ public class ServiceSupport {
 	 * @return
 	 * @throws SQLException
 	 */
+	protected List<Object[]> getWarnings(Array array) throws SQLException {
+		Object[] items = (Object[]) array.getArray();
+		
+		List<Object[]> errors = new ArrayList<>();
+		for (Object row : items) {
+			Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+			errors.add(cols);
+		}
+		return errors;
+	}
+	
+	/**
+	 * @param array
+	 * @return
+	 * @throws SQLException
+	 */
 	protected ServiceException buildException(Object[] array, String type) throws SQLException {
 		ServiceException exception = new ServiceException(type);
 		

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.InputSeleccionarProcesados;
 import com.mdsql.bussiness.entities.OutputConsultaProcesado;
+import com.mdsql.bussiness.entities.OutputSeleccionarHistorico;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.TextoLinea;
@@ -28,7 +29,7 @@ public interface ProcesoService {
 	 * @return
 	 * @throws ServiceException
 	 */
-	List<SeleccionHistorico> seleccionarHistorico(String codProyecto, List<TextoLinea> lineas) throws ServiceException;
+	OutputSeleccionarHistorico seleccionarHistorico(String codProyecto, List<TextoLinea> lineas) throws ServiceException;
 
 	/**
 	 * @param listaObjetos
