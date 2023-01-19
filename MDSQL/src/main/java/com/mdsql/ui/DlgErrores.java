@@ -31,6 +31,7 @@ import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.utils.Constants;
 
 /**
  *
@@ -83,20 +84,6 @@ public class DlgErrores extends DialogSupport {
         jLabel1.setFont(new Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(SwingConstants.LEFT);
         
-        // Por defecto error
-        String type = (String) params.get(MDSQLConstants.TYPE);
-        if (StringUtils.isNotBlank(type)) {
-        	if (MDSQLConstants.ERROR.equals(type)) {
-        		jLabel1.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
-        	}
-        	if (MDSQLConstants.WARN.equals(type)) {
-        		jLabel1.setIcon(new ImageIcon(getClass().getResource("/warning.png"))); // NOI18N
-        	}
-        }
-        else {
-        	jLabel1.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
-        }
-        
         jLabel1.setIconTextGap(10);
         jPanel1.add(jLabel1);
 
@@ -135,20 +122,23 @@ public class DlgErrores extends DialogSupport {
 	protected void setupLiterals() {
 		String type = (String) params.get(MDSQLConstants.TYPE);
         if (StringUtils.isNotBlank(type)) {
-        	if (MDSQLConstants.ERROR.equals(type)) {
+        	if (MDSQLConstants.CMD_ERROR.equals(type)) {
         		setTitle(literales.getLiteral("error.titulo"));
+        		jLabel1.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
         		jLabel1.setText(literales.getLiteral("error.label"));
         	}
-        	if (MDSQLConstants.WARN.equals(type)) {
+        	if (MDSQLConstants.CMD_WARN.equals(type)) {
         		setTitle(literales.getLiteral("aviso.titulo"));
+        		jLabel1.setIcon(new ImageIcon(getClass().getResource("/warning.png"))); // NOI18N
         		jLabel1.setText(literales.getLiteral("aviso.label"));
         	}
         }
         else {
         	setTitle(literales.getLiteral("error.titulo"));
+        	jLabel1.setIcon(new ImageIcon(getClass().getResource("/close.png"))); // NOI18N
     		jLabel1.setText(literales.getLiteral("error.label"));
         }
-		
+        
 		btnCerrar.setText(literales.getLiteral("error.aceptar"));
 	}
 
@@ -162,7 +152,7 @@ public class DlgErrores extends DialogSupport {
 		
 		if (!Objects.isNull(params)) {
 			ServiceException serviceException = (ServiceException) params.get(MDSQLConstants.SERVICE_ERROR);
-			List<Object[]> warnings = (List<Object[]>) params.get(MDSQLConstants.CMD_WARN);
+			List<Object[]> warnings = (List<Object[]>) params.get(Constants.WARN);
 			Exception exception = (Exception) params.get(MDSQLConstants.ERROR);
 			
 			if (!Objects.isNull(serviceException)) {

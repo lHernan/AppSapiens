@@ -120,6 +120,7 @@ public class MDSQLUIHelper extends UIHelper {
 	public static Map<String, Object> buildError(Exception e) {
 		Map<String, Object> params = new HashMap<>();
 
+		params.put(MDSQLConstants.TYPE, MDSQLConstants.CMD_ERROR);
 		if (e instanceof ServiceException) {
 			params.put(Constants.SERVICE_ERROR, e);
 		} else {
@@ -204,6 +205,7 @@ public class MDSQLUIHelper extends UIHelper {
 		Map<String, Object> params = new HashMap<>();
 
 		params.put(Constants.WARN, warnings);
+		params.put(MDSQLConstants.TYPE, MDSQLConstants.CMD_WARN);
 		
 		return params;
 	}
