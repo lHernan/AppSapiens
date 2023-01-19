@@ -15,11 +15,15 @@ import org.apache.any23.encoding.TikaEncodingDetector;
 
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
+import com.mdval.utils.LogWrapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
+@Slf4j
 public class MDSQLAppHelper extends AppHelper {
 	
 	/**
@@ -97,5 +101,17 @@ public class MDSQLAppHelper extends AppHelper {
 		
 		byte[] bytes = bos.toByteArray();
 		return new String(bytes);
+	}
+	
+	/**
+	 * @param fileName
+	 */
+	public static void createEmptyFile(String fileName) {
+		try {
+			File file = new File(fileName);
+			file.createNewFile();
+			
+			LogWrapper.debug(log, "Fichero creado: %s", fileName);
+		} catch(Exception e) {}
 	}
 }

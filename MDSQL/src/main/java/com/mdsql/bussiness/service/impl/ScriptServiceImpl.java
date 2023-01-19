@@ -325,6 +325,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					bbdd.setPassword(password);
 
 					String logFile = ruta.concat(script.getNombreScriptLog());
+					// En Windows hay que crear este archivo de forma explícita
+					MDSQLAppHelper.createEmptyFile(logFile);
 
 					// Ejecución del script
 					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile, logFile, charset);
