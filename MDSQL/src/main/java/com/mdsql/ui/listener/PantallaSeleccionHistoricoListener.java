@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.mdsql.bussiness.entities.OutputSeleccionarHistorico;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
@@ -65,7 +66,11 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport
 
 			String codigoProyecto = (String) pantallaSeleccionHistorico.getParams().get("codigoProyecto");
 			List<TextoLinea> lineas = (List<TextoLinea>) pantallaSeleccionHistorico.getParams().get("script");
-			List<SeleccionHistorico> seleccion = procesoService.seleccionarHistorico(codigoProyecto, lineas);
+			OutputSeleccionarHistorico outputSeleccionarHistorico = procesoService.seleccionarHistorico(codigoProyecto, lineas);
+			
+			MDSQLUIHelper.showWarningsIfExists(outputSeleccionarHistorico.getWarnings(), pantallaSeleccionHistorico.getFrameParent());
+			
+			List<SeleccionHistorico> seleccion = outputSeleccionarHistorico.getSeleccion();
 
 			populateModelSeleccion(seleccion);
 

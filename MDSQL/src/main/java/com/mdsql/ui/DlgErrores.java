@@ -11,6 +11,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -154,20 +155,19 @@ public class DlgErrores extends DialogSupport {
 	@Override
 	protected void initModels() {}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initialState() {
 		txtErrors.setEditable(Boolean.FALSE);
 		
 		if (!Objects.isNull(params)) {
 			ServiceException serviceException = (ServiceException) params.get(MDSQLConstants.SERVICE_ERROR);
+			List<Object[]> warnings = (List<Object[]>) params.get(MDSQLConstants.CMD_WARN);
 			Exception exception = (Exception) params.get(MDSQLConstants.ERROR);
 			
 			if (!Objects.isNull(serviceException)) {
 				if (CollectionUtils.isNotEmpty(serviceException.getErrors())) {
-					StringBuilder sb = new StringBuilder();
-					for (Object[] cols : serviceException.getErrors()) {
-						sb.append(cols[0]).append("\n");
-					}
+					StringBuilder sb = dumpErrors(serviceException.getErrors());
 					
 					txtErrors.setText(sb.toString());
 				}
@@ -175,9 +175,26 @@ public class DlgErrores extends DialogSupport {
 					txtErrors.setText(serviceException.getMessage());
 				}
 			}
+			else if (CollectionUtils.isNotEmpty(warnings)) {
+				StringBuilder sb = dumpErrors(warnings);
+				
+				txtErrors.setText(sb.toString());
+			}
 			else {
 				txtErrors.setText(exception.getMessage());
 			}
 		}
+	}
+
+	/**
+	 * @param errors
+	 * @return
+	 */
+	private StringBuilder dumpErrors(List<Object[]> errors) {
+		StringBuilder sb = new StringBuilder();
+		for (Object[] cols : errors) {
+			sb.append(cols[0]).append("\n");
+		}
+		return sb;
 	}
 }

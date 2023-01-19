@@ -71,6 +71,10 @@ public class DialogCreator extends Creator {
 			dialog = new DlgErrores(frameParent, modal, params);
 		}
 		
+		if (MDSQLConstants.CMD_WARN.equals(option)) {
+			dialog = new DlgErrores(frameParent, modal, params);
+		}
+		
 		if (MDSQLConstants.CMD_PROCESADO_EN_CURSO.equals(option)) {
 			dialog = new PantallaProcesadoEnCurso(frameParent, modal, params);
 		}

@@ -14,9 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class OutputConsultaProcesado implements Serializable {
+public class OutputConsultaProcesado extends Output implements Serializable {
 
-    private String nombreModelo;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8077635735910629830L;
+	private String nombreModelo;
     private String codigoUsrPeticion;
     private String nombreBBDDHistorico;
     private String descripcionSubProyecto;

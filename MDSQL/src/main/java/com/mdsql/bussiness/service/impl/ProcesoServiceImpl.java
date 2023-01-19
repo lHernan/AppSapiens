@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.InputSeleccionarProcesados;
 import com.mdsql.bussiness.entities.OutputConsultaProcesado;
+import com.mdsql.bussiness.entities.OutputSeleccionarHistorico;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.ScriptEjecutado;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
@@ -108,7 +109,7 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
     }
 
     @Override
-    public List<SeleccionHistorico> seleccionarHistorico(String codProyecto, List<TextoLinea> lineas)
+    public OutputSeleccionarHistorico seleccionarHistorico(String codProyecto, List<TextoLinea> lineas)
             throws ServiceException {
         String runSP = createCall("p_sel_historico", MDSQLConstants.CALL_05_ARGS);
 
@@ -149,6 +150,12 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
             if (result == 0) {
                 throw buildException(callableStatement.getArray(5));
             }
+            
+            OutputSeleccionarHistorico outputSeleccionarHistorico = new OutputSeleccionarHistorico();
+            if (result == 2) {
+                List<Object[]> warnings = getWarnings(callableStatement.getArray(5));
+                outputSeleccionarHistorico.setWarnings(warnings);
+            }
 
             List<SeleccionHistorico> seleccion = new ArrayList<>();
             Array arraySeleccion = callableStatement.getArray(3);
@@ -175,8 +182,9 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
                     seleccion.add(seleccionHistorico);
                 }
             }
+            outputSeleccionarHistorico.setSeleccion(seleccion);
 
-            return seleccion;
+            return outputSeleccionarHistorico;
         } catch (SQLException e) {
             LogWrapper.error(log, "[ProcesoService.seleccionarHistorico] Error:  %s", e.getMessage());
             throw new ServiceException(e);
@@ -269,6 +277,13 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
 
             if (result == 0) {
                 throw buildException(callableStatement.getArray(19));
+            }
+            
+            if (result == 2) { 
+            	/**
+            	 *  TODO - Hacer algo genérico para los warnings, no lanza exception
+            	 *  los mensajes están en el array 19
+            	 */
             }
 
             String nombreModelo = callableStatement.getString(2);
