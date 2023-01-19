@@ -25,6 +25,6 @@ public class TablaCuadresObjetosCabecera extends Cabecera {
 		columnSizes.add(200);
 		columnSizes.add(120);
 		columnSizes.add(120);
-		columnSizes.add(500);
+		columnSizes.add(120);
 	}
 }

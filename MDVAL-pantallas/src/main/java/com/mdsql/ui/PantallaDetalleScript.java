@@ -44,6 +44,18 @@ public class PantallaDetalleScript extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tblDetalle);
+        if (tblDetalle.getColumnModel().getColumnCount() > 0) {
+            tblDetalle.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tblDetalle.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblDetalle.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblDetalle.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tblDetalle.getColumnModel().getColumn(4).setPreferredWidth(200);
+            tblDetalle.getColumnModel().getColumn(5).setPreferredWidth(100);
+            tblDetalle.getColumnModel().getColumn(6).setPreferredWidth(100);
+            tblDetalle.getColumnModel().getColumn(7).setPreferredWidth(60);
+            tblDetalle.getColumnModel().getColumn(8).setPreferredWidth(60);
+            tblDetalle.getColumnModel().getColumn(9).setPreferredWidth(60);
+        }
 
         btnCancelar.setText("CANCELAR");
 
