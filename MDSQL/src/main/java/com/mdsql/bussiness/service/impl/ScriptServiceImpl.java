@@ -1,6 +1,7 @@
 package com.mdsql.bussiness.service.impl;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -287,7 +288,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 			Charset charset = session.getFileCharset();
 			String selectedRoute = session.getSelectedRoute();
-			String ruta = selectedRoute.concat(FileSystems.getDefault().getSeparator());
+			String ruta = selectedRoute.concat(File.separator);
 			String nombreEsquema = StringUtils.EMPTY;
 			String nombreBBDD = StringUtils.EMPTY;
 
@@ -793,6 +794,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		
 		ProcessBuilder processBuilder = new ProcessBuilder(MDSQLConstants.SQL_PLUS, connection,
 				String.format(MDSQLConstants.FORMATO_FICHERO, fileLocation));
+		LogWrapper.debug(log, processBuilder.command());
 		
 		Boolean invalidLogon = Boolean.FALSE;
 		String lineError = StringUtils.EMPTY;
