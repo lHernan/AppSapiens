@@ -1,5 +1,7 @@
 package com.mdval.utils;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 
 import lombok.experimental.UtilityClass;
@@ -18,6 +20,18 @@ public class LogWrapper {
 	 */
 	public void debug(Logger log, String msg, Object... args) {
 		log.info(String.format(msg, args));
+	}
+	
+	/**
+	 * @param log
+	 * @param msg
+	 */
+	public void debug(Logger log, List<String> msg) {
+		StringBuilder sb = new StringBuilder();
+		for (String s : msg) {
+			sb.append(s).append(" ");
+		}
+		log.info(sb.toString().trim());
 	}
 	
 	/**

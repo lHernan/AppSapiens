@@ -9,7 +9,9 @@ import java.util.Map;
 import javax.swing.AbstractButton;
 
 import com.mdsql.bussiness.entities.InputReparaScript;
+import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.OutputReparaScript;
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaRepararScript;
@@ -118,12 +120,22 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	private void aceptar() {
 		try {
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
-
-			InputReparaScript inputReparaScript = new InputReparaScript();
-			String script = (String) pantallaRepararScript.getParams().get("inputReparaScript");
-			inputReparaScript.setNombreScriptNew(script);
 			
-			OutputReparaScript repararScript = scriptService.repararScript(inputReparaScript);
+			Proceso proceso = (Proceso) pantallaRepararScript.getParams().get("proceso");
+			Modelo modelo = proceso.getModelo();
+			
+			// El modelo tiene histórico
+			String tieneHistorico = modelo.getMcaHis();
+			if (MDSQLConstants.S.equals(tieneHistorico)) {
+				
+			}
+			else {
+				InputReparaScript inputReparaScript = new InputReparaScript();
+				String script = (String) pantallaRepararScript.getParams().get("script");
+				inputReparaScript.setNombreScriptNew(script);
+				
+				OutputReparaScript repararScript = scriptService.repararScript(inputReparaScript);
+			}
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
