@@ -66,7 +66,7 @@
   
   Código fuente.
   
-  - Versión 1.0.0-SNAPSHOT (22/12/2022), Entregable-1.0.21
+  - Versión 1.0.0-SNAPSHOT (22/12/2022), Entregable-1.0.22
  
   Incidencias que se corrigen
  
