@@ -66,6 +66,19 @@
   
   Código fuente.
   
+  - Versión 1.0.0-SNAPSHOT (22/12/2022), Entregable-1.0.21
+ 
+  Incidencias que se corrigen
+ 
+  - Pantalla Ejecutar Script sin historico.v.4
+  - Pantalla Ejecutar Scripts CON Historico.v.4
+  - Pantalla Principal.v.3
+  - Pantalla Pantalla Detalle Script.v.3
+  - Pantalla Ver errores.v.3
+  - Pantalla Ver Log.v.4
+  - Pantalla DescartarScript.v.1
+  - Pantalla Pantalla Reparar Script.v.2
+  
   
   
        
