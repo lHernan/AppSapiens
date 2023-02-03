@@ -62,6 +62,16 @@
                           <Component id="jScrollPane2" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="btnNotas" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnVariables" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnPermisosPorColumna" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnPermisosPorObjeto" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnPermisosGenerales" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnSeleccionar" min="-2" pref="141" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -92,7 +102,14 @@
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Component id="jScrollPane2" pref="333" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="btnSeleccionar" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnSeleccionar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPermisosGenerales" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPermisosPorObjeto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPermisosPorColumna" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVariables" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNotas" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -264,6 +281,36 @@
           <Font name="Dialog" size="18" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Modelos"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPermisosGenerales">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="PERMISOS GENERALES"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPermisosPorObjeto">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="PERMISOS POR OBJETO"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPermisosPorColumna">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="PERMISOS POR COLUMNA"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnVariables">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="VARIABLES"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnNotas">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="NOTAS"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
   </SubComponents>

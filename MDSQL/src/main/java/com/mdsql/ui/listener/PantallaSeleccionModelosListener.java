@@ -66,7 +66,42 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 	/**
 	 * 
 	 */
+	private void evntBtnNotas() {
+		pantallaSeleccionModelos.dispose();
+	}
+	
+	/**
+	 * 
+	 */
+	private void evntBtnPermisosGenerales() {
+		pantallaSeleccionModelos.dispose();
+	}
+	
+	/**
+	 * 
+	 */
+	private void evntBtnPermisosPorColumna() {
+		pantallaSeleccionModelos.dispose();
+	}
+	
+	/**
+	 * 
+	 */
+	private void evntBtnPermisosPorObjeto() {
+		pantallaSeleccionModelos.dispose();
+	}
+	
+	/**
+	 * 
+	 */
 	private void evntBtnSeleccionar() {
+		pantallaSeleccionModelos.dispose();
+	}
+	
+	/**
+	 * 
+	 */
+	private void evntBtnVariables() {
 		pantallaSeleccionModelos.dispose();
 	}
 

@@ -39,6 +39,11 @@ public class PantallaSeleccionModelos extends javax.swing.JFrame {
         btnSeleccionar = new javax.swing.JButton();
         panelLogo = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
+        btnPermisosGenerales = new javax.swing.JButton();
+        btnPermisosPorObjeto = new javax.swing.JButton();
+        btnPermisosPorColumna = new javax.swing.JButton();
+        btnVariables = new javax.swing.JButton();
+        btnNotas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1350, 500));
@@ -106,6 +111,21 @@ public class PantallaSeleccionModelos extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTitulo.setText("Modelos");
 
+        btnPermisosGenerales.setText("PERMISOS GENERALES");
+        btnPermisosGenerales.setEnabled(false);
+
+        btnPermisosPorObjeto.setText("PERMISOS POR OBJETO");
+        btnPermisosPorObjeto.setEnabled(false);
+
+        btnPermisosPorColumna.setText("PERMISOS POR COLUMNA");
+        btnPermisosPorColumna.setEnabled(false);
+
+        btnVariables.setText("VARIABLES");
+        btnVariables.setEnabled(false);
+
+        btnNotas.setText("NOTAS");
+        btnNotas.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,6 +159,16 @@ public class PantallaSeleccionModelos extends javax.swing.JFrame {
                             .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnNotas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnVariables)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPermisosPorColumna)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPermisosPorObjeto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPermisosGenerales)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
@@ -161,7 +191,13 @@ public class PantallaSeleccionModelos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnSeleccionar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSeleccionar)
+                    .addComponent(btnPermisosGenerales)
+                    .addComponent(btnPermisosPorObjeto)
+                    .addComponent(btnPermisosPorColumna)
+                    .addComponent(btnVariables)
+                    .addComponent(btnNotas))
                 .addContainerGap())
         );
 
@@ -222,7 +258,12 @@ public class PantallaSeleccionModelos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnNotas;
+    private javax.swing.JButton btnPermisosGenerales;
+    private javax.swing.JButton btnPermisosPorColumna;
+    private javax.swing.JButton btnPermisosPorObjeto;
     private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JButton btnVariables;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
