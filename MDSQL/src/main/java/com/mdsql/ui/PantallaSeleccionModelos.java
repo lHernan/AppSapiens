@@ -48,14 +48,11 @@ public class PantallaSeleccionModelos extends DialogSupport {
     private JButton btnPermisosGenerales;
     private JButton btnPermisosPorColumna;
     private JButton btnPermisosPorObjeto;
-    private JButton btnSeleccionar;
     private JButton btnVariables;
     private JLabel jLabel3;
     private JLabel jLabel4;
     private JLabel jLabel5;
     private JLabel lblTitulo;
-    private JPanel panelLogo;
-    private JTable tblModelos;
 
     @Getter
     private JScrollPane jScrollPane2;

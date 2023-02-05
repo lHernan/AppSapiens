@@ -35,7 +35,7 @@ import lombok.Setter;
  *
  * @author federico
  */
-public class PantallaSeleccionModelos extends DialogSupport {
+public class PantallaSeleccionModelosOLD extends DialogSupport {
 
 	/**
 	 * 
@@ -77,11 +77,11 @@ public class PantallaSeleccionModelos extends DialogSupport {
 	@Getter
 	private PantallaSeleccionModelosListener pantallaSeleccionModelosListener; 
 	
-	public PantallaSeleccionModelos(FrameSupport parent, Boolean modal) {
+	public PantallaSeleccionModelosOLD(FrameSupport parent, Boolean modal) {
         super(parent, modal);
     }
     
-    public PantallaSeleccionModelos(FrameSupport parent, Boolean modal, Map<String, Object> params) {
+    public PantallaSeleccionModelosOLD(FrameSupport parent, Boolean modal, Map<String, Object> params) {
         super(parent, modal, params);
     }
 
@@ -180,19 +180,19 @@ public class PantallaSeleccionModelos extends DialogSupport {
     
     @Override
 	protected void initEvents() {
-		pantallaSeleccionModelosListener = new PantallaSeleccionModelosListener(this);
-		ListSelectionListener listSelectionListener = new PantallaSeleccionModelosTableListener(this);
-		
-		btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_BUSCAR);
-		btnSeleccionar.setActionCommand(MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR);
-		
-		btnBuscar.addActionListener(pantallaSeleccionModelosListener);
-		btnSeleccionar.addActionListener(pantallaSeleccionModelosListener);
-		
-		this.addOnLoadListener(pantallaSeleccionModelosListener);
-		
-		ListSelectionModel rowSM = tblModelos.getSelectionModel();
-		rowSM.addListSelectionListener(listSelectionListener);
+//		pantallaSeleccionModelosListener = new PantallaSeleccionModelosListener(this);
+//		ListSelectionListener listSelectionListener = new PantallaSeleccionModelosTableListener(this);
+//		
+//		btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_BUSCAR);
+//		btnSeleccionar.setActionCommand(MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_SELECCIONAR);
+//		
+//		btnBuscar.addActionListener(pantallaSeleccionModelosListener);
+//		btnSeleccionar.addActionListener(pantallaSeleccionModelosListener);
+//		
+//		this.addOnLoadListener(pantallaSeleccionModelosListener);
+//		
+//		ListSelectionModel rowSM = tblModelos.getSelectionModel();
+//		rowSM.addListSelectionListener(listSelectionListener);
 	}
 
 	@Override
