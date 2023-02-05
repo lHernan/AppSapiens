@@ -18,7 +18,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class InputReparaScript implements Serializable {
 
-    private BigDecimal idProceso;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1601631126723337861L;
+	private BigDecimal idProceso;
     private BigDecimal numeroOrden;
     private String codigoUsuario;
     private String mcaReprocesa;

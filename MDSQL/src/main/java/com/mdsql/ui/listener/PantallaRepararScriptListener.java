@@ -4,23 +4,28 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
 
 import com.mdsql.bussiness.entities.InputReparaScript;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Proceso;
+import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaRepararScript;
+import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.ui.utils.observer.Observer;
+import com.mdval.ui.utils.UIHelper;
+import com.mdval.utils.AppHelper;
 
 public class PantallaRepararScriptListener extends ListenerSupport implements ActionListener {
 
@@ -33,10 +38,6 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	public PantallaRepararScriptListener(PantallaRepararScript pantallaRepararScript) {
 		super();
 		this.pantallaRepararScript = pantallaRepararScript;
-	}
-	
-	public void addObservador(Observer o) {
-		this.addObserver(o);
 	}
 	
 	@Override
@@ -119,28 +120,86 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	 */
 	private void aceptar() {
 		try {
-			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
+			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
+					literales.getLiteral("confirmacion.titulo"));
+
+			if (response == JOptionPane.YES_OPTION) {
 			
-			Proceso proceso = (Proceso) pantallaRepararScript.getParams().get("proceso");
-			Modelo modelo = proceso.getModelo();
-			
-			// El modelo tiene histórico
-			String tieneHistorico = modelo.getMcaHis();
-			if (MDSQLConstants.S.equals(tieneHistorico)) {
+				Proceso proceso = (Proceso) pantallaRepararScript.getParams().get("proceso");
+				Modelo modelo = proceso.getModelo();
 				
-			}
-			else {
-				InputReparaScript inputReparaScript = new InputReparaScript();
-				String script = (String) pantallaRepararScript.getParams().get("script");
-				inputReparaScript.setNombreScriptNew(script);
+				Script script = (Script) pantallaRepararScript.getParams().get("script");
 				
-				OutputReparaScript repararScript = scriptService.repararScript(inputReparaScript);
+				// El modelo tiene histórico
+				String tieneHistorico = modelo.getMcaHis();
+				if (MDSQLConstants.S.equals(tieneHistorico)) {
+					Map<String, Object> params = new HashMap<>();
+					params.put("codigoProyecto", modelo.getCodigoProyecto());
+					
+					// Obtiene las líneas del script y se las pasa al selector de histórico en un parámetro
+					params.put("script", script.getLineasScript());
+					
+					PantallaSeleccionHistorico pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createDialog(pantallaRepararScript.getFrameParent(),
+							MDSQLConstants.CMD_SELECCION_HISTORICO, params);
+					MDSQLUIHelper.show(pantallaSeleccionHistorico);
+					
+					Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
+					if (continuarProcesado) {
+						repararScript(proceso, script);
+					}
+					else {
+						JOptionPane.showMessageDialog(pantallaRepararScript.getFrameParent(), "Operación cancelada");
+					}
+				}
+				else {
+					repararScript(proceso, script);
+				}
 			}
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaRepararScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
+	}
+
+	/**
+	 * @param proceso 
+	 * @param script 
+	 * @throws ServiceException
+	 */
+	private void repararScript(Proceso proceso, Script script) throws ServiceException {
+		ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
+		
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String codigoUsuario = session.getCodUsr();
+		
+		InputReparaScript inputReparaScript = new InputReparaScript();
+		inputReparaScript.setNumeroOrden(script.getNumeroOrden());
+		inputReparaScript.setIdProceso(proceso.getIdProceso());
+		inputReparaScript.setCodigoUsuario(codigoUsuario);
+		
+		Boolean reprocesa = pantallaRepararScript.getRbtnReprocesar().isSelected();
+		if (reprocesa) {
+			String mcaReprocesa = AppHelper.normalizeValueToCheck(reprocesa);
+			inputReparaScript.setMcaReprocesa(mcaReprocesa);	
+		}
+		else {
+			
+		}
+		
+		Boolean mismoScript = pantallaRepararScript.getRbtnEjecutarScriptProcesado().isSelected();
+		if (mismoScript) {
+			String mcaMismoScript = AppHelper.normalizeValueToCheck(mismoScript);
+			inputReparaScript.setMcaMismoScript(mcaMismoScript);
+		}
+		else {
+			
+		}
+		
+		String txtComentario = pantallaRepararScript.getJTextArea1().getText();
+		inputReparaScript.setTxtComentario(txtComentario);
+		
+		OutputReparaScript repararScript = scriptService.repararScript(inputReparaScript);
 	}
 
 }

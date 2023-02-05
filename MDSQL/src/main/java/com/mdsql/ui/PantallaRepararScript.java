@@ -50,6 +50,8 @@ public class PantallaRepararScript extends DialogSupport {
     private JPanel jPanel1;
     private JPanel jPanel2;
     private JScrollPane jScrollPane1;
+    
+    @Getter
     private JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
     
@@ -67,12 +69,16 @@ public class PantallaRepararScript extends DialogSupport {
     @Getter
 	private JTextField txtScriptReparacion;
 
+    @Getter
 	private JRadioButton rbtnReprocesar;
 
+    @Getter
 	private JRadioButton rbtnNoReprocesar;
 
+    @Getter
 	private JRadioButton rbtnEjecutarScriptProcesado;
 
+    @Getter
 	private JRadioButton rbtnEjecutarScriptReparacion;
     
     public PantallaRepararScript(FrameSupport parent, Boolean modal) {

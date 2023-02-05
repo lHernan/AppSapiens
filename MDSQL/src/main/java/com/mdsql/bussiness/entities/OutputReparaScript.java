@@ -17,7 +17,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class OutputReparaScript implements Serializable {
 
-    private String nombreScriptRepara;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1276065065767986360L;
+	private String nombreScriptRepara;
     private List<TextoLinea> scriptRepara;
     private String nombreScriptLanza;
     private List<TextoLinea> scriptLanza;
