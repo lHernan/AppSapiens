@@ -241,7 +241,15 @@ public class PantallaSeleccionModelos extends DialogSupport {
    			txtCodModelo.setText(codigoProyecto);
    		}
    		
-   		btnSeleccionar.setEnabled(Boolean.FALSE);		
+   		btnSeleccionar.setEnabled(Boolean.FALSE);	
+   		
+   		// Los botones adicionales estarán deshabilitados por defecto
+   		btnNotas.setEnabled(Boolean.FALSE);
+        btnPermisosGenerales.setEnabled(Boolean.FALSE);
+        btnPermisosPorColumna.setEnabled(Boolean.FALSE);
+        btnPermisosPorObjeto.setEnabled(Boolean.FALSE);
+        btnSeleccionar.setEnabled(Boolean.FALSE);
+        btnVariables.setEnabled(Boolean.FALSE);
    	}
 
    	@Override
