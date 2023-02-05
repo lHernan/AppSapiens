@@ -57,6 +57,7 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 			List<Modelo> modelos = buscar(codModelo, nombreModelo, codSubmodelo);
 			populateModel(modelos);
 			
+			pantallaSeleccionModelos.forceRepaint();
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
