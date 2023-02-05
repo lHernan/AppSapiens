@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -300,9 +299,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			String txtClaveEncriptada = configuration.getConfig(MDSQLConstants.TOKEN).substring(17, 29);
 
 			if (CollectionUtils.isNotEmpty(scripts)) {
-				for (Script script : scripts) {
-					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(),
-							charset);
+				for (Script script : scripts) {/*
+					// Esto causa reescritura de ficheros
+//					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(),
+//							charset);
 
 					/**
 					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
@@ -318,6 +318,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 						nombreBBDD = bbdd.getNombreBBDDHis();
 					}
 
+					// Sólo hay que crear el script lanza
 					String lanzaFile = ruta.concat(script.getNombreScriptLanza());
 					writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(System.lineSeparator()),
 							charset);
@@ -428,25 +429,32 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					inputReparaScript.getTxtComentario(), inputReparaScript.getNombreScriptParche(),
 					inputReparaScript.getTxtRutaParche(), inputReparaScript.getScriptParche());
 
-			Struct[] structLineaScriptNew = new Struct[inputReparaScript.getScriptNew().size()];
+			Array arrayLineaScriptNew = null;
+			if (!Objects.isNull(inputReparaScript.getScriptNew())) {
+				Struct[] structLineaScriptNew = new Struct[inputReparaScript.getScriptNew().size()];
 
-			int arrayIndexLinea = 0;
-			for (TextoLinea data : inputReparaScript.getScriptNew()) {
-				structLineaScriptNew[arrayIndexLinea++] = conn.createStruct(recordLinea,
-						new Object[] { data.getValor() });
+				int arrayIndexLinea = 0;
+				for (TextoLinea data : inputReparaScript.getScriptNew()) {
+					structLineaScriptNew[arrayIndexLinea++] = conn.createStruct(recordLinea,
+							new Object[] { data.getValor() });
+				}
+				
+				arrayLineaScriptNew = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScriptNew);
 			}
+			
+			Array arrayLineaScriptParche = null;
+			if (!Objects.isNull(inputReparaScript.getScriptParche())) {
+				Struct[] structLineaScriptParche = new Struct[inputReparaScript.getScriptParche().size()];
+				
+				int arrayIndexLineaParche = 0;
+				for (TextoLinea data : inputReparaScript.getScriptParche()) {
+					structLineaScriptParche[arrayIndexLineaParche++] = conn.createStruct(recordLinea,
+							new Object[] { data.getValor() });
+				}
 
-			Struct[] structLineaScriptParche = new Struct[inputReparaScript.getScriptParche().size()];
-
-			int arrayIndexLineaParche = 0;
-			for (TextoLinea data : inputReparaScript.getScriptParche()) {
-				structLineaScriptParche[arrayIndexLineaParche++] = conn.createStruct(recordLinea,
-						new Object[] { data.getValor() });
+				arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea,
+						structLineaScriptParche);
 			}
-
-			Array arrayLineaScriptNew = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScriptNew);
-			Array arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea,
-					structLineaScriptParche);
 
 			callableStatement.setBigDecimal(1, inputReparaScript.getIdProceso());
 			callableStatement.setBigDecimal(2, inputReparaScript.getNumeroOrden());
