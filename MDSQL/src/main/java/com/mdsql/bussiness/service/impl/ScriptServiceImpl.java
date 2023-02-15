@@ -409,7 +409,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 	@Override
 	public OutputReparaScript repararScript(InputReparaScript inputReparaScript) throws ServiceException {
-		String runSP = createCall("p_repara_script", MDSQLConstants.CALL_21_ARGS);
+		String runSP = createCall("p_repara_script", MDSQLConstants.CALL_27_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 				CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -441,6 +441,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				
 				arrayLineaScriptNew = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScriptNew);
 			}
+			else {
+				arrayLineaScriptNew = ((OracleConnection) conn).createOracleArray(tableLinea, null);
+			}
 			
 			Array arrayLineaScriptParche = null;
 			if (!Objects.isNull(inputReparaScript.getScriptParche())) {
@@ -455,6 +458,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea,
 						structLineaScriptParche);
 			}
+			else {
+				arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea, null);
+			}
 
 			callableStatement.setBigDecimal(1, inputReparaScript.getIdProceso());
 			callableStatement.setBigDecimal(2, inputReparaScript.getNumeroOrden());
@@ -468,27 +474,38 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			callableStatement.setString(10, inputReparaScript.getNombreScriptParche());
 			callableStatement.setString(11, inputReparaScript.getTxtRutaParche());
 			callableStatement.setArray(12, arrayLineaScriptParche);
-			callableStatement.registerOutParameter(13, Types.VARCHAR);
-			callableStatement.registerOutParameter(14, Types.ARRAY, tableLinea);
-			callableStatement.registerOutParameter(15, Types.VARCHAR);
-			callableStatement.registerOutParameter(16, Types.ARRAY, tableLinea);
-			callableStatement.registerOutParameter(17, Types.VARCHAR);
-			callableStatement.registerOutParameter(18, Types.ARRAY, typeScriptOld);
-			callableStatement.registerOutParameter(19, Types.ARRAY, typeScript);
+			
+			// Los nuevos parámetros
+			callableStatement.setString(13, inputReparaScript.getNombreBBDD());
+			callableStatement.setString(14, inputReparaScript.getNombreEsquema());
+			callableStatement.setString(15, inputReparaScript.getPMcaHis());
+			callableStatement.setString(16, inputReparaScript.getNombreBBDDHis());
+			callableStatement.setString(17, inputReparaScript.getNombreEsquemaHis());
+			
+			// TODO - El array de objetos de historico
+			callableStatement.setArray(18, arrayLineaScriptNew);
+			
+			callableStatement.registerOutParameter(19, Types.VARCHAR);
+			callableStatement.registerOutParameter(20, Types.ARRAY, tableLinea);
+			callableStatement.registerOutParameter(21, Types.VARCHAR);
+			callableStatement.registerOutParameter(22, Types.ARRAY, tableLinea);
+			callableStatement.registerOutParameter(23, Types.VARCHAR);
+			callableStatement.registerOutParameter(24, Types.ARRAY, typeScriptOld);
+			callableStatement.registerOutParameter(25, Types.ARRAY, typeScript);
 
-			callableStatement.registerOutParameter(20, Types.INTEGER);
-			callableStatement.registerOutParameter(21, Types.ARRAY, typeError);
+			callableStatement.registerOutParameter(26, Types.INTEGER);
+			callableStatement.registerOutParameter(27, Types.ARRAY, typeError);
 
 			callableStatement.execute();
 
-			Integer result = callableStatement.getInt(20);
+			Integer result = callableStatement.getInt(26);
 
 			if (result == 0) {
-				throw buildException(callableStatement.getArray(21));
+				throw buildException(callableStatement.getArray(27));
 			}
 
 			List<TextoLinea> scriptRepara = new ArrayList<>();
-			Array arrayScriptRepara = callableStatement.getArray(14);
+			Array arrayScriptRepara = callableStatement.getArray(20);
 
 			if (arrayScriptRepara != null) {
 				Object[] rows = (Object[]) arrayScriptRepara.getArray();
@@ -502,7 +519,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			}
 
 			List<TextoLinea> scriptLanza = new ArrayList<>();
-			Array arrayScriptLanza = callableStatement.getArray(16);
+			Array arrayScriptLanza = callableStatement.getArray(22);
 
 			if (arrayScriptLanza != null) {
 				Object[] rows = (Object[]) arrayScriptLanza.getArray();
@@ -516,7 +533,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			}
 
 			List<ScriptOld> listaScriptOld = new ArrayList<>();
-			Array arrayScriptOld = callableStatement.getArray(18);
+			Array arrayScriptOld = callableStatement.getArray(24);
 
 			if (arrayScriptOld != null) {
 				Object[] rows = (Object[]) arrayScriptOld.getArray();
@@ -531,7 +548,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			}
 
 			List<Script> listaScript = new ArrayList<>();
-			Array arrayScript = callableStatement.getArray(19);
+			Array arrayScript = callableStatement.getArray(25);
 
 			if (arrayScript != null) {
 				Object[] rows = (Object[]) arrayScript.getArray();
@@ -549,9 +566,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				}
 			}
 
-			String nombreScriptRepara = callableStatement.getString(13);
-			String nombreScriptLanza = callableStatement.getString(15);
-			String nombreLogRepara = callableStatement.getString(17);
+			String nombreScriptRepara = callableStatement.getString(19);
+			String nombreScriptLanza = callableStatement.getString(21);
+			String nombreLogRepara = callableStatement.getString(23);
 
 			OutputReparaScript outputProcesaScript = OutputReparaScript.builder().nombreScriptRepara(nombreScriptRepara)
 					.scriptRepara(scriptRepara).nombreScriptLanza(nombreScriptLanza).scriptLanza(scriptLanza)

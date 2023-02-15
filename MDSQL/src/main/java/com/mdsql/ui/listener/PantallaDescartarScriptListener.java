@@ -64,7 +64,7 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String rutaInicial = session.getSelectedRoute();
 		
-		MDSQLUIHelper.abrirScript(rutaInicial, pantallaDescartarScript.getTxtScriptParche(), archivoReparacion,
+		archivoReparacion = MDSQLUIHelper.abrirScript(rutaInicial, pantallaDescartarScript.getTxtScriptParche(),
 				pantallaDescartarScript.getFrameParent());
 	}
 
@@ -72,7 +72,7 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String rutaInicial = session.getSelectedRoute();
 		
-		MDSQLUIHelper.abrirScript(rutaInicial, pantallaDescartarScript.getTxtScriptProcesar(), archivo,
+		archivo = MDSQLUIHelper.abrirScript(rutaInicial, pantallaDescartarScript.getTxtScriptProcesar(),
 				pantallaDescartarScript.getFrameParent());
 	}
 

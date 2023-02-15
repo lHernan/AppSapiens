@@ -1,7 +1,12 @@
 package com.mdsql.ui.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +35,7 @@ import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.Constants;
 import com.mdval.utils.LogWrapper;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -146,6 +152,26 @@ public class MDSQLUIHelper extends UIHelper {
 		return lineas;
 	}
 	
+	@SneakyThrows
+	public static List<TextoLinea> toTextoLineas(File file, Charset inCharset) {
+		List<TextoLinea> lineas = new ArrayList<>();
+		
+		try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), inCharset);
+				BufferedReader br = new BufferedReader(in)) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				TextoLinea linea = new TextoLinea();
+				linea.setValor(line.trim());
+				
+				lineas.add(linea);
+			}
+			
+			return lineas;
+		} catch (IOException e) {
+			throw e;
+		}
+	}
+	
 	/**
 	 * @param model
 	 * @return
@@ -182,18 +208,23 @@ public class MDSQLUIHelper extends UIHelper {
 	 * @param file
 	 * @param frameParent
 	 */
-	public static void abrirScript(String rutaInicial, JTextField textField, File file, FrameSupport frameParent) {
+	public static File abrirScript(String rutaInicial, JTextField textField, FrameSupport frameParent) {
 		try {
 			JFileChooser chooser = MDSQLUIHelper.getJFileChooser(rutaInicial);
 			if (chooser.showOpenDialog(frameParent) == JFileChooser.APPROVE_OPTION) {
-				file = chooser.getSelectedFile();
+				File file = chooser.getSelectedFile();
 				String rutaArchivo = file.getAbsolutePath();
 				LogWrapper.debug(log, "Archivo seleccionado: %s", rutaArchivo);
 				textField.setText(rutaArchivo);
+				
+				return file;
 			}
+			
+			return null;
 		} catch (IOException e) {
 			Map<String, Object> params = buildError(e);
 			showPopup(frameParent, Constants.CMD_ERROR, params);
+			return null;
 		}	
 	}
 

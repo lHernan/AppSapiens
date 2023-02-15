@@ -34,5 +34,11 @@ public class InputReparaScript implements Serializable {
     private String nombreScriptParche;
     private String txtRutaParche;
     private List<TextoLinea> scriptParche;
+    
+    private String nombreBBDD;
+    private String nombreEsquema;
+    private String pMcaHis;
+    private String nombreBBDDHis;
+    private String nombreEsquemaHis;
 
 }

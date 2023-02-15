@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
@@ -16,6 +17,7 @@ import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaRepararScript;
 import com.mdsql.ui.PantallaSeleccionHistorico;
@@ -84,7 +86,7 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String rutaInicial = session.getSelectedRoute();
 	
-		MDSQLUIHelper.abrirScript(rutaInicial, pantallaRepararScript.getTxtScript(), archivoReprocesado,
+		archivoReprocesado = MDSQLUIHelper.abrirScript(rutaInicial, pantallaRepararScript.getTxtScript(),
 				pantallaRepararScript.getFrameParent());	
 	}
 	
@@ -95,7 +97,7 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String rutaInicial = session.getSelectedRoute();
 	
-		MDSQLUIHelper.abrirScript(rutaInicial, pantallaRepararScript.getTxtScriptReparacion(), archivoReparacion,
+		archivoReparacion = MDSQLUIHelper.abrirScript(rutaInicial, pantallaRepararScript.getTxtScriptReparacion(),
 				pantallaRepararScript.getFrameParent());		
 	}
 
@@ -178,12 +180,23 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		inputReparaScript.setIdProceso(proceso.getIdProceso());
 		inputReparaScript.setCodigoUsuario(codigoUsuario);
 		
+		String nombreBBDD = proceso.getModelo().getNombreBbdd();
+		inputReparaScript.setNombreBBDD(nombreBBDD);
+		String nombreEsquema = proceso.getModelo().getNombreEsquema();
+		inputReparaScript.setNombreEsquema(nombreEsquema);
+		String mcaHis = proceso.getModelo().getMcaHis();
+		inputReparaScript.setPMcaHis(mcaHis);
+		
 		Boolean reprocesa = pantallaRepararScript.getRbtnReprocesar().isSelected();
 		if (reprocesa) {
 			String mcaReprocesa = AppHelper.normalizeValueToCheck(reprocesa);
 			inputReparaScript.setMcaReprocesa(mcaReprocesa);	
+			
+			// Leer el script y pasarlo a líneas
+			List<TextoLinea> lineasScriptReprocesar = MDSQLUIHelper.toTextoLineas(archivoReprocesado, MDSQLConstants.DEFAULT_CHARSET);
+			inputReparaScript.setScriptNew(lineasScriptReprocesar);
 		}
-		else {
+		else { // Se ha seleccionado script de reparación
 			
 		}
 		
@@ -200,6 +213,25 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		inputReparaScript.setTxtComentario(txtComentario);
 		
 		OutputReparaScript repararScript = scriptService.repararScript(inputReparaScript);
+		
+		if (reprocesa) {
+			renombrarFicheros(repararScript);
+			
+			List<Script> scripts = repararScript.getListaScript();
+			pantallaRepararScript.getReturnParams().put("scripts", scripts);
+			pantallaRepararScript.dispose();
+		}
+		else { // Se ha seleccionado script de reparación
+			
+		}
+	}
+
+	/**
+	 * @param repararScript
+	 */
+	private void renombrarFicheros(OutputReparaScript repararScript) {
+		// TODO Preguntar a Mario donde vienen los nuevos nombres
+		
 	}
 
 }
