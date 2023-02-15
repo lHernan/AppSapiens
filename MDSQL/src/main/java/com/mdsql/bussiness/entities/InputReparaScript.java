@@ -40,5 +40,6 @@ public class InputReparaScript implements Serializable {
     private String pMcaHis;
     private String nombreBBDDHis;
     private String nombreEsquemaHis;
-
+    
+    private List<SeleccionHistorico> listaObjetoHis;
 }

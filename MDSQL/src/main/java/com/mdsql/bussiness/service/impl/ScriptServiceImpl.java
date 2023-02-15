@@ -416,6 +416,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 			String tableLinea = createCallType(MDSQLConstants.T_T_LINEA);
 			String recordLinea = createCallType(MDSQLConstants.T_R_LINEA);
+			String tableObjHis = createCallType(MDSQLConstants.T_T_OBJ_HIS);
+			String recordObjHis = createCallType(MDSQLConstants.T_R_OBJ_HIS);
 
 			String typeScriptOld = createCallType(MDSQLConstants.T_T_SCRIPT_OLD);
 			String typeScript = createCallType(MDSQLConstants.T_T_SCRIPT);
@@ -461,6 +463,23 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			else {
 				arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea, null);
 			}
+			
+			Array arrayObjHis = null;
+			Struct[] structObjHis = null;
+			if (CollectionUtils.isNotEmpty(inputReparaScript.getListaObjetoHis())) {
+				structObjHis = new Struct[inputReparaScript.getListaObjetoHis().size()];
+
+				int arrayIndexObjHis = 0;
+				for (SeleccionHistorico data : inputReparaScript.getListaObjetoHis()) {
+					String mcaVigente = AppHelper.normalizeValueToCheck(data.getVigente());
+					String mcaHistorico = AppHelper.normalizeValueToCheck(data.getHistorico());
+
+					structObjHis[arrayIndexObjHis++] = conn.createStruct(recordObjHis,
+							new Object[] { data.getObjeto(), data.getTipo(), mcaVigente, mcaHistorico });
+				}
+			}
+
+			arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
 
 			callableStatement.setBigDecimal(1, inputReparaScript.getIdProceso());
 			callableStatement.setBigDecimal(2, inputReparaScript.getNumeroOrden());
@@ -482,8 +501,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			callableStatement.setString(16, inputReparaScript.getNombreBBDDHis());
 			callableStatement.setString(17, inputReparaScript.getNombreEsquemaHis());
 			
-			// TODO - El array de objetos de historico
-			callableStatement.setArray(18, arrayLineaScriptNew);
+			// El array de objetos de historico
+			callableStatement.setArray(18, arrayObjHis);
 			
 			callableStatement.registerOutParameter(19, Types.VARCHAR);
 			callableStatement.registerOutParameter(20, Types.ARRAY, tableLinea);
