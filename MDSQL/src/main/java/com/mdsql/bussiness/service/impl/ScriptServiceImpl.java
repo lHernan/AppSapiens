@@ -299,10 +299,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			String txtClaveEncriptada = configuration.getConfig(MDSQLConstants.TOKEN).substring(17, 29);
 
 			if (CollectionUtils.isNotEmpty(scripts)) {
-				for (Script script : scripts) {/*
+				for (Script script : scripts) {
 					// Esto causa reescritura de ficheros
-//					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(),
-//							charset);
+					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(),
+							charset);
 
 					/**
 					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
@@ -905,9 +905,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			List<String> scriptLines = new ArrayList<>();
 			for (TextoLinea texto : textoLineaList) {
 				String line = texto.getValor().trim();
-				if (StringUtils.isNotBlank(line)) {
-					scriptLines.add(line);
-				}
+				scriptLines.add(line);
 			}
 			Files.write(path, scriptLines, inputCharset, StandardOpenOption.CREATE);
 		} catch (IOException e) {
