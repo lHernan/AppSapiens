@@ -56,7 +56,7 @@ public class TypeServiceImpl extends ServiceSupport implements TypeService {
 
             String typeError = createCallTypeError();
 
-            logProcedure(runSP, inputProcesaType.getLineasScript(), inputProcesaType.getPCodigoProyecto(), inputProcesaType.getPCodigoSubProyecto(), inputProcesaType.getPCodigoPeticion(), inputProcesaType.getPCodigoDemanda(),
+            logProcedure(runSP, inputProcesaType.getLineasScript(), inputProcesaType.getPCodigoProyecto(), inputProcesaType.getPCodigoSubProyecto(), inputProcesaType.getPCodigoPeticion(),
                     inputProcesaType.getPCodigoDemanda(), inputProcesaType.getPCodigoUsr(), inputProcesaType.getPCodigoUsrPeticion(), inputProcesaType.getPNombreBBDD(), inputProcesaType.getPNombreEsquema(),
                     inputProcesaType.getPNombreFichaEntrada(), inputProcesaType.getPTxtRutaEntrada(), inputProcesaType.getPTxtDescripcion());
 
