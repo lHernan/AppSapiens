@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -548,6 +549,12 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
 		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
+		
+		if (!charset.equals(MDSQLConstants.DEFAULT_CHARSET) || !charset.equals(StandardCharsets.UTF_8)) {
+			String message = String.format("Juego de caracteres %s no permitido", charset.toString());
+			throw new IOException(message);
+		}
+		
 		session.setFileCharset(charset);
 
 		String s = MDSQLAppHelper.writeFileToString(file, charset, MDSQLConstants.DEFAULT_CHARSET);
@@ -728,6 +735,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
 		framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
 		framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
+		
+		framePrincipal.getJTable1().forceRepaintColumn(0);
 	}
 
 	/**
