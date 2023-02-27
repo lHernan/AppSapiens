@@ -43,6 +43,7 @@ import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.Procesado;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.InternalFrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
@@ -72,11 +73,14 @@ public class FramePrincipal extends FrameSupport {
 	private JButton btnProcesadoEnCurso;
 	private JButton btnRefrescarFichero;
 
-	private JInternalFrame jInternalFrame10;
-	private JInternalFrame jInternalFrame6;
-	private JInternalFrame jInternalFrame7;
-	private JInternalFrame jInternalFrame8;
-	private JInternalFrame jInternalFrame9;
+	private InternalFrameSupport jInternalFrame10;
+	
+	@Getter
+	private InternalFrameSupport jInternalFrame6;
+	
+	private InternalFrameSupport jInternalFrame7;
+	private InternalFrameSupport jInternalFrame8;
+	private InternalFrameSupport jInternalFrame9;
 	private JPanel jPanel1;
 	private JPanel panelVigente;
 	private JPanel panelHistorico;
@@ -263,13 +267,13 @@ public class FramePrincipal extends FrameSupport {
         jScrollPane10 = new JScrollPane();
         txtLanzaPDCH = new JTextArea();
         panelTypes = new JPanel();
-        jInternalFrame6 = new JInternalFrame();
+        jInternalFrame6 = new InternalFrameSupport();
         jScrollPane2 = new JScrollPane();
         jTable1 = new TableSupport();
-        jInternalFrame7 = new JInternalFrame();
-        jInternalFrame8 = new JInternalFrame();
-        jInternalFrame9 = new JInternalFrame();
-        jInternalFrame10 = new JInternalFrame();
+        jInternalFrame7 = new InternalFrameSupport();
+        jInternalFrame8 = new InternalFrameSupport();
+        jInternalFrame9 = new InternalFrameSupport();
+        jInternalFrame10 = new InternalFrameSupport();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
