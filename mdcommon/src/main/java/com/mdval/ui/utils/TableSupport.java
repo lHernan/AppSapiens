@@ -1,5 +1,6 @@
 package com.mdval.ui.utils;
 
+import java.awt.Dimension;
 import java.util.List;
 import java.util.Objects;
 
@@ -66,4 +67,18 @@ public class TableSupport extends JTable {
 	        }
 		}
     }
+
+	/**
+	 * 
+	 */
+	public void forceRepaintColumn(Integer column) {
+		// Corregir bug de no mostrado de resultados redimensionando la pantalla en 1
+		// punto
+		Integer width = columnModel.getColumn(column).getWidth();
+
+		// sumamos 1 punto por dimension y redimensionamos
+		Integer newWidth = width + 1;
+		columnModel.getColumn(column).setPreferredWidth(newWidth);
+		columnModel.getColumn(column).setPreferredWidth(width);
+	}
 }
