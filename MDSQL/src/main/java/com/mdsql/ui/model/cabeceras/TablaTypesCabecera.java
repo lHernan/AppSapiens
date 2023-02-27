@@ -14,5 +14,8 @@ public class TablaTypesCabecera extends Cabecera {
 		
 		columnClasses.add(Integer.class);
 		columnClasses.add(String.class);
+		
+		columnSizes.add(75);
+		columnSizes.add(500);
 	}
 }
