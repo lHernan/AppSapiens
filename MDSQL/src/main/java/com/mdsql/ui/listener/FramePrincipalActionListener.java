@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,9 +36,9 @@ import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.Procesado;
-import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.OnLoadListener;
@@ -550,8 +550,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
 		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
 		
-		if (!charset.equals(MDSQLConstants.DEFAULT_CHARSET) || !charset.equals(StandardCharsets.UTF_8)) {
-			String message = String.format("Juego de caracteres %s no permitido", charset.toString());
+		if (!Arrays.asList(MDSQLConstants.ALLOWED_CHARSETS).contains(charset)) {
+			String message = String.format("Archivo %s: juego de caracteres %s no permitido", file.getName(), charset.toString());
 			throw new IOException(message);
 		}
 		
