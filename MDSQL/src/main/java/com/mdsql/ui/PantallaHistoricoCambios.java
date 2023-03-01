@@ -15,11 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.table.DefaultTableModel;
 
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaHistoricoCambiosListener;
+import com.mdsql.ui.model.HistoricoObjetoTableModel;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
@@ -58,7 +60,7 @@ public class PantallaHistoricoCambios extends DialogSupport {
     private JScrollPane jScrollPane1;
     
     @Getter
-    private TableSupport tblDetalleScript;
+    private TableSupport tblHistoricoObjetos;
     
     @Getter
     private JTextField txtDesde;
@@ -130,7 +132,7 @@ public class PantallaHistoricoCambios extends DialogSupport {
         jLabel11 = new JLabel();
         btnBuscar = new JButton();
         jScrollPane1 = new JScrollPane();
-        tblDetalleScript = new TableSupport();
+        tblHistoricoObjetos = new TableSupport();
         btnInforme = new JButton();
         btnVerDetalle = new JButton();
         btnResumen = new JButton();
@@ -141,7 +143,7 @@ public class PantallaHistoricoCambios extends DialogSupport {
 
         setBounds(1032, 604);
         
-        jScrollPane1.setViewportView(tblDetalleScript);
+        jScrollPane1.setViewportView(tblHistoricoObjetos);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -289,9 +291,11 @@ public class PantallaHistoricoCambios extends DialogSupport {
 		
 		btnBuscarModelo.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR_MODELO);
 		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_CANCELAR);
+		btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR);
 		
 		btnBuscarModelo.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
+		btnBuscar.addActionListener(actionListener);
 	}
 
 	@Override
@@ -325,17 +329,8 @@ public class PantallaHistoricoCambios extends DialogSupport {
         cmbOperacionPadre.setModel(new DefaultComboBoxModel<>(new String[] { "Creación", "Modificación", "Borrado" }));
         cmbEstadoProcesado.setModel(new DefaultComboBoxModel<>(new String[] { "Generado", "En ejecución", "Error", "Ejecutado", "Rechazado", "Entregado" }));
 		
-        tblDetalleScript.setModel(new DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null}
-                },
-                new String [] {
-                    "Petición", "Estado", "Fecha", "Submodelo", "Solicitado", "Usuario", "Operación", "Oper.Padre", "Script", "Estado"
-                }
-            ));
+        Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_HISTORICO_CAMBIOS_TABLA_CABECERA);
+        tblHistoricoObjetos.initModel(new HistoricoObjetoTableModel(cabecera));
 	}
 
 	@Override

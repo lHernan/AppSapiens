@@ -9,6 +9,7 @@ import com.mdsql.ui.model.cabeceras.TablaCuadresOperacionesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaDetalleScriptCabecera;
 import com.mdsql.ui.model.cabeceras.TablaEjecutarTypesCabecera;
 import com.mdsql.ui.model.cabeceras.TablaErroresCabecera;
+import com.mdsql.ui.model.cabeceras.TablaHistoricoObjetosCabecera;
 import com.mdsql.ui.model.cabeceras.TablaInformacionModeloCabecera;
 import com.mdsql.ui.model.cabeceras.TablaModelosCabecera;
 import com.mdsql.ui.model.cabeceras.TablaNotasCabecera;
@@ -112,6 +113,10 @@ public class CabeceraTablaCreator extends Creator {
 		
 		if (MDSQLConstants.DLG_AJUSTAR_LOG_EJECUCION_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaAjustarLogEjecucionCabecera();
+		}
+		
+		if (MDSQLConstants.DLG_HISTORICO_CAMBIOS_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaHistoricoObjetosCabecera();
 		}
 		
 		return cabecera;

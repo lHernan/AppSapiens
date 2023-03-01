@@ -2,6 +2,8 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,19 +11,21 @@ import java.util.Objects;
 
 import javax.swing.JButton;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.mdsql.bussiness.entities.HistoricoProceso;
+import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
 import com.mdsql.bussiness.entities.Modelo;
-import com.mdsql.bussiness.entities.SeleccionHistorico;
-import com.mdsql.bussiness.entities.TextoLinea;
-import com.mdsql.bussiness.service.ProcesoService;
+import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.ui.PantallaHistoricoCambios;
 import com.mdsql.ui.PantallaSeleccionModelos;
+import com.mdsql.ui.model.HistoricoObjetoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.ui.utils.OnLoadListener;
 
-public class PantallaHistoricoCambiosListener extends ListenerSupport implements ActionListener, OnLoadListener {
+public class PantallaHistoricoCambiosListener extends ListenerSupport implements ActionListener {
 
 	private PantallaHistoricoCambios pantallaHistoricoCambios;
 
@@ -75,17 +79,47 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 	}
 
 	private void buscar() {
-//		try {
-			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
-
-			String codigoProyecto = (String) pantallaHistoricoCambios.getParams().get("codigoProyecto");
-			List<TextoLinea> lineas = (List<TextoLinea>) pantallaHistoricoCambios.getParams().get("script");
-//			List<SeleccionHistorico> seleccionarHistorico = procesoService.seleccionarHistorico(codigoProyecto, lineas);
-
-//		} catch (ServiceException e) {
-//			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-//			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
-//		}
+		try {
+			HistoricoService historicoService = (HistoricoService) getService(MDSQLConstants.HISTORICO_SERVICE);
+			
+			InputConsutaHistoricoProceso inputConsutaHistoricoProceso = new InputConsutaHistoricoProceso();
+			
+			String codigoProyecto = pantallaHistoricoCambios.getTxtModelo().getText();
+			inputConsutaHistoricoProceso.setCodigoProyecto(codigoProyecto);
+			
+			String nombreObjetoPadre = pantallaHistoricoCambios.getTxtObjetoPadre().getText();
+			inputConsutaHistoricoProceso.setNombreObjetoPadre(nombreObjetoPadre);
+			
+			String tipoObjetoPadre = (String) pantallaHistoricoCambios.getCmbTipoObjetoPadre().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoObjetoPadre(tipoObjetoPadre);
+			
+			String tipoAccionPadre = (String) pantallaHistoricoCambios.getCmbOperacionPadre().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoAccionPadre(tipoAccionPadre);
+			
+			String nombreObjeto = pantallaHistoricoCambios.getTxtObjeto().getText();
+			inputConsutaHistoricoProceso.setNombreObjeto(nombreObjeto);
+			
+			String tipoObjeto = (String) pantallaHistoricoCambios.getCmbTipoObjeto().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoObjeto(tipoObjeto);
+			
+			String tipoAccion = (String) pantallaHistoricoCambios.getCmbOperacion().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoAccion(tipoAccion);
+			
+			String desde = pantallaHistoricoCambios.getTxtDesde().getText();
+			String hasta = pantallaHistoricoCambios.getTxtHasta().getText();
+			Date fechaDesde = (StringUtils.isNotBlank(desde)) ? dateFormatter.stringToDate(desde) : null;
+			Date fechaHasta = (StringUtils.isNotBlank(hasta)) ? dateFormatter.stringToDate(hasta) : null;
+			inputConsutaHistoricoProceso.setFechaDesde(fechaDesde);
+			inputConsutaHistoricoProceso.setFechaHasta(fechaHasta);
+			
+			
+			
+			List<HistoricoProceso> historicos = historicoService.consultarHistoricoProceso(inputConsutaHistoricoProceso);
+			populateModel(historicos);
+		} catch (ServiceException | ParseException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
+		}
 
 	}
 
@@ -102,10 +136,16 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 		}
 	}
 
-	@Override
-	public void onLoad() {
-		// TODO Auto-generated method stub
-
+	/**
+	 * @param modelos
+	 */
+	private void populateModel(List<HistoricoProceso> historicos) {
+		// Obtiene el modelo y lo actualiza
+		HistoricoObjetoTableModel tableModel = (HistoricoObjetoTableModel) pantallaHistoricoCambios
+				.getTblHistoricoObjetos().getModel();
+		tableModel.setData(historicos);
+		
+		pantallaHistoricoCambios.getTblHistoricoObjetos().repaint();
 	}
 
 }

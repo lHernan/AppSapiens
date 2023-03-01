@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.sql.DataSource;
 
@@ -35,7 +37,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
 
 
     @Override
-    @SneakyThrows
+    @SneakyThrows(ServiceException.class)
     public List<HistoricoProceso> consultarHistoricoProceso(InputConsutaHistoricoProceso inputConsutaHistoricoProceso) {
         String runSP = createCall("p_con_historico_objeto", MDSQLConstants.CALL_14_ARGS);
 
@@ -56,8 +58,23 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
             callableStatement.setString(5, inputConsutaHistoricoProceso.getNombreObjeto());
             callableStatement.setString(6, inputConsutaHistoricoProceso.getTipoObjeto());
             callableStatement.setString(7, inputConsutaHistoricoProceso.getTipoAccion());
-            callableStatement.setDate(8, inputConsutaHistoricoProceso.getFechaDesde());
-            callableStatement.setDate(9, inputConsutaHistoricoProceso.getFechaHasta());
+            
+            Date fechaDesde = inputConsutaHistoricoProceso.getFechaDesde();
+            if (!Objects.isNull(fechaDesde)) {
+            	callableStatement.setDate(8, new java.sql.Date(fechaDesde.getTime()));
+            }
+            else {
+            	callableStatement.setDate(8, null);
+            }
+            
+            Date fechaHasta = inputConsutaHistoricoProceso.getFechaHasta();
+            if (!Objects.isNull(fechaHasta)) {
+            	callableStatement.setDate(9, new java.sql.Date(fechaHasta.getTime()));
+            }
+            else {
+            	callableStatement.setDate(9, null);
+            }
+            
             callableStatement.setBigDecimal(10, inputConsutaHistoricoProceso.getCodigoEstadoProceso());
             callableStatement.setBigDecimal(11, inputConsutaHistoricoProceso.getCodigoEstadoScript());
             callableStatement.registerOutParameter(12, Types.ARRAY, typeHisProc);

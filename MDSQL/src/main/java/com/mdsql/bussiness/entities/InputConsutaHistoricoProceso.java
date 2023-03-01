@@ -2,7 +2,7 @@ package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,12 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class InputConsutaHistoricoProceso implements Serializable {
 
-    private String codigoProyecto;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5934430341543066426L;
+	
+	private String codigoProyecto;
     private String nombreObjetoPadre;
     private String tipoObjetoPadre;
     private String tipoAccionPadre;
