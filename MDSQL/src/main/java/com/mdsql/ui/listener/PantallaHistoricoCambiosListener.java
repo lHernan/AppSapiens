@@ -134,6 +134,9 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			
 			List<HistoricoProceso> historicos = historicoService.consultarHistoricoProceso(inputConsutaHistoricoProceso);
 			populateModel(historicos);
+			
+			pantallaHistoricoCambios.getBtnResumen().setEnabled(Boolean.FALSE);
+			pantallaHistoricoCambios.getBtnVerDetalle().setEnabled(Boolean.FALSE);
 		} catch (ServiceException | ParseException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);

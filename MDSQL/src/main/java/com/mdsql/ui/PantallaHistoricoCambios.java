@@ -14,9 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 
-import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.HistoricoProceso;
 import com.mdsql.ui.listener.PantallaHistoricoCambiosListener;
+import com.mdsql.ui.listener.tables.PantallaHistoricoObjetosTableListener;
 import com.mdsql.ui.model.EstadoProcesadoComboBoxModel;
 import com.mdsql.ui.model.EstadoScriptComboBoxModel;
 import com.mdsql.ui.model.HistoricoObjetoTableModel;
@@ -49,8 +52,6 @@ public class PantallaHistoricoCambios extends DialogSupport {
     private JButton btnBuscarModelo;
     private JButton btnCancelar;
     private JButton btnInforme;
-    private JButton btnResumen;
-    private JButton btnVerDetalle;
     
     private JLabel jLabel1;
     private JLabel jLabel10;
@@ -104,8 +105,14 @@ public class PantallaHistoricoCambios extends DialogSupport {
     private JTextField txtModelo;
     
     @Getter
+    private JButton btnResumen;
+    
+    @Getter
+    private JButton btnVerDetalle;
+    
+    @Getter
     @Setter
-    private Modelo modeloSeleccionado;
+    private HistoricoProceso seleccionado;
 
     public PantallaHistoricoCambios(FrameSupport parent, Boolean modal) {
 		super(parent, modal);
@@ -295,6 +302,7 @@ public class PantallaHistoricoCambios extends DialogSupport {
 	@Override
 	protected void initEvents() {
 		PantallaHistoricoCambiosListener actionListener = new PantallaHistoricoCambiosListener(this);
+		ListSelectionListener listSelectionListener = new PantallaHistoricoObjetosTableListener(this);
 		
 		btnBuscarModelo.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR_MODELO);
 		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_CANCELAR);
@@ -303,6 +311,9 @@ public class PantallaHistoricoCambios extends DialogSupport {
 		btnBuscarModelo.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 		btnBuscar.addActionListener(actionListener);
+		
+		ListSelectionModel rowSM = tblHistoricoObjetos.getSelectionModel();
+   		rowSM.addListSelectionListener(listSelectionListener);
 	}
 
 	@Override
