@@ -2,6 +2,7 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,6 +24,8 @@ import com.mdsql.ui.model.HistoricoObjetoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.MDSQLConstants.EstadosProcesado;
+import com.mdsql.utils.MDSQLConstants.EstadosScript;
 import com.mdval.exceptions.ServiceException;
 
 public class PantallaHistoricoCambiosListener extends ListenerSupport implements ActionListener {
@@ -112,6 +115,21 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			inputConsutaHistoricoProceso.setFechaDesde(fechaDesde);
 			inputConsutaHistoricoProceso.setFechaHasta(fechaHasta);
 			
+			EstadosScript estadoScript = (EstadosScript) pantallaHistoricoCambios.getCmbEstadoScript().getSelectedItem();
+			if (!Objects.isNull(estadoScript)) {
+				inputConsutaHistoricoProceso.setCodigoEstadoScript(new BigDecimal(estadoScript.getIndex()));
+			}
+			else {
+				inputConsutaHistoricoProceso.setCodigoEstadoScript(null);
+			}
+			
+			EstadosProcesado estadoProcesado = (EstadosProcesado) pantallaHistoricoCambios.getCmbEstadoProcesado().getSelectedItem();
+			if (!Objects.isNull(estadoProcesado)) {
+				inputConsutaHistoricoProceso.setCodigoEstadoProceso(new BigDecimal(estadoProcesado.getIndex()));
+			}
+			else {
+				inputConsutaHistoricoProceso.setCodigoEstadoProceso(null);
+			}
 			
 			
 			List<HistoricoProceso> historicos = historicoService.consultarHistoricoProceso(inputConsutaHistoricoProceso);

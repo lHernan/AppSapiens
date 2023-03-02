@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.utils.MDSQLConstants;
-import com.mdsql.utils.MDSQLConstants.ColorCeldaScript;
+import com.mdsql.utils.MDSQLConstants.EstadosScript;
 
 public class ScriptTableCellRenderer extends DefaultTableCellRenderer {
 
@@ -35,8 +35,8 @@ public class ScriptTableCellRenderer extends DefaultTableCellRenderer {
 	 * @param s
 	 */
 	private void setColorCelda(Component c, String s, int col, boolean isSelected) {
-		ColorCeldaScript colorCelda = ColorCeldaScript.getByName(s);
-		Color bgColor = Objects.isNull(colorCelda) ? Color.WHITE : colorCelda.getValue();
+		EstadosScript colorCelda = EstadosScript.getByName(s);
+		Color bgColor = Objects.isNull(colorCelda) ? Color.WHITE : colorCelda.getColor();
 
 		c.setForeground(Color.black);
 

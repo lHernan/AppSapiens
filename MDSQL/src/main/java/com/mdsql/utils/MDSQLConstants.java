@@ -179,39 +179,70 @@ public class MDSQLConstants extends Constants {
 		}
 	}
 
-	// Colores de celdas de script
-	public enum ColorCeldaScript {
-		PENDIENTE("Pendiente", Color.WHITE), EJECUTADO("Ejecutado", Color.GREEN), ERROR("Error", Color.RED),
-		DESCUADRADO("Descuadrado", new Color(229, 206, 184)), REPARADO("Reparado", Color.BLUE),
-		DESCARTADO("Descartado", Color.ORANGE), EXCEPCION("Excepción", Color.YELLOW);
+	public static final Color CELL_SELECTED_BGCOLOR = new Color(184, 207, 229);
+
+	// Modos para el procesado
+	public enum Procesado {
+		SCRIPT, TYPE
+	}
+	
+	// Estados del procesado
+	public enum EstadosProcesado {
+		GENERADO(1, "Generado"), EN_EJECUCION(2, "En ejecución"), ERROR(3, "Error"),
+		EJECUTADO(4, "Ejecutado"), RECHAZADO(5, "Rechazado"), ENTREGADO(6, "Entregado");
 
 		@Getter
 		private String name;
-
+		
 		@Getter
-		private Color value;
+		private Integer index;
 
-		ColorCeldaScript(String name, Color value) {
+		EstadosProcesado(Integer index, String name) {
+			this.index = index;
 			this.name = name;
-			this.value = value;
 		}
 
-		public static ColorCeldaScript getByName(String name) {
-			for (ColorCeldaScript colorCelda : ColorCeldaScript.values()) {
-				if (colorCelda.name.equals(name)) {
-					return colorCelda;
+		public static EstadosProcesado getByName(String name) {
+			for (EstadosProcesado estadosProcesado : EstadosProcesado.values()) {
+				if (estadosProcesado.name.equals(name)) {
+					return estadosProcesado;
 				}
 			}
 
 			return null;
 		}
 	}
+	
+	// Estados del script
+	public enum EstadosScript {
+		PENDIENTE(1, "Pendiente", Color.WHITE), EJECUTADO(2, "Ejecutado", Color.GREEN), ERROR(3, "Error", Color.RED),
+		DESCUADRADO(4, "Descuadrado", new Color(229, 206, 184)), REPARADO(5, "Reparado", Color.BLUE),
+		DESCARTADO(6, "Descartado", Color.ORANGE), EXCEPCION(7, "Excepción", Color.YELLOW);
+		
+		@Getter
+		private Integer index;
 
-	public static final Color CELL_SELECTED_BGCOLOR = new Color(184, 207, 229);
+		@Getter
+		private String name;
+		
+		@Getter
+		private Color color;
 
-	// Modos para el procesado
-	public enum Procesado {
-		SCRIPT, TYPE
+		EstadosScript(Integer index, String name, Color color) {
+			this.index = index;
+			this.name = name;
+			this.color = color;
+		}
+
+		public static EstadosScript getByName(String name) {
+			for (EstadosScript estadosScript : EstadosScript.values()) {
+				if (estadosScript.name.equals(name)) {
+					return estadosScript;
+				}
+			}
+
+			return null;
+		}
 	}
 
 	/**

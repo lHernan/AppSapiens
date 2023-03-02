@@ -6,7 +6,6 @@ package com.mdsql.ui;
 
 import java.util.Map;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,9 +17,17 @@ import javax.swing.LayoutStyle;
 
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaHistoricoCambiosListener;
+import com.mdsql.ui.model.EstadoProcesadoComboBoxModel;
+import com.mdsql.ui.model.EstadoScriptComboBoxModel;
 import com.mdsql.ui.model.HistoricoObjetoTableModel;
+import com.mdsql.ui.model.OperacionComboBoxModel;
+import com.mdsql.ui.model.TipoObjetoComboBoxModel;
+import com.mdsql.ui.renderer.EstadoProcesadoRenderer;
+import com.mdsql.ui.renderer.EstadoScriptRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.MDSQLConstants.EstadosProcesado;
+import com.mdsql.utils.MDSQLConstants.EstadosScript;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -81,7 +88,7 @@ public class PantallaHistoricoCambios extends DialogSupport {
 	private JComboBox<String> cmbOperacion;
 
     @Getter
-	private JComboBox<String> cmbEstadoScript;
+	private JComboBox<EstadosScript> cmbEstadoScript;
 
     @Getter
 	private JComboBox<String> cmbTipoObjetoPadre;
@@ -90,7 +97,7 @@ public class PantallaHistoricoCambios extends DialogSupport {
 	private JComboBox<String> cmbOperacionPadre;
 
     @Getter
-	private JComboBox<String> cmbEstadoProcesado;
+	private JComboBox<EstadosProcesado> cmbEstadoProcesado;
     // End of variables declaration//GEN-END:variables
     
     @Getter
@@ -320,14 +327,18 @@ public class PantallaHistoricoCambios extends DialogSupport {
 		btnCancelar.setText(literales.getLiteral("PantallaHistoricoCambios.cancelar")); 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
-		cmbTipoObjeto.setModel(new DefaultComboBoxModel<>(new String[] { "Tabla", "Columna", "Comentario", "Vista", "Vista Materializada", "Secuencia", "PK", "FK", "Índice", "Partición", "Subpartición", "Sinónimo", "Type", "Check constraints", "Permiso" }));
-        cmbOperacion.setModel(new DefaultComboBoxModel<>(new String[] { "Creación", "Modificación", "Borrado" }));
-        cmbEstadoScript.setModel(new DefaultComboBoxModel<>(new String[] { "Pendiente", "Ejecutado", "Error", "Descuadrado", "Reparado", "Descartado", "Excepción" }));
-        cmbTipoObjetoPadre.setModel(new DefaultComboBoxModel<>(new String[] { "Tabla", "Columna", "Comentario", "Vista", "Vista Materializada", "Secuencia", "PK", "FK", "Índice", "Partición", "Subpartición", "Sinónimo", "Type", "Check constraints", "Permiso" }));
-        cmbOperacionPadre.setModel(new DefaultComboBoxModel<>(new String[] { "Creación", "Modificación", "Borrado" }));
-        cmbEstadoProcesado.setModel(new DefaultComboBoxModel<>(new String[] { "Generado", "En ejecución", "Error", "Ejecutado", "Rechazado", "Entregado" }));
+		cmbTipoObjeto.setModel(new TipoObjetoComboBoxModel());
+        cmbOperacion.setModel(new OperacionComboBoxModel());
+        cmbEstadoScript.setModel(new EstadoScriptComboBoxModel());
+        cmbTipoObjetoPadre.setModel(new TipoObjetoComboBoxModel());
+        cmbOperacionPadre.setModel(new OperacionComboBoxModel());
+        cmbEstadoProcesado.setModel(new EstadoProcesadoComboBoxModel());
+        
+        cmbEstadoScript.setRenderer(new EstadoScriptRenderer());
+        cmbEstadoProcesado.setRenderer(new EstadoProcesadoRenderer());
 		
         Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_HISTORICO_CAMBIOS_TABLA_CABECERA);
         tblHistoricoObjetos.initModel(new HistoricoObjetoTableModel(cabecera));
