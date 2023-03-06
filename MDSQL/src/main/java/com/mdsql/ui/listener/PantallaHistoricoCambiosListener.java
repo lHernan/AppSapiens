@@ -15,10 +15,14 @@ import javax.swing.JButton;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.HistoricoProceso;
+import com.mdsql.bussiness.entities.InformeCambios;
 import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.service.HistoricoService;
+import com.mdsql.bussiness.service.InformeService;
+import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaHistoricoCambios;
+import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.HistoricoObjetoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
@@ -67,18 +71,52 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 	}
 
 	private void resumenProcesado() {
-		// TODO Auto-generated method stub
+		Map<String, Object> params = new HashMap<>();
+
+		HistoricoProceso seleccionado = pantallaHistoricoCambios.getSeleccionado();
+
+		params.put("idProceso", seleccionado.getIdProceso());
+		params.put("entregar", Boolean.FALSE);
+
+		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
+				.createDialog(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
+		MDSQLUIHelper.show(pantallaResumenProcesado);
 
 	}
 
 	private void verDetalleScript() {
-		// TODO Auto-generated method stub
+		Map<String, Object> params = new HashMap<>();
 
+		HistoricoProceso seleccionado = pantallaHistoricoCambios.getSeleccionado();
+
+		params.put("script", seleccionado.getNombreScript());
+		params.put("proceso", seleccionado.getIdProceso());
+		params.put("numeroOrden", seleccionado.getNumeroOrden());
+
+		PantallaDetalleScript pantallaDetalleScript = (PantallaDetalleScript) MDSQLUIHelper
+				.createDialog(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_DETALLE_SCRIPT, params);
+		MDSQLUIHelper.show(pantallaDetalleScript);
 	}
 
 	private void informeCambios() {
-		// TODO Auto-generated method stub
-
+		try {
+			InformeService informeService = (InformeService) getService(MDSQLConstants.INFORME_SERVICE);
+			
+			String codigoProyecto = pantallaHistoricoCambios.getTxtModelo().getText();
+			String desde = pantallaHistoricoCambios.getTxtDesde().getText();
+			String hasta = pantallaHistoricoCambios.getTxtHasta().getText();
+			Date fechaDesde = (StringUtils.isNotBlank(desde)) ? dateFormatter.stringToDate(desde) : null;
+			Date fechaHasta = (StringUtils.isNotBlank(hasta)) ? dateFormatter.stringToDate(hasta) : null;
+			
+			List<InformeCambios> listaCambios = informeService.informeCambios(codigoProyecto, fechaDesde, fechaHasta);
+			String sDesde = dateInformeFormatter.dateToString(fechaDesde);
+			String sHasta = dateInformeFormatter.dateToString(fechaHasta);
+			
+			// TODO - Generar el informe con codigoProyecto, sDesde y sHasta
+		} catch (ServiceException | ParseException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
+		}
 	}
 
 	private void buscar() {

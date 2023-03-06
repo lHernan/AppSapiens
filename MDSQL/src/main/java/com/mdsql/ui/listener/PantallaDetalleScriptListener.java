@@ -11,8 +11,6 @@ import javax.swing.JButton;
 import org.hibernate.service.spi.ServiceException;
 
 import com.mdsql.bussiness.entities.DetObjeto;
-import com.mdsql.bussiness.entities.Proceso;
-import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.model.DetalleScriptTableModel;
@@ -49,11 +47,9 @@ public class PantallaDetalleScriptListener extends ListenerSupport implements Ac
 		try {
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 			
-			Script script = (Script) pantallaDetalleScript.getParams().get("script");
-			Proceso proceso = (Proceso) pantallaDetalleScript.getParams().get("proceso");
-			
-			BigDecimal idProceso = proceso.getIdProceso();
-			BigDecimal numeroOrden = script.getNumeroOrden();
+			String nombreScript = (String) pantallaDetalleScript.getParams().get("script");
+			BigDecimal idProceso = (BigDecimal) pantallaDetalleScript.getParams().get("proceso");
+			BigDecimal numeroOrden = (BigDecimal) pantallaDetalleScript.getParams().get("numeroOrden");
 			
 			List<DetObjeto> detalleObjetosScripts = scriptService.detalleObjetosScripts(idProceso, numeroOrden);
 			

@@ -1,5 +1,6 @@
 package com.mdsql.bussiness.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -107,6 +108,8 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
                             .tipoAccionPadre((String) cols[7])
                             .nombreScript((String) cols[8])
                             .descripcionEstadoScript((String) cols[9])
+                            .idProceso((BigDecimal) cols[10])
+                            .numeroOrden((BigDecimal) cols[11])
                             .build();
                     historicoProcesos.add(historicoProceso);
                 }

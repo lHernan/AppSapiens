@@ -4,11 +4,12 @@ import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.sql.DataSource;
 
@@ -87,8 +88,7 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
     }
 
     @Override
-    @SneakyThrows
-    public List<InformeCambios> informeCambios(String codigoProyecto, Date fechaDesde, Date fechaHasta) {
+    public List<InformeCambios> informeCambios(String codigoProyecto, Date fechaDesde, Date fechaHasta) throws ServiceException {
         String runSP = createCall("p_informe_cambios", MDSQLConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -100,8 +100,21 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
             logProcedure(runSP, codigoProyecto, fechaDesde, fechaHasta);
 
             callableStatement.setString(1, codigoProyecto);
-            callableStatement.setDate(2, fechaDesde);
-            callableStatement.setDate(3, fechaHasta);
+            
+            if (!Objects.isNull(fechaDesde)) {
+            	callableStatement.setDate(2, new java.sql.Date(fechaDesde.getTime()));
+            }
+            else {
+            	callableStatement.setDate(2, null);
+            }
+            
+            if (!Objects.isNull(fechaHasta)) {
+            	callableStatement.setDate(3, new java.sql.Date(fechaHasta.getTime()));
+            }
+            else {
+            	callableStatement.setDate(3, null);
+            }
+            
             callableStatement.registerOutParameter(4, Types.ARRAY, typeInformeCambios);
             callableStatement.registerOutParameter(5, Types.INTEGER);
             callableStatement.registerOutParameter(6, Types.ARRAY, typeError);

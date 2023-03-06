@@ -137,8 +137,9 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
 		Proceso proceso = pantallaEjecutarScripts.getProceso();
 
-		params.put("script", seleccionado);
-		params.put("proceso", proceso);
+		params.put("script", seleccionado.getNombreScript());
+		params.put("proceso", proceso.getIdProceso());
+		params.put("numeroOrden", seleccionado.getNumeroOrden());
 
 		PantallaDetalleScript pantallaDetalleScript = (PantallaDetalleScript) MDSQLUIHelper
 				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_DETALLE_SCRIPT, params);
