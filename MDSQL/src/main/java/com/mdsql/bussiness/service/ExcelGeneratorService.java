@@ -2,16 +2,14 @@ package com.mdsql.bussiness.service;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.CampoGlosario;
-import com.mdsql.bussiness.entities.InformeValidacion;
+import com.mdsql.bussiness.entities.InformeCambios;
 
 /**
  * @author hcarreno
  */
 public interface ExcelGeneratorService {
 
-    void generarExcelGlosarioCampoModelo(List<CampoGlosario> camposGlosario, String path, String codigoGlosario, String descripcionGlosario);
-
-    void generarExcelValidacionNomenclatura(InformeValidacion informeValidacion, String path);
+	void generarExcelHistoricoCambios(List<InformeCambios> listaCambios, String path, String codigoProyecto,
+			String fechaDesde, String fechaHasta);
 
 }

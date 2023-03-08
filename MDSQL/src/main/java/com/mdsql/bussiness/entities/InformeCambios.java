@@ -15,7 +15,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class InformeCambios implements Serializable {
 
-    private String codigoPeticion;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4825049703857074013L;
+	private String codigoPeticion;
     private BigDecimal idProceso;
     private String nombreObjetoPadre;
     private String tipoObjetoPadre;

@@ -2,6 +2,7 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
@@ -18,6 +19,7 @@ import com.mdsql.bussiness.entities.HistoricoProceso;
 import com.mdsql.bussiness.entities.InformeCambios;
 import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.service.ExcelGeneratorService;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.bussiness.service.InformeService;
 import com.mdsql.ui.PantallaDetalleScript;
@@ -27,6 +29,7 @@ import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.HistoricoObjetoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.EstadosProcesado;
 import com.mdsql.utils.MDSQLConstants.EstadosScript;
@@ -101,6 +104,10 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 	private void informeCambios() {
 		try {
 			InformeService informeService = (InformeService) getService(MDSQLConstants.INFORME_SERVICE);
+			ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(MDSQLConstants.EXCEL_GENERATOR_SERVICE);
+			
+			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+			String path = configuration.getConfig("RutaInformes");
 			
 			String codigoProyecto = pantallaHistoricoCambios.getTxtModelo().getText();
 			String desde = pantallaHistoricoCambios.getTxtDesde().getText();
@@ -112,8 +119,8 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			String sDesde = dateInformeFormatter.dateToString(fechaDesde);
 			String sHasta = dateInformeFormatter.dateToString(fechaHasta);
 			
-			// TODO - Generar el informe con codigoProyecto, sDesde y sHasta
-		} catch (ServiceException | ParseException e) {
+			excelGeneratorService.generarExcelHistoricoCambios(listaCambios, path, codigoProyecto, sDesde, sHasta);
+		} catch (ServiceException | ParseException | IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
