@@ -40,13 +40,13 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 		setupCabeceraInforme(sheet);
 
-		int rownum = 2; // row to start writting
+		int rownum = 1; // row to start writting
 		for (InformeCambios informe : listaCambios) {
 			Row row = sheet.createRow(rownum++);
 			createRowInforme(informe, row);
 		}
 
-		String format = "%s_Cambios_desde__hasta_%s.xls";
+		String format = "%s_Cambios_desde_hasta_%s.xls";
 		String fileName = String.format(format, codigoProyecto, fechaHasta);
 		LogWrapper.debug(log, FORMATO_MENSAJE_ARCHIVO, fileName);
 		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
@@ -59,60 +59,60 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 	@SneakyThrows
 	private void setupCabeceraInforme(Sheet sheet) {
-		Row headerRow = sheet.getRow(1);
+		Row headerRow = sheet.getRow(0);
 		
-		Cell cell_01 = headerRow.getCell(0);
+		Cell cell_01 = headerRow.createCell(0);
 		cell_01.setCellValue("Petición");
 		
-		Cell cell_02 = headerRow.getCell(1);
+		Cell cell_02 = headerRow.createCell(1);
 		cell_02.setCellValue("Proceso");
 		
-		Cell cell_03 = headerRow.getCell(2);
+		Cell cell_03 = headerRow.createCell(2);
 		cell_03.setCellValue("Objeto padre");
 		
-		Cell cell_04 = headerRow.getCell(3);
+		Cell cell_04 = headerRow.createCell(3);
 		cell_04.setCellValue("Tipo");
 		
-		Cell cell_05 = headerRow.getCell(4);
+		Cell cell_05 = headerRow.createCell(4);
 		cell_05.setCellValue("Acción");
 		
-		Cell cell_06 = headerRow.getCell(5);
+		Cell cell_06 = headerRow.createCell(5);
 		cell_06.setCellValue("Objeto");
 		
-		Cell cell_07 = headerRow.getCell(6);
+		Cell cell_07 = headerRow.createCell(6);
 		cell_07.setCellValue("Objeto destino");
 		
-		Cell cell_08 = headerRow.getCell(7);
+		Cell cell_08 = headerRow.createCell(7);
 		cell_08.setCellValue("Tipo");
 		
-		Cell cell_09 = headerRow.getCell(8);
+		Cell cell_09 = headerRow.createCell(8);
 		cell_09.setCellValue("Acción");
 		
-		Cell cell_10 = headerRow.getCell(9);
+		Cell cell_10 = headerRow.createCell(9);
 		cell_10.setCellValue("Longitud");
 		
-		Cell cell_11 = headerRow.getCell(10);
+		Cell cell_11 = headerRow.createCell(10);
 		cell_11.setCellValue("Decimal");
 		
-		Cell cell_12 = headerRow.getCell(11);
+		Cell cell_12 = headerRow.createCell(11);
 		cell_12.setCellValue("Estado proceso");
 		
-		Cell cell_13 = headerRow.getCell(12);
+		Cell cell_13 = headerRow.createCell(12);
 		cell_13.setCellValue("Fecha");
 		
-		Cell cell_14 = headerRow.getCell(13);
+		Cell cell_14 = headerRow.createCell(13);
 		cell_14.setCellValue("Subproyecto");
 		
-		Cell cell_15 = headerRow.getCell(14);
+		Cell cell_15 = headerRow.createCell(14);
 		cell_15.setCellValue("Usr petición");
 		
-		Cell cell_16 = headerRow.getCell(15);
+		Cell cell_16 = headerRow.createCell(15);
 		cell_16.setCellValue("Usr");
 		
-		Cell cell_17 = headerRow.getCell(16);
+		Cell cell_17 = headerRow.createCell(16);
 		cell_17.setCellValue("Estado script");
 		
-		Cell cell_18 = headerRow.getCell(17);
+		Cell cell_18 = headerRow.createCell(17);
 		cell_18.setCellValue("Nombre script");
 	}
 

@@ -307,10 +307,16 @@ public class PantallaHistoricoCambios extends DialogSupport {
 		btnBuscarModelo.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR_MODELO);
 		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_CANCELAR);
 		btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR);
+		btnInforme.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_INFORME_CAMBIOS);
+		btnResumen.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_RESUMEN_PROCESADO);
+		btnVerDetalle.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_VER_DETALLE_SCRIPT);
 		
 		btnBuscarModelo.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
 		btnBuscar.addActionListener(actionListener);
+		btnInforme.addActionListener(actionListener);
+		btnResumen.addActionListener(actionListener);
+		btnVerDetalle.addActionListener(actionListener);
 		
 		ListSelectionModel rowSM = tblHistoricoObjetos.getSelectionModel();
    		rowSM.addListSelectionListener(listSelectionListener);

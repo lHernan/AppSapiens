@@ -112,8 +112,8 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			String codigoProyecto = pantallaHistoricoCambios.getTxtModelo().getText();
 			String desde = pantallaHistoricoCambios.getTxtDesde().getText();
 			String hasta = pantallaHistoricoCambios.getTxtHasta().getText();
-			Date fechaDesde = (StringUtils.isNotBlank(desde)) ? dateFormatter.stringToDate(desde) : null;
-			Date fechaHasta = (StringUtils.isNotBlank(hasta)) ? dateFormatter.stringToDate(hasta) : null;
+			Date fechaDesde = (StringUtils.isNotBlank(desde)) ? dateBuscarFormatter.stringToDate(desde) : null;
+			Date fechaHasta = (StringUtils.isNotBlank(hasta)) ? dateBuscarFormatter.stringToDate(hasta) : null;
 			
 			List<InformeCambios> listaCambios = informeService.informeCambios(codigoProyecto, fechaDesde, fechaHasta);
 			String sDesde = dateInformeFormatter.dateToString(fechaDesde);
@@ -155,8 +155,8 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			
 			String desde = pantallaHistoricoCambios.getTxtDesde().getText();
 			String hasta = pantallaHistoricoCambios.getTxtHasta().getText();
-			Date fechaDesde = (StringUtils.isNotBlank(desde)) ? dateFormatter.stringToDate(desde) : null;
-			Date fechaHasta = (StringUtils.isNotBlank(hasta)) ? dateFormatter.stringToDate(hasta) : null;
+			Date fechaDesde = (StringUtils.isNotBlank(desde)) ? dateBuscarFormatter.stringToDate(desde) : null;
+			Date fechaHasta = (StringUtils.isNotBlank(hasta)) ? dateBuscarFormatter.stringToDate(hasta) : null;
 			inputConsutaHistoricoProceso.setFechaDesde(fechaDesde);
 			inputConsutaHistoricoProceso.setFechaHasta(fechaHasta);
 			

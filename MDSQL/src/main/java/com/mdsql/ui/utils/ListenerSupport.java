@@ -29,12 +29,15 @@ public abstract class ListenerSupport extends Observable {
 	
 	protected DateFormatter dateFormatter;
 	
+	protected DateFormatter dateBuscarFormatter;
+	
 	protected DateFormatter dateInformeFormatter;
 	
 	public ListenerSupport() {
 		try {
 			literales = LiteralesSingleton.getInstance();
 			dateFormatter = new DateFormatter();
+			dateBuscarFormatter = new DateFormatter("dd/MM/yyyy");
 			dateInformeFormatter = new DateFormatter("yyyyMMdd");
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
