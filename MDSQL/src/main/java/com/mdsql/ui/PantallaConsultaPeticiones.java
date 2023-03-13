@@ -12,8 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.ui.listener.PantallaConsultaPeticionesListener;
+import com.mdsql.ui.listener.tables.PantallaConsultaPeticionesTableListener;
 import com.mdsql.ui.model.ConsultaPeticionesTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
@@ -23,6 +27,7 @@ import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -35,7 +40,7 @@ public class PantallaConsultaPeticiones extends DialogSupport {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnBuscar;
     private JButton btnCancelar;
-    private JButton btnCargar;
+    
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
@@ -47,17 +52,39 @@ public class PantallaConsultaPeticiones extends DialogSupport {
     private JScrollPane jScrollPane1;
     
     @Getter
+    private JButton btnCargar;
+    
+    @Getter
     private TableSupport tblPeticiones;
     
+    @Getter
     private JTextField txtDesde;
+    
+    @Getter
     private JTextField txtEstado;
+    
+    @Getter
     private JTextField txtHasta;
+    
+    @Getter
     private JTextField txtModelo;
+    
+    @Getter
     private JTextField txtPeticion;
+    
+    @Getter
     private JTextField txtSolicitada;
+    
+    @Getter
     private JTextField txtSubmodelo;
+    
+    @Getter
     private JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+    
+    @Getter
+    @Setter
+    private Proceso seleccionado;
     
     private PantallaConsultaPeticionesListener pantallaConsultaPeticionesListener;
     
@@ -202,6 +229,7 @@ public class PantallaConsultaPeticiones extends DialogSupport {
     @Override
    	protected void initEvents() {
     	pantallaConsultaPeticionesListener = new PantallaConsultaPeticionesListener(this);
+    	ListSelectionListener listSelectionListener = new PantallaConsultaPeticionesTableListener(this);
     	
     	btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_CONSULTA_PETICIONES_BUSCAR);
     	btnCargar.setActionCommand(MDSQLConstants.PANTALLA_CONSULTA_PETICIONES_CARGAR_PROCESADO);
@@ -210,6 +238,9 @@ public class PantallaConsultaPeticiones extends DialogSupport {
     	btnBuscar.addActionListener(pantallaConsultaPeticionesListener);
     	btnCargar.addActionListener(pantallaConsultaPeticionesListener);
     	btnCancelar.addActionListener(pantallaConsultaPeticionesListener);
+    	
+    	ListSelectionModel rowSM = tblPeticiones.getSelectionModel();
+   		rowSM.addListSelectionListener(listSelectionListener);
     }
     
     @Override

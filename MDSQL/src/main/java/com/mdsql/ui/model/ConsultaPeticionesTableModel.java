@@ -1,12 +1,15 @@
 package com.mdsql.ui.model;
 
 import java.util.List;
+import java.util.Objects;
 
-import com.mdsql.bussiness.entities.DetObjeto;
+import org.apache.commons.lang3.StringUtils;
+
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
-public class ConsultaPeticionesTableModel extends DefaultTableModel<DetObjeto> {
+public class ConsultaPeticionesTableModel extends DefaultTableModel<Proceso> {
 
 	/**
 	 * 
@@ -33,31 +36,33 @@ public class ConsultaPeticionesTableModel extends DefaultTableModel<DetObjeto> {
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public ConsultaPeticionesTableModel(List<DetObjeto> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public ConsultaPeticionesTableModel(List<Proceso> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		DetObjeto row = data.get(rowIndex);
+		Proceso row = data.get(rowIndex);
 
-//		if (columnIndex == 0) {
-//			return row.getPeticion();
-//		} else if (1 == columnIndex) {
-//			return row.getEstado();
-//		} else if (2 == columnIndex) {
-//			return row.getFecha();
-//		} else if (3 == columnIndex) {
-//			return row.getModelo();
-//		} else if (4 == columnIndex) {
-//			return row.getSubmodelo();
-//		} else if (5 == columnIndex) {
-//			return row.getSolicitado();
-//		} else if (6 == columnIndex) {
-//			return row.getDescripcion();
-//		} else if (7 == columnIndex) {
-//			return row.getUsuario();
-//		}
+		if (columnIndex == 0) {
+			return row.getCodigoPeticion();
+		} else if (1 == columnIndex) {
+			return row.getCodigoEstadoProceso();
+		} else if (2 == columnIndex) {
+			return row.getFechaInicio();
+		} else if (3 == columnIndex) {
+			return row.getModelo().getCodigoProyecto();
+		} else if (4 == columnIndex) {
+			return (!Objects.isNull(row.getSubproyecto())) ? row.getSubproyecto().getCodigoSubProyecto() : StringUtils.EMPTY;
+		} else if (5 == columnIndex) {
+			return row.getMcaErrores();
+		} else if (6 == columnIndex) {
+			return row.getCodigoUsrPeticion();
+		} else if (7 == columnIndex) {
+			return row.getTxtDescripcion();
+		} else if (8 == columnIndex) {
+			return row.getCodigoUsr();
+		}
 
 		return null;
 	}
