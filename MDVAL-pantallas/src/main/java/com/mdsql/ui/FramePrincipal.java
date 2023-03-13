@@ -82,13 +82,21 @@ public class FramePrincipal extends javax.swing.JFrame {
         jScrollPane10 = new javax.swing.JScrollPane();
         txtLanzaPDCH = new javax.swing.JTextArea();
         panelTypes = new javax.swing.JPanel();
-        jInternalFrame6 = new javax.swing.JInternalFrame();
+        jInternalFrameListaObjetos = new javax.swing.JInternalFrame();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jInternalFrame7 = new javax.swing.JInternalFrame();
-        jInternalFrame8 = new javax.swing.JInternalFrame();
-        jInternalFrame9 = new javax.swing.JInternalFrame();
-        jInternalFrame10 = new javax.swing.JInternalFrame();
+        jInternalFrameTYS = new javax.swing.JInternalFrame();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jInternalFrameTYB = new javax.swing.JInternalFrame();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        jInternalFrameLanzador = new javax.swing.JInternalFrame();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jInternalFramePDC = new javax.swing.JInternalFrame();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -369,9 +377,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         tabPanel.addTab("Histórico", panelHistorico);
 
-        panelTypes.setLayout(new java.awt.GridLayout(3, 2));
-
-        jInternalFrame6.setVisible(true);
+        jInternalFrameListaObjetos.setVisible(true);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -400,69 +406,67 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable1);
 
-        jInternalFrame6.getContentPane().add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        jInternalFrameListaObjetos.getContentPane().add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        panelTypes.add(jInternalFrame6);
+        jInternalFrameTYS.setVisible(true);
 
-        jInternalFrame7.setVisible(true);
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane12.setViewportView(jTextArea2);
 
-        javax.swing.GroupLayout jInternalFrame7Layout = new javax.swing.GroupLayout(jInternalFrame7.getContentPane());
-        jInternalFrame7.getContentPane().setLayout(jInternalFrame7Layout);
-        jInternalFrame7Layout.setHorizontalGroup(
-            jInternalFrame7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jInternalFrameTYS.getContentPane().add(jScrollPane12, java.awt.BorderLayout.CENTER);
+
+        jInternalFrameTYB.setVisible(true);
+
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jScrollPane13.setViewportView(jTextArea3);
+
+        jInternalFrameTYB.getContentPane().add(jScrollPane13, java.awt.BorderLayout.CENTER);
+
+        jInternalFrameLanzador.setVisible(true);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane11.setViewportView(jTextArea1);
+
+        jInternalFrameLanzador.getContentPane().add(jScrollPane11, java.awt.BorderLayout.CENTER);
+
+        jInternalFramePDC.setVisible(true);
+
+        jTextArea4.setColumns(20);
+        jTextArea4.setRows(5);
+        jScrollPane14.setViewportView(jTextArea4);
+
+        jInternalFramePDC.getContentPane().add(jScrollPane14, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout panelTypesLayout = new javax.swing.GroupLayout(panelTypes);
+        panelTypes.setLayout(panelTypesLayout);
+        panelTypesLayout.setHorizontalGroup(
+            panelTypesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTypesLayout.createSequentialGroup()
+                .addGroup(panelTypesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jInternalFrameListaObjetos, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                    .addComponent(jInternalFrameLanzador))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelTypesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jInternalFrameTYB)
+                    .addComponent(jInternalFrameTYS, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+                    .addComponent(jInternalFramePDC)))
         );
-        jInternalFrame7Layout.setVerticalGroup(
-            jInternalFrame7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        panelTypesLayout.setVerticalGroup(
+            panelTypesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTypesLayout.createSequentialGroup()
+                .addComponent(jInternalFrameTYS)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jInternalFrameTYB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jInternalFramePDC))
+            .addGroup(panelTypesLayout.createSequentialGroup()
+                .addComponent(jInternalFrameListaObjetos, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jInternalFrameLanzador, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
         );
-
-        panelTypes.add(jInternalFrame7);
-
-        jInternalFrame8.setVisible(true);
-
-        javax.swing.GroupLayout jInternalFrame8Layout = new javax.swing.GroupLayout(jInternalFrame8.getContentPane());
-        jInternalFrame8.getContentPane().setLayout(jInternalFrame8Layout);
-        jInternalFrame8Layout.setHorizontalGroup(
-            jInternalFrame8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame8Layout.setVerticalGroup(
-            jInternalFrame8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelTypes.add(jInternalFrame8);
-
-        jInternalFrame9.setVisible(true);
-
-        javax.swing.GroupLayout jInternalFrame9Layout = new javax.swing.GroupLayout(jInternalFrame9.getContentPane());
-        jInternalFrame9.getContentPane().setLayout(jInternalFrame9Layout);
-        jInternalFrame9Layout.setHorizontalGroup(
-            jInternalFrame9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame9Layout.setVerticalGroup(
-            jInternalFrame9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelTypes.add(jInternalFrame9);
-
-        jInternalFrame10.setVisible(true);
-
-        javax.swing.GroupLayout jInternalFrame10Layout = new javax.swing.GroupLayout(jInternalFrame10.getContentPane());
-        jInternalFrame10.getContentPane().setLayout(jInternalFrame10Layout);
-        jInternalFrame10Layout.setHorizontalGroup(
-            jInternalFrame10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame10Layout.setVerticalGroup(
-            jInternalFrame10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelTypes.add(jInternalFrame10);
 
         tabPanel.addTab("Types", panelTypes);
 
@@ -566,11 +570,11 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JInternalFrame ifrmPDCH;
     private javax.swing.JInternalFrame ifrmSQLH;
     private javax.swing.JInternalFrame ifrmSQLModificado;
-    private javax.swing.JInternalFrame jInternalFrame10;
-    private javax.swing.JInternalFrame jInternalFrame6;
-    private javax.swing.JInternalFrame jInternalFrame7;
-    private javax.swing.JInternalFrame jInternalFrame8;
-    private javax.swing.JInternalFrame jInternalFrame9;
+    private javax.swing.JInternalFrame jInternalFrameLanzador;
+    private javax.swing.JInternalFrame jInternalFrameListaObjetos;
+    private javax.swing.JInternalFrame jInternalFramePDC;
+    private javax.swing.JInternalFrame jInternalFrameTYB;
+    private javax.swing.JInternalFrame jInternalFrameTYS;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -583,6 +587,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -597,6 +605,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea jTextArea4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JPanel panelHistorico;
