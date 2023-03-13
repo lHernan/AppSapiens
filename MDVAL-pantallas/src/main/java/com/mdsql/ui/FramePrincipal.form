@@ -734,14 +734,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jInternalFrameListaObjetos" pref="665" max="32767" attributes="0"/>
-                                  <Component id="jInternalFrameLanzador" max="32767" attributes="0"/>
+                                  <Component id="ifrmListaObjetos" pref="665" max="32767" attributes="0"/>
+                                  <Component id="ifrmLanzador" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jInternalFrameTYB" max="32767" attributes="0"/>
-                                  <Component id="jInternalFrameTYS" pref="759" max="32767" attributes="0"/>
-                                  <Component id="jInternalFramePDC" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="ifrmTYB" max="32767" attributes="0"/>
+                                  <Component id="ifrmTYS" pref="759" max="32767" attributes="0"/>
+                                  <Component id="internalFramePDC" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -749,22 +749,22 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jInternalFrameTYS" max="32767" attributes="0"/>
+                              <Component id="ifrmTYS" max="32767" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jInternalFrameTYB" max="32767" attributes="0"/>
+                              <Component id="ifrmTYB" max="32767" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jInternalFramePDC" max="32767" attributes="0"/>
+                              <Component id="internalFramePDC" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jInternalFrameListaObjetos" min="-2" pref="279" max="-2" attributes="0"/>
+                              <Component id="ifrmListaObjetos" min="-2" pref="279" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jInternalFrameLanzador" pref="356" max="32767" attributes="0"/>
+                              <Component id="ifrmLanzador" pref="356" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Container class="javax.swing.JInternalFrame" name="jInternalFrameListaObjetos">
+                    <Container class="javax.swing.JInternalFrame" name="ifrmListaObjetos">
                       <Properties>
                         <Property name="visible" type="boolean" value="true"/>
                       </Properties>
@@ -783,7 +783,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTable" name="jTable1">
+                            <Component class="javax.swing.JTable" name="tblListaObjetos">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                   <Table columnCount="2" rowCount="10">
@@ -814,7 +814,7 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JInternalFrame" name="jInternalFrameTYS">
+                    <Container class="javax.swing.JInternalFrame" name="ifrmTYS">
                       <Properties>
                         <Property name="visible" type="boolean" value="true"/>
                       </Properties>
@@ -833,7 +833,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTextArea" name="jTextArea2">
+                            <Component class="javax.swing.JTextArea" name="txtScriptTYS">
                               <Properties>
                                 <Property name="columns" type="int" value="20"/>
                                 <Property name="rows" type="int" value="5"/>
@@ -843,7 +843,7 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JInternalFrame" name="jInternalFrameTYB">
+                    <Container class="javax.swing.JInternalFrame" name="ifrmTYB">
                       <Properties>
                         <Property name="visible" type="boolean" value="true"/>
                       </Properties>
@@ -862,7 +862,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTextArea" name="jTextArea3">
+                            <Component class="javax.swing.JTextArea" name="txtScriptTYB">
                               <Properties>
                                 <Property name="columns" type="int" value="20"/>
                                 <Property name="rows" type="int" value="5"/>
@@ -872,7 +872,7 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JInternalFrame" name="jInternalFrameLanzador">
+                    <Container class="javax.swing.JInternalFrame" name="ifrmLanzador">
                       <Properties>
                         <Property name="visible" type="boolean" value="true"/>
                       </Properties>
@@ -891,7 +891,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTextArea" name="jTextArea1">
+                            <Component class="javax.swing.JTextArea" name="txtScriptLanza">
                               <Properties>
                                 <Property name="columns" type="int" value="20"/>
                                 <Property name="rows" type="int" value="5"/>
@@ -901,7 +901,7 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JInternalFrame" name="jInternalFramePDC">
+                    <Container class="javax.swing.JInternalFrame" name="internalFramePDC">
                       <Properties>
                         <Property name="visible" type="boolean" value="true"/>
                       </Properties>
@@ -920,7 +920,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTextArea" name="jTextArea4">
+                            <Component class="javax.swing.JTextArea" name="txtScriptPDC">
                               <Properties>
                                 <Property name="columns" type="int" value="20"/>
                                 <Property name="rows" type="int" value="5"/>
