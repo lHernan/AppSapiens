@@ -28,8 +28,10 @@ import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
 import javax.swing.KeyStroke;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.undo.UndoManager;
 
 import org.apache.commons.lang3.StringUtils;
@@ -37,6 +39,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.mdsql.ui.listener.EditorEventHandler;
 import com.mdsql.ui.listener.FramePrincipalActionListener;
 import com.mdsql.ui.listener.FramePrincipalWindowListener;
+import com.mdsql.ui.listener.tables.ListaObjetosTableListener;
 import com.mdsql.ui.menu.MainMenuBar;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -223,6 +226,10 @@ public class FramePrincipal extends FrameSupport {
 	private JScrollPane jScrollPane14;
 
 	private JTextArea txtScriptPDC;
+	
+	@Getter
+	@Setter
+	private com.mdsql.bussiness.entities.Type typeSeleccionado;
 
 	/**
 	 * Creates new form Principal
@@ -627,6 +634,7 @@ public class FramePrincipal extends FrameSupport {
 	protected void initEvents() {
 		FramePrincipalActionListener actionListener = new FramePrincipalActionListener(this);
 		WindowListener windowListener = new FramePrincipalWindowListener();
+		ListSelectionListener listSelectionListener = new ListaObjetosTableListener(this);
 		editorEventHandler = new EditorEventHandler(this);
 		
 		addWindowListener(windowListener);
@@ -664,6 +672,9 @@ public class FramePrincipal extends FrameSupport {
 		btnProcesadoEnCurso.addActionListener(actionListener);
 		btnRefrescarFichero.addActionListener(actionListener);
 		btnInformacionModelo.addActionListener(actionListener);
+		
+		ListSelectionModel rowSM = tblListaObjetos.getSelectionModel();
+   		rowSM.addListSelectionListener(listSelectionListener);
 
 		// Manejador de eventos del editor
 		txtSQLCode.getDocument().addUndoableEditListener(editorEventHandler);
