@@ -27,6 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
 import javax.swing.KeyStroke;
+import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.undo.UndoManager;
@@ -73,14 +74,9 @@ public class FramePrincipal extends FrameSupport {
 	private JButton btnProcesadoEnCurso;
 	private JButton btnRefrescarFichero;
 
-	private InternalFrameSupport jInternalFrame10;
-	
 	@Getter
 	private InternalFrameSupport jInternalFrame6;
 	
-	private InternalFrameSupport jInternalFrame7;
-	private InternalFrameSupport jInternalFrame8;
-	private InternalFrameSupport jInternalFrame9;
 	private JPanel jPanel1;
 	private JPanel panelVigente;
 	private JPanel panelHistorico;
@@ -198,9 +194,35 @@ public class FramePrincipal extends FrameSupport {
 
 	@Getter
 	private JTextArea txtLanzaPDCH;
-	
+
+	private JInternalFrame ifrmListaObjetos;
+
 	@Getter
-	private TableSupport jTable1;
+	private TableSupport tblListaObjetos;
+
+	private JInternalFrame ifrmTYS;
+
+	private JScrollPane jScrollPane12;
+
+	private JTextArea txtScriptTYS;
+
+	private JInternalFrame ifrmTYB;
+
+	private JScrollPane jScrollPane13;
+
+	private JTextArea txtScriptTYB;
+
+	private JInternalFrame ifrmLanzador;
+
+	private JScrollPane jScrollPane11;
+
+	private JTextArea txtScriptLanza;
+
+	private JInternalFrame internalFramePDC;
+
+	private JScrollPane jScrollPane14;
+
+	private JTextArea txtScriptPDC;
 
 	/**
 	 * Creates new form Principal
@@ -267,13 +289,21 @@ public class FramePrincipal extends FrameSupport {
         jScrollPane10 = new JScrollPane();
         txtLanzaPDCH = new JTextArea();
         panelTypes = new JPanel();
-        jInternalFrame6 = new InternalFrameSupport();
+        ifrmListaObjetos = new JInternalFrame();
         jScrollPane2 = new JScrollPane();
-        jTable1 = new TableSupport();
-        jInternalFrame7 = new InternalFrameSupport();
-        jInternalFrame8 = new InternalFrameSupport();
-        jInternalFrame9 = new InternalFrameSupport();
-        jInternalFrame10 = new InternalFrameSupport();
+        tblListaObjetos = new TableSupport();
+        ifrmTYS = new JInternalFrame();
+        jScrollPane12 = new JScrollPane();
+        txtScriptTYS = new JTextArea();
+        ifrmTYB = new JInternalFrame();
+        jScrollPane13 = new JScrollPane();
+        txtScriptTYB = new JTextArea();
+        ifrmLanzador = new JInternalFrame();
+        jScrollPane11 = new JScrollPane();
+        txtScriptLanza = new JTextArea();
+        internalFramePDC = new JInternalFrame();
+        jScrollPane14 = new JScrollPane();
+        txtScriptPDC = new JTextArea();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -305,7 +335,7 @@ public class FramePrincipal extends FrameSupport {
         btnProcesarScript.setPreferredSize(new Dimension(60, 60));
         btnProcesarScript.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar1.add(btnProcesarScript);
-        
+
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(SwingConstants.CENTER);
         btnSave.setMaximumSize(new Dimension(60, 60));
@@ -383,37 +413,28 @@ public class FramePrincipal extends FrameSupport {
 
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
-
-        btnUndo.setIcon(new ImageIcon(getClass().getResource("/undo.png"))); // NOI18N
-        btnUndo.setToolTipText("Deshacer");
+        
         btnUndo.setFocusable(false);
         btnUndo.setHorizontalTextPosition(SwingConstants.CENTER);
         btnUndo.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar2.add(btnUndo);
 
-        btnRedo.setIcon(new ImageIcon(getClass().getResource("/redo.png"))); // NOI18N
-        btnRedo.setToolTipText("Rehacer");
         btnRedo.setFocusable(false);
         btnRedo.setHorizontalTextPosition(SwingConstants.CENTER);
         btnRedo.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar2.add(btnRedo);
         jToolBar2.add(jSeparator3);
-
-        btnCopy.setIcon(new ImageIcon(getClass().getResource("/copy.png"))); // NOI18N
-        btnCopy.setToolTipText("Copiar");
+        
         btnCopy.setFocusable(false);
         btnCopy.setHorizontalTextPosition(SwingConstants.CENTER);
         btnCopy.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar2.add(btnCopy);
-
-        btnCut.setIcon(new ImageIcon(getClass().getResource("/cut.png"))); // NOI18N
-        btnCut.setToolTipText("Cortar");
+        
         btnCut.setFocusable(false);
         btnCut.setHorizontalTextPosition(SwingConstants.CENTER);
         btnCut.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar2.add(btnCut);
 
-        btnPaste.setIcon(new ImageIcon(getClass().getResource("/paste.png"))); // NOI18N
         btnPaste.setToolTipText("Pegar");
         btnPaste.setFocusable(false);
         btnPaste.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -522,75 +543,71 @@ public class FramePrincipal extends FrameSupport {
 
         tabPanel.addTab("Histórico", panelHistorico);
 
-        panelTypes.setLayout(new GridLayout(3, 2));
+        ifrmListaObjetos.setVisible(true);
 
-        jInternalFrame6.setVisible(true);
+        jScrollPane2.setViewportView(tblListaObjetos);
 
-        jScrollPane2.setViewportView(jTable1);
+        ifrmListaObjetos.getContentPane().add(jScrollPane2, BorderLayout.CENTER);
 
-        jInternalFrame6.getContentPane().add(jScrollPane2, BorderLayout.CENTER);
+        ifrmTYS.setVisible(true);
 
-        panelTypes.add(jInternalFrame6);
+        txtScriptTYS.setColumns(20);
+        txtScriptTYS.setRows(5);
+        jScrollPane12.setViewportView(txtScriptTYS);
 
-        jInternalFrame7.setVisible(true);
+        ifrmTYS.getContentPane().add(jScrollPane12, BorderLayout.CENTER);
 
-        GroupLayout jInternalFrame7Layout = new GroupLayout(jInternalFrame7.getContentPane());
-        jInternalFrame7.getContentPane().setLayout(jInternalFrame7Layout);
-        jInternalFrame7Layout.setHorizontalGroup(
-            jInternalFrame7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        ifrmTYB.setVisible(true);
+
+        txtScriptTYB.setColumns(20);
+        txtScriptTYB.setRows(5);
+        jScrollPane13.setViewportView(txtScriptTYB);
+
+        ifrmTYB.getContentPane().add(jScrollPane13, BorderLayout.CENTER);
+
+        ifrmLanzador.setVisible(true);
+
+        txtScriptLanza.setColumns(20);
+        txtScriptLanza.setRows(5);
+        jScrollPane11.setViewportView(txtScriptLanza);
+
+        ifrmLanzador.getContentPane().add(jScrollPane11, BorderLayout.CENTER);
+
+        internalFramePDC.setVisible(true);
+
+        txtScriptPDC.setColumns(20);
+        txtScriptPDC.setRows(5);
+        jScrollPane14.setViewportView(txtScriptPDC);
+
+        internalFramePDC.getContentPane().add(jScrollPane14, BorderLayout.CENTER);
+
+        GroupLayout panelTypesLayout = new GroupLayout(panelTypes);
+        panelTypes.setLayout(panelTypesLayout);
+        panelTypesLayout.setHorizontalGroup(
+            panelTypesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(panelTypesLayout.createSequentialGroup()
+                .addGroup(panelTypesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(ifrmListaObjetos, GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                    .addComponent(ifrmLanzador))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelTypesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(ifrmTYB)
+                    .addComponent(ifrmTYS, GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+                    .addComponent(internalFramePDC)))
         );
-        jInternalFrame7Layout.setVerticalGroup(
-            jInternalFrame7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        panelTypesLayout.setVerticalGroup(
+            panelTypesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(panelTypesLayout.createSequentialGroup()
+                .addComponent(ifrmTYS)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ifrmTYB)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(internalFramePDC))
+            .addGroup(panelTypesLayout.createSequentialGroup()
+                .addComponent(ifrmListaObjetos, GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ifrmLanzador, GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
         );
-
-        panelTypes.add(jInternalFrame7);
-
-        jInternalFrame8.setVisible(true);
-
-        GroupLayout jInternalFrame8Layout = new GroupLayout(jInternalFrame8.getContentPane());
-        jInternalFrame8.getContentPane().setLayout(jInternalFrame8Layout);
-        jInternalFrame8Layout.setHorizontalGroup(
-            jInternalFrame8Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame8Layout.setVerticalGroup(
-            jInternalFrame8Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelTypes.add(jInternalFrame8);
-
-        jInternalFrame9.setVisible(true);
-
-        GroupLayout jInternalFrame9Layout = new GroupLayout(jInternalFrame9.getContentPane());
-        jInternalFrame9.getContentPane().setLayout(jInternalFrame9Layout);
-        jInternalFrame9Layout.setHorizontalGroup(
-            jInternalFrame9Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame9Layout.setVerticalGroup(
-            jInternalFrame9Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelTypes.add(jInternalFrame9);
-
-        jInternalFrame10.setVisible(true);
-
-        GroupLayout jInternalFrame10Layout = new GroupLayout(jInternalFrame10.getContentPane());
-        jInternalFrame10.getContentPane().setLayout(jInternalFrame10Layout);
-        jInternalFrame10Layout.setHorizontalGroup(
-            jInternalFrame10Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame10Layout.setVerticalGroup(
-            jInternalFrame10Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelTypes.add(jInternalFrame10);
 
         tabPanel.addTab("Types", panelTypes);
 
@@ -599,7 +616,6 @@ public class FramePrincipal extends FrameSupport {
         jSplitPane1.setRightComponent(jPanel1);
 
         getContentPane().add(jSplitPane1, BorderLayout.CENTER);
-
 	}
 
 	@Override
@@ -668,7 +684,7 @@ public class FramePrincipal extends FrameSupport {
 	@Override
 	protected void initModels() {
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.FRAME_PRINCIPAL_TYPES_TABLA_CABECERA);
-		jTable1.initModel(new FramePrincipalTypesTableModel(cabecera));
+		tblListaObjetos.initModel(new FramePrincipalTypesTableModel(cabecera));
 	}
 
 	@Override
@@ -710,6 +726,11 @@ public class FramePrincipal extends FrameSupport {
         btnInformacionModelo.setIcon(new ImageIcon(getClass().getResource("/information.png"))); // NOI18N
         btnInformacionModelo.setToolTipText("Información del modelo");
 
+        btnUndo.setIcon(new ImageIcon(getClass().getResource("/undo.png"))); // NOI18N
+        btnRedo.setIcon(new ImageIcon(getClass().getResource("/redo.png"))); // NOI18N
+        btnCopy.setIcon(new ImageIcon(getClass().getResource("/copy.png"))); // NOI18N
+        btnCut.setIcon(new ImageIcon(getClass().getResource("/cut.png"))); // NOI18N
+        btnPaste.setIcon(new ImageIcon(getClass().getResource("/paste.png"))); // NOI18N
 		btnUndo.setToolTipText("Deshacer");
 		btnRedo.setToolTipText("Rehacer");
 		btnCopy.setToolTipText("Copiar");

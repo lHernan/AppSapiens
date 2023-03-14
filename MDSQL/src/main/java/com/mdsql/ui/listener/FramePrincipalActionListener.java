@@ -728,7 +728,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 */
 	private void fillProcesadoType(List<Type> types) {
 		// Obtiene el modelo y lo actualiza
-		FramePrincipalTypesTableModel tableModel = (FramePrincipalTypesTableModel) framePrincipal.getJTable1()
+		FramePrincipalTypesTableModel tableModel = (FramePrincipalTypesTableModel) framePrincipal.getTblListaObjetos()
 				.getModel();
 		tableModel.setData(types);
 
@@ -736,7 +736,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
 		framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
 		
-		framePrincipal.getJTable1().forceRepaintColumn(0);
+		framePrincipal.getTblListaObjetos().forceRepaintColumn(0);
 	}
 
 	/**
