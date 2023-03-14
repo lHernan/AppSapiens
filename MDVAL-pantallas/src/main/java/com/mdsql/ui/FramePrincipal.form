@@ -733,7 +733,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="ifrmListaObjetos" pref="665" max="32767" attributes="0"/>
                                   <Component id="ifrmLanzador" max="32767" attributes="0"/>
                               </Group>
@@ -756,8 +756,8 @@
                               <Component id="internalFramePDC" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="ifrmListaObjetos" min="-2" pref="279" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="ifrmListaObjetos" pref="279" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="ifrmLanzador" pref="356" max="32767" attributes="0"/>
                           </Group>
                       </Group>
