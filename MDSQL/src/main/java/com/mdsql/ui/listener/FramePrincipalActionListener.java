@@ -325,6 +325,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			// set the procesado
 			framePrincipal.setProcesado(Procesado.SCRIPT);
 		} catch (IOException e1) {
+			log.error("ERROR: ", e1);
 			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
 			MDSQLUIHelper.showPopup(framePrincipal, MDSQLConstants.CMD_ERROR, params);
 		}
@@ -545,21 +546,19 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 */
 	private void dumpContentToText(File file, JTextArea txtScript) throws IOException {
 		// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+//		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+//
+//		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
+//		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
+//		
+//		if (!Arrays.asList(MDSQLConstants.ALLOWED_CHARSETS).contains(charset)) {
+//			String message = String.format("Archivo %s: juego de caracteres %s no permitido", file.getName(), charset.toString());
+//			throw new IOException(message);
+//		}
+//		
+//		session.setFileCharset(charset);
 
-		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
-		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
-		
-		if (!Arrays.asList(MDSQLConstants.ALLOWED_CHARSETS).contains(charset)) {
-			String message = String.format("Archivo %s: juego de caracteres %s no permitido", file.getName(), charset.toString());
-			throw new IOException(message);
-		}
-		
-		session.setFileCharset(charset);
-
-		String s = MDSQLAppHelper.writeFileToString(file, charset, MDSQLConstants.DEFAULT_CHARSET);
-
-		txtScript.setText(s);
+		txtScript.setText(MDSQLAppHelper.writeFileToString(file));
 	}
 
 	/**
@@ -567,11 +566,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * @param txtScript
 	 */
 	private void dumpTextToFile(JTextArea txtScript, File file) throws IOException {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-		Charset charset = session.getFileCharset();
+//		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+//		Charset charset = session.getFileCharset();
 		String content = txtScript.getText();
 
-		MDSQLAppHelper.writeToFile(content, file, MDSQLConstants.DEFAULT_CHARSET, charset);
+		MDSQLAppHelper.writeToFile(content, file);
 	}
 
 	/**

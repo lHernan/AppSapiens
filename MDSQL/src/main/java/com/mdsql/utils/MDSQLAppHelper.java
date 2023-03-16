@@ -10,6 +10,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.any23.encoding.TikaEncodingDetector;
 
@@ -75,6 +80,45 @@ public class MDSQLAppHelper extends AppHelper {
 		} catch (IOException e) {
 			throw e;
 		}
+	}
+	
+	
+	/**
+	 * @param content
+	 * @param file
+	 * @throws IOException
+	 */
+	public static void writeToFile(String content, File file) throws IOException {
+		try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(content.getBytes()));
+				OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file))) {
+			int c = in.read();
+
+			while (c != -1) {
+				out.write(c);
+				c = in.read();
+			}
+		} catch (IOException e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
+	public static String writeFileToString(File file) throws IOException {
+		List<String> result;
+		try (Stream<String> lines = Files.lines(Paths.get(file.getAbsolutePath()))) {
+			result = lines.collect(Collectors.toList());
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		for (String line : result) {
+			sb.append(line).append("\n");
+		}
+		
+		return sb.toString();
 	}
 	
 	/**

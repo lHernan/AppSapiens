@@ -301,8 +301,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			if (CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
 					// Esto causa reescritura de ficheros
-					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript(),
-							charset);
+					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript());
 
 					/**
 					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
@@ -320,8 +319,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 					// Sólo hay que crear el script lanza
 					String lanzaFile = ruta.concat(script.getNombreScriptLanza());
-					writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(System.lineSeparator()),
-							charset);
+					writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(System.lineSeparator()));
 
 					String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
 					bbdd.setPassword(password);
@@ -376,7 +374,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				: bbdd.getNombreBBDDHis();
 
 		String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
-		writeFileFromList(Paths.get(lanzaFile), outputReparaScript.getScriptRepara(), charset);
+		writeFileFromList(Paths.get(lanzaFile), outputReparaScript.getScriptRepara());
 		String logFile = ruta.concat(script.getNombreScriptLog());
 
 		if (isReparacion.equals(Boolean.TRUE)) {
@@ -883,7 +881,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
 			// Si ha dado error, escribe el fichero de log
 			if (exitCode == 1) {
-				writeFileFromList(Paths.get(logFile), logLines, MDSQLConstants.DEFAULT_CHARSET);
+				writeFileFromList(Paths.get(logFile), logLines);
 			}
 			else if (exitCode == 137) {
 				throw new ServiceException(lineError);
@@ -895,19 +893,19 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@SneakyThrows
-	private void writeFileFromString(Path path, String content, Charset outputCharset) {
-		Files.write(path, content.getBytes(outputCharset), StandardOpenOption.CREATE);
+	private void writeFileFromString(Path path, String content) {
+		Files.write(path, content.getBytes(), StandardOpenOption.CREATE);
 	}
 
 	@SneakyThrows(IOException.class)
-	private void writeFileFromList(Path path, List<TextoLinea> textoLineaList, Charset inputCharset) {
+	private void writeFileFromList(Path path, List<TextoLinea> textoLineaList) {
 		try {
 			List<String> scriptLines = new ArrayList<>();
 			for (TextoLinea texto : textoLineaList) {
 				String line = texto.getValor().trim();
 				scriptLines.add(line);
 			}
-			Files.write(path, scriptLines, inputCharset, StandardOpenOption.CREATE);
+			Files.write(path, scriptLines, StandardOpenOption.CREATE);
 		} catch (IOException e) {
 			LogWrapper.error(log, "[writeFileFromList] Error", e);
 			throw e;
