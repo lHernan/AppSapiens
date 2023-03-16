@@ -79,6 +79,15 @@
   - Pantalla DescartarScript.v.1
   - Pantalla Pantalla Reparar Script.v.2
   
+  - Versión 1.0.0-SNAPSHOT (16/03/2023), Entregable-1.0.24
+ 
+  Incidencias que se corrigen
+  
+  - Pantalla de consulta histórico de cambios, funcionalidad completa pendiente de verificar.
+  - Pantalla de consulta de peticiones, funcionalidad pendiente de verificar
+  - Se corrigen incidencias de juego de caracteres, que impedían la correcta visualización de SQL
+  
+  
   
   
        
