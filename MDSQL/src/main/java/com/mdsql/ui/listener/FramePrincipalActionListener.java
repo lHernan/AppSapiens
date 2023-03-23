@@ -2,10 +2,10 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -558,7 +558,17 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 //		
 //		session.setFileCharset(charset);
 
-		txtScript.setText(MDSQLAppHelper.writeFileToString(file));
+//		txtScript.setText(MDSQLAppHelper.writeFileToString(file));
+		
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+			String line = reader.readLine();
+			
+			while (line != null) {
+				txtScript.append(line);
+				txtScript.append("\n");
+				line = reader.readLine();
+			}
+		} 
 	}
 
 	/**
