@@ -19,8 +19,8 @@ import com.mdsql.bussiness.entities.Session;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
-import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.LogWrapper;
 
