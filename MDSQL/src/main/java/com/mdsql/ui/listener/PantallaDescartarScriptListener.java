@@ -3,14 +3,19 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.mdsql.bussiness.entities.InputDescartarScript;
 import com.mdsql.bussiness.entities.OutputDescartarScript;
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.ScriptService;
+import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.PantallaDescartarScript;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -89,17 +94,37 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 	 */
 	private void aceptar() {
 		try {
+			Map<String, Object> params = new HashMap<>();
+			
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			Proceso proceso = session.getProceso();
+			
+			params.put("proceso", proceso);
+
+			PantallaAjustarLogEjecucion pantallaAjustarLogEjecucion = (PantallaAjustarLogEjecucion) MDSQLUIHelper
+					.createDialog(pantallaDescartarScript.getFrameParent(), MDSQLConstants.CMD_AJUSTAR_LOG_EJECUCION, params);
+			MDSQLUIHelper.show(pantallaAjustarLogEjecucion);
+			
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 
-			InputDescartarScript inputDescartarScript = new InputDescartarScript();
-			String script = (String) pantallaDescartarScript.getParams().get("inputDescartarScript");
-			inputDescartarScript.setNombreScript(script);
-
+			InputDescartarScript inputDescartarScript = createInputDescartarScript();
 			OutputDescartarScript descartarScript = scriptService.descartarScript(inputDescartarScript);
+			
+			if (CollectionUtils.isNotEmpty(descartarScript.getListaScriptNew())) {
+				
+			}
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaDescartarScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
+	}
+
+	private InputDescartarScript createInputDescartarScript() {
+		InputDescartarScript inputDescartarScript = new InputDescartarScript();
+		
+		inputDescartarScript.setNombreScript(archivo.getName());
+		
+		return inputDescartarScript;
 	}
 }

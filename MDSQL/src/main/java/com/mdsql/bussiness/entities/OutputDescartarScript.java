@@ -18,7 +18,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class OutputDescartarScript implements Serializable {
 
-    private List<Script> listaParches;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4622111798571136344L;
+	private List<Script> listaParches;
     private List<ScriptOld> listaScriptOld;
     private List<Script> listaScriptNew;
     private BigDecimal codigoEstadoProceso;

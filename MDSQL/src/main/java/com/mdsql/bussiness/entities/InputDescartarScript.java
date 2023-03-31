@@ -18,7 +18,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class InputDescartarScript implements Serializable {
 
-    private List<TextoLinea> script;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3399482633457595754L;
+	private List<TextoLinea> script;
     private BigDecimal idProceso;
     private String codigoUsuario;
     private String nombreScript;

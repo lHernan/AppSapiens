@@ -149,11 +149,11 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	private void eventBtnDescartar() {
 		Map<String, Object> params = new HashMap<>();
 
-		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
 		Proceso proceso = pantallaEjecutarScripts.getProceso();
+		List<Script> vigentes = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
 
-		params.put("script", seleccionado);
 		params.put("proceso", proceso);
+		params.put("scripts", vigentes);
 
 		PantallaDescartarScript pantallaDescartarScript = (PantallaDescartarScript) MDSQLUIHelper
 				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_DESCARTAR_SCRIPT, params);
