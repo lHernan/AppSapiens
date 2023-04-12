@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -548,8 +549,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
 //		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 //
-//		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
-//		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
+		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
+		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
 //		
 //		if (!Arrays.asList(MDSQLConstants.ALLOWED_CHARSETS).contains(charset)) {
 //			String message = String.format("Archivo %s: juego de caracteres %s no permitido", file.getName(), charset.toString());
@@ -572,6 +573,18 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	}
 
 	/**
+	 * @param lineas
+	 * @param txtScript
+	 */
+	private void dumpContentToText(List<TextoLinea> lineas, JTextArea txtScript) {
+
+		for (TextoLinea linea : lineas) {
+			txtScript.append(linea.getValor());
+			txtScript.append("\n");
+		}
+	}
+
+	/**
 	 * @param file
 	 * @param txtScript
 	 */
@@ -581,18 +594,6 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		String content = txtScript.getText();
 
 		MDSQLAppHelper.writeToFile(content, file);
-	}
-
-	/**
-	 * @param file
-	 * @param txtScript
-	 */
-	private void dumpContentToText(List<TextoLinea> lineas, JTextArea txtScript) {
-
-		for (TextoLinea linea : lineas) {
-			txtScript.append(linea.getValor());
-			txtScript.append("\n");
-		}
 	}
 
 	/**
