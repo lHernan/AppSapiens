@@ -148,25 +148,40 @@ public class PantallaProcesadoEnCurso extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nivel", "Título", "Descripción", "Petición"
             }
         ));
         jScrollPane2.setViewportView(tblNotas);
+        if (tblNotas.getColumnModel().getColumnCount() > 0) {
+            tblNotas.getColumnModel().getColumn(0).setPreferredWidth(75);
+            tblNotas.getColumnModel().getColumn(1).setPreferredWidth(500);
+            tblNotas.getColumnModel().getColumn(2).setPreferredWidth(500);
+            tblNotas.getColumnModel().getColumn(3).setPreferredWidth(500);
+        }
 
         jLabel12.setText("Últimas peticiones");
 
         tblUltimasPeticiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Peticíon", "Solicitado", "Estado", "Fecha", "Usuario", "Descripción", "Comentario Entrega"
             }
         ));
         jScrollPane3.setViewportView(tblUltimasPeticiones);
+        if (tblUltimasPeticiones.getColumnModel().getColumnCount() > 0) {
+            tblUltimasPeticiones.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tblUltimasPeticiones.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tblUltimasPeticiones.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblUltimasPeticiones.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblUltimasPeticiones.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tblUltimasPeticiones.getColumnModel().getColumn(5).setPreferredWidth(300);
+            tblUltimasPeticiones.getColumnModel().getColumn(6).setPreferredWidth(300);
+        }
 
         btnVerProcesado.setText("Ver procesado");
 
@@ -320,7 +335,7 @@ public class PantallaProcesadoEnCurso extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)

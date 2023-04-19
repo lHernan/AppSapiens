@@ -58,6 +58,7 @@ public class PantallaHistoricoCambios extends javax.swing.JFrame {
         txtHasta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("PantallaHistoricoCambio");
 
         jLabel1.setText("Modelo o Proyecto");
 
@@ -139,6 +140,18 @@ public class PantallaHistoricoCambios extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tblDetalleScript);
+        if (tblDetalleScript.getColumnModel().getColumnCount() > 0) {
+            tblDetalleScript.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblDetalleScript.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tblDetalleScript.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tblDetalleScript.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblDetalleScript.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tblDetalleScript.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tblDetalleScript.getColumnModel().getColumn(6).setPreferredWidth(75);
+            tblDetalleScript.getColumnModel().getColumn(7).setPreferredWidth(75);
+            tblDetalleScript.getColumnModel().getColumn(8).setPreferredWidth(400);
+            tblDetalleScript.getColumnModel().getColumn(9).setPreferredWidth(100);
+        }
 
         btnInforme.setText("Informe Cambios");
 
@@ -220,7 +233,7 @@ public class PantallaHistoricoCambios extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cmbEstadoProcesado, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDesde, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 253, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -277,7 +290,7 @@ public class PantallaHistoricoCambios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscar)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInforme)
