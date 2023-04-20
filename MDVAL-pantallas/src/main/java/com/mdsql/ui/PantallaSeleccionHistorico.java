@@ -34,6 +34,7 @@ public class PantallaSeleccionHistorico extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("PantallaSeleccionHistorico");
         setMinimumSize(new java.awt.Dimension(1195, 472));
 
         tblHistorico.setBorder(javax.swing.BorderFactory.createEtchedBorder());

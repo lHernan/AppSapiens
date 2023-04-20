@@ -188,6 +188,8 @@ public class PantallaProcesadoEnCurso extends DialogSupport implements PantallaP
         jLabel13 = new JLabel();
         txtSubproyecto = new JTextField();
         txtBBDD = new JTextField();
+        
+        setBounds(1410, 700);
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -196,16 +198,23 @@ public class PantallaProcesadoEnCurso extends DialogSupport implements PantallaP
         jButton1.setIcon(new ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
 
         jScrollPane2.setViewportView(tblNotas);
-
-        jLabel12.setText("Últimas peticiones");
+        if (tblNotas.getColumnModel().getColumnCount() > 0) {
+            tblNotas.getColumnModel().getColumn(0).setPreferredWidth(75);
+            tblNotas.getColumnModel().getColumn(1).setPreferredWidth(500);
+            tblNotas.getColumnModel().getColumn(2).setPreferredWidth(500);
+            tblNotas.getColumnModel().getColumn(3).setPreferredWidth(500);
+        }
         
         jScrollPane3.setViewportView(tblUltimasPeticiones);
-
-        btnVerProcesado.setText("Ver procesado");
-
-        btnProcesar.setText("Procesar");
-
-        btnCancelar.setText("Cancelar");
+        if (tblUltimasPeticiones.getColumnModel().getColumnCount() > 0) {
+            tblUltimasPeticiones.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tblUltimasPeticiones.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tblUltimasPeticiones.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblUltimasPeticiones.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblUltimasPeticiones.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tblUltimasPeticiones.getColumnModel().getColumn(5).setPreferredWidth(300);
+            tblUltimasPeticiones.getColumnModel().getColumn(6).setPreferredWidth(300);
+        }
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

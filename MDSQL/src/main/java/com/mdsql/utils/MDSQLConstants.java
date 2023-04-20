@@ -243,6 +243,8 @@ public class MDSQLConstants extends Constants {
 		}
 	}
 
+	// TODO - Crear estados type
+
 	/**
 	 * Menu de la aplicación
 	 */
