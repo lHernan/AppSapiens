@@ -746,6 +746,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
 		
 		framePrincipal.getTblListaObjetos().forceRepaintColumn(0);
+		
+		// TODO - Seleccionar el primero
 	}
 
 	/**

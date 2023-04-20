@@ -39,6 +39,7 @@ public class ListaObjetosTableListener extends ListenerSupport implements ListSe
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			framePrincipal.setTypeSeleccionado(seleccionado);
 			
+			// TODO - Rellenar los cuadros con el tipo seleccionado
 		}
 	}
 
