@@ -67,7 +67,21 @@ public class PantallaVerCuadresScript extends DialogSupport {
         setBounds(1400, 400);
 
         jScrollPane1.setViewportView(tblOperaciones);
+        if (tblOperaciones.getColumnModel().getColumnCount() > 0) {
+            tblOperaciones.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tblOperaciones.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tblOperaciones.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblOperaciones.getColumnModel().getColumn(3).setPreferredWidth(100);
+        }
+        
         jScrollPane2.setViewportView(tblObjetos);
+        if (tblObjetos.getColumnModel().getColumnCount() > 0) {
+            tblObjetos.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tblObjetos.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblObjetos.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tblObjetos.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblObjetos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        }
         
         GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
