@@ -55,8 +55,8 @@ public class PantallaVerErroresScript extends javax.swing.JFrame {
             tblErroresScript.getColumnModel().getColumn(2).setPreferredWidth(100);
             tblErroresScript.getColumnModel().getColumn(3).setPreferredWidth(100);
             tblErroresScript.getColumnModel().getColumn(4).setPreferredWidth(100);
-            tblErroresScript.getColumnModel().getColumn(5).setPreferredWidth(350);
-            tblErroresScript.getColumnModel().getColumn(6).setPreferredWidth(800);
+            tblErroresScript.getColumnModel().getColumn(5).setPreferredWidth(300);
+            tblErroresScript.getColumnModel().getColumn(6).setPreferredWidth(900);
         }
 
         tblParches.setModel(new javax.swing.table.DefaultTableModel(
@@ -79,7 +79,7 @@ public class PantallaVerErroresScript extends javax.swing.JFrame {
             tblParches.getColumnModel().getColumn(4).setPreferredWidth(120);
             tblParches.getColumnModel().getColumn(5).setPreferredWidth(120);
             tblParches.getColumnModel().getColumn(6).setPreferredWidth(350);
-            tblParches.getColumnModel().getColumn(7).setPreferredWidth(500);
+            tblParches.getColumnModel().getColumn(7).setPreferredWidth(600);
         }
 
         jLabel1.setText("Parches asociados");

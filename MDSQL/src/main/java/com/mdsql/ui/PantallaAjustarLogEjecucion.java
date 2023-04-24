@@ -77,6 +77,19 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
         setBounds(1300, 500);
         
         jScrollPane1.setViewportView(tblAjustarLog);
+        if (tblAjustarLog.getColumnModel().getColumnCount() > 0) {
+            tblAjustarLog.getColumnModel().getColumn(0).setPreferredWidth(500);
+            tblAjustarLog.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(5).setPreferredWidth(200);
+            tblAjustarLog.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(7).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(8).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(9).setPreferredWidth(120);
+            tblAjustarLog.getColumnModel().getColumn(10).setPreferredWidth(500);
+        }
         
         GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

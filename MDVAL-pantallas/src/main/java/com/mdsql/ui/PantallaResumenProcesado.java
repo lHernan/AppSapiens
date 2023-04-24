@@ -116,17 +116,17 @@ public class PantallaResumenProcesado extends javax.swing.JFrame {
 
         tblScripts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Orden", "Estado", "Fecha", "Operaciones", "Objetos", "Script"
+                "Orden", "Estado", "Fecha", "Operaciones", "Objetos", "Con Error", "Script"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -134,6 +134,15 @@ public class PantallaResumenProcesado extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tblScripts);
+        if (tblScripts.getColumnModel().getColumnCount() > 0) {
+            tblScripts.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblScripts.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tblScripts.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tblScripts.getColumnModel().getColumn(3).setPreferredWidth(75);
+            tblScripts.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tblScripts.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tblScripts.getColumnModel().getColumn(6).setPreferredWidth(500);
+        }
 
         btnVerLog.setText("Ver log");
 
@@ -225,6 +234,12 @@ public class PantallaResumenProcesado extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tblOperaciones);
+        if (tblOperaciones.getColumnModel().getColumnCount() > 0) {
+            tblOperaciones.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblOperaciones.getColumnModel().getColumn(1).setPreferredWidth(75);
+            tblOperaciones.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tblOperaciones.getColumnModel().getColumn(3).setPreferredWidth(75);
+        }
 
         tblObjetos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -246,6 +261,13 @@ public class PantallaResumenProcesado extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(tblObjetos);
+        if (tblObjetos.getColumnModel().getColumnCount() > 0) {
+            tblObjetos.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tblObjetos.getColumnModel().getColumn(1).setPreferredWidth(75);
+            tblObjetos.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tblObjetos.getColumnModel().getColumn(3).setPreferredWidth(25);
+            tblObjetos.getColumnModel().getColumn(4).setPreferredWidth(50);
+        }
 
         jLabel12.setText("Objetos");
 
