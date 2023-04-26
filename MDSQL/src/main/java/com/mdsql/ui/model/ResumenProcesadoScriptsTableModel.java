@@ -47,7 +47,7 @@ public class ResumenProcesadoScriptsTableModel extends DefaultTableModel<ScriptE
 		if (0 == columnIndex) {
 			return row.getNumeroOrden().intValue();
 		} else if (1 == columnIndex) {
-			return row.getCodigoEstadoScript();
+			return row.getDescripcionEstadoScript();
 		} else if (2 == columnIndex) {
 			return row.getFechaEjecucion();
 		} else if (3 == columnIndex) {

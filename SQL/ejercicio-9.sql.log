@@ -1,0 +1,12 @@
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Mi� Abr 26 10:30:52 2023
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+ERROR:
+ORA-12154: TNS:no se ha podido resolver el identificador de conexi�n
+especificado
+
+
+Introduzca el nombre de usuario:

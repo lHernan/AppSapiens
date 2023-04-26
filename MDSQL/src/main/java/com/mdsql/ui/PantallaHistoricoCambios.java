@@ -157,19 +157,7 @@ private static final long serialVersionUID = 1L;
         
         setBounds(1230, 680);
         
-        jScrollPane1.setViewportView(tblDetalleScript);
-        if (tblDetalleScript.getColumnModel().getColumnCount() > 0) {
-            tblDetalleScript.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tblDetalleScript.getColumnModel().getColumn(1).setPreferredWidth(50);
-            tblDetalleScript.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tblDetalleScript.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tblDetalleScript.getColumnModel().getColumn(4).setPreferredWidth(50);
-            tblDetalleScript.getColumnModel().getColumn(5).setPreferredWidth(50);
-            tblDetalleScript.getColumnModel().getColumn(6).setPreferredWidth(75);
-            tblDetalleScript.getColumnModel().getColumn(7).setPreferredWidth(75);
-            tblDetalleScript.getColumnModel().getColumn(8).setPreferredWidth(400);
-            tblDetalleScript.getColumnModel().getColumn(9).setPreferredWidth(100);
-        }
+        jScrollPane1.setViewportView(tblHistoricoObjetos);
         
         GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
