@@ -203,28 +203,36 @@ public class FramePrincipal extends FrameSupport {
 	@Getter
 	private TableSupport tblListaObjetos;
 
+	@Getter
 	private JInternalFrame ifrmTYS;
 
 	private JScrollPane jScrollPane12;
 
+	@Getter
 	private JTextArea txtScriptTYS;
 
+	@Getter
 	private JInternalFrame ifrmTYB;
 
 	private JScrollPane jScrollPane13;
 
+	@Getter
 	private JTextArea txtScriptTYB;
 
+	@Getter
 	private JInternalFrame ifrmLanzador;
 
 	private JScrollPane jScrollPane11;
 
+	@Getter
 	private JTextArea txtScriptLanza;
 
+	@Getter
 	private JInternalFrame internalFramePDC;
 
 	private JScrollPane jScrollPane14;
 
+	@Getter
 	private JTextArea txtScriptPDC;
 	
 	@Getter

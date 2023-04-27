@@ -34,14 +34,14 @@ public class TablaHistoricoObjetosCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		
 		columnSizes.add(100);
-		columnSizes.add(350);
-		columnSizes.add(150);
-		columnSizes.add(150);
-		columnSizes.add(250);
-		columnSizes.add(150);
-		columnSizes.add(150);
+		columnSizes.add(50);
+		columnSizes.add(50);
 		columnSizes.add(100);
-		columnSizes.add(100);
+		columnSizes.add(50);
+		columnSizes.add(50);
+		columnSizes.add(75);
+		columnSizes.add(75);
+		columnSizes.add(400);
 		columnSizes.add(100);
 	}
 }

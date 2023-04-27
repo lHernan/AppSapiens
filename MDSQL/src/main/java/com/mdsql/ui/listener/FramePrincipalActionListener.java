@@ -2,11 +2,8 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +12,6 @@ import java.util.Objects;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
@@ -25,7 +21,6 @@ import org.apache.commons.lang3.StringUtils;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
-import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.ui.FramePrincipal;
@@ -505,7 +500,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 */
 	private void setContent(File file) throws IOException {
 		framePrincipal.getTxtSQLCode().setText(StringUtils.EMPTY);
-		dumpContentToText(file, framePrincipal.getTxtSQLCode());
+		MDSQLAppHelper.dumpContentToText(file, framePrincipal.getTxtSQLCode());
 
 		framePrincipal.getTxtSQLCode().getDocument().addUndoableEditListener(framePrincipal.getEditorEventHandler());
 
@@ -542,61 +537,6 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	}
 
 	/**
-	 * @param file
-	 * @param txtScript
-	 */
-	private void dumpContentToText(File file, JTextArea txtScript) throws IOException {
-		// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
-//		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-//
-		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
-		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
-//		
-//		if (!Arrays.asList(MDSQLConstants.ALLOWED_CHARSETS).contains(charset)) {
-//			String message = String.format("Archivo %s: juego de caracteres %s no permitido", file.getName(), charset.toString());
-//			throw new IOException(message);
-//		}
-//		
-//		session.setFileCharset(charset);
-
-//		txtScript.setText(MDSQLAppHelper.writeFileToString(file));
-		
-		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-			String line = reader.readLine();
-			
-			while (line != null) {
-				txtScript.append(line);
-				txtScript.append("\n");
-				line = reader.readLine();
-			}
-		} 
-	}
-
-	/**
-	 * @param lineas
-	 * @param txtScript
-	 */
-	private void dumpContentToText(List<TextoLinea> lineas, JTextArea txtScript) {
-
-		for (TextoLinea linea : lineas) {
-			txtScript.append(linea.getValor());
-			txtScript.append("\n");
-		}
-	}
-
-	/**
-	 * @param file
-	 * @param txtScript
-	 */
-	private void dumpTextToFile(JTextArea txtScript, File file) throws IOException {
-//		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-//		Charset charset = session.getFileCharset();
-		String content = txtScript.getText();
-
-		MDSQLAppHelper.writeToFile(content, file);
-	}
-
-	/**
 	 * @return
 	 */
 	private Boolean confirmSave() {
@@ -628,7 +568,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			actionSaveAs(); // invoca el método actionSaveAs()
 		} else if (framePrincipal.getHasChanged()) { // si el documento esta marcado como modificado
 			try {
-				dumpTextToFile(framePrincipal.getTxtSQLCode(), framePrincipal.getCurrentFile());
+				MDSQLAppHelper.dumpTextToFile(framePrincipal.getTxtSQLCode(), framePrincipal.getCurrentFile());
 
 				// marca el estado del documento como no modificado
 				framePrincipal.setHasChanged(Boolean.FALSE);
@@ -663,7 +603,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			if (state == JFileChooser.APPROVE_OPTION) { // si elige guardar en el archivo
 				File file = fc.getSelectedFile(); // obtiene el archivo seleccionado
 
-				dumpTextToFile(framePrincipal.getTxtSQLCode(), file);
+				MDSQLAppHelper.dumpTextToFile(framePrincipal.getTxtSQLCode(), file);
 
 				// nuevo título de la ventana con el nombre del archivo guardado
 				framePrincipal.getFrmSQLScript().setTitle(file.getName());
@@ -748,7 +688,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		
 		framePrincipal.getTblListaObjetos().forceRepaintColumn(0);
 		
-		// TODO - Seleccionar el primero
+		// Seleccionar el primero
+		framePrincipal.getTblListaObjetos().setRowSelectionInterval(0, 0);
+		
 	}
 
 	/**
@@ -760,7 +702,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				if ("SQL".equals(script.getTipoScript())) {
 					framePrincipal.getIfrmSQLModificado().setTitle(script.getNombreScript());
 					framePrincipal.getTxtSQLModificado().setText(StringUtils.EMPTY);
-					dumpContentToText(script.getLineasScript(), framePrincipal.getTxtSQLModificado());
+					MDSQLAppHelper.dumpContentToText(script.getLineasScript(), framePrincipal.getTxtSQLModificado());
 					framePrincipal.getIfrmLanzaSQLModificado().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaSQLModificado().setText(script.getTxtScriptLanza());
 				}
@@ -768,7 +710,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				if ("PDC".equals(script.getTipoScript())) {
 					framePrincipal.getIfrmPDC().setTitle(script.getNombreScript());
 					framePrincipal.getTxtPDC().setText(StringUtils.EMPTY);
-					dumpContentToText(script.getLineasScript(), framePrincipal.getTxtPDC());
+					MDSQLAppHelper.dumpContentToText(script.getLineasScript(), framePrincipal.getTxtPDC());
 					framePrincipal.getIfrmLanzaPDC().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaPDC().setText(script.getTxtScriptLanza());
 				}
@@ -776,7 +718,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				if ("SQLH".equals(script.getTipoScript())) {
 					framePrincipal.getIfrmSQLH().setTitle(script.getNombreScript());
 					framePrincipal.getTxtSQLH().setText(StringUtils.EMPTY);
-					dumpContentToText(script.getLineasScript(), framePrincipal.getTxtSQLH());
+					MDSQLAppHelper.dumpContentToText(script.getLineasScript(), framePrincipal.getTxtSQLH());
 					framePrincipal.getIfrmLanzaSQLH().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaSQLH().setText(script.getTxtScriptLanza());
 				}
@@ -784,7 +726,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				if ("PDCH".equals(script.getTipoScript())) {
 					framePrincipal.getIfrmPDCH().setTitle(script.getNombreScript());
 					framePrincipal.getTxtPDCH().setText(StringUtils.EMPTY);
-					dumpContentToText(script.getLineasScript(), framePrincipal.getTxtPDCH());
+					MDSQLAppHelper.dumpContentToText(script.getLineasScript(), framePrincipal.getTxtPDCH());
 					framePrincipal.getIfrmLanzaPDCH().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaPDCH().setText(script.getTxtScriptLanza());
 				}

@@ -1,10 +1,12 @@
 package com.mdsql.utils;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,8 +18,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.swing.JTextArea;
+
 import org.apache.any23.encoding.TikaEncodingDetector;
 
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
@@ -157,5 +162,47 @@ public class MDSQLAppHelper extends AppHelper {
 			
 			LogWrapper.debug(log, "Fichero creado: %s", fileName);
 		} catch(Exception e) {}
+	}
+	
+	/**
+	 * @param lineas
+	 * @param txtScript
+	 */
+	public static void dumpContentToText(List<TextoLinea> lineas, JTextArea txtScript) {
+
+		for (TextoLinea linea : lineas) {
+			txtScript.append(linea.getValor());
+			txtScript.append("\n");
+		}
+	}
+	
+	/**
+	 * @param file
+	 * @param txtScript
+	 */
+	public static void dumpContentToText(File file, JTextArea txtScript) throws IOException {
+		// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
+		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
+		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
+		
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+			String line = reader.readLine();
+			
+			while (line != null) {
+				txtScript.append(line);
+				txtScript.append("\n");
+				line = reader.readLine();
+			}
+		} 
+	}
+	
+	/**
+	 * @param file
+	 * @param txtScript
+	 */
+	public static void dumpTextToFile(JTextArea txtScript, File file) throws IOException {
+		String content = txtScript.getText();
+
+		writeToFile(content, file);
 	}
 }

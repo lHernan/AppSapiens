@@ -6,10 +6,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.mdsql.bussiness.entities.ScriptType;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,8 +43,55 @@ public class ListaObjetosTableListener extends ListenerSupport implements ListSe
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			framePrincipal.setTypeSeleccionado(seleccionado);
 			
-			// TODO - Rellenar los cuadros con el tipo seleccionado
+			rellenarCuadros(seleccionado);
 		}
+	}
+
+	private void rellenarCuadros(Type seleccionado) {
+		clearCuadros();
+		
+		for (ScriptType type : seleccionado.getScriptType()) {
+			LogWrapper.debug(log, "Script: %s", type.toString());
+			if ("TYS".equals(type.getTipoScript())) {
+				framePrincipal.getIfrmTYS().setTitle(type.getNombreScript());
+				framePrincipal.getTxtScriptTYS().setText(StringUtils.EMPTY);
+				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptTYS());
+			}
+			
+			if ("TYB".equals(type.getTipoScript())) {
+				framePrincipal.getIfrmTYB().setTitle(type.getNombreScript());
+				framePrincipal.getTxtScriptTYB().setText(StringUtils.EMPTY);
+				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptTYB());
+			}
+
+			if ("PDC".equals(type.getTipoScript())) {
+				framePrincipal.getInternalFramePDC().setTitle(type.getNombreScript());
+				framePrincipal.getTxtScriptPDC().setText(StringUtils.EMPTY);
+				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptPDC());
+			}
+			
+			if ("DROP".equals(type.getTipoScript())) {
+				framePrincipal.getIfrmTYS().setTitle(type.getNombreScript());
+				framePrincipal.getTxtScriptTYS().setText(StringUtils.EMPTY);
+				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptTYS());
+			}
+			
+			if ("DROPS".equals(type.getTipoScript())) {
+				framePrincipal.getIfrmTYB().setTitle(type.getNombreScript());
+				framePrincipal.getTxtScriptTYB().setText(StringUtils.EMPTY);
+				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptPDC());
+			}
+		}
+		
+	}
+
+	private void clearCuadros() {
+		framePrincipal.getIfrmTYS().setTitle(StringUtils.EMPTY);
+		framePrincipal.getTxtScriptTYS().setText(StringUtils.EMPTY);
+		framePrincipal.getIfrmTYB().setTitle(StringUtils.EMPTY);
+		framePrincipal.getTxtScriptTYB().setText(StringUtils.EMPTY);
+		framePrincipal.getInternalFramePDC().setTitle(StringUtils.EMPTY);
+		framePrincipal.getTxtScriptPDC().setText(StringUtils.EMPTY);
 	}
 
 	
