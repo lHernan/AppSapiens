@@ -189,7 +189,7 @@ public class PantallaProcesadoEnCurso extends DialogSupport implements PantallaP
         txtSubproyecto = new JTextField();
         txtBBDD = new JTextField();
         
-        setBounds(1410, 700);
+        setBounds(1410, 720);
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);

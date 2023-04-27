@@ -7,3 +7,5 @@
 >>>>>>> 955b571697ddbda5350de9479e23a9089ae405ed
 /log-mdsql.txt
 /.factorypath
+/.apt_generated/
+/.apt_generated_tests/

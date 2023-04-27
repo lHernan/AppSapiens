@@ -172,39 +172,17 @@ public class PantallaResumenProcesado extends DialogSupport {
         tblObjetos = new TableSupport(Boolean.FALSE);
         jLabel12 = new JLabel();
         
-        setMinimumSize(new Dimension(1522, 990));
+        setMinimumSize(new Dimension(1200, 990));
 
         jScrollPane2.setViewportView(tblScripts);
-        if (tblScripts.getColumnModel().getColumnCount() > 0) {
-            tblScripts.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tblScripts.getColumnModel().getColumn(1).setPreferredWidth(50);
-            tblScripts.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tblScripts.getColumnModel().getColumn(3).setPreferredWidth(75);
-            tblScripts.getColumnModel().getColumn(4).setPreferredWidth(50);
-            tblScripts.getColumnModel().getColumn(5).setPreferredWidth(50);
-            tblScripts.getColumnModel().getColumn(6).setPreferredWidth(500);
-        }
-
+        
         txtComentarios.setColumns(20);
         txtComentarios.setRows(5);
         jScrollPane1.setViewportView(txtComentarios);
 
         jScrollPane3.setViewportView(tblOperaciones);
-        if (tblOperaciones.getColumnModel().getColumnCount() > 0) {
-            tblOperaciones.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tblOperaciones.getColumnModel().getColumn(1).setPreferredWidth(75);
-            tblOperaciones.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tblOperaciones.getColumnModel().getColumn(3).setPreferredWidth(75);
-        }
 
         jScrollPane4.setViewportView(tblObjetos);
-        if (tblObjetos.getColumnModel().getColumnCount() > 0) {
-            tblObjetos.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tblObjetos.getColumnModel().getColumn(1).setPreferredWidth(75);
-            tblObjetos.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tblObjetos.getColumnModel().getColumn(3).setPreferredWidth(25);
-            tblObjetos.getColumnModel().getColumn(4).setPreferredWidth(50);
-        }
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

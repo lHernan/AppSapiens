@@ -24,5 +24,13 @@ public class TablaResumenProcesadoScriptsCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
+		
+		columnSizes.add(50);
+		columnSizes.add(50);
+		columnSizes.add(50);
+		columnSizes.add(75);
+		columnSizes.add(50);
+		columnSizes.add(50);
+		columnSizes.add(500);
 	}
 }

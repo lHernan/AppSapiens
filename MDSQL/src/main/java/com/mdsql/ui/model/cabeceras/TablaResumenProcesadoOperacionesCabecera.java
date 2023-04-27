@@ -18,5 +18,10 @@ public class TablaResumenProcesadoOperacionesCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
+		
+		columnSizes.add(155);
+		columnSizes.add(100);
+		columnSizes.add(50);
+		columnSizes.add(75);
 	}
 }
