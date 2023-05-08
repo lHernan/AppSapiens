@@ -2,7 +2,6 @@ package com.mdsql.bussiness.service.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -49,8 +48,8 @@ import com.mdsql.bussiness.service.BBDDService;
 import com.mdsql.bussiness.service.EjecucionService;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.utils.ConfigurationSingleton;
-import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLAppHelper;
+import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
@@ -332,7 +331,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile, logFile, charset);
 
 					// Obtiene el log
-					List<TextoLinea> logLinesList = readLogFile(logFile);
+					List<TextoLinea> logLinesList = MDSQLAppHelper.writeFileToLines(new File(logFile));
 
 					// Registra la ejecución
 					OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(
@@ -900,37 +899,18 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	@SneakyThrows(IOException.class)
 	private void writeFileFromList(Path path, List<TextoLinea> textoLineaList) {
 		try {
-			List<String> scriptLines = new ArrayList<>();
+			StringBuffer strBuffer = new StringBuffer("");
+
 			for (TextoLinea texto : textoLineaList) {
-				String line = texto.getValor().trim();
-				scriptLines.add(line);
+				strBuffer.append(texto.getValor());
+				strBuffer.append("\r\n");
 			}
-			Files.write(path, scriptLines, StandardOpenOption.CREATE);
+			
+			MDSQLAppHelper.writeToFile(strBuffer.toString(), path.toFile());
 		} catch (IOException e) {
 			LogWrapper.error(log, "[writeFileFromList] Error", e);
 			throw e;
 		}
-	}
-
-	@SneakyThrows
-	private static List<TextoLinea> readLogFile(String logPath) {
-		List<TextoLinea> logLinesList = new ArrayList<>();
-
-		try (BufferedReader reader = new BufferedReader(new FileReader(logPath))) {
-			String line = reader.readLine();
-
-			while (line != null) {
-				// read next line
-				TextoLinea textoLinea = TextoLinea.builder().valor(line).build();
-				logLinesList.add(textoLinea);
-
-				line = reader.readLine();
-			}
-
-			reader.close();
-		}
-
-		return logLinesList;
 	}
 
 	@Override

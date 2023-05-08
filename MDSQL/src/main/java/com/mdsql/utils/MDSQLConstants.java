@@ -17,6 +17,8 @@ public class MDSQLConstants extends Constants {
 	public static final Charset CHARSET_UNX = StandardCharsets.UTF_8;
 	public static final Charset CHARSET_WIN = Charset.forName("windows-1252");
 	public static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
+	public static final String CP_1252 = "Cp1252";
+	public static final String CR = "\r\n";
 
 	public static final Charset[] ALLOWED_CHARSETS = { DEFAULT_CHARSET, StandardCharsets.UTF_8,
 			StandardCharsets.ISO_8859_1, CHARSET_WIN };
