@@ -59,16 +59,17 @@ public abstract class ScriptsTableListener extends ListenerSupport implements Li
 		}
 
 		if ("Error".equals(seleccionado.getDescripcionEstadoScript())) {
-			pantallaEjecutarScripts.getBtnVerErrores().setEnabled(Boolean.TRUE);
-			pantallaEjecutarScripts.getBtnReparar().setEnabled(Boolean.TRUE);
-			pantallaEjecutarScripts.getBtnExcepcion().setEnabled(Boolean.TRUE);
 			pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnReparar().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnVerErrores().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnExcepcion().setEnabled(Boolean.TRUE);
+			
 		}
 
 		if ("Descuadrado".equals(seleccionado.getDescripcionEstadoScript())) {
-			pantallaEjecutarScripts.getBtnVerCuadres().setEnabled(Boolean.TRUE);
-			pantallaEjecutarScripts.getBtnReparar().setEnabled(Boolean.TRUE);
 			pantallaEjecutarScripts.getBtnVerLog().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnReparar().setEnabled(Boolean.TRUE);
+			pantallaEjecutarScripts.getBtnVerCuadres().setEnabled(Boolean.TRUE);
 		}
 
 		if ("Reparado".equals(seleccionado.getDescripcionEstadoScript())) {

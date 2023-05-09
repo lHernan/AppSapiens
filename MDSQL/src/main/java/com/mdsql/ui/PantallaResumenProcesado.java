@@ -363,6 +363,7 @@ public class PantallaResumenProcesado extends DialogSupport {
 		Boolean entregar = (Boolean) params.get("entregar");
 		if (!Objects.isNull(entregar) && entregar.equals(Boolean.FALSE)) {
 			btnEntregar.setEnabled(Boolean.FALSE);
+			txtComentarios.setEnabled(Boolean.FALSE);
 		}
 		
 		txtModelo.setEditable(Boolean.FALSE);
