@@ -715,6 +715,8 @@ public class FramePrincipal extends FrameSupport {
 		
 		txtSQLCode.setEditable(Boolean.FALSE);
 		txtSQLCode.setEnabled(Boolean.FALSE);
+		
+		txtScriptLanza.setEditable(Boolean.FALSE);
 	}
 
 	@Override
@@ -780,6 +782,11 @@ public class FramePrincipal extends FrameSupport {
 		ifrmLanzaSQLH.setTitle(StringUtils.EMPTY);
 		ifrmPDCH.setTitle(StringUtils.EMPTY);
 		ifrmLanzaPDCH.setTitle(StringUtils.EMPTY);
+		ifrmListaObjetos.setTitle(StringUtils.EMPTY);
+		ifrmLanzador.setTitle(StringUtils.EMPTY);
+		ifrmTYB.setTitle(StringUtils.EMPTY);
+		ifrmTYS.setTitle(StringUtils.EMPTY);
+		internalFramePDC.setTitle(StringUtils.EMPTY);
 		
 		txtSQLModificado.setText(StringUtils.EMPTY);
 		txtPDC.setText(StringUtils.EMPTY);
@@ -789,6 +796,12 @@ public class FramePrincipal extends FrameSupport {
 		txtLanzaSQLH.setText(StringUtils.EMPTY);
 		txtPDCH.setText(StringUtils.EMPTY);
 		txtLanzaPDCH.setText(StringUtils.EMPTY);
+		txtScriptTYB.setText(StringUtils.EMPTY);
+		txtScriptTYS.setText(StringUtils.EMPTY);
+		txtScriptPDC.setText(StringUtils.EMPTY);
+		txtScriptLanza.setText(StringUtils.EMPTY);
+		
+		((FramePrincipalTypesTableModel) tblListaObjetos.getModel()).clearData();
 	}
 
 	/**

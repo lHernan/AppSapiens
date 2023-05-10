@@ -191,6 +191,7 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 				.getModel();
 		tableModelTypes.setData(scripts);
 	}
+	
 	private void updateCurrentProcess(Proceso proceso, List<OutputRegistraEjecucion> ejecuciones) {
 		List<Script> scripts = proceso.getScripts();
 		CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));

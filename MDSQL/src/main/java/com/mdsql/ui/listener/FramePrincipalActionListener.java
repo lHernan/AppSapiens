@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.ui.FramePrincipal;
@@ -392,7 +393,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 			if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
 				List<Type> types = (List<Type>) pantallaProcesarScript.getReturnParams().get("types");
-				fillProcesadoType(types);
+				String nombreScriptLanza = (String) pantallaProcesarScript.getReturnParams().get("nombreScriptLanza");
+				List<TextoLinea> scriptLanza = (List<TextoLinea>) pantallaProcesarScript.getReturnParams().get("scriptLanza");
+				fillProcesadoType(types, nombreScriptLanza, scriptLanza);
 			}
 
 			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
@@ -636,8 +639,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		framePrincipal.disableEditionButtons();
 		framePrincipal.disableTabs();
 		framePrincipal.resetFrames();
-
+		
 		framePrincipal.setCurrentFile(file);
+		
+		// Volver a la pestaña Vigente
+		framePrincipal.getTabPanel().setSelectedIndex(0);
 	}
 
 	/**
@@ -676,11 +682,15 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	/**
 	 * @param types
 	 */
-	private void fillProcesadoType(List<Type> types) {
+	private void fillProcesadoType(List<Type> types, String nombreScriptLanza, List<TextoLinea> scriptLanza) {
 		// Obtiene el modelo y lo actualiza
 		FramePrincipalTypesTableModel tableModel = (FramePrincipalTypesTableModel) framePrincipal.getTblListaObjetos()
 				.getModel();
 		tableModel.setData(types);
+		
+		// Mostrar el script lanza
+		framePrincipal.getIfrmLanzador().setTitle(nombreScriptLanza);
+		MDSQLAppHelper.dumpContentToText(scriptLanza, framePrincipal.getTxtScriptLanza());
 
 		framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
 		framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
@@ -741,22 +751,5 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	@Override
 	public void onLoad() {
 		framePrincipal.disableTabs();
-
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-		if (!Objects.isNull(session)) {
-			Proceso proceso = session.getProceso();
-
-			if (!Objects.isNull(proceso)) {
-				List<Script> scripts = proceso.getScripts();
-				if (CollectionUtils.isNotEmpty(scripts)) {
-					fillProcesadoScript(scripts);
-				}
-
-				List<Type> types = proceso.getTypes();
-				if (CollectionUtils.isNotEmpty(types)) {
-					fillProcesadoType(types);
-				}
-			}
-		}
 	}
 }
