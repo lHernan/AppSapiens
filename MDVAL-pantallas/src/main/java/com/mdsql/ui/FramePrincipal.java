@@ -410,6 +410,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         ifrmTYS.setVisible(true);
 
+        txtScriptTYS.setEditable(false);
         txtScriptTYS.setColumns(20);
         txtScriptTYS.setRows(5);
         jScrollPane12.setViewportView(txtScriptTYS);
@@ -418,6 +419,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         ifrmTYB.setVisible(true);
 
+        txtScriptTYB.setEditable(false);
         txtScriptTYB.setColumns(20);
         txtScriptTYB.setRows(5);
         jScrollPane13.setViewportView(txtScriptTYB);
@@ -426,6 +428,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         ifrmLanzador.setVisible(true);
 
+        txtScriptLanza.setEditable(false);
         txtScriptLanza.setColumns(20);
         txtScriptLanza.setRows(5);
         jScrollPane11.setViewportView(txtScriptLanza);
@@ -434,6 +437,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         internalFramePDC.setVisible(true);
 
+        txtScriptPDC.setEditable(false);
         txtScriptPDC.setColumns(20);
         txtScriptPDC.setRows(5);
         jScrollPane14.setViewportView(txtScriptPDC);
