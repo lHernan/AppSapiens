@@ -19,10 +19,14 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
@@ -325,6 +329,8 @@ public class FramePrincipal extends FrameSupport {
         jToolBar1.setRollover(true);
         jToolBar1.setMargin(new Insets(3, 3, 3, 3));
 
+        btnLoadScript.setIcon(new ImageIcon(getClass().getResource("/script.png"))); // NOI18N
+        btnLoadScript.setToolTipText("Cargar script");
         btnLoadScript.setFocusable(false);
         btnLoadScript.setHorizontalTextPosition(SwingConstants.CENTER);
         btnLoadScript.setMaximumSize(new Dimension(60, 60));
@@ -428,7 +434,9 @@ public class FramePrincipal extends FrameSupport {
 
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
-        
+
+        btnUndo.setIcon(new ImageIcon(getClass().getResource("/undo.png"))); // NOI18N
+        btnUndo.setToolTipText("Deshacer");
         btnUndo.setFocusable(false);
         btnUndo.setHorizontalTextPosition(SwingConstants.CENTER);
         btnUndo.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -439,18 +447,17 @@ public class FramePrincipal extends FrameSupport {
         btnRedo.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar2.add(btnRedo);
         jToolBar2.add(jSeparator3);
-        
+
         btnCopy.setFocusable(false);
         btnCopy.setHorizontalTextPosition(SwingConstants.CENTER);
         btnCopy.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar2.add(btnCopy);
-        
+
         btnCut.setFocusable(false);
         btnCut.setHorizontalTextPosition(SwingConstants.CENTER);
         btnCut.setVerticalTextPosition(SwingConstants.BOTTOM);
         jToolBar2.add(btnCut);
 
-        btnPaste.setToolTipText("Pegar");
         btnPaste.setFocusable(false);
         btnPaste.setHorizontalTextPosition(SwingConstants.CENTER);
         btnPaste.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -566,6 +573,7 @@ public class FramePrincipal extends FrameSupport {
 
         ifrmTYS.setVisible(true);
 
+        txtScriptTYS.setEditable(false);
         txtScriptTYS.setColumns(20);
         txtScriptTYS.setRows(5);
         jScrollPane12.setViewportView(txtScriptTYS);
@@ -574,6 +582,7 @@ public class FramePrincipal extends FrameSupport {
 
         ifrmTYB.setVisible(true);
 
+        txtScriptTYB.setEditable(false);
         txtScriptTYB.setColumns(20);
         txtScriptTYB.setRows(5);
         jScrollPane13.setViewportView(txtScriptTYB);
@@ -582,6 +591,7 @@ public class FramePrincipal extends FrameSupport {
 
         ifrmLanzador.setVisible(true);
 
+        txtScriptLanza.setEditable(false);
         txtScriptLanza.setColumns(20);
         txtScriptLanza.setRows(5);
         jScrollPane11.setViewportView(txtScriptLanza);
@@ -590,6 +600,7 @@ public class FramePrincipal extends FrameSupport {
 
         internalFramePDC.setVisible(true);
 
+        txtScriptPDC.setEditable(false);
         txtScriptPDC.setColumns(20);
         txtScriptPDC.setRows(5);
         jScrollPane14.setViewportView(txtScriptPDC);
