@@ -2,8 +2,6 @@ package com.mdsql.ui.model.cabeceras;
 
 import java.util.Date;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.mdval.ui.model.cabeceras.Cabecera;
 
 /**
@@ -13,7 +11,6 @@ import com.mdval.ui.model.cabeceras.Cabecera;
 public class TablaEjecutarTypesCabecera extends Cabecera {
 	
 	public void setupCabecera() {
-		columnIdentifiers.add(StringUtils.EMPTY);
 		columnIdentifiers.add("Orden");
 		columnIdentifiers.add("Estado");
 		columnIdentifiers.add("Fecha");
@@ -23,7 +20,6 @@ public class TablaEjecutarTypesCabecera extends Cabecera {
 		columnIdentifiers.add("PDC");
 		columnIdentifiers.add("Objeto Type");
 		
-		columnClasses.add(Boolean.class);
 		columnClasses.add(Integer.class);
 		columnClasses.add(String.class);
 		columnClasses.add(Date.class);

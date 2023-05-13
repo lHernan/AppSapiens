@@ -17,6 +17,7 @@ import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
+import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaEjecutarTypes;
@@ -185,11 +186,11 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		Proceso proceso = (Proceso) pantallaEjecutarTypes.getParams().get("proceso");
 		pantallaEjecutarTypes.setProceso(proceso);
 
-		// Obtiene los scripts
-		List<Script> scripts = proceso.getScripts();
+		// Obtiene los types
+		List<Type> types = proceso.getTypes();
 		TypesTableModel tableModelTypes = (TypesTableModel) pantallaEjecutarTypes.getTblVigenteTypes()
 				.getModel();
-		tableModelTypes.setData(scripts);
+		tableModelTypes.setData(types);
 	}
 	
 	private void updateCurrentProcess(Proceso proceso, List<OutputRegistraEjecucion> ejecuciones) {

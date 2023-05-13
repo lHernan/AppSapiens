@@ -2,11 +2,11 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.Type;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
-public class TypesTableModel extends DefaultTableModel<Script> {
+public class TypesTableModel extends DefaultTableModel<Type> {
 
 	/**
 	 * 
@@ -33,56 +33,32 @@ public class TypesTableModel extends DefaultTableModel<Script> {
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public TypesTableModel(List<Script> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public TypesTableModel(List<Type> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Script row = data.get(rowIndex);
+		Type row = data.get(rowIndex);
 
 		if (0 == columnIndex) {
-			return row.getSelected();
+			return row.getNumeroOrdenType().intValue();
 		} else if (1 == columnIndex) {
-			return row.getNumeroOrden().intValue();
-		} else if (2 == columnIndex) {
 			return row.getDescripcionEstadoScript();
+		} else if (2 == columnIndex) {
+			return row.getFechaCambio();
 		} else if (3 == columnIndex) {
-			return row.getFecha();
+			return row.getDROP();
+		} else if (4 == columnIndex) {
+			return row.getTYS();
+		} else if (5 == columnIndex) {
+			return row.getTYB();
+		} else if (6 == columnIndex) {
+			return row.getPDC();
 		} else if (7 == columnIndex) {
-			return row.getNombreScript();
+			return row.getNombreObjeto();
 		}
 
 		return null;
-	}
-
-	@Override
-	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		Script row = data.get(rowIndex);
-		if (0 == columnIndex) {
-			if ("Ejecutado".equals(row.getDescripcionEstadoScript())) {
-				row.setSelected(Boolean.FALSE);
-				fireTableCellUpdated(rowIndex, columnIndex);
-				return;
-			}
-			
-			row.setSelected((Boolean) aValue);
-			fireTableCellUpdated(rowIndex, columnIndex);
-		} 
-	}
-	
-	@Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		Script row = data.get(rowIndex);
-		
-		if (0 == columnIndex) {
-			if ("Ejecutado".equals(row.getDescripcionEstadoScript())) {
-				return false;
-			}
-			
-			return true;
-		}
-		
-		return false;
 	}
 }
