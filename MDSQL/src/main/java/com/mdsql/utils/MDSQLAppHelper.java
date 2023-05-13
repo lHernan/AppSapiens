@@ -10,6 +10,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,6 +127,16 @@ public class MDSQLAppHelper extends AppHelper {
 		} catch (Exception e) {
 		}
 	}
+	
+	/**
+	 * @param parent
+	 * @param nameFolder
+	 */
+	public static Path createFolder(String parent, String nameFolder) throws IOException {
+		Path folderToCreate = Paths.get(parent, nameFolder);
+		Files.createDirectories(folderToCreate);
+		return folderToCreate;
+	}
 
 	/**
 	 * @param lineas
@@ -138,6 +151,21 @@ public class MDSQLAppHelper extends AppHelper {
 		}
 		
 		txtScript.append(strBuffer.toString());
+	}
+	
+	/**
+	 * @param lineas
+	 * @param txtScript
+	 */
+	public static void dumpLinesToFile(List<TextoLinea> lineas, File file) throws IOException {
+		StringBuffer strBuffer = new StringBuffer(StringUtils.EMPTY);
+
+		for (TextoLinea linea : lineas) {
+			strBuffer.append(linea.getValor());
+			strBuffer.append(MDSQLConstants.CR);
+		}
+		
+		writeToFile(strBuffer.toString(), file);
 	}
 
 	/**

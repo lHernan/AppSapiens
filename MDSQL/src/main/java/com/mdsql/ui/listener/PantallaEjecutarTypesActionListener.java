@@ -2,8 +2,7 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,15 +22,13 @@ import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.PantallaEjecutarTypes;
 import com.mdsql.ui.PantallaVerCuadresScript;
 import com.mdsql.ui.PantallaVerErroresScript;
-import com.mdsql.ui.model.ScriptsTableModel;
 import com.mdsql.ui.model.TypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.ui.utils.collections.ScriptSelectedPredicate;
+import com.mdsql.ui.utils.collections.CreateTypeScriptsClosure;
 import com.mdsql.ui.utils.collections.UpdateScriptsClosure;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
-import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 
 public class PantallaEjecutarTypesActionListener extends ListenerSupport implements ActionListener, OnLoadListener {
@@ -116,69 +113,37 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	
 	@SuppressWarnings("unchecked")
 	public void eventBtnAceptar() {
-		try {
+		//try {
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
+			
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			String selectedRoute = session.getSelectedRoute();
+			String ruta = selectedRoute.concat(File.separator);
 
 			Proceso proceso = pantallaEjecutarTypes.getProceso();
 			BBDD bbdd = proceso.getBbdd();
 
-			List<Script> vigente = ((ScriptsTableModel) pantallaEjecutarTypes.getTblVigenteTypes().getModel()).getData();
-			List<Script> historico = ((ScriptsTableModel) pantallaEjecutarTypes.getTblHistoricoTypes().getModel())
-					.getData();
-
-			// Filtrar los scripts seleccionados
-			vigente = new ArrayList<>(CollectionUtils.select(vigente, new ScriptSelectedPredicate()));
-			historico = new ArrayList<>(CollectionUtils.select(historico, new ScriptSelectedPredicate()));
-
-			// Une los scripts y los ordena
-			List<Script> scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
-			Collections.sort(scripts, (left, right) -> left.getNumeroOrden().compareTo(right.getNumeroOrden()));
-
-			// Ejecuta los scripts
-			List<OutputRegistraEjecucion> ejecuciones = scriptService.executeScripts(bbdd, scripts);
-
-			// Actualizar los scripts de las tablas y las repinta
-			vigente = ((ScriptsTableModel) pantallaEjecutarTypes.getTblVigenteTypes().getModel()).getData();
-			CollectionUtils.forAllDo(vigente, new UpdateScriptsClosure(ejecuciones));
-
-			historico = ((ScriptsTableModel) pantallaEjecutarTypes.getTblHistoricoTypes().getModel()).getData();
-			CollectionUtils.forAllDo(historico, new UpdateScriptsClosure(ejecuciones));
-
-			/**
-			 * Si hay scripts en estado Descuadrado o Error, hay que desmarcar los
-			 * siguientes y deshabilitar el botón Aceptar
-			 */
-			scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
-			Integer numeroOrden = hayErrores(scripts);
-			if (numeroOrden > 0) {
-				desmarcar(vigente, numeroOrden);
-				desmarcar(historico, numeroOrden);
-				pantallaEjecutarTypes.getBtnAceptar().setEnabled(Boolean.FALSE);
-			}
+			TypesTableModel tableModelTypes = (TypesTableModel) pantallaEjecutarTypes.getTblTypes()
+					.getModel();
+			List<Type> types = tableModelTypes.getData();
 			
-			pantallaEjecutarTypes.getTblVigenteTypes().repaint();
-			pantallaEjecutarTypes.getTblHistoricoTypes().repaint();
-
-			// Actualizar los scripts en el proceso en sesión
-			updateCurrentProcess(proceso, ejecuciones);
-
-			pantallaEjecutarTypes.getTxtEstadoEjecucion().setText(proceso.getDescripcionEstadoProceso());
+			CollectionUtils.forAllDo(types, new CreateTypeScriptsClosure(selectedRoute));
 
 			/**
 			 * Ver si todos los scripts están ejecutados y el estado del proceso es
 			 * Ejecutado para mostrar la pantalla de resumen del procesado
 			 */
-			if (isAllExecuted(proceso.getScripts())) {
-				pantallaEjecutarTypes.getReturnParams().put("idProceso", proceso.getIdProceso());
-				pantallaEjecutarTypes.getReturnParams().put("entregar", Boolean.TRUE);
-				pantallaEjecutarTypes.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
-
-				pantallaEjecutarTypes.dispose();
-			}
-		} catch (ServiceException e) {
-			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaEjecutarTypes.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
-		}
+//			if (isAllExecuted(proceso.getScripts())) {
+//				pantallaEjecutarTypes.getReturnParams().put("idProceso", proceso.getIdProceso());
+//				pantallaEjecutarTypes.getReturnParams().put("entregar", Boolean.TRUE);
+//				pantallaEjecutarTypes.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
+//
+//				pantallaEjecutarTypes.dispose();
+//			}
+//		} catch (ServiceException e) {
+//			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+//			MDSQLUIHelper.showPopup(pantallaEjecutarTypes.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+//		}
 	}		
 
 	@Override
@@ -188,7 +153,7 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 
 		// Obtiene los types
 		List<Type> types = proceso.getTypes();
-		TypesTableModel tableModelTypes = (TypesTableModel) pantallaEjecutarTypes.getTblVigenteTypes()
+		TypesTableModel tableModelTypes = (TypesTableModel) pantallaEjecutarTypes.getTblTypes()
 				.getModel();
 		tableModelTypes.setData(types);
 	}

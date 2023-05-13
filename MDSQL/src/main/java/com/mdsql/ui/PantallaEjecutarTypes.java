@@ -48,7 +48,6 @@ public class PantallaEjecutarTypes extends DialogSupport {
     private JLabel jLabel8;
 	private JTextField txtDemanda;
 	private JScrollPane jScrollPane2;
-	private JScrollPane jScrollPane3;
 	private JLabel jLabel13;
 	private JLabel jLabel14;
 	
@@ -59,12 +58,9 @@ public class PantallaEjecutarTypes extends DialogSupport {
 	private JTextField txtModelo;
 
     @Getter
-	private TableSupport tblVigenteTypes;
+	private TableSupport tblTypes;
     
 	@Getter
-	private TableSupport tblHistoricoTypes;
-
-    @Getter
 	private JTextField txtSubmodelo;
 
     @Getter
@@ -126,9 +122,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
         txtDemanda = new JTextField();
         btnRechazar = new JButton();
         jScrollPane2 = new JScrollPane();
-        jScrollPane3 = new JScrollPane();
-        tblVigenteTypes = new TableSupport(Boolean.FALSE);
-        tblHistoricoTypes = new TableSupport(Boolean.FALSE);
+        tblTypes = new TableSupport(Boolean.FALSE);
         btnAceptar = new JButton();
         btnCancelar = new JButton();
         txtModelo = new JTextField();
@@ -139,10 +133,10 @@ public class PantallaEjecutarTypes extends DialogSupport {
         btnVerCuadres = new JButton();
         btnVerErrores = new JButton();
         txtBBDD = new JTextField();
+
         
-        jScrollPane2.setViewportView(tblVigenteTypes);
+        jScrollPane2.setViewportView(tblTypes);
         
-        jScrollPane3.setViewportView(tblHistoricoTypes);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,7 +258,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
     @Override
     protected void initModels() {
     	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.TYPES_TABLA_CABECERA);
-    	tblVigenteTypes.initModel(new TypesTableModel(cabecera));
+    	tblTypes.initModel(new TypesTableModel(cabecera));
     }
     
     @Override
