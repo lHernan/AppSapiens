@@ -385,6 +385,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			pantallaProcesarScript = (PantallaProcesarScript) MDSQLUIHelper.createDialog(framePrincipal,
 					MDSQLConstants.CMD_PROCESAR_SCRIPT, params);
 			MDSQLUIHelper.show(pantallaProcesarScript);
+			
+			proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
+			session.setProceso(proceso);
 
 			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
 				List<Script> scripts = (List<Script>) pantallaProcesarScript.getReturnParams().get("scripts");
@@ -395,13 +398,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				List<Type> types = (List<Type>) pantallaProcesarScript.getReturnParams().get("types");
 				String nombreScriptLanza = (String) pantallaProcesarScript.getReturnParams().get("nombreScriptLanza");
 				List<TextoLinea> scriptLanza = (List<TextoLinea>) pantallaProcesarScript.getReturnParams().get("scriptLanza");
-				fillProcesadoType(types, nombreScriptLanza, scriptLanza);
+				fillProcesadoType(proceso, types, nombreScriptLanza, scriptLanza);
 			}
 
 			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
 			framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
-
-			updateProcesadoEnCurso(MDSQLConstants.CMD_PROCESAR_SCRIPT);
 		}
 	}
 
@@ -653,10 +654,6 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		Proceso proceso = session.getProceso();
 
-		if (MDSQLConstants.CMD_PROCESAR_SCRIPT.equals(cmd)) {
-			proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
-		}
-
 		if (MDSQLConstants.CMD_EJECUTAR_SCRIPT.equals(cmd) || MDSQLConstants.CMD_EJECUTAR_TYPE.equals(cmd)) {
 			Proceso p = (Proceso) pantallaEjecutar.getReturnParams().get("proceso");
 
@@ -682,7 +679,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	/**
 	 * @param types
 	 */
-	private void fillProcesadoType(List<Type> types, String nombreScriptLanza, List<TextoLinea> scriptLanza) {
+	private void fillProcesadoType(Proceso proceso, List<Type> types, String nombreScriptLanza, List<TextoLinea> scriptLanza) {
 		// Obtiene el modelo y lo actualiza
 		FramePrincipalTypesTableModel tableModel = (FramePrincipalTypesTableModel) framePrincipal.getTblListaObjetos()
 				.getModel();
@@ -691,6 +688,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		// Mostrar el script lanza
 		framePrincipal.getIfrmLanzador().setTitle(nombreScriptLanza);
 		MDSQLAppHelper.dumpContentToText(scriptLanza, framePrincipal.getTxtScriptLanza());
+		proceso.setNombreScriptLanza(nombreScriptLanza);
+		proceso.setScriptLanza(scriptLanza);
 
 		framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
 		framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);

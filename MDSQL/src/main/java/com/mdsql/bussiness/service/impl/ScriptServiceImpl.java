@@ -960,4 +960,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		}
 	}
 
+	@Override
+	public OutputRegistraEjecucion executeScript(BBDD bbdd, String nombreScript, List<TextoLinea> script)
+			throws ServiceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

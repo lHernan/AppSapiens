@@ -2,7 +2,6 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +15,7 @@ import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
+import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.DlgRechazar;
@@ -29,6 +29,7 @@ import com.mdsql.ui.utils.collections.CreateTypeScriptsClosure;
 import com.mdsql.ui.utils.collections.UpdateScriptsClosure;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 
 public class PantallaEjecutarTypesActionListener extends ListenerSupport implements ActionListener, OnLoadListener {
@@ -111,39 +112,32 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		MDSQLUIHelper.show(pantallaVerErroresScript);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void eventBtnAceptar() {
-		//try {
+		try {
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
+			Proceso proceso = pantallaEjecutarTypes.getProceso();
+			BBDD bbdd = proceso.getBbdd();
 			
 			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 			String selectedRoute = session.getSelectedRoute();
-			String ruta = selectedRoute.concat(File.separator);
-
-			Proceso proceso = pantallaEjecutarTypes.getProceso();
-			BBDD bbdd = proceso.getBbdd();
 
 			TypesTableModel tableModelTypes = (TypesTableModel) pantallaEjecutarTypes.getTblTypes()
 					.getModel();
 			List<Type> types = tableModelTypes.getData();
 			
 			CollectionUtils.forAllDo(types, new CreateTypeScriptsClosure(selectedRoute));
+			
+			// En este caso sólo se ejecuta el script lanza
+			String nombreScriptLanza = proceso.getNombreScriptLanza();
+			List<TextoLinea> scriptLanza = proceso.getScriptLanza();
+			
+			OutputRegistraEjecucion ejecucion = scriptService.executeScript(bbdd, nombreScriptLanza, scriptLanza);
 
-			/**
-			 * Ver si todos los scripts están ejecutados y el estado del proceso es
-			 * Ejecutado para mostrar la pantalla de resumen del procesado
-			 */
-//			if (isAllExecuted(proceso.getScripts())) {
-//				pantallaEjecutarTypes.getReturnParams().put("idProceso", proceso.getIdProceso());
-//				pantallaEjecutarTypes.getReturnParams().put("entregar", Boolean.TRUE);
-//				pantallaEjecutarTypes.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
-//
-//				pantallaEjecutarTypes.dispose();
-//			}
-//		} catch (ServiceException e) {
-//			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-//			MDSQLUIHelper.showPopup(pantallaEjecutarTypes.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
-//		}
+			
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaEjecutarTypes.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+		}
 	}		
 
 	@Override
