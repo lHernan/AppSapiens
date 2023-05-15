@@ -387,22 +387,25 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			MDSQLUIHelper.show(pantallaProcesarScript);
 			
 			proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
-			session.setProceso(proceso);
+			
+			if (!Objects.isNull(proceso)) {
+				session.setProceso(proceso);
 
-			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
-				List<Script> scripts = (List<Script>) pantallaProcesarScript.getReturnParams().get("scripts");
-				fillProcesadoScript(scripts);
+				if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
+					List<Script> scripts = (List<Script>) pantallaProcesarScript.getReturnParams().get("scripts");
+					fillProcesadoScript(scripts);
+				}
+
+				if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
+					List<Type> types = (List<Type>) pantallaProcesarScript.getReturnParams().get("types");
+					String nombreScriptLanza = (String) pantallaProcesarScript.getReturnParams().get("nombreScriptLanza");
+					List<TextoLinea> scriptLanza = (List<TextoLinea>) pantallaProcesarScript.getReturnParams().get("scriptLanza");
+					fillProcesadoType(proceso, types, nombreScriptLanza, scriptLanza);
+				}
+
+				framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
+				framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
 			}
-
-			if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
-				List<Type> types = (List<Type>) pantallaProcesarScript.getReturnParams().get("types");
-				String nombreScriptLanza = (String) pantallaProcesarScript.getReturnParams().get("nombreScriptLanza");
-				List<TextoLinea> scriptLanza = (List<TextoLinea>) pantallaProcesarScript.getReturnParams().get("scriptLanza");
-				fillProcesadoType(proceso, types, nombreScriptLanza, scriptLanza);
-			}
-
-			framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
-			framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
 		}
 	}
 
