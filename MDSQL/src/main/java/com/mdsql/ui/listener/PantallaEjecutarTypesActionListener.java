@@ -162,8 +162,6 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	}
 	
 	private void updateCurrentProcess(Proceso proceso, OutputRegistraEjecucionType ejecucion) {
-		List<Script> scripts = proceso.getScripts();
-
 		proceso.setCodigoEstadoProceso(ejecucion.getCodigoEstadoProceso());
 		proceso.setDescripcionEstadoProceso(ejecucion.getDescripcionEstadoProceso());
 
