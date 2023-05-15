@@ -11,12 +11,10 @@ import javax.swing.JButton;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucionType;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
-import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.DlgRechazar;
@@ -27,7 +25,6 @@ import com.mdsql.ui.model.TypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.ui.utils.collections.CreateTypeScriptsClosure;
-import com.mdsql.ui.utils.collections.UpdateScriptsClosure;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -132,8 +129,18 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 			Script scriptLanza = proceso.getScriptLanza();
 			
 			OutputRegistraEjecucionType ejecucion = scriptService.executeScript(bbdd, scriptLanza.getNombreScript(), scriptLanza.getLineasScript());
+			updateCurrentProcess(proceso, ejecucion);
 			if ("Error".equals(ejecucion.getDescripcionEstadoProceso())) {
 				pantallaEjecutarTypes.getBtnVerErrores().setEnabled(Boolean.TRUE);
+				proceso.setDescripcionEstadoProceso(ejecucion.getDescripcionEstadoProceso());
+				pantallaEjecutarTypes.getTxtEstadoEjecucion().setText(ejecucion.getDescripcionEstadoProceso());;
+			}
+			else {
+				pantallaEjecutarTypes.getReturnParams().put("idProceso", proceso.getIdProceso());
+				pantallaEjecutarTypes.getReturnParams().put("entregar", Boolean.TRUE);
+				pantallaEjecutarTypes.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
+
+				pantallaEjecutarTypes.dispose();
 			}
 			
 		} catch (ServiceException e) {
