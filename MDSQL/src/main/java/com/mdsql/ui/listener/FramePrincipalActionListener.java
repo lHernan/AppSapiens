@@ -688,8 +688,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		// Mostrar el script lanza
 		framePrincipal.getIfrmLanzador().setTitle(nombreScriptLanza);
 		MDSQLAppHelper.dumpContentToText(scriptLanza, framePrincipal.getTxtScriptLanza());
-		proceso.setNombreScriptLanza(nombreScriptLanza);
-		proceso.setScriptLanza(scriptLanza);
+		
+		Script script = MDSQLAppHelper.createScript(nombreScriptLanza, scriptLanza);
+		proceso.setScriptLanza(script);
 
 		framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
 		framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);

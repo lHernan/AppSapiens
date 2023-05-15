@@ -64,6 +64,7 @@ public class PantallaVerErroresScriptListener extends ListenerSupport implements
 			 */
 			List<ErrorScript> errores = null;
 			List<ScriptParche> parches = null;
+			
 			if ("type".equals(tipo)) {
 				errores = erroresService.consultaErroresType(idProceso, numeroOrden);
 			} else {

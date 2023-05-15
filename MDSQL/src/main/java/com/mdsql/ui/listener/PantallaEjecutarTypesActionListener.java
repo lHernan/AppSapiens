@@ -12,6 +12,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucionType;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
@@ -100,12 +101,12 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	public void eventBtnVerErrores() {
 		Map<String, Object> params = new HashMap<>();
 
-		Script seleccionado = pantallaEjecutarTypes.getSeleccionado();
 		Proceso proceso = pantallaEjecutarTypes.getProceso();
-
+		Script seleccionado = proceso.getScriptLanza();
+		
 		params.put("script", seleccionado);
 		params.put("proceso", proceso);
-		params.put("tipo", "scripts");
+		params.put("tipo", "type");
 
 		PantallaVerErroresScript pantallaVerErroresScript = (PantallaVerErroresScript) MDSQLUIHelper
 				.createDialog(pantallaEjecutarTypes.getFrameParent(), MDSQLConstants.CMD_VER_ERRORES_SCRIPT, params);
@@ -128,11 +129,12 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 			CollectionUtils.forAllDo(types, new CreateTypeScriptsClosure(selectedRoute));
 			
 			// En este caso sólo se ejecuta el script lanza
-			String nombreScriptLanza = proceso.getNombreScriptLanza();
-			List<TextoLinea> scriptLanza = proceso.getScriptLanza();
+			Script scriptLanza = proceso.getScriptLanza();
 			
-			OutputRegistraEjecucion ejecucion = scriptService.executeScript(bbdd, nombreScriptLanza, scriptLanza);
-
+			OutputRegistraEjecucionType ejecucion = scriptService.executeScript(bbdd, scriptLanza.getNombreScript(), scriptLanza.getLineasScript());
+			if ("Error".equals(ejecucion.getDescripcionEstadoProceso())) {
+				pantallaEjecutarTypes.getBtnVerErrores().setEnabled(Boolean.TRUE);
+			}
 			
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
@@ -152,59 +154,13 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		tableModelTypes.setData(types);
 	}
 	
-	private void updateCurrentProcess(Proceso proceso, List<OutputRegistraEjecucion> ejecuciones) {
+	private void updateCurrentProcess(Proceso proceso, OutputRegistraEjecucionType ejecucion) {
 		List<Script> scripts = proceso.getScripts();
-		CollectionUtils.forAllDo(scripts, new UpdateScriptsClosure(ejecuciones));
 
-		if (CollectionUtils.isNotEmpty(ejecuciones)) {
-			OutputRegistraEjecucion ejecucion = ejecuciones.get(0);
-			proceso.setCodigoEstadoProceso(ejecucion.getCodigoEstadoProceso());
-			proceso.setDescripcionEstadoProceso(ejecucion.getDescripcionEstadoProceso());
-		}
+		proceso.setCodigoEstadoProceso(ejecucion.getCodigoEstadoProceso());
+		proceso.setDescripcionEstadoProceso(ejecucion.getDescripcionEstadoProceso());
 
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		session.setProceso(proceso);
-	}
-
-	/**
-	 * @param scripts
-	 * @return
-	 */
-	private Boolean isAllExecuted(List<Script> scripts) {
-		for (Script script : scripts) {
-			if (!"Ejecutado".equals(script.getDescripcionEstadoScript())) {
-				return Boolean.FALSE;
-			}
-		}
-		return Boolean.TRUE;
-	}
-
-	/**
-	 * @param scripts
-	 * @return
-	 */
-	private Integer hayErrores(List<Script> scripts) {
-		for (Script script : scripts) {
-			if ("Error".equals(script.getDescripcionEstadoScript())
-					|| "Descuadrado".equals(script.getDescripcionEstadoScript())) {
-				return script.getNumeroOrden().intValue();
-			}
-		}
-		return 0;
-	}
-	
-	/**
-	 * @param scripts
-	 * @param numeroOrden
-	 */
-	private void desmarcar(List<Script> scripts, Integer numeroOrden) {
-		for (Script script : scripts) {
-			Integer orden = script.getNumeroOrden().intValue();
-			
-			if (orden > numeroOrden) {
-				script.setSelected(Boolean.FALSE);
-			}
-		}
-		
 	}
 }

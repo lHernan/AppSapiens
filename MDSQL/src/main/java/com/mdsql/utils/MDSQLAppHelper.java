@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,6 +22,7 @@ import javax.swing.JTextArea;
 import org.apache.any23.encoding.TikaEncodingDetector;
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
@@ -189,5 +191,20 @@ public class MDSQLAppHelper extends AppHelper {
 		String content = txtScript.getText();
 
 		writeToFile(content, file);
+	}
+
+	/**
+	 * @param nombreScriptLanza
+	 * @param scriptLanza
+	 * @return
+	 */
+	public static Script createScript(String nombreScriptLanza, List<TextoLinea> scriptLanza) {
+		Script script = new Script();
+		
+		script.setNombreScript(nombreScriptLanza);
+		script.setLineasScript(scriptLanza);
+		script.setNumeroOrden(new BigDecimal(1));
+		
+		return script;
 	}
 }

@@ -12,6 +12,7 @@ import com.mdsql.bussiness.entities.OutputDescartarScript;
 import com.mdsql.bussiness.entities.OutputExcepcionScript;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucionType;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
@@ -29,7 +30,7 @@ public interface ScriptService {
 
     List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException;
     
-    OutputRegistraEjecucion executeScript(BBDD bbdd, String nombreScript, List<TextoLinea> script) throws ServiceException;
+    OutputRegistraEjecucionType executeScript(BBDD bbdd, String nombreScript, List<TextoLinea> script) throws ServiceException;
 
     OutputReparaScript repararScript(InputReparaScript inputReparaScript) throws ServiceException;
 

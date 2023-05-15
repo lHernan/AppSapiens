@@ -5,11 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -37,6 +33,7 @@ import com.mdsql.bussiness.entities.OutputDescartarScript;
 import com.mdsql.bussiness.entities.OutputExcepcionScript;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucionType;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
@@ -284,7 +281,6 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	public List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException {
 		try {
 			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-			Charset charset = session.getFileCharset();
 			String selectedRoute = session.getSelectedRoute();
 			String ruta = selectedRoute.concat(File.separator);
 			String nombreEsquema = StringUtils.EMPTY;
@@ -300,7 +296,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			if (CollectionUtils.isNotEmpty(scripts)) {
 				for (Script script : scripts) {
 					// Esto causa reescritura de ficheros
-					writeFileFromList(Paths.get(ruta.concat(script.getNombreScript())), script.getLineasScript());
+					MDSQLAppHelper.dumpLinesToFile(script.getLineasScript(), Paths.get(ruta.concat(script.getNombreScript())).toFile());
 
 					/**
 					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
@@ -318,17 +314,17 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 					// Sólo hay que crear el script lanza
 					String lanzaFile = ruta.concat(script.getNombreScriptLanza());
-					writeFileFromString(Paths.get(lanzaFile), script.getTxtScriptLanza().concat(System.lineSeparator()));
+					MDSQLAppHelper.writeToFile(script.getTxtScriptLanza().concat(System.lineSeparator()), Paths.get(lanzaFile).toFile());
 
 					String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
-					bbdd.setPassword(password);
+					//bbdd.setPassword(password);
 
 					String logFile = ruta.concat(script.getNombreScriptLog());
 					// En Windows hay que crear este archivo de forma explícita
 					MDSQLAppHelper.createEmptyFile(logFile);
 
 					// Ejecución del script
-					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile, logFile, charset);
+					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile, logFile);
 
 					// Obtiene el log
 					List<TextoLinea> logLinesList = MDSQLAppHelper.writeFileToLines(new File(logFile));
@@ -365,7 +361,6 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String codigoUsuario = session.getCodUsr();
 		String ruta = session.getProceso().getRutaTrabajo();
-		Charset charset = session.getFileCharset();
 		BBDD bbdd = session.getProceso().getBbdd();
 		String nombreEsquema = StringUtils.isNotBlank(bbdd.getNombreEsquema()) ? bbdd.getNombreEsquema()
 				: bbdd.getNombreEsquemaHis();
@@ -373,11 +368,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				: bbdd.getNombreBBDDHis();
 
 		String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
-		writeFileFromList(Paths.get(lanzaFile), outputReparaScript.getScriptRepara());
+		MDSQLAppHelper.dumpLinesToFile(outputReparaScript.getScriptRepara(), Paths.get(lanzaFile).toFile());
 		String logFile = ruta.concat(script.getNombreScriptLog());
 
 		if (isReparacion.equals(Boolean.TRUE)) {
-			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile, charset);
+			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile);
 
 			// List<TextoLinea> logLinesList = readLogFile(logFile);
 			// TODO replace Bidecimal.ZERO with idProceso
@@ -389,7 +384,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			// listOutputLogs.add(outputRegistraEjecucion);
 		}
 		if (isSameScript.equals(Boolean.TRUE)) {
-			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile, charset);
+			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile, logFile);
 			// String logFile = ruta.concat(script.getNombreScriptLog()); TODO obtener
 			// nombreScript log
 			// List<TextoLinea> logLinesList = readLogFile(logFile);
@@ -830,7 +825,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	 * @param charset
 	 * @throws ServiceException
 	 */
-	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation, String logFile, Charset charset)  throws ServiceException {
+	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation, String logFile)  throws ServiceException {
 		String connection = String.format(MDSQLConstants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
 		
 		ProcessBuilder processBuilder = new ProcessBuilder(MDSQLConstants.SQL_PLUS, connection,
@@ -852,11 +847,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	
 				LogWrapper.debug(log, "[ScriptService.executeScriptFile] Inicio Ejecucion fichero: %s", fileLocation);
 				while (((line = in.readLine()) != null)) {
-					String logLine = " ".concat(line);
-					
-					TextoLinea textoLinea = TextoLinea.builder().valor(logLine).build();
+					TextoLinea textoLinea = TextoLinea.builder().valor(line).build();
 					logLines.add(textoLinea);
-					LogWrapper.debug(log, logLine);
+					LogWrapper.debug(log, line);
 					
 					// Error de clave incorrecta
 					if (line.contains("ORA-01017")) {
@@ -879,37 +872,14 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			
 			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
 			// Si ha dado error, escribe el fichero de log
-			if (exitCode == 1) {
-				writeFileFromList(Paths.get(logFile), logLines);
-			}
-			else if (exitCode == 137) {
+			MDSQLAppHelper.dumpLinesToFile(logLines, Paths.get(logFile).toFile());
+			
+			if (exitCode == 137) {
 				throw new ServiceException(lineError);
 			}
 		} catch (IOException | InterruptedException e) {
 			LogWrapper.error(log, e.getMessage());
 			throw new ServiceException(e);
-		}
-	}
-
-	@SneakyThrows
-	private void writeFileFromString(Path path, String content) {
-		Files.write(path, content.getBytes(), StandardOpenOption.CREATE);
-	}
-
-	@SneakyThrows(IOException.class)
-	private void writeFileFromList(Path path, List<TextoLinea> textoLineaList) {
-		try {
-			StringBuffer strBuffer = new StringBuffer("");
-
-			for (TextoLinea texto : textoLineaList) {
-				strBuffer.append(texto.getValor());
-				strBuffer.append("\r\n");
-			}
-			
-			MDSQLAppHelper.writeToFile(strBuffer.toString(), path.toFile());
-		} catch (IOException e) {
-			LogWrapper.error(log, "[writeFileFromList] Error", e);
-			throw e;
 		}
 	}
 
@@ -961,10 +931,43 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@Override
-	public OutputRegistraEjecucion executeScript(BBDD bbdd, String nombreScript, List<TextoLinea> script)
+	public OutputRegistraEjecucionType executeScript(BBDD bbdd, String nombreScript, List<TextoLinea> script)
 			throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+			
+			String selectedRoute = session.getSelectedRoute();
+			String ruta = selectedRoute.concat(File.separator);
+			Proceso proceso = session.getProceso();
+			proceso.setRutaTrabajo(ruta);
+			String codigoUsuario = session.getCodUsr();
+			String txtClaveEncriptada = configuration.getConfig(MDSQLConstants.TOKEN).substring(17, 29);
+			
+			// Sólo hay que crear el script lanza
+			String lanzaFile = ruta.concat(nombreScript);
+			MDSQLAppHelper.dumpLinesToFile(script, Paths.get(lanzaFile).toFile());
+	
+			String password = bbddService.consultaPasswordBBDD(bbdd.getNombreBBDD(), bbdd.getNombreEsquema(), txtClaveEncriptada);
+	
+			String logFile = ruta.concat(nombreScript + ".log");
+			// En Windows hay que crear este archivo de forma explícita
+			MDSQLAppHelper.createEmptyFile(logFile);
+	
+			// Ejecución del script
+			executeLanzaFile(bbdd.getNombreEsquema(), bbdd.getNombreBBDD(), password, lanzaFile, logFile);
+	
+			// Obtiene el log
+			List<TextoLinea> logLinesList = MDSQLAppHelper.writeFileToLines(new File(logFile));
+	
+			// Registra la ejecución
+			OutputRegistraEjecucionType outputRegistraEjecucion = ejecucionService.registraEjecucionType(
+					proceso.getIdProceso(), codigoUsuario, logLinesList);
+			
+			return outputRegistraEjecucion;
+		} catch (IOException e) {
+			throw new ServiceException(e);
+		}
 	}
 
 }

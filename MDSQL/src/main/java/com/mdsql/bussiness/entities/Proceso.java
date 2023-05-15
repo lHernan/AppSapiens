@@ -43,6 +43,5 @@ public class Proceso implements Serializable {
     private List<Type> types;
     
     // Para el procesado de Types, el script lanza va aparte
-    private String nombreScriptLanza;
-    private List<TextoLinea> scriptLanza;
+    private Script scriptLanza;
 }
