@@ -30,7 +30,7 @@ public interface ScriptService {
 
     List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, List<Script> scripts) throws ServiceException;
     
-    OutputRegistraEjecucionType executeScript(BBDD bbdd, String nombreScript, List<TextoLinea> script) throws ServiceException;
+    OutputRegistraEjecucionType executeScript(BBDD bbdd, String nombreScript, List<TextoLinea> script, String nombreFicheroLog) throws ServiceException;
 
     OutputReparaScript repararScript(InputReparaScript inputReparaScript) throws ServiceException;
 

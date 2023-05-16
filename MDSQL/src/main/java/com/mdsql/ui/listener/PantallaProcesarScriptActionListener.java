@@ -486,6 +486,9 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			String nombreScriptLanza = outputProcesaType.getPNombreScriptLanza();
 			List<TextoLinea> scriptLanza = outputProcesaType.getTxtScriptLanza();
 			
+			String nombreFicheroLog = outputProcesaType.getPNombreScriptLog();
+			proceso.setFicheroLog(nombreFicheroLog);
+			
 			if (CollectionUtils.isNotEmpty(listaTypes)) {
 				pantallaProcesarScript.getReturnParams().put("types", listaTypes);
 				pantallaProcesarScript.getReturnParams().put("nombreScriptLanza", nombreScriptLanza);

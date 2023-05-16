@@ -44,4 +44,5 @@ public class Proceso implements Serializable {
     
     // Para el procesado de Types, el script lanza va aparte
     private Script scriptLanza;
+    private String ficheroLog;
 }

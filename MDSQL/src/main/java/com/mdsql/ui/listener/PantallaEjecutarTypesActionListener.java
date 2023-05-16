@@ -128,7 +128,7 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 			// En este caso sólo se ejecuta el script lanza
 			Script scriptLanza = proceso.getScriptLanza();
 			
-			OutputRegistraEjecucionType ejecucion = scriptService.executeScript(bbdd, scriptLanza.getNombreScript(), scriptLanza.getLineasScript());
+			OutputRegistraEjecucionType ejecucion = scriptService.executeScript(bbdd, scriptLanza.getNombreScript(), scriptLanza.getLineasScript(), proceso.getFicheroLog());
 			updateCurrentProcess(proceso, ejecucion);
 			if ("Error".equals(ejecucion.getDescripcionEstadoProceso())) {
 				pantallaEjecutarTypes.getBtnVerErrores().setEnabled(Boolean.TRUE);
