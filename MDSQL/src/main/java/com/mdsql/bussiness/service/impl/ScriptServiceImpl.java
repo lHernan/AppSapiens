@@ -872,7 +872,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			
 			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
 			// Si ha dado error, escribe el fichero de log
-			MDSQLAppHelper.dumpLinesToFile(logLines, Paths.get(logFile).toFile());
+			//MDSQLAppHelper.dumpLinesToFile(logLines, Paths.get(logFile).toFile());
 			
 			if (exitCode == 137) {
 				throw new ServiceException(lineError);
