@@ -65,13 +65,13 @@ public class PantallaVerErroresScript extends DialogSupport {
         
         jScrollPane1.setViewportView(tblErroresScript);
         if (tblErroresScript.getColumnModel().getColumnCount() > 0) {
-            tblErroresScript.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tblErroresScript.getColumnModel().getColumn(0).setPreferredWidth(50);
             tblErroresScript.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tblErroresScript.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tblErroresScript.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tblErroresScript.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tblErroresScript.getColumnModel().getColumn(2).setPreferredWidth(75);
+            tblErroresScript.getColumnModel().getColumn(3).setPreferredWidth(75);
+            tblErroresScript.getColumnModel().getColumn(4).setPreferredWidth(75);
             tblErroresScript.getColumnModel().getColumn(5).setPreferredWidth(300);
-            tblErroresScript.getColumnModel().getColumn(6).setPreferredWidth(900);
+            tblErroresScript.getColumnModel().getColumn(6).setPreferredWidth(1005);
         }
         
         jScrollPane2.setViewportView(tblParches);
@@ -79,9 +79,9 @@ public class PantallaVerErroresScript extends DialogSupport {
             tblParches.getColumnModel().getColumn(0).setPreferredWidth(100);
             tblParches.getColumnModel().getColumn(1).setPreferredWidth(120);
             tblParches.getColumnModel().getColumn(2).setPreferredWidth(120);
-            tblParches.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tblParches.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tblParches.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tblParches.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tblParches.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tblParches.getColumnModel().getColumn(5).setPreferredWidth(150);
             tblParches.getColumnModel().getColumn(6).setPreferredWidth(350);
             tblParches.getColumnModel().getColumn(7).setPreferredWidth(600);
         }

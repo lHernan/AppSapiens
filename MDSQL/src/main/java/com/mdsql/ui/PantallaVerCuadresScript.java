@@ -68,19 +68,19 @@ public class PantallaVerCuadresScript extends DialogSupport {
 
         jScrollPane1.setViewportView(tblOperaciones);
         if (tblOperaciones.getColumnModel().getColumnCount() > 0) {
-            tblOperaciones.getColumnModel().getColumn(0).setPreferredWidth(150);
-            tblOperaciones.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tblOperaciones.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tblOperaciones.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblOperaciones.getColumnModel().getColumn(0).setPreferredWidth(225);
+            tblOperaciones.getColumnModel().getColumn(1).setPreferredWidth(75);
+            tblOperaciones.getColumnModel().getColumn(2).setPreferredWidth(75);
+            tblOperaciones.getColumnModel().getColumn(3).setPreferredWidth(75);
         }
         
         jScrollPane2.setViewportView(tblObjetos);
         if (tblObjetos.getColumnModel().getColumnCount() > 0) {
             tblObjetos.getColumnModel().getColumn(0).setPreferredWidth(300);
-            tblObjetos.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tblObjetos.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tblObjetos.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tblObjetos.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tblObjetos.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tblObjetos.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblObjetos.getColumnModel().getColumn(3).setPreferredWidth(75);
+            tblObjetos.getColumnModel().getColumn(4).setPreferredWidth(75);
         }
         
         GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
