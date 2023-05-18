@@ -33,6 +33,7 @@ import com.mdsql.bussiness.entities.OutputDescartarScript;
 import com.mdsql.bussiness.entities.OutputExcepcionScript;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucionParche;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucionType;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Proceso;
@@ -356,9 +357,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		// separate?
 
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		Proceso proceso = session.getProceso();
 		String codigoUsuario = session.getCodUsr();
 		String ruta = session.getProceso().getRutaTrabajo();
 		BBDD bbdd = session.getProceso().getBbdd();
+		
 		String nombreEsquema = StringUtils.isNotBlank(bbdd.getNombreEsquema()) ? bbdd.getNombreEsquema()
 				: bbdd.getNombreEsquemaHis();
 		String nombreBBDD = StringUtils.isNotBlank(bbdd.getNombreBBDD()) ? bbdd.getNombreBBDD()
@@ -366,31 +369,23 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 
 		String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
 		MDSQLAppHelper.dumpLinesToFile(outputReparaScript.getScriptRepara(), Paths.get(lanzaFile).toFile());
+		
+		executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile);
+		
 		String logFile = ruta.concat(script.getNombreScriptLog());
+		List<TextoLinea> logLinesList = MDSQLAppHelper.writeFileToLines(new File(logFile));
 
 		if (isReparacion.equals(Boolean.TRUE)) {
-			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile);
-
-			// List<TextoLinea> logLinesList = readLogFile(logFile);
-			// TODO replace Bidecimal.ZERO with idProceso
 			// TODO como se relaciona la listaScript con la listaScript old para obtener el
 			// nombre del log del script y el numero de orden
-			// OutputRegistraEjecucionParche outputRegistraEjecucionParche =
-			// ejecucionService.registraEjecucionParche(BigDecimal.ZERO,
-			// script.getNumeroOrden(), codigoUsuario, logLinesList, "R");
+			OutputRegistraEjecucionParche outputRegistraEjecucion = ejecucionService.registraEjecucionParche(proceso.getIdProceso(), script.getNumeroOrden(), codigoUsuario, logLinesList, "R");
 			// listOutputLogs.add(outputRegistraEjecucion);
 		}
+		
 		if (isSameScript.equals(Boolean.TRUE)) {
-			executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile);
-			// String logFile = ruta.concat(script.getNombreScriptLog()); TODO obtener
-			// nombreScript log
-			// List<TextoLinea> logLinesList = readLogFile(logFile);
-			// TODO replace Bidecimal.ZERO with idProceso
 			// TODO como se relaciona la listaScript con la listaScript old para obtener el
 			// nombre del log del script y el numero de orden
-			// OutputRegistraEjecucion outputRegistraEjecucion =
-			// ejecucionService.registraEjecucion(BigDecimal.ZERO, script.getNumeroOrden(),
-			// codigoUsuario, logLinesList);
+			OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(proceso.getIdProceso(), script.getNumeroOrden(), codigoUsuario, logLinesList);
 			// listOutputLogs.add(outputRegistraEjecucion);
 		}
 
