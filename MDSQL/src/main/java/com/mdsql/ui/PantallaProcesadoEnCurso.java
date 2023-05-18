@@ -190,7 +190,7 @@ public class PantallaProcesadoEnCurso extends DialogSupport implements PantallaP
         txtSubproyecto = new JTextField();
         txtBBDD = new JTextField();
         
-        Dimension dimension = new Dimension(1410, 638);
+        Dimension dimension = new Dimension(1450, 665);
         setMinimumSize(dimension);
         setPreferredSize(dimension);
         
