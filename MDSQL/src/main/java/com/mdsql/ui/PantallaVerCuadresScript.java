@@ -57,9 +57,9 @@ public class PantallaVerCuadresScript extends DialogSupport {
     @Override
    	protected void setupComponents() {
     	jScrollPane1 = new JScrollPane();
-        tblOperaciones = new TableSupport(Boolean.FALSE);
+        tblOperaciones = new TableSupport();
         jScrollPane2 = new JScrollPane();
-        tblObjetos = new TableSupport(Boolean.FALSE);
+        tblObjetos = new TableSupport();
         jLabel1 = new JLabel();
         btnCancelar = new JButton();
         jLabel2 = new JLabel();

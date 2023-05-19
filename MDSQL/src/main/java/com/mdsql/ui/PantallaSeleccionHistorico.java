@@ -124,7 +124,7 @@ public class PantallaSeleccionHistorico extends DialogSupport {
 	protected void initModels() {
 		Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.SELECCION_HISTORICO_TABLA_CABECERA);
 		SeleccionHistoricoTableModel model = new SeleccionHistoricoTableModel(cabecera);
-		tblHistorico.setModel(model);
+		tblHistorico.initModel(model);
 		tblHistorico.setColumnWidths(cabecera);
 		
 		TableColumn tc = tblHistorico.getColumnModel().getColumn(0);

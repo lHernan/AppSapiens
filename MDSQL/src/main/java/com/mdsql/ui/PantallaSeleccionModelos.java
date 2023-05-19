@@ -105,7 +105,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
         txtNombreModelo = new JTextField();
         txtCodSubmodelo = new JTextField();
         jScrollPane2 = new JScrollPane();
-        tblModelos = new TableSupport(Boolean.FALSE);
+        tblModelos = new TableSupport();
         lblTitulo = new JLabel();
     	
         setBounds(1550, 500);

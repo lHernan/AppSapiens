@@ -144,7 +144,7 @@ public class PantallaResumenProcesado extends DialogSupport {
         txtFecha = new JTextField();
         txtEsquemaHistorico = new JTextField();
         jScrollPane2 = new JScrollPane();
-        tblScripts = new TableSupport(Boolean.FALSE);
+        tblScripts = new TableSupport();
         btnVerLog = new JButton();
         btnCancelar = new JButton();
         txtSubmodelo = new JTextField();
@@ -167,9 +167,9 @@ public class PantallaResumenProcesado extends DialogSupport {
         txtComentarios = new JTextArea();
         jLabel11 = new JLabel();
         jScrollPane3 = new JScrollPane();
-        tblOperaciones = new TableSupport(Boolean.FALSE);
+        tblOperaciones = new TableSupport();
         jScrollPane4 = new JScrollPane();
-        tblObjetos = new TableSupport(Boolean.FALSE);
+        tblObjetos = new TableSupport();
         jLabel12 = new JLabel();
         
         setMinimumSize(new Dimension(1200, 990));

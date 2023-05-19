@@ -68,7 +68,7 @@ public class PantallaAjustarLogEjecucion extends DialogSupport {
 	protected void setupComponents() {
    		jLabel1 = new JLabel();
         jScrollPane1 = new JScrollPane();
-        tblAjustarLog = new TableSupport(Boolean.FALSE);
+        tblAjustarLog = new TableSupport();
         jLabel2 = new JLabel();
         txtComentario = new JTextField();
         btnEliminar = new JButton();

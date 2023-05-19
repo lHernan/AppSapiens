@@ -55,9 +55,9 @@ public class PantallaVerErroresScript extends DialogSupport {
     @Override
    	protected void setupComponents() {
     	jScrollPane1 = new JScrollPane();
-        tblErroresScript = new TableSupport(Boolean.FALSE);
+        tblErroresScript = new TableSupport();
         jScrollPane2 = new JScrollPane();
-        tblParches = new TableSupport(Boolean.FALSE);
+        tblParches = new TableSupport();
         jLabel1 = new JLabel();
         btnCancelar = new JButton();
     	

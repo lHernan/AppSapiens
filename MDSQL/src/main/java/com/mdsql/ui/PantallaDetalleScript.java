@@ -49,7 +49,7 @@ public class PantallaDetalleScript extends DialogSupport {
     @Override
    	protected void setupComponents() {
     	jScrollPane1 = new JScrollPane();
-        tblDetalle = new TableSupport(Boolean.FALSE);
+        tblDetalle = new TableSupport();
         btnCancelar = new JButton();
 
         jScrollPane1.setViewportView(tblDetalle);
@@ -94,7 +94,7 @@ public class PantallaDetalleScript extends DialogSupport {
     @Override
 	protected void initModels() {
     	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_DETALLE_SCRIPT_TABLA_CABECERA);
-    	tblDetalle.setModel(new DetalleScriptTableModel(cabecera));
+    	tblDetalle.initModel(new DetalleScriptTableModel(cabecera));
     }
     
     @Override

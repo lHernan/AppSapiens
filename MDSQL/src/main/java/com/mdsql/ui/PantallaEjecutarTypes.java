@@ -122,7 +122,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
         txtDemanda = new JTextField();
         btnRechazar = new JButton();
         jScrollPane2 = new JScrollPane();
-        tblTypes = new TableSupport(Boolean.FALSE);
+        tblTypes = new TableSupport();
         btnAceptar = new JButton();
         btnCancelar = new JButton();
         txtModelo = new JTextField();
