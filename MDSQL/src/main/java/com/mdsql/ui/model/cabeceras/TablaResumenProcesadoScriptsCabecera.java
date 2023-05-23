@@ -16,11 +16,13 @@ public class TablaResumenProcesadoScriptsCabecera extends Cabecera {
 		columnIdentifiers.add("Fecha");
 		columnIdentifiers.add("Operaciones");
 		columnIdentifiers.add("Objetos");
+		columnIdentifiers.add("Con error");
 		columnIdentifiers.add("Script");
 		
 		columnClasses.add(Integer.class);
 		columnClasses.add(String.class);
 		columnClasses.add(Date.class);
+		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);

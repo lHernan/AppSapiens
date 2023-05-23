@@ -55,9 +55,11 @@ public class ResumenProcesadoScriptsTableModel extends DefaultTableModel<ScriptE
 		} else if (4 == columnIndex) {
 			return row.getTxtCueadreObj();
 		} else if (5 == columnIndex) {
+			return row.getMcaErrores();
+		} else if (6 == columnIndex) {
 			return row.getNombreScript();
-		} 
- 
+		}
+		
 		return null;
 	}
 }
