@@ -1,5 +1,7 @@
 package com.mdsql.ui.model.cabeceras;
 
+import java.math.BigDecimal;
+
 import com.mdval.ui.model.cabeceras.Cabecera;
 
 /**
@@ -16,8 +18,8 @@ public class TablaCuadresOperacionesCabecera extends Cabecera {
 		
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
-		columnClasses.add(String.class);
-		columnClasses.add(String.class);
+		columnClasses.add(BigDecimal.class);
+		columnClasses.add(BigDecimal.class);
 		
 		columnSizes.add(200);
 		columnSizes.add(120);

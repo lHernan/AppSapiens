@@ -15,7 +15,12 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class ScriptEjecutado implements Serializable {
 
-    private BigDecimal numeroOrden;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3936669930934375288L;
+	
+	private BigDecimal numeroOrden;
     private BigDecimal codigoEstadoScript;
     private String descripcionEstadoScript;
     private Date fechaEjecucion;

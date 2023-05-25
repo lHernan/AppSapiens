@@ -16,8 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 
 import com.mdsql.ui.listener.PantallaResumenProcesadoActionListener;
+import com.mdsql.ui.listener.tables.ResumenProcesadoScriptsTableListener;
 import com.mdsql.ui.model.ResumenProcesadoObjetosTableModel;
 import com.mdsql.ui.model.ResumenProcesadoOperacionesTableModel;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
@@ -333,12 +335,16 @@ public class PantallaResumenProcesado extends DialogSupport {
 	@Override
 	protected void initEvents() {
 		PantallaResumenProcesadoActionListener actionListener = new PantallaResumenProcesadoActionListener(this);
+		ResumenProcesadoScriptsTableListener resumenProcesadoScriptsTableListener = new ResumenProcesadoScriptsTableListener(this);
 		
 		btnEntregar.setActionCommand(MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_ENTREGAR);
 		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_CANCELAR);
 
 		btnEntregar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
+		
+		ListSelectionModel scriptsRowSM = tblScripts.getSelectionModel();
+		scriptsRowSM.addListSelectionListener(resumenProcesadoScriptsTableListener);
 		
 		this.addOnLoadListener(actionListener);
 	}

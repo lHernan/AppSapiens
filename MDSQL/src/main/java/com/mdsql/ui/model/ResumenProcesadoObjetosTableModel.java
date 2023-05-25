@@ -2,7 +2,7 @@ package com.mdsql.ui.model;
 
 import java.util.List;
 
-import com.mdsql.bussiness.entities.DetObjeto;
+import com.mdsql.bussiness.entities.CuadreObjeto;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
@@ -10,7 +10,7 @@ import com.mdval.ui.model.cabeceras.Cabecera;
  * @author federico
  *
  */
-public class ResumenProcesadoObjetosTableModel extends DefaultTableModel<DetObjeto> {
+public class ResumenProcesadoObjetosTableModel extends DefaultTableModel<CuadreObjeto> {
 
 	/**
 	 * 
@@ -37,12 +37,12 @@ public class ResumenProcesadoObjetosTableModel extends DefaultTableModel<DetObje
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public ResumenProcesadoObjetosTableModel(List<DetObjeto> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public ResumenProcesadoObjetosTableModel(List<CuadreObjeto> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		DetObjeto row = data.get(rowIndex);
+		CuadreObjeto row = data.get(rowIndex);
 		
 		if (0 == columnIndex) {
 			return row.getNombreObjeto();
@@ -51,9 +51,9 @@ public class ResumenProcesadoObjetosTableModel extends DefaultTableModel<DetObje
 		} else if (2 == columnIndex) {
 			return row.getTipoAccion();
 		} else if (3 == columnIndex) {
-			return row.getBbdd();
+			return row.getNumeroOperacionBBDD();
 		} else if (4 == columnIndex) {
-			return row.getScript();
+			return row.getNumeroOperacionScript();
 		} 
  
 		return null;
