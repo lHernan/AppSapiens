@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR_PROJECT=$HOME/workspace-jboss/AppSapiens
+DIR_PROJECT=/mnt/D/Develop/git/AppSapiens
 
 ENTREGABLES=Entregables
 MDVAL_PROJECT=MDVAL
