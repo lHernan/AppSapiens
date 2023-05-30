@@ -79,6 +79,7 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 		inputEliminaLog.setNumeroEjecucion(seleccionado.getNumeroEjecucion());
 		inputEliminaLog.setNumeroParche(seleccionado.getNumeroParche());
 		inputEliminaLog.setNumeroSentencia(seleccionado.getNumeroSentencia());
+		inputEliminaLog.setMcaEliminada(seleccionado.getMcaEliminada());
 		String comentario = pantallaAjustarLogEjecucion.getTxtComentario().getText();
 		inputEliminaLog.setTxtComentario(comentario);
 		

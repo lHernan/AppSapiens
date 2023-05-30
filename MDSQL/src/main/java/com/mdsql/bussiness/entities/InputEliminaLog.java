@@ -23,6 +23,7 @@ public class InputEliminaLog implements Serializable {
     private BigDecimal numeroEjecucion;
     private BigDecimal numeroParche;
     private BigDecimal numeroSentencia;
+    private String mcaEliminada;
     private String txtComentario;
 
 }
