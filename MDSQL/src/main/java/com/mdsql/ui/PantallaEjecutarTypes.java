@@ -288,6 +288,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
     
     @Override
     protected void setupLiterals() {
+    	setTitle(literales.getLiteral("PantallaEjecutarTypes.title"));
     	jLabel1.setText(literales.getLiteral("PantallaEjecutarTypes.label1"));
         jLabel2.setText(literales.getLiteral("PantallaEjecutarTypes.label2"));
         jLabel3.setText(literales.getLiteral("PantallaEjecutarTypes.label3"));
