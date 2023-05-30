@@ -77,8 +77,8 @@ public class ListaObjetosTableListener extends ListenerSupport implements ListSe
 			}
 			
 			if ("DROPS".equals(type.getTipoScript())) {
-				framePrincipal.getIfrmTYB().setTitle(type.getNombreScript());
-				framePrincipal.getTxtScriptTYB().setText(StringUtils.EMPTY);
+				framePrincipal.getInternalFramePDC().setTitle(type.getNombreScript());
+				framePrincipal.getTxtScriptPDC().setText(StringUtils.EMPTY);
 				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptPDC());
 			}
 		}
