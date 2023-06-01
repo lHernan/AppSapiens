@@ -133,7 +133,10 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 			if ("Error".equals(ejecucion.getDescripcionEstadoProceso())) {
 				pantallaEjecutarTypes.getBtnVerErrores().setEnabled(Boolean.TRUE);
 				proceso.setDescripcionEstadoProceso(ejecucion.getDescripcionEstadoProceso());
-				pantallaEjecutarTypes.getTxtEstadoEjecucion().setText(ejecucion.getDescripcionEstadoProceso());;
+				pantallaEjecutarTypes.getTxtEstadoEjecucion().setText(ejecucion.getDescripcionEstadoProceso());
+				
+				// Disable Aceptar button
+				pantallaEjecutarTypes.getBtnAceptar().setEnabled(Boolean.FALSE);
 			}
 			else {
 				pantallaEjecutarTypes.getReturnParams().put("idProceso", proceso.getIdProceso());
