@@ -12,7 +12,7 @@ MDVAL_PACKAGE=
 MDSQL_PACKAGE=mdsql-1.0.0-SNAPSHOT.jar
 MDSQL_SOURCE=mdsql-1.0.0-SNAPSHOT-sources.jar
 
-LATEST=`cat $DIR_PROJECT/last.txt`
+LATEST=`$DIR_PROJECT/bin/version.sh`
 TO=Mario.Pampliega@sapiens.com
 CC=agarcia@esoluzion.com,fmartin@esoluzion.com
 
