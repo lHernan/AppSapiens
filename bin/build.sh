@@ -18,6 +18,12 @@ CC=agarcia@esoluzion.com,fmartin@esoluzion.com
 
 clear
 
+if [[ "$LATEST" == "" ]] ; then 
+	notify-send --urgency=low "No hay versión liberada aún"
+	exit
+fi
+
+
 echo "Se va a construir la entrega ${DIR_PROJECT}/$MDSQL"
 
 echo "Construyendo arquitectura común..."
