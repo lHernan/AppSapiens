@@ -25,6 +25,7 @@ import com.mdsql.ui.model.TypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.ui.utils.collections.CreateTypeScriptsClosure;
+import com.mdsql.ui.utils.collections.UpdateTypesScriptsClosure;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -129,6 +130,11 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 			Script scriptLanza = proceso.getScriptLanza();
 			
 			OutputRegistraEjecucionType ejecucion = scriptService.executeScript(bbdd, scriptLanza.getNombreScript(), scriptLanza.getLineasScript(), proceso.getFicheroLog());
+			
+			// Actualizar los types de la tabla y la repinta
+			CollectionUtils.forAllDo(types, new UpdateTypesScriptsClosure(ejecucion));
+			pantallaEjecutarTypes.getTblTypes().repaint();
+			
 			updateCurrentProcess(proceso, ejecucion);
 			if ("Error".equals(ejecucion.getDescripcionEstadoProceso())) {
 				pantallaEjecutarTypes.getBtnVerErrores().setEnabled(Boolean.TRUE);
