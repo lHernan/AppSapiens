@@ -13,10 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 
 import com.mdsql.bussiness.entities.Proceso;
-import com.mdsql.bussiness.entities.Script;
 import com.mdsql.ui.listener.PantallaEjecutarTypesActionListener;
+import com.mdsql.ui.listener.tables.TypesTableListener;
 import com.mdsql.ui.model.TypesTableModel;
 import com.mdsql.ui.renderer.TypesTableCellRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -97,7 +98,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
     
 	@Getter
 	@Setter
-	private Script seleccionado;
+	private com.mdsql.bussiness.entities.Type seleccionado;
     
     // End of variables declaration//GEN-END:variables
     
@@ -240,6 +241,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
     @Override
     protected void initEvents() {      
     	PantallaEjecutarTypesActionListener actionListener = new PantallaEjecutarTypesActionListener(this);
+    	TypesTableListener typesTableListener = new TypesTableListener(this);
     	
     	btnRechazar.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_RECHAZAR);
     	btnVerCuadres.setActionCommand(MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_VER_CUADRES);
@@ -252,6 +254,9 @@ public class PantallaEjecutarTypes extends DialogSupport {
     	btnVerErrores.addActionListener(actionListener);
     	btnAceptar.addActionListener(actionListener);
     	btnCancelar.addActionListener(actionListener);
+    	
+    	ListSelectionModel typesRowSM = tblTypes.getSelectionModel();
+    	typesRowSM.addListSelectionListener(typesTableListener);
     	
     	this.addOnLoadListener(actionListener);
     }
