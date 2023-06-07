@@ -85,11 +85,11 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	public void eventBtnVerCuadres() {
 		Map<String, Object> params = new HashMap<>();
 
-//		Script seleccionado = pantallaEjecutarTypes.getSeleccionado();
-//		Proceso proceso = pantallaEjecutarTypes.getProceso();
-//
-//		params.put("script", seleccionado);
-//		params.put("proceso", proceso);
+		Proceso proceso = pantallaEjecutarTypes.getProceso();
+		Script seleccionado = proceso.getScriptLanza();
+
+		params.put("script", seleccionado);
+		params.put("proceso", proceso);
 
 		PantallaVerCuadresScript pantallaVerCuadresScript = (PantallaVerCuadresScript) MDSQLUIHelper
 				.createDialog(pantallaEjecutarTypes.getFrameParent(), MDSQLConstants.CMD_VER_CUADRES_SCRIPT, params);
