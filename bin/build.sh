@@ -13,6 +13,7 @@ MDSQL_PACKAGE=mdsql-1.0.0-SNAPSHOT.jar
 MDSQL_SOURCE=mdsql-1.0.0-SNAPSHOT-sources.jar
 
 LATEST=`$DIR_PROJECT/bin/version.sh`
+SUMMARY=`$DIR_PROJECT/bin/resueltas.sh $LATEST`
 TO=Mario.Pampliega@sapiens.com
 CC=agarcia@esoluzion.com,fmartin@esoluzion.com
 
@@ -124,6 +125,10 @@ echo "Muy señor mío/a.
 Nos complace comunicarle que está disponible para su revisión la entrega
 
 https://github.com/lHernan/AppSapiens/blob/develop/Entregables/$MDSQL_PROJECT-$LATEST.zip
+
+Se resuelve:
+
+$SUMMARY
 
 Cualquier error nos lo comunican lo más pronto posible para poder solucionarlo.
 
