@@ -186,7 +186,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	}
 	
 	private void createZipType(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega) throws IOException {
-		createZip(proceso, outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroVigente(),
+		createZip(proceso, outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroType(),
 				null);
 	}
 
