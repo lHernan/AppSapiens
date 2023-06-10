@@ -385,7 +385,11 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				List<TextoLinea> lineasScript = pantallaProcesarScript.getScript();
 				inputProcesaScript.setLineasScript(lineasScript);
 				inputProcesaScript.setPCodigoProyecto(seleccionado.getCodigoProyecto());
-				inputProcesaScript.setPCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
+				
+				if (!Objects.isNull(subProyecto)) {
+					inputProcesaScript.setPCodigoSubProyecto(subProyecto.getCodigoSubProyecto());
+				}
+				
 				inputProcesaScript.setPCodigoPeticion(pantallaProcesarScript.getTxtPeticion().getText());
 				inputProcesaScript.setPCodigoDemanda(pantallaProcesarScript.getTxtDemanda().getText());
 				inputProcesaScript.setPMcaReprocesa(MDSQLConstants.N);
