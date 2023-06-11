@@ -2,6 +2,7 @@ package com.mdsql.bussiness.service.impl;
 
 import java.sql.Array;
 import java.sql.SQLException;
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -104,6 +105,24 @@ public class ServiceSupport {
 			}
 			LogWrapper.debug(log, "%s", sbArgumentos.toString().trim());
 		}
+	}
+	
+	/**
+	 * @param structObjetos
+	 * @throws SQLException
+	 */
+	public void logArrayStruct(Struct[] structObjetos) throws SQLException {
+		StringBuilder sb = new StringBuilder();
+		
+		for (Struct obj : structObjetos) {
+			for (Object attr : obj.getAttributes()) {
+				sb.append("\t").append(attr.toString()).append(",");
+			}
+			
+			sb.append("\n");
+		}
+		
+		LogWrapper.debug(log, "\n%s", sb.toString());
 	}
 	
 	/**

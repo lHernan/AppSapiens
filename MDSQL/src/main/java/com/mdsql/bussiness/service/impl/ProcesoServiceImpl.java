@@ -213,6 +213,9 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
                 structObjetos[arrayIndexLinea++] = conn.createStruct(recordObjetos,
                         new Object[]{data.getTipo(), data.getObjeto()});
             }
+            
+            LogWrapper.debug(log, "Añadir a histórico: ");
+            logArrayStruct(structObjetos);
 
             Array arrayObjetos = ((OracleConnection) conn).createOracleArray(tableObjetos, structObjetos);
 
@@ -237,7 +240,7 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
 
     }
 
-    @Override
+	@Override
     public OutputConsultaProcesado consultaProcesado(BigDecimal idProceso) throws ServiceException {
         String runSP = createCall("p_con_procesado", MDSQLConstants.CALL_19_ARGS);
 
