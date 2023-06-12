@@ -86,7 +86,8 @@ public class SeleccionHistoricoTableModel extends DefaultTableModel<SeleccionHis
 		}
 		
 		if (3 == columnIndex) {
-			return (row.getHistorico() && !row.getEditable()) ? false : true;
+			//return (row.getHistorico() && !row.getEditable()) ? false : true;
+			return true;
 		}
 		
 		if (4 == columnIndex) {
