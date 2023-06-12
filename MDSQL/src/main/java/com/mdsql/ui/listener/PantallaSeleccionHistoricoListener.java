@@ -123,9 +123,9 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport
 		List<SeleccionHistorico> listaObjetos = ((SeleccionHistoricoTableModel) pantallaSeleccionHistorico.getTblHistorico()
 				.getModel()).getData();
 		
-		List<SeleccionHistorico> listaSeleccionados = (List<SeleccionHistorico>) CollectionUtils
-				.select(listaObjetos, new SeleccionHistoricoPredicate());
-		pantallaSeleccionHistorico.getReturnParams().put("objetosHistorico", listaSeleccionados);
+//		List<SeleccionHistorico> listaSeleccionados = (List<SeleccionHistorico>) CollectionUtils
+//				.select(listaObjetos, new SeleccionHistoricoPredicate());
+		pantallaSeleccionHistorico.getReturnParams().put("objetosHistorico", listaObjetos);
 
 		updateObservers(MDSQLConstants.PANTALLA_SELECCION_HISTORICA_BTN_GENERAR);
 		pantallaSeleccionHistorico.dispose();
