@@ -256,10 +256,11 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 
 			// Si el modelo solo tiene un solo submodelo, se seleccionará directamente en el
 			// combo.
-			if (subProyectos.size() == 1) {
+			// TODO - Preguntar a Mario si debe haber siempre uno seleccionado
+			//if (subProyectos.size() == 1) {
 				pantallaProcesarScript.setSubproyectoSeleccionado(subProyectos.get(0));
 				pantallaProcesarScript.getCmbSubmodelo().setSelectedItem(subProyectos.get(0));
-			}
+			//}
 		}
 	}
 
