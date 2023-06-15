@@ -19,7 +19,7 @@ CC=agarcia@esoluzion.com,fmartin@esoluzion.com
 
 clear
 
-if [[ "$LATEST" == "" ]] ; then 
+if [[ "$LATEST" == "" ]] ; then
 	notify-send --urgency=low "No hay versión liberada aún"
 	exit
 fi
@@ -32,7 +32,7 @@ echo "Construyendo arquitectura común..."
 cd $DIR_PROJECT/$MDCOMMON
 
 mvn clean install
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al construir la arquitectura común"
 	exit
 fi
@@ -44,7 +44,7 @@ echo "Construyendo $MDSQL_PROJECT"
 cd $DIR_PROJECT/$MDSQL_PROJECT
 
 mvn clean install -DskipTests=true
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al construir el proyecto $MDSQL_PROJECT"
 	exit
 fi
@@ -61,25 +61,31 @@ cp $MDSQL_SOURCE $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
 cd $DIR_PROJECT/$MDSQL_PROJECT
 
 cp CHANGELOG.md $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al copiar el fichero CHANGELOG.md"
 	exit
 fi
 
 cp literales.properties $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al copiar el fichero literales.properties"
 	exit
 fi
 
 cp configuration.properties $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al copiar el fichero configuration.properties"
 	exit
 fi
 
+cp logotipo.png $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
+if [ $? -ne 0 ] ; then
+	notify-send --urgency=low "Ocurrió un error al copiar el fichero logotipo.png"
+	exit
+fi
+
 git add .
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al añadir archivos para commit"
 	exit
 fi
@@ -93,7 +99,7 @@ echo "Comprimiendo paquete..."
 cd $DIR_PROJECT/$ENTREGABLES/
 
 zip -9 -r $MDSQL_PROJECT.zip $MDSQL_PROJECT/
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "No se ha podido crear el paquete $MDSQL_PROJECT.zip"
 	exit
 fi
@@ -101,19 +107,19 @@ fi
 mv $MDSQL_PROJECT.zip $MDSQL_PROJECT-$LATEST.zip
 
 git add $MDSQL_PROJECT-$LATEST.zip
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al añadir archivo $MDSQL_PROJECT-$LATEST.zip para commit"
 	exit
 fi
 
 git commit -m "Entregable $LATEST"
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al hacer commit"
 	exit
 fi
 
 git push
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al hacer push"
 	exit
 fi
@@ -134,7 +140,7 @@ Cualquier error nos lo comunican lo más pronto posible para poder solucionarlo.
 
 Atentamente
 Federico Martín Lara <fmartin@esoluzion.com>" | mail -s "Entregable $LATEST" -aCC:$CC $TO
-if [ $? -ne 0 ] ; then 
+if [ $? -ne 0 ] ; then
 	notify-send --urgency=low "Ocurrió un error al enviar aviso"
 	exit
 fi
