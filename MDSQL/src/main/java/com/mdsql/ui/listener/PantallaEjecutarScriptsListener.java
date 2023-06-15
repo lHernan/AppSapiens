@@ -282,6 +282,10 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			 * Ejecutado para mostrar la pantalla de resumen del procesado
 			 */
 			if (isAllExecuted(proceso.getScripts())) {
+				Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+				proceso.setDescripcionEstadoProceso("Ejecutado");
+				session.setProceso(proceso);
+				
 				pantallaEjecutarScripts.getReturnParams().put("idProceso", proceso.getIdProceso());
 				pantallaEjecutarScripts.getReturnParams().put("entregar", Boolean.TRUE);
 				pantallaEjecutarScripts.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);

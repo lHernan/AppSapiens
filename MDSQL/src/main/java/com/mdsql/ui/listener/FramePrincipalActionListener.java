@@ -184,6 +184,11 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
 					.createDialog(framePrincipal, MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
 			MDSQLUIHelper.show(pantallaResumenProcesado);
+			
+			String estado = (String) pantallaResumenProcesado.getReturnParams().get("estado");
+			if ("Entregado".equals(estado)) {
+				resetFramePrincipal(null);
+			}
 
 		}
 	}
@@ -669,7 +674,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			}
 		}
 
-		if (MDSQLConstants.CMD_ENTREGAR_SCRIPT.equals(cmd)) {
+		if (MDSQLConstants.CMD_ENTREGAR_SCRIPT.equals(cmd) && "Entregado".equals(proceso.getDescripcionEstadoProceso())) {
 			proceso = null;
 		}
 
