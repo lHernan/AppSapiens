@@ -69,6 +69,8 @@ public class ResumenProcesadoScriptsTableListener extends ListenerSupport implem
 		ResumenProcesadoOperacionesTableModel tableModel = (ResumenProcesadoOperacionesTableModel) pantallaResumenProcesado
 				.getTblOperaciones().getModel();
 		tableModel.setData(cuadreOperaciones);
+		
+		pantallaResumenProcesado.getTblOperaciones().forceRepaintColumn(0);
 	}
 	
 	/**
@@ -79,6 +81,8 @@ public class ResumenProcesadoScriptsTableListener extends ListenerSupport implem
 		ResumenProcesadoObjetosTableModel tableModel = (ResumenProcesadoObjetosTableModel) pantallaResumenProcesado
 				.getTblObjetos().getModel();
 		tableModel.setData(cuadreObjetos);
+		
+		pantallaResumenProcesado.getTblObjetos().forceRepaintColumn(0);
 	}
 
 }
