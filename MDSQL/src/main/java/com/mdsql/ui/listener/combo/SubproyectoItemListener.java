@@ -41,6 +41,7 @@ public class SubproyectoItemListener extends ListenerSupport implements ItemList
 				try {
 					SubProyecto subproyecto = (SubProyecto) item;
 					LogWrapper.debug(log, "Selected: %s", subproyecto.toString());
+					pantallaProcesarScript.setSubproyectoSeleccionado(subproyecto);
 
 					Modelo modeloSeleccionado = pantallaProcesarScript.getModeloSeleccionado();
 					fillBBDD(modeloSeleccionado, subproyecto);
