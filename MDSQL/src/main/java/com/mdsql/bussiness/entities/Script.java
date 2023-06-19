@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class Script implements Serializable {
+public class Script implements Serializable, Scriptable {
 
     /**
 	 * 

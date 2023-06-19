@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -28,7 +29,10 @@ import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.EntregaService;
 import com.mdsql.bussiness.service.ProcesoService;
+import com.mdsql.ui.PantallaAjustarLogEjecucion;
+import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaResumenProcesado;
+import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -69,10 +73,70 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_ENTREGAR.equals(jButton.getActionCommand())) {
 			evtEntregar();
 		}
+		
+		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_VER_ERRORES.equals(jButton.getActionCommand())) {
+			evtVerErrores();
+		}
+		
+		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_DETALLE_SCRIPT.equals(jButton.getActionCommand())) {
+			evtDetalleScript();
+		}
+		
+		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_VER_LOG.equals(jButton.getActionCommand())) {
+			evtVerLog();
+		}
 
 		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaResumenProcesado.dispose();
 		}
+	}
+
+	private void evtVerLog() {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		Map<String, Object> params = new HashMap<>();
+
+		ScriptEjecutado seleccionado = pantallaResumenProcesado.getSeleccionado();
+		Proceso proceso = session.getProceso();
+
+		params.put("script", seleccionado);
+		params.put("proceso", proceso);
+		params.put("consulta", Boolean.TRUE);
+
+		PantallaAjustarLogEjecucion pantallaAjustarLogEjecucion = (PantallaAjustarLogEjecucion) MDSQLUIHelper
+				.createDialog(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_AJUSTAR_LOG_EJECUCION, params);
+		MDSQLUIHelper.show(pantallaAjustarLogEjecucion);
+	}
+
+	private void evtDetalleScript() {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		Map<String, Object> params = new HashMap<>();
+
+		ScriptEjecutado seleccionado = pantallaResumenProcesado.getSeleccionado();
+		Proceso proceso = session.getProceso();
+
+		params.put("script", seleccionado.getNombreScript());
+		params.put("proceso", proceso.getIdProceso());
+		params.put("numeroOrden", seleccionado.getNumeroOrden());
+
+		PantallaDetalleScript pantallaDetalleScript = (PantallaDetalleScript) MDSQLUIHelper
+				.createDialog(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_DETALLE_SCRIPT, params);
+		MDSQLUIHelper.show(pantallaDetalleScript);
+	}
+
+	private void evtVerErrores() {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		Map<String, Object> params = new HashMap<>();
+
+		ScriptEjecutado seleccionado = pantallaResumenProcesado.getSeleccionado();
+		Proceso proceso = session.getProceso();
+
+		params.put("script", seleccionado);
+		params.put("proceso", proceso);
+		params.put("tipo", "scripts");
+
+		PantallaVerErroresScript pantallaVerErroresScript = (PantallaVerErroresScript) MDSQLUIHelper
+				.createDialog(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_VER_ERRORES_SCRIPT, params);
+		MDSQLUIHelper.show(pantallaVerErroresScript);
 	}
 
 	/**

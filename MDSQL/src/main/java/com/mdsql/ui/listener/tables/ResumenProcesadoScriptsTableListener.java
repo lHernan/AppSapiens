@@ -54,6 +54,12 @@ public class ResumenProcesadoScriptsTableListener extends ListenerSupport implem
 			
 				populateTablaOperaciones(cuadreOperaciones);
 				populateTablaObjetos(cuadreObjetos);
+				
+				pantallaResumenProcesado.setSeleccionado(seleccionado);
+				
+				pantallaResumenProcesado.getBtnVerErrores().setEnabled(Boolean.TRUE);
+				pantallaResumenProcesado.getBtnDetalleScript().setEnabled(Boolean.TRUE);
+				pantallaResumenProcesado.getBtnVerLog().setEnabled(Boolean.TRUE);
 			}
 		} catch (ServiceException se) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(se);

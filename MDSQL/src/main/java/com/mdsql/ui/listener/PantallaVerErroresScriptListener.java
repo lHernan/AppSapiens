@@ -13,6 +13,7 @@ import com.mdsql.bussiness.entities.OutputErroresScript;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.ScriptParche;
+import com.mdsql.bussiness.entities.Scriptable;
 import com.mdsql.bussiness.service.ErroresService;
 import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.VerErroresScriptTableModel;
@@ -51,7 +52,7 @@ public class PantallaVerErroresScriptListener extends ListenerSupport implements
 		try {
 			ErroresService erroresService = (ErroresService) getService(MDSQLConstants.ERRORES_SERVICE);
 
-			Script script = (Script) pantallaVerErroresScript.getParams().get("script");
+			Scriptable script = (Scriptable) pantallaVerErroresScript.getParams().get("script");
 			Proceso proceso = (Proceso) pantallaVerErroresScript.getParams().get("proceso");
 			String tipo = (String) pantallaVerErroresScript.getParams().get("tipo");
 

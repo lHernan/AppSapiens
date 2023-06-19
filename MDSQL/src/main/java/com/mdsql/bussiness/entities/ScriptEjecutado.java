@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class ScriptEjecutado implements Serializable {
+public class ScriptEjecutado implements Serializable, Scriptable {
 
     /**
 	 * 

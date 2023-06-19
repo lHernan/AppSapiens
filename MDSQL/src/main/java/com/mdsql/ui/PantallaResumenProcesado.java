@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 
+import com.mdsql.bussiness.entities.ScriptEjecutado;
 import com.mdsql.ui.listener.PantallaResumenProcesadoActionListener;
 import com.mdsql.ui.listener.tables.ResumenProcesadoScriptsTableListener;
 import com.mdsql.ui.model.ResumenProcesadoObjetosTableModel;
@@ -31,6 +32,7 @@ import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -44,10 +46,7 @@ public class PantallaResumenProcesado extends DialogSupport {
 	private static final long serialVersionUID = -7845375531319490239L;
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnCancelar;
-    private JButton btnDetalleScript;
     private JButton btnEntregar;
-    private JButton btnVerErrores;
-    private JButton btnVerLog;
     private JLabel jLabel1;
     private JLabel jLabel10;
     private JLabel jLabel11;
@@ -115,6 +114,19 @@ public class PantallaResumenProcesado extends DialogSupport {
     
     @Getter
     private TableSupport tblScripts;
+    
+    @Getter
+    private JButton btnDetalleScript;
+    
+    @Getter
+    private JButton btnVerErrores;
+    
+    @Getter
+    private JButton btnVerLog;
+    
+    @Getter
+    @Setter
+    private ScriptEjecutado seleccionado;
     // End of variables declaration//GEN-END:variables
 		
 	/**
@@ -339,9 +351,15 @@ public class PantallaResumenProcesado extends DialogSupport {
 		
 		btnEntregar.setActionCommand(MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_ENTREGAR);
 		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_CANCELAR);
+		btnVerErrores.setActionCommand(MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_VER_ERRORES);
+		btnDetalleScript.setActionCommand(MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_DETALLE_SCRIPT);
+		btnVerLog.setActionCommand(MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_VER_LOG);
 
 		btnEntregar.addActionListener(actionListener);
 		btnCancelar.addActionListener(actionListener);
+		btnVerErrores.addActionListener(actionListener);
+		btnDetalleScript.addActionListener(actionListener);
+		btnVerLog.addActionListener(actionListener);
 		
 		ListSelectionModel scriptsRowSM = tblScripts.getSelectionModel();
 		scriptsRowSM.addListSelectionListener(resumenProcesadoScriptsTableListener);
@@ -384,6 +402,10 @@ public class PantallaResumenProcesado extends DialogSupport {
         txtBBDDHistorico.setEditable(Boolean.FALSE);
         txtEstado.setEditable(Boolean.FALSE);
         txtRuta.setEditable(Boolean.FALSE);
+        
+        btnVerErrores.setEnabled(Boolean.FALSE);
+        btnDetalleScript.setEnabled(Boolean.FALSE);
+        btnVerLog.setEnabled(Boolean.FALSE);
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import com.mdsql.bussiness.entities.InputEliminaLog;
 import com.mdsql.bussiness.entities.LogEjecucion;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.Scriptable;
 import com.mdsql.bussiness.service.LogService;
 import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.model.AjustarLogEjecucionTableModel;
@@ -92,7 +93,7 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 	private void loadLogEjecucion() throws ServiceException {
 		LogService logService = (LogService) getService(MDSQLConstants.LOG_SERVICE);
 
-		Script script = (Script) pantallaAjustarLogEjecucion.getParams().get("script");
+		Scriptable script = (Scriptable) pantallaAjustarLogEjecucion.getParams().get("script");
 		Proceso proceso = (Proceso) pantallaAjustarLogEjecucion.getParams().get("proceso");
 
 		BigDecimal idProceso = proceso.getIdProceso();
