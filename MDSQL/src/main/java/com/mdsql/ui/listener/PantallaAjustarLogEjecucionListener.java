@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import com.mdsql.bussiness.entities.InputEliminaLog;
 import com.mdsql.bussiness.entities.LogEjecucion;
 import com.mdsql.bussiness.entities.Proceso;
-import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Scriptable;
 import com.mdsql.bussiness.service.LogService;
 import com.mdsql.ui.PantallaAjustarLogEjecucion;
