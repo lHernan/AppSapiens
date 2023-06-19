@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import com.mdsql.bussiness.entities.ErrorScript;
 import com.mdsql.bussiness.entities.OutputErroresScript;
 import com.mdsql.bussiness.entities.Proceso;
-import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.ScriptParche;
 import com.mdsql.bussiness.entities.Scriptable;
 import com.mdsql.bussiness.service.ErroresService;
