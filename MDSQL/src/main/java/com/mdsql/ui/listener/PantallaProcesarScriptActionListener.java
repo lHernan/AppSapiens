@@ -53,6 +53,9 @@ import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.Procesado;
 import com.mdval.exceptions.ServiceException;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author federico
  *
@@ -64,8 +67,6 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	private PantallaSeleccionModelos pantallaSeleccionModelos;
 	
 	private PantallaSeleccionHistorico pantallaSeleccionHistorico;
-	
-	private List<BBDD> bbdds;
 
 	/**
 	 * @param framePrincipal
@@ -312,7 +313,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				? subproyecto.getCodigoSubProyecto()
 				: null;
 
-		bbdds = bbddService.consultaBBDDModelo(codigoProyecto, codigoSubproyecto);
+		List<BBDD> bbdds = bbddService.consultaBBDDModelo(codigoProyecto, codigoSubproyecto);
+		pantallaProcesarScript.setBbdds(bbdds);
 		if (CollectionUtils.isNotEmpty(bbdds)) {
 			BBDDComboBoxModel modelBBDD = new BBDDComboBoxModel(bbdds);
 			pantallaProcesarScript.getCmbBBDD().setModel(modelBBDD);
@@ -421,7 +423,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				proceso.setModelo(seleccionado);
 				proceso.setSubproyecto(subProyecto);
 				proceso.setBbdd(selectedBBDD);
-				proceso.setBbdds(bbdds);
+				proceso.setBbdds(pantallaProcesarScript.getBbdds());
 				
 				pantallaProcesarScript.getReturnParams().put("proceso", proceso);
 				
@@ -480,7 +482,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			proceso.setModelo(seleccionado);
 			proceso.setSubproyecto(subProyecto);
 			proceso.setBbdd(selectedBBDD);
-			proceso.setBbdds(bbdds);
+			proceso.setBbdds(pantallaProcesarScript.getBbdds());
 			
 			pantallaProcesarScript.getReturnParams().put("proceso", proceso);
 			

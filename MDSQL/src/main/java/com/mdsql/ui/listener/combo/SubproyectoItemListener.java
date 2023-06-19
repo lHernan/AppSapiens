@@ -63,6 +63,7 @@ public class SubproyectoItemListener extends ListenerSupport implements ItemList
 		String codigoSubproyecto = !Objects.isNull(subproyecto) ? subproyecto.getCodigoSubProyecto() : null;
 
 		List<BBDD> bbdds = bbddService.consultaBBDDModelo(codigoProyecto, codigoSubproyecto);
+		pantallaProcesarScript.setBbdds(bbdds);
 		if (CollectionUtils.isNotEmpty(bbdds)) {
 			BBDDComboBoxModel modelBBDD = new BBDDComboBoxModel(bbdds);
 			pantallaProcesarScript.getCmbBBDD().setModel(modelBBDD);

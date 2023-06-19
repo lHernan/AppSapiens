@@ -158,6 +158,10 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
 	
 	@Getter
 	private PantallaProcesarScriptActionListener pantallaProcesarScriptActionListener;
+	
+	@Getter
+	@Setter
+	private List<BBDD> bbdds;
 		
 	/**
 	 * @param params
