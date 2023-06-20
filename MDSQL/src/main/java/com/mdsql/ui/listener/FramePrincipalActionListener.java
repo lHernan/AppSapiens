@@ -190,6 +190,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				resetFramePrincipal(null);
 			}
 
+			updateProcesadoEnCurso(MDSQLConstants.CMD_ENTREGAR_SCRIPT);
 		}
 	}
 
