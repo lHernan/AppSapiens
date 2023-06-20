@@ -112,6 +112,6 @@ public class PantallaConsultaPeticionesListener extends ListenerSupport implemen
 				.getTblPeticiones().getModel();
 		tableModel.setData(procesos);
 
-		pantallaConsultaPeticiones.getTblPeticiones().repaint();
+		pantallaConsultaPeticiones.forceRepaint();
 	}
 }

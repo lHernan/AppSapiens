@@ -51,7 +51,7 @@ public class ConsultaPeticionesTableModel extends DefaultTableModel<Proceso> {
 		} else if (2 == columnIndex) {
 			return row.getFechaInicio();
 		} else if (3 == columnIndex) {
-			return row.getModelo().getCodigoProyecto();
+			return (!Objects.isNull(row.getModelo())) ? row.getModelo().getCodigoProyecto() : StringUtils.EMPTY;
 		} else if (4 == columnIndex) {
 			return (!Objects.isNull(row.getSubproyecto())) ? row.getSubproyecto().getCodigoSubProyecto() : StringUtils.EMPTY;
 		} else if (5 == columnIndex) {
