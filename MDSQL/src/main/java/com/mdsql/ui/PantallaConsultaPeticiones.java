@@ -256,7 +256,7 @@ public class PantallaConsultaPeticiones extends DialogSupport {
 
     @Override
     protected void setupLiterals() {
-    	jLabel1.setTitle(literales.getLiteral("PantallaConsultaPeticiones.title"));
+    	setTitle(literales.getLiteral("PantallaConsultaPeticiones.title"));
     	
     	jLabel1.setText(literales.getLiteral("PantallaConsultaPeticiones.label1"));
         jLabel2.setText(literales.getLiteral("PantallaConsultaPeticiones.label2"));
