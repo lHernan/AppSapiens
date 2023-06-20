@@ -23,6 +23,7 @@ import org.apache.any23.encoding.TikaEncodingDetector;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
@@ -207,4 +208,32 @@ public class MDSQLAppHelper extends AppHelper {
 		
 		return script;
 	}
+	
+	/**
+	 * @return
+	 * @throws IOException
+	 */
+	public static String getRutaEntregados() throws IOException {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
+		return session.getSelectedRoute() + File.separator + carpetaEntregados;
+	}
+	
+	/**
+	 * @return
+	 * @throws IOException
+	 */
+	public static void checkRutaEntregados() throws IOException {
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
+		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
+		
+		File folder = new File(rutaEntregados);
+		
+		if (!folder.exists() || !folder.isDirectory()) {
+			String msg = String.format("%s no existe o no es una carpeta", rutaEntregados);
+			throw new IOException(msg);
+		}
+	}
+	
 }

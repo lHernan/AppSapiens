@@ -155,6 +155,9 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				OutputConsultaEntrega outputConsultaEntrega = entregaService
 						.consultaRutaEntrega(proceso.getModelo().getCodigoProyecto(), proceso.getIdProceso());
 				
+				// Comprobar que existe la ruta antes de llamar a entregarPeticion
+				MDSQLAppHelper.checkRutaEntregados();
+				
 				// Entregar petición antes de hacer los ficheros, para controlar el comentario
 				String txtComentario = pantallaResumenProcesado.getTxtComentarios().getText();
 				String codUsr = session.getCodUsr();
@@ -382,10 +385,9 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param scripts
 	 */
 	private void copyFiles(List<Script> scripts, List<String> scriptTypes) throws IOException {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
+		String rutaEntregados = MDSQLAppHelper.getRutaEntregados();
 
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		for (Script script : scripts) {
 			if (scriptTypes.contains(script.getTipoScript())) {
 				String rutaScript = session.getSelectedRoute() + File.separator + script.getNombreScript();
@@ -393,6 +395,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			}
 		}
 	}
+	
+	
 	
 	/**
 	 * @param scripts
