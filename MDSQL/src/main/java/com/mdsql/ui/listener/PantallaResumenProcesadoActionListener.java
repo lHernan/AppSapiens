@@ -156,7 +156,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 						.consultaRutaEntrega(proceso.getModelo().getCodigoProyecto(), proceso.getIdProceso());
 				
 				// Comprobar que existe la ruta antes de llamar a entregarPeticion
-				MDSQLAppHelper.checkRutaEntregados();
+				MDSQLAppHelper.checkRutaEntregados(outputConsultaEntrega.getTxtRutaEntrega());
 				
 				// Entregar petición antes de hacer los ficheros, para controlar el comentario
 				String txtComentario = pantallaResumenProcesado.getTxtComentarios().getText();
