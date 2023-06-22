@@ -231,7 +231,7 @@ public class MDSQLAppHelper extends AppHelper {
 		File rootFolder = new File(rutaCarpetaEntregados);
 		
 		if (rootFolder.exists() && rootFolder.isDirectory()) {
-			File entregadosFolder = new File(rootFolder.getAbsolutePath() + File.separator + rutaEntrega);
+			File entregadosFolder = new File(rootFolder.getPath() + File.separator + rutaEntrega);
 			if (!entregadosFolder.exists() || !entregadosFolder.isDirectory()) {
 				String msg = String.format("%s no existe o no es una carpeta", rutaCarpetaEntregados + File.separator + rutaEntrega);
 				throw new IOException(msg);

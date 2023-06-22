@@ -155,36 +155,34 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	@SuppressWarnings("unchecked")
 	private void eventBtnProcesar() {
 		Modelo seleccionado = pantallaProcesarScript.getModeloSeleccionado();
+		Procesado procesado = pantallaProcesarScript.getProcesado();
 		
 		if (!Objects.isNull(seleccionado)) {
-			// El modelo tiene histórico
-			if (MDSQLConstants.S.equals(seleccionado.getMcaHis())) {
-				Map<String, Object> params = new HashMap<>();
-				params.put("codigoProyecto", seleccionado.getCodigoProyecto());
-				params.put("script", pantallaProcesarScript.getParams().get("script"));
-				params.put("codigoPeticion", pantallaProcesarScript.getTxtPeticion().getText());
-				
-				pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
-						MDSQLConstants.CMD_SELECCION_HISTORICO, params);
-				MDSQLUIHelper.show(pantallaSeleccionHistorico);
-				
-				Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
-				List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
-				if (continuarProcesado) {
-					procesarScript(objetosHistorico);
-				}
-				else {
-					JOptionPane.showMessageDialog(pantallaProcesarScript.getFrameParent(), "Operación cancelada");
-				}
+			if (Procesado.TYPE.equals(procesado)) {
+				procesarType();
 			}
 			else {
-				Procesado procesado = pantallaProcesarScript.getProcesado();
-				
-				if (Procesado.TYPE.equals(procesado)) {
-					procesarType();
+				// El modelo tiene histórico
+				if (MDSQLConstants.S.equals(seleccionado.getMcaHis())) {
+					Map<String, Object> params = new HashMap<>();
+					params.put("codigoProyecto", seleccionado.getCodigoProyecto());
+					params.put("script", pantallaProcesarScript.getParams().get("script"));
+					params.put("codigoPeticion", pantallaProcesarScript.getTxtPeticion().getText());
+					
+					pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
+							MDSQLConstants.CMD_SELECCION_HISTORICO, params);
+					MDSQLUIHelper.show(pantallaSeleccionHistorico);
+					
+					Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
+					List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
+					if (continuarProcesado) {
+						procesarScript(objetosHistorico);
+					}
+					else {
+						JOptionPane.showMessageDialog(pantallaProcesarScript.getFrameParent(), "Operación cancelada");
+					}
 				}
-				
-				if (Procesado.SCRIPT.equals(procesado)) {
+				else {
 					procesarScript(null);
 				}
 			}
