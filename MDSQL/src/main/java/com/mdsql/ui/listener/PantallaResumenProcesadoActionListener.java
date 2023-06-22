@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.OutputConsultaEntrega;
 import com.mdsql.bussiness.entities.OutputConsultaProcesado;
@@ -36,7 +37,6 @@ import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -273,7 +273,17 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 		try (ZipFile zipFile = new ZipFile(zipFileName)) {
 			for (Type type : proceso.getTypes()) {
-				zipFile.addFolder(new File(session.getSelectedRoute() + File.separator + type.getNombreObjeto()));
+				String carpetaObjeto = type.getNombreObjeto();
+				
+				if (StringUtils.isNotBlank(carpetaObjeto)) {
+					zipFile.addFolder(new File(session.getSelectedRoute() + File.separator + carpetaObjeto));
+				}
+				else {
+					for (ScriptType scriptType : type.getScriptType()) {
+						zipFile.addFile(new File(session.getSelectedRoute() + File.separator + scriptType.getNombreScript()));
+					}
+				}
+				
 			}
 		}
 	}
@@ -354,15 +364,26 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		for (Type type : types) {
-			File file = new File(rutaEntregados + File.separator + type.getNombreObjeto());
-			if (!file.exists()) {
-				file.mkdir();
+			String carpetaObjeto = type.getNombreObjeto();
+			
+			if(StringUtils.isNotBlank(carpetaObjeto)) {
+				File file = new File(rutaEntregados + File.separator + carpetaObjeto);
+				if (!file.exists()) {
+					file.mkdir();
+				}
+				
+				for (ScriptType scriptType : type.getScriptType()) {
+					String rutaScript = session.getSelectedRoute() + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript();
+					copyFile(rutaScript, rutaEntregados + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript());
+				}
+			}
+			else {
+				for (ScriptType scriptType : type.getScriptType()) {
+					String rutaScript = session.getSelectedRoute() + File.separator + scriptType.getNombreScript();
+					copyFile(rutaScript, rutaEntregados + File.separator + scriptType.getNombreScript());
+				}
 			}
 			
-			for (ScriptType scriptType : type.getScriptType()) {
-				String rutaScript = session.getSelectedRoute() + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript();
-				copyFile(rutaScript, rutaEntregados + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript());
-			}
 		}
 	}
 	

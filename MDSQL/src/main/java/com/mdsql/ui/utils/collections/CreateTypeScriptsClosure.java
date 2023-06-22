@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.ScriptType;
 import com.mdsql.bussiness.entities.Type;
@@ -30,8 +31,12 @@ public class CreateTypeScriptsClosure implements Closure {
 	public void execute(Object input) {
 		Type type = (Type) input;
 		try {
-			String nombreObjeto = type.getNombreObjeto();
-			MDSQLAppHelper.createFolder(selectedRoute, nombreObjeto);
+			String nombreObjeto = StringUtils.EMPTY;
+			
+			if (StringUtils.isNotBlank(type.getNombreObjeto())) {
+				nombreObjeto = type.getNombreObjeto();
+				MDSQLAppHelper.createFolder(selectedRoute, nombreObjeto);
+			}
 			
 			List<ScriptType> scriptTypes = type.getScriptType();
 			if (CollectionUtils.isNotEmpty(scriptTypes)) {
