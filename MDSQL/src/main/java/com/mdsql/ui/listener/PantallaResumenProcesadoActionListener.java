@@ -167,20 +167,18 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				// Esto es cuando se procesan scripts SQL
 				if (CollectionUtils.isNotEmpty(proceso.getScripts())) {
 					createZipVigente(proceso, outputConsultaEntrega);
-					copyZipVigente(outputConsultaEntrega);
-					copyFilesVigente(proceso.getScripts());
+					copyFilesVigente(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
 	
 					if (tieneScriptsHistoricos(proceso.getScripts())) {
 						createZipHistorico(proceso, outputConsultaEntrega);
-						copyZipHistorico(outputConsultaEntrega);
-						copyFilesHistorico(proceso.getScripts());
+						copyFilesHistorico(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
 					}
 				}
 				
 				// Esto es cuando se procesan scripts type
 				if (CollectionUtils.isNotEmpty(proceso.getTypes())) {
 					createZipType(proceso, outputConsultaEntrega);
-					copyZipVigente(outputConsultaEntrega);
+					//copyZipVigente(outputConsultaEntrega);
 					copyFiles(proceso.getTypes());
 				}
 
@@ -253,8 +251,25 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	}
 	
 	private void createZipType(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega) throws IOException {
-		createZip(proceso, outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroType(),
-				null);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String selectedRoute = session.getSelectedRoute();
+		String rootEntrega = MDSQLAppHelper.getRutaEntregados();
+		String rutaEntrega = outputConsultaEntrega.getTxtRutaEntrega();
+		String nombreZip = outputConsultaEntrega.getNombreFicheroType();
+		
+		String zipFileName = rootEntrega + File.separator + rutaEntrega + File.separator + nombreZip;
+		log.info("Zip file name: {}", zipFileName);
+
+		try (ZipFile zipFile = new ZipFile(zipFileName)) {
+			for (Type type : proceso.getTypes()) {
+				zipFile.addFolder(new File(selectedRoute + File.separator + type.getNombreObjeto()));
+				
+//				for (ScriptType scriptType : type.getScriptType()) {
+//					File fileScript = new File(selectedRoute + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript());
+//					zipFile.addFile(fileScript);
+//				}
+			}
+		}
 	}
 
 	/**
@@ -276,8 +291,9 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	private void createZip(Proceso proceso, String rutaEntrega, String nombreFichero, List<String> scriptTypes)
 			throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String rootEntrega = MDSQLAppHelper.getRutaEntregados();
 
-		String zipFileName = rutaEntrega + File.separator + nombreFichero;
+		String zipFileName = rootEntrega + File.separator + rutaEntrega + File.separator + nombreFichero;
 		log.info("Zip file name: {}", zipFileName);
 
 		try (ZipFile zipFile = new ZipFile(zipFileName)) {
@@ -370,22 +386,22 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	/**
 	 * @param scripts
 	 */
-	private void copyFilesVigente(List<Script> scripts) throws IOException {
-		copyFiles(scripts, Arrays.asList(new String[] { "SQL", "PDC" }));
+	private void copyFilesVigente(String rutaEntrega, List<Script> scripts) throws IOException {
+		copyFiles(rutaEntrega, scripts, Arrays.asList(new String[] { "SQL", "PDC" }));
 	}
 	
 	/**
 	 * @param scripts
 	 */
-	private void copyFilesHistorico(List<Script> scripts) throws IOException {
-		copyFiles(scripts, Arrays.asList(new String[] { "SQLH", "PDCH" }));
+	private void copyFilesHistorico(String rutaEntrega, List<Script> scripts) throws IOException {
+		copyFiles(rutaEntrega, scripts, Arrays.asList(new String[] { "SQLH", "PDCH" }));
 	}
 	
 	/**
 	 * @param scripts
 	 */
-	private void copyFiles(List<Script> scripts, List<String> scriptTypes) throws IOException {
-		String rutaEntregados = MDSQLAppHelper.getRutaEntregados();
+	private void copyFiles(String rutaEntrega, List<Script> scripts, List<String> scriptTypes) throws IOException {
+		String rutaEntregados = MDSQLAppHelper.getRutaEntregados() + File.separator + rutaEntrega;
 
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		for (Script script : scripts) {

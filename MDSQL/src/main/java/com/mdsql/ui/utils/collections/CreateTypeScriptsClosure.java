@@ -1,5 +1,6 @@
 package com.mdsql.ui.utils.collections;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,12 +30,14 @@ public class CreateTypeScriptsClosure implements Closure {
 	public void execute(Object input) {
 		Type type = (Type) input;
 		try {
-			MDSQLAppHelper.createFolder(selectedRoute, type.getNombreObjeto());
+			String nombreObjeto = type.getNombreObjeto();
+			MDSQLAppHelper.createFolder(selectedRoute, nombreObjeto);
 			
 			List<ScriptType> scriptTypes = type.getScriptType();
 			if (CollectionUtils.isNotEmpty(scriptTypes)) {
 				for (ScriptType scriptType : scriptTypes) {
-					Path filePath = Paths.get(selectedRoute, scriptType.getNombreScript());
+					String nombreScript = scriptType.getNombreScript();
+					Path filePath = Paths.get(selectedRoute, nombreObjeto + File.separator + nombreScript);
 					MDSQLAppHelper.dumpLinesToFile(scriptType.getTxtScript(), filePath.toFile());
 				}
 			}
