@@ -178,8 +178,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (!Objects.isNull(proceso) && "Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
 			Map<String, Object> params = new HashMap<>();
 
-			params.put("idProceso", pantallaEjecutar.getReturnParams().get("idProceso"));
-			params.put("entregar", pantallaEjecutar.getReturnParams().get("entregar"));
+			params.put("idProceso", proceso.getIdProceso());
+			params.put("entregar", Boolean.TRUE);
 
 			PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
 					.createDialog(framePrincipal, MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
@@ -423,47 +423,52 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Proceso proceso = session.getProceso();
 
 		if (!Objects.isNull(proceso)) {
-			Map<String, Object> params = new HashMap<>();
-			params.put("proceso", proceso);
-
-			String item = StringUtils.EMPTY;
-			if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
-				item = MDSQLConstants.CMD_EJECUTAR_SCRIPT;
-				pantallaEjecutar = (PantallaEjecutarScripts) MDSQLUIHelper.createDialog(framePrincipal, item, params);
-				MDSQLUIHelper.show(pantallaEjecutar);
+			if ("Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
+				evtProcesadoEnCurso();
 			}
-
-			if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
-				item = MDSQLConstants.CMD_EJECUTAR_TYPE;
-				pantallaEjecutar = (PantallaEjecutarTypes) MDSQLUIHelper.createDialog(framePrincipal, item, params);
-				MDSQLUIHelper.show(pantallaEjecutar);
-			}
-
-			String estado = (String) pantallaEjecutar.getReturnParams().get("estado");
-			if ("RECHAZADO".equals(estado)) {
-				resetFramePrincipal(null);
-			}
-
-			String cmd = (String) pantallaEjecutar.getReturnParams().get("cmd");
-			if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR.equals(cmd)
-					|| MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR.equals(cmd)) {
-				params = new HashMap<>();
-
-				params.put("idProceso", pantallaEjecutar.getReturnParams().get("idProceso"));
-				params.put("entregar", pantallaEjecutar.getReturnParams().get("entregar"));
-
-				item = MDSQLConstants.CMD_ENTREGAR_SCRIPT;
-				PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
-						.createDialog(framePrincipal, MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
-				MDSQLUIHelper.show(pantallaResumenProcesado);
-
-				estado = (String) pantallaResumenProcesado.getReturnParams().get("estado");
-				if ("Entregado".equals(estado)) {
+			else {
+				Map<String, Object> params = new HashMap<>();
+				params.put("proceso", proceso);
+	
+				String item = StringUtils.EMPTY;
+				if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {
+					item = MDSQLConstants.CMD_EJECUTAR_SCRIPT;
+					pantallaEjecutar = (PantallaEjecutarScripts) MDSQLUIHelper.createDialog(framePrincipal, item, params);
+					MDSQLUIHelper.show(pantallaEjecutar);
+				}
+	
+				if (Procesado.TYPE.equals(framePrincipal.getProcesado())) {
+					item = MDSQLConstants.CMD_EJECUTAR_TYPE;
+					pantallaEjecutar = (PantallaEjecutarTypes) MDSQLUIHelper.createDialog(framePrincipal, item, params);
+					MDSQLUIHelper.show(pantallaEjecutar);
+				}
+	
+				String estado = (String) pantallaEjecutar.getReturnParams().get("estado");
+				if ("RECHAZADO".equals(estado)) {
 					resetFramePrincipal(null);
 				}
+	
+				String cmd = (String) pantallaEjecutar.getReturnParams().get("cmd");
+				if (MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR.equals(cmd)
+						|| MDSQLConstants.PANTALLA_EJECUTAR_TYPES_BTN_ACEPTAR.equals(cmd)) {
+					params = new HashMap<>();
+	
+					params.put("idProceso", pantallaEjecutar.getReturnParams().get("idProceso"));
+					params.put("entregar", pantallaEjecutar.getReturnParams().get("entregar"));
+	
+					item = MDSQLConstants.CMD_ENTREGAR_SCRIPT;
+					PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
+							.createDialog(framePrincipal, MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
+					MDSQLUIHelper.show(pantallaResumenProcesado);
+	
+					estado = (String) pantallaResumenProcesado.getReturnParams().get("estado");
+					if ("Entregado".equals(estado)) {
+						resetFramePrincipal(null);
+					}
+				}
+	
+				updateProcesadoEnCurso(item);
 			}
-
-			updateProcesadoEnCurso(item);
 		} else {
 			// Aviso de que no hay procesado en curso
 			JOptionPane.showMessageDialog(framePrincipal, "Es necesario procesar un script");
