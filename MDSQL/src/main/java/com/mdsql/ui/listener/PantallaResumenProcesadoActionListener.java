@@ -156,7 +156,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 						.consultaRutaEntrega(proceso.getModelo().getCodigoProyecto(), proceso.getIdProceso());
 				
 				// Comprobar que existe la ruta antes de llamar a entregarPeticion
-				MDSQLAppHelper.checkRutaEntregados(outputConsultaEntrega.getTxtRutaEntrega());
+				MDSQLAppHelper.checkRuta(outputConsultaEntrega.getTxtRutaEntrega());
 				
 				// Entregar petición antes de hacer los ficheros, para controlar el comentario
 				String txtComentario = pantallaResumenProcesado.getTxtComentarios().getText();
@@ -268,7 +268,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		String rutaEntrega = outputConsultaEntrega.getTxtRutaEntrega();
 		String nombreFichero = outputConsultaEntrega.getNombreFicheroType();
 		
-		String zipFileName = MDSQLAppHelper.getRutaEntregados() + File.separator + rutaEntrega + File.separator + nombreFichero;
+		String zipFileName = rutaEntrega + File.separator + nombreFichero;
 		log.info("Zip file name: {}", zipFileName);
 
 		try (ZipFile zipFile = new ZipFile(zipFileName)) {
@@ -299,7 +299,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 
-		String zipFileName = MDSQLAppHelper.getRutaEntregados() + File.separator + rutaEntrega + File.separator + nombreFichero;
+		String zipFileName = rutaEntrega + File.separator + nombreFichero;
 		log.info("Zip file name: {}", zipFileName);
 
 		try (ZipFile zipFile = new ZipFile(zipFileName)) {
@@ -360,27 +360,25 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param types
 	 */
 	private void copyFilesType(String rutaEntrega, List<Type> types) throws IOException {
-		String rutaEntregados = MDSQLAppHelper.getRutaEntregados() + File.separator + rutaEntrega;
-
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		for (Type type : types) {
 			String carpetaObjeto = type.getNombreObjeto();
 			
 			if(StringUtils.isNotBlank(carpetaObjeto)) {
-				File file = new File(rutaEntregados + File.separator + carpetaObjeto);
+				File file = new File(rutaEntrega + File.separator + carpetaObjeto);
 				if (!file.exists()) {
 					file.mkdir();
 				}
 				
 				for (ScriptType scriptType : type.getScriptType()) {
 					String rutaScript = session.getSelectedRoute() + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript();
-					copyFile(rutaScript, rutaEntregados + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript());
+					copyFile(rutaScript, rutaEntrega + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript());
 				}
 			}
 			else {
 				for (ScriptType scriptType : type.getScriptType()) {
 					String rutaScript = session.getSelectedRoute() + File.separator + scriptType.getNombreScript();
-					copyFile(rutaScript, rutaEntregados + File.separator + scriptType.getNombreScript());
+					copyFile(rutaScript, rutaEntrega + File.separator + scriptType.getNombreScript());
 				}
 			}
 			
@@ -391,13 +389,11 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param scripts
 	 */
 	private void copyFiles(String rutaEntrega, List<Script> scripts, List<String> scriptTypes) throws IOException {
-		String rutaEntregados = MDSQLAppHelper.getRutaEntregados() + File.separator + rutaEntrega;
-
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		for (Script script : scripts) {
 			if (scriptTypes.contains(script.getTipoScript())) {
 				String rutaScript = session.getSelectedRoute() + File.separator + script.getNombreScript();
-				copyFile(rutaScript, rutaEntregados + File.separator + script.getNombreScript());
+				copyFile(rutaScript, rutaEntrega + File.separator + script.getNombreScript());
 			}
 		}
 	}
