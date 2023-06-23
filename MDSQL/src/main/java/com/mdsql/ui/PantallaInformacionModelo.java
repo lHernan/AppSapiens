@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import com.mdsql.ui.listener.PantallaInformacionModeloListener;
-import com.mdsql.ui.model.InformacionModeloTableModel;
+import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
@@ -99,7 +99,7 @@ public class PantallaInformacionModelo extends DialogSupport {
 	protected void initModels() {
     	Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_INFORMACION_MODELO_TABLA_CABECERA);
     	
-    	tblInformacion.initModel(new InformacionModeloTableModel(cabecera));
+    	tblInformacion.initModel(new ProcesarScriptNotaTableModel(cabecera));
     	tblInformacion.setDefaultRenderer(String.class, new NivelAvisosTableCellRenderer());
     }
     
