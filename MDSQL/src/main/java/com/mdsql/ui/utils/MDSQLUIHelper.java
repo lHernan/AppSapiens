@@ -3,7 +3,6 @@ package com.mdsql.ui.utils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -125,10 +124,17 @@ public class MDSQLUIHelper extends UIHelper {
 	 */
 	public static Map<String, Object> buildError(Exception e) {
 		Map<String, Object> params = new HashMap<>();
-
-		params.put(MDSQLConstants.TYPE, MDSQLConstants.CMD_ERROR);
+		
 		if (e instanceof ServiceException) {
-			params.put(Constants.SERVICE_ERROR, e);
+			ServiceException serviceException = (ServiceException) e;
+			if (serviceException.getType().equals(2)) {
+				params.put(MDSQLConstants.TYPE, MDSQLConstants.CMD_WARN);
+				params.put(Constants.SERVICE_ERROR, e);
+			}
+			else {
+				params.put(MDSQLConstants.TYPE, MDSQLConstants.CMD_ERROR);
+				params.put(Constants.SERVICE_ERROR, e);
+			}
 		} else {
 			params.put(Constants.ERROR, e);
 		}

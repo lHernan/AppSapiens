@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -106,14 +107,22 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport
 			List<SeleccionHistorico> listaSeleccionados = (List<SeleccionHistorico>) CollectionUtils
 					.select(listaObjetos, new SeleccionHistoricoPredicate());
 
-			procesoService.altaHistorico(listaSeleccionados, codigoProyecto, codigoPeticion, codigoUsuario);
+			ServiceException serviceException = procesoService.altaHistorico(listaSeleccionados, codigoProyecto, codigoPeticion, codigoUsuario);
+			if (!Objects.isNull(serviceException)) {
+				if (serviceException.getType().equals(2)) {
+					Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
+					MDSQLUIHelper.showPopup(pantallaSeleccionHistorico.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+				}
+				else {
+					throw serviceException;
+				}
+			}
 		} catch (Exception e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaSeleccionHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void generarHistorico() {
 		int dialogResult = MDSQLUIHelper.showConfirm("¿Desea continuar con el procesado?", "Atención");
 
