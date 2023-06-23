@@ -223,22 +223,11 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	public static void checkRutaEntregados(String rutaEntrega) throws IOException {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
-		String rutaCarpetaEntregados = session.getSelectedRoute() + File.separator + carpetaEntregados;
+	public static void checkRuta(String ruta) throws IOException {
+		File rootFolder = new File(ruta);
 		
-		File rootFolder = new File(rutaCarpetaEntregados);
-		
-		if (rootFolder.exists() && rootFolder.isDirectory()) {
-			File entregadosFolder = new File(rootFolder.getPath() + File.separator + rutaEntrega);
-			if (!entregadosFolder.exists() || !entregadosFolder.isDirectory()) {
-				String msg = String.format("%s no existe o no es una carpeta", rutaCarpetaEntregados + File.separator + rutaEntrega);
-				throw new IOException(msg);
-			}
-		}
-		else {
-			String msg = String.format("%s no existe o no es una carpeta", rutaCarpetaEntregados);
+		if (!rootFolder.exists() || !rootFolder.isDirectory()) {
+			String msg = String.format("%s no existe o no es una carpeta", ruta);
 			throw new IOException(msg);
 		}
 	}

@@ -12,6 +12,7 @@ public class Constants {
 	public static final String SESSION = "SESSION";
 	public static final String COD_USR = "CodUsr";
 	public static final String SPRING_CONTEXT = "SPRING_CONTEXT";
+	public static final String SERVICE_WARNING = "SERVICE_WARNING";
 	public static final String SERVICE_ERROR = "SERVICE_ERROR";
 	public static final String TYPE = "TYPE";
 	public static final String ERROR = "ERROR";

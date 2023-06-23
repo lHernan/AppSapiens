@@ -192,8 +192,8 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
     }
 
     @Override
-    public void altaHistorico(List<SeleccionHistorico> listaObjetos, String codigoProyecto, String codigoPeticion,
-                              String codigoUsuario) throws ServiceException {
+    public ServiceException altaHistorico(List<SeleccionHistorico> listaObjetos, String codigoProyecto, String codigoPeticion,
+                              String codigoUsuario) {
         String runSP = createCall("p_alta_historico", MDSQLConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -231,11 +231,19 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
             Integer result = callableStatement.getInt(5);
 
             if (result == 0) {
-                throw buildException(callableStatement.getArray(6));
+            	ServiceException serviceException = buildException(callableStatement.getArray(6));
+            	return serviceException;
             }
+            
+            if (result == 2) {
+				ServiceException serviceException = buildWarning(callableStatement.getArray(6));
+				return serviceException;
+			}
+            
+            return null;
         } catch (SQLException e) {
             LogWrapper.error(log, "[ProcesoService.altaHistorico] Error: %s", e.getMessage());
-            throw new ServiceException(e);
+            return new ServiceException(e);
         }
 
     }

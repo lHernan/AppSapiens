@@ -31,6 +31,7 @@ public interface ProcesoService {
 	 */
 	OutputSeleccionarHistorico seleccionarHistorico(String codProyecto, List<TextoLinea> lineas) throws ServiceException;
 
+	
 	/**
 	 * @param listaObjetos
 	 * @param codigoProyecto
@@ -38,7 +39,7 @@ public interface ProcesoService {
 	 * @param codigoUsuario
 	 * @return
 	 */
-	void altaHistorico(List<SeleccionHistorico> listaObjetos, String codigoProyecto, String codigoPeticion, String codigoUsuario) throws ServiceException;
+	ServiceException altaHistorico(List<SeleccionHistorico> listaObjetos, String codigoProyecto, String codigoPeticion, String codigoUsuario);
 
     /**
      * @param idProceso

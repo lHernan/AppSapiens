@@ -41,6 +41,31 @@ public class MDSQLConstants extends Constants {
 	public static final String SELECTED_ROUTE = "selectedRoute";
 	public static final String TOKEN = "TOKEN";
 	public static final String PROCESADO_EN_CURSO = "PROCESADO_EN_CURSO";
+	
+	public static enum Results {
+		ERROR(0, "ERROR"), OK(1, "OK"), WARN(2, "WARN");
+		
+		@Getter
+		private Integer num;
+		
+		@Getter
+		private String tipo;
+		
+		private Results(Integer num, String tipo) {
+			this.num = num;
+			this.tipo = tipo;
+		}
+		
+		public static Results getByTipo(String tipo) {
+			for (Results result : Results.values()) {
+				if (result.tipo.equals(tipo)) {
+					return result;
+				}
+			}
+
+			return null;
+		}
+	}
 
 	/**
 	 * Report templates

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdsql.utils.MDSQLConstants.Results;
 import com.mdsql.utils.DateFormatter;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.LogWrapper;
@@ -44,7 +45,7 @@ public class ServiceSupport {
 	 * @throws SQLException
 	 */
 	protected ServiceException buildException(Array array) throws SQLException {
-		return buildException((Object[]) array.getArray(), MDSQLConstants.ERROR);
+		return buildException((Object[]) array.getArray(), MDSQLConstants.Results.ERROR);
 	}
 	
 	/**
@@ -53,7 +54,7 @@ public class ServiceSupport {
 	 * @throws SQLException
 	 */
 	protected ServiceException buildWarning(Array array) throws SQLException {
-		return buildException((Object[]) array.getArray(), MDSQLConstants.WARN);
+		return buildException((Object[]) array.getArray(), MDSQLConstants.Results.WARN);
 	}
 	
 	/**
@@ -77,8 +78,8 @@ public class ServiceSupport {
 	 * @return
 	 * @throws SQLException
 	 */
-	protected ServiceException buildException(Object[] array, String type) throws SQLException {
-		ServiceException exception = new ServiceException(type);
+	protected ServiceException buildException(Object[] array, Results type) throws SQLException {
+		ServiceException exception = new ServiceException(type.getNum());
 		
 		List<Object[]> errors = new ArrayList<>();
 		for (Object row : array) {
