@@ -330,6 +330,7 @@ public class MDSQLConstants extends Constants {
 	public static final String CMD_EJECUTAR_TYPE = "CMD_EJECUTAR_TYPE";
 	public static final String CMD_AJUSTAR_LOG_EJECUCION = "CMD_AJUSTAR_LOG_EJECUCION";
 	public static final String CMD_INFORMACION_MODELO = "CMD_INFORMACION_MODELO";
+	public static final String CMD_LIMPIAR_SESION = "CMD_LIMPIAR_SESION";
 
 	/**
 	 * Panel principal
@@ -539,6 +540,7 @@ public class MDSQLConstants extends Constants {
 	public static final String FRAME_PRINCIPAL_EXECUTE = "FRAME_PRINCIPAL_EXECUTE";
 	public static final String FRAME_PRINCIPAL_ENTREGAR_PROCESADO = "FRAME_PRINCIPAL_ENTREGAR_PROCESADO";
 	public static final String FRAME_PRINCIPAL_LIMPIAR_SCRIPT = "FRAME_PRINCIPAL_LIMPIAR_SCRIPT";
+	public static final String FRAME_PRINCIPAL_LIMPIAR_SESION = "FRAME_PRINCIPAL_LIMPIAR_SESION";
 	public static final String FRAME_PRINCIPAL_BTN_UNDO = "FRAME_PRINCIPAL_BTN_UNDO";
 	public static final String FRAME_PRINCIPAL_BTN_REDO = "FRAME_PRINCIPAL_BTN_REDO";
 	public static final String FRAME_PRINCIPAL_BTN_CUT = "FRAME_PRINCIPAL_BTN_CUT";

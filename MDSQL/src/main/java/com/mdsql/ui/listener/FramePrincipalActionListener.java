@@ -89,6 +89,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (MDSQLConstants.FRAME_PRINCIPAL_LIMPIAR_SCRIPT.equals(jButton.getActionCommand())) {
 			evtLimpiarScript();
 		}
+		
+		if (MDSQLConstants.FRAME_PRINCIPAL_LIMPIAR_SESION.equals(jButton.getActionCommand())) {
+			evtLimpiarSesion();
+		}
 
 		if (MDSQLConstants.FRAME_PRINCIPAL_EXECUTE.equals(jButton.getActionCommand())) {
 			evtEjecutar();
@@ -129,6 +133,14 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (MDSQLConstants.FRAME_PRINCIPAL_BTN_PASTE.equals(jButton.getActionCommand())) {
 			framePrincipal.getTxtSQLCode().paste();
 		}
+	}
+
+	/**
+	 * 
+	 */
+	private void evtLimpiarSesion() {
+		resetFramePrincipal(null);
+		updateProcesadoEnCurso(MDSQLConstants.CMD_LIMPIAR_SESION);
 	}
 
 	/**
@@ -411,6 +423,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 				framePrincipal.getTxtSQLCode().setEditable(Boolean.FALSE);
 				framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
+				
+				updateProcesadoEnCurso(StringUtils.EMPTY);
 			}
 		}
 	}
@@ -683,11 +697,44 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (MDSQLConstants.CMD_ENTREGAR_SCRIPT.equals(cmd) && "Entregado".equals(proceso.getDescripcionEstadoProceso())) {
 			proceso = null;
 		}
+		
+		if (MDSQLConstants.CMD_LIMPIAR_SESION.equals(cmd)) {
+			proceso = null;
+		}
+		
+		updateButtons(proceso);
 
 		session.setProceso(proceso);
 
 		// Save session to disk
 //		MDSQLAppHelper.serializeToDisk(session, MDSQLConstants.SESSION);
+	}
+
+	private void updateButtons(Proceso proceso) {
+		
+		if (!Objects.isNull(proceso)) {
+			if ("Generado".equals(proceso.getDescripcionEstadoProceso())) {
+				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
+			}
+			else if ("En Ejecucion".equals(proceso.getDescripcionEstadoProceso())) {
+				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
+			}
+			else if ("Error".equals(proceso.getDescripcionEstadoProceso())) {
+				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
+			}
+			else if ("Rechazado".equals(proceso.getDescripcionEstadoProceso())) {
+				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
+			}
+			else if ("Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
+				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
+			}
+			else if ("Entregado".equals(proceso.getDescripcionEstadoProceso())) {
+				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
+			}
+		}
+		else {
+			framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
+		}
 	}
 
 	/**

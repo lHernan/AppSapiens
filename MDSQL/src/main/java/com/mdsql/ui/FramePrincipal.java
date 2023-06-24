@@ -19,14 +19,10 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
@@ -69,16 +65,37 @@ public class FramePrincipal extends FrameSupport {
 	private static final long serialVersionUID = 543072851506727342L;
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
+	@Getter
 	private JButton btnLoadScript;
+	
+	@Getter
 	private JButton btnInformacionModelo;
+	
+	@Getter
 	private JButton btnCargarScriptObjetos;
+	
+	@Getter
 	private JButton btnProcesarScript;
+	
+	@Getter
 	private JButton btnSave;
+	
+	@Getter
 	private JButton btnExecute;
+	
+	@Getter
 	private JButton btnEntregarProcesado;
+	
+	@Getter
 	private JButton btnLimpiarScripts;
+	
+	@Getter
 	private JButton btnLimpiarSesion;
+	
+	@Getter
 	private JButton btnProcesadoEnCurso;
+	
+	@Getter
 	private JButton btnRefrescarFichero;
 
 	@Getter
@@ -666,6 +683,7 @@ public class FramePrincipal extends FrameSupport {
 		btnExecute.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_EXECUTE);
 		btnEntregarProcesado.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_ENTREGAR_PROCESADO);
 		btnLimpiarScripts.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_LIMPIAR_SCRIPT);
+		btnLimpiarSesion.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_LIMPIAR_SESION);
 		btnProcesadoEnCurso.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_PROCESADO_CURSO);
 		btnRefrescarFichero.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_REFRESCAR_FICHERO);
 		btnInformacionModelo.setActionCommand(MDSQLConstants.FRAME_PRINCIPAL_INFORMACION_MODELO);
@@ -683,6 +701,7 @@ public class FramePrincipal extends FrameSupport {
 		btnExecute.addActionListener(actionListener);
 		btnEntregarProcesado.addActionListener(actionListener);
 		btnLimpiarScripts.addActionListener(actionListener);
+		btnLimpiarSesion.addActionListener(actionListener);
 		btnUndo.addActionListener(actionListener);
 		btnRedo.addActionListener(actionListener);
 		btnCut.addActionListener(actionListener);
