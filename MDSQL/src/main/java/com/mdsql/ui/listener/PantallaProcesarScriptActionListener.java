@@ -53,9 +53,6 @@ import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.Procesado;
 import com.mdval.exceptions.ServiceException;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * @author federico
  *

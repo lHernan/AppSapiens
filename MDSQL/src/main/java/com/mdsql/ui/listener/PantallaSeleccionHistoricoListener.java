@@ -21,6 +21,7 @@ import com.mdsql.ui.model.SeleccionHistoricoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.ui.utils.collections.SeleccionHistoricoPredicate;
+import com.mdsql.ui.utils.collections.SeleccionHistoricoUpdateClosure;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -116,6 +117,10 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport
 				else {
 					throw serviceException;
 				}
+			}
+			else { // No ha dado ni error ni aviso, se marcan los seleccionados como configurados en histórico
+				CollectionUtils.forAllDo(listaObjetos, new SeleccionHistoricoUpdateClosure(listaSeleccionados));
+				pantallaSeleccionHistorico.getTblHistorico().repaint();
 			}
 		} catch (Exception e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
