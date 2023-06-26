@@ -283,16 +283,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 * 
 	 */
 	private void evtLimpiarScript() {
-		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-		Proceso proceso = session.getProceso();
-
-		if (Objects.isNull(proceso)) {
-			resetFramePrincipal(null);
-		} else {
-			if ("Entregado".equals(proceso.getDescripcionEstadoProceso())) {
-				resetFramePrincipal(null);
-			}
-		}
+		resetFramePrincipal(null);
+		updateProcesadoEnCurso(MDSQLConstants.CMD_LIMPIAR_SCRIPT);
 	}
 
 	/**
@@ -715,6 +707,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		if (!Objects.isNull(proceso)) {
 			if ("Generado".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
+				framePrincipal.getBtnLimpiarScripts().setEnabled(Boolean.FALSE);
 			}
 			else if ("En Ejecucion".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
@@ -730,10 +723,13 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			}
 			else if ("Entregado".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
+				framePrincipal.getBtnLimpiarScripts().setEnabled(Boolean.TRUE);
 			}
 		}
 		else {
 			framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
+			framePrincipal.getBtnLimpiarScripts().setEnabled(Boolean.TRUE);
+			
 		}
 	}
 
