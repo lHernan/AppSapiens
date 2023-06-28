@@ -93,6 +93,8 @@ public class PantallaConsultaPeticionesListener extends ListenerSupport implemen
 
 			List<Proceso> procesos = procesoService.seleccionarProcesados(inputSeleccionarProcesados);
 			populateModel(procesos);
+			
+			
 		} catch (ServiceException | ParseException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaConsultaPeticiones.getFrameParent(), MDSQLConstants.CMD_ERROR, params);

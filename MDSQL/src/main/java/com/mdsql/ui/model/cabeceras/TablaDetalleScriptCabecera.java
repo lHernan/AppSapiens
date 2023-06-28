@@ -36,11 +36,11 @@ public class TablaDetalleScriptCabecera extends Cabecera {
 		columnSizes.add(75);
 		columnSizes.add(250);
 		columnSizes.add(150);
-		columnSizes.add(100);
+		columnSizes.add(120);
 		columnSizes.add(200);
+		columnSizes.add(150);
+		columnSizes.add(120);
 		columnSizes.add(100);
-		columnSizes.add(50);
-		columnSizes.add(75);
 		columnSizes.add(75);
 		columnSizes.add(75);
 	}
