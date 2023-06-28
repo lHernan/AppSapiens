@@ -29,13 +29,13 @@ public class TablaConsultaPeticionesCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		
-		columnSizes.add(15);
-		columnSizes.add(15);
-		columnSizes.add(15);
+		columnSizes.add(50);
+		columnSizes.add(1);
+		columnSizes.add(50);
 		columnSizes.add(150);
 		columnSizes.add(100);
-		columnSizes.add(15);
-		columnSizes.add(400);
-		columnSizes.add(15);
+		columnSizes.add(1);
+		columnSizes.add(450);
+		columnSizes.add(10);
 	}
 }

@@ -112,6 +112,7 @@ public class PantallaInformacionModelo extends DialogSupport {
 
    	@Override
    	protected void setupLiterals() {
+   		setTitle(literales.getLiteral("PantallaInformacionModelo.titulo"));
    		jLabel1.setText(literales.getLiteral("PantallaInformacionModelo.label1"));
    	}    
 }
