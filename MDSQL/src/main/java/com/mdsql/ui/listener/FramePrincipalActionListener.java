@@ -39,6 +39,7 @@ import com.mdsql.utils.MDSQLConstants.Procesado;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.ui.utils.UIHelper;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -175,10 +176,16 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			loadFileInFramePrincipal(framePrincipal.getCurrentFile());
 		} else {
 			if ("Generado".equals(proceso.getDescripcionEstadoProceso())) {
-				rechazarProceso(proceso);
-				session.setProceso(null);
-				resetFramePrincipal(framePrincipal.getCurrentFile());
-				loadFileInFramePrincipal(framePrincipal.getCurrentFile());
+				Integer response = UIHelper.showConfirm(
+						"Tras aceptar, se borran de la pantalla los scripts recién procesados.", "Rechazar");
+
+				if (response == JOptionPane.YES_OPTION) {
+
+					rechazarProceso(proceso);
+					session.setProceso(null);
+					resetFramePrincipal(framePrincipal.getCurrentFile());
+					loadFileInFramePrincipal(framePrincipal.getCurrentFile());
+				}
 			}
 		}
 	}
