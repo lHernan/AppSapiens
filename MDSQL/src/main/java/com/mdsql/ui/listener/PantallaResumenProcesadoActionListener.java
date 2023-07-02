@@ -37,6 +37,7 @@ import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -158,6 +159,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				// Comprobar que existe la ruta antes de llamar a entregarPeticion
 				MDSQLAppHelper.checkRuta(outputConsultaEntrega.getTxtRutaEntrega());
 				
+				// Comprobar que existe la ruta de Entregados antes de entregar la petición
+				ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+				String rutaInicial = configuration.getConfig("RutaDefectoScripts");
+				String rutaEntrega = configuration.getConfig("CarpetaEntregaFicheros");
+				String rutaEntregados = rutaInicial + File.separator + rutaEntrega;
+				MDSQLAppHelper.checkRuta(rutaEntregados);
+				
 				// Entregar petición antes de hacer los ficheros, para controlar el comentario
 				String txtComentario = pantallaResumenProcesado.getTxtComentarios().getText();
 				String codUsr = session.getCodUsr();
@@ -166,19 +174,25 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 				// Esto es cuando se procesan scripts SQL
 				if (CollectionUtils.isNotEmpty(proceso.getScripts())) {
-					createZipVigente(proceso, outputConsultaEntrega);
+					createZipVigente(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
+					createZipVigente(proceso, outputConsultaEntrega, rutaEntregados);
 					copyFilesVigente(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
+					copyFilesVigente(rutaEntregados, proceso.getScripts());
 	
 					if (tieneScriptsHistoricos(proceso.getScripts())) {
-						createZipHistorico(proceso, outputConsultaEntrega);
+						createZipHistorico(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
+						createZipHistorico(proceso, outputConsultaEntrega, rutaEntregados);
 						copyFilesHistorico(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
+						copyFilesHistorico(rutaEntregados, proceso.getScripts());
 					}
 				}
 				
 				// Esto es cuando se procesan scripts type
 				if (CollectionUtils.isNotEmpty(proceso.getTypes())) {
-					createZipType(proceso, outputConsultaEntrega);
+					createZipType(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
+					createZipType(proceso, outputConsultaEntrega, rutaEntregados);
 					copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
+					copyFilesType(rutaEntregados, proceso.getTypes());
 				}
 
 				proceso.setDescripcionEstadoProceso(estado);
@@ -244,8 +258,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param proceso
 	 * @param outputConsultaEntrega
 	 */
-	private void createZipVigente(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega) throws IOException {
-		createZip(proceso, outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroVigente(),
+	private void createZipVigente(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega, String rutaEntrega) throws IOException {
+		createZip(proceso, rutaEntrega, outputConsultaEntrega.getNombreFicheroVigente(),
 				Arrays.asList(new String[] { "SQL", "PDC" }));
 	}
 	
@@ -253,8 +267,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param proceso
 	 * @param outputConsultaEntrega
 	 */
-	private void createZipHistorico(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega) throws IOException {
-		createZip(proceso, outputConsultaEntrega.getTxtRutaEntrega(), outputConsultaEntrega.getNombreFicheroHistorico(),
+	private void createZipHistorico(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega, String rutaEntrega) throws IOException {
+		createZip(proceso, rutaEntrega, outputConsultaEntrega.getNombreFicheroHistorico(),
 				Arrays.asList(new String[] { "SQLH", "PDCH" }));
 	}
 	
@@ -263,9 +277,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param outputConsultaEntrega
 	 * @throws IOException
 	 */
-	private void createZipType(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega) throws IOException {
+	private void createZipType(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega, String rutaEntrega) throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-		String rutaEntrega = outputConsultaEntrega.getTxtRutaEntrega();
 		String nombreFichero = outputConsultaEntrega.getNombreFicheroType();
 		
 		String zipFileName = rutaEntrega + File.separator + nombreFichero;
