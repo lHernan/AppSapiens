@@ -233,69 +233,80 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 
 			Proceso proceso = pantallaEjecutarScripts.getProceso();
-			BBDD bbdd = proceso.getBbdd();
-
-			List<Script> vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
-			List<Script> historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel())
-					.getData();
-
-			// Filtrar los scripts seleccionados
-			vigente = new ArrayList<>(CollectionUtils.select(vigente, new ScriptSelectedPredicate()));
-			historico = new ArrayList<>(CollectionUtils.select(historico, new ScriptSelectedPredicate()));
-
-			// Une los scripts y los ordena
-			List<Script> scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
-			Collections.sort(scripts, (left, right) -> left.getNumeroOrden().compareTo(right.getNumeroOrden()));
-
-			// Ejecuta los scripts
-			List<OutputRegistraEjecucion> ejecuciones = scriptService.executeScripts(bbdd, scripts);
-
-			// Actualizar los scripts de las tablas y las repinta
-			vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
-			CollectionUtils.forAllDo(vigente, new UpdateScriptsClosure(ejecuciones));
-
-			historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
-			CollectionUtils.forAllDo(historico, new UpdateScriptsClosure(ejecuciones));
-
-			/**
-			 * Si hay scripts en estado Descuadrado o Error, hay que desmarcar los
-			 * siguientes y deshabilitar el botón Aceptar
-			 */
-			scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
-			Integer numeroOrden = hayErrores(scripts);
-			if (numeroOrden > 0) {
-				desmarcar(vigente, numeroOrden);
-				desmarcar(historico, numeroOrden);
-				pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
-			}
 			
-			pantallaEjecutarScripts.getTblVigente().repaint();
-			pantallaEjecutarScripts.getTblHistorico().repaint();
-
-			// Actualizar los scripts en el proceso en sesión
-			updateCurrentProcess(proceso, ejecuciones);
-
-			pantallaEjecutarScripts.getTxtEstadoEjecucion().setText(proceso.getDescripcionEstadoProceso());
-
-			/**
-			 * Ver si todos los scripts están ejecutados y el estado del proceso es
-			 * Ejecutado para mostrar la pantalla de resumen del procesado
-			 */
+			// Comprobar que estén todos ejecutados, si lo están cerrar esta ventana inmediatamente
 			if (isAllExecuted(proceso.getScripts())) {
-				Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
-				proceso.setDescripcionEstadoProceso("Ejecutado");
-				session.setProceso(proceso);
+				cerraryEntregar(proceso);
+			}
+			else {
+				BBDD bbdd = proceso.getBbdd();
+	
+				List<Script> vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
+				List<Script> historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel())
+						.getData();
+	
+				// Filtrar los scripts seleccionados
+				vigente = new ArrayList<>(CollectionUtils.select(vigente, new ScriptSelectedPredicate()));
+				historico = new ArrayList<>(CollectionUtils.select(historico, new ScriptSelectedPredicate()));
+	
+				// Une los scripts y los ordena
+				List<Script> scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
+				Collections.sort(scripts, (left, right) -> left.getNumeroOrden().compareTo(right.getNumeroOrden()));
+	
+				// Ejecuta los scripts
+				List<OutputRegistraEjecucion> ejecuciones = scriptService.executeScripts(bbdd, scripts);
+	
+				// Actualizar los scripts de las tablas y las repinta
+				vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
+				CollectionUtils.forAllDo(vigente, new UpdateScriptsClosure(ejecuciones));
+	
+				historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
+				CollectionUtils.forAllDo(historico, new UpdateScriptsClosure(ejecuciones));
+	
+				/**
+				 * Si hay scripts en estado Descuadrado o Error, hay que desmarcar los
+				 * siguientes y deshabilitar el botón Aceptar
+				 */
+				scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
+				Integer numeroOrden = hayErrores(scripts);
+				if (numeroOrden > 0) {
+					desmarcar(vigente, numeroOrden);
+					desmarcar(historico, numeroOrden);
+					pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
+				}
 				
-				pantallaEjecutarScripts.getReturnParams().put("idProceso", proceso.getIdProceso());
-				pantallaEjecutarScripts.getReturnParams().put("entregar", Boolean.TRUE);
-				pantallaEjecutarScripts.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
-
-				pantallaEjecutarScripts.dispose();
+				pantallaEjecutarScripts.getTblVigente().repaint();
+				pantallaEjecutarScripts.getTblHistorico().repaint();
+	
+				// Actualizar los scripts en el proceso en sesión
+				updateCurrentProcess(proceso, ejecuciones);
+	
+				pantallaEjecutarScripts.getTxtEstadoEjecucion().setText(proceso.getDescripcionEstadoProceso());
+	
+				/**
+				 * Ver si todos los scripts están ejecutados y el estado del proceso es
+				 * Ejecutado para mostrar la pantalla de resumen del procesado
+				 */
+				if (isAllExecuted(proceso.getScripts())) {
+					Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+					proceso.setDescripcionEstadoProceso("Ejecutado");
+					session.setProceso(proceso);
+					
+					cerraryEntregar(proceso);
+				}
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
+	}
+
+	private void cerraryEntregar(Proceso proceso) {
+		pantallaEjecutarScripts.getReturnParams().put("idProceso", proceso.getIdProceso());
+		pantallaEjecutarScripts.getReturnParams().put("entregar", Boolean.TRUE);
+		pantallaEjecutarScripts.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
+
+		pantallaEjecutarScripts.dispose();
 	}
 
 	@Override
