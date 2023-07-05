@@ -316,6 +316,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 				File file = loadScript();
 				if (!Objects.isNull(file)) {
+					LogWrapper.debug(log, "Ruta del script: %s", file.getParent());
+					session.setRutaScript(file.getParent());
 					loadFileInFramePrincipal(file);
 				}
 			}
@@ -350,6 +352,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	 */
 	private void evtLoadScriptObjects() {
 		try {
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			
 			if (confirmSave()) {
 				actionSave();
 			}
@@ -358,7 +362,9 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 			File file = loadScript();
 			if (!Objects.isNull(file)) {
-
+				LogWrapper.debug(log, "Ruta del script: %s", file.getParent());
+				session.setRutaScript(file.getParent());
+				
 				setContent(file);
 				framePrincipal.setCurrentFile(file);
 
@@ -406,6 +412,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			proceso = (Proceso) pantallaProcesarScript.getReturnParams().get("proceso");
 
 			if (!Objects.isNull(proceso)) {
+				proceso.setRutaScript(session.getRutaScript());
 				session.setProceso(proceso);
 
 				if (Procesado.SCRIPT.equals(framePrincipal.getProcesado())) {

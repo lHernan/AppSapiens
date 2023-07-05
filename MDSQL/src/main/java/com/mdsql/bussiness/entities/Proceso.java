@@ -37,6 +37,7 @@ public class Proceso implements Serializable {
     private String codigoDemanda;
     private String mcaErrores;
     private String rutaTrabajo;
+    private String rutaScript;
     
     private List<BBDD> bbdds;
     private List<Script> scripts;
