@@ -14,7 +14,7 @@ public class OperacionComboBoxModel extends AbstractListModel<String> implements
 	 */
 	private static final long serialVersionUID = -8083638254718894808L;
 
-	private String[] operaciones = new String[] { "Creación", "Modificación", "Borrado" };
+	private String[] operaciones = new String[] { "Ningún valor seleccionado", "Creación", "Modificación", "Borrado" };
 
 	private String selection = null;
 

@@ -213,8 +213,8 @@ public class MDSQLConstants extends Constants {
 	
 	// Estados del procesado
 	public enum EstadosProcesado {
-		GENERADO(1, "Generado"), EN_EJECUCION(2, "En ejecución"), ERROR(3, "Error"),
-		EJECUTADO(4, "Ejecutado"), RECHAZADO(5, "Rechazado"), ENTREGADO(6, "Entregado");
+		NOVALOR(1, "Ningún valor seleccionado"), GENERADO(2, "Generado"), EN_EJECUCION(3, "En ejecución"), ERROR(4, "Error"),
+		EJECUTADO(5, "Ejecutado"), RECHAZADO(6, "Rechazado"), ENTREGADO(7, "Entregado");
 
 		@Getter
 		private String name;
@@ -240,9 +240,9 @@ public class MDSQLConstants extends Constants {
 	
 	// Estados del script
 	public enum EstadosScript {
-		PENDIENTE(1, "Pendiente", Color.WHITE), EJECUTADO(2, "Ejecutado", Color.GREEN), ERROR(3, "Error", Color.RED),
-		DESCUADRADO(4, "Descuadrado", new Color(229, 206, 184)), REPARADO(5, "Reparado", Color.BLUE),
-		DESCARTADO(6, "Descartado", Color.ORANGE), EXCEPCION(7, "Excepción", Color.YELLOW);
+		SINVALOR (1, "Ningún valor seleccionado", Color.GRAY), PENDIENTE(2, "Pendiente", Color.WHITE), EJECUTADO(3, "Ejecutado", Color.GREEN), ERROR(4, "Error", Color.RED),
+		DESCUADRADO(5, "Descuadrado", new Color(229, 206, 184)), REPARADO(6, "Reparado", Color.BLUE),
+		DESCARTADO(7, "Descartado", Color.ORANGE), EXCEPCION(8, "Excepción", Color.YELLOW);
 		
 		@Getter
 		private Integer index;
