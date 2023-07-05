@@ -25,7 +25,7 @@ public class SeleccionHistoricoUpdateClosure implements Closure {
 		// Si está en la lista de seleccionados, marcarlo como configurado
 		for (SeleccionHistorico seleccion : seleccionados) {
 			if (seleccionHistorico.equals(seleccion)) {
-				seleccionHistorico.setConfigurado(Boolean.TRUE);
+				seleccionHistorico.setHistorico(Boolean.TRUE);
 			}
 		}
 	}
