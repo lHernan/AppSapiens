@@ -145,5 +145,5 @@ if [ $? -ne 0 ] ; then
 	exit
 fi
 
-
+$DIR_PROJECT/bin/entregar.sh $MDSQL_PROJECT $LATEST
 notify-send --urgency=low "Entrega $LATEST completada"
