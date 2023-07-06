@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -119,8 +120,11 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			String sDesde = dateInformeFormatter.dateToString(fechaDesde);
 			String sHasta = dateInformeFormatter.dateToString(fechaHasta);
 			
+			if(listaCambios.isEmpty()) {
+				JOptionPane.showMessageDialog(pantallaHistoricoCambios.getFrameParent(), "No hay datos para generar informe");
+			}else 
 			excelGeneratorService.generarExcelHistoricoCambios(listaCambios, path, codigoProyecto, sDesde, sHasta);
-		} catch (ServiceException | ParseException | IOException e) {
+			} catch (ServiceException | ParseException | IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
