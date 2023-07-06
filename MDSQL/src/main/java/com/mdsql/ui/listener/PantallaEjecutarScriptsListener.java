@@ -322,7 +322,10 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 		// Obtiene los scripts
 		List<Script> scripts = proceso.getScripts();
-
+		if (hayErrores(scripts) > 0) {
+			pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
+		}
+		
 		// Actualiza las tablas
 		String[] filtroVigentes = { "SQL", "PDC" };
 		List<Script> vigentes = filterListScriptsFrom(scripts, filtroVigentes);
