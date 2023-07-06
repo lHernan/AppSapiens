@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.service.ModeloService;
-import com.mdsql.ui.PantallaHistoricoCambios;
 import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
@@ -27,8 +26,6 @@ import com.mdval.ui.utils.OnLoadListener;
 public class PantallaSeleccionModelosListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private PantallaSeleccionModelos pantallaSeleccionModelos;
-	
-	private PantallaHistoricoCambios pantallaHistoricoCambios;
 
 	public PantallaSeleccionModelosListener(PantallaSeleccionModelos pantallaSeleccionModelos) {
 		super();
@@ -102,8 +99,7 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 	@Override
 	public void onLoad() {
 		try {
-			//String codModelo = (String) pantallaSeleccionModelos.getParams().get("codigoProyecto");
-			String codModelo = pantallaHistoricoCambios.getTxtModelo().getText();
+			String codModelo = (String) pantallaSeleccionModelos.getParams().get("codigoProyecto");
 			if (StringUtils.isNotBlank(codModelo)) {
 				String nombreModelo = pantallaSeleccionModelos.getTxtNombreModelo().getText();
 				String codSubmodelo = pantallaSeleccionModelos.getTxtCodSubmodelo().getText();
