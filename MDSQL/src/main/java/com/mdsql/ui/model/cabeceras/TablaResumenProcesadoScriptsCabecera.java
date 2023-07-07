@@ -33,6 +33,6 @@ public class TablaResumenProcesadoScriptsCabecera extends Cabecera {
 		columnSizes.add(75);
 		columnSizes.add(50);
 		columnSizes.add(50);
-		columnSizes.add(500);
+		columnSizes.add(550);
 	}
 }
