@@ -34,4 +34,8 @@ public class Session implements Serializable {
 	@Getter
 	@Setter
 	private Charset fileCharset;
+	
+	@Getter
+	@Setter
+	private String rutaScript;
 }

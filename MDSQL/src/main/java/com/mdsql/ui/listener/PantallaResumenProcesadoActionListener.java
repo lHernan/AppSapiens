@@ -161,9 +161,9 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				
 				// Comprobar que existe la ruta de Entregados antes de entregar la petición
 				ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-				String rutaInicial = configuration.getConfig("RutaDefectoScripts");
+				String rutaInicial = proceso.getRutaScript();
 				String rutaEntrega = configuration.getConfig("CarpetaEntregaFicheros");
-				String rutaEntregados = rutaInicial + File.separator + rutaEntrega;
+				String rutaEntregados = rutaInicial + "/" + rutaEntrega;
 				MDSQLAppHelper.checkRuta(rutaEntregados);
 				
 				// Entregar petición antes de hacer los ficheros, para controlar el comentario
