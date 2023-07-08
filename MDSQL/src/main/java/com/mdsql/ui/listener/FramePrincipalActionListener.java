@@ -353,29 +353,37 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 	private void evtLoadScriptObjects() {
 		try {
 			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			Proceso proceso = session.getProceso();
 			
-			if (confirmSave()) {
-				actionSave();
-			}
-
-			resetFramePrincipal(null);
-
-			File file = loadScript();
-			if (!Objects.isNull(file)) {
-				LogWrapper.debug(log, "Ruta del script: %s", file.getParent());
-				session.setRutaScript(file.getParent());
-				
-				setContent(file);
-				framePrincipal.setCurrentFile(file);
-
-				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
-				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
-				framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
-
-				framePrincipal.getTabPanel().setSelectedIndex(2);
-
-				// set the procesado
-				framePrincipal.setProcesado(Procesado.TYPE);
+			if (!Objects.isNull(proceso)) {
+				// Aviso de que no hay procesado en curso
+				JOptionPane.showMessageDialog(framePrincipal,
+						"Ya hay un procesado en curso. Debe finalizarlo o rechazarlo pulsando sobre Ejecutar script");
+			} else {
+			
+				if (confirmSave()) {
+					actionSave();
+				}
+	
+				resetFramePrincipal(null);
+	
+				File file = loadScript();
+				if (!Objects.isNull(file)) {
+					LogWrapper.debug(log, "Ruta del script: %s", file.getParent());
+					session.setRutaScript(file.getParent());
+					
+					setContent(file);
+					framePrincipal.setCurrentFile(file);
+	
+					framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
+					framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
+					framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
+	
+					framePrincipal.getTabPanel().setSelectedIndex(2);
+	
+					// set the procesado
+					framePrincipal.setProcesado(Procesado.TYPE);
+				}
 			}
 		} catch (IOException e1) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
