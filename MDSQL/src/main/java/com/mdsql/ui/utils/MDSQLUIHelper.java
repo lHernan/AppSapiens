@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
@@ -127,7 +128,7 @@ public class MDSQLUIHelper extends UIHelper {
 		
 		if (e instanceof ServiceException) {
 			ServiceException serviceException = (ServiceException) e;
-			if (serviceException.getType().equals(2)) {
+			if (!Objects.isNull(serviceException.getType()) && serviceException.getType().equals(2)) {
 				params.put(MDSQLConstants.TYPE, MDSQLConstants.CMD_WARN);
 				params.put(Constants.SERVICE_ERROR, e);
 			}
