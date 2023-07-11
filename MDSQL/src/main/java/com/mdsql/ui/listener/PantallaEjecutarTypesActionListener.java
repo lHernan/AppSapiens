@@ -167,6 +167,11 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		TypesTableModel tableModelTypes = (TypesTableModel) pantallaEjecutarTypes.getTblTypes()
 				.getModel();
 		tableModelTypes.setData(types);
+		
+		if ("Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
+			// Disable Aceptar button
+			pantallaEjecutarTypes.getBtnAceptar().setEnabled(Boolean.FALSE);
+		}
 	}
 	
 	private void updateCurrentProcess(Proceso proceso, OutputRegistraEjecucionType ejecucion) {

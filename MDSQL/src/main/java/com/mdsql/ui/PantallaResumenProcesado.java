@@ -186,7 +186,7 @@ public class PantallaResumenProcesado extends DialogSupport {
         tblObjetos = new TableSupport();
         jLabel12 = new JLabel();
         
-        setMinimumSize(new Dimension(1200, 990));
+        setMinimumSize(new Dimension(1435, 778));
 
         jScrollPane2.setViewportView(tblScripts);
         
