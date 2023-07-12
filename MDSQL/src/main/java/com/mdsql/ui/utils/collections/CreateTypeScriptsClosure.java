@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
@@ -33,7 +34,9 @@ public class CreateTypeScriptsClosure implements Closure {
 		try {
 			String nombreObjeto = StringUtils.EMPTY;
 			
-			if (StringUtils.isNotBlank(type.getNombreObjeto())) {
+			// Sólo crea la ruta si no tiene scripts de tipo DROP
+			String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
+			if (StringUtils.isNotBlank(type.getNombreObjeto()) && !drop.equals("S")) {
 				nombreObjeto = type.getNombreObjeto();
 				MDSQLAppHelper.createFolder(selectedRoute, nombreObjeto);
 			}

@@ -288,7 +288,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			for (Type type : proceso.getTypes()) {
 				String carpetaObjeto = type.getNombreObjeto();
 				
-				if (StringUtils.isNotBlank(carpetaObjeto)) {
+				String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
+				if (StringUtils.isNotBlank(carpetaObjeto) && !drop.equals("S")) {
 					zipFile.addFolder(new File(session.getSelectedRoute() + File.separator + carpetaObjeto));
 				}
 				else {
