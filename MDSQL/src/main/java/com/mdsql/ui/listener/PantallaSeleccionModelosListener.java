@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JButton;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Modelo;
@@ -15,6 +17,7 @@ import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.SeleccionModelosTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.ui.utils.collections.SeleccionHistoricoUpdateClosure;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
@@ -82,6 +85,21 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 		ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
 		
 		return modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
+		
+		ServiceException serviceException = modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
+		if (!Objects.isNull(serviceException)) {
+			if (serviceException.getType().equals(2)) {
+				Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
+				MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
+			else {
+				throw serviceException;
+			}
+		}
+		else { // No ha dado ni error ni aviso, se marcan los seleccionados como configurados en histórico
+			CollectionUtils.forAllDo(buscar, new SeleccionHistoricoUpdateClosure(buscar));
+			pantallaSeleccionModelos.getTblModelos().repaint();
+		}
 	}
 
 	/**
