@@ -14,7 +14,7 @@ public class TipoObjetoComboBoxModel extends AbstractListModel<String> implement
 	 */
 	private static final long serialVersionUID = -8083638254718894808L;
 
-	private String[] tipos = new String[] { "Ningún valor seleccionado", "Tabla", "Columna", "Comentario", "Vista", "Vista Materializada",
+	private String[] tipos = new String[] { " ", "Tabla", "Columna", "Comentario", "Vista", "Vista Materializada",
 			"Secuencia", "PK", "FK", "Índice", "Partición", "Subpartición", "Sinónimo", "Type", "Check constraints",
 			"Permiso" };
 
