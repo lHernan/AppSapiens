@@ -97,7 +97,6 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 			}
 		}
 		else { // No ha dado ni error ni aviso, se marcan los seleccionados como configurados en histórico
-			CollectionUtils.forAllDo(buscar, new SeleccionHistoricoUpdateClosure(buscar));
 			pantallaSeleccionModelos.getTblModelos().repaint();
 		}
 	}
