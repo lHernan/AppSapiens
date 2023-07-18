@@ -37,6 +37,7 @@ import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.ui.utils.collections.SeleccionHistoricoUpdateClosure;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
@@ -137,8 +138,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 		PantallaVerErroresScript pantallaVerErroresScript = (PantallaVerErroresScript) MDSQLUIHelper
 				.createDialog(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_VER_ERRORES_SCRIPT, params);
-		MDSQLUIHelper.show(pantallaVerErroresScript);
-	}
+		MDSQLUIHelper.show(pantallaVerErroresScript);	}
 
 	/**
 	 * 
