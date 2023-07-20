@@ -153,6 +153,17 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		cell = row.createCell(9);
 		cell.setCellValue(informe.getNumeroLongitud().toString());
 		
+		if(informe.getNumeroLongitud() == null) {
+			cell.setCellValue("0");
+		}
+		
+		cell = row.createCell(10);
+		cell.setCellValue(informe.getNumeroDecimal().toString());
+		
+		if(informe.getNumeroDecimal() == null) {
+			cell.setCellValue("0");
+		}
+		
 		cell = row.createCell(10);
 		cell.setCellValue(informe.getNumeroDecimal().toString());
 		
