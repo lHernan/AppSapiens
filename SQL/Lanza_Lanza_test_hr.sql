@@ -1,10 +1,10 @@
 SET DEFINE ON
 SET VERIFY ON
 SET ECHO OFF
-SPOOL "C:\Users\USUARIO1\Desktop\eSoluzion\AppSapiens\SQL/test.sql.log"
+SPOOL "C:\workspaceEsoluzion\AppSapiens\SQL/Lanza_test_hr.sql.log"
 DEFINE DAT_SMD_LD_U64K=DAT_SMD_LD_U64K
 DEFINE IND_SMD_LD_U64K=IND_SMD_LD_U64K
 DEFINE USROWN=HR
-@"C:\Users\USUARIO1\Desktop\eSoluzion\AppSapiens\SQL/test.sql"
+@"C:\workspaceEsoluzion\AppSapiens\SQL/Lanza_test_hr.sql"
 SPOOL OFF
 EXIT

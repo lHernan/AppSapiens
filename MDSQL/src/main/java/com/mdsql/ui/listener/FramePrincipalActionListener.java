@@ -173,7 +173,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Proceso proceso = session.getProceso();
 
 		if (Objects.isNull(proceso)) {
-			loadFileInFramePrincipal(framePrincipal.getCurrentFile());
+			resetFramePrincipal(framePrincipal.getCurrentFile());
+			//loadFileInFramePrincipal(framePrincipal.getCurrentFile());
 		} else {
 			if ("Generado".equals(proceso.getDescripcionEstadoProceso())) {
 				Integer response = UIHelper.showConfirm(

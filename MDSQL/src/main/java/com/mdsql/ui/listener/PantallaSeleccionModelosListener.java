@@ -85,20 +85,6 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 		ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
 		
 		return modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
-		
-		ServiceException serviceException = modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
-		if (!Objects.isNull(serviceException)) {
-			if (serviceException.getType().equals(2)) {
-				Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
-				MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), MDSQLConstants.CMD_WARN, params);
-			}
-			else {
-				throw serviceException;
-			}
-		}
-		else { // No ha dado ni error ni aviso, se marcan los seleccionados como configurados en histórico
-			pantallaSeleccionModelos.getTblModelos().repaint();
-		}
 	}
 
 	/**
