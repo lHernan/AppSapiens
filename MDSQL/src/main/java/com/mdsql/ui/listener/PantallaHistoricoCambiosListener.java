@@ -120,9 +120,9 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			String sDesde = dateInformeFormatter.dateToString(fechaDesde);
 			String sHasta = dateInformeFormatter.dateToString(fechaHasta);
 			
-			/*if(listaCambios.isEmpty()) {
+			if(listaCambios.isEmpty()) {
 				JOptionPane.showMessageDialog(pantallaHistoricoCambios.getFrameParent(), "No hay datos para generar informe");
-			}else */
+			}else
 			excelGeneratorService.generarExcelHistoricoCambios(listaCambios, path, codigoProyecto, sDesde, sHasta);
 			} catch (ServiceException | ParseException | IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
