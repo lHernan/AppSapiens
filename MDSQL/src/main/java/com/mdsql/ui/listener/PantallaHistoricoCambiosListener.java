@@ -195,6 +195,11 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 
 	private void buscarModelo() {
 		Map<String, Object> params = new HashMap<>();
+		
+		String codigoProyecto = pantallaHistoricoCambios.getTxtModelo().getText();
+		if (StringUtils.isNotBlank(codigoProyecto)) {
+			params.put("codigoProyecto", codigoProyecto);
+		}
 
 		PantallaSeleccionModelos pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper
 				.createDialog(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_SEARCH_MODEL, params);
