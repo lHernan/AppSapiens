@@ -37,7 +37,7 @@ public abstract class ListenerSupport extends Observable {
 		try {
 			literales = LiteralesSingleton.getInstance();
 			dateFormatter = new DateFormatter();
-			dateBuscarFormatter = new DateFormatter(MDSQLConstants.ORACLE_OBJECT_DATE_FORMAT_FOR_PROCEDURES);
+			dateBuscarFormatter = new DateFormatter(MDSQLConstants.FORMATO_FECHA_BUSCADOR_PETICIONES);
 			dateInformeFormatter = new DateFormatter(MDSQLConstants.INFORME_DATE_FORMAT);
 		} catch (IOException e) {
 			log.warn("ERROR:", e);

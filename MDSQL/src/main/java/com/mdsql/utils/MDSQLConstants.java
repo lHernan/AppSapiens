@@ -37,6 +37,7 @@ public class MDSQLConstants extends Constants {
 	public static final String S = "S";
 	public static final String N = "N";
 	public static final String ORACLE_OBJECT_DATE_FORMAT_FOR_PROCEDURES = "yyyy-MM-dd HH:mm:ss";
+	public static final String FORMATO_FECHA_BUSCADOR_PETICIONES = "yyyyMMdd";
 	public static final String INFORME_DATE_FORMAT = "yyyyMMdd";
 	public static final String SELECTED_ROUTE = "selectedRoute";
 	public static final String TOKEN = "TOKEN";
