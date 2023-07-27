@@ -214,7 +214,7 @@ public class MDSQLConstants extends Constants {
 	
 	// Estados del procesado
 	public enum EstadosProcesado {
-		NOVALOR(0, " "), GENERADO(1, "Generado"), EN_EJECUCION(2, "En ejecución"), ERROR(3, "Error"),
+		SINVALOR(0, " "), GENERADO(1, "Generado"), EN_EJECUCION(2, "En ejecución"), ERROR(3, "Error"),
 		EJECUTADO(4, "Ejecutado"), RECHAZADO(5, "Rechazado"), ENTREGADO(6, "Entregado");
 
 		@Getter
@@ -270,7 +270,59 @@ public class MDSQLConstants extends Constants {
 			return null;
 		}
 	}
+	
+	// Estados del Ttipo objeto
+	public enum TiposObjeto {
+		SINVALOR(0, " "), TABLA(1, "Tabla"), COLUMNA(2, "Columna"), COMENTARIO(3, "Comentario"),
+		VISTA(4, "Vista"), VISTAMATERIALIZADA(5, "Vista Materializada"), SECUENCIA(6, "Secuencia"), PK(7, "PK");
 
+		@Getter
+		private String name;
+		
+		@Getter
+		private Integer index;
+
+		TiposObjeto(Integer index, String name) {
+			this.index = index;
+			this.name = name;
+		}
+
+		public static TiposObjeto getByName(String name) {
+			for (TiposObjeto tiposObjeto : TiposObjeto.values()) {
+				if (tiposObjeto.name.equals(name)) {
+					return tiposObjeto;
+				}
+			}
+
+			return null;
+		}
+	}
+	
+	// Estados de operacion
+	public enum Operaciones {
+		SINVALOR(0, " "), CREACION(1, "Creación"), MODIFICACION(2, "Modificación"), BORRADO(3, "Borrado");
+
+		@Getter
+		private String name;
+		
+		@Getter
+		private Integer index;
+
+		Operaciones(Integer index, String name) {
+			this.index = index;
+			this.name = name;
+		}
+
+		public static Operaciones getByName(String name) {
+			for (Operaciones operacion : Operaciones.values()) {
+				if (operacion.name.equals(name)) {
+					return operacion;
+				}
+			}
+
+			return null;
+		}
+	}
 	// TODO - Crear estados type
 
 	/**

@@ -34,6 +34,8 @@ import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.EstadosProcesado;
 import com.mdsql.utils.MDSQLConstants.EstadosScript;
+import com.mdsql.utils.MDSQLConstants.Operaciones;
+import com.mdsql.utils.MDSQLConstants.TiposObjeto;
 import com.mdval.exceptions.ServiceException;
 
 public class PantallaHistoricoCambiosListener extends ListenerSupport implements ActionListener {
@@ -142,20 +144,53 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			String nombreObjetoPadre = pantallaHistoricoCambios.getTxtObjetoPadre().getText();
 			inputConsutaHistoricoProceso.setNombreObjetoPadre(nombreObjetoPadre);
 			
-			String tipoObjetoPadre = (String) pantallaHistoricoCambios.getCmbTipoObjetoPadre().getSelectedItem();
-			inputConsutaHistoricoProceso.setTipoObjetoPadre(tipoObjetoPadre);
+			/*String tipoObjetoPadre = (String) pantallaHistoricoCambios.getCmbTipoObjetoPadre().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoObjetoPadre(tipoObjetoPadre);*/
 			
-			String tipoAccionPadre = (String) pantallaHistoricoCambios.getCmbOperacionPadre().getSelectedItem();
-			inputConsutaHistoricoProceso.setTipoAccionPadre(tipoAccionPadre);
+			TiposObjeto tiposObjetoPadre = (TiposObjeto) pantallaHistoricoCambios.getCmbTipoObjetoPadre().getSelectedItem();
+			if (!Objects.isNull(tiposObjetoPadre)) {
+				inputConsutaHistoricoProceso.setCodigoTipoObjeto(new BigDecimal(tiposObjetoPadre.getIndex()));
+			}
+			else {
+				inputConsutaHistoricoProceso.setCodigoTipoObjeto(null);
+			}
+			
+			/*String tipoAccionPadre = (String) pantallaHistoricoCambios.getCmbOperacionPadre().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoAccionPadre(tipoAccionPadre);*/
+			
+			Operaciones operacionesPadre = (Operaciones) pantallaHistoricoCambios.getCmbOperacionPadre().getSelectedItem();
+			if (!Objects.isNull(operacionesPadre)) {
+				inputConsutaHistoricoProceso.setCodigoOperacion(new BigDecimal(operacionesPadre.getIndex()));
+			}
+			else {
+				inputConsutaHistoricoProceso.setCodigoOperacion(null);
+			}
+			
 			
 			String nombreObjeto = pantallaHistoricoCambios.getTxtObjeto().getText();
 			inputConsutaHistoricoProceso.setNombreObjeto(nombreObjeto);
 			
-			String tipoObjeto = (String) pantallaHistoricoCambios.getCmbTipoObjeto().getSelectedItem();
-			inputConsutaHistoricoProceso.setTipoObjeto(tipoObjeto);
+			/*String tipoObjeto = (String) pantallaHistoricoCambios.getCmbTipoObjeto().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoObjeto(tipoObjeto);*/
 			
-			String tipoAccion = (String) pantallaHistoricoCambios.getCmbOperacion().getSelectedItem();
-			inputConsutaHistoricoProceso.setTipoAccion(tipoAccion);
+			TiposObjeto tiposObjeto = (TiposObjeto) pantallaHistoricoCambios.getCmbTipoObjeto().getSelectedItem();
+			if (!Objects.isNull(tiposObjeto)) {
+				inputConsutaHistoricoProceso.setCodigoTipoObjeto(new BigDecimal(tiposObjeto.getIndex()));
+			}
+			else {
+				inputConsutaHistoricoProceso.setCodigoTipoObjeto(null);
+			}
+			
+			/*String tipoAccion = (String) pantallaHistoricoCambios.getCmbOperacion().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoAccion(tipoAccion);*/
+			
+			Operaciones operaciones = (Operaciones) pantallaHistoricoCambios.getCmbOperacion().getSelectedItem();
+			if (!Objects.isNull(operaciones)) {
+				inputConsutaHistoricoProceso.setCodigoOperacion(new BigDecimal(operaciones.getIndex()));
+			}
+			else {
+				inputConsutaHistoricoProceso.setCodigoOperacion(null);
+			}
 			
 			String desde = pantallaHistoricoCambios.getTxtDesde().getText();
 			String hasta = pantallaHistoricoCambios.getTxtHasta().getText();

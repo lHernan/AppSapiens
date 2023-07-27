@@ -54,11 +54,11 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
 
             callableStatement.setString(1, inputConsutaHistoricoProceso.getCodigoProyecto());
             callableStatement.setString(2, inputConsutaHistoricoProceso.getNombreObjetoPadre());
-            callableStatement.setString(3, inputConsutaHistoricoProceso.getTipoObjetoPadre());
-            callableStatement.setString(4, inputConsutaHistoricoProceso.getTipoAccionPadre());
+            callableStatement.setBigDecimal(3, inputConsutaHistoricoProceso.getCodigoTipoObjeto());
+            callableStatement.setBigDecimal(4, inputConsutaHistoricoProceso.getCodigoOperacion());
             callableStatement.setString(5, inputConsutaHistoricoProceso.getNombreObjeto());
-            callableStatement.setString(6, inputConsutaHistoricoProceso.getTipoObjeto());
-            callableStatement.setString(7, inputConsutaHistoricoProceso.getTipoAccion());
+            callableStatement.setBigDecimal(6, inputConsutaHistoricoProceso.getCodigoTipoObjeto());
+            callableStatement.setBigDecimal(7, inputConsutaHistoricoProceso.getCodigoOperacion());
             
             Date fechaDesde = inputConsutaHistoricoProceso.getFechaDesde();
             if (!Objects.isNull(fechaDesde)) {

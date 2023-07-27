@@ -30,6 +30,8 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.EstadosProcesado;
 import com.mdsql.utils.MDSQLConstants.EstadosScript;
+import com.mdsql.utils.MDSQLConstants.Operaciones;
+import com.mdsql.utils.MDSQLConstants.TiposObjeto;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -82,19 +84,19 @@ private static final long serialVersionUID = 1L;
     private JTextField txtObjetoPadre;
     
     @Getter
-	private JComboBox<String> cmbTipoObjeto;
+	private JComboBox<TiposObjeto> cmbTipoObjeto;
 
     @Getter
-	private JComboBox<String> cmbOperacion;
+	private JComboBox<Operaciones> cmbOperacion;
 
     @Getter
 	private JComboBox<EstadosScript> cmbEstadoScript;
 
     @Getter
-	private JComboBox<String> cmbTipoObjetoPadre;
+	private JComboBox<TiposObjeto> cmbTipoObjetoPadre;
 
     @Getter
-	private JComboBox<String> cmbOperacionPadre;
+	private JComboBox<Operaciones> cmbOperacionPadre;
 
     @Getter
 	private JComboBox<EstadosProcesado> cmbEstadoProcesado;
