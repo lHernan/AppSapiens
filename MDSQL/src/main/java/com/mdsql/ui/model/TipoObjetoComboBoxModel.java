@@ -5,7 +5,6 @@ import javax.swing.ComboBoxModel;
 
 import com.mdsql.utils.MDSQLConstants.TiposObjeto;
 
-
 /**
  * @author federico
  *
@@ -15,7 +14,7 @@ public class TipoObjetoComboBoxModel extends AbstractListModel<TiposObjeto> impl
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8083638254718894808L;
+	private static final long serialVersionUID = -3700195174395455435L;
 
 	private TiposObjeto[] tipos = TiposObjeto.values();
 

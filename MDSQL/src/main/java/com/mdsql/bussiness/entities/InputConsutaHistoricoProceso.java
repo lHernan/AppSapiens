@@ -25,11 +25,11 @@ public class InputConsutaHistoricoProceso implements Serializable {
 	
     private String codigoProyecto;
     private String nombreObjetoPadre;
-    private String tipoObjetoPadre;
-    private String tipoAccionPadre;
+    /*private String tipoObjetoPadre;
+    private String tipoAccionPadre;*/
     private String nombreObjeto;
-    private String tipoObjeto;
-    private String tipoAccion;
+   /* private String tipoObjeto;
+    private String tipoAccion;*/
     private Date fechaDesde;
     private Date fechaHasta;
     private BigDecimal codigoTipoObjeto;

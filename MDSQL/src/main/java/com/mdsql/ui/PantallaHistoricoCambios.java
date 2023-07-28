@@ -26,6 +26,8 @@ import com.mdsql.ui.model.OperacionComboBoxModel;
 import com.mdsql.ui.model.TipoObjetoComboBoxModel;
 import com.mdsql.ui.renderer.EstadoProcesadoRenderer;
 import com.mdsql.ui.renderer.EstadoScriptRenderer;
+import com.mdsql.ui.renderer.OperacionRenderer;
+import com.mdsql.ui.renderer.TipoObjetoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.EstadosProcesado;
@@ -360,6 +362,10 @@ private static final long serialVersionUID = 1L;
         
         cmbEstadoScript.setRenderer(new EstadoScriptRenderer());
         cmbEstadoProcesado.setRenderer(new EstadoProcesadoRenderer());
+        cmbTipoObjeto.setRenderer(new TipoObjetoRenderer());
+        cmbTipoObjetoPadre.setRenderer(new TipoObjetoRenderer());
+        cmbOperacion.setRenderer(new OperacionRenderer());
+        getCmbOperacionPadre().setRenderer(new OperacionRenderer());
 		
         Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_HISTORICO_CAMBIOS_TABLA_CABECERA);
         tblHistoricoObjetos.initModel(new HistoricoObjetoTableModel(cabecera));

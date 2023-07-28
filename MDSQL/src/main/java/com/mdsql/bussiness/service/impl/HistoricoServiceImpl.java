@@ -48,8 +48,8 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
             String typeHisProc = createCallType(MDSQLConstants.T_T_HIS_PROC);
             String typeError = createCallTypeError();
 
-            logProcedure(runSP, inputConsutaHistoricoProceso.getCodigoProyecto(), inputConsutaHistoricoProceso.getNombreObjetoPadre(), inputConsutaHistoricoProceso.getTipoObjetoPadre(), inputConsutaHistoricoProceso.getTipoAccionPadre()
-                    , inputConsutaHistoricoProceso.getNombreObjeto(), inputConsutaHistoricoProceso.getTipoObjeto(), inputConsutaHistoricoProceso.getTipoAccion(), inputConsutaHistoricoProceso.getFechaDesde()
+            logProcedure(runSP, inputConsutaHistoricoProceso.getCodigoProyecto(), inputConsutaHistoricoProceso.getNombreObjetoPadre(), inputConsutaHistoricoProceso.getCodigoTipoObjeto(), inputConsutaHistoricoProceso.getCodigoOperacion()
+                    , inputConsutaHistoricoProceso.getNombreObjeto(), inputConsutaHistoricoProceso.getCodigoTipoObjeto(), inputConsutaHistoricoProceso.getCodigoOperacion(), inputConsutaHistoricoProceso.getFechaDesde()
                     , inputConsutaHistoricoProceso.getFechaHasta(), inputConsutaHistoricoProceso.getCodigoEstadoProceso(), inputConsutaHistoricoProceso.getCodigoEstadoScript());
 
             callableStatement.setString(1, inputConsutaHistoricoProceso.getCodigoProyecto());
