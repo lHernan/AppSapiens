@@ -120,6 +120,20 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			String sDesde = dateInformeFormatter.dateToString(fechaDesde);
 			String sHasta = dateInformeFormatter.dateToString(fechaHasta);
 			
+			ServiceException serviceException = informeService.informeCambios(codigoProyecto, fechaDesde, fechaHasta);
+			if (!Objects.isNull(serviceException)) {
+				if (serviceException.getType().equals(2)) {
+					Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
+					MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+				}
+				else {
+					throw serviceException;
+				}
+			}
+			else { 
+				pantallaHistoricoCambios.getTblHistoricoObjetos().repaint();
+			}
+			
 			/*if(listaCambios.isEmpty()) {
 				JOptionPane.showMessageDialog(pantallaHistoricoCambios.getFrameParent(), "No hay datos para generar informe");
 			}else */
@@ -186,6 +200,21 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			
 			pantallaHistoricoCambios.getBtnResumen().setEnabled(Boolean.FALSE);
 			pantallaHistoricoCambios.getBtnVerDetalle().setEnabled(Boolean.FALSE);
+			
+			ServiceException serviceException = historicoService.consultarHistoricoProceso(inputConsutaHistoricoProceso);
+			if (!Objects.isNull(serviceException)) {
+				if (serviceException.getType().equals(2)) {
+					Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
+					MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+				}
+				else {
+					throw serviceException;
+				}
+			}
+			else { 
+				pantallaHistoricoCambios.getTblHistoricoObjetos().repaint();
+			}
+			
 		} catch (ServiceException | ParseException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
