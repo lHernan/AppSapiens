@@ -174,6 +174,14 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 			// Disable Aceptar button
 			pantallaEjecutarTypes.getBtnAceptar().setEnabled(Boolean.FALSE);
 		}
+		
+		// También se deshabilita si el procesado está Rechazado, Error, Entregado
+		if ("Rechazado".equals(proceso.getDescripcionEstadoProceso()) ||
+				"Error".equals(proceso.getDescripcionEstadoProceso()) ||
+				"Entregado".equals(proceso.getDescripcionEstadoProceso())) {
+			// Disable Aceptar button
+			pantallaEjecutarTypes.getBtnAceptar().setEnabled(Boolean.FALSE);
+		}
 	}
 	
 	private Boolean isAllExecuted(List<Type> types) {
