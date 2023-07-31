@@ -423,10 +423,14 @@ public class PantallaEjecutarScripts extends DialogSupport {
 			txtSubmodelo.setText(proceso.getSubproyecto().getDescripcionSubProyecto());
 			txtPeticion.setText(proceso.getCodigoPeticion());
 			txtSolicitadaPor.setText(proceso.getCodigoUsrPeticion());
-			txtEsquema.setText(proceso.getBbdd().getNombreEsquema());
-			cmbBBDD.setSelectedItem(proceso.getBbdd());
-			txtBBDDHistorico.setText(proceso.getBbdd().getNombreBBDDHis());
-			txtEsquemaHistorico.setText(proceso.getBbdd().getNombreEsquemaHis());
+			
+			if (!Objects.isNull(proceso.getBbdd())) {
+				txtEsquema.setText(proceso.getBbdd().getNombreEsquema());
+				cmbBBDD.setSelectedItem(proceso.getBbdd());
+				txtBBDDHistorico.setText(proceso.getBbdd().getNombreBBDDHis());
+				txtEsquemaHistorico.setText(proceso.getBbdd().getNombreEsquemaHis());
+			}
+			
 			txtDemanda.setText(proceso.getCodigoDemanda());
 		}
 	}
