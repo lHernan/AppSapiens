@@ -57,11 +57,11 @@ public class PantallaVerErroresScriptListener extends ListenerSupport implements
 			BigDecimal idProceso = proceso.getIdProceso();
 			BigDecimal numeroOrden = null;
 			if ("type".equals(tipo)) {
-				Scriptable script = (Scriptable) pantallaVerErroresScript.getParams().get("script");
-				numeroOrden = script.getNumeroOrden();
+				numeroOrden = (BigDecimal) pantallaVerErroresScript.getParams().get("numeroOrden");
 			}
 			else {
-				numeroOrden = (BigDecimal) pantallaVerErroresScript.getParams().get("numeroOrden");
+				Scriptable script = (Scriptable) pantallaVerErroresScript.getParams().get("script");
+				numeroOrden = script.getNumeroOrden();
 			} 
 
 			/**
