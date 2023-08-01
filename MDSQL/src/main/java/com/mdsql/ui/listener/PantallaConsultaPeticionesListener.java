@@ -88,8 +88,8 @@ public class PantallaConsultaPeticionesListener extends ListenerSupport implemen
 			String hasta = pantallaConsultaPeticiones.getTxtHasta().getText();
 			Date fechaDesde = (StringUtils.isNotBlank(desde)) ? dateBuscarFormatter.stringToDate(desde) : null;
 			Date fechaHasta = (StringUtils.isNotBlank(hasta)) ? dateBuscarFormatter.stringToDate(hasta) : null;
-			inputSeleccionarProcesados.setPFechaInicio(fechaDesde);
-			inputSeleccionarProcesados.setPFechaFin(fechaHasta);
+			inputSeleccionarProcesados.setPFechaInicio((java.sql.Date) fechaDesde);
+			inputSeleccionarProcesados.setPFechaFin((java.sql.Date) fechaHasta);
 
 			List<Proceso> procesos = procesoService.seleccionarProcesados(inputSeleccionarProcesados);
 			populateModel(procesos);

@@ -120,25 +120,11 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			String sDesde = dateInformeFormatter.dateToString(fechaDesde);
 			String sHasta = dateInformeFormatter.dateToString(fechaHasta);
 			
-			ServiceException serviceException = informeService.informeCambios(codigoProyecto, fechaDesde, fechaHasta);
-			if (!Objects.isNull(serviceException)) {
-				if (serviceException.getType().equals(2)) {
-					Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
-					MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_WARN, params);
-				}
-				else {
-					throw serviceException;
-				}
-			}
-			else { 
-				pantallaHistoricoCambios.getTblHistoricoObjetos().repaint();
-			}
-			
-			/*if(listaCambios.isEmpty()) {
+			if(listaCambios.isEmpty()) {
 				JOptionPane.showMessageDialog(pantallaHistoricoCambios.getFrameParent(), "No hay datos para generar informe");
-			}else */
+			}else
 			excelGeneratorService.generarExcelHistoricoCambios(listaCambios, path, codigoProyecto, sDesde, sHasta);
-			} catch (ServiceException | ParseException | IOException e) {
+		} catch (ServiceException | ParseException | IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
@@ -201,19 +187,6 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			pantallaHistoricoCambios.getBtnResumen().setEnabled(Boolean.FALSE);
 			pantallaHistoricoCambios.getBtnVerDetalle().setEnabled(Boolean.FALSE);
 			
-			ServiceException serviceException = historicoService.consultarHistoricoProceso(inputConsutaHistoricoProceso);
-			if (!Objects.isNull(serviceException)) {
-				if (serviceException.getType().equals(2)) {
-					Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
-					MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_WARN, params);
-				}
-				else {
-					throw serviceException;
-				}
-			}
-			else { 
-				pantallaHistoricoCambios.getTblHistoricoObjetos().repaint();
-			}
 			
 		} catch (ServiceException | ParseException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
@@ -224,6 +197,11 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 
 	private void buscarModelo() {
 		Map<String, Object> params = new HashMap<>();
+		
+		String codigoProyecto = pantallaHistoricoCambios.getTxtModelo().getText();
+		if (StringUtils.isNotBlank(codigoProyecto)) {
+			params.put("codigoProyecto", codigoProyecto);
+		}
 
 		PantallaSeleccionModelos pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper
 				.createDialog(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_SEARCH_MODEL, params);

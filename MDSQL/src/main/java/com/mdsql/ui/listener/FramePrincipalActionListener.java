@@ -173,6 +173,8 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 		Proceso proceso = session.getProceso();
 
 		if (Objects.isNull(proceso)) {
+			//resetFramePrincipal(framePrincipal.getCurrentFile());
+			//JOptionPane.showMessageDialog(null, "No hay proceso que refrescar");
 			loadFileInFramePrincipal(framePrincipal.getCurrentFile());
 		} else {
 			if ("Generado".equals(proceso.getDescripcionEstadoProceso())) {

@@ -46,7 +46,7 @@ public class PantallaConsultaPeticiones extends javax.swing.JFrame {
         txtEstado = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
         txtDesde = new javax.swing.JTextField();
-        txtDesde1 = new javax.swing.JTextField();
+        txtHasta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,7 +127,7 @@ public class PantallaConsultaPeticiones extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtDesde1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(523, 523, 523))
                     .addComponent(jScrollPane1)))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -148,7 +148,7 @@ public class PantallaConsultaPeticiones extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDesde1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -238,7 +238,7 @@ public class PantallaConsultaPeticiones extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPericiones;
     private javax.swing.JTextField txtDesde;
-    private javax.swing.JTextField txtDesde1;
+    private javax.swing.JTextField txtHasta;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtPeticion;
