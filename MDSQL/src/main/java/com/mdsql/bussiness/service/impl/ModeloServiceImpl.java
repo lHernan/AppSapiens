@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputConsultaModelos;
 import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.utils.MDSQLConstants;
@@ -35,7 +36,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	private DataSource dataSource;
 
 	@Override
-	public List<Modelo> consultaModelos(String codigoProyecto, String nombreModelo,
+	public OutputConsultaModelos consultaModelos(String codigoProyecto, String nombreModelo,
 			String codigoSubProyecto) throws ServiceException {
 		String runSP = createCall("p_con_modelos", MDSQLConstants.CALL_06_ARGS);
 
@@ -62,6 +63,14 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 				throw buildException(callableStatement.getArray(6));
 			}
 
+			OutputConsultaModelos outputConsultaModelos = new OutputConsultaModelos();
+			outputConsultaModelos.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputConsultaModelos.setServiceException(buildException(callableStatement.getArray(6)));
+			}
+			
 			List<Modelo> modelos = new ArrayList<>();
 			Array arrayModelos = callableStatement.getArray(4);
 			
@@ -91,9 +100,11 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 					
 					modelos.add(modelo);
 				}
+				
+				outputConsultaModelos.setModelos(modelos);
 			}
 
-			return modelos;
+			return outputConsultaModelos;
 		} catch (Exception e) {
 			LogWrapper.error(log, "[ModeloService.consultaModelos] Error: %s", e.getMessage());
 			throw new ServiceException(e);

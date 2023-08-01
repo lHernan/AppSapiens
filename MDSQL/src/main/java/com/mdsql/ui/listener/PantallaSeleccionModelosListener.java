@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputConsultaModelos;
 import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.SeleccionModelosTableModel;
@@ -81,21 +82,16 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 	private List<Modelo> buscar(String codModelo, String nombreModelo, String codSubmodelo) throws ServiceException {
 		ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
 		
-		return modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
+		OutputConsultaModelos outputConsultaModelos = modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
 		
-		//ServiceException serviceException = modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
-		//if (!Objects.isNull(serviceException)) {
-			//if (serviceException.getType().equals(2)) {
-				//Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
-				//MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), MDSQLConstants.CMD_WARN, params);
-			//}
-			//else {
-				//throw serviceException;
-			//}
-		//}
-		//else { // No ha dado ni error ni aviso, se marcan los seleccionados como configurados en histórico
-			//pantallaSeleccionModelos.getTblModelos().repaint();
-		//}
+		// Hay avisos
+		if (outputConsultaModelos.getResult() == 2) {
+			ServiceException serviceException = outputConsultaModelos.getServiceException();
+			Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+			MDSQLUIHelper.showPopup(pantallaSeleccionModelos.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+		}
+		
+		return outputConsultaModelos.getModelos(); 
 	}
 
 	/**

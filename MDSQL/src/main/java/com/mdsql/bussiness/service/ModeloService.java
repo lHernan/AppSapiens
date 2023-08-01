@@ -1,8 +1,6 @@
 package com.mdsql.bussiness.service;
 
-import java.util.List;
-
-import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputConsultaModelos;
 import com.mdval.exceptions.ServiceException;
 
 /**
@@ -17,7 +15,7 @@ public interface ModeloService {
 	 * @return
 	 * @throws ServiceException
 	 */
-	List<Modelo> consultaModelos(String codigoProyecto, String nombreModelo, String codigoSubProyecto)
+	OutputConsultaModelos consultaModelos(String codigoProyecto, String nombreModelo, String codigoSubProyecto)
 			throws ServiceException;
 
 }

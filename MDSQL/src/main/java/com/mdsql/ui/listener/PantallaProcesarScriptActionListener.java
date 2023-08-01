@@ -22,6 +22,7 @@ import com.mdsql.bussiness.entities.InputProcesaScript;
 import com.mdsql.bussiness.entities.InputProcesaType;
 import com.mdsql.bussiness.entities.InputSeleccionarProcesados;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputConsultaModelos;
 import com.mdsql.bussiness.entities.OutputProcesa;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputProcesaType;
@@ -550,6 +551,15 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 	private List<Modelo> buscar(String codModelo, String nombreModelo, String codSubmodelo) throws ServiceException {
 		ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
 		
-		return modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
+		OutputConsultaModelos outputConsultaModelos = modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
+		
+		// Hay avisos
+		if (outputConsultaModelos.getResult() == 2) {
+			ServiceException serviceException = outputConsultaModelos.getServiceException();
+			Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+			MDSQLUIHelper.showPopup(pantallaProcesarScript.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+		}
+		
+		return outputConsultaModelos.getModelos(); 
 	}
 }
