@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.HistoricoProceso;
 import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
+import com.mdsql.bussiness.entities.OutputConsultaHistoricoProceso;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -39,7 +40,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
 
     @Override
     @SneakyThrows(ServiceException.class)
-    public List<HistoricoProceso> consultarHistoricoProceso(InputConsutaHistoricoProceso inputConsutaHistoricoProceso) {
+    public OutputConsultaHistoricoProceso consultarHistoricoProceso(InputConsutaHistoricoProceso inputConsutaHistoricoProceso) {
         String runSP = createCall("p_con_historico_objeto", MDSQLConstants.CALL_14_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -89,6 +90,14 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
             if (result == 0) {
                 throw buildException(callableStatement.getArray(14));
             }
+            
+            OutputConsultaHistoricoProceso outputConsultaHistoricoProceso = new OutputConsultaHistoricoProceso();
+            outputConsultaHistoricoProceso.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputConsultaHistoricoProceso.setServiceException(buildException(callableStatement.getArray(6)));
+			}
 
             List<HistoricoProceso> historicoProcesos = new ArrayList<>();
             Array arrayHistoricoProceso = callableStatement.getArray(12);
@@ -113,8 +122,10 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
                             .build();
                     historicoProcesos.add(historicoProceso);
                 }
+                
+                outputConsultaHistoricoProceso.setHistoricoProcesos(historicoProcesos);
             }
-            return historicoProcesos;
+            return outputConsultaHistoricoProceso;
         } catch (SQLException e) {
             LogWrapper.error(log, "[HistoricoService.consultarHistoricoProceso] Error:  %s", e.getMessage());
             throw new ServiceException(e);

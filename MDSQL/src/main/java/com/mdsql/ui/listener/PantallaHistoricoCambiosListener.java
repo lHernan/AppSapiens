@@ -20,6 +20,7 @@ import com.mdsql.bussiness.entities.HistoricoProceso;
 import com.mdsql.bussiness.entities.InformeCambios;
 import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputConsultaHistoricoProceso;
 import com.mdsql.bussiness.service.ExcelGeneratorService;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.bussiness.service.InformeService;
@@ -216,8 +217,16 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			}
 			
 			
-			List<HistoricoProceso> historicos = historicoService.consultarHistoricoProceso(inputConsutaHistoricoProceso);
-			populateModel(historicos);
+			OutputConsultaHistoricoProceso outputConsultaHistoricoProceso = historicoService.consultarHistoricoProceso(inputConsutaHistoricoProceso);
+			
+			// Hay avisos
+			if (outputConsultaHistoricoProceso.getResult() == 2) {
+				ServiceException serviceException = outputConsultaHistoricoProceso.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
+			
+			populateModel(outputConsultaHistoricoProceso.getHistoricoProcesos());
 			
 			pantallaHistoricoCambios.getBtnResumen().setEnabled(Boolean.FALSE);
 			pantallaHistoricoCambios.getBtnVerDetalle().setEnabled(Boolean.FALSE);

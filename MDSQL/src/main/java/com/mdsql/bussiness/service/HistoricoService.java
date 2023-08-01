@@ -1,9 +1,7 @@
 package com.mdsql.bussiness.service;
 
-import java.util.List;
-
-import com.mdsql.bussiness.entities.HistoricoProceso;
 import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
+import com.mdsql.bussiness.entities.OutputConsultaHistoricoProceso;
 import com.mdval.exceptions.ServiceException;
 
 /**
@@ -15,6 +13,6 @@ public interface HistoricoService {
      * @param inputConsutaHistoricoProceso
      * @return HistoricoProcesoList
      */
-    List<HistoricoProceso> consultarHistoricoProceso(InputConsutaHistoricoProceso inputConsutaHistoricoProceso) throws ServiceException;
+	OutputConsultaHistoricoProceso consultarHistoricoProceso(InputConsutaHistoricoProceso inputConsutaHistoricoProceso) throws ServiceException;
 
 }
