@@ -288,8 +288,12 @@ public class PantallaEjecutarTypes extends DialogSupport {
 			txtSubmodelo.setText(proceso.getSubproyecto().getDescripcionSubProyecto());
 			txtSD.setText(proceso.getCodigoPeticion());
 			txtSolicitadaPor.setText(proceso.getCodigoUsrPeticion());
-			txtEsquema.setText(proceso.getBbdd().getNombreEsquema());
-			txtBBDD.setText(proceso.getBbdd().getNombreBBDD());
+			
+			if (!Objects.isNull(proceso.getBbdd())) {
+				txtEsquema.setText(proceso.getBbdd().getNombreEsquema());
+				txtBBDD.setText(proceso.getBbdd().getNombreBBDD());
+			}
+				
 			txtDemanda.setText(proceso.getCodigoDemanda());
 		}
 	}

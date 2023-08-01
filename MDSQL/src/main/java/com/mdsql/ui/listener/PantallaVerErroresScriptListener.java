@@ -51,12 +51,18 @@ public class PantallaVerErroresScriptListener extends ListenerSupport implements
 		try {
 			ErroresService erroresService = (ErroresService) getService(MDSQLConstants.ERRORES_SERVICE);
 
-			Scriptable script = (Scriptable) pantallaVerErroresScript.getParams().get("script");
 			Proceso proceso = (Proceso) pantallaVerErroresScript.getParams().get("proceso");
 			String tipo = (String) pantallaVerErroresScript.getParams().get("tipo");
-
+			
 			BigDecimal idProceso = proceso.getIdProceso();
-			BigDecimal numeroOrden = script.getNumeroOrden();
+			BigDecimal numeroOrden = null;
+			if ("type".equals(tipo)) {
+				Scriptable script = (Scriptable) pantallaVerErroresScript.getParams().get("script");
+				numeroOrden = script.getNumeroOrden();
+			}
+			else {
+				numeroOrden = (BigDecimal) pantallaVerErroresScript.getParams().get("numeroOrden");
+			} 
 
 			/**
 			 * Se llamará al método específico según se estén ejecutando scripts o scripts

@@ -176,12 +176,16 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param txtScript
 	 */
 	public static void dumpContentToText(File file, JTextArea txtScript) throws IOException {
-		// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
-		Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
-		LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
-
-		String content = writeFileToString(file);
-		txtScript.append(content);
+		try {
+			// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
+			Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
+			LogWrapper.debug(log, "Juego de caracteres: %s", charset.toString());
+		} catch (Exception e) {
+			LogWrapper.warn(log, e.getMessage());
+		} finally {
+			String content = writeFileToString(file);
+			txtScript.append(content);
+		}
 	}
 
 	/**

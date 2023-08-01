@@ -3,22 +3,22 @@ package com.mdsql.ui.model;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 
+import com.mdsql.utils.MDSQLConstants.TiposObjeto;
+
 /**
  * @author federico
  *
  */
-public class TipoObjetoComboBoxModel extends AbstractListModel<String> implements ComboBoxModel<String> {
+public class TipoObjetoComboBoxModel extends AbstractListModel<TiposObjeto> implements ComboBoxModel<TiposObjeto> {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8083638254718894808L;
+	private static final long serialVersionUID = -3700195174395455435L;
 
-	private String[] tipos = new String[] { " ", "Tabla", "Columna", "Comentario", "Vista", "Vista Materializada",
-			"Secuencia", "PK", "FK", "Índice", "Partición", "Subpartición", "Sinónimo", "Type", "Check constraints",
-			"Permiso" };
+	private TiposObjeto[] tipos = TiposObjeto.values();
 
-	private String selection = null;
+	private TiposObjeto selection = null;
 
 	@Override
 	public int getSize() {
@@ -26,13 +26,13 @@ public class TipoObjetoComboBoxModel extends AbstractListModel<String> implement
 	}
 
 	@Override
-	public String getElementAt(int index) {
+	public TiposObjeto getElementAt(int index) {
 		return tipos[index];
 	}
 
 	@Override
 	public void setSelectedItem(Object anItem) {
-		selection = (String) anItem;
+		selection = (TiposObjeto) anItem;
 	}
 
 	@Override

@@ -391,10 +391,14 @@ public class PantallaProcesadoEnCurso extends DialogSupport implements PantallaP
         	txtSubproyecto.setText(proceso.getSubproyecto().getDescripcionSubProyecto());
         	txtPeticion.setText(proceso.getCodigoPeticion());
         	txtSolicitadaPor.setText(proceso.getCodigoUsrPeticion());
-        	txtBBDD.setText(proceso.getBbdd().getNombreBBDD());
-        	txtEsquema.setText(proceso.getBbdd().getNombreEsquema());
-        	txtBBDDHistorico.setText(proceso.getBbdd().getNombreBBDDHis());
-        	txtEsquemaHistorico.setText(proceso.getBbdd().getNombreEsquemaHis());
+        	
+        	if (!Objects.isNull(proceso.getBbdd())) {
+	        	txtBBDD.setText(proceso.getBbdd().getNombreBBDD());
+	        	txtEsquema.setText(proceso.getBbdd().getNombreEsquema());
+	        	txtBBDDHistorico.setText(proceso.getBbdd().getNombreBBDDHis());
+	        	txtEsquemaHistorico.setText(proceso.getBbdd().getNombreEsquemaHis());
+        	}
+        	
         	txtDemanda.setText(proceso.getCodigoDemanda());
         	txtDescripcion.setText(proceso.getTxtDescripcion());
         	

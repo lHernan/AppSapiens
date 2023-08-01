@@ -26,10 +26,14 @@ import com.mdsql.ui.model.OperacionComboBoxModel;
 import com.mdsql.ui.model.TipoObjetoComboBoxModel;
 import com.mdsql.ui.renderer.EstadoProcesadoRenderer;
 import com.mdsql.ui.renderer.EstadoScriptRenderer;
+import com.mdsql.ui.renderer.OperacionRenderer;
+import com.mdsql.ui.renderer.TipoObjetoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdsql.utils.MDSQLConstants.EstadosProcesado;
 import com.mdsql.utils.MDSQLConstants.EstadosScript;
+import com.mdsql.utils.MDSQLConstants.Operaciones;
+import com.mdsql.utils.MDSQLConstants.TiposObjeto;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -82,19 +86,19 @@ private static final long serialVersionUID = 1L;
     private JTextField txtObjetoPadre;
     
     @Getter
-	private JComboBox<String> cmbTipoObjeto;
+	private JComboBox<TiposObjeto> cmbTipoObjeto;
 
     @Getter
-	private JComboBox<String> cmbOperacion;
+	private JComboBox<Operaciones> cmbOperacion;
 
     @Getter
 	private JComboBox<EstadosScript> cmbEstadoScript;
 
     @Getter
-	private JComboBox<String> cmbTipoObjetoPadre;
+	private JComboBox<TiposObjeto> cmbTipoObjetoPadre;
 
     @Getter
-	private JComboBox<String> cmbOperacionPadre;
+	private JComboBox<Operaciones> cmbOperacionPadre;
 
     @Getter
 	private JComboBox<EstadosProcesado> cmbEstadoProcesado;
@@ -358,6 +362,10 @@ private static final long serialVersionUID = 1L;
         
         cmbEstadoScript.setRenderer(new EstadoScriptRenderer());
         cmbEstadoProcesado.setRenderer(new EstadoProcesadoRenderer());
+        cmbTipoObjeto.setRenderer(new TipoObjetoRenderer());
+        cmbTipoObjetoPadre.setRenderer(new TipoObjetoRenderer());
+        cmbOperacion.setRenderer(new OperacionRenderer());
+        getCmbOperacionPadre().setRenderer(new OperacionRenderer());
 		
         Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_HISTORICO_CAMBIOS_TABLA_CABECERA);
         tblHistoricoObjetos.initModel(new HistoricoObjetoTableModel(cabecera));

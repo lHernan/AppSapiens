@@ -24,5 +24,6 @@ public class Operacion implements Serializable {
 	private String descripcionAccion;
 	private String bbdd;
 	private String script;
+	private String codigoOperacion;
 
 }

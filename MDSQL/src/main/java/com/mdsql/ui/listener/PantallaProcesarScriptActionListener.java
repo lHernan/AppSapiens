@@ -395,10 +395,13 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 				inputProcesaScript.setPMcaHIS(MDSQLAppHelper.normalizeValueToCheck(pantallaProcesarScript.getChkGenerarHistorico().isSelected()));
 				
 				BBDD selectedBBDD = (BBDD) pantallaProcesarScript.getCmbBBDD().getSelectedItem();
-				inputProcesaScript.setPNombreBBDD(selectedBBDD.getNombreBBDD());
-				inputProcesaScript.setPNombreEsquema(selectedBBDD.getNombreEsquema());
-				inputProcesaScript.setPNombreBBDDHIS(selectedBBDD.getNombreBBDDHis());
-				inputProcesaScript.setPNombreEsquemaHis(selectedBBDD.getNombreEsquemaHis());
+				if (!Objects.isNull(selectedBBDD)) {
+					inputProcesaScript.setPNombreBBDD(selectedBBDD.getNombreBBDD());
+					inputProcesaScript.setPNombreEsquema(selectedBBDD.getNombreEsquema());
+					inputProcesaScript.setPNombreBBDDHIS(selectedBBDD.getNombreBBDDHis());
+					inputProcesaScript.setPNombreEsquemaHis(selectedBBDD.getNombreEsquemaHis());
+				}
+				
 				inputProcesaScript.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
 				
 				// Si la lista de objetos del histórico está vacía, no informa la lista a procesar

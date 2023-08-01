@@ -23,15 +23,17 @@ public class InputConsutaHistoricoProceso implements Serializable {
 	 */
 	private static final long serialVersionUID = 5934430341543066426L;
 	
-	private String codigoProyecto;
+    private String codigoProyecto;
     private String nombreObjetoPadre;
-    private String tipoObjetoPadre;
-    private String tipoAccionPadre;
+    /*private String tipoObjetoPadre;
+    private String tipoAccionPadre;*/
     private String nombreObjeto;
-    private String tipoObjeto;
-    private String tipoAccion;
+   /* private String tipoObjeto;
+    private String tipoAccion;*/
     private Date fechaDesde;
     private Date fechaHasta;
+    private BigDecimal codigoTipoObjeto;
+    private BigDecimal codigoOperacion;
     private BigDecimal codigoEstadoProceso;
     private BigDecimal codigoEstadoScript;
 

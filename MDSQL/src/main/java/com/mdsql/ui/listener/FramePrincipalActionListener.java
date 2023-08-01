@@ -731,21 +731,28 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 			if ("Generado".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
 				framePrincipal.getBtnLimpiarScripts().setEnabled(Boolean.FALSE);
+				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
 			} else if ("En Ejecucion".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
+				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
 			} else if ("Error".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
+				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
 			} else if ("Rechazado".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
+				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
 			} else if ("Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
+				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.TRUE);
 			} else if ("Entregado".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
 				framePrincipal.getBtnLimpiarScripts().setEnabled(Boolean.TRUE);
+				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
 			}
 		} else {
 			framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
 			framePrincipal.getBtnLimpiarScripts().setEnabled(Boolean.TRUE);
+			framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.TRUE);
 
 		}
 	}

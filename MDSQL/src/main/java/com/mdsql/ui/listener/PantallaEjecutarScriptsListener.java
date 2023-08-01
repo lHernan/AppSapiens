@@ -339,6 +339,19 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		ScriptsTableModel tableModelHistorico = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
 				.getModel();
 		tableModelHistorico.setData(historicos);
+		
+		if (isAllExecuted(proceso.getScripts())) {
+			// Disable Aceptar button
+			pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
+		}
+		
+		// También se deshabilita si el procesado está Rechazado, Error, Entregado
+		if ("Rechazado".equals(proceso.getDescripcionEstadoProceso()) ||
+				"Error".equals(proceso.getDescripcionEstadoProceso()) ||
+				"Entregado".equals(proceso.getDescripcionEstadoProceso())) {
+			// Disable Aceptar button
+			pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
+		}
 	}
 
 	/**

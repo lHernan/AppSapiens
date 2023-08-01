@@ -2,6 +2,7 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,9 +101,10 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		Map<String, Object> params = new HashMap<>();
 
 		Proceso proceso = pantallaEjecutarTypes.getProceso();
-		Script seleccionado = proceso.getScriptLanza();
+		Type seleccionado = pantallaEjecutarTypes.getSeleccionado();
+		BigDecimal numeroOrden = seleccionado.getNumeroOrdenType();
 		
-		params.put("script", seleccionado);
+		params.put("numeroOrden", numeroOrden);
 		params.put("proceso", proceso);
 		params.put("tipo", "type");
 
@@ -169,6 +171,14 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		tableModelTypes.setData(types);
 		
 		if (isAllExecuted(types)) {
+			// Disable Aceptar button
+			pantallaEjecutarTypes.getBtnAceptar().setEnabled(Boolean.FALSE);
+		}
+		
+		// También se deshabilita si el procesado está Rechazado, Error, Entregado
+		if ("Rechazado".equals(proceso.getDescripcionEstadoProceso()) ||
+				"Error".equals(proceso.getDescripcionEstadoProceso()) ||
+				"Entregado".equals(proceso.getDescripcionEstadoProceso())) {
 			// Disable Aceptar button
 			pantallaEjecutarTypes.getBtnAceptar().setEnabled(Boolean.FALSE);
 		}
