@@ -465,8 +465,11 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			inputProcesaType.setPCodigoUsrPeticion(pantallaProcesarScript.getTxtSolicitadaPor().getText());
 			
 			BBDD selectedBBDD = (BBDD) pantallaProcesarScript.getCmbBBDD().getSelectedItem();
-			inputProcesaType.setPNombreBBDD(selectedBBDD.getNombreBBDD());
-			inputProcesaType.setPNombreEsquema(selectedBBDD.getNombreEsquema());
+			if (!Objects.isNull(selectedBBDD)) {
+				inputProcesaType.setPNombreBBDD(selectedBBDD.getNombreBBDD());
+				inputProcesaType.setPNombreEsquema(selectedBBDD.getNombreEsquema());
+			}
+				
 			inputProcesaType.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
 			
 			File file = (File) pantallaProcesarScript.getParams().get("file");
