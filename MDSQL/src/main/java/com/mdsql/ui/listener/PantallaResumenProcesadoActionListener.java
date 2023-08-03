@@ -378,7 +378,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		for (Type type : types) {
 			String carpetaObjeto = type.getNombreObjeto();
 			
-			if(StringUtils.isNotBlank(carpetaObjeto)) {
+			if(StringUtils.isNotBlank(carpetaObjeto) && !"S".equals(type.getDROP())) {
 				File file = new File(rutaEntrega + File.separator + carpetaObjeto);
 				if (!file.exists()) {
 					file.mkdir();
