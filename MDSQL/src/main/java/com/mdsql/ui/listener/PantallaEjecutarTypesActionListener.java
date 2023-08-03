@@ -189,7 +189,7 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	
 	private Boolean isAllExecuted(List<Type> types) {
 		for (Type type : types) {
-			if (!"Ejecutado".equals(type.getDescripcionEstadoScript()) && !"S".equals(type.getDROP())) {
+			if (!"Ejecutado".equals(type.getDescripcionEstadoScript())) {
 				return Boolean.FALSE;
 			}
 		}

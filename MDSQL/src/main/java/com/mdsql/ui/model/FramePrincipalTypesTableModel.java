@@ -1,6 +1,7 @@
 package com.mdsql.ui.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.mdsql.bussiness.entities.Type;
 import com.mdval.ui.model.DefaultTableModel;
@@ -42,7 +43,7 @@ public class FramePrincipalTypesTableModel extends DefaultTableModel<Type> {
 		Type row = data.get(rowIndex);
 		
 		if (0 == columnIndex) {
-			return row.getNumeroOrdenType().intValue();
+			return (!Objects.isNull(row.getNumeroOrdenType())) ? row.getNumeroOrdenType().intValue() : "";
 		} else if (1 == columnIndex) {
 			return row.getNombreObjeto();
 		} 
