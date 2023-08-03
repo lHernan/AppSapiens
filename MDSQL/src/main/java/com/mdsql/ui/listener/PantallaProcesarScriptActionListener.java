@@ -468,6 +468,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 			if (!Objects.isNull(selectedBBDD)) {
 				inputProcesaType.setPNombreBBDD(selectedBBDD.getNombreBBDD());
 				inputProcesaType.setPNombreEsquema(selectedBBDD.getNombreEsquema());
+				inputProcesaType.setPNombreBBDDHIS(selectedBBDD.getNombreBBDDHis());
+				inputProcesaType.setPNombreEsquemaHis(selectedBBDD.getNombreEsquemaHis());
 			}
 				
 			inputProcesaType.setPTxtDescripcion(pantallaProcesarScript.getTxtDescripcion().getText());
