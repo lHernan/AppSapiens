@@ -175,13 +175,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				// Esto es cuando se procesan scripts SQL
 				if (CollectionUtils.isNotEmpty(proceso.getScripts())) {
 					createZipVigente(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
-					createZipVigente(proceso, outputConsultaEntrega, rutaEntregados);
+					//createZipVigente(proceso, outputConsultaEntrega, rutaEntregados);
 					copyFilesVigente(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
 					copyFilesVigente(rutaEntregados, proceso.getScripts());
 	
 					if (tieneScriptsHistoricos(proceso.getScripts())) {
 						createZipHistorico(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
-						createZipHistorico(proceso, outputConsultaEntrega, rutaEntregados);
+						//createZipHistorico(proceso, outputConsultaEntrega, rutaEntregados);
 						copyFilesHistorico(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
 						copyFilesHistorico(rutaEntregados, proceso.getScripts());
 					}
