@@ -37,7 +37,6 @@ import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.ui.utils.collections.SeleccionHistoricoUpdateClosure;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
@@ -163,7 +162,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 				String rutaInicial = proceso.getRutaScript();
 				String rutaEntrega = configuration.getConfig("CarpetaEntregaFicheros");
-				String rutaEntregados = rutaInicial + "/" + rutaEntrega;
+				String rutaEntregados = rutaInicial + File.separator + rutaEntrega;
 				MDSQLAppHelper.checkRuta(rutaEntregados);
 				
 				// Entregar petición antes de hacer los ficheros, para controlar el comentario
@@ -202,6 +201,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				pantallaResumenProcesado.dispose();
 			}
 		} catch (ServiceException | IOException e) {
+			log.error("ERROR: ", e);
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
@@ -220,6 +220,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				populateScripts(outputConsultaProcesado.getListaScriptsEjecutados());
 			}
 		} catch (ServiceException e) {
+			log.error("ERROR: ", e);
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
@@ -299,6 +300,9 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				}
 				
 			}
+		} catch (Exception e) {
+			log.error("ERROR: ", e);
+			throw new IOException(e);
 		}
 	}
 
@@ -320,6 +324,9 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			if (CollectionUtils.isNotEmpty(proceso.getScripts())) {
 				addScriptsSQL(proceso, scriptTypes, session, zipFile);
 			}
+		} catch (Exception e) {
+			log.error("ERROR: ", e);
+			throw new IOException(e);
 		}
 	}
 
@@ -423,8 +430,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		try {
 			Files.copy(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
 		} catch (Exception e) {
-			fileCopied = false;
 			log.error(e.getMessage());
+			fileCopied = false;
 		}
 
 		return fileCopied;
