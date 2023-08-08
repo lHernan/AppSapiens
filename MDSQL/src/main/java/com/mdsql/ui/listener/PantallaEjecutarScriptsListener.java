@@ -108,7 +108,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		MDSQLUIHelper.show(dlgRechazar);
 
 		proceso = (Proceso) dlgRechazar.getReturnParams().get("proceso");
-		
+
 		if ("Rechazado".equals(proceso.getDescripcionEstadoProceso())) {
 			pantallaEjecutarScripts.getReturnParams().put("proceso", proceso);
 			pantallaEjecutarScripts.getReturnParams().put("estado", "RECHAZADO");
@@ -127,7 +127,8 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		params.put("consulta", Boolean.TRUE);
 
 		PantallaAjustarLogEjecucion pantallaAjustarLogEjecucion = (PantallaAjustarLogEjecucion) MDSQLUIHelper
-				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_AJUSTAR_LOG_EJECUCION, params);
+				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_AJUSTAR_LOG_EJECUCION,
+						params);
 		MDSQLUIHelper.show(pantallaAjustarLogEjecucion);
 	}
 
@@ -205,6 +206,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 	private void eventBtnExcepcion() {
 		Map<String, Object> params = new HashMap<>();
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 
 		Script seleccionado = pantallaEjecutarScripts.getSeleccionado();
 		Proceso proceso = pantallaEjecutarScripts.getProceso();
@@ -215,15 +217,33 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		DlgExcepcion dlgExcepcion = (DlgExcepcion) MDSQLUIHelper.createDialog(pantallaEjecutarScripts.getFrameParent(),
 				MDSQLConstants.CMD_EXCEPCION_SCRIPT, params);
 		MDSQLUIHelper.show(dlgExcepcion);
-		
+
 		Map<String, Object> returnParams = dlgExcepcion.getReturnParams();
 		if (!Objects.isNull(returnParams.get("estadoScript"))) {
 			String estado = (String) returnParams.get("estadoScript");
 			List<Script> vigentes = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
 			CollectionUtils.forAllDo(vigentes, new UpdateScriptsClosure(seleccionado.getNumeroOrden(), estado));
-			
+
 			// Repinta la tabla vigente
 			pantallaEjecutarScripts.getTblVigente().repaint();
+			
+			// Desactivar los botones Reparar y Excepcion
+			pantallaEjecutarScripts.getBtnReparar().setEnabled(Boolean.FALSE);
+			pantallaEjecutarScripts.getBtnExcepcion().setEnabled(Boolean.FALSE);
+
+			// Actualiza el script en el proceso
+			CollectionUtils.forAllDo(proceso.getScripts(), new UpdateScriptsClosure(seleccionado.getNumeroOrden(), estado));
+			
+			/**
+			 * Ver si todos los scripts están ejecutados y el estado del proceso es
+			 * Ejecutado para mostrar la pantalla de resumen del procesado
+			 */
+			if (isAllExecuted(proceso.getScripts())) {
+				proceso.setDescripcionEstadoProceso("Ejecutado");
+				session.setProceso(proceso);
+
+				cerraryEntregar(proceso);
+			}
 		}
 	}
 
@@ -233,36 +253,37 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 
 			Proceso proceso = pantallaEjecutarScripts.getProceso();
-			
-			// Comprobar que estén todos ejecutados, si lo están cerrar esta ventana inmediatamente
+
+			// Comprobar que estén todos ejecutados, si lo están cerrar esta ventana
+			// inmediatamente
 			if (isAllExecuted(proceso.getScripts())) {
 				cerraryEntregar(proceso);
-			}
-			else {
+			} else {
 				BBDD bbdd = proceso.getBbdd();
-	
-				List<Script> vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
+
+				List<Script> vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel())
+						.getData();
 				List<Script> historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel())
 						.getData();
-	
+
 				// Filtrar los scripts seleccionados
 				vigente = new ArrayList<>(CollectionUtils.select(vigente, new ScriptSelectedPredicate()));
 				historico = new ArrayList<>(CollectionUtils.select(historico, new ScriptSelectedPredicate()));
-	
+
 				// Une los scripts y los ordena
 				List<Script> scripts = new ArrayList<>(CollectionUtils.union(vigente, historico));
 				Collections.sort(scripts, (left, right) -> left.getNumeroOrden().compareTo(right.getNumeroOrden()));
-	
+
 				// Ejecuta los scripts
 				List<OutputRegistraEjecucion> ejecuciones = scriptService.executeScripts(bbdd, scripts);
-	
+
 				// Actualizar los scripts de las tablas y las repinta
 				vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
 				CollectionUtils.forAllDo(vigente, new UpdateScriptsClosure(ejecuciones));
-	
+
 				historico = ((ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico().getModel()).getData();
 				CollectionUtils.forAllDo(historico, new UpdateScriptsClosure(ejecuciones));
-	
+
 				/**
 				 * Si hay scripts en estado Descuadrado o Error, hay que desmarcar los
 				 * siguientes y deshabilitar el botón Aceptar
@@ -274,15 +295,15 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 					desmarcar(historico, numeroOrden);
 					pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
 				}
-				
+
 				pantallaEjecutarScripts.getTblVigente().repaint();
 				pantallaEjecutarScripts.getTblHistorico().repaint();
-	
+
 				// Actualizar los scripts en el proceso en sesión
 				updateCurrentProcess(proceso, ejecuciones);
-	
+
 				pantallaEjecutarScripts.getTxtEstadoEjecucion().setText(proceso.getDescripcionEstadoProceso());
-	
+
 				/**
 				 * Ver si todos los scripts están ejecutados y el estado del proceso es
 				 * Ejecutado para mostrar la pantalla de resumen del procesado
@@ -291,7 +312,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 					Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 					proceso.setDescripcionEstadoProceso("Ejecutado");
 					session.setProceso(proceso);
-					
+
 					cerraryEntregar(proceso);
 				}
 			}
@@ -325,7 +346,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		if (hayErrores(scripts) > 0) {
 			pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
 		}
-		
+
 		// Actualiza las tablas
 		String[] filtroVigentes = { "SQL", "PDC" };
 		List<Script> vigentes = filterListScriptsFrom(scripts, filtroVigentes);
@@ -339,16 +360,16 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		ScriptsTableModel tableModelHistorico = (ScriptsTableModel) pantallaEjecutarScripts.getTblHistorico()
 				.getModel();
 		tableModelHistorico.setData(historicos);
-		
+
 		if (isAllExecuted(proceso.getScripts())) {
 			// Disable Aceptar button
 			pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
 		}
-		
+
 		// También se deshabilita si el procesado está Rechazado, Error, Entregado
-		if ("Rechazado".equals(proceso.getDescripcionEstadoProceso()) ||
-				"Error".equals(proceso.getDescripcionEstadoProceso()) ||
-				"Entregado".equals(proceso.getDescripcionEstadoProceso())) {
+		if ("Rechazado".equals(proceso.getDescripcionEstadoProceso())
+				|| "Error".equals(proceso.getDescripcionEstadoProceso())
+				|| "Entregado".equals(proceso.getDescripcionEstadoProceso())) {
 			// Disable Aceptar button
 			pantallaEjecutarScripts.getBtnAceptar().setEnabled(Boolean.FALSE);
 		}
@@ -391,7 +412,8 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	 */
 	private Boolean isAllExecuted(List<Script> scripts) {
 		for (Script script : scripts) {
-			if (!"Ejecutado".equals(script.getDescripcionEstadoScript())) {
+			if (!"Ejecutado".equals(script.getDescripcionEstadoScript())
+					&& !"Excepción".equals(script.getDescripcionEstadoScript())) {
 				return Boolean.FALSE;
 			}
 		}
@@ -411,7 +433,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * @param scripts
 	 * @param numeroOrden
@@ -419,11 +441,11 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	private void desmarcar(List<Script> scripts, Integer numeroOrden) {
 		for (Script script : scripts) {
 			Integer orden = script.getNumeroOrden().intValue();
-			
+
 			if (orden > numeroOrden) {
 				script.setSelected(Boolean.FALSE);
 			}
 		}
-		
+
 	}
 }
