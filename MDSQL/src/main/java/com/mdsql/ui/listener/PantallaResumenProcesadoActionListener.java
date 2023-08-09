@@ -291,7 +291,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				
 				String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
 				if (StringUtils.isNotBlank(carpetaObjeto) && !drop.equals("S")) {
-					zipFile.addFolder(new File(session.getSelectedRoute() + File.separator + carpetaObjeto));
+					File file = new File(session.getSelectedRoute() + File.separator + carpetaObjeto);
+					if (file.isDirectory()) {
+						zipFile.addFolder(file);
+					}
+					else {
+						zipFile.addFile(file);
+					}
 				}
 				else {
 					for (ScriptType scriptType : type.getScriptType()) {
