@@ -291,7 +291,10 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				
 				String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
 				if (StringUtils.isNotBlank(carpetaObjeto) && !drop.equals("S")) {
-					File file = new File(session.getSelectedRoute() + File.separator + carpetaObjeto);
+					String ruta = session.getSelectedRoute() + File.separator + carpetaObjeto;
+					File file = new File(ruta);
+					log.info("Archivo a comprimir: {}", ruta);
+					
 					if (file.isDirectory()) {
 						zipFile.addFolder(file);
 					}
@@ -301,7 +304,11 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				}
 				else {
 					for (ScriptType scriptType : type.getScriptType()) {
-						zipFile.addFile(new File(session.getSelectedRoute() + File.separator + scriptType.getNombreScript()));
+						String ruta = session.getSelectedRoute() + File.separator + scriptType.getNombreScript();
+						File file = new File(ruta);
+						log.info("Archivo a comprimir: {}", ruta);
+						
+						zipFile.addFile(file);
 					}
 				}
 				
