@@ -266,7 +266,7 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 				.getTblHistoricoObjetos().getModel();
 		tableModel.setData(historicos);
 		
-		pantallaHistoricoCambios.getTblHistoricoObjetos().repaint();
+		pantallaHistoricoCambios.forceRepaint();
 	}
 
 }
