@@ -110,7 +110,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	}
 	
 	private void printCell(Row row, Integer i, BigDecimal value) {
-		printCell(row, i, (Objects.isNull(value)) ? "0" : value.toString());
+		printCell(row, i, (Objects.isNull(value)) ? BigDecimal.ZERO.toString() : value.toString());
 	}
 	
 	private void printCell(Row row, Integer i, String value) {
