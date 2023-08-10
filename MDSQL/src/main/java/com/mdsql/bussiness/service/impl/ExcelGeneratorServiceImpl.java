@@ -112,12 +112,12 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		printCell(row, 17, informe.getNombreScript());
 	}
 	
-	private void printCell(Row row, Integer i, String value) {
-		writeCell(row, i, (StringUtils.isNotBlank(value)) ? value : StringUtils.EMPTY);
+	private void printCell(Row row, Integer i, BigDecimal value) {
+		printCell(row, i, (Objects.isNull(value)) ? "0" : value.toString());
 	}
 	
-	private void printCell(Row row, Integer i, BigDecimal value) {
-		writeCell(row, i, (Objects.isNull(value)) ? "0" : value.toString());
+	private void printCell(Row row, Integer i, String value) {
+		writeCell(row, i, (StringUtils.isNotBlank(value)) ? value : StringUtils.EMPTY);
 	}
 	
 	private void writeCell(Row row, Integer i, String val) {
