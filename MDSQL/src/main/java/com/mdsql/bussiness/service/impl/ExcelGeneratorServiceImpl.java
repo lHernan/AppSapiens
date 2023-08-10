@@ -45,7 +45,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 		int rowNum = 1; // row to start writting
 		for (InformeCambios informe : listaCambios) {
-			createRowInforme(informe, sheet, rowNum);
+			createRowInforme(sheet, informe, rowNum);
 			rowNum += 1;
 		}
 
@@ -89,7 +89,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	 * @param row
 	 */
 	@SneakyThrows
-	private void createRowInforme(InformeCambios informe, Sheet sheet, Integer rowNum) {
+	private void createRowInforme(Sheet sheet, InformeCambios informe, Integer rowNum) {
 		Row row = sheet.createRow(rowNum);
 		
 		printCell(row, 0, informe.getCodigoPeticion());
