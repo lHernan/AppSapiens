@@ -62,61 +62,26 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 	@SneakyThrows
 	private void setupCabeceraInforme(Sheet sheet) {
-		Row headerRow = sheet.getRow(0);
+		Row row = sheet.getRow(0);
 		
-		Cell cell_01 = headerRow.createCell(0);
-		cell_01.setCellValue("Petición");
-		
-		Cell cell_02 = headerRow.createCell(1);
-		cell_02.setCellValue("Proceso");
-		
-		Cell cell_03 = headerRow.createCell(2);
-		cell_03.setCellValue("Objeto padre");
-		
-		Cell cell_04 = headerRow.createCell(3);
-		cell_04.setCellValue("Tipo");
-		
-		Cell cell_05 = headerRow.createCell(4);
-		cell_05.setCellValue("Acción");
-		
-		Cell cell_06 = headerRow.createCell(5);
-		cell_06.setCellValue("Objeto");
-		
-		Cell cell_07 = headerRow.createCell(6);
-		cell_07.setCellValue("Objeto destino");
-		
-		Cell cell_08 = headerRow.createCell(7);
-		cell_08.setCellValue("Tipo");
-		
-		Cell cell_09 = headerRow.createCell(8);
-		cell_09.setCellValue("Acción");
-		
-		Cell cell_10 = headerRow.createCell(9);
-		cell_10.setCellValue("Longitud");
-		
-		Cell cell_11 = headerRow.createCell(10);
-		cell_11.setCellValue("Decimal");
-		
-		Cell cell_12 = headerRow.createCell(11);
-		cell_12.setCellValue("Estado proceso");
-		
-		Cell cell_13 = headerRow.createCell(12);
-		cell_13.setCellValue("Fecha");
-		
-		Cell cell_14 = headerRow.createCell(13);
-		cell_14.setCellValue("Subproyecto");
-		
-		Cell cell_15 = headerRow.createCell(14);
-		cell_15.setCellValue("Usr petición");
-		
-		Cell cell_16 = headerRow.createCell(15);
-		cell_16.setCellValue("Usr");
-		
-		Cell cell_17 = headerRow.createCell(16);
-		cell_17.setCellValue("Estado script");
-		
-		Cell cell_18 = headerRow.createCell(17);
-		cell_18.setCellValue("Nombre script");
+		printCell(row, 0, "Petición");
+		printCell(row, 1, "Proceso");
+		printCell(row, 2, "Objeto padre");
+		printCell(row, 3, "Tipo");
+		printCell(row, 4, "Acción");
+		printCell(row, 5, "Objeto");
+		printCell(row, 6, "Objeto destino");
+		printCell(row, 7, "Tipo");
+		printCell(row, 8, "Acción");
+		printCell(row, 9, "Longitud");
+		printCell(row, 10, "Decimal");
+		printCell(row, 11, "Estado proceso");
+		printCell(row, 12, "Fecha");
+		printCell(row, 13, "Subproyecto");
+		printCell(row, 14, "Usr petición");
+		printCell(row, 15, "Usr");
+		printCell(row, 16, "Estado script");
+		printCell(row, 17, "Nombre script");
 	}
 
 	/**
