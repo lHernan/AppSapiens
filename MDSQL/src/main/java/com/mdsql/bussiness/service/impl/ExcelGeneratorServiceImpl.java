@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import com.mdsql.bussiness.entities.InformeCambios;
 import com.mdsql.bussiness.service.ExcelGeneratorService;
 import com.mdsql.utils.MDSQLConstants;
-import com.mdval.utils.LogWrapper;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -30,34 +29,32 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGeneratorService {
 
-	private static final String FORMATO_MENSAJE_ARCHIVO = "Archivo: %s";
+	private static final String FORMATO_ARCHIVO = "%s_Cambios_desde_hasta_%s.xls";
 
 	@Override
 	@SneakyThrows
 	public void generarExcelHistoricoCambios(List<InformeCambios> listaCambios, String path, String codigoProyecto,
 			String fechaDesde, String fechaHasta) {
+		
+		String fileName = String.format(FORMATO_ARCHIVO, codigoProyecto, fechaHasta);
+		log.info("Archivo: {}", fileName);
 
-		InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.LISTADO_HISTORICO_CAMBIOS_TEMPLATE_LOCATION);
-		Workbook workbook = new HSSFWorkbook(inputStream);
-		Sheet sheet = workbook.getSheet("Hoja1");
+		try (InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.LISTADO_HISTORICO_CAMBIOS_TEMPLATE_LOCATION);
+				FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
+				Workbook workbook = new HSSFWorkbook(inputStream)) {
+		
+			Sheet sheet = workbook.getSheet("Hoja1");
 
-		setupCabeceraInforme(sheet);
+			setupCabeceraInforme(sheet);
 
-		int rowNum = 1; // row to start writting
-		for (InformeCambios informe : listaCambios) {
-			createRowInforme(sheet, informe, rowNum);
-			rowNum += 1;
+			int rowNum = 1; // row to start writting
+			for (InformeCambios informe : listaCambios) {
+				createRowInforme(sheet, informe, rowNum);
+				rowNum += 1;
+			}
+	
+			workbook.write(outputStream);
 		}
-
-		String format = "%s_Cambios_desde_hasta_%s.xls";
-		String fileName = String.format(format, codigoProyecto, fechaHasta);
-		LogWrapper.debug(log, FORMATO_MENSAJE_ARCHIVO, fileName);
-		FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
-		workbook.write(outputStream);
-		workbook.close();
-		outputStream.flush();
-		outputStream.close();
-
 	}
 
 	@SneakyThrows
