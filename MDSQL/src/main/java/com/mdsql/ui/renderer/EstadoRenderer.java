@@ -8,9 +8,9 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mdsql.utils.MDSQLConstants.EstadosScript;
+import com.mdsql.bussiness.entities.Estado;
 
-public class EstadoScriptRenderer extends BasicComboBoxRenderer {
+public class EstadoRenderer extends BasicComboBoxRenderer {
 
 	/**
 	 * 
@@ -22,12 +22,12 @@ public class EstadoScriptRenderer extends BasicComboBoxRenderer {
 			boolean cellHasFocus) {
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-		EstadosScript estado = (EstadosScript) value;
+		Estado estado = (Estado) value;
 
 		if (Objects.isNull(estado)) {
 			setText(StringUtils.EMPTY);
 		} else {
-			setText(estado.getName());
+			setText(estado.getDescripcionEstado());
 		}
 		return this;
 	}

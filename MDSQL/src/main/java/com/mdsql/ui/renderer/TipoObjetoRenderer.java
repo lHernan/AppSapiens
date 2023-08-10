@@ -8,8 +8,6 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mdsql.utils.MDSQLConstants.TiposObjeto;
-
 public class TipoObjetoRenderer extends BasicComboBoxRenderer {
 
 	/**
@@ -22,12 +20,12 @@ public class TipoObjetoRenderer extends BasicComboBoxRenderer {
 			boolean cellHasFocus) {
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-		TiposObjeto tipo = (TiposObjeto) value;
+		String tipo = (String) value;
 
 		if (Objects.isNull(tipo)) {
 			setText(StringUtils.EMPTY);
 		} else {
-			setText(tipo.getName());
+			setText(tipo);
 		}
 		return this;
 	}

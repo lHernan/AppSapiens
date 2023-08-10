@@ -1,38 +1,49 @@
 package com.mdsql.ui.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
-
-import com.mdsql.utils.MDSQLConstants.TiposObjeto;
 
 /**
  * @author federico
  *
  */
-public class TipoObjetoComboBoxModel extends AbstractListModel<TiposObjeto> implements ComboBoxModel<TiposObjeto> {
+public class TipoObjetoComboBoxModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3700195174395455435L;
 
-	private TiposObjeto[] tipos = TiposObjeto.values();
+	private List<String> tipos;
 
-	private TiposObjeto selection = null;
+	private String selection = null;
+	
+	public TipoObjetoComboBoxModel() {
+		super();
+		tipos = new ArrayList<>();
+	}
 
-	@Override
-	public int getSize() {
-		return tipos.length;
+	public TipoObjetoComboBoxModel(List<String> tipos) {
+		super();
+		this.tipos = tipos;
 	}
 
 	@Override
-	public TiposObjeto getElementAt(int index) {
-		return tipos[index];
+	public int getSize() {
+		return tipos.size();
+	}
+
+	@Override
+	public String getElementAt(int index) {
+		return tipos.get(index);
 	}
 
 	@Override
 	public void setSelectedItem(Object anItem) {
-		selection = (TiposObjeto) anItem;
+		selection = (String) anItem;
 	}
 
 	@Override

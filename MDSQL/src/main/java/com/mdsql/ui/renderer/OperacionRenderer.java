@@ -8,7 +8,7 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mdsql.utils.MDSQLConstants.Operaciones;
+import com.mdsql.bussiness.entities.Operacion;
 
 
 public class OperacionRenderer extends BasicComboBoxRenderer {
@@ -23,12 +23,12 @@ public class OperacionRenderer extends BasicComboBoxRenderer {
 			boolean cellHasFocus) {
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-		Operaciones operacion = (Operaciones) value;
+		Operacion operacion = (Operacion) value;
 
 		if (Objects.isNull(operacion)) {
 			setText(StringUtils.EMPTY);
 		} else {
-			setText(operacion.getName());
+			setText(operacion.getDescripcionAccion());
 		}
 		return this;
 	}

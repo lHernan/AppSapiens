@@ -16,24 +16,17 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 
+import com.mdsql.bussiness.entities.Estado;
 import com.mdsql.bussiness.entities.HistoricoProceso;
+import com.mdsql.bussiness.entities.Operacion;
 import com.mdsql.ui.listener.PantallaHistoricoCambiosListener;
 import com.mdsql.ui.listener.tables.PantallaHistoricoObjetosTableListener;
-import com.mdsql.ui.model.EstadoProcesadoComboBoxModel;
-import com.mdsql.ui.model.EstadoScriptComboBoxModel;
 import com.mdsql.ui.model.HistoricoObjetoTableModel;
-import com.mdsql.ui.model.OperacionComboBoxModel;
-import com.mdsql.ui.model.TipoObjetoComboBoxModel;
-import com.mdsql.ui.renderer.EstadoProcesadoRenderer;
-import com.mdsql.ui.renderer.EstadoScriptRenderer;
+import com.mdsql.ui.renderer.EstadoRenderer;
 import com.mdsql.ui.renderer.OperacionRenderer;
 import com.mdsql.ui.renderer.TipoObjetoRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
-import com.mdsql.utils.MDSQLConstants.EstadosProcesado;
-import com.mdsql.utils.MDSQLConstants.EstadosScript;
-import com.mdsql.utils.MDSQLConstants.Operaciones;
-import com.mdsql.utils.MDSQLConstants.TiposObjeto;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -86,22 +79,22 @@ private static final long serialVersionUID = 1L;
     private JTextField txtObjetoPadre;
     
     @Getter
-	private JComboBox<TiposObjeto> cmbTipoObjeto;
+	private JComboBox<String> cmbTipoObjeto;
 
     @Getter
-	private JComboBox<Operaciones> cmbOperacion;
+	private JComboBox<Operacion> cmbOperacion;
 
     @Getter
-	private JComboBox<EstadosScript> cmbEstadoScript;
+	private JComboBox<Estado> cmbEstadoScript;
 
     @Getter
-	private JComboBox<TiposObjeto> cmbTipoObjetoPadre;
+	private JComboBox<String> cmbTipoObjetoPadre;
 
     @Getter
-	private JComboBox<Operaciones> cmbOperacionPadre;
+	private JComboBox<Operacion> cmbOperacionPadre;
 
     @Getter
-	private JComboBox<EstadosProcesado> cmbEstadoProcesado;
+	private JComboBox<Estado> cmbEstadoProcesado;
     // End of variables declaration//GEN-END:variables
     
     @Getter
@@ -305,7 +298,7 @@ private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void initEvents() {
-		PantallaHistoricoCambiosListener actionListener = new PantallaHistoricoCambiosListener(this);
+		PantallaHistoricoCambiosListener pantallaHistoricoCambiosListener = new PantallaHistoricoCambiosListener(this);
 		ListSelectionListener listSelectionListener = new PantallaHistoricoObjetosTableListener(this);
 		
 		btnBuscarModelo.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_BUSCAR_MODELO);
@@ -315,15 +308,17 @@ private static final long serialVersionUID = 1L;
 		btnResumen.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_RESUMEN_PROCESADO);
 		btnVerDetalle.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_CAMBIOS_VER_DETALLE_SCRIPT);
 		
-		btnBuscarModelo.addActionListener(actionListener);
-		btnCancelar.addActionListener(actionListener);
-		btnBuscar.addActionListener(actionListener);
-		btnInforme.addActionListener(actionListener);
-		btnResumen.addActionListener(actionListener);
-		btnVerDetalle.addActionListener(actionListener);
+		btnBuscarModelo.addActionListener(pantallaHistoricoCambiosListener);
+		btnCancelar.addActionListener(pantallaHistoricoCambiosListener);
+		btnBuscar.addActionListener(pantallaHistoricoCambiosListener);
+		btnInforme.addActionListener(pantallaHistoricoCambiosListener);
+		btnResumen.addActionListener(pantallaHistoricoCambiosListener);
+		btnVerDetalle.addActionListener(pantallaHistoricoCambiosListener);
 		
 		ListSelectionModel rowSM = tblHistoricoObjetos.getSelectionModel();
    		rowSM.addListSelectionListener(listSelectionListener);
+   		
+   		addOnLoadListener(pantallaHistoricoCambiosListener);
 	}
 
 	@Override
@@ -353,19 +348,12 @@ private static final long serialVersionUID = 1L;
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void initModels() {
-		cmbTipoObjeto.setModel(new TipoObjetoComboBoxModel());
-        cmbOperacion.setModel(new OperacionComboBoxModel());
-        cmbEstadoScript.setModel(new EstadoScriptComboBoxModel());
-        cmbTipoObjetoPadre.setModel(new TipoObjetoComboBoxModel());
-        cmbOperacionPadre.setModel(new OperacionComboBoxModel());
-        cmbEstadoProcesado.setModel(new EstadoProcesadoComboBoxModel());
-        
-        cmbEstadoScript.setRenderer(new EstadoScriptRenderer());
-        cmbEstadoProcesado.setRenderer(new EstadoProcesadoRenderer());
+		cmbEstadoScript.setRenderer(new EstadoRenderer());
+        cmbEstadoProcesado.setRenderer(new EstadoRenderer());
         cmbTipoObjeto.setRenderer(new TipoObjetoRenderer());
         cmbTipoObjetoPadre.setRenderer(new TipoObjetoRenderer());
         cmbOperacion.setRenderer(new OperacionRenderer());
-        getCmbOperacionPadre().setRenderer(new OperacionRenderer());
+        cmbOperacionPadre.setRenderer(new OperacionRenderer());
 		
         Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.DLG_HISTORICO_CAMBIOS_TABLA_CABECERA);
         tblHistoricoObjetos.initModel(new HistoricoObjetoTableModel(cabecera));

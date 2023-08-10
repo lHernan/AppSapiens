@@ -49,17 +49,17 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
             String typeHisProc = createCallType(MDSQLConstants.T_T_HIS_PROC);
             String typeError = createCallTypeError();
 
-            logProcedure(runSP, inputConsutaHistoricoProceso.getCodigoProyecto(), inputConsutaHistoricoProceso.getNombreObjetoPadre(), inputConsutaHistoricoProceso.getCodigoTipoObjeto(), inputConsutaHistoricoProceso.getCodigoOperacion()
-                    , inputConsutaHistoricoProceso.getNombreObjeto(), inputConsutaHistoricoProceso.getCodigoTipoObjeto(), inputConsutaHistoricoProceso.getCodigoOperacion(), inputConsutaHistoricoProceso.getFechaDesde()
+            logProcedure(runSP, inputConsutaHistoricoProceso.getCodigoProyecto(), inputConsutaHistoricoProceso.getNombreObjetoPadre(), inputConsutaHistoricoProceso.getTipoObjetoPadre(), inputConsutaHistoricoProceso.getTipoAccionPadre()
+                    , inputConsutaHistoricoProceso.getNombreObjeto(), inputConsutaHistoricoProceso.getTipoObjeto(), inputConsutaHistoricoProceso.getTipoAccion(), inputConsutaHistoricoProceso.getFechaDesde()
                     , inputConsutaHistoricoProceso.getFechaHasta(), inputConsutaHistoricoProceso.getCodigoEstadoProceso(), inputConsutaHistoricoProceso.getCodigoEstadoScript());
 
             callableStatement.setString(1, inputConsutaHistoricoProceso.getCodigoProyecto());
             callableStatement.setString(2, inputConsutaHistoricoProceso.getNombreObjetoPadre());
-            callableStatement.setBigDecimal(3, inputConsutaHistoricoProceso.getCodigoTipoObjeto());
-            callableStatement.setBigDecimal(4, inputConsutaHistoricoProceso.getCodigoOperacion());
+            callableStatement.setString(3, inputConsutaHistoricoProceso.getTipoObjetoPadre());
+            callableStatement.setString(4, inputConsutaHistoricoProceso.getTipoAccionPadre());
             callableStatement.setString(5, inputConsutaHistoricoProceso.getNombreObjeto());
-            callableStatement.setBigDecimal(6, inputConsutaHistoricoProceso.getCodigoTipoObjeto());
-            callableStatement.setBigDecimal(7, inputConsutaHistoricoProceso.getCodigoOperacion());
+            callableStatement.setString(6, inputConsutaHistoricoProceso.getTipoObjeto());
+            callableStatement.setString(7, inputConsutaHistoricoProceso.getTipoAccion());
             
             Date fechaDesde = inputConsutaHistoricoProceso.getFechaDesde();
             if (!Objects.isNull(fechaDesde)) {

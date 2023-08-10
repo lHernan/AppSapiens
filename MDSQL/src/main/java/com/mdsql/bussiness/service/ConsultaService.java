@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mdsql.bussiness.entities.Estado;
 import com.mdsql.bussiness.entities.Operacion;
-import com.mdsql.bussiness.entities.TipoObjeto;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno
@@ -14,22 +14,22 @@ public interface ConsultaService {
     /**
      * @return TipoObjetoList
      */
-    List<TipoObjeto> consultaTiposObjeto();
+    List<String> consultaTiposObjeto() throws ServiceException;
 
     /**
      * @return EstadoList
      */
-    List<Estado> consultaEstadosProcesado();
+    List<Estado> consultaEstadosProcesado() throws ServiceException;
 
     /**
      * @return EstadoList
      */
-    List<Estado> consultaEstadosScript();
+    List<Estado> consultaEstadosScript() throws ServiceException;
 
     /**
      * @return OperacionList
      */
-    List<Operacion> consultaOperaciones();
+    List<Operacion> consultaOperaciones() throws ServiceException;
 
 
 }

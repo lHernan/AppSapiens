@@ -1,5 +1,6 @@
 package com.mdsql.bussiness.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -10,12 +11,12 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.Estado;
 import com.mdsql.bussiness.entities.Operacion;
-import com.mdsql.bussiness.entities.TipoObjeto;
 import com.mdsql.bussiness.service.ConsultaService;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -36,7 +37,7 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
 
     @Override
     @SneakyThrows
-    public List<TipoObjeto> consultaTiposObjeto() {
+    public List<String> consultaTiposObjeto() {
         String runSP = createCall("p_con_tipos_objeto", MDSQLConstants.CALL_03_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -59,17 +60,15 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
                 throw buildException(callableStatement.getArray(3));
             }
 
-            List<TipoObjeto> tipoObjetos = new ArrayList<>();
+            List<String> tipoObjetos = new ArrayList<>();
+            tipoObjetos.add(StringUtils.EMPTY);
             Array arrayTipoObjetos = callableStatement.getArray(1);
 
             if (arrayTipoObjetos != null) {
                 Object[] rows = (Object[]) arrayTipoObjetos.getArray();
                 for (Object row : rows) {
                     Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    TipoObjeto tipoObjeto = TipoObjeto.builder()
-                            .tipoObjeto((String) cols[0])
-                            .build();
-                    tipoObjetos.add(tipoObjeto);
+                    tipoObjetos.add((String) cols[0]);
                 }
             }
             return tipoObjetos;
@@ -105,6 +104,8 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
             }
 
             List<Estado> estados = new ArrayList<>();
+            estados.add(new Estado(null, StringUtils.EMPTY));
+            
             Array arrayEstados = callableStatement.getArray(1);
 
             if (arrayEstados != null) {
@@ -112,7 +113,7 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
                 for (Object row : rows) {
                     Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
                     Estado estado = Estado.builder()
-                            .codigoEstado((String) cols[0])
+                            .codigoEstado((BigDecimal) cols[0])
                             .descripcionEstado((String) cols[1])
                             .build();
                     estados.add(estado);
@@ -133,7 +134,7 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeOperacion = createCallType(MDSQLConstants.T_T_OPERACION);
+            String typeOperacion = createCallType(MDSQLConstants.T_T_ESTADO);
             String typeError = createCallTypeError();
 
             logProcedure(runSP);
@@ -151,6 +152,8 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
             }
 
             List<Estado> estados = new ArrayList<>();
+            estados.add(new Estado(null, StringUtils.EMPTY));
+            
             Array arrayEstados = callableStatement.getArray(1);
 
             if (arrayEstados != null) {
@@ -158,7 +161,7 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
                 for (Object row : rows) {
                     Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
                     Estado estado = Estado.builder()
-                            .codigoEstado((String) cols[0])
+                            .codigoEstado((BigDecimal) cols[0])
                             .descripcionEstado((String) cols[1])
                             .build();
                     estados.add(estado);
@@ -179,7 +182,7 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
-            String typeEstado = createCallType(MDSQLConstants.T_T_ESTADO);
+            String typeEstado = createCallType(MDSQLConstants.T_T_OPERACION);
             String typeError = createCallTypeError();
 
             logProcedure(runSP);
@@ -197,6 +200,9 @@ public class ConsultaServiceImpl extends ServiceSupport implements ConsultaServi
             }
 
             List<Operacion> operaciones = new ArrayList<>();
+            Operacion nullOperacion = Operacion.builder().descripcionAccion(StringUtils.EMPTY).tipoAccion(null).build();
+            operaciones.add(nullOperacion);
+            
             Array arrayOperaciones = callableStatement.getArray(1);
 
             if (arrayOperaciones != null) {

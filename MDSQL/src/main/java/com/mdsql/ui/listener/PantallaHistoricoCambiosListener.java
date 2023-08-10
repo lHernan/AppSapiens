@@ -16,12 +16,15 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdsql.bussiness.entities.Estado;
 import com.mdsql.bussiness.entities.HistoricoProceso;
 import com.mdsql.bussiness.entities.InformeCambios;
 import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.Operacion;
 import com.mdsql.bussiness.entities.OutputConsultaHistoricoProceso;
 import com.mdsql.bussiness.entities.OutputConsultaModelos;
+import com.mdsql.bussiness.service.ConsultaService;
 import com.mdsql.bussiness.service.ExcelGeneratorService;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.bussiness.service.InformeService;
@@ -30,7 +33,10 @@ import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaHistoricoCambios;
 import com.mdsql.ui.PantallaResumenProcesado;
 import com.mdsql.ui.PantallaSeleccionModelos;
+import com.mdsql.ui.model.EstadoComboBoxModel;
 import com.mdsql.ui.model.HistoricoObjetoTableModel;
+import com.mdsql.ui.model.OperacionComboBoxModel;
+import com.mdsql.ui.model.TipoObjetoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
@@ -40,8 +46,9 @@ import com.mdsql.utils.MDSQLConstants.EstadosScript;
 import com.mdsql.utils.MDSQLConstants.Operaciones;
 import com.mdsql.utils.MDSQLConstants.TiposObjeto;
 import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.utils.OnLoadListener;
 
-public class PantallaHistoricoCambiosListener extends ListenerSupport implements ActionListener {
+public class PantallaHistoricoCambiosListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
 	private PantallaHistoricoCambios pantallaHistoricoCambios;
 
@@ -148,53 +155,22 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			String nombreObjetoPadre = pantallaHistoricoCambios.getTxtObjetoPadre().getText();
 			inputConsutaHistoricoProceso.setNombreObjetoPadre(nombreObjetoPadre);
 			
-			/*String tipoObjetoPadre = (String) pantallaHistoricoCambios.getCmbTipoObjetoPadre().getSelectedItem();
-			inputConsutaHistoricoProceso.setTipoObjetoPadre(tipoObjetoPadre);*/
+			String tipoObjetoPadre = (String) pantallaHistoricoCambios.getCmbTipoObjetoPadre().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoObjetoPadre(tipoObjetoPadre);
 			
-			TiposObjeto tiposObjetoPadre = (TiposObjeto) pantallaHistoricoCambios.getCmbTipoObjetoPadre().getSelectedItem();
-			if (!Objects.isNull(tiposObjetoPadre)) {
-				inputConsutaHistoricoProceso.setCodigoTipoObjeto(new BigDecimal(tiposObjetoPadre.getIndex()));
-			}
-			else {
-				inputConsutaHistoricoProceso.setCodigoTipoObjeto(null);
-			}
-			
-			/*String tipoAccionPadre = (String) pantallaHistoricoCambios.getCmbOperacionPadre().getSelectedItem();
-			inputConsutaHistoricoProceso.setTipoAccionPadre(tipoAccionPadre);*/
-			
-			Operaciones operacionesPadre = (Operaciones) pantallaHistoricoCambios.getCmbOperacionPadre().getSelectedItem();
-			if (!Objects.isNull(operacionesPadre)) {
-				inputConsutaHistoricoProceso.setCodigoOperacion(new BigDecimal(operacionesPadre.getIndex()));
-			}
-			else {
-				inputConsutaHistoricoProceso.setCodigoOperacion(null);
-			}
-			
+			Operacion operacionPadre = (Operacion) pantallaHistoricoCambios.getCmbOperacionPadre().getSelectedItem();
+			String tipoAccionPadre = (!Objects.isNull(operacionPadre)) ? operacionPadre.getTipoAccion() : null; 
+			inputConsutaHistoricoProceso.setTipoAccionPadre(tipoAccionPadre);
 			
 			String nombreObjeto = pantallaHistoricoCambios.getTxtObjeto().getText();
 			inputConsutaHistoricoProceso.setNombreObjeto(nombreObjeto);
 			
-			/*String tipoObjeto = (String) pantallaHistoricoCambios.getCmbTipoObjeto().getSelectedItem();
-			inputConsutaHistoricoProceso.setTipoObjeto(tipoObjeto);*/
+			String tipoObjeto = (String) pantallaHistoricoCambios.getCmbTipoObjeto().getSelectedItem();
+			inputConsutaHistoricoProceso.setTipoObjeto(tipoObjeto);
 			
-			TiposObjeto tiposObjeto = (TiposObjeto) pantallaHistoricoCambios.getCmbTipoObjeto().getSelectedItem();
-			if (!Objects.isNull(tiposObjeto)) {
-				inputConsutaHistoricoProceso.setCodigoTipoObjeto(new BigDecimal(tiposObjeto.getIndex()));
-			}
-			else {
-				inputConsutaHistoricoProceso.setCodigoTipoObjeto(null);
-			}
-			
-			/*String tipoAccion = (String) pantallaHistoricoCambios.getCmbOperacion().getSelectedItem();
-			inputConsutaHistoricoProceso.setTipoAccion(tipoAccion);*/
-			
-			Operaciones operaciones = (Operaciones) pantallaHistoricoCambios.getCmbOperacion().getSelectedItem();
-			if (!Objects.isNull(operaciones)) {
-				inputConsutaHistoricoProceso.setCodigoOperacion(new BigDecimal(operaciones.getIndex()));
-			}
-			else {
-				inputConsutaHistoricoProceso.setCodigoOperacion(null);
-			}
+			Operacion operacion = (Operacion) pantallaHistoricoCambios.getCmbOperacion().getSelectedItem();
+			String tipoAccion = (!Objects.isNull(operacion)) ? operacion.getTipoAccion() : null; 
+			inputConsutaHistoricoProceso.setTipoAccion(tipoAccion);
 			
 			String desde = pantallaHistoricoCambios.getTxtDesde().getText();
 			String hasta = pantallaHistoricoCambios.getTxtHasta().getText();
@@ -203,21 +179,13 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			inputConsutaHistoricoProceso.setFechaDesde(fechaDesde);
 			inputConsutaHistoricoProceso.setFechaHasta(fechaHasta);
 			
-			EstadosScript estadoScript = (EstadosScript) pantallaHistoricoCambios.getCmbEstadoScript().getSelectedItem();
-			if (!Objects.isNull(estadoScript)) {
-				inputConsutaHistoricoProceso.setCodigoEstadoScript(new BigDecimal(estadoScript.getIndex()));
-			}
-			else {
-				inputConsutaHistoricoProceso.setCodigoEstadoScript(null);
-			}
+			Estado estadoScript = (Estado) pantallaHistoricoCambios.getCmbEstadoScript().getSelectedItem();
+			BigDecimal codigoEstadoScript = (!Objects.isNull(estadoScript)) ? estadoScript.getCodigoEstado() : null;
+			inputConsutaHistoricoProceso.setCodigoEstadoScript(codigoEstadoScript);
 			
-			EstadosProcesado estadoProcesado = (EstadosProcesado) pantallaHistoricoCambios.getCmbEstadoProcesado().getSelectedItem();
-			if (!Objects.isNull(estadoProcesado)) {
-				inputConsutaHistoricoProceso.setCodigoEstadoProceso(new BigDecimal(estadoProcesado.getIndex()));
-			}
-			else {
-				inputConsutaHistoricoProceso.setCodigoEstadoProceso(null);
-			}
+			Estado estadoProcesado = (Estado) pantallaHistoricoCambios.getCmbEstadoProcesado().getSelectedItem();
+			BigDecimal codigoEstadoProcesado = (!Objects.isNull(estadoProcesado)) ? estadoProcesado.getCodigoEstado() : null;
+			inputConsutaHistoricoProceso.setCodigoEstadoProceso(codigoEstadoProcesado);
 			
 			
 			OutputConsultaHistoricoProceso outputConsultaHistoricoProceso = historicoService.consultarHistoricoProceso(inputConsutaHistoricoProceso);
@@ -304,6 +272,31 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 		}
 		
 		return outputConsultaModelos.getModelos(); 
+	}
+
+	@Override
+	public void onLoad() {
+		try {
+			ConsultaService consultaService = (ConsultaService) getService(MDSQLConstants.CONSULTA_SERVICE);
+			
+			List<String> tiposObjeto = consultaService.consultaTiposObjeto();
+			pantallaHistoricoCambios.getCmbTipoObjeto().setModel(new TipoObjetoComboBoxModel(tiposObjeto));
+			pantallaHistoricoCambios.getCmbTipoObjetoPadre().setModel(new TipoObjetoComboBoxModel(tiposObjeto));
+			
+			List<Operacion> operaciones = consultaService.consultaOperaciones();
+			pantallaHistoricoCambios.getCmbOperacion().setModel(new OperacionComboBoxModel(operaciones));
+			pantallaHistoricoCambios.getCmbOperacionPadre().setModel(new OperacionComboBoxModel(operaciones));
+			
+			List<Estado> estadosScript = consultaService.consultaEstadosScript();
+			pantallaHistoricoCambios.getCmbEstadoScript().setModel(new EstadoComboBoxModel(estadosScript));
+			
+			List<Estado> estadosProcesado = consultaService.consultaEstadosProcesado();
+			pantallaHistoricoCambios.getCmbEstadoProcesado().setModel(new EstadoComboBoxModel(estadosProcesado));
+			
+		} catch (ServiceException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
+		}
 	}
 
 }

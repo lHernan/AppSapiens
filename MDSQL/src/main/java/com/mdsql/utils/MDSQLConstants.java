@@ -89,6 +89,7 @@ public class MDSQLConstants extends Constants {
 	public static final String NORMA_SERVICE = "normaService";
 	public static final String ELEMENTO_NORMA_SERVICE = "elementoNormaService";
 	public static final String INFORME_SERVICE = "informeService";
+	public static final String MAESTRAS_SERVICE = "maestrasService";
 
 	// TODO remove old bean names
 	public static final String SCRIPT_SERVICE = "scriptService";

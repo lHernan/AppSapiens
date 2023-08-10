@@ -1,38 +1,53 @@
 package com.mdsql.ui.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 
-import com.mdsql.utils.MDSQLConstants.Operaciones;
+import com.mdsql.bussiness.entities.Operacion;
 
 /**
  * @author federico
  *
  */
-public class OperacionComboBoxModel extends AbstractListModel<Operaciones> implements ComboBoxModel<Operaciones> {
+public class OperacionComboBoxModel extends AbstractListModel<Operacion> implements ComboBoxModel<Operacion> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8083638254718894808L;
 
-	private Operaciones[] operaciones = Operaciones.values();
+	private List<Operacion> operaciones;
 
-	private Operaciones selection = null;
+	private Operacion selection = null;
+	
+	
 
-	@Override
-	public int getSize() {
-		return operaciones.length;
+	public OperacionComboBoxModel() {
+		super();
+		operaciones = new ArrayList<>();
+	}
+
+	public OperacionComboBoxModel(List<Operacion> operaciones) {
+		super();
+		this.operaciones = operaciones;
 	}
 
 	@Override
-	public Operaciones getElementAt(int index) {
-		return operaciones[index];
+	public int getSize() {
+		return operaciones.size();
+	}
+
+	@Override
+	public Operacion getElementAt(int index) {
+		return operaciones.get(index);
 	}
 
 	@Override
 	public void setSelectedItem(Object anItem) {
-		selection = (Operaciones) anItem;
+		selection = (Operacion) anItem;
 	}
 
 	@Override
