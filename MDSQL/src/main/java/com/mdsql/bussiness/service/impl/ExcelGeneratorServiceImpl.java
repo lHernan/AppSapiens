@@ -43,10 +43,10 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 		setupCabeceraInforme(sheet);
 
-		int rownum = 1; // row to start writting
+		int rowNum = 1; // row to start writting
 		for (InformeCambios informe : listaCambios) {
-			Row row = sheet.createRow(rownum++);
-			createRowInforme(informe, row);
+			createRowInforme(informe, sheet, rowNum);
+			rowNum += 1;
 		}
 
 		String format = "%s_Cambios_desde_hasta_%s.xls";
@@ -89,7 +89,9 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	 * @param row
 	 */
 	@SneakyThrows
-	private void createRowInforme(InformeCambios informe, Row row) {
+	private void createRowInforme(InformeCambios informe, Sheet sheet, Integer rowNum) {
+		Row row = sheet.createRow(rowNum);
+		
 		printCell(row, 0, informe.getCodigoPeticion());
 		printCell(row, 1, informe.getIdProceso());
 		printCell(row, 2, informe.getNombreObjetoPadre());
