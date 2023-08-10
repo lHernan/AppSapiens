@@ -120,80 +120,40 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	}
 
 	/**
-	 * @param campoGlosario
+	 * @param informe
 	 * @param row
 	 */
 	@SneakyThrows
-	private void createRowInforme(InformeCambios informe, Row row) // creating cells for each row
-	{
-		Cell cell = row.createCell(0);
-		printCell(cell, informe.getCodigoPeticion());
-
-		cell = row.createCell(1);
-		printCell(cell, informe.getIdProceso());
-
-		cell = row.createCell(2);
-		printCell(cell, informe.getNombreObjetoPadre());
-
-		cell = row.createCell(3);
-		printCell(cell, informe.getTipoObjetoPadre());
-
-		cell = row.createCell(4);
-		printCell(cell, informe.getTipoAccionPadre());
-
-		cell = row.createCell(5);
-		printCell(cell, informe.getNombreObjeto());
-
-		cell = row.createCell(6);
-		printCell(cell, informe.getNombreObjetoDestino());
-		
-		cell = row.createCell(7);
-		printCell(cell, informe.getTipoObjeto());
-
-		cell = row.createCell(8);
-		printCell(cell, informe.getTipoAccion());
-		
-		cell = row.createCell(9);
-		printCell(cell, informe.getNumeroLongitud());
-		
-		cell = row.createCell(10);
-		printCell(cell, informe.getNumeroDecimal());
-		
-		cell = row.createCell(11);
-		printCell(cell, informe.getDescripcionEstadoProceso());
-		
-		cell = row.createCell(12);
-		printCell(cell, dateFormatter.dateToString(informe.getFechaProceso()));
-		
-		cell = row.createCell(13);
-		printCell(cell, informe.getCodigoSubProyecto());
-		
-		cell = row.createCell(14);
-		printCell(cell, informe.getCodigoUsuarioPeticion());
-		
-		cell = row.createCell(15);
-		printCell(cell, informe.getCodigoUsuario());
-		
-		cell = row.createCell(16);
-		printCell(cell, informe.getDescripcionEstadoScript());
-		
-		cell = row.createCell(17);
-		printCell(cell, informe.getNombreScript());
+	private void createRowInforme(InformeCambios informe, Row row) {
+		printCell(row, 0, informe.getCodigoPeticion());
+		printCell(row, 1, informe.getIdProceso());
+		printCell(row, 2, informe.getNombreObjetoPadre());
+		printCell(row, 3, informe.getTipoObjetoPadre());
+		printCell(row, 4, informe.getTipoAccionPadre());
+		printCell(row, 5, informe.getNombreObjeto());
+		printCell(row, 6, informe.getNombreObjetoDestino());
+		printCell(row, 7, informe.getTipoObjeto());
+		printCell(row, 8, informe.getTipoAccion());
+		printCell(row, 9, informe.getNumeroLongitud());
+		printCell(row, 10, informe.getNumeroDecimal());
+		printCell(row, 11, informe.getDescripcionEstadoProceso());
+		printCell(row, 12, dateFormatter.dateToString(informe.getFechaProceso()));
+		printCell(row, 13, informe.getCodigoSubProyecto());
+		printCell(row, 14, informe.getCodigoUsuarioPeticion());
+		printCell(row, 15, informe.getCodigoUsuario());
+		printCell(row, 16, informe.getDescripcionEstadoScript());
+		printCell(row, 17, informe.getNombreScript());
 	}
 	
-	private void printCell(Cell cell, String value) {
-		if(StringUtils.isNotBlank(value)) {
-			cell.setCellValue(value);
-		} else {
-			cell.setCellValue(StringUtils.EMPTY);
-		}
+	private void printCell(Row row, Integer i, String value) {
+		Cell cell = row.createCell(i);
+		String val = (StringUtils.isNotBlank(value)) ? value : StringUtils.EMPTY;  
+		cell.setCellValue(val);
 	}
 	
-	private void printCell(Cell cell, BigDecimal value) {
-		if(Objects.isNull(value)) {
-			cell.setCellValue("0");
-		} else {
-			cell.setCellValue(value.toString());
-		}
+	private void printCell(Row row, Integer i, BigDecimal value) {
+		Cell cell = row.createCell(i);
+		String val = (Objects.isNull(value)) ? "0" : value.toString();
+		cell.setCellValue(val);
 	}
 }
