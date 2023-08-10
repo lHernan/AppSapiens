@@ -125,8 +125,9 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			
 			if(listaCambios.isEmpty()) {
 				JOptionPane.showMessageDialog(pantallaHistoricoCambios.getFrameParent(), "No hay datos para generar informe");
-			}else
-			excelGeneratorService.generarExcelHistoricoCambios(listaCambios, path, codigoProyecto, sDesde, sHasta);
+			} else {
+				excelGeneratorService.generarExcelHistoricoCambios(listaCambios, path, codigoProyecto, sDesde, sHasta);
+			}
 		} catch (ServiceException | ParseException | IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);

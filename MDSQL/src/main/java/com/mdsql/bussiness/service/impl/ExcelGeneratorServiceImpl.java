@@ -3,8 +3,11 @@ package com.mdsql.bussiness.service.impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -124,68 +127,73 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	private void createRowInforme(InformeCambios informe, Row row) // creating cells for each row
 	{
 		Cell cell = row.createCell(0);
-		cell.setCellValue(informe.getCodigoPeticion());
+		printCell(cell, informe.getCodigoPeticion());
 
 		cell = row.createCell(1);
-		cell.setCellValue(informe.getIdProceso().toString());
+		printCell(cell, informe.getIdProceso());
 
 		cell = row.createCell(2);
-		cell.setCellValue(informe.getNombreObjetoPadre());
+		printCell(cell, informe.getNombreObjetoPadre());
 
 		cell = row.createCell(3);
-		cell.setCellValue(informe.getTipoObjetoPadre());
+		printCell(cell, informe.getTipoObjetoPadre());
 
 		cell = row.createCell(4);
-		cell.setCellValue(informe.getTipoAccionPadre());
+		printCell(cell, informe.getTipoAccionPadre());
 
 		cell = row.createCell(5);
-		cell.setCellValue(informe.getNombreObjeto());
+		printCell(cell, informe.getNombreObjeto());
 
 		cell = row.createCell(6);
-		cell.setCellValue(informe.getNombreObjetoDestino());
-
+		printCell(cell, informe.getNombreObjetoDestino());
+		
 		cell = row.createCell(7);
-		cell.setCellValue(informe.getTipoObjeto());
+		printCell(cell, informe.getTipoObjeto());
 
 		cell = row.createCell(8);
-		cell.setCellValue(informe.getTipoAccion());
+		printCell(cell, informe.getTipoAccion());
 		
 		cell = row.createCell(9);
-		cell.setCellValue(informe.getNumeroLongitud().toString());
-		
-		if(informe.getNumeroLongitud() == null) {
-			cell.setCellValue("0");
-		}
+		printCell(cell, informe.getNumeroLongitud());
 		
 		cell = row.createCell(10);
-		cell.setCellValue(informe.getNumeroDecimal().toString());
-		
-		if(informe.getNumeroDecimal() == null) {
-			cell.setCellValue("0");
-		}
-		
-		cell = row.createCell(10);
-		cell.setCellValue(informe.getNumeroDecimal().toString());
+		printCell(cell, informe.getNumeroDecimal());
 		
 		cell = row.createCell(11);
-		cell.setCellValue(informe.getDescripcionEstadoProceso());
+		printCell(cell, informe.getDescripcionEstadoProceso());
 		
 		cell = row.createCell(12);
-		cell.setCellValue(dateFormatter.dateToString(informe.getFechaProceso()));
+		printCell(cell, dateFormatter.dateToString(informe.getFechaProceso()));
 		
 		cell = row.createCell(13);
-		cell.setCellValue(informe.getCodigoSubProyecto());
+		printCell(cell, informe.getCodigoSubProyecto());
 		
 		cell = row.createCell(14);
-		cell.setCellValue(informe.getCodigoUsuarioPeticion());
+		printCell(cell, informe.getCodigoUsuarioPeticion());
 		
 		cell = row.createCell(15);
-		cell.setCellValue(informe.getCodigoUsuario());
+		printCell(cell, informe.getCodigoUsuario());
 		
 		cell = row.createCell(16);
-		cell.setCellValue(informe.getDescripcionEstadoScript());
+		printCell(cell, informe.getDescripcionEstadoScript());
 		
 		cell = row.createCell(17);
-		cell.setCellValue(informe.getNombreScript());
+		printCell(cell, informe.getNombreScript());
+	}
+	
+	private void printCell(Cell cell, String value) {
+		if(StringUtils.isNotBlank(value)) {
+			cell.setCellValue(value);
+		} else {
+			cell.setCellValue(StringUtils.EMPTY);
+		}
+	}
+	
+	private void printCell(Cell cell, BigDecimal value) {
+		if(Objects.isNull(value)) {
+			cell.setCellValue("0");
+		} else {
+			cell.setCellValue(value.toString());
+		}
 	}
 }
