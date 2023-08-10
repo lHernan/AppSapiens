@@ -113,14 +113,15 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	}
 	
 	private void printCell(Row row, Integer i, String value) {
-		Cell cell = row.createCell(i);
-		String val = (StringUtils.isNotBlank(value)) ? value : StringUtils.EMPTY;  
-		cell.setCellValue(val);
+		writeCell(row, i, (StringUtils.isNotBlank(value)) ? value : StringUtils.EMPTY);
 	}
 	
 	private void printCell(Row row, Integer i, BigDecimal value) {
+		writeCell(row, i, (Objects.isNull(value)) ? "0" : value.toString());
+	}
+	
+	private void writeCell(Row row, Integer i, String val) {
 		Cell cell = row.createCell(i);
-		String val = (Objects.isNull(value)) ? "0" : value.toString();
 		cell.setCellValue(val);
 	}
 }
