@@ -96,7 +96,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
 			
 			// Hay avisos
 			if (result == 2) {
-				outputConsultaHistoricoProceso.setServiceException(buildException(callableStatement.getArray(6)));
+				outputConsultaHistoricoProceso.setServiceException(buildException(callableStatement.getArray(14)));
 			}
 
             List<HistoricoProceso> historicoProcesos = new ArrayList<>();
