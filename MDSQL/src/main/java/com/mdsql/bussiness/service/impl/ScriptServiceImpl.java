@@ -859,15 +859,14 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				throw new ServiceException(e);
 			}
 	
-			// Si se fuerza la parada del proceso, se sale con error 137
+			// Si se fuerza la parada del proceso, se sale con error 137, en Windows es 1
 			int exitCode = process.waitFor();
 			
 			LogWrapper.debug(log, "[ScriptService.executeScriptFile] Fin Ejecucion exitCode: %s", exitCode);
 			// Si ha dado error, escribe el fichero de log
 			//MDSQLAppHelper.dumpLinesToFile(logLines, Paths.get(logFile).toFile());
 			
-			// Ha dado un error por contraseña incorrecta
-			if (exitCode == 1) {
+			if (exitCode == 1 || exitCode == 137) {
 				throw new ServiceException(lineError);
 			}
 		} catch (IOException | InterruptedException e) {
