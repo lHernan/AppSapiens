@@ -866,7 +866,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			// Si ha dado error, escribe el fichero de log
 			//MDSQLAppHelper.dumpLinesToFile(logLines, Paths.get(logFile).toFile());
 			
-			if (exitCode == 137) {
+			// Ha dado un error por contraseña incorrecta
+			if (exitCode == 1) {
 				throw new ServiceException(lineError);
 			}
 		} catch (IOException | InterruptedException e) {
