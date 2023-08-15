@@ -732,27 +732,34 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
 				framePrincipal.getBtnLimpiarScripts().setEnabled(Boolean.FALSE);
 				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
+				framePrincipal.getBtnRefrescarFichero().setEnabled(Boolean.TRUE);
 			} else if ("En Ejecucion".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
 				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
+				framePrincipal.getBtnRefrescarFichero().setEnabled(Boolean.FALSE);
 			} else if ("Error".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.FALSE);
 				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
+				framePrincipal.getBtnRefrescarFichero().setEnabled(Boolean.FALSE);
 			} else if ("Rechazado".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
 				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
+				framePrincipal.getBtnRefrescarFichero().setEnabled(Boolean.TRUE);
 			} else if ("Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
 				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.TRUE);
+				framePrincipal.getBtnRefrescarFichero().setEnabled(Boolean.FALSE);
 			} else if ("Entregado".equals(proceso.getDescripcionEstadoProceso())) {
 				framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
 				framePrincipal.getBtnLimpiarScripts().setEnabled(Boolean.TRUE);
 				framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.FALSE);
+				framePrincipal.getBtnRefrescarFichero().setEnabled(Boolean.TRUE);
 			}
 		} else {
 			framePrincipal.getBtnLimpiarSesion().setEnabled(Boolean.TRUE);
 			framePrincipal.getBtnLimpiarScripts().setEnabled(Boolean.TRUE);
 			framePrincipal.getBtnEntregarProcesado().setEnabled(Boolean.TRUE);
+			framePrincipal.getBtnRefrescarFichero().setEnabled(Boolean.TRUE);
 
 		}
 	}
