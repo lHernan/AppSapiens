@@ -24,6 +24,7 @@ import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Operacion;
 import com.mdsql.bussiness.entities.OutputConsultaHistoricoProceso;
 import com.mdsql.bussiness.entities.OutputConsultaModelos;
+import com.mdsql.bussiness.entities.OutputInformeCambios;
 import com.mdsql.bussiness.service.ConsultaService;
 import com.mdsql.bussiness.service.ExcelGeneratorService;
 import com.mdsql.bussiness.service.HistoricoService;
@@ -41,10 +42,6 @@ import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLConstants;
-import com.mdsql.utils.MDSQLConstants.EstadosProcesado;
-import com.mdsql.utils.MDSQLConstants.EstadosScript;
-import com.mdsql.utils.MDSQLConstants.Operaciones;
-import com.mdsql.utils.MDSQLConstants.TiposObjeto;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 
@@ -128,9 +125,19 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 			Date fechaDesde = (StringUtils.isNotBlank(desde)) ? dateBuscarFormatter.stringToDate(desde) : null;
 			Date fechaHasta = (StringUtils.isNotBlank(hasta)) ? dateBuscarFormatter.stringToDate(hasta) : null;
 			
-			List<InformeCambios> listaCambios = informeService.informeCambios(codigoProyecto, fechaDesde, fechaHasta);
+			OutputInformeCambios outputInformeCambios = informeService.informeCambios(codigoProyecto, fechaDesde, fechaHasta);
+			
+			// Hay avisos
+			if (outputInformeCambios.getResult() == 2) {
+				ServiceException serviceException = outputInformeCambios.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
+			
 			String sDesde = dateInformeFormatter.dateToString(fechaDesde);
 			String sHasta = dateInformeFormatter.dateToString(fechaHasta);
+			
+			List<InformeCambios> listaCambios = outputInformeCambios.getListaCambios();
 			
 			if(listaCambios.isEmpty()) {
 				JOptionPane.showMessageDialog(pantallaHistoricoCambios.getFrameParent(), "No hay datos para generar informe");

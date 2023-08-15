@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +20,7 @@ import com.mdsql.bussiness.entities.CampoGlosario;
 import com.mdsql.bussiness.entities.DetValidacion;
 import com.mdsql.bussiness.entities.InformeCambios;
 import com.mdsql.bussiness.entities.InformeValidacion;
+import com.mdsql.bussiness.entities.OutputInformeCambios;
 import com.mdsql.bussiness.service.InformeService;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -88,7 +89,7 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
     }
 
     @Override
-    public List<InformeCambios> informeCambios(String codigoProyecto, Date fechaDesde, Date fechaHasta) throws ServiceException {
+    public OutputInformeCambios informeCambios(String codigoProyecto, Date fechaDesde, Date fechaHasta) throws ServiceException {
         String runSP = createCall("p_informe_cambios", MDSQLConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -126,6 +127,14 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
             if (result == 0) {
                 throw buildException(callableStatement.getArray(6));
             }
+            
+            OutputInformeCambios outputInformeCambios = new OutputInformeCambios();
+            outputInformeCambios.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputInformeCambios.setServiceException(buildException(callableStatement.getArray(6)));
+			}
 
             List<InformeCambios> informeCambios = new ArrayList<>();
             Array arrayInformeCambios = callableStatement.getArray(4);
@@ -157,8 +166,10 @@ public class InformeServiceImpl extends ServiceSupport implements InformeService
                             .build();
                     informeCambios.add(historicoProceso);
                 }
+                
+                outputInformeCambios.setListaCambios(informeCambios);
             }
-            return informeCambios;
+            return outputInformeCambios;
         } catch (SQLException e) {
             LogWrapper.error(log, "[InformeService.informeCambios] Error:  %s", e.getMessage());
             throw new ServiceException(e);

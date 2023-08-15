@@ -2,10 +2,9 @@ package com.mdsql.bussiness.service;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
-import com.mdsql.bussiness.entities.InformeCambios;
 import com.mdsql.bussiness.entities.InformeValidacion;
+import com.mdsql.bussiness.entities.OutputInformeCambios;
 import com.mdval.exceptions.ServiceException;
 
 /**
@@ -25,6 +24,6 @@ public interface InformeService {
      * @param fechaHasta
      * @return InformeCambiosList
      */
-    List<InformeCambios> informeCambios(String codigoProyecto, Date fechaDesde, Date fechaHasta) throws ServiceException;
+    OutputInformeCambios informeCambios(String codigoProyecto, Date fechaDesde, Date fechaHasta) throws ServiceException;
 
 }
