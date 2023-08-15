@@ -37,9 +37,14 @@ public class PantallaAjustarLogTableListener extends ListenerSupport implements 
 		LogEjecucion seleccionado = tableModel.getSelectedRow(index);
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
-			pantallaAjustarLogEjecucion.setSeleccionado(seleccionado);
-			pantallaAjustarLogEjecucion.getBtnEliminar().setEnabled(Boolean.TRUE);
-			pantallaAjustarLogEjecucion.getTxtComentario().setEnabled(Boolean.TRUE);
+			
+			Boolean consulta = (Boolean) pantallaAjustarLogEjecucion.getParams().get("consulta");
+			
+			if (Boolean.FALSE.equals(consulta)) {
+				pantallaAjustarLogEjecucion.setSeleccionado(seleccionado);
+				pantallaAjustarLogEjecucion.getBtnEliminar().setEnabled(Boolean.TRUE);
+				pantallaAjustarLogEjecucion.getTxtComentario().setEnabled(Boolean.TRUE);
+			}
 		}
 	}
 
