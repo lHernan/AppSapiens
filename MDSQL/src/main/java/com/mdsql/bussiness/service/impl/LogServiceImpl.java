@@ -92,7 +92,7 @@ public class LogServiceImpl extends ServiceSupport implements LogService {
     }
 
     @Override
-    public void eliminaLog(InputEliminaLog inputEliminaLog) throws ServiceException {
+    public ServiceException eliminaLog(InputEliminaLog inputEliminaLog) throws ServiceException {
         String runSP = createCall("p_elimina_log", MDSQLConstants.CALL_09_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -118,9 +118,16 @@ public class LogServiceImpl extends ServiceSupport implements LogService {
             Integer result = callableStatement.getInt(8);
 
             if (result == 0) {
-                throw buildException(callableStatement.getArray(9));
+            	ServiceException serviceException = buildException(callableStatement.getArray(9));
+            	return serviceException;
             }
+            
+            if (result == 2) {
+				ServiceException serviceException = buildWarning(callableStatement.getArray(9));
+				return serviceException;
+			}
 
+            return null;
         } catch (SQLException e) {
             LogWrapper.error(log, "[LogService.eliminaLog] Error:  %s", e.getMessage());
             throw new ServiceException(e);

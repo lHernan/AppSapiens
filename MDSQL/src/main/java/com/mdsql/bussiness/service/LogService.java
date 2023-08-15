@@ -22,6 +22,6 @@ public interface LogService {
     /**
      * @param inputEliminaLog
      */
-    void eliminaLog(InputEliminaLog inputEliminaLog) throws ServiceException;
+    ServiceException eliminaLog(InputEliminaLog inputEliminaLog) throws ServiceException;
 
 }

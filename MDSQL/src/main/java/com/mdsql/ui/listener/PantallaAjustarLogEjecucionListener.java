@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JButton;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.mdsql.bussiness.entities.InputEliminaLog;
 import com.mdsql.bussiness.entities.LogEjecucion;
@@ -17,6 +20,7 @@ import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.model.AjustarLogEjecucionTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.ui.utils.collections.SeleccionHistoricoUpdateClosure;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
@@ -83,7 +87,17 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 		String comentario = pantallaAjustarLogEjecucion.getTxtComentario().getText();
 		inputEliminaLog.setTxtComentario(comentario);
 		
-		logService.eliminaLog(inputEliminaLog);
+		ServiceException serviceException = logService.eliminaLog(inputEliminaLog);
+		
+		if (!Objects.isNull(serviceException)) {
+			if (serviceException.getType().equals(2)) {
+				Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
+				MDSQLUIHelper.showPopup(pantallaAjustarLogEjecucion.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
+			else {
+				throw serviceException;
+			}
+		}
 	}
 
 	/**
@@ -102,6 +116,8 @@ public class PantallaAjustarLogEjecucionListener extends ListenerSupport impleme
 		
 		AjustarLogEjecucionTableModel tableModel = (AjustarLogEjecucionTableModel) pantallaAjustarLogEjecucion.getTblAjustarLog().getModel();
 		tableModel.setData(logEjecucion);
+		
+		pantallaAjustarLogEjecucion.forceRepaint();
 	}
 
 }
