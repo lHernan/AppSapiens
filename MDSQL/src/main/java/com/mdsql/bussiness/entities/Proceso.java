@@ -23,6 +23,8 @@ public class Proceso implements Serializable {
 	
 	private BigDecimal idProceso;
 	private Modelo modelo;
+	private String codProyecto;
+	private String codSubproyecto;
 	private SubProyecto subproyecto;
     private String codigoPeticion;
     private String codigoUsrPeticion;

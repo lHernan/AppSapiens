@@ -1,9 +1,6 @@
 package com.mdsql.ui.model;
 
 import java.util.List;
-import java.util.Objects;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdval.ui.model.DefaultTableModel;
@@ -47,19 +44,19 @@ public class ConsultaPeticionesTableModel extends DefaultTableModel<Proceso> {
 		if (columnIndex == 0) {
 			return row.getCodigoPeticion();
 		} else if (1 == columnIndex) {
-			return row.getCodigoEstadoProceso();
+			return row.getDescripcionEstadoProceso();
 		} else if (2 == columnIndex) {
 			return row.getFechaInicio();
 		} else if (3 == columnIndex) {
-			return (!Objects.isNull(row.getModelo())) ? row.getModelo().getCodigoProyecto() : StringUtils.EMPTY;
+			return row.getCodProyecto();
 		} else if (4 == columnIndex) {
-			return (!Objects.isNull(row.getSubproyecto())) ? row.getSubproyecto().getCodigoSubProyecto() : StringUtils.EMPTY;
+			return row.getCodSubproyecto();
 		} else if (5 == columnIndex) {
-			return row.getMcaErrores();
-		} else if (6 == columnIndex) {
 			return row.getCodigoUsrPeticion();
-		} else if (7 == columnIndex) {
+		} else if (6 == columnIndex) {
 			return row.getTxtDescripcion();
+		} else if (7 == columnIndex) {
+			return row.getCodigoUsrPeticion();
 		} else if (8 == columnIndex) {
 			return row.getCodigoUsr();
 		}

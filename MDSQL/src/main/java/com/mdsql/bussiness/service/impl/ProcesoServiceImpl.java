@@ -95,7 +95,8 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
                             .codigoUsrPeticion((String) cols[2]).fechaInicio((Date) cols[3]).codigoUsr((String) cols[4])
                             .codigoEstadoProceso((BigDecimal) cols[5]).descripcionEstadoProceso((String) cols[6])
                             .mcaInicial((String) cols[7]).txtDescripcion((String) cols[8])
-                            .txtObservacionEntrega((String) cols[9]).mcaErrores((String) cols[10]).build();
+                            .txtObservacionEntrega((String) cols[9]).mcaErrores((String) cols[10])
+                            .codProyecto((String) cols[11]).codSubproyecto((String) cols[12]).build();
 
                     procesos.add(proceso);
                 }
