@@ -52,14 +52,14 @@ public class ConsultaPeticionesTableModel extends DefaultTableModel<Proceso> {
 		} else if (4 == columnIndex) {
 			return row.getCodSubproyecto();
 		} else if (5 == columnIndex) {
-			return row.getCodigoUsrPeticion();
+			return row.getMcaErrores();
 		} else if (6 == columnIndex) {
-			return row.getTxtDescripcion();
-		} else if (7 == columnIndex) {
 			return row.getCodigoUsrPeticion();
+		} else if (7 == columnIndex) {
+			return row.getTxtDescripcion();
 		} else if (8 == columnIndex) {
 			return row.getCodigoUsr();
-		}
+		} 
 
 		return null;
 	}

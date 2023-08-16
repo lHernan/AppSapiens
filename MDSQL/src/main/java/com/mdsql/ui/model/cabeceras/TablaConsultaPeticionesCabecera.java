@@ -16,6 +16,7 @@ public class TablaConsultaPeticionesCabecera extends Cabecera {
 		columnIdentifiers.add("Fecha");
 		columnIdentifiers.add("Modelo");
 		columnIdentifiers.add("Submodelo");
+		columnIdentifiers.add("Con errores");
 		columnIdentifiers.add("Solicitado");
 		columnIdentifiers.add("Descripcion");
 		columnIdentifiers.add("Usuario");
@@ -28,14 +29,16 @@ public class TablaConsultaPeticionesCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
+		columnClasses.add(String.class);
 		
-		columnSizes.add(50);
-		columnSizes.add(1);
-		columnSizes.add(50);
-		columnSizes.add(150);
 		columnSizes.add(100);
-		columnSizes.add(1);
+		columnSizes.add(100);
+		columnSizes.add(100);
+		columnSizes.add(100);
+		columnSizes.add(100);
+		columnSizes.add(50);
+		columnSizes.add(100);
 		columnSizes.add(450);
-		columnSizes.add(10);
+		columnSizes.add(100);
 	}
 }
