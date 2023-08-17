@@ -173,14 +173,14 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 				// Esto es cuando se procesan scripts SQL
 				if (CollectionUtils.isNotEmpty(proceso.getScripts())) {
-					createZipVigente(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
-					//createZipVigente(proceso, outputConsultaEntrega, rutaEntregados);
+					//createZipVigente(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
+					createZipVigente(proceso, outputConsultaEntrega, rutaEntregados);
 					copyFilesVigente(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
 					copyFilesVigente(rutaEntregados, proceso.getScripts());
 	
 					if (tieneScriptsHistoricos(proceso.getScripts())) {
-						createZipHistorico(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
-						//createZipHistorico(proceso, outputConsultaEntrega, rutaEntregados);
+						//createZipHistorico(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
+						createZipHistorico(proceso, outputConsultaEntrega, rutaEntregados);
 						copyFilesHistorico(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
 						copyFilesHistorico(rutaEntregados, proceso.getScripts());
 					}
@@ -188,7 +188,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				
 				// Esto es cuando se procesan scripts type
 				if (CollectionUtils.isNotEmpty(proceso.getTypes())) {
-					createZipType(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
+					//createZipType(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
 					createZipType(proceso, outputConsultaEntrega, rutaEntregados);
 					copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
 					copyFilesType(rutaEntregados, proceso.getTypes());
@@ -289,8 +289,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			for (Type type : proceso.getTypes()) {
 				String carpetaObjeto = type.getNombreObjeto();
 				
-				String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
-				if (StringUtils.isNotBlank(carpetaObjeto) && !drop.equals("S")) {
+				//String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
+				if (StringUtils.isNotBlank(carpetaObjeto)) {
 					String ruta = session.getSelectedRoute() + File.separator + carpetaObjeto;
 					File file = new File(ruta);
 					log.info("Archivo a comprimir: {}", ruta);
