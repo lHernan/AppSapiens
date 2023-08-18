@@ -299,7 +299,11 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 						zipFile.addFolder(file);
 					}
 					else {
-						zipFile.addFile(file);
+						for (ScriptType scriptType : type.getScriptType()) {
+							String rutaScript = session.getSelectedRoute() + File.separator + scriptType.getNombreScript();
+							File fileScript = new File(rutaScript);
+							zipFile.addFile(fileScript);
+						}
 					}
 				}
 				else {
