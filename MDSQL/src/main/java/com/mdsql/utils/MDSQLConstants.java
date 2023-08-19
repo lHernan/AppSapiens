@@ -26,6 +26,9 @@ public class MDSQLConstants extends Constants {
 	/**
 	 * App globals
 	 */
+	
+	public static final Integer LARGE_TEXT_LIMIT = 50;
+	
 	public static final String COD_USR = "CodUsr";
 	public static final String SPRING_CONTEXT = "SPRING_CONTEXT";
 	public static final String SERVICE_ERROR = "SERVICE_ERROR";

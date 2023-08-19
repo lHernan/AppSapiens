@@ -111,6 +111,9 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport
 			ServiceException serviceException = procesoService.altaHistorico(listaSeleccionados, codigoProyecto, codigoPeticion, codigoUsuario);
 			if (!Objects.isNull(serviceException)) {
 				if (serviceException.getType().equals(2)) {
+					CollectionUtils.forAllDo(listaObjetos, new SeleccionHistoricoUpdateClosure(listaSeleccionados));
+					pantallaSeleccionHistorico.getTblHistorico().repaint();
+					
 					Map<String, Object> params = MDSQLUIHelper.buildError(serviceException);
 					MDSQLUIHelper.showPopup(pantallaSeleccionHistorico.getFrameParent(), MDSQLConstants.CMD_WARN, params);
 				}

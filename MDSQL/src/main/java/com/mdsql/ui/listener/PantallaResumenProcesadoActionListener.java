@@ -74,15 +74,15 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_ENTREGAR.equals(jButton.getActionCommand())) {
 			evtEntregar();
 		}
-		
+
 		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_VER_ERRORES.equals(jButton.getActionCommand())) {
 			evtVerErrores();
 		}
-		
+
 		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_DETALLE_SCRIPT.equals(jButton.getActionCommand())) {
 			evtDetalleScript();
 		}
-		
+
 		if (MDSQLConstants.PANTALLA_RESUMEN_PROCESADO_VER_LOG.equals(jButton.getActionCommand())) {
 			evtVerLog();
 		}
@@ -104,7 +104,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		params.put("consulta", Boolean.TRUE);
 
 		PantallaAjustarLogEjecucion pantallaAjustarLogEjecucion = (PantallaAjustarLogEjecucion) MDSQLUIHelper
-				.createDialog(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_AJUSTAR_LOG_EJECUCION, params);
+				.createDialog(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_AJUSTAR_LOG_EJECUCION,
+						params);
 		MDSQLUIHelper.show(pantallaAjustarLogEjecucion);
 	}
 
@@ -137,7 +138,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 		PantallaVerErroresScript pantallaVerErroresScript = (PantallaVerErroresScript) MDSQLUIHelper
 				.createDialog(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_VER_ERRORES_SCRIPT, params);
-		MDSQLUIHelper.show(pantallaVerErroresScript);	}
+		MDSQLUIHelper.show(pantallaVerErroresScript);
+	}
 
 	/**
 	 * 
@@ -154,17 +156,17 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 				OutputConsultaEntrega outputConsultaEntrega = entregaService
 						.consultaRutaEntrega(proceso.getModelo().getCodigoProyecto(), proceso.getIdProceso());
-				
+
 				// Comprobar que existe la ruta antes de llamar a entregarPeticion
 				MDSQLAppHelper.checkRuta(outputConsultaEntrega.getTxtRutaEntrega());
-				
+
 				// Comprobar que existe la ruta de Entregados antes de entregar la petición
 				ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 				String rutaInicial = proceso.getRutaScript();
 				String rutaEntrega = configuration.getConfig("CarpetaEntregaFicheros");
 				String rutaEntregados = rutaInicial + File.separator + rutaEntrega;
 				MDSQLAppHelper.checkRuta(rutaEntregados);
-				
+
 				// Entregar petición antes de hacer los ficheros, para controlar el comentario
 				String txtComentario = pantallaResumenProcesado.getTxtComentarios().getText();
 				String codUsr = session.getCodUsr();
@@ -173,22 +175,25 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 				// Esto es cuando se procesan scripts SQL
 				if (CollectionUtils.isNotEmpty(proceso.getScripts())) {
-					//createZipVigente(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
+					// createZipVigente(proceso, outputConsultaEntrega,
+					// outputConsultaEntrega.getTxtRutaEntrega());
 					createZipVigente(proceso, outputConsultaEntrega, rutaEntregados);
 					copyFilesVigente(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
 					copyFilesVigente(rutaEntregados, proceso.getScripts());
-	
+
 					if (tieneScriptsHistoricos(proceso.getScripts())) {
-						//createZipHistorico(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
+						// createZipHistorico(proceso, outputConsultaEntrega,
+						// outputConsultaEntrega.getTxtRutaEntrega());
 						createZipHistorico(proceso, outputConsultaEntrega, rutaEntregados);
 						copyFilesHistorico(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
 						copyFilesHistorico(rutaEntregados, proceso.getScripts());
 					}
 				}
-				
+
 				// Esto es cuando se procesan scripts type
 				if (CollectionUtils.isNotEmpty(proceso.getTypes())) {
-					//createZipType(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
+					// createZipType(proceso, outputConsultaEntrega,
+					// outputConsultaEntrega.getTxtRutaEntrega());
 					createZipType(proceso, outputConsultaEntrega, rutaEntregados);
 					copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
 					copyFilesType(rutaEntregados, proceso.getTypes());
@@ -231,7 +236,10 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 */
 	private void populateProceso(OutputConsultaProcesado outputConsultaProcesado) {
 		pantallaResumenProcesado.getTxtModelo().setText(outputConsultaProcesado.getNombreModelo());
-		pantallaResumenProcesado.getTxtSubmodelo().setText(outputConsultaProcesado.getDescripcionSubProyecto());
+		
+		MDSQLUIHelper.withTooltip(pantallaResumenProcesado.getTxtSubmodelo(),
+				outputConsultaProcesado.getDescripcionSubProyecto(), MDSQLConstants.LARGE_TEXT_LIMIT);
+		
 		pantallaResumenProcesado.getTxtBBDD().setText(outputConsultaProcesado.getNombreBBDD());
 		pantallaResumenProcesado.getTxtEsquema().setText(outputConsultaProcesado.getNombreEsquema());
 		pantallaResumenProcesado.getTxtBBDDHistorico().setText(outputConsultaProcesado.getNombreBBDDHistorico());
@@ -259,63 +267,65 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param proceso
 	 * @param outputConsultaEntrega
 	 */
-	private void createZipVigente(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega, String rutaEntrega) throws IOException {
+	private void createZipVigente(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega, String rutaEntrega)
+			throws IOException {
 		createZip(proceso, rutaEntrega, outputConsultaEntrega.getNombreFicheroVigente(),
 				Arrays.asList(new String[] { "SQL", "PDC" }));
 	}
-	
+
 	/**
 	 * @param proceso
 	 * @param outputConsultaEntrega
 	 */
-	private void createZipHistorico(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega, String rutaEntrega) throws IOException {
+	private void createZipHistorico(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega, String rutaEntrega)
+			throws IOException {
 		createZip(proceso, rutaEntrega, outputConsultaEntrega.getNombreFicheroHistorico(),
 				Arrays.asList(new String[] { "SQLH", "PDCH" }));
 	}
-	
+
 	/**
 	 * @param proceso
 	 * @param outputConsultaEntrega
 	 * @throws IOException
 	 */
-	private void createZipType(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega, String rutaEntrega) throws IOException {
+	private void createZipType(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega, String rutaEntrega)
+			throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String nombreFichero = outputConsultaEntrega.getNombreFicheroType();
-		
+
 		String zipFileName = rutaEntrega + File.separator + nombreFichero;
 		log.info("Zip file name: {}", zipFileName);
 
 		try (ZipFile zipFile = new ZipFile(zipFileName)) {
 			for (Type type : proceso.getTypes()) {
 				String carpetaObjeto = type.getNombreObjeto();
-				
-				//String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
+
+				// String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
 				if (StringUtils.isNotBlank(carpetaObjeto)) {
 					String ruta = session.getSelectedRoute() + File.separator + carpetaObjeto;
 					File file = new File(ruta);
 					log.info("Archivo a comprimir: {}", ruta);
-					
+
 					if (file.isDirectory()) {
 						zipFile.addFolder(file);
-					}
-					else {
+					} else {
 						for (ScriptType scriptType : type.getScriptType()) {
-							String rutaScript = session.getSelectedRoute() + File.separator + scriptType.getNombreScript();
+							String rutaScript = session.getSelectedRoute() + File.separator
+									+ scriptType.getNombreScript();
 							File fileScript = new File(rutaScript);
 							zipFile.addFile(fileScript);
 						}
 					}
-				}
-				else {
+				} else {
 					for (ScriptType scriptType : type.getScriptType()) {
 						String ruta = session.getSelectedRoute() + File.separator + scriptType.getNombreScript();
 						File file = new File(ruta);
 						log.info("Archivo a comprimir: {}", ruta);
-						
+
 						zipFile.addFile(file);
 					}
 				}
-				
+
 			}
 		} catch (Exception e) {
 			log.error("ERROR: ", e);
@@ -369,7 +379,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 */
 	private boolean tieneScriptsHistoricos(List<Script> scripts) {
 		List<String> scriptTypes = Arrays.asList(new String[] { "SQLH", "PDCH" });
-		
+
 		for (Script script : scripts) {
 			if (scriptTypes.contains(script.getTipoScript())) {
 				return true;
@@ -385,14 +395,14 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	private void copyFilesVigente(String rutaEntrega, List<Script> scripts) throws IOException {
 		copyFiles(rutaEntrega, scripts, Arrays.asList(new String[] { "SQL", "PDC" }));
 	}
-	
+
 	/**
 	 * @param scripts
 	 */
 	private void copyFilesHistorico(String rutaEntrega, List<Script> scripts) throws IOException {
 		copyFiles(rutaEntrega, scripts, Arrays.asList(new String[] { "SQLH", "PDCH" }));
 	}
-	
+
 	/**
 	 * @param rutaEntrega
 	 * @param types
@@ -401,28 +411,29 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		for (Type type : types) {
 			String carpetaObjeto = type.getNombreObjeto();
-			
-			if(StringUtils.isNotBlank(carpetaObjeto) && !"S".equals(type.getDROP())) {
+
+			if (StringUtils.isNotBlank(carpetaObjeto) && !"S".equals(type.getDROP())) {
 				File file = new File(rutaEntrega + File.separator + carpetaObjeto);
 				if (!file.exists()) {
 					file.mkdir();
 				}
-				
+
 				for (ScriptType scriptType : type.getScriptType()) {
-					String rutaScript = session.getSelectedRoute() + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript();
-					copyFile(rutaScript, rutaEntrega + File.separator + type.getNombreObjeto() + File.separator + scriptType.getNombreScript());
+					String rutaScript = session.getSelectedRoute() + File.separator + type.getNombreObjeto()
+							+ File.separator + scriptType.getNombreScript();
+					copyFile(rutaScript, rutaEntrega + File.separator + type.getNombreObjeto() + File.separator
+							+ scriptType.getNombreScript());
 				}
-			}
-			else {
+			} else {
 				for (ScriptType scriptType : type.getScriptType()) {
 					String rutaScript = session.getSelectedRoute() + File.separator + scriptType.getNombreScript();
 					copyFile(rutaScript, rutaEntrega + File.separator + scriptType.getNombreScript());
 				}
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * @param scripts
 	 */

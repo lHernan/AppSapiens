@@ -258,4 +258,20 @@ public class MDSQLUIHelper extends UIHelper {
 			MDSQLUIHelper.showPopup(frameSupport, MDSQLConstants.CMD_WARN, params);
 		}
 	}
+	
+	/**
+	 * @param field
+	 * @param value
+	 * @param limit
+	 */
+	public static void withTooltip(JTextField field, String value, Integer limit) {
+		if (value.length() > limit) {
+			String textToShow = value.substring(0, limit).concat("...");
+			field.setText(textToShow);
+			field.setToolTipText(value);
+		}
+		else {
+			field.setText(value);
+		}
+	}
 }
