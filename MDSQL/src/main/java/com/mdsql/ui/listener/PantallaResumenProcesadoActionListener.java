@@ -235,7 +235,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 * @param outputConsultaProcesado
 	 */
 	private void populateProceso(OutputConsultaProcesado outputConsultaProcesado) {
-		pantallaResumenProcesado.getTxtModelo().setText(outputConsultaProcesado.getNombreModelo());
+		MDSQLUIHelper.withTooltip(pantallaResumenProcesado.getTxtModelo(),
+				outputConsultaProcesado.getNombreModelo(), MDSQLConstants.LARGE_TEXT_LIMIT);
 		
 		MDSQLUIHelper.withTooltip(pantallaResumenProcesado.getTxtSubmodelo(),
 				outputConsultaProcesado.getDescripcionSubProyecto(), MDSQLConstants.LARGE_TEXT_LIMIT);
