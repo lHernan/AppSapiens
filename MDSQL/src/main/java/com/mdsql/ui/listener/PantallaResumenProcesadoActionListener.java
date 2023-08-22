@@ -196,7 +196,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 					// outputConsultaEntrega.getTxtRutaEntrega());
 					createZipType(proceso, outputConsultaEntrega, rutaEntregados);
 					createZipType(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
-					//copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
+					copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
 					copyFilesType(rutaEntregados, proceso.getTypes());
 				}
 
