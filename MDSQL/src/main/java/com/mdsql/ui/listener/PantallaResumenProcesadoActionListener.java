@@ -246,6 +246,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			}
 			
 			pantallaResumenProcesado.setProcesoSeleccionado(proceso);
+			pantallaResumenProcesado.getTxtIdProcesado().setText(proceso.getIdProceso().toString());
 			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(proceso.getIdProceso());
 
 			if (!Objects.isNull(outputConsultaProcesado)) {

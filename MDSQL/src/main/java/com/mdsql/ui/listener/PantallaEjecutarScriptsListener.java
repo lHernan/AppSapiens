@@ -340,6 +340,8 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	public void onLoad() {
 		Proceso proceso = (Proceso) pantallaEjecutarScripts.getParams().get("proceso");
 		pantallaEjecutarScripts.setProceso(proceso);
+		
+		pantallaEjecutarScripts.getTxtIdProcesado().setText(proceso.getIdProceso().toString());
 
 		List<BBDD> bbdds = proceso.getBbdds();
 		if (CollectionUtils.isNotEmpty(bbdds)) {

@@ -166,6 +166,7 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 	public void onLoad() {
 		Proceso proceso = (Proceso) pantallaEjecutarTypes.getParams().get("proceso");
 		pantallaEjecutarTypes.setProceso(proceso);
+		pantallaEjecutarTypes.getTxtIdProcesado().setText(proceso.getIdProceso().toString());
 
 		// Obtiene los types
 		List<Type> types = proceso.getTypes();
