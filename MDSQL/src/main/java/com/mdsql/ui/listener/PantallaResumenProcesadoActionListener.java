@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -97,12 +96,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		Map<String, Object> params = new HashMap<>();
 
 		ScriptEjecutado seleccionado = pantallaResumenProcesado.getSeleccionado();
-		Proceso proceso = session.getProceso();
 		
-		// Si viene el proceso vacío, es que no estamos haciendo un procesado
-		// y por tanto vamos a cargar un procesado ya hecho
+		// Consultamos el proceso seleccionado por si fuera una consulta
+		Proceso proceso = pantallaResumenProcesado.getProcesoSeleccionado();
+		
+		// Si viene el proceso vacío, es que se trata de un procesado en curso
 		if (Objects.isNull(proceso)) {
-			proceso = pantallaResumenProcesado.getProcesoSeleccionado();
+			proceso = session.getProceso();
 		}
 
 		params.put("script", seleccionado);
@@ -120,12 +120,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		Map<String, Object> params = new HashMap<>();
 
 		ScriptEjecutado seleccionado = pantallaResumenProcesado.getSeleccionado();
-		Proceso proceso = session.getProceso();
 		
-		// Si viene el proceso vacío, es que no estamos haciendo un procesado
-		// y por tanto vamos a cargar un procesado ya hecho
+		// Consultamos el proceso seleccionado por si fuera una consulta
+		Proceso proceso = pantallaResumenProcesado.getProcesoSeleccionado();
+		
+		// Si viene el proceso vacío, es que se trata de un procesado en curso
 		if (Objects.isNull(proceso)) {
-			proceso = pantallaResumenProcesado.getProcesoSeleccionado();
+			proceso = session.getProceso();
 		}
 
 		params.put("script", seleccionado.getNombreScript());
@@ -142,12 +143,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		Map<String, Object> params = new HashMap<>();
 
 		ScriptEjecutado seleccionado = pantallaResumenProcesado.getSeleccionado();
-		Proceso proceso = session.getProceso();
 		
-		// Si viene el proceso vacío, es que no estamos haciendo un procesado
-		// y por tanto vamos a cargar un procesado ya hecho
+		// Consultamos el proceso seleccionado por si fuera una consulta
+		Proceso proceso = pantallaResumenProcesado.getProcesoSeleccionado();
+		
+		// Si viene el proceso vacío, es que se trata de un procesado en curso
 		if (Objects.isNull(proceso)) {
-			proceso = pantallaResumenProcesado.getProcesoSeleccionado();
+			proceso = session.getProceso();
 		}
 
 		params.put("script", seleccionado);
@@ -238,6 +240,11 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
 
 			Proceso proceso = (Proceso) pantallaResumenProcesado.getParams().get("proceso"); 
+			if (Objects.isNull(proceso)) {
+				Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+				proceso = session.getProceso();
+			}
+			
 			pantallaResumenProcesado.setProcesoSeleccionado(proceso);
 			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(proceso.getIdProceso());
 

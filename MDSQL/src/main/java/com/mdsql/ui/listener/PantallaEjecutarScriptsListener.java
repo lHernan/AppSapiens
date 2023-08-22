@@ -329,7 +329,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 	}
 
 	private void cerraryEntregar(Proceso proceso) {
-		pantallaEjecutarScripts.getReturnParams().put("idProceso", proceso.getIdProceso());
+		pantallaEjecutarScripts.getReturnParams().put("proceso", proceso);
 		pantallaEjecutarScripts.getReturnParams().put("entregar", Boolean.TRUE);
 		pantallaEjecutarScripts.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
 

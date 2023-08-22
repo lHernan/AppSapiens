@@ -149,7 +149,7 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 				proceso.setDescripcionEstadoProceso("Ejecutado");
 				session.setProceso(proceso);
 				
-				pantallaEjecutarTypes.getReturnParams().put("idProceso", proceso.getIdProceso());
+				pantallaEjecutarTypes.getReturnParams().put("proceso", proceso);
 				pantallaEjecutarTypes.getReturnParams().put("entregar", Boolean.TRUE);
 				pantallaEjecutarTypes.getReturnParams().put("cmd", MDSQLConstants.PANTALLA_EJECUTAR_SCRIPTS_BTN_ACEPTAR);
 
