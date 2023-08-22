@@ -50,10 +50,10 @@ public class PantallaConsultaPeticionesListener extends ListenerSupport implemen
 
 	private void cargarProcesado() {
 
-		BigDecimal idProceso = pantallaConsultaPeticiones.getSeleccionado().getIdProceso();
+		Proceso proceso = pantallaConsultaPeticiones.getSeleccionado();
 		Map<String, Object> params = new HashMap<>();
 
-		params.put("idProceso", idProceso);
+		params.put("proceso", proceso);
 		params.put("entregar", Boolean.FALSE);
 
 		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper.createDialog(

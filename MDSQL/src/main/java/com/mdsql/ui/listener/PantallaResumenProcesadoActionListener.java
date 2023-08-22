@@ -98,6 +98,12 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 		ScriptEjecutado seleccionado = pantallaResumenProcesado.getSeleccionado();
 		Proceso proceso = session.getProceso();
+		
+		// Si viene el proceso vacío, es que no estamos haciendo un procesado
+		// y por tanto vamos a cargar un procesado ya hecho
+		if (Objects.isNull(proceso)) {
+			proceso = pantallaResumenProcesado.getProcesoSeleccionado();
+		}
 
 		params.put("script", seleccionado);
 		params.put("proceso", proceso);
@@ -115,6 +121,12 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 		ScriptEjecutado seleccionado = pantallaResumenProcesado.getSeleccionado();
 		Proceso proceso = session.getProceso();
+		
+		// Si viene el proceso vacío, es que no estamos haciendo un procesado
+		// y por tanto vamos a cargar un procesado ya hecho
+		if (Objects.isNull(proceso)) {
+			proceso = pantallaResumenProcesado.getProcesoSeleccionado();
+		}
 
 		params.put("script", seleccionado.getNombreScript());
 		params.put("proceso", proceso.getIdProceso());
@@ -131,6 +143,12 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 
 		ScriptEjecutado seleccionado = pantallaResumenProcesado.getSeleccionado();
 		Proceso proceso = session.getProceso();
+		
+		// Si viene el proceso vacío, es que no estamos haciendo un procesado
+		// y por tanto vamos a cargar un procesado ya hecho
+		if (Objects.isNull(proceso)) {
+			proceso = pantallaResumenProcesado.getProcesoSeleccionado();
+		}
 
 		params.put("script", seleccionado);
 		params.put("proceso", proceso);
@@ -219,8 +237,9 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		try {
 			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
 
-			BigDecimal idProceso = (BigDecimal) pantallaResumenProcesado.getParams().get("idProceso");
-			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(idProceso);
+			Proceso proceso = (Proceso) pantallaResumenProcesado.getParams().get("proceso"); 
+			pantallaResumenProcesado.setProcesoSeleccionado(proceso);
+			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(proceso.getIdProceso());
 
 			if (!Objects.isNull(outputConsultaProcesado)) {
 				populateProceso(outputConsultaProcesado);

@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.ScriptEjecutado;
 import com.mdsql.ui.listener.PantallaResumenProcesadoActionListener;
 import com.mdsql.ui.listener.tables.ResumenProcesadoScriptsTableListener;
@@ -127,6 +128,10 @@ public class PantallaResumenProcesado extends DialogSupport {
     @Getter
     @Setter
     private ScriptEjecutado seleccionado;
+    
+    @Getter
+    @Setter
+    private Proceso procesoSeleccionado;
     // End of variables declaration//GEN-END:variables
 		
 	/**
