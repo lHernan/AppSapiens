@@ -195,7 +195,6 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 					// createZipType(proceso, outputConsultaEntrega,
 					// outputConsultaEntrega.getTxtRutaEntrega());
 					createZipType(proceso, outputConsultaEntrega, rutaEntregados);
-					createZipType(proceso, outputConsultaEntrega, outputConsultaEntrega.getTxtRutaEntrega());
 					copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
 					copyFilesType(rutaEntregados, proceso.getTypes());
 				}
@@ -302,14 +301,13 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			for (Type type : proceso.getTypes()) {
 				String carpetaObjeto = type.getNombreObjeto();
 
-				String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
+				// String drop = !Objects.isNull(type.getDROP()) ? type.getDROP() : "N";
 				if (StringUtils.isNotBlank(carpetaObjeto)) {
 					String ruta = session.getSelectedRoute() + File.separator + carpetaObjeto;
 					File file = new File(ruta);
 					log.info("Archivo a comprimir: {}", ruta);
 
-					// Se crea la carpeta con el nombre del objeto, excepto si es un script DROP
-					if (file.isDirectory() && "N".equals(drop)) {
+					if (file.isDirectory()) {
 						zipFile.addFolder(file);
 					} else {
 						for (ScriptType scriptType : type.getScriptType()) {
