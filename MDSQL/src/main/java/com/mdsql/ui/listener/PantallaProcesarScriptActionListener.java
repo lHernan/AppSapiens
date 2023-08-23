@@ -106,7 +106,7 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 		
 		Proceso seleccionado = pantallaProcesarScript.getProcesoSeleccionado();
 		
-		params.put("idProceso", seleccionado.getIdProceso());
+		params.put("proceso", seleccionado);
 		params.put("entregar", Boolean.FALSE);
 		
 		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
