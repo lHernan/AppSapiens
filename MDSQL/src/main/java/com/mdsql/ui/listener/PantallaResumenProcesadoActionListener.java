@@ -36,6 +36,7 @@ import com.mdsql.ui.PantallaVerErroresScript;
 import com.mdsql.ui.model.ResumenProcesadoScriptsTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.ui.utils.collections.RemoveByTypeClosure;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
@@ -215,7 +216,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 					
 					copyFilesType(rutaEntregados, proceso.getTypes());
 					//copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
-					cleanupFolders(rutaEntregados, outputConsultaEntrega.getTxtRutaEntrega());
+					cleanupFolders(rutaEntregados);
 				}
 
 				// Realizar la entrega
@@ -496,8 +497,12 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		return fileCopied;
 	}
 	
-	private void cleanupFolders(String rutaEntregados, String txtRutaEntrega) {
-		// TODO Auto-generated method stub
+	private void cleanupFolders(String rutaEntregados) {
+		File file = new File(rutaEntregados);
 		
+		if (file.isDirectory()) {
+			List<File> files = Arrays.asList(file.listFiles());
+			CollectionUtils.forAllDo(files, new RemoveByTypeClosure(new String[] {"drop", "drops"}, Boolean.TRUE));
+		}
 	}
 }
