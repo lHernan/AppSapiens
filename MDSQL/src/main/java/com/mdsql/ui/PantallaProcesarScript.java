@@ -214,9 +214,7 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
         txtDemanda = new JTextField();
         jLabel13 = new JLabel();
         
-        Dimension dimension = new Dimension(1430, 896);
-        setMinimumSize(dimension);
-        setPreferredSize(dimension);
+        setBounds(1090, 730);
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);

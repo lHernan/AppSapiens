@@ -122,7 +122,7 @@ public class PantallaConsultaPeticiones extends DialogSupport {
         txtHasta = new JTextField();
         txtDesde1 = new javax.swing.JTextField();
         
-        setBounds(1540, 620);
+        setBounds(1090, 679);
 
         jScrollPane1.setViewportView(tblPeticiones);
 
