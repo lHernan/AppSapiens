@@ -264,14 +264,17 @@ public class MDSQLUIHelper extends UIHelper {
 	 * @param value
 	 * @param limit
 	 */
-	public static void withTooltip(JTextField field, String value, Integer limit) {
-		if (value.length() > limit) {
-			String textToShow = value.substring(0, limit).concat("...");
-			field.setText(textToShow);
-			field.setToolTipText(value);
-		}
-		else {
+	public static void resetText(JTextField field, String value) {
+		field.setHorizontalAlignment(JTextField.LEFT);
+		
+//		if (value.length() > limit) {
+//			String textToShow = value.substring(0, limit).concat("...");
+//			field.setText(textToShow);
+//			field.setToolTipText(value);
+//		}
+//		else {
 			field.setText(value);
-		}
+			field.setCaretPosition(0);
+//		}
 	}
 }
