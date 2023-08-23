@@ -11,6 +11,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.mdsql.bussiness.entities.CuadreObjeto;
 import com.mdsql.bussiness.entities.CuadreOperacion;
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.ScriptEjecutado;
 import com.mdsql.bussiness.service.CuadreService;
 import com.mdsql.ui.PantallaResumenProcesado;
@@ -47,7 +48,8 @@ public class ResumenProcesadoScriptsTableListener extends ListenerSupport implem
 			if (!Objects.isNull(seleccionado)) {
 				
 				CuadreService cuadreService = (CuadreService) getService(MDSQLConstants.CUADRE_SERVICE);
-				BigDecimal idProceso = (BigDecimal) pantallaResumenProcesado.getParams().get("idProceso");
+				Proceso procesoSeleccionado = pantallaResumenProcesado.getProcesoSeleccionado();
+				BigDecimal idProceso = procesoSeleccionado.getIdProceso();
 				
 				List<CuadreOperacion> cuadreOperaciones = cuadreService.consultaCuadreOperacionesScript(idProceso, seleccionado.getNumeroOrden());
 				List<CuadreObjeto> cuadreObjetos = cuadreService.consultaCuadreOperacionesObjetoScript(idProceso, seleccionado.getNumeroOrden());

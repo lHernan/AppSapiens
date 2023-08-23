@@ -214,7 +214,8 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 					copyFile(zipFilePath, outputConsultaEntrega.getTxtRutaEntrega() + File.separator + outputConsultaEntrega.getNombreFicheroType());
 					
 					copyFilesType(rutaEntregados, proceso.getTypes());
-					copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
+					//copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
+					cleanupFolders(rutaEntregados, outputConsultaEntrega.getTxtRutaEntrega());
 				}
 
 				// Realizar la entrega
@@ -246,7 +247,6 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			}
 			
 			pantallaResumenProcesado.setProcesoSeleccionado(proceso);
-			pantallaResumenProcesado.getTxtIdProcesado().setText(proceso.getIdProceso().toString());
 			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(proceso.getIdProceso());
 
 			if (!Objects.isNull(outputConsultaProcesado)) {
@@ -494,5 +494,10 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		}
 
 		return fileCopied;
+	}
+	
+	private void cleanupFolders(String rutaEntregados, String txtRutaEntrega) {
+		// TODO Auto-generated method stub
+		
 	}
 }
