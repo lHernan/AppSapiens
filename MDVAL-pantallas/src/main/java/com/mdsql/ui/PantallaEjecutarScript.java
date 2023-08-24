@@ -366,7 +366,7 @@ public class PantallaEjecutarScript extends javax.swing.JFrame {
                     .addComponent(btnVerErrores)
                     .addComponent(btnExcepcion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
                 .addContainerGap())
