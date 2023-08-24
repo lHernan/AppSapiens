@@ -142,7 +142,7 @@ public class PantallaEjecutarTypes extends DialogSupport {
         btnVerErrores = new JButton();
         txtBBDD = new JTextField();
         
-        setBounds(1090, 513);
+        setBounds(1430, 513);
 
         
         jScrollPane2.setViewportView(tblTypes);
