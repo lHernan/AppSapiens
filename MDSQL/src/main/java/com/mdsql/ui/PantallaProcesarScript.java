@@ -5,7 +5,6 @@
  */
 package com.mdsql.ui;
 
-import java.awt.Dimension;
 import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.Map;
@@ -214,7 +213,7 @@ public class PantallaProcesarScript extends DialogSupport implements PantallaPro
         txtDemanda = new JTextField();
         jLabel13 = new JLabel();
         
-        setBounds(1090, 730);
+        setBounds(1430, 730);
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
