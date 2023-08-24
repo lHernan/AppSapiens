@@ -192,7 +192,7 @@ public class PantallaResumenProcesado extends DialogSupport {
         tblObjetos = new TableSupport();
         jLabel12 = new JLabel();
         
-        setBounds(1090, 673);
+        setBounds(1435, 673);
 
         jScrollPane2.setViewportView(tblScripts);
         

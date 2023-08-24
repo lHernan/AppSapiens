@@ -280,7 +280,10 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		pantallaResumenProcesado.getTxtSolicitadaPor().setText(outputConsultaProcesado.getCodigoUsrPeticion());
 		pantallaResumenProcesado.getTxtFecha().setText(outputConsultaProcesado.getFechaProceso().toString());
 		pantallaResumenProcesado.getTxtEstado().setText(outputConsultaProcesado.getDescripcionEstadoProceso());
-		pantallaResumenProcesado.getTxtRuta().setText(outputConsultaProcesado.getTxtRutaEntrada());
+		
+		MDSQLUIHelper.resetText(pantallaResumenProcesado.getTxtRuta(),
+				outputConsultaProcesado.getTxtRutaEntrada());
+		
 		pantallaResumenProcesado.getTxtComentarios().setText(outputConsultaProcesado.getTxtComentario());
 	}
 
