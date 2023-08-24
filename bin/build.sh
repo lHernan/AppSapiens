@@ -132,7 +132,7 @@ Nos complace comunicarle que está disponible para su revisión la entrega
 
 https://github.com/lHernan/AppSapiens/blob/develop/Entregables/$MDSQL_PROJECT-$LATEST.zip
 
-Se resuelve:
+Las siguientes incidencias se han solucionado, rogamos las revisen:
 
 $SUMMARY
 
