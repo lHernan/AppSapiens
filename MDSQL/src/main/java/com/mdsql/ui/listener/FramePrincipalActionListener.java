@@ -331,17 +331,19 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 
 	private void loadFileInFramePrincipal(File file) {
 		try {
-			setContent(file);
-			framePrincipal.setCurrentFile(file);
-
-			framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
-			framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
-			framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);
-
-			framePrincipal.getTabPanel().setSelectedIndex(0);
-
-			// set the procesado
-			framePrincipal.setProcesado(Procesado.SCRIPT);
+			if (!Objects.isNull(file)) {
+				setContent(file);
+				framePrincipal.setCurrentFile(file);
+	
+				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
+				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
+				framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);
+	
+				framePrincipal.getTabPanel().setSelectedIndex(0);
+	
+				// set the procesado
+				framePrincipal.setProcesado(Procesado.SCRIPT);
+			}
 		} catch (IOException e1) {
 			log.error("ERROR: ", e1);
 			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
