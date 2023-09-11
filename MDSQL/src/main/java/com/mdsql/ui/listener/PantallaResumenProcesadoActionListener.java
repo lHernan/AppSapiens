@@ -188,41 +188,14 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				String rutaEntregados = rutaInicial + File.separator + rutaEntrega;
 				MDSQLAppHelper.checkRuta(rutaEntregados);
 
-				// Esto es cuando se procesan scripts SQL
-				if (CollectionUtils.isNotEmpty(proceso.getScripts())) {
-					// createZipVigente(proceso, outputConsultaEntrega,
-					// outputConsultaEntrega.getTxtRutaEntrega());
-					createZipVigente(proceso, outputConsultaEntrega, rutaEntregados);
-					copyFilesVigente(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
-					copyFilesVigente(rutaEntregados, proceso.getScripts());
-
-					if (tieneScriptsHistoricos(proceso.getScripts())) {
-						// createZipHistorico(proceso, outputConsultaEntrega,
-						// outputConsultaEntrega.getTxtRutaEntrega());
-						createZipHistorico(proceso, outputConsultaEntrega, rutaEntregados);
-						copyFilesHistorico(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
-						copyFilesHistorico(rutaEntregados, proceso.getScripts());
-					}
-				}
-
-				// Esto es cuando se procesan scripts type
-				if (CollectionUtils.isNotEmpty(proceso.getTypes())) {
-					// createZipType(proceso, outputConsultaEntrega,
-					// outputConsultaEntrega.getTxtRutaEntrega());
-					String zipFilePath = createZipType(proceso, outputConsultaEntrega, rutaEntregados);
-					log.info("Creado zip: {}", zipFilePath);
-					// Copiar el fichero zip a la carpeta de outputConsultaEntrega.getTxtRutaEntrega()
-					copyFile(zipFilePath, outputConsultaEntrega.getTxtRutaEntrega() + File.separator + outputConsultaEntrega.getNombreFicheroType());
-					
-					copyFilesType(rutaEntregados, proceso.getTypes());
-					//copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
-					cleanupFolders(rutaEntregados);
-				}
-
 				// Realizar la entrega
 				String txtComentario = pantallaResumenProcesado.getTxtComentarios().getText();
 				String codUsr = session.getCodUsr();
 				String estado = entregaService.entregarPeticion(proceso.getIdProceso(), codUsr, txtComentario);
+				
+				// Crear los ficheros de entrega
+				crearArchivosEntrega(proceso, outputConsultaEntrega, rutaEntregados);
+				
 				proceso.setDescripcionEstadoProceso(estado);
 				pantallaResumenProcesado.getReturnParams().put("cmd", MDSQLConstants.CMD_ENTREGAR_SCRIPT);
 				pantallaResumenProcesado.getReturnParams().put("estado", estado);
@@ -230,9 +203,49 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 				pantallaResumenProcesado.dispose();
 			}
 		} catch (ServiceException | IOException e) {
-			log.error("ERROR: ", e);
+			//log.error("ERROR: ", e);
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+		}
+	}
+
+	/**
+	 * @param proceso
+	 * @param outputConsultaEntrega
+	 * @param rutaEntregados
+	 * @throws IOException
+	 */
+	private void crearArchivosEntrega(Proceso proceso, OutputConsultaEntrega outputConsultaEntrega,
+			String rutaEntregados) throws IOException {
+		// Esto es cuando se procesan scripts SQL
+		if (CollectionUtils.isNotEmpty(proceso.getScripts())) {
+			// createZipVigente(proceso, outputConsultaEntrega,
+			// outputConsultaEntrega.getTxtRutaEntrega());
+			createZipVigente(proceso, outputConsultaEntrega, rutaEntregados);
+			copyFilesVigente(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
+			copyFilesVigente(rutaEntregados, proceso.getScripts());
+
+			if (tieneScriptsHistoricos(proceso.getScripts())) {
+				// createZipHistorico(proceso, outputConsultaEntrega,
+				// outputConsultaEntrega.getTxtRutaEntrega());
+				createZipHistorico(proceso, outputConsultaEntrega, rutaEntregados);
+				copyFilesHistorico(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getScripts());
+				copyFilesHistorico(rutaEntregados, proceso.getScripts());
+			}
+		}
+
+		// Esto es cuando se procesan scripts type
+		if (CollectionUtils.isNotEmpty(proceso.getTypes())) {
+			// createZipType(proceso, outputConsultaEntrega,
+			// outputConsultaEntrega.getTxtRutaEntrega());
+			String zipFilePath = createZipType(proceso, outputConsultaEntrega, rutaEntregados);
+			log.info("Creado zip: {}", zipFilePath);
+			// Copiar el fichero zip a la carpeta de outputConsultaEntrega.getTxtRutaEntrega()
+			copyFile(zipFilePath, outputConsultaEntrega.getTxtRutaEntrega() + File.separator + outputConsultaEntrega.getNombreFicheroType());
+			
+			copyFilesType(rutaEntregados, proceso.getTypes());
+			//copyFilesType(outputConsultaEntrega.getTxtRutaEntrega(), proceso.getTypes());
+			cleanupFolders(rutaEntregados);
 		}
 	}
 
