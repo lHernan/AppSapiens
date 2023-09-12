@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.mdval.exceptions.ServiceException;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class OutputConsultaProcesado extends Output implements Serializable {
+public class OutputConsultaProcesado implements Serializable {
 
     /**
 	 * 
@@ -36,5 +38,7 @@ public class OutputConsultaProcesado extends Output implements Serializable {
     private String mcaInicial;
     private String txtRutaEntrada;
     private List<ScriptEjecutado> listaScriptsEjecutados;
-
+    
+    private Integer result;
+    private ServiceException serviceException;
 }

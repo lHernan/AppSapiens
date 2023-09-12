@@ -291,11 +291,11 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
                 throw buildException(callableStatement.getArray(19));
             }
             
+            OutputConsultaProcesado outputConsultaProcesado = new OutputConsultaProcesado();
+            outputConsultaProcesado.setResult(result);
+            
             if (result == 2) { 
-            	/**
-            	 *  TODO - Hacer algo genérico para los warnings, no lanza exception
-            	 *  los mensajes están en el array 19
-            	 */
+            	outputConsultaProcesado.setServiceException(buildException(callableStatement.getArray(19)));
             }
 
             String nombreModelo = callableStatement.getString(2);
@@ -338,26 +338,24 @@ public class ProcesoServiceImpl extends ServiceSupport implements ProcesoService
                 }
             }
 
-            OutputConsultaProcesado outputRegistraEjecucionType = OutputConsultaProcesado.builder()
-                    .nombreModelo(nombreModelo)
-                    .codigoUsrPeticion(codigoUsrPeticion)
-                    .nombreBBDDHistorico(nombreBBDDHistorico)
-                    .descripcionSubProyecto(descripcionSubProyecto)
-                    .nombreEsquema(nombreEsquema)
-                    .nombreesquemaHistorico(nombreesquemaHistorico)
-                    .codigoPeticion(codigoPeticion)
-                    .nombreBBDD(nombreBBDD)
-                    .codigoEstadoProceso(codigoEstadoProceso)
-                    .descripcionEstadoProceso(descripcionEstadoProceso)
-                    .codigoUsuario(codigoUsuario)
-                    .fechaProceso(fechaProceso)
-                    .txtComentario(txtComentario)
-                    .mcaInicial(mcaInicial)
-                    .txtRutaEntrada(txtRutaEntrada)
-                    .listaScriptsEjecutados(scriptEjecutados)
-                    .build();
+            outputConsultaProcesado.setNombreModelo(nombreModelo);
+            outputConsultaProcesado.setCodigoUsrPeticion(codigoUsrPeticion);
+            outputConsultaProcesado.setNombreBBDDHistorico(nombreBBDDHistorico);
+            outputConsultaProcesado.setDescripcionSubProyecto(descripcionSubProyecto);
+            outputConsultaProcesado.setNombreEsquema(nombreEsquema);
+            outputConsultaProcesado.setNombreesquemaHistorico(nombreesquemaHistorico);
+            outputConsultaProcesado.setCodigoPeticion(codigoPeticion);
+            outputConsultaProcesado.setNombreBBDD(nombreBBDD);
+            outputConsultaProcesado.setCodigoEstadoProceso(codigoEstadoProceso);
+            outputConsultaProcesado.setDescripcionEstadoProceso(descripcionEstadoProceso);
+            outputConsultaProcesado.setCodigoUsuario(codigoUsuario);
+            outputConsultaProcesado.setFechaProceso(fechaProceso);
+            outputConsultaProcesado.setTxtComentario(txtComentario);
+            outputConsultaProcesado.setMcaInicial(mcaInicial);
+            outputConsultaProcesado.setTxtRutaEntrada(txtRutaEntrada);
+            outputConsultaProcesado.setListaScriptsEjecutados(scriptEjecutados);
 
-            return outputRegistraEjecucionType;
+            return outputConsultaProcesado;
 
         } catch (
                 SQLException e) {

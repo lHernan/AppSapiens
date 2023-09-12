@@ -262,13 +262,20 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 			
 			pantallaResumenProcesado.setProcesoSeleccionado(proceso);
 			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(proceso.getIdProceso());
+			
+			// Hay avisos
+			if (outputConsultaProcesado.getResult() == 2) {
+				ServiceException serviceException = outputConsultaProcesado.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
 
 			if (!Objects.isNull(outputConsultaProcesado)) {
 				populateProceso(outputConsultaProcesado);
 				populateScripts(outputConsultaProcesado.getListaScriptsEjecutados());
 			}
 		} catch (ServiceException e) {
-			log.error("ERROR: ", e);
+			//log.error("ERROR: ", e);
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaResumenProcesado.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
