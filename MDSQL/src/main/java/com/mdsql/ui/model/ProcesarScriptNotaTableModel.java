@@ -47,9 +47,9 @@ public class ProcesarScriptNotaTableModel extends DefaultTableModel<Aviso> {
 		if (0 == columnIndex) {
 			return row.getDescripcionNivelAviso();
 		} else if (1 == columnIndex) {
-			return row.getTxtAviso();
-		} else if (2 == columnIndex) {
 			return row.getDescripcionAviso();
+		} else if (2 == columnIndex) {
+			return row.getTxtAviso();
 		} else if (3 == columnIndex) {
 			return row.getCodigoPeticion();
 		} else if (4 == columnIndex) {
