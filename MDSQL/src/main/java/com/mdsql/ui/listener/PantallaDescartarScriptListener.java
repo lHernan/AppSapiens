@@ -53,6 +53,7 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 
 		if (MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_BTN_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaDescartarScript.dispose();
+			
 		}
 
 		if (MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_RBTN_REDUCIR.equals(jButton.getActionCommand())) {
