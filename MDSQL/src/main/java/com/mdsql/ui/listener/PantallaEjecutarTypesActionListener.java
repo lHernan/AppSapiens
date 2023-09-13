@@ -77,10 +77,14 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 				MDSQLConstants.CMD_RECHAZAR_PROCESADO, params);
 		MDSQLUIHelper.show(dlgRechazar);
 
-		proceso = (Proceso) dlgRechazar.getReturnParams().get("proceso");
-		pantallaEjecutarTypes.getReturnParams().put("proceso", proceso);
-		pantallaEjecutarTypes.getReturnParams().put("estado", "RECHAZADO");
-		pantallaEjecutarTypes.dispose();
+		String comando = (String) dlgRechazar.getReturnParams().get("comando");
+		
+		if ("RECHAZAR".equals(comando)) {
+			proceso = (Proceso) dlgRechazar.getReturnParams().get("proceso");
+			pantallaEjecutarTypes.getReturnParams().put("proceso", proceso);
+			pantallaEjecutarTypes.getReturnParams().put("estado", "RECHAZADO");
+			pantallaEjecutarTypes.dispose();
+		}
 	}
 
 	public void eventBtnVerCuadres() {

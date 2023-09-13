@@ -57,6 +57,7 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 		}
 
 		if (MDSQLConstants.DLG_RECHAZAR_BTN_CANCELAR.equals(jButton.getActionCommand())) {
+			dlgRechazar.getReturnParams().put("comando", "CANCELAR");
 			dlgRechazar.dispose();
 		}
 	}
@@ -77,6 +78,7 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 			rechazarLogs(proceso);
 
 			dlgRechazar.getReturnParams().put("proceso", proceso);
+			dlgRechazar.getReturnParams().put("comando", "RECHAZAR");
 			dlgRechazar.dispose();
 
 		} catch (ServiceException e) {
