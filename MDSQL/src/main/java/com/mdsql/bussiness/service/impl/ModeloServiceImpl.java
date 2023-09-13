@@ -105,7 +105,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			}
 
 			return outputConsultaModelos;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			LogWrapper.error(log, "[ModeloService.consultaModelos] Error: %s", e.getMessage());
 			throw new ServiceException(e);
 		}
