@@ -151,7 +151,7 @@ public class MDSQLUIHelper extends UIHelper {
 		
 		for (String line : txtArea.getText().split("\\n")) {
 			TextoLinea linea = new TextoLinea();
-			linea.setValor(line.trim());
+			linea.setValor(line);
 			
 			lineas.add(linea);
 		}
@@ -168,7 +168,7 @@ public class MDSQLUIHelper extends UIHelper {
 			String line;
 			while ((line = br.readLine()) != null) {
 				TextoLinea linea = new TextoLinea();
-				linea.setValor(line.trim());
+				linea.setValor(line);
 				
 				lineas.add(linea);
 			}

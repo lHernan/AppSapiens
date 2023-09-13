@@ -95,10 +95,10 @@ public class MDSQLAppHelper extends AppHelper {
 
 			while ((line = reader.readLine()) != null) {
 				strBuffer.append(line + MDSQLConstants.CR);
-
 			}
 			
-			return strBuffer.toString();
+			// Before return, removes the last CR
+			return strBuffer.toString().trim();
 		}
 	}
 	
@@ -146,13 +146,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param txtScript
 	 */
 	public static void dumpContentToText(List<TextoLinea> lineas, JTextArea txtScript) {
-		StringBuffer strBuffer = new StringBuffer(StringUtils.EMPTY);
-
-		for (TextoLinea linea : lineas) {
-			strBuffer.append(linea.getValor());
-			strBuffer.append(MDSQLConstants.CR);
-		}
-		
+		StringBuffer strBuffer = toStringBuffer(lineas);
 		txtScript.append(strBuffer.toString());
 	}
 	
@@ -161,14 +155,25 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param txtScript
 	 */
 	public static void dumpLinesToFile(List<TextoLinea> lineas, File file) throws IOException {
+		StringBuffer strBuffer = toStringBuffer(lineas);
+		writeToFile(strBuffer.toString(), file);
+	}
+	
+	/**
+	 * @param lineas
+	 * @return
+	 */
+	private static StringBuffer toStringBuffer(List<TextoLinea> lineas) {
 		StringBuffer strBuffer = new StringBuffer(StringUtils.EMPTY);
-
-		for (TextoLinea linea : lineas) {
-			strBuffer.append(linea.getValor());
-			strBuffer.append(MDSQLConstants.CR);
+		
+		for (int i=0;i<lineas.size();i++) {
+			strBuffer.append(lineas.get(i).getValor());
+			if (i < lineas.size() - 1) {
+				strBuffer.append(MDSQLConstants.CR);
+			}
 		}
 		
-		writeToFile(strBuffer.toString(), file);
+		return strBuffer;
 	}
 
 	/**
