@@ -78,7 +78,6 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 			rechazarLogs(proceso);
 
 			dlgRechazar.getReturnParams().put("proceso", proceso);
-			dlgRechazar.getReturnParams().put("comando", "RECHAZAR");
 			dlgRechazar.dispose();
 
 		} catch (ServiceException e) {
