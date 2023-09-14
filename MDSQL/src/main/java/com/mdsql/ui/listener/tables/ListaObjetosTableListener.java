@@ -13,6 +13,7 @@ import com.mdsql.bussiness.entities.Type;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.model.FramePrincipalTypesTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdval.utils.LogWrapper;
 
@@ -56,30 +57,35 @@ public class ListaObjetosTableListener extends ListenerSupport implements ListSe
 				framePrincipal.getIfrmTYS().setTitle(type.getNombreScript());
 				framePrincipal.getTxtScriptTYS().setText(StringUtils.EMPTY);
 				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptTYS());
+				MDSQLUIHelper.resetCursor(framePrincipal.getTxtScriptTYS());
 			}
 			
 			if ("TYB".equals(type.getTipoScript())) {
 				framePrincipal.getIfrmTYB().setTitle(type.getNombreScript());
 				framePrincipal.getTxtScriptTYB().setText(StringUtils.EMPTY);
 				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptTYB());
+				MDSQLUIHelper.resetCursor(framePrincipal.getTxtScriptTYB());
 			}
 
 			if ("PDC".equals(type.getTipoScript())) {
 				framePrincipal.getInternalFramePDC().setTitle(type.getNombreScript());
 				framePrincipal.getTxtScriptPDC().setText(StringUtils.EMPTY);
 				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptPDC());
+				MDSQLUIHelper.resetCursor(framePrincipal.getTxtScriptPDC());
 			}
 			
 			if ("DROP".equals(type.getTipoScript())) {
 				framePrincipal.getIfrmTYS().setTitle(type.getNombreScript());
 				framePrincipal.getTxtScriptTYS().setText(StringUtils.EMPTY);
 				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptTYS());
+				MDSQLUIHelper.resetCursor(framePrincipal.getTxtScriptTYS());
 			}
 			
 			if ("DROPS".equals(type.getTipoScript())) {
 				framePrincipal.getInternalFramePDC().setTitle(type.getNombreScript());
 				framePrincipal.getTxtScriptPDC().setText(StringUtils.EMPTY);
 				MDSQLAppHelper.dumpContentToText(type.getTxtScript(), framePrincipal.getTxtScriptPDC());
+				MDSQLUIHelper.resetCursor(framePrincipal.getTxtScriptPDC());
 			}
 		}
 		

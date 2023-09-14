@@ -806,6 +806,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 					MDSQLAppHelper.dumpContentToText(script.getLineasScript(), framePrincipal.getTxtSQLModificado());
 					framePrincipal.getIfrmLanzaSQLModificado().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaSQLModificado().setText(script.getTxtScriptLanza());
+					MDSQLUIHelper.resetCursor(framePrincipal.getTxtSQLModificado());
 				}
 
 				if ("PDC".equals(script.getTipoScript())) {
@@ -814,6 +815,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 					MDSQLAppHelper.dumpContentToText(script.getLineasScript(), framePrincipal.getTxtPDC());
 					framePrincipal.getIfrmLanzaPDC().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaPDC().setText(script.getTxtScriptLanza());
+					MDSQLUIHelper.resetCursor(framePrincipal.getTxtPDC());
 				}
 
 				if ("SQLH".equals(script.getTipoScript())) {
@@ -822,6 +824,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 					MDSQLAppHelper.dumpContentToText(script.getLineasScript(), framePrincipal.getTxtSQLH());
 					framePrincipal.getIfrmLanzaSQLH().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaSQLH().setText(script.getTxtScriptLanza());
+					MDSQLUIHelper.resetCursor(framePrincipal.getTxtSQLH());
 				}
 
 				if ("PDCH".equals(script.getTipoScript())) {
@@ -830,6 +833,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 					MDSQLAppHelper.dumpContentToText(script.getLineasScript(), framePrincipal.getTxtPDCH());
 					framePrincipal.getIfrmLanzaPDCH().setTitle(script.getNombreScriptLanza());
 					framePrincipal.getTxtLanzaPDCH().setText(script.getTxtScriptLanza());
+					MDSQLUIHelper.resetCursor(framePrincipal.getTxtPDCH());
 				}
 			}
 

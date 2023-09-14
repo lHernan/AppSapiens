@@ -266,15 +266,21 @@ public class MDSQLUIHelper extends UIHelper {
 	 */
 	public static void resetText(JTextField field, String value) {
 		field.setHorizontalAlignment(JTextField.LEFT);
-		
-//		if (value.length() > limit) {
-//			String textToShow = value.substring(0, limit).concat("...");
-//			field.setText(textToShow);
-//			field.setToolTipText(value);
-//		}
-//		else {
-			field.setText(value);
-			field.setCaretPosition(0);
-//		}
+		field.setText(value);
+		resetCursor(field);
+	}
+	
+	/**
+	 * @param field
+	 */
+	public static void resetCursor(JTextField field) {
+		field.setCaretPosition(0);
+	}
+	
+	/**
+	 * @param field
+	 */
+	public static void resetCursor(JTextArea field) {
+		field.setCaretPosition(0);
 	}
 }
