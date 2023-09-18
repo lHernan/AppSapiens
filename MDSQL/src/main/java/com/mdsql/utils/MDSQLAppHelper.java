@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.JTextArea;
 
@@ -167,7 +168,12 @@ public class MDSQLAppHelper extends AppHelper {
 		StringBuffer strBuffer = new StringBuffer(StringUtils.EMPTY);
 		
 		for (int i=0;i<lineas.size();i++) {
-			strBuffer.append(lineas.get(i).getValor());
+			// Si hay una línea en blanco no la imprime, pero sí el salto de línea
+			if (!Objects.isNull(lineas.get(i).getValor())) {
+				strBuffer.append(lineas.get(i).getValor());
+			}
+			
+			// Quita el último salto de línea
 			if (i < lineas.size() - 1) {
 				strBuffer.append(MDSQLConstants.CR);
 			}

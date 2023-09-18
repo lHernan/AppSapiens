@@ -16,6 +16,7 @@ import com.mdval.utils.DateFormatter;
 import com.mdval.utils.LiteralesSingleton;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -47,6 +48,10 @@ public abstract class DialogSupport extends JDialog {
 
 	@Getter
 	private FrameSupport frameParent;
+	
+	@Getter
+	@Setter
+	private Boolean errorOnload;
 
 	/**
 	 * 
@@ -81,6 +86,8 @@ public abstract class DialogSupport extends JDialog {
 	 */
 	private void initialize() {
 		try {
+			errorOnload = Boolean.FALSE;
+			
 			panelLogo = new PanelLogotipo("logotipo.png");
 			panelLogo.setPreferredSize(new Dimension(286, 63));
 
