@@ -443,9 +443,8 @@ public class PantallaEjecutarScripts extends DialogSupport {
 		if (!Objects.isNull(proceso)) {
 			txtEstadoEjecucion.setText(proceso.getDescripcionEstadoProceso());
 			
-			MDSQLUIHelper.resetText(txtModelo, proceso.getModelo().getCodigoProyecto());
-			
-			MDSQLUIHelper.resetText(txtSubmodelo, proceso.getSubproyecto().getDescripcionSubProyecto());
+			MDSQLUIHelper.resetText(txtModelo, proceso.getModelo().getCodigoProyecto(), 20);
+			MDSQLUIHelper.resetText(txtSubmodelo, proceso.getSubproyecto().getDescripcionSubProyecto(), 20);
 			
 			txtPeticion.setText(proceso.getCodigoPeticion());
 			txtSolicitadaPor.setText(proceso.getCodigoUsrPeticion());

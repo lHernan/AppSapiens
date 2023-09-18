@@ -286,10 +286,10 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 	 */
 	private void populateProceso(OutputConsultaProcesado outputConsultaProcesado) {
 		MDSQLUIHelper.resetText(pantallaResumenProcesado.getTxtModelo(),
-				outputConsultaProcesado.getNombreModelo());
+				outputConsultaProcesado.getNombreModelo(), 20);
 		
 		MDSQLUIHelper.resetText(pantallaResumenProcesado.getTxtSubmodelo(),
-				outputConsultaProcesado.getDescripcionSubProyecto());
+				outputConsultaProcesado.getDescripcionSubProyecto(), 20);
 		
 		pantallaResumenProcesado.getTxtBBDD().setText(outputConsultaProcesado.getNombreBBDD());
 		pantallaResumenProcesado.getTxtEsquema().setText(outputConsultaProcesado.getNombreEsquema());
@@ -302,7 +302,7 @@ public class PantallaResumenProcesadoActionListener extends ListenerSupport impl
 		pantallaResumenProcesado.getTxtEstado().setText(outputConsultaProcesado.getDescripcionEstadoProceso());
 		
 		MDSQLUIHelper.resetText(pantallaResumenProcesado.getTxtRuta(),
-				outputConsultaProcesado.getTxtRutaEntrada());
+				outputConsultaProcesado.getTxtRutaEntrada(), null);
 		
 		pantallaResumenProcesado.getTxtComentarios().setText(outputConsultaProcesado.getTxtComentario());
 	}

@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MDSQLUIHelper extends UIHelper {
-	
+
 	/**
 	 * @param item
 	 * @return
@@ -49,7 +49,7 @@ public class MDSQLUIHelper extends UIHelper {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
 		return (DialogSupport) dialogCreator.factoryMethod(null);
 	}
-	
+
 	/**
 	 * @param frameParent
 	 * @param item
@@ -60,7 +60,7 @@ public class MDSQLUIHelper extends UIHelper {
 		Creator dialogCreator = new DialogCreator(frameParent, item);
 		return (DialogSupport) dialogCreator.factoryMethod(params);
 	}
-	
+
 	/**
 	 * @param item
 	 * @return
@@ -69,7 +69,7 @@ public class MDSQLUIHelper extends UIHelper {
 		Creator frameCreator = new FrameCreator(item, modal);
 		return (FrameSupport) frameCreator.factoryMethod(null);
 	}
-	
+
 	/**
 	 * @param item
 	 * @return
@@ -78,7 +78,7 @@ public class MDSQLUIHelper extends UIHelper {
 		Creator frameCreator = new FrameCreator(parent, item, modal);
 		return (FrameSupport) frameCreator.factoryMethod(null);
 	}
-	
+
 	/**
 	 * @param item
 	 * @param params
@@ -88,18 +88,19 @@ public class MDSQLUIHelper extends UIHelper {
 		Creator frameCreator = new FrameCreator(item, modal);
 		return (FrameSupport) frameCreator.factoryMethod(params);
 	}
-	
+
 	/**
 	 * @param parent
 	 * @param item
 	 * @param params
 	 * @return
 	 */
-	public static FrameSupport createFrame(FrameSupport parent, String item, Boolean modal, Map<String, Object> params) {
+	public static FrameSupport createFrame(FrameSupport parent, String item, Boolean modal,
+			Map<String, Object> params) {
 		Creator frameCreator = new FrameCreator(parent, item, modal);
 		return (FrameSupport) frameCreator.factoryMethod(params);
 	}
-	
+
 	/**
 	 * @param item
 	 * @return
@@ -108,7 +109,7 @@ public class MDSQLUIHelper extends UIHelper {
 		Creator cabeceraTablaCreator = new CabeceraTablaCreator(item);
 		return (Cabecera) cabeceraTablaCreator.factoryMethod();
 	}
-	
+
 	/**
 	 * @param frame
 	 * @param cmd
@@ -118,21 +119,20 @@ public class MDSQLUIHelper extends UIHelper {
 		DialogSupport dialog = createDialog(frame, cmd, params);
 		UIHelper.show(dialog);
 	}
-	
+
 	/**
 	 * @param e
 	 * @return
 	 */
 	public static Map<String, Object> buildError(Exception e) {
 		Map<String, Object> params = new HashMap<>();
-		
+
 		if (e instanceof ServiceException) {
 			ServiceException serviceException = (ServiceException) e;
 			if (!Objects.isNull(serviceException.getType()) && serviceException.getType().equals(2)) {
 				params.put(MDSQLConstants.TYPE, MDSQLConstants.CMD_WARN);
 				params.put(Constants.SERVICE_ERROR, e);
-			}
-			else {
+			} else {
 				params.put(MDSQLConstants.TYPE, MDSQLConstants.CMD_ERROR);
 				params.put(Constants.SERVICE_ERROR, e);
 			}
@@ -141,44 +141,44 @@ public class MDSQLUIHelper extends UIHelper {
 		}
 		return params;
 	}
-	
+
 	/**
 	 * @param script
 	 * @return
 	 */
 	public static List<TextoLinea> toTextoLineas(JTextArea txtArea) {
 		List<TextoLinea> lineas = new ArrayList<>();
-		
+
 		for (String line : txtArea.getText().split("\\n")) {
 			TextoLinea linea = new TextoLinea();
 			linea.setValor(line);
-			
+
 			lineas.add(linea);
 		}
-		
+
 		return lineas;
 	}
-	
+
 	@SneakyThrows
 	public static List<TextoLinea> toTextoLineas(File file, Charset inCharset) {
 		List<TextoLinea> lineas = new ArrayList<>();
-		
+
 		try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), inCharset);
 				BufferedReader br = new BufferedReader(in)) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				TextoLinea linea = new TextoLinea();
 				linea.setValor(line);
-				
+
 				lineas.add(linea);
 			}
-			
+
 			return lineas;
 		} catch (IOException e) {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * @param model
 	 * @return
@@ -190,25 +190,25 @@ public class MDSQLUIHelper extends UIHelper {
 				return Boolean.TRUE;
 			}
 		}
-		
+
 		return Boolean.FALSE;
 	}
-	
+
 	/**
 	 * @return
 	 */
 	public static JFileChooser getJFileChooser(String rutaInicial) throws IOException {
 		LiteralesSingleton literales = LiteralesSingleton.getInstance();
-		
+
 		JFileChooser chooser = new JFileChooser();
 		chooser.setDialogTitle(literales.getLiteral("panelPrincipal.tituloChooser"));
 		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		chooser.setCurrentDirectory(new File(rutaInicial));
 		chooser.setAcceptAllFileFilterUsed(false);
-		
+
 		return chooser;
 	}
-	
+
 	/**
 	 * @param rutaInicial
 	 * @param textField
@@ -223,16 +223,16 @@ public class MDSQLUIHelper extends UIHelper {
 				String rutaArchivo = file.getAbsolutePath();
 				LogWrapper.debug(log, "Archivo seleccionado: %s", rutaArchivo);
 				textField.setText(rutaArchivo);
-				
+
 				return file;
 			}
-			
+
 			return null;
 		} catch (IOException e) {
 			Map<String, Object> params = buildError(e);
 			showPopup(frameParent, Constants.CMD_ERROR, params);
 			return null;
-		}	
+		}
 	}
 
 	/**
@@ -244,10 +244,10 @@ public class MDSQLUIHelper extends UIHelper {
 
 		params.put(Constants.WARN, warnings);
 		params.put(MDSQLConstants.TYPE, MDSQLConstants.CMD_WARN);
-		
+
 		return params;
 	}
-	
+
 	/**
 	 * @param warnings
 	 * @param frameSupport
@@ -258,23 +258,23 @@ public class MDSQLUIHelper extends UIHelper {
 			MDSQLUIHelper.showPopup(frameSupport, MDSQLConstants.CMD_WARN, params);
 		}
 	}
-	
+
 	/**
 	 * @param field
 	 * @param value
 	 * @param limit
 	 */
-	public static void resetText(JTextField field, String value) {
+	public static void resetText(JTextField field, String value, Integer limit) {
 		field.setHorizontalAlignment(JTextField.LEFT);
-		
-//		if (value.length() > limit) {
-//			String textToShow = value.substring(0, limit).concat("...");
-//			field.setText(textToShow);
-//			field.setToolTipText(value);
-//		}
-//		else {
+
+		if (!Objects.isNull(limit) && value.length() > limit) {
+			String textToShow = value.substring(0, limit).concat("...");
+			field.setText(textToShow);
+			field.setToolTipText(value);
+		}
+		else {
 			field.setText(value);
 			field.setCaretPosition(0);
-//		}
+		}
 	}
 }
