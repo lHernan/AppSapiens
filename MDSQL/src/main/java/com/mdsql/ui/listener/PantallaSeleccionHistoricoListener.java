@@ -83,6 +83,7 @@ public class PantallaSeleccionHistoricoListener extends ListenerSupport
 				pantallaSeleccionHistorico.getBtnAddHistorico().setEnabled(Boolean.FALSE);
 			}
 		} catch (ServiceException e) {
+			pantallaSeleccionHistorico.setErrorOnload(Boolean.TRUE);
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaSeleccionHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}

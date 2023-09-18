@@ -169,15 +169,19 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 					
 					pantallaSeleccionHistorico = (PantallaSeleccionHistorico) MDSQLUIHelper.createDialog(pantallaProcesarScript.getFrameParent(),
 							MDSQLConstants.CMD_SELECCION_HISTORICO, params);
-					MDSQLUIHelper.show(pantallaSeleccionHistorico);
 					
-					Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
-					List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
-					if (continuarProcesado) {
-						procesarScript(objetosHistorico);
-					}
-					else {
-						JOptionPane.showMessageDialog(pantallaProcesarScript.getFrameParent(), "Operación cancelada");
+					// Si al cargar hay error, la pantalla no se mostrará
+					if (!pantallaSeleccionHistorico.getErrorOnload()) {
+						MDSQLUIHelper.show(pantallaSeleccionHistorico);
+						
+						Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
+						List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
+						if (continuarProcesado) {
+							procesarScript(objetosHistorico);
+						}
+						else {
+							JOptionPane.showMessageDialog(pantallaProcesarScript.getFrameParent(), "Operación cancelada");
+						}
 					}
 				}
 				else {
