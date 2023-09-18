@@ -15,7 +15,7 @@ MDSQL_SOURCE=mdsql-1.0.0-SNAPSHOT-sources.jar
 LATEST=`$DIR_PROJECT/bin/version.sh`
 SUMMARY=`$DIR_PROJECT/bin/resueltas.sh $LATEST`
 TO=Mario.Pampliega@sapiens.com
-CC=agarcia@esoluzion.com,fmartin@esoluzion.com,Maria.De-Vera@sapiens.com
+CC=agarcia@esoluzion.com,fmartin@esoluzion.com,Maria.De-Vera@sapiens.com,jmjimenez@esoluzion.com
 
 clear
 
