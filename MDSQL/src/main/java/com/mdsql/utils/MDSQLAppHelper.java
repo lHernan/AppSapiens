@@ -170,7 +170,9 @@ public class MDSQLAppHelper extends AppHelper {
 		for (int i=0;i<lineas.size();i++) {
 			// Si hay una línea en blanco no la imprime, pero sí el salto de línea
 			if (!Objects.isNull(lineas.get(i).getValor())) {
-				strBuffer.append(lineas.get(i).getValor());
+				// Elimina el carácter CR del final
+				String rtrim = StringUtils.stripEnd(lineas.get(i).getValor(), null);
+				strBuffer.append(rtrim);
 			}
 			
 			// Quita el último salto de línea
