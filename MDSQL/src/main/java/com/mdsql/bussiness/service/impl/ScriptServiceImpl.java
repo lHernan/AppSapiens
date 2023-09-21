@@ -643,19 +643,24 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			for (TextoLinea data : inputDescartarScript.getScript()) {
 				structLineaScript[arrayIndexLinea++] = conn.createStruct(recordLinea, new Object[] { data.getValor() });
 			}
-
-			Struct[] structLineaScriptParche = new Struct[inputDescartarScript.getScriptParche().size()];
-
-			int arrayIndexLineaParche = 0;
-			for (TextoLinea data : inputDescartarScript.getScriptParche()) {
-				structLineaScriptParche[arrayIndexLineaParche++] = conn.createStruct(recordLinea,
-						new Object[] { data.getValor() });
-			}
-
 			Array arrayLineaScript = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScript);
-			Array arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea,
-					structLineaScriptParche);
 
+			Array arrayLineaScriptParche = null;
+			Struct[] structLineaScriptParche = null;
+			if (CollectionUtils.isNotEmpty(inputDescartarScript.getScriptParche())) {
+				structLineaScriptParche = new Struct[inputDescartarScript.getScriptParche().size()];
+
+				int arrayIndexLineaParche = 0;
+				for (TextoLinea data : inputDescartarScript.getScriptParche()) {
+					structLineaScriptParche[arrayIndexLineaParche++] = conn.createStruct(recordLinea,
+						new Object[] { data.getValor() });
+				}
+
+			
+				arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea,
+					structLineaScriptParche);
+			}
+			
 			callableStatement.setArray(1, arrayLineaScript);
 			callableStatement.setBigDecimal(2, inputDescartarScript.getIdProceso());
 			callableStatement.setString(3, inputDescartarScript.getCodigoUsuario());

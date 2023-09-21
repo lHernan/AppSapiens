@@ -160,7 +160,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		List<Script> vigentes = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
 
 		params.put("proceso", proceso);
-		params.put("scripts", vigentes);
+		params.put("script", pantallaEjecutarScripts.getSeleccionado());
 
 		PantallaDescartarScript pantallaDescartarScript = (PantallaDescartarScript) MDSQLUIHelper
 				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_DESCARTAR_SCRIPT, params);
