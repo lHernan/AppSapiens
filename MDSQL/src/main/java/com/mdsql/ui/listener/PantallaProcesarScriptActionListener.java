@@ -175,8 +175,8 @@ public class PantallaProcesarScriptActionListener extends ListenerSupport implem
 						MDSQLUIHelper.show(pantallaSeleccionHistorico);
 						
 						Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
-						List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
-						if (continuarProcesado) {
+						if (!Objects.isNull(continuarProcesado) && continuarProcesado) {
+							List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
 							procesarScript(objetosHistorico);
 						}
 						else {
