@@ -321,31 +321,10 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 					LogWrapper.debug(log, "Ruta del script: %s", file.getParent());
 					session.setRutaScript(file.getParent());
 					loadFileInFramePrincipal(file);
+					framePrincipal.setProcesado(Procesado.SCRIPT);
 				}
 			}
 		} catch (IOException e1) {
-			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
-			MDSQLUIHelper.showPopup(framePrincipal, MDSQLConstants.CMD_ERROR, params);
-		}
-	}
-
-	private void loadFileInFramePrincipal(File file) {
-		try {
-			if (!Objects.isNull(file)) {
-				setContent(file);
-				framePrincipal.setCurrentFile(file);
-	
-				framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
-				framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
-				framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);
-	
-				framePrincipal.getTabPanel().setSelectedIndex(0);
-	
-				// set the procesado
-				framePrincipal.setProcesado(Procesado.SCRIPT);
-			}
-		} catch (IOException e1) {
-			log.error("ERROR: ", e1);
 			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
 			MDSQLUIHelper.showPopup(framePrincipal, MDSQLConstants.CMD_ERROR, params);
 		}
@@ -375,23 +354,44 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				if (!Objects.isNull(file)) {
 					LogWrapper.debug(log, "Ruta del script: %s", file.getParent());
 					session.setRutaScript(file.getParent());
-					
-					setContent(file);
-					framePrincipal.setCurrentFile(file);
-	
-					framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
-					framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
-					framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
-	
-					framePrincipal.getTabPanel().setSelectedIndex(2);
-	
-					// set the procesado
+					loadFileInFramePrincipal(file);
 					framePrincipal.setProcesado(Procesado.TYPE);
 				}
 			}
 		} catch (IOException e1) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
 			MDSQLUIHelper.showPopup(framePrincipal, MDSQLConstants.CMD_ERROR, params);
+		}
+	}
+	
+	private void loadFileInFramePrincipal(File file) {
+		try {
+			if (!Objects.isNull(file)) {
+				setContent(file);
+				framePrincipal.setCurrentFile(file);
+			}
+		} catch (IOException e1) {
+			log.error("ERROR: ", e1);
+			Map<String, Object> params = MDSQLUIHelper.buildError(e1);
+			MDSQLUIHelper.showPopup(framePrincipal, MDSQLConstants.CMD_ERROR, params);
+		}
+	}
+
+	private void updateProcesado(Procesado procesado) {
+		if (procesado.equals(Procesado.SCRIPT)) {
+			framePrincipal.getTabPanel().setEnabledAt(0, Boolean.TRUE);
+			framePrincipal.getTabPanel().setEnabledAt(1, Boolean.TRUE);
+			framePrincipal.getTabPanel().setEnabledAt(2, Boolean.FALSE);
+
+			framePrincipal.getTabPanel().setSelectedIndex(0);
+		}
+		
+		if (procesado.equals(Procesado.TYPE)) {
+			framePrincipal.getTabPanel().setEnabledAt(0, Boolean.FALSE);
+			framePrincipal.getTabPanel().setEnabledAt(1, Boolean.FALSE);
+			framePrincipal.getTabPanel().setEnabledAt(2, Boolean.TRUE);
+
+			framePrincipal.getTabPanel().setSelectedIndex(2);
 		}
 	}
 
@@ -445,6 +445,7 @@ public class FramePrincipalActionListener extends ListenerSupport implements Act
 				framePrincipal.getTxtSQLCode().setEnabled(Boolean.FALSE);
 
 				updateProcesadoEnCurso(StringUtils.EMPTY);
+				updateProcesado(framePrincipal.getProcesado());
 			}
 		}
 	}
