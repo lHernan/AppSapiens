@@ -11,9 +11,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import com.mdsql.ui.listener.MenuListener;
-import com.mdsql.ui.utils.MenuSupport;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.FrameSupport;
+import com.mdval.ui.utils.MenuSupport;
 
 /**
  *
