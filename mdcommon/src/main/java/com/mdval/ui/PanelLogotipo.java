@@ -9,15 +9,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import com.mdval.utils.LogWrapper;
-
-import lombok.extern.slf4j.Slf4j;
-
 /**
  *
  * @author federico
  */
-@Slf4j
 public class PanelLogotipo extends JPanel {
 
 	/**
@@ -26,12 +21,8 @@ public class PanelLogotipo extends JPanel {
 	private static final long serialVersionUID = 3034469653390494133L;
 	private transient BufferedImage image;
 
-	public PanelLogotipo(String logotipo) {
-		try {
-			image = ImageIO.read(new File("./" + logotipo));
-		} catch (IOException ex) {
-			LogWrapper.warn(log, "ERROR:", ex);
-		}
+	public PanelLogotipo(String logotipo) throws IOException {
+		image = ImageIO.read(new File("./" + logotipo));
 	}
 
 	@Override

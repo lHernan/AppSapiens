@@ -16,6 +16,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.mdval.ui.PanelLogotipo;
 import com.mdval.utils.LiteralesSingleton;
+import com.mdval.utils.LogWrapper;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -132,9 +133,8 @@ public abstract class FrameSupport extends JFrame {
 			onLoadListeners = new ArrayList<>();
 			returnParams = new HashMap<>();
 			
-			panelLogo = new PanelLogotipo("logotipo.png");
-			panelLogo.setPreferredSize(new Dimension(286, 63));
-			
+			loadLogotipo();
+				
 			initComponents();
 			initMenuBar();
 			
@@ -156,6 +156,15 @@ public abstract class FrameSupport extends JFrame {
 			initialState();
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
+		}
+	}
+
+	private void loadLogotipo() {
+		try {
+			panelLogo = new PanelLogotipo("logotipo.png");
+			panelLogo.setPreferredSize(new Dimension(286, 63));
+		} catch (IOException e) {
+			LogWrapper.warn(log, "ERROR: No image logo");
 		}
 	}
 	
@@ -215,5 +224,16 @@ public abstract class FrameSupport extends JFrame {
 		literales = LiteralesSingleton.getInstance();
 		
 		setupLiterals();
+	}
+	
+	/**
+	 * @param width
+	 * @param height
+	 */
+	public void setBounds(int width, int height) {
+		Dimension dimension = new Dimension(width, height);
+		setPreferredSize(dimension);
+		setMinimumSize(dimension);
+		setResizable(Boolean.TRUE);
 	}
 }
