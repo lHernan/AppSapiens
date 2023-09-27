@@ -1,7 +1,6 @@
 package com.mdsql.bussiness.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +24,7 @@ public class OutputDescartarScript implements Serializable {
 	private List<Script> listaParches;
     private List<ScriptOld> listaScriptOld;
     private List<Script> listaScriptNew;
-    private BigDecimal codigoEstadoProceso;
+    private Integer codigoEstadoProceso;
     private String descripcionEstadoProceso;
 
 }

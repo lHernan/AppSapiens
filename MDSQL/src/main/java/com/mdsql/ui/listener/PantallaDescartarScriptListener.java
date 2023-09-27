@@ -18,7 +18,6 @@ import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.PantallaDescartarScript;
-import com.mdsql.ui.PantallaEjecutarScripts;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLAppHelper;
@@ -105,7 +104,7 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 			params.put("proceso", proceso);
 			Script script = (Script) pantallaDescartarScript.getParams().get("script");
 			params.put("script", script);
-			params.put("consulta", Boolean.TRUE);
+			params.put("consulta", Boolean.FALSE);
 
 			PantallaAjustarLogEjecucion pantallaAjustarLogEjecucion = (PantallaAjustarLogEjecucion) MDSQLUIHelper
 					.createDialog(pantallaDescartarScript.getFrameParent(), MDSQLConstants.CMD_AJUSTAR_LOG_EJECUCION, params);
@@ -113,10 +112,11 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 			
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 
-			InputDescartarScript inputDescartarScript = createInputDescartarScript(script);
-			OutputDescartarScript descartarScript = scriptService.descartarScript(inputDescartarScript);
+			String comentario = pantallaDescartarScript.getTxtComentario().getText();
+			InputDescartarScript inputDescartarScript = createInputDescartarScript(session, proceso, script, comentario);
+			OutputDescartarScript outputDescartarScript = scriptService.descartarScript(inputDescartarScript);
 			
-			if (CollectionUtils.isNotEmpty(descartarScript.getListaScriptNew())) {
+			if (CollectionUtils.isNotEmpty(outputDescartarScript.getListaScriptNew())) {
 				
 			}
 
@@ -126,11 +126,14 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 		}
 	}
 
-	private InputDescartarScript createInputDescartarScript(Script script) {
+	private InputDescartarScript createInputDescartarScript(Session session, Proceso proceso, Script script, String txtComentario) {
 		InputDescartarScript inputDescartarScript = new InputDescartarScript();
 		
 		inputDescartarScript.setNombreScript(archivo.getName());
 		inputDescartarScript.setScript(script.getLineasScript());
+		inputDescartarScript.setIdProceso(proceso.getIdProceso());
+		inputDescartarScript.setCodigoUsuario(session.getCodUsr());
+		inputDescartarScript.setTxtComentario(txtComentario);
 		
 		return inputDescartarScript;
 	}

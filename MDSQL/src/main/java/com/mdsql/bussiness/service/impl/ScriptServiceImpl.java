@@ -655,11 +655,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					structLineaScriptParche[arrayIndexLineaParche++] = conn.createStruct(recordLinea,
 						new Object[] { data.getValor() });
 				}
-
-			
-				arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea,
-					structLineaScriptParche);
 			}
+			
+			arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea,
+					structLineaScriptParche);
 			
 			callableStatement.setArray(1, arrayLineaScript);
 			callableStatement.setBigDecimal(2, inputDescartarScript.getIdProceso());
@@ -743,8 +742,8 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				}
 			}
 
-			BigDecimal codigoEstadoProceso = callableStatement.getBigDecimal(13);
-			String descripcionEstadoProceso = callableStatement.getString(15);
+			Integer codigoEstadoProceso = callableStatement.getInt(15);
+			String descripcionEstadoProceso = callableStatement.getString(16);
 
 			OutputDescartarScript outputDescartarScript = OutputDescartarScript.builder().listaParches(listaParches)
 					.listaScriptOld(listaScriptOld).listaScriptNew(listaScriptNew)
