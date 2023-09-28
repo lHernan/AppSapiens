@@ -59,4 +59,10 @@ public class PantallaDetallePermisosPorObjetoListener extends ListenerSupport im
 	private void eventBtnInforme() {
 			
 	}
+
+	@Override
+	public void onLoad() {
+		// TODO Auto-generated method stub
+		
+	}
 }
