@@ -42,4 +42,10 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 	private void eventBtnInforme() {
 		
 	}
+
+	@Override
+	public void onLoad() {
+		// TODO Auto-generated method stub
+		
+	}
 }
