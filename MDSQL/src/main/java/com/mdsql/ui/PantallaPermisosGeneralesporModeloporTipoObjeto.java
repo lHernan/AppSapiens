@@ -5,11 +5,15 @@
  */
 package com.mdsql.ui;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.JButton;
 
 import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoListener;
+import com.mdsql.ui.model.PermisoSinonimoComboBoxModel;
+import com.mdsql.ui.model.SiNoComboBoxModel;
+import com.mdsql.ui.model.VigenteHistoricoComboBoxModel;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -371,17 +375,31 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 btnGuardar.addActionListener(actioListener);
 		 btnInforme.addActionListener(actioListener);
 		 btnCancelar.addActionListener(actioListener);
+
+		 this.addOnLoadListener(actioListener);
 	 }
 	 
 	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
-		 
+		 SiNoComboBoxModel siNoComboBoxModel = new SiNoComboBoxModel();
+		 PermisoSinonimoComboBoxModel permisoSinonimoComboBoxModel = new PermisoSinonimoComboBoxModel();
+		 VigenteHistoricoComboBoxModel vigenteHistoricoComboBoxModel = new VigenteHistoricoComboBoxModel();
+
+		 cmbWithGrantOpcion.setModel(siNoComboBoxModel);
+		 cmbPermisoSinonimo.setModel(permisoSinonimoComboBoxModel);
+		 cmbIncluirPDC.setModel(siNoComboBoxModel);
+		 cmbEntorno.setModel(vigenteHistoricoComboBoxModel);
 	 }
 	 
 	 @Override
 	 protected void initialState() {
-		 
+		 txtModeloProyecto.setEditable(Boolean.FALSE);
+		 txtModelo1.setEditable(Boolean.FALSE);
+		 txtUsuarioAlta.setEditable(Boolean.FALSE);
+		 txtFechaAlta.setEditable(Boolean.FALSE);
+		 txtUsuarioModificacion.setEditable(Boolean.FALSE);
+		 txtFechaModificacion.setEditable(Boolean.FALSE);
 	 }
 	 
 	 @Override
