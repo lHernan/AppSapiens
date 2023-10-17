@@ -10,15 +10,22 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
+import com.mdsql.bussiness.entities.Grant;
+import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.Propietario;
 import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoListener;
-import com.mdsql.ui.model.PermisoSinonimoComboBoxModel;
-import com.mdsql.ui.model.SiNoComboBoxModel;
-import com.mdsql.ui.model.VigenteHistoricoComboBoxModel;
+import com.mdsql.ui.listener.combo.PermisosGeneralesTipoObjetoItemListener;
+import com.mdsql.ui.model.*;
+import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
+import com.mdval.ui.utils.TableSupport;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -52,10 +59,10 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	 private javax.swing.JScrollPane jScrollPane3;
 	 
 	 @Getter
-	 private javax.swing.JTable tblPermisos;
+	 private TableSupport tblPermisos;
 	 
 	 @Getter
-	 private javax.swing.JTable tblUltimasPeticiones;
+	 private TableSupport tblSinonimos;
 	 
 	 @Getter
 	 private javax.swing.JTextField txtFechaAlta;
@@ -106,10 +113,10 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	 private javax.swing.JComboBox<String> cmbPermisoSinonimo;
 	 
 	 @Getter
-	 private javax.swing.JComboBox<String> cmbPropietarioSinonimo;
+	 private javax.swing.JComboBox<Propietario> cmbPropietarioSinonimo;
 	 
 	 @Getter
-	 private javax.swing.JComboBox<String> cmbPropietarioSinonimo1;
+	 private javax.swing.JComboBox<Grant> cmbReceptorPermiso;
 	 
 	 @Getter
 	 private javax.swing.JComboBox<String> cmbTipoObjeto;
@@ -117,6 +124,10 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	 @Getter
 	 private javax.swing.JComboBox<String> cmbWithGrantOpcion;
 	 //End of variables declaration//GEN-END:variables
+
+	@Getter
+	@Setter
+	private Modelo modelo;
 	
 	 public PantallaPermisosGeneralesporModeloporTipoObjeto(FrameSupport parent, Boolean modal) {
 		 super(parent, modal);
@@ -139,10 +150,10 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	     btnGuardar = new javax.swing.JButton();
 	     jLabel11 = new javax.swing.JLabel();
 	     jScrollPane2 = new javax.swing.JScrollPane();
-	     tblPermisos = new javax.swing.JTable();
+	     tblPermisos = new TableSupport();
 	     jLabel12 = new javax.swing.JLabel();
 	     jScrollPane3 = new javax.swing.JScrollPane();
-	     tblUltimasPeticiones = new javax.swing.JTable();
+	     tblSinonimos = new TableSupport();
 	     btnInforme = new javax.swing.JButton();
 	     btnCancelar = new javax.swing.JButton();
 	     jLabel14 = new javax.swing.JLabel();
@@ -156,7 +167,7 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	     jLabel18 = new javax.swing.JLabel();
 	     txtFuncionNombre = new javax.swing.JTextField();
 	     jLabel19 = new javax.swing.JLabel();
-	     cmbPropietarioSinonimo1 = new javax.swing.JComboBox<>();
+		 cmbReceptorPermiso = new javax.swing.JComboBox<>();
 	     jLabel20 = new javax.swing.JLabel();
 	     cmbWithGrantOpcion = new javax.swing.JComboBox<>();
 	     jLabel21 = new javax.swing.JLabel();
@@ -176,7 +187,7 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	     
 	     jScrollPane2.setViewportView(tblPermisos);
 	     
-	     jScrollPane3.setViewportView(tblUltimasPeticiones);
+	     jScrollPane3.setViewportView(tblSinonimos);
 	     
 	     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 	        getContentPane().setLayout(layout);
@@ -221,7 +232,7 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	                                            .addComponent(jLabel21))
 	                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                                            .addComponent(cmbPropietarioSinonimo1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                            .addComponent(cmbReceptorPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                                            .addComponent(cmbIncluirPDC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                                            .addComponent(chkHabilitado)))
 	                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -305,7 +316,7 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 	                                        .addComponent(cmbTipoObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-	                                            .addComponent(cmbPropietarioSinonimo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                            .addComponent(cmbReceptorPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                                            .addComponent(jLabel19)))
 	                                    .addGroup(layout.createSequentialGroup()
 	                                        .addComponent(jLabel15)
@@ -366,17 +377,20 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	 
 	 @Override
 	 protected void initEvents() {
-		 PantallaPermisosGeneralesporModeloporTipoObjetoListener actioListener = new PantallaPermisosGeneralesporModeloporTipoObjetoListener(this);
-		 
+		 PantallaPermisosGeneralesporModeloporTipoObjetoListener actionListener = new PantallaPermisosGeneralesporModeloporTipoObjetoListener(this);
+		 PermisosGeneralesTipoObjetoItemListener cmbListener = new PermisosGeneralesTipoObjetoItemListener(this);
+
 		 btnGuardar.setActionCommand(MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_GUARDAR);
 		 btnInforme.setActionCommand(MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_INFORME);
 		 btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_CANCELAR);
 		 
-		 btnGuardar.addActionListener(actioListener);
-		 btnInforme.addActionListener(actioListener);
-		 btnCancelar.addActionListener(actioListener);
+		 btnGuardar.addActionListener(actionListener);
+		 btnInforme.addActionListener(actionListener);
+		 btnCancelar.addActionListener(actionListener);
 
-		 this.addOnLoadListener(actioListener);
+		 cmbTipoObjeto.addItemListener(cmbListener);
+
+		 this.addOnLoadListener(actionListener);
 	 }
 	 
 	 @SuppressWarnings("unchecked")
@@ -390,6 +404,14 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 cmbPermisoSinonimo.setModel(permisoSinonimoComboBoxModel);
 		 cmbIncluirPDC.setModel(siNoComboBoxModel);
 		 cmbEntorno.setModel(vigenteHistoricoComboBoxModel);
+
+		 Cabecera cabeceraPermisos = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.PERMISOS_GENERALES_TABLA_CABECERA);
+		 tblPermisos.initModel(
+				 new ProcesarScriptNotaTableModel(cabeceraPermisos));
+
+		 Cabecera cabeceraSinonimos = MDSQLUIHelper
+				 .createCabeceraTabla(MDSQLConstants.SINONIMOS_GENERALES_TABLA_CABECERA);
+		 tblSinonimos.initModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraSinonimos));
 	 }
 	 
 	 @Override

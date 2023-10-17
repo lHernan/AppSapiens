@@ -45,8 +45,8 @@ public class MDSQLConstants extends Constants {
 	public static final String SELECTED_ROUTE = "selectedRoute";
 	public static final String TOKEN = "TOKEN";
 	public static final String PROCESADO_EN_CURSO = "PROCESADO_EN_CURSO";
-	
-	public static enum Results {
+
+    public static enum Results {
 		ERROR(0, "ERROR"), OK(1, "OK"), WARN(2, "WARN");
 		
 		@Getter
@@ -108,6 +108,12 @@ public class MDSQLConstants extends Constants {
 	public static final String ERRORES_SERVICE = "erroresService";
 	public static final String LOG_SERVICE = "logService";
 	public static final String CONSULTA_SERVICE = "consultaService";
+
+	public static final String PERMISOS_SERVICE = "permisosService";
+
+	public static final String TIPO_OBJETO_SERVICE = "tipoObjetoService";
+
+	public static final String PROPIETARIO_SERVICE = "propietarioService";
 
 	/**
 	 * DataBase Types and constants
@@ -641,6 +647,10 @@ public class MDSQLConstants extends Constants {
 	public static final String VER_CUADRES_OPERACIONES_TABLA_CABECERA = "VER_CUADRES_OPERACIONES_TABLA_CABECERA";
 	public static final String VER_CUADRES_OBJETOS_TABLA_CABECERA = "VER_CUADRES_OBJETOS_TABLA_CABECERA";
 	public static final String RESUMEN_PROCESADO_SCRIPTS_TABLA_CABECERA = "RESUMEN_PROCESADO_SCRIPTS_TABLA_CABECERA";
+
+	public static final String PERMISOS_GENERALES_TABLA_CABECERA = "PERMISOS_GENERALES_TABLA_CABECERA";
+
+	public static final String SINONIMOS_GENERALES_TABLA_CABECERA = "SINONIMOS_GENERALES_TABLA_CABECERA";
 
 	public static final String PANTALLA_PROCESADO_CURSO_VER_LOG = "PANTALLA_PROCESADO_CURSO_VER_LOG";
 	public static final String PANTALLA_PROCESADO_CURSO_VER_ERRORES = "PANTALLA_PROCESADO_CURSO_VER_ERRORES";
