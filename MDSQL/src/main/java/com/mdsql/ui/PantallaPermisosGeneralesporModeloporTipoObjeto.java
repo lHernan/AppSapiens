@@ -430,29 +430,29 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	 
 	 @Override
 	 protected void setupLiterals() {
-		 setTitle(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.title"));
+		 setTitle(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.titulo"));
 
-		 jLabel1.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label1"));
-		 jLabel2.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label2"));
-		 jLabel3.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label3"));
-		 jLabel6.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label6"));
+		 jLabel1.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel1"));
+		 jLabel2.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel2"));
+		 jLabel3.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel3"));
+		 jLabel6.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel6"));
 		 btnGuardar.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.guardar"));
-		 jLabel11.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label11"));
-		 jLabel12.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label12"));
+		 jLabel11.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel11"));
+		 jLabel12.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel12"));
 		 btnInforme.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.informe"));
 		 btnCancelar.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.cancelar"));
-		 jLabel15.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label15"));
-		 jLabel16.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label16"));
-		 jLabel17.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label17"));
-		 jLabel18.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label18"));
-		 jLabel19.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label19"));
-		 jLabel20.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label20"));
-		 jLabel21.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label21"));
-		 jLabel22.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label22"));
-		 jLabel23.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label23"));
-		 jLabel24.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label24"));
-		 jLabel25.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label25"));
-		 jLabel27.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label27"));
+		 jLabel15.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel15"));
+		 jLabel16.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel16"));
+		 jLabel17.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel17"));
+		 jLabel18.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel18"));
+		 jLabel19.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel19"));
+		 jLabel20.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel20"));
+		 jLabel21.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel21"));
+		 jLabel22.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel22"));
+		 jLabel23.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel23"));
+		 jLabel24.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel24"));
+		 jLabel25.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel25"));
+		 jLabel27.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel27"));
 	 
 	 }
 	 

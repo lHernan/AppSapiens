@@ -396,6 +396,8 @@ public class MDSQLConstants extends Constants {
 	public static final String CMD_LIMPIAR_SESION = "CMD_LIMPIAR_SESION";
 	public static final String CMD_LIMPIAR_SCRIPT = "CMD_LIMPIAR_SCRIPT";
 
+	public static final String CMD_PERMISOS_GENERALES = "CMD_PERMISOS_GENERALES";
+
 	/**
 	 * Panel principal
 	 */

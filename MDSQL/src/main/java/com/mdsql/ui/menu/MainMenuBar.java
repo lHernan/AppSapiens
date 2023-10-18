@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import com.mdsql.ui.listener.MenuListener;
+import com.mdsql.ui.listener.MenuPermisosGeneralesActionListener;
 import com.mdsql.ui.utils.MenuSupport;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.FrameSupport;
@@ -160,24 +161,25 @@ public class MainMenuBar extends MenuSupport {
 	 *
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new MenuListener(frameParent);
+		ActionListener menuActionListener = new MenuListener(frameParent);
+        ActionListener menuPermisosGeneralesActionListener = new MenuPermisosGeneralesActionListener(frameParent);
 		
-		mnuPermisosGenerales.addActionListener(actionListener);
+		mnuPermisosGenerales.addActionListener(menuPermisosGeneralesActionListener);
 		
-		mnuConsultaPermisos.addActionListener(actionListener);
-		mnuMantenimientoPermisos.addActionListener(actionListener);
-		mnuGenerarPermisos.addActionListener(actionListener);
+		mnuConsultaPermisos.addActionListener(menuActionListener);
+		mnuMantenimientoPermisos.addActionListener(menuActionListener);
+		mnuGenerarPermisos.addActionListener(menuActionListener);
         
-		mnuItemEntornos.addActionListener(actionListener);
-        mnuItemVariables.addActionListener(actionListener);
-        mnuItemNotasModelos.addActionListener(actionListener);
-        mnuConsultaHistoricoCambios.addActionListener(actionListener);
-        mnuConsultaPeticiones.addActionListener(actionListener);
+		mnuItemEntornos.addActionListener(menuActionListener);
+        mnuItemVariables.addActionListener(menuActionListener);
+        mnuItemNotasModelos.addActionListener(menuActionListener);
+        mnuConsultaHistoricoCambios.addActionListener(menuActionListener);
+        mnuConsultaPeticiones.addActionListener(menuActionListener);
         
-        mnuMantenimientoEntornosPruebas.addActionListener(actionListener);
-        mnuEjecucionScriptInicial.addActionListener(actionListener);
-        mnuConfiguracionEntornosPrueba.addActionListener(actionListener);
+        mnuMantenimientoEntornosPruebas.addActionListener(menuActionListener);
+        mnuEjecucionScriptInicial.addActionListener(menuActionListener);
+        mnuConfiguracionEntornosPrueba.addActionListener(menuActionListener);
         
-        mnuMantenimientoHistorico.addActionListener(actionListener);
+        mnuMantenimientoHistorico.addActionListener(menuActionListener);
 	}
 }
