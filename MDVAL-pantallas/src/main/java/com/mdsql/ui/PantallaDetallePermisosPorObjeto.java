@@ -50,11 +50,9 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
         cmbWithGrantOpcion = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         txtNombreObjeto = new javax.swing.JTextField();
-        txtPropietarioSinonimo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtFuncionNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtReceptorPermisos = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         cmbIncluirPDC = new javax.swing.JComboBox<>();
@@ -64,6 +62,8 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         btnModificacion = new javax.swing.JButton();
         btnAlta = new javax.swing.JButton();
+        cmbPropietarioSinonimo = new javax.swing.JComboBox<>();
+        cmbReceptorPermisos = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PantallaPermisosGeneralesporModeloporTipoObjeto");
@@ -166,12 +166,6 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
             }
         });
 
-        txtPropietarioSinonimo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPropietarioSinonimoActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Propietario Sinonimo");
 
         txtFuncionNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -181,12 +175,6 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
         });
 
         jLabel5.setText("Función Nombre");
-
-        txtReceptorPermisos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtReceptorPermisosActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("Receptor Permisos");
 
@@ -213,6 +201,10 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
         btnModificacion.setText("Modificación");
 
         btnAlta.setText("Alta");
+
+        cmbPropietarioSinonimo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbReceptorPermisos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,7 +241,7 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel7)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtReceptorPermisos, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(cmbReceptorPermisos, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                     .addGroup(layout.createSequentialGroup()
@@ -265,9 +257,9 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
                                                     .addComponent(jLabel3)
                                                     .addComponent(jLabel5))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(txtPropietarioSinonimo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(txtFuncionNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(txtFuncionNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                                    .addComponent(cmbPropietarioSinonimo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                         .addGap(6, 6, 6)))
                                 .addGap(34, 34, 34)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,31 +319,32 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbPermisoSinonimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPropietarioSinonimo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(cmbIncluirPDC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbEntorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
+                    .addComponent(jLabel17)
+                    .addComponent(cmbPropietarioSinonimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFuncionNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtFuncionNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)
                         .addComponent(cmbPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel16)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbWithGrantOpcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20)
+                        .addComponent(jLabel16))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtReceptorPermisos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbEntorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jLabel8)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jCheckBox1))))
-                .addGap(38, 38, 38)
+                        .addComponent(cmbReceptorPermisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbWithGrantOpcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel20)))
+                .addGap(44, 44, 44)
                 .addComponent(btnLimpiar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
@@ -360,7 +353,7 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -401,17 +394,9 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreObjetoActionPerformed
 
-    private void txtPropietarioSinonimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPropietarioSinonimoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPropietarioSinonimoActionPerformed
-
     private void txtFuncionNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFuncionNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFuncionNombreActionPerformed
-
-    private void txtReceptorPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReceptorPermisosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtReceptorPermisosActionPerformed
 
     private void cmbIncluirPDCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIncluirPDCActionPerformed
         // TODO add your handling code here:
@@ -470,6 +455,8 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbIncluirPDC1;
     private javax.swing.JComboBox<String> cmbPermiso;
     private javax.swing.JComboBox<String> cmbPermisoSinonimo;
+    private javax.swing.JComboBox<String> cmbPropietarioSinonimo;
+    private javax.swing.JComboBox<String> cmbReceptorPermisos;
     private javax.swing.JComboBox<String> cmbWithGrantOpcion;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
@@ -495,7 +482,5 @@ public class PantallaDetallePermisosPorObjeto extends javax.swing.JFrame {
     private javax.swing.JTextField txtModelo1;
     private javax.swing.JTextField txtModeloProyecto;
     private javax.swing.JTextField txtNombreObjeto;
-    private javax.swing.JTextField txtPropietarioSinonimo;
-    private javax.swing.JTextField txtReceptorPermisos;
     // End of variables declaration//GEN-END:variables
 }
