@@ -19,4 +19,7 @@ public interface PermisosService {
 
     List<String> consultarPermisosPorTipoObjeto(String tipoObjeto) throws ServiceException;
 
+    void guardarPermiso(String codProyecto, String codUsrGrant, String valGrant, String desEntorno, String tipoObjeto, String mcaGrantOption, String mcaIncluirPDC, String mcaHabilitado, String codPeticion, String codUsr) throws ServiceException;
+
+    void guardarSinonimo(String codProyecto, String codUsrGrant, String codOwnerSyn, String desEntorno, String tipoObjeto, String funcionNombre, String mcaIncluirPDC, String mcaHabilitado, String codPeticion, String codUsr) throws ServiceException;
 }

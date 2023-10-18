@@ -14,6 +14,7 @@ import com.mdsql.bussiness.entities.Grant;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Propietario;
 import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoListener;
+import com.mdsql.ui.listener.combo.PermisosGeneralesPermisoSinonimoItemListener;
 import com.mdsql.ui.listener.combo.PermisosGeneralesTipoObjetoItemListener;
 import com.mdsql.ui.model.*;
 import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
@@ -378,7 +379,8 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	 @Override
 	 protected void initEvents() {
 		 PantallaPermisosGeneralesporModeloporTipoObjetoListener actionListener = new PantallaPermisosGeneralesporModeloporTipoObjetoListener(this);
-		 PermisosGeneralesTipoObjetoItemListener cmbListener = new PermisosGeneralesTipoObjetoItemListener(this);
+		 PermisosGeneralesTipoObjetoItemListener cmbTipoObjetoListener = new PermisosGeneralesTipoObjetoItemListener(this);
+		 PermisosGeneralesPermisoSinonimoItemListener cmbPermisoSinonimoListener = new PermisosGeneralesPermisoSinonimoItemListener(this);
 
 		 btnGuardar.setActionCommand(MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_GUARDAR);
 		 btnInforme.setActionCommand(MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_INFORME);
@@ -388,7 +390,8 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 btnInforme.addActionListener(actionListener);
 		 btnCancelar.addActionListener(actionListener);
 
-		 cmbTipoObjeto.addItemListener(cmbListener);
+		 cmbTipoObjeto.addItemListener(cmbTipoObjetoListener);
+		 cmbPermisoSinonimo.addItemListener(cmbPermisoSinonimoListener);
 
 		 this.addOnLoadListener(actionListener);
 	 }
@@ -422,6 +425,7 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 txtFechaAlta.setEditable(Boolean.FALSE);
 		 txtUsuarioModificacion.setEditable(Boolean.FALSE);
 		 txtFechaModificacion.setEditable(Boolean.FALSE);
+		 cmbPermisoSinonimo.setSelectedItem(null);
 	 }
 	 
 	 @Override
