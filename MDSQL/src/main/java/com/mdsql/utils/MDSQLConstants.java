@@ -400,6 +400,8 @@ public class MDSQLConstants extends Constants {
 
 	public static final String CMD_PERMISOS_OBJETO = "CMD_PERMISOS_OBJETO";
 
+	public static final String CMD_MNTO_PERMISOS_OBJETO = "CMD_MNTO_PERMISOS_OBJETO";
+
 	/**
 	 * Panel principal
 	 */

@@ -69,9 +69,8 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 
 	private void evtPermisosObjeto() {
 		Modelo seleccionado = getModelo();
-		Map<String, Object> params;
+		Map<String, Object> params = new HashMap<>();
 
-		params = new HashMap<>();
 		params.put("modelo", seleccionado);
 
 		PantallaDetallePermisosPorObjeto pantallaDetallePermisosPorObjeto = (PantallaDetallePermisosPorObjeto) MDSQLUIHelper.createDialog(framePrincipal,

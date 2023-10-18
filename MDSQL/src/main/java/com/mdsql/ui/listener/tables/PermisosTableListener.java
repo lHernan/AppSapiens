@@ -38,6 +38,7 @@ public class PermisosTableListener extends ListenerSupport implements ListSelect
 		Permiso seleccionado = tableModel.getSelectedRow(index);
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
+			pantallaDetallePermisosPorObjeto.setPermisoSeleccionado(seleccionado);
 			pantallaDetallePermisosPorObjeto.getBtnModificacion().setEnabled(Boolean.TRUE);
 			pantallaDetallePermisosPorObjeto.getTblSinonimos().clearSelection();
 		}

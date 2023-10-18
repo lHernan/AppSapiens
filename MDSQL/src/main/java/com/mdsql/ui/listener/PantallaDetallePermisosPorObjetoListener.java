@@ -2,6 +2,7 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import com.mdsql.bussiness.service.PermisosService;
 import com.mdsql.bussiness.service.PropietarioService;
 import com.mdsql.bussiness.service.TipoObjetoService;
 import com.mdsql.ui.PantallaDetallePermisosPorObjeto;
+import com.mdsql.ui.PantallaMantenimientoPermisosPorObjeto;
 import com.mdsql.ui.model.*;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -58,11 +60,34 @@ public class PantallaDetallePermisosPorObjetoListener extends ListenerSupport im
 	}
 	
 	private void eventBtnAlta() {
-		
+		Modelo seleccionado = pantallaDetallePermisosPorObjeto.getModelo();
+		Map<String, Object> params = new HashMap<>();
+
+		params.put("modelo", seleccionado);
+
+		PantallaMantenimientoPermisosPorObjeto pantallaMantenimientoPermisosPorObjeto = (PantallaMantenimientoPermisosPorObjeto) MDSQLUIHelper.createDialog(pantallaDetallePermisosPorObjeto.getFrameParent(),
+				MDSQLConstants.CMD_MNTO_PERMISOS_OBJETO, params);
+		MDSQLUIHelper.show(pantallaMantenimientoPermisosPorObjeto);
 	}
 	
 	private void eventBtnModificacion() {
-		
+		Modelo seleccionado = pantallaDetallePermisosPorObjeto.getModelo();
+		String valuePS = (String) pantallaDetallePermisosPorObjeto.getCmbPermisoSinonimo().getSelectedItem();
+		Map<String, Object> params = new HashMap<>();
+
+		params.put("modelo", seleccionado);
+
+		if ("Permiso".equals(valuePS)) {
+			params.put("permiso", pantallaDetallePermisosPorObjeto.getPermisoSeleccionado());
+		}
+
+		if (("Sinónimo").equals(valuePS)) {
+			params.put("sinonimo", pantallaDetallePermisosPorObjeto.getSinonimoSeleccionado());
+		}
+
+		PantallaMantenimientoPermisosPorObjeto pantallaMantenimientoPermisosPorObjeto = (PantallaMantenimientoPermisosPorObjeto) MDSQLUIHelper.createDialog(pantallaDetallePermisosPorObjeto.getFrameParent(),
+				MDSQLConstants.CMD_MNTO_PERMISOS_OBJETO, params);
+		MDSQLUIHelper.show(pantallaMantenimientoPermisosPorObjeto);
 	}
 	
 	private void eventBtnInforme() {

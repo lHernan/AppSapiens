@@ -40,6 +40,7 @@ public class SinonimosTableListener extends ListenerSupport implements ListSelec
 		Sinonimo seleccionado = tableModel.getSelectedRow(index);
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
+			pantallaDetallePermisosPorObjeto.setSinonimoSeleccionado(seleccionado);
 			pantallaDetallePermisosPorObjeto.getBtnModificacion().setEnabled(Boolean.TRUE);
 			pantallaDetallePermisosPorObjeto.getTblPermisos().clearSelection();
 		}

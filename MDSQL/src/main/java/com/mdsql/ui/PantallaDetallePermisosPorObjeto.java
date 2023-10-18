@@ -8,9 +8,7 @@ package com.mdsql.ui;
 import java.util.Map;
 import java.util.Objects;
 
-import com.mdsql.bussiness.entities.Grant;
-import com.mdsql.bussiness.entities.Modelo;
-import com.mdsql.bussiness.entities.Propietario;
+import com.mdsql.bussiness.entities.*;
 import com.mdsql.ui.listener.PantallaDetallePermisosPorObjetoListener;
 import com.mdsql.ui.listener.combo.PermisosGeneralesPermisoSinonimoItemListener;
 import com.mdsql.ui.listener.combo.PermisosGeneralesTipoObjetoItemListener;
@@ -125,6 +123,14 @@ public class PantallaDetallePermisosPorObjeto extends DialogSupport {
 	@Getter
 	@Setter
 	private Modelo modelo;
+
+	@Getter
+	@Setter
+	private Permiso permisoSeleccionado;
+
+	@Getter
+	@Setter
+	private Sinonimo sinonimoSeleccionado;
 
     public PantallaDetallePermisosPorObjeto(FrameSupport parent, Boolean modal) {
 		 super(parent, modal);
