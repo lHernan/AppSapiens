@@ -1,6 +1,6 @@
 package com.mdsql.ui.model;
 
-import com.mdsql.bussiness.entities.Sinonimo;
+import com.mdsql.bussiness.entities.Permiso;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * @author federico
  *
  */
-public class SinonimosGeneralesTableModel extends DefaultTableModel<Sinonimo> {
+public class PermisosTableModel extends DefaultTableModel<Permiso> {
 
 	/**
 	 *
@@ -20,7 +20,7 @@ public class SinonimosGeneralesTableModel extends DefaultTableModel<Sinonimo> {
 	/**
 	 * @param cabecera
 	 */
-	public SinonimosGeneralesTableModel(Cabecera cabecera) {
+	public PermisosTableModel(Cabecera cabecera) {
 		super(cabecera);
 	}
 
@@ -28,7 +28,7 @@ public class SinonimosGeneralesTableModel extends DefaultTableModel<Sinonimo> {
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public SinonimosGeneralesTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
+	public PermisosTableModel(List<String> columnNames, List<Class<?>> columnClasses) {
 		super(columnNames, columnClasses);
 	}
 
@@ -37,29 +37,29 @@ public class SinonimosGeneralesTableModel extends DefaultTableModel<Sinonimo> {
 	 * @param columnNames
 	 * @param columnClasses
 	 */
-	public SinonimosGeneralesTableModel(List<Sinonimo> data, List<String> columnNames, List<Class<?>> columnClasses) {
+	public PermisosTableModel(List<Permiso> data, List<String> columnNames, List<Class<?>> columnClasses) {
 		super(data, columnNames, columnClasses);
 	}
-
+	
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Sinonimo row = data.get(rowIndex);
-
+		Permiso row = data.get(rowIndex);
+		
 		if (0 == columnIndex) {
 			return row.getReceptor();
 		} else if (1 == columnIndex) {
 			return row.getTipoObjeto();
 		} else if (2 == columnIndex) {
-			return row.getEntorno();
+			return row.getPermiso();
 		} else if (3 == columnIndex) {
-			return row.getPropietario();
+			return row.getEntorno();
 		} else if (4 == columnIndex) {
-			return row.getIncluirPDC();
+			return row.getGrantOption();
 		} else if (5 == columnIndex) {
-			return row.getHabilitada();
+			return row.getIncluirPDC();
 		} else if (6 == columnIndex) {
-			return row.getPeticion();
+			return row.getHabilitada();
 		} else if (7 == columnIndex) {
-			return row.getFuncionNombre();
+			return row.getPeticion();
 		}
 
 		return null;

@@ -131,6 +131,10 @@ public class DialogCreator extends Creator {
 		if (MDSQLConstants.CMD_PERMISOS_GENERALES.equals(option)) {
 			dialog = new PantallaPermisosGeneralesporModeloporTipoObjeto(frameParent, modal, params);
 		}
+
+		if (MDSQLConstants.CMD_PERMISOS_OBJETO.equals(option)) {
+			dialog = new PantallaDetallePermisosPorObjeto(frameParent, modal, params);
+		}
 		
 		return dialog;
 	}

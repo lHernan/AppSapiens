@@ -5,10 +5,8 @@
  */
 package com.mdsql.ui;
 
-import java.util.ArrayList;
 import java.util.Map;
-
-import javax.swing.JButton;
+import java.util.Objects;
 
 import com.mdsql.bussiness.entities.Grant;
 import com.mdsql.bussiness.entities.Modelo;
@@ -17,7 +15,7 @@ import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoList
 import com.mdsql.ui.listener.combo.PermisosGeneralesPermisoSinonimoItemListener;
 import com.mdsql.ui.listener.combo.PermisosGeneralesTipoObjetoItemListener;
 import com.mdsql.ui.model.*;
-import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
+import com.mdsql.ui.renderer.CmbStringRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -404,17 +402,21 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 VigenteHistoricoComboBoxModel vigenteHistoricoComboBoxModel = new VigenteHistoricoComboBoxModel();
 
 		 cmbWithGrantOpcion.setModel(siNoComboBoxModel);
+		 cmbWithGrantOpcion.setRenderer(new CmbStringRenderer());
 		 cmbPermisoSinonimo.setModel(permisoSinonimoComboBoxModel);
+		 cmbPermisoSinonimo.setRenderer(new CmbStringRenderer());
 		 cmbIncluirPDC.setModel(siNoComboBoxModel);
+		 cmbIncluirPDC.setRenderer(new CmbStringRenderer());
 		 cmbEntorno.setModel(vigenteHistoricoComboBoxModel);
+		 cmbEntorno.setRenderer(new CmbStringRenderer());
 
 		 Cabecera cabeceraPermisos = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.PERMISOS_GENERALES_TABLA_CABECERA);
 		 tblPermisos.initModel(
-				 new ProcesarScriptNotaTableModel(cabeceraPermisos));
+				 new PermisosTableModel(cabeceraPermisos));
 
 		 Cabecera cabeceraSinonimos = MDSQLUIHelper
 				 .createCabeceraTabla(MDSQLConstants.SINONIMOS_GENERALES_TABLA_CABECERA);
-		 tblSinonimos.initModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraSinonimos));
+		 tblSinonimos.initModel(new SinonimosTableModel(cabeceraSinonimos));
 	 }
 	 
 	 @Override
@@ -426,6 +428,11 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 txtUsuarioModificacion.setEditable(Boolean.FALSE);
 		 txtFechaModificacion.setEditable(Boolean.FALSE);
 		 cmbPermisoSinonimo.setSelectedItem(null);
+
+		 if (!Objects.isNull(modelo)) {
+			 txtModeloProyecto.setText(modelo.getCodigoProyecto());
+			 txtModelo1.setText(modelo.getNombreModelo());
+		 }
 	 }
 	 
 	 @Override

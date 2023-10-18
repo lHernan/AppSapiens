@@ -11,7 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import com.mdsql.ui.listener.MenuListener;
-import com.mdsql.ui.listener.MenuPermisosGeneralesActionListener;
+import com.mdsql.ui.listener.MenuMantenimientoActionListener;
 import com.mdsql.ui.utils.MenuSupport;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.FrameSupport;
@@ -162,11 +162,13 @@ public class MainMenuBar extends MenuSupport {
 	 */
 	protected void initEvents() {
 		ActionListener menuActionListener = new MenuListener(frameParent);
-        ActionListener menuPermisosGeneralesActionListener = new MenuPermisosGeneralesActionListener(frameParent);
-		
-		mnuPermisosGenerales.addActionListener(menuPermisosGeneralesActionListener);
-		
-		mnuConsultaPermisos.addActionListener(menuActionListener);
+        ActionListener menuMantenimientoActionListener = new MenuMantenimientoActionListener(frameParent);
+
+        mnuPermisosGenerales.setActionCommand("PERMISOS_GENERALES");
+		mnuPermisosGenerales.addActionListener(menuMantenimientoActionListener);
+
+        mnuConsultaPermisos.setActionCommand("PERMISOS_OBJETO");
+		mnuConsultaPermisos.addActionListener(menuMantenimientoActionListener);
 		mnuMantenimientoPermisos.addActionListener(menuActionListener);
 		mnuGenerarPermisos.addActionListener(menuActionListener);
         

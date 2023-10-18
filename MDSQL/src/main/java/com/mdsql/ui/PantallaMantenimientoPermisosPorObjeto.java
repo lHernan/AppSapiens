@@ -8,6 +8,12 @@ package com.mdsql.ui;
 import java.util.Map;
 
 import com.mdsql.ui.listener.PantallaMantenimientoPermisosPorObjetoListener;
+import com.mdsql.ui.listener.combo.MantenimientoPermisosPorObjetoPermisoSinonimoItemListener;
+import com.mdsql.ui.listener.combo.MantenimientoPermisosPorObjetoTipoObjetoItemListener;
+import com.mdsql.ui.model.PermisoSinonimoComboBoxModel;
+import com.mdsql.ui.model.SiNoComboBoxModel;
+import com.mdsql.ui.model.VigenteHistoricoComboBoxModel;
+import com.mdsql.ui.renderer.CmbStringRenderer;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -331,19 +337,37 @@ public class PantallaMantenimientoPermisosPorObjeto extends DialogSupport {
 	
 	 @Override
 	 protected void initEvents() {
-		 PantallaMantenimientoPermisosPorObjetoListener actioListener = new PantallaMantenimientoPermisosPorObjetoListener(this);
-		 
+		 PantallaMantenimientoPermisosPorObjetoListener actionListener = new PantallaMantenimientoPermisosPorObjetoListener(this);
+		 MantenimientoPermisosPorObjetoTipoObjetoItemListener cmbTipoObjetoListener = new MantenimientoPermisosPorObjetoTipoObjetoItemListener(this);
+		 MantenimientoPermisosPorObjetoPermisoSinonimoItemListener cmbPermisoSinonimoListener = new MantenimientoPermisosPorObjetoPermisoSinonimoItemListener(this);
+
 		 btnGuardar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_PERMISOS_POR_OBJETO_GUARDAR);
 		 btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_PERMISOS_POR_OBJETO_CANCELAR);
 		 
-		 btnGuardar.addActionListener(actioListener);
-		 btnCancelar.addActionListener(actioListener);
+		 btnGuardar.addActionListener(actionListener);
+		 btnCancelar.addActionListener(actionListener);
+
+		 cmbTipoObjeto.addItemListener(cmbTipoObjetoListener);
+		 cmbPermisoSinonimo.addItemListener(cmbPermisoSinonimoListener);
+
+		 this.addOnLoadListener(actionListener);
 	 }
 	 
 	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
-		 
+		 SiNoComboBoxModel siNoComboBoxModel = new SiNoComboBoxModel();
+		 PermisoSinonimoComboBoxModel permisoSinonimoComboBoxModel = new PermisoSinonimoComboBoxModel();
+		 VigenteHistoricoComboBoxModel vigenteHistoricoComboBoxModel = new VigenteHistoricoComboBoxModel();
+
+		 cmbWithGrantOpcion.setModel(siNoComboBoxModel);
+		 cmbWithGrantOpcion.setRenderer(new CmbStringRenderer());
+		 cmbPermisoSinonimo.setModel(permisoSinonimoComboBoxModel);
+		 cmbPermisoSinonimo.setRenderer(new CmbStringRenderer());
+		 cmbIncluirPDC.setModel(siNoComboBoxModel);
+		 cmbIncluirPDC.setRenderer(new CmbStringRenderer());
+		 cmbEntorno.setModel(vigenteHistoricoComboBoxModel);
+		 cmbEntorno.setRenderer(new CmbStringRenderer());
 	 }
 	 
 	 @Override
@@ -353,25 +377,25 @@ public class PantallaMantenimientoPermisosPorObjeto extends DialogSupport {
 	 
 	 @Override
 	 protected void setupLiterals() {
-		 setTitle(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.title"));
+		 setTitle(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.titulo"));
 
-		 jLabel1.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label1"));
-		 jLabel2.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label2"));
-		 jLabel3.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label3"));
+		 jLabel1.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel1"));
+		 jLabel2.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel2"));
+		 jLabel3.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel3"));
 		 btnGuardar.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.btnGuardar"));
 		 btnCancelar.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.btnCancelar"));
-		 jLabel15.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label15"));
-		 jLabel16.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label16"));
-		 jLabel17.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label17"));
-		 jLabel18.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label18"));
-		 jLabel19.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label19"));
-		 jLabel20.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label20"));
-		 jLabel21.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label21"));
-		 jLabel22.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label22"));
-		 jLabel23.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label23"));
-		 jLabel24.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label24"));
-		 jLabel25.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label25"));
-		 jLabel4.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.label4"));
+		 jLabel15.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel15"));
+		 jLabel16.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel16"));
+		 jLabel17.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel17"));
+		 jLabel18.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel18"));
+		 jLabel19.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel19"));
+		 jLabel20.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel20"));
+		 jLabel21.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel21"));
+		 jLabel22.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel22"));
+		 jLabel23.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel23"));
+		 jLabel24.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel24"));
+		 jLabel25.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel25"));
+		 jLabel4.setText(literales.getLiteral("PantallaMantenimientoPermisosPorObjeto.jLabel4"));
 	 }
 	 
 	/**

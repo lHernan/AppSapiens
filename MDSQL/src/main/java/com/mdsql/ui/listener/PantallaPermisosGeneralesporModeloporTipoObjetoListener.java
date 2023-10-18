@@ -2,7 +2,6 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,6 @@ import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.utils.AppHelper;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends ListenerSupport implements ActionListener, OnLoadListener {
 	private PantallaPermisosGeneralesporModeloporTipoObjeto pantallaPermisosGeneralesporModeloporTipoObjeto;
@@ -168,7 +166,7 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 
 		List<Sinonimo> sinonimosGenerales = permisosService.consultaSinonimosGenerales(modelo);
 		if (CollectionUtils.isNotEmpty(sinonimosGenerales)) {
-			fillSinonimosGenerales(sinonimosGenerales);
+			fillSinonimos(sinonimosGenerales);
 		}
 	}
 
@@ -177,22 +175,22 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 
 		List<Permiso> permisosGenerales = permisosService.consultaPermisosGenerales(modelo);
 		if (CollectionUtils.isNotEmpty(permisosGenerales)) {
-			fillPermisosGenerales(permisosGenerales);
+			fillPermisos(permisosGenerales);
 		}
 	}
 
-	private void fillPermisosGenerales(List<Permiso> permisosGenerales) throws ServiceException {
+	private void fillPermisos(List<Permiso> permisosGenerales) throws ServiceException {
 		// Obtiene el modelo y lo actualiza
-		PermisosGeneralesTableModel tableModel = (PermisosGeneralesTableModel) pantallaPermisosGeneralesporModeloporTipoObjeto
+		PermisosTableModel tableModel = (PermisosTableModel) pantallaPermisosGeneralesporModeloporTipoObjeto
 				.getTblPermisos().getModel();
 		tableModel.clearData();
 
 		tableModel.setData(permisosGenerales);
 	}
 
-	private void fillSinonimosGenerales(List<Sinonimo> sinonimosGenerales) throws ServiceException {
+	private void fillSinonimos(List<Sinonimo> sinonimosGenerales) throws ServiceException {
 		// Obtiene el modelo y lo actualiza
-		SinonimosGeneralesTableModel tableModel = (SinonimosGeneralesTableModel) pantallaPermisosGeneralesporModeloporTipoObjeto
+		SinonimosTableModel tableModel = (SinonimosTableModel) pantallaPermisosGeneralesporModeloporTipoObjeto
 				.getTblSinonimos().getModel();
 		tableModel.clearData();
 
