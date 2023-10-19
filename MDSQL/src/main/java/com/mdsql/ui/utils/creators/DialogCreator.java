@@ -2,26 +2,7 @@ package com.mdsql.ui.utils.creators;
 
 import java.util.Map;
 
-import com.mdsql.ui.DlgErrores;
-import com.mdsql.ui.DlgExcepcion;
-import com.mdsql.ui.DlgRechazar;
-import com.mdsql.ui.PantallaAjustarLogEjecucion;
-import com.mdsql.ui.PantallaBuscadorFicheros;
-import com.mdsql.ui.PantallaConsultaPeticiones;
-import com.mdsql.ui.PantallaDescartarScript;
-import com.mdsql.ui.PantallaDetalleScript;
-import com.mdsql.ui.PantallaEjecutarScripts;
-import com.mdsql.ui.PantallaEjecutarTypes;
-import com.mdsql.ui.PantallaHistoricoCambios;
-import com.mdsql.ui.PantallaInformacionModelo;
-import com.mdsql.ui.PantallaProcesadoEnCurso;
-import com.mdsql.ui.PantallaProcesarScript;
-import com.mdsql.ui.PantallaRepararScript;
-import com.mdsql.ui.PantallaResumenProcesado;
-import com.mdsql.ui.PantallaSeleccionHistorico;
-import com.mdsql.ui.PantallaSeleccionModelos;
-import com.mdsql.ui.PantallaVerCuadresScript;
-import com.mdsql.ui.PantallaVerErroresScript;
+import com.mdsql.ui.*;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
@@ -145,6 +126,14 @@ public class DialogCreator extends Creator {
 		
 		if (MDSQLConstants.MNU_CONSULTA_PETICIONES.equals(option)) {
 			dialog = new PantallaConsultaPeticiones(frameParent, modal, params);
+		}
+
+		if (MDSQLConstants.CMD_PERMISOS_GENERALES.equals(option)) {
+			dialog = new PantallaPermisosGeneralesporModeloporTipoObjeto(frameParent, modal, params);
+		}
+
+		if (MDSQLConstants.CMD_PERMISOS_OBJETO.equals(option)) {
+			dialog = new PantallaDetallePermisosPorObjeto(frameParent, modal, params);
 		}
 		
 		return dialog;

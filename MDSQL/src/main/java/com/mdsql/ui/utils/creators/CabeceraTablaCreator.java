@@ -2,7 +2,6 @@ package com.mdsql.ui.utils.creators;
 
 import java.util.Map;
 
-import com.mdsql.ui.model.PermisosGeneralesTableModel;
 import com.mdsql.ui.model.cabeceras.*;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;

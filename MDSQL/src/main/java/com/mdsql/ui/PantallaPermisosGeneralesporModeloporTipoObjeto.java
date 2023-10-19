@@ -5,18 +5,17 @@
  */
 package com.mdsql.ui;
 
-import java.util.ArrayList;
 import java.util.Map;
-
-import javax.swing.JButton;
+import java.util.Objects;
 
 import com.mdsql.bussiness.entities.Grant;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Propietario;
 import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoListener;
+import com.mdsql.ui.listener.combo.PermisosGeneralesPermisoSinonimoItemListener;
 import com.mdsql.ui.listener.combo.PermisosGeneralesTipoObjetoItemListener;
 import com.mdsql.ui.model.*;
-import com.mdsql.ui.renderer.NivelAvisosTableCellRenderer;
+import com.mdsql.ui.renderer.CmbStringRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -378,7 +377,8 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	 @Override
 	 protected void initEvents() {
 		 PantallaPermisosGeneralesporModeloporTipoObjetoListener actionListener = new PantallaPermisosGeneralesporModeloporTipoObjetoListener(this);
-		 PermisosGeneralesTipoObjetoItemListener cmbListener = new PermisosGeneralesTipoObjetoItemListener(this);
+		 PermisosGeneralesTipoObjetoItemListener cmbTipoObjetoListener = new PermisosGeneralesTipoObjetoItemListener(this);
+		 PermisosGeneralesPermisoSinonimoItemListener cmbPermisoSinonimoListener = new PermisosGeneralesPermisoSinonimoItemListener(this);
 
 		 btnGuardar.setActionCommand(MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_GUARDAR);
 		 btnInforme.setActionCommand(MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_INFORME);
@@ -388,7 +388,8 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 btnInforme.addActionListener(actionListener);
 		 btnCancelar.addActionListener(actionListener);
 
-		 cmbTipoObjeto.addItemListener(cmbListener);
+		 cmbTipoObjeto.addItemListener(cmbTipoObjetoListener);
+		 cmbPermisoSinonimo.addItemListener(cmbPermisoSinonimoListener);
 
 		 this.addOnLoadListener(actionListener);
 	 }
@@ -401,17 +402,21 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 VigenteHistoricoComboBoxModel vigenteHistoricoComboBoxModel = new VigenteHistoricoComboBoxModel();
 
 		 cmbWithGrantOpcion.setModel(siNoComboBoxModel);
+		 cmbWithGrantOpcion.setRenderer(new CmbStringRenderer());
 		 cmbPermisoSinonimo.setModel(permisoSinonimoComboBoxModel);
+		 cmbPermisoSinonimo.setRenderer(new CmbStringRenderer());
 		 cmbIncluirPDC.setModel(siNoComboBoxModel);
+		 cmbIncluirPDC.setRenderer(new CmbStringRenderer());
 		 cmbEntorno.setModel(vigenteHistoricoComboBoxModel);
+		 cmbEntorno.setRenderer(new CmbStringRenderer());
 
 		 Cabecera cabeceraPermisos = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.PERMISOS_GENERALES_TABLA_CABECERA);
 		 tblPermisos.initModel(
-				 new ProcesarScriptNotaTableModel(cabeceraPermisos));
+				 new PermisosTableModel(cabeceraPermisos));
 
 		 Cabecera cabeceraSinonimos = MDSQLUIHelper
 				 .createCabeceraTabla(MDSQLConstants.SINONIMOS_GENERALES_TABLA_CABECERA);
-		 tblSinonimos.initModel(new ProcesarScriptUltimasPeticionesTableModel(cabeceraSinonimos));
+		 tblSinonimos.initModel(new SinonimosTableModel(cabeceraSinonimos));
 	 }
 	 
 	 @Override
@@ -422,33 +427,39 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 txtFechaAlta.setEditable(Boolean.FALSE);
 		 txtUsuarioModificacion.setEditable(Boolean.FALSE);
 		 txtFechaModificacion.setEditable(Boolean.FALSE);
+		 cmbPermisoSinonimo.setSelectedItem(null);
+
+		 if (!Objects.isNull(modelo)) {
+			 txtModeloProyecto.setText(modelo.getCodigoProyecto());
+			 txtModelo1.setText(modelo.getNombreModelo());
+		 }
 	 }
 	 
 	 @Override
 	 protected void setupLiterals() {
-		 setTitle(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.title"));
+		 setTitle(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.titulo"));
 
-		 jLabel1.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label1"));
-		 jLabel2.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label2"));
-		 jLabel3.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label3"));
-		 jLabel6.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label6"));
+		 jLabel1.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel1"));
+		 jLabel2.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel2"));
+		 jLabel3.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel3"));
+		 jLabel6.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel6"));
 		 btnGuardar.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.guardar"));
-		 jLabel11.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label11"));
-		 jLabel12.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label12"));
+		 jLabel11.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel11"));
+		 jLabel12.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel12"));
 		 btnInforme.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.informe"));
 		 btnCancelar.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.cancelar"));
-		 jLabel15.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label15"));
-		 jLabel16.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label16"));
-		 jLabel17.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label17"));
-		 jLabel18.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label18"));
-		 jLabel19.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label19"));
-		 jLabel20.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label20"));
-		 jLabel21.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label21"));
-		 jLabel22.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label22"));
-		 jLabel23.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label23"));
-		 jLabel24.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label24"));
-		 jLabel25.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label25"));
-		 jLabel27.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.label27"));
+		 jLabel15.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel15"));
+		 jLabel16.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel16"));
+		 jLabel17.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel17"));
+		 jLabel18.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel18"));
+		 jLabel19.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel19"));
+		 jLabel20.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel20"));
+		 jLabel21.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel21"));
+		 jLabel22.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel22"));
+		 jLabel23.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel23"));
+		 jLabel24.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel24"));
+		 jLabel25.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel25"));
+		 jLabel27.setText(literales.getLiteral("PantallaPermisosGeneralesporModeloporTipoObjeto.jLabel27"));
 	 
 	 }
 	 
