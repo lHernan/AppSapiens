@@ -43,13 +43,25 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		JMenuItem item = (JMenuItem) e.getSource();
 		String actionCommand = item.getActionCommand();
 
-		if ("PERMISOS_GENERALES".equals(actionCommand)) {
+		if (MDSQLConstants.MNU_PERMISOS_GENERALES.equals(actionCommand)) {
 			evtPermisosGenerales();
 		}
 
-		if ("PERMISOS_OBJETO".equals(actionCommand)) {
+		if (MDSQLConstants.MNU_CONSULTA_PERMISOS.equals(actionCommand)) {
 			evtPermisosObjeto();
 		}
+
+		if (MDSQLConstants.MNU_MANTENIMIENTO_HISTORICO.equals(actionCommand)) {
+			evtMntoHistorico();
+		}
+	}
+
+	private void evtMntoHistorico() {
+		Map<String, Object> params = new HashMap<>();
+
+		PantallaMantenimientoHistorico pantallaMantenimientoHistorico = (PantallaMantenimientoHistorico) MDSQLUIHelper.createDialog(framePrincipal,
+				MDSQLConstants.CMD_MNTO_HISTORICO, params);
+		MDSQLUIHelper.show(pantallaMantenimientoHistorico);
 	}
 
 	/**

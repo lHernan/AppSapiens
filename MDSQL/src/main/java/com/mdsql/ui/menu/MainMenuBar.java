@@ -40,7 +40,7 @@ public class MainMenuBar extends MenuSupport {
     private JMenuItem mnuConsultaHistoricoCambios;
     private JMenuItem mnuConsultaPeticiones;
     private JMenu mnuScriptInicial;
-    private JMenu mnuMantenimientoHistorico;
+    private JMenuItem mnuMantenimientoHistorico;
     
     private JMenuItem mnuPermisosGenerales;
     private JMenu mnuPermisosPersonalizados;
@@ -119,7 +119,7 @@ public class MainMenuBar extends MenuSupport {
         mnuConfiguracionEntornosPrueba.setActionCommand(MDSQLConstants.MNU_CONFIGURACION_ENTORNOS_PRUEBA); // NOI18N
         mnuScriptInicial.add(mnuConfiguracionEntornosPrueba);
         
-        mnuMantenimientoHistorico = new JMenu();
+        mnuMantenimientoHistorico = new JMenuItem();
         mnuMantenimientoHistorico.setActionCommand(MDSQLConstants.MNU_MANTENIMIENTO_HISTORICO); // NOI18N
 
         add(mnuPermisos);
@@ -164,11 +164,9 @@ public class MainMenuBar extends MenuSupport {
 		ActionListener menuActionListener = new MenuListener(frameParent);
         ActionListener menuMantenimientoActionListener = new MenuMantenimientoActionListener(frameParent);
 
-        mnuPermisosGenerales.setActionCommand("PERMISOS_GENERALES");
-		mnuPermisosGenerales.addActionListener(menuMantenimientoActionListener);
+        mnuPermisosGenerales.addActionListener(menuMantenimientoActionListener);
 
-        mnuConsultaPermisos.setActionCommand("PERMISOS_OBJETO");
-		mnuConsultaPermisos.addActionListener(menuMantenimientoActionListener);
+        mnuConsultaPermisos.addActionListener(menuMantenimientoActionListener);
 		mnuMantenimientoPermisos.addActionListener(menuActionListener);
 		mnuGenerarPermisos.addActionListener(menuActionListener);
         
@@ -181,7 +179,7 @@ public class MainMenuBar extends MenuSupport {
         mnuMantenimientoEntornosPruebas.addActionListener(menuActionListener);
         mnuEjecucionScriptInicial.addActionListener(menuActionListener);
         mnuConfiguracionEntornosPrueba.addActionListener(menuActionListener);
-        
-        mnuMantenimientoHistorico.addActionListener(menuActionListener);
+
+        mnuMantenimientoHistorico.addActionListener(menuMantenimientoActionListener);
 	}
 }

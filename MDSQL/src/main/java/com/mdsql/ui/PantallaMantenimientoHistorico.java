@@ -7,13 +7,23 @@ package com.mdsql.ui;
 
 import java.util.Map;
 
+import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaMantenimientoHistoricoListener;
 import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoListener;
+import com.mdsql.ui.model.HistoricoTableModel;
+import com.mdsql.ui.model.PermisosTableModel;
+import com.mdsql.ui.model.SinonimosTableModel;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
+import com.mdval.ui.utils.TableSupport;
 import lombok.Getter;
+import lombok.Setter;
+
+import javax.swing.*;
 
 /**
  *
@@ -30,10 +40,10 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
     private javax.swing.JScrollPane jScrollPane1;
     
     @Getter
-    private javax.swing.JTable tblMantenimientoHistorico;
+    private TableSupport tblMantenimientoHistorico;
     
     @Getter
-    private javax.swing.JTextField txtPeticion;
+    private javax.swing.JTextField txtModelo;
     
     @Getter
     private javax.swing.JButton btnAlta;
@@ -56,6 +66,10 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
     @Getter
     private javax.swing.JComboBox<String> cmbTipoObjeto;
     // End of variables declaration//GEN-END:variables
+
+	@Getter
+	@Setter
+	private Modelo modeloSeleccionado;
 	
     public PantallaMantenimientoHistorico(FrameSupport parent, Boolean modal) {
 		 super(parent, modal);
@@ -68,7 +82,7 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	 @Override
 	 protected void setupComponents() {
 		 	jLabel3 = new javax.swing.JLabel();
-	        txtPeticion = new javax.swing.JTextField();
+		 	txtModelo = new javax.swing.JTextField();
 	        btnInforme = new javax.swing.JButton();
 	        btnCancelar = new javax.swing.JButton();
 	        jLabel14 = new javax.swing.JLabel();
@@ -79,7 +93,7 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	        btnAlta = new javax.swing.JButton();
 	        btnBaja = new javax.swing.JButton();
 	        jScrollPane1 = new javax.swing.JScrollPane();
-	        tblMantenimientoHistorico = new javax.swing.JTable();
+	        tblMantenimientoHistorico = new TableSupport();
 	        
 	        setBounds(1366, 768);
 	        
@@ -95,7 +109,7 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	                        .addGap(153, 153, 153)
 	                        .addComponent(jLabel3)
 	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	                        .addComponent(txtPeticion, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	                        .addComponent(btnBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                        .addGap(73, 73, 73)
@@ -134,7 +148,7 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	                        .addComponent(jLabel15)
 	                        .addGap(4, 4, 4))
 	                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-	                        .addComponent(txtPeticion, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                        .addComponent(jLabel3)
 	                        .addComponent(btnBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
 	                .addGap(32, 32, 32)
@@ -174,7 +188,9 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
-		 
+		 Cabecera cabeceraHistorico = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.MNTO_HISTORICO_TABLA_CABECERA);
+		 tblMantenimientoHistorico.initModel(
+				 new HistoricoTableModel(cabeceraHistorico));
 	 }
 	 
 	 @Override
@@ -186,13 +202,16 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	 protected void setupLiterals() {
 		 setTitle(literales.getLiteral("PantallaMantenimientoHistorico.titulo"));
 
-		 jLabel3.setText(literales.getLiteral("PantallaMantenimientoHistorico.titulo.jLabel3"));
-		 btnInforme.setText(literales.getLiteral("PantallaMantenimientoHistorico.titulo.btnInforme"));
-		 btnCancelar.setText(literales.getLiteral("PantallaMantenimientoHistorico.titulo.btnCancelar"));
-		 jLabel15.setText(literales.getLiteral("PantallaMantenimientoHistorico.titulo.jLabel15"));
-		 btnBuscar.setText(literales.getLiteral("PantallaMantenimientoHistorico.titulo.btnBuscar"));
-		 btnAlta.setText(literales.getLiteral("PantallaMantenimientoHistorico.titulo.btnAlta"));
-		 btnBaja.setText(literales.getLiteral("PantallaMantenimientoHistorico.titulo.btnBaja"));
+		 jLabel3.setText(literales.getLiteral("PantallaMantenimientoHistorico.jLabel3"));
+		 btnBuscar.setText(literales.getLiteral("PantallaMantenimientoHistorico.btnBuscar"));
+		 btnInforme.setText(literales.getLiteral("PantallaMantenimientoHistorico.btnInforme"));
+		 btnCancelar.setText(literales.getLiteral("PantallaMantenimientoHistorico.btnCancelar"));
+		 jLabel15.setText(literales.getLiteral("PantallaMantenimientoHistorico.jLabel15"));
+		 btnAlta.setText(literales.getLiteral("PantallaMantenimientoHistorico.btnAlta"));
+		 btnBaja.setText(literales.getLiteral("PantallaMantenimientoHistorico.btnBaja"));
+
+		 btnBuscarModelo.setIcon(new ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
+
 	 }
 	
 	 /**

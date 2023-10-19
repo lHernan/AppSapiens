@@ -108,6 +108,10 @@ public class CabeceraTablaCreator extends Creator {
 		if (MDSQLConstants.SINONIMOS_GENERALES_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaSinonimosCabecera();
 		}
+
+		if (MDSQLConstants.MNTO_HISTORICO_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaHistoricoCabecera();
+		}
 		
 		return cabecera;
 	}
