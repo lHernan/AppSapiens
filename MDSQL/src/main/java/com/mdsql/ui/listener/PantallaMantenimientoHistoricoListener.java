@@ -154,5 +154,6 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 		tableModel.clearData();
 
 		tableModel.setData(list);
+		pantallaMantenimientoHistorico.getBtnBaja().setEnabled(Boolean.FALSE);
 	}
 }
