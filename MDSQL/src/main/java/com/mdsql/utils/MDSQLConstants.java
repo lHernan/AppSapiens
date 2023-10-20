@@ -46,7 +46,7 @@ public class MDSQLConstants extends Constants {
 	public static final String TOKEN = "TOKEN";
 	public static final String PROCESADO_EN_CURSO = "PROCESADO_EN_CURSO";
 
-    public static enum Results {
+	public static enum Results {
 		ERROR(0, "ERROR"), OK(1, "OK"), WARN(2, "WARN");
 		
 		@Getter
@@ -403,6 +403,10 @@ public class MDSQLConstants extends Constants {
 	public static final String CMD_MNTO_PERMISOS_OBJETO = "CMD_MNTO_PERMISOS_OBJETO";
 
 	public static final String CMD_MNTO_HISTORICO = "CMD_MNTO_HISTORICO";
+
+	public static final String CMD_HISTORICO_BAJA = "CMD_HISTORICO_BAJA";
+
+	public static final String CMD_HISTORICO_ALTA = "CMD_HISTORICO_ALTA";
 
 	/**
 	 * Panel principal
@@ -779,4 +783,10 @@ public class MDSQLConstants extends Constants {
 	
 	public static final String PANTALLA_CONFIRMACION_GENERACION_PERMISOS_ACEPTAR = "PANTALLA_CONFIRMACION_GENERACION_PERMISOS_ACEPTAR";
 	public static final String PANTALLA_CONFIRMACION_GENERACION_PERMISOS_CANCELAR = "PANTALLA_CONFIRMACION_GENERACION_PERMISOS_CANCELAR";
+
+	public static final String PANTALLA_HISTORICO_BAJA_BTN_ACEPTAR = "PANTALLA_HISTORICO_BAJA_BTN_ACEPTAR";
+	public static final String PANTALLA_HISTORICO_BAJA_BTN_CANCELAR = "PANTALLA_HISTORICO_BAJA_BTN_CANCELAR";
+
+	public static final String PANTALLA_HISTORICO_ALTA_BTN_ACEPTAR = "PANTALLA_HISTORICO_ALTA_BTN_ACEPTAR";
+	public static final String PANTALLA_HISTORICO_ALTA_BTN_CANCELAR = "PANTALLA_HISTORICO_ALTA_BTN_CANCELAR";
 }

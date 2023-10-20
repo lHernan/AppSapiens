@@ -6,13 +6,11 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import javax.sql.DataSource;
 
+import com.mdsql.bussiness.entities.Historico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -130,5 +128,10 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
             LogWrapper.error(log, "[HistoricoService.consultarHistoricoProceso] Error:  %s", e.getMessage());
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public List<Historico> consultarHistorico(String codigoProyecto, String tipoObjeto) throws ServiceException {
+        return Collections.emptyList();
     }
 }

@@ -7,9 +7,12 @@ package com.mdsql.ui;
 
 import java.util.Map;
 
+import com.mdsql.bussiness.entities.Historico;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaMantenimientoHistoricoListener;
 import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoListener;
+import com.mdsql.ui.listener.tables.HistoricoTableListener;
+import com.mdsql.ui.listener.tables.PermisosTableListener;
 import com.mdsql.ui.model.HistoricoTableModel;
 import com.mdsql.ui.model.PermisosTableModel;
 import com.mdsql.ui.model.SinonimosTableModel;
@@ -24,6 +27,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -70,6 +74,10 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	@Getter
 	@Setter
 	private Modelo modeloSeleccionado;
+
+	@Getter
+	@Setter
+	private Historico seleccionado;
 	
     public PantallaMantenimientoHistorico(FrameSupport parent, Boolean modal) {
 		 super(parent, modal);
@@ -168,7 +176,8 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	
 	 @Override
 	 protected void initEvents() {
-		 PantallaMantenimientoHistoricoListener actioListener = new PantallaMantenimientoHistoricoListener(this);
+		 PantallaMantenimientoHistoricoListener actionListener = new PantallaMantenimientoHistoricoListener(this);
+		 ListSelectionListener listSelectionListener = new HistoricoTableListener(this);
 		 
 		 btnBuscarModelo.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_HISTORICO_BUSCAR_MODELO);
 		 btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_HISTORICO_BUSCAR);
@@ -177,12 +186,17 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 		 btnInforme.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_HISTORICO_INFORME);
 		 btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_HISTORICO_CANCELAR);
 		 
-		 btnBuscarModelo.addActionListener(actioListener);
-		 btnBuscar.addActionListener(actioListener);
-		 btnAlta.addActionListener(actioListener);
-		 btnBaja.addActionListener(actioListener);
-		 btnInforme.addActionListener(actioListener);
-		 btnCancelar.addActionListener(actioListener);
+		 btnBuscarModelo.addActionListener(actionListener);
+		 btnBuscar.addActionListener(actionListener);
+		 btnAlta.addActionListener(actionListener);
+		 btnBaja.addActionListener(actionListener);
+		 btnInforme.addActionListener(actionListener);
+		 btnCancelar.addActionListener(actionListener);
+
+		 ListSelectionModel rowPM = tblMantenimientoHistorico.getSelectionModel();
+		 rowPM.addListSelectionListener(listSelectionListener);
+
+		 this.addOnLoadListener(actionListener);
 	 }
 	
 	 @SuppressWarnings("unchecked")
@@ -195,7 +209,7 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	 
 	 @Override
 	 protected void initialState() {
-		 
+		btnBaja.setEnabled(Boolean.FALSE);
 	 }
 	 
 	 @Override

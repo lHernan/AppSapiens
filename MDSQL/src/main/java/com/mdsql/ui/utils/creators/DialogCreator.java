@@ -144,6 +144,14 @@ public class DialogCreator extends Creator {
 			dialog = new PantallaMantenimientoHistorico(frameParent, modal, params);
 		}
 
+		if (MDSQLConstants.CMD_HISTORICO_BAJA.equals(option)) {
+			dialog = new PantallaHistoricoBaja(frameParent, modal, params);
+		}
+
+		if (MDSQLConstants.CMD_HISTORICO_ALTA.equals(option)) {
+			dialog = new PantallaHistoricoAlta(frameParent, modal, params);
+		}
+
 		return dialog;
 	}
 }
