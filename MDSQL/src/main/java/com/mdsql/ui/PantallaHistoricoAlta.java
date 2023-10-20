@@ -157,9 +157,11 @@ public class PantallaHistoricoAlta extends DialogSupport {
 
 		btnAceptar.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_ALTA_BTN_ACEPTAR);
 		btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_ALTA_BTN_CANCELAR);
+		jButton1.setActionCommand(MDSQLConstants.PANTALLA_HISTORICO_ALTA_BUSCAR_MODELO);
 
 		btnAceptar.addActionListener(pantallaHistoricoAltaListener);
 		btnCancelar.addActionListener(pantallaHistoricoAltaListener);
+		jButton1.addActionListener(pantallaHistoricoAltaListener);
 
 		this.addOnLoadListener(pantallaHistoricoAltaListener);
 	}
