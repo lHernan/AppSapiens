@@ -2,21 +2,29 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.Provider;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import javax.swing.JButton;
 
+import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.NivelImportancia;
+import com.mdsql.bussiness.service.AvisoService;
+import com.mdsql.bussiness.service.HistoricoService;
+import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.ui.PantallaMantenimientoNotasModelos;
 import com.mdsql.ui.PantallaSeleccionModelos;
-import com.mdsql.ui.model.HistoricoTableModel;
-import com.mdsql.ui.model.NotasModeloTableModel;
+import com.mdsql.ui.model.*;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public class PantallaMantenimientoNotasModelosListener extends ListenerSupport implements ActionListener {
@@ -67,11 +75,46 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 	}
 
 	private void cargarModelo(Modelo modeloSeleccionado) {
-		clearForm();
-		clearList();
+		try {
+			clearForm();
+			clearList();
 
-		if (!Objects.isNull(modeloSeleccionado)) {
-			pantallaMantenimientoNotasModelos.getBtnGuardar().setEnabled(Boolean.TRUE);
+			if (!Objects.isNull(modeloSeleccionado)) {
+				pantallaMantenimientoNotasModelos.getTxtCodigoProyecto().setText(modeloSeleccionado.getCodigoProyecto());
+				pantallaMantenimientoNotasModelos.getTxtModeloProyecto().setText(modeloSeleccionado.getNombreModelo());
+
+				cargarNivelesImportancia();
+				cargarAvisosModelo(modeloSeleccionado);
+
+				pantallaMantenimientoNotasModelos.getBtnGuardar().setEnabled(Boolean.TRUE);
+			}
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaMantenimientoNotasModelos.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+		}
+	}
+
+	private void cargarAvisosModelo(Modelo modeloSeleccionado) throws ServiceException {
+		// Limpiar la tabla de avisos
+		NotasModeloTableModel tableModel = (NotasModeloTableModel) pantallaMantenimientoNotasModelos.getTblNotasModelos().getModel();
+		tableModel.clearData();
+
+		// Hacer la consulta
+		AvisoService avisoService = (AvisoService) getService(MDSQLConstants.AVISO_SERVICE);
+		List<Aviso> avisos = avisoService.consultaAvisosModelo(modeloSeleccionado.getCodigoProyecto());
+
+		if (CollectionUtils.isNotEmpty(avisos)) {
+			tableModel.setData(avisos);
+		}
+	}
+
+	private void cargarNivelesImportancia() throws ServiceException {
+		AvisoService avisoService = (AvisoService) getService(MDSQLConstants.AVISO_SERVICE);
+
+		List<NivelImportancia> niveles = avisoService.consultaNivelesImportancia();
+		if (CollectionUtils.isNotEmpty(niveles)) {
+			NivelesImportanciaComboBoxModel nivelesImportanciaComboBoxModel = new NivelesImportanciaComboBoxModel(niveles);
+			pantallaMantenimientoNotasModelos.getCmbImportancia().setModel(nivelesImportanciaComboBoxModel);
 		}
 	}
 

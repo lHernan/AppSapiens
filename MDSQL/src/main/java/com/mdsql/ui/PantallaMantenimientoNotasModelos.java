@@ -7,9 +7,14 @@ package com.mdsql.ui;
 
 import java.util.Map;
 
+import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.NivelImportancia;
 import com.mdsql.ui.listener.PantallaMantenimientoNotasModelosListener;
+import com.mdsql.ui.listener.tables.HistoricoTableListener;
+import com.mdsql.ui.listener.tables.NotasModeloTableListener;
 import com.mdsql.ui.model.NotasModeloTableModel;
+import com.mdsql.ui.renderer.NivelImportanciaRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -19,6 +24,9 @@ import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -85,12 +93,16 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
     private javax.swing.JCheckBox chkHabilitada;
     
     @Getter
-    private javax.swing.JComboBox<String> cmbImportancia;
+    private javax.swing.JComboBox<NivelImportancia> cmbImportancia;
     // End of variables declaration//GEN-END:variables
 
 	@Getter
 	@Setter
 	private Modelo modeloSeleccionado;
+
+	@Getter
+	@Setter
+	private Aviso avisoSeleccionado;
     
     public PantallaMantenimientoNotasModelos(FrameSupport parent, Boolean modal) {
 		 super(parent, modal);
@@ -257,7 +269,8 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
 	 @Override
 	 protected void initEvents() {
 		 PantallaMantenimientoNotasModelosListener actionListener = new PantallaMantenimientoNotasModelosListener(this);
-		 
+		 ListSelectionListener listSelectionListener = new NotasModeloTableListener(this);
+
 		 btnGuardar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_NOTAS_MODELOS_GUARDAR);
 		 btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_NOTAS_MODELOS_CANCELAR);
 		 btnBuscarModelo.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_NOTAS_MODELOS_BUSCAR_MODELO);
@@ -265,11 +278,16 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
 		 btnGuardar.addActionListener(actionListener);
 		 btnCancelar.addActionListener(actionListener);
 		 btnBuscarModelo.addActionListener(actionListener);
+
+		 ListSelectionModel rowPM = tblNotasModelos.getSelectionModel();
+		 rowPM.addListSelectionListener(listSelectionListener);
 	 }
     
 	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
+		cmbImportancia.setRenderer(new NivelImportanciaRenderer());
+
 		 Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.NOTAS_MODELO_TABLA_CABECERA);
 		 tblNotasModelos.initModel(
 				 new NotasModeloTableModel(cabecera));

@@ -1,0 +1,54 @@
+package com.mdsql.ui.model;
+
+import com.mdsql.bussiness.entities.NivelImportancia;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author federico
+ *
+ */
+public class NivelesImportanciaComboBoxModel extends AbstractListModel<NivelImportancia> implements ComboBoxModel<NivelImportancia> {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -3700195174395455435L;
+
+	private List<NivelImportancia> lista;
+
+	private String selection = null;
+
+	public NivelesImportanciaComboBoxModel() {
+		super();
+		lista = new ArrayList<>();
+	}
+
+	public NivelesImportanciaComboBoxModel(List<NivelImportancia> lista) {
+		super();
+		this.lista = lista;
+	}
+
+	@Override
+	public int getSize() {
+		return lista.size();
+	}
+
+	@Override
+	public NivelImportancia getElementAt(int index) {
+		return lista.get(index);
+	}
+
+	@Override
+	public void setSelectedItem(Object anItem) {
+		selection = (String) anItem;
+	}
+
+	@Override
+	public Object getSelectedItem() {
+		return selection;
+	}
+
+}

@@ -7,11 +7,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.mdsql.bussiness.entities.NivelImportancia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,8 +71,6 @@ public class AvisoServiceImpl extends ServiceSupport implements AvisoService {
                     Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
 
                     Aviso aviso = Aviso.builder()
-                            .codigoNivelAviso((BigDecimal) cols[0])
-                            .descripcionNivelAviso((String) cols[1])
                             .codigoAviso((BigDecimal) cols[2])
                             .descripcionAviso((String) cols[3])
                             .txtAviso((String) cols[4])
@@ -82,6 +82,12 @@ public class AvisoServiceImpl extends ServiceSupport implements AvisoService {
                             .codigoUsuario((String) cols[10])
                             .build();
 
+                    NivelImportancia nivelImportancia = NivelImportancia.builder()
+                            .codigoNivelAviso((BigDecimal) cols[0])
+                            .descripcionNivelAviso((String) cols[1])
+                            .build();
+                    aviso.setNivelImportancia(nivelImportancia);
+
                     avisos.add(aviso);
                 }
             }
@@ -90,6 +96,11 @@ public class AvisoServiceImpl extends ServiceSupport implements AvisoService {
             LogWrapper.error(log, "[AvisoService.consultaAvisosModelo] Error:  %s", e.getMessage());
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public List<NivelImportancia> consultaNivelesImportancia() throws ServiceException {
+        return Collections.emptyList();
     }
 
 }
