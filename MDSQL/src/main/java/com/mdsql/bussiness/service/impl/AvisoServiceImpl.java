@@ -103,4 +103,14 @@ public class AvisoServiceImpl extends ServiceSupport implements AvisoService {
         return Collections.emptyList();
     }
 
+    @Override
+    public void altaAviso(String codigoProyecto, String descripcionAviso, String txtAviso, String codNivelAviso, String codPeticion, String codUsr) throws ServiceException {
+
+    }
+
+    @Override
+    public void modificarAviso(String codigoProyecto, BigDecimal codigoAviso, String descripcionAviso, String txtAviso, String codNivelAviso, String mcaHabilitado, String codPeticion, String codUsr) throws ServiceException {
+
+    }
+
 }

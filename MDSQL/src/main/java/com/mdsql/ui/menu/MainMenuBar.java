@@ -170,7 +170,7 @@ public class MainMenuBar extends MenuSupport {
 		mnuMantenimientoPermisos.addActionListener(menuActionListener);
 		mnuGenerarPermisos.addActionListener(menuActionListener);
         
-		mnuItemEntornos.addActionListener(menuActionListener);
+		mnuItemEntornos.addActionListener(menuMantenimientoActionListener);
         mnuItemVariables.addActionListener(menuActionListener);
         mnuItemNotasModelos.addActionListener(menuMantenimientoActionListener);
         mnuConsultaHistoricoCambios.addActionListener(menuActionListener);
