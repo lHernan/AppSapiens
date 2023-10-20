@@ -34,7 +34,7 @@ public class MainMenuBar extends MenuSupport {
     private JMenuItem mnuItemVariables;
     private JMenu mnuEntornos;
     private JMenuItem mnuItemEntornos;
-    private JMenu mnuNotasModelos;
+    private JMenuItem mnuNotasModelos;
     private JMenuItem mnuItemNotasModelos;
     private JMenu mnuConsultas;
     private JMenuItem mnuConsultaHistoricoCambios;
@@ -172,7 +172,7 @@ public class MainMenuBar extends MenuSupport {
         
 		mnuItemEntornos.addActionListener(menuActionListener);
         mnuItemVariables.addActionListener(menuActionListener);
-        mnuItemNotasModelos.addActionListener(menuActionListener);
+        mnuItemNotasModelos.addActionListener(menuMantenimientoActionListener);
         mnuConsultaHistoricoCambios.addActionListener(menuActionListener);
         mnuConsultaPeticiones.addActionListener(menuActionListener);
         

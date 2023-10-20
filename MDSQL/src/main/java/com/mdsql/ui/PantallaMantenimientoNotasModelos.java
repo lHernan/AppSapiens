@@ -7,12 +7,18 @@ package com.mdsql.ui;
 
 import java.util.Map;
 
+import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaMantenimientoNotasModelosListener;
+import com.mdsql.ui.model.NotasModeloTableModel;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
+import com.mdval.ui.utils.TableSupport;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -37,7 +43,7 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
     private javax.swing.JScrollPane jScrollPane2;
     
     @Getter
-    private javax.swing.JTable tblMantenimientoHistorico;
+    private TableSupport tblNotasModelos;
     
     @Getter
     private javax.swing.JTextArea txtDescripcion;
@@ -52,7 +58,7 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
     private javax.swing.JTextField txtModeloProyecto;
     
     @Getter
-    private javax.swing.JTextField txtModeloProyecto1;
+    private javax.swing.JTextField txtCodigoProyecto;
     
     @Getter
     private javax.swing.JTextField txtPeticion;
@@ -81,6 +87,10 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
     @Getter
     private javax.swing.JComboBox<String> cmbImportancia;
     // End of variables declaration//GEN-END:variables
+
+	@Getter
+	@Setter
+	private Modelo modeloSeleccionado;
     
     public PantallaMantenimientoNotasModelos(FrameSupport parent, Boolean modal) {
 		 super(parent, modal);
@@ -101,11 +111,11 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
 	        btnBuscarModelo = new javax.swing.JButton();
 	        btnGuardar = new javax.swing.JButton();
 	        jScrollPane1 = new javax.swing.JScrollPane();
-	        tblMantenimientoHistorico = new javax.swing.JTable();
+		 	tblNotasModelos = new TableSupport();
 	        jLabel4 = new javax.swing.JLabel();
 	        txtPeticion = new javax.swing.JTextField();
 	        chkHabilitada = new javax.swing.JCheckBox();
-	        txtModeloProyecto1 = new javax.swing.JTextField();
+	        txtCodigoProyecto = new javax.swing.JTextField();
 	        jLabel5 = new javax.swing.JLabel();
 	        txtTitulo = new javax.swing.JTextField();
 	        jScrollPane2 = new javax.swing.JScrollPane();
@@ -122,7 +132,7 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
 	        
 	        setBounds(1366, 768);
 	        
-	        jScrollPane1.setViewportView(tblMantenimientoHistorico);
+	        jScrollPane1.setViewportView(tblNotasModelos);
 	        jScrollPane2.setViewportView(txtDescripcion);
 	        
 	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,7 +157,7 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
 	                    .addGroup(layout.createSequentialGroup()
 	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	                            .addGroup(layout.createSequentialGroup()
-	                                .addComponent(txtModeloProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                .addComponent(txtCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	                                .addComponent(btnBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                                .addGap(18, 18, 18)
@@ -207,7 +217,7 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
 	                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 	                        .addComponent(jLabel3)
 	                        .addComponent(btnBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                        .addComponent(txtModeloProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+	                        .addComponent(txtCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
 	                    .addComponent(txtModeloProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
 	                .addGap(30, 30, 30)
 	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -246,41 +256,55 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
     
 	 @Override
 	 protected void initEvents() {
-		 PantallaMantenimientoNotasModelosListener actioListener = new PantallaMantenimientoNotasModelosListener(this);
+		 PantallaMantenimientoNotasModelosListener actionListener = new PantallaMantenimientoNotasModelosListener(this);
 		 
 		 btnGuardar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_NOTAS_MODELOS_GUARDAR);
-		 btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_NOTAS_MODELOS_GUARDAR);
+		 btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_NOTAS_MODELOS_CANCELAR);
+		 btnBuscarModelo.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_NOTAS_MODELOS_BUSCAR_MODELO);
 		 
-		 btnGuardar.addActionListener(actioListener);
-		 btnCancelar.addActionListener(actioListener);
+		 btnGuardar.addActionListener(actionListener);
+		 btnCancelar.addActionListener(actionListener);
+		 btnBuscarModelo.addActionListener(actionListener);
 	 }
     
 	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
-		 
+		 Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.NOTAS_MODELO_TABLA_CABECERA);
+		 tblNotasModelos.initModel(
+				 new NotasModeloTableModel(cabecera));
 	 }
 	 
 	 @Override
 	 protected void initialState() {
-		 
+		txtModeloProyecto.setEditable(Boolean.FALSE);
+		txtModeloProyecto.setEnabled(Boolean.FALSE);
+		txtUsuarioAlta.setEditable(Boolean.FALSE);
+		txtFechaAlta.setEditable(Boolean.FALSE);
+		txtUsuarioModificacion.setEditable(Boolean.FALSE);
+		txtFechaModificacion.setEditable(Boolean.FALSE);
+
+		btnGuardar.setEnabled(Boolean.FALSE);
 	 }
 	 
 	 @Override
 	 protected void setupLiterals() {
-		 setTitle(literales.getLiteral("PantallaMantenimientoNotasModelos.title"));
+		 setTitle(literales.getLiteral("PantallaMantenimientoNotasModelos.titulo"));
 
-		 jLabel3.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.label3"));
+		 jLabel1.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.jLabel1"));
+		 jLabel3.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.jLabel3"));
 		 btnCancelar.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.btnCancelar"));
-		 jLabel15.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.label15"));
+		 jLabel15.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.jLabel15"));
 		 btnGuardar.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.btnGuardar"));
-		 jLabel4.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.label4"));
+		 jLabel4.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.jLabel4"));
 		 chkHabilitada.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.chkHabilitada"));
-		 jLabel5.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.label5"));
-		 jLabel6.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.label6"));
-		 jLabel7.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.label7"));
-		 jLabel8.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.label8"));
-		 jLabel9.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.label9"));
+		 jLabel5.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.jLabel5"));
+		 jLabel6.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.jLabel6"));
+		 jLabel7.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.jLabel7"));
+		 jLabel8.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.jLabel8"));
+		 jLabel9.setText(literales.getLiteral("PantallaMantenimientoNotasModelos.jLabel9"));
+
+		 btnBuscarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
 	 }
     
 	 /**

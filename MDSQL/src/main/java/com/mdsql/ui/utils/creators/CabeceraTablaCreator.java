@@ -112,6 +112,10 @@ public class CabeceraTablaCreator extends Creator {
 		if (MDSQLConstants.MNTO_HISTORICO_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaHistoricoCabecera();
 		}
+
+		if (MDSQLConstants.NOTAS_MODELO_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaNotasModeloCabecera();
+		}
 		
 		return cabecera;
 	}

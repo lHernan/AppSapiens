@@ -152,6 +152,10 @@ public class DialogCreator extends Creator {
 			dialog = new PantallaHistoricoAlta(frameParent, modal, params);
 		}
 
+		if (MDSQLConstants.CMD_MNTO_NOTAS.equals(option)) {
+			dialog = new PantallaMantenimientoNotasModelos(frameParent, modal, params);
+		}
+
 		return dialog;
 	}
 }

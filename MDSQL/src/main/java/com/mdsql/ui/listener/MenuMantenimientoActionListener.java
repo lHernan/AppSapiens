@@ -54,6 +54,18 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		if (MDSQLConstants.MNU_MANTENIMIENTO_HISTORICO.equals(actionCommand)) {
 			evtMntoHistorico();
 		}
+
+		if (MDSQLConstants.MNU_NOTAS_MODELOS.equals(actionCommand)) {
+			evtNotasModelos();
+		}
+	}
+
+	private void evtNotasModelos() {
+		Map<String, Object> params = new HashMap<>();
+
+		PantallaMantenimientoNotasModelos pantallaMantenimientoNotasModelos = (PantallaMantenimientoNotasModelos) MDSQLUIHelper.createDialog(framePrincipal,
+				MDSQLConstants.CMD_MNTO_NOTAS, params);
+		MDSQLUIHelper.show(pantallaMantenimientoNotasModelos);
 	}
 
 	private void evtMntoHistorico() {
