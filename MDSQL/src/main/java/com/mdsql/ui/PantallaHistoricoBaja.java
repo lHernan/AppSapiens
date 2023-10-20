@@ -5,6 +5,7 @@
 package com.mdsql.ui;
 
 import com.mdsql.bussiness.entities.Historico;
+import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaBuscadorFicherosListener;
 import com.mdsql.ui.listener.PantallaHistoricoBajaListener;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -35,12 +36,17 @@ public class PantallaHistoricoBaja extends DialogSupport {
 	private javax.swing.JButton btnAceptar;
 	private javax.swing.JButton btnCancelar;
 	private javax.swing.JLabel jLabel1;
+	@Getter
 	private javax.swing.JTextField txtPeticion;
 	// End of variables declaration//GEN-END:variables
 
 	@Getter
 	@Setter
 	private Historico seleccionado;
+
+	@Getter
+	@Setter
+	private Modelo modeloSeleccionado;
 
 	public PantallaHistoricoBaja(FrameSupport parent, Boolean modal) {
 		super(parent, modal);
@@ -108,6 +114,7 @@ public class PantallaHistoricoBaja extends DialogSupport {
 	@Override
 	protected void initialState() {
 		seleccionado = (Historico) params.get("historico");
+		modeloSeleccionado = (Modelo) params.get("modelo");
 	}
 
 	@Override

@@ -134,4 +134,9 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
     public List<Historico> consultarHistorico(String codigoProyecto, String tipoObjeto) throws ServiceException {
         return Collections.emptyList();
     }
+
+    @Override
+    public void bajaHistorico(String codigoProyecto, String nombreObjeto, String peticion, String codUsr) throws ServiceException {
+
+    }
 }

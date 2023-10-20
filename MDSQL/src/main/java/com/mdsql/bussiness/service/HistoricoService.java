@@ -19,4 +19,6 @@ public interface HistoricoService {
 	OutputConsultaHistoricoProceso consultarHistoricoProceso(InputConsutaHistoricoProceso inputConsutaHistoricoProceso) throws ServiceException;
 
     List<Historico> consultarHistorico(String codigoProyecto, String tipoObjeto) throws ServiceException;
+
+    void bajaHistorico(String codigoProyecto, String nombreObjeto, String peticion, String codUsr) throws ServiceException;
 }

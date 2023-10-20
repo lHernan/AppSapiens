@@ -102,6 +102,7 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 		Map<String, Object> params = new HashMap<>();
 
 		params.put("historico", pantallaMantenimientoHistorico.getSeleccionado());
+		params.put("modelo", pantallaMantenimientoHistorico.getModeloSeleccionado());
 
 		PantallaHistoricoBaja pantallaHistoricoBaja = (PantallaHistoricoBaja) MDSQLUIHelper.createDialog(pantallaMantenimientoHistorico.getFrameParent(),
 				MDSQLConstants.CMD_HISTORICO_BAJA, params);
