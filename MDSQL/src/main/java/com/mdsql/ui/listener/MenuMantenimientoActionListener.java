@@ -58,6 +58,18 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		if (MDSQLConstants.MNU_NOTAS_MODELOS.equals(actionCommand)) {
 			evtNotasModelos();
 		}
+
+		if (MDSQLConstants.MNU_ENTORNOS.equals(actionCommand)) {
+			evtMntoEntornos();
+		}
+	}
+
+	private void evtMntoEntornos() {
+		Map<String, Object> params = new HashMap<>();
+
+		PantallaMantenimientoEntornos pantallaMantenimientoEntornos = (PantallaMantenimientoEntornos) MDSQLUIHelper.createDialog(framePrincipal,
+				MDSQLConstants.CMD_MNTO_ENTORNOS, params);
+		MDSQLUIHelper.show(pantallaMantenimientoEntornos);
 	}
 
 	private void evtNotasModelos() {

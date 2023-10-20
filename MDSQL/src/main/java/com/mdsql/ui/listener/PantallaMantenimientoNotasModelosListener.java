@@ -2,6 +2,7 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.security.Provider;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.NivelImportancia;
+import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.AvisoService;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.bussiness.service.ModeloService;
@@ -21,9 +23,11 @@ import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.*;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.utils.AppHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -71,7 +75,67 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 	}
 	
 	private void eventBtnGuardar() {
-		
+		try {
+			Aviso avisoSeleccionado = pantallaMantenimientoNotasModelos.getAvisoSeleccionado();
+
+			if (!Objects.isNull(avisoSeleccionado)) {
+				modificacion(avisoSeleccionado);
+			}
+			else {
+				alta();
+			}
+
+			clearForm();
+			clearList();
+			cargarAvisosModelo(pantallaMantenimientoNotasModelos.getModeloSeleccionado());
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaMantenimientoNotasModelos.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+		}
+	}
+
+	private void alta() throws ServiceException {
+		AvisoService avisoService = (AvisoService) getService(MDSQLConstants.AVISO_SERVICE);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String codUsr = session.getCodUsr();
+
+		Modelo modelo = pantallaMantenimientoNotasModelos.getModeloSeleccionado();
+		String codigoProyecto = modelo.getCodigoProyecto();
+		String descripcionAviso = pantallaMantenimientoNotasModelos.getTxtDescripcion().getText();
+		String txtAviso = pantallaMantenimientoNotasModelos.getTxtTitulo().getText();
+
+		String codNivelAviso = StringUtils.EMPTY;
+		NivelImportancia nivelAviso = (NivelImportancia) pantallaMantenimientoNotasModelos.getCmbImportancia().getSelectedItem();
+		if (!Objects.isNull(nivelAviso)) {
+			codNivelAviso = nivelAviso.getCodigoNivelAviso().toString();
+		}
+
+		String codPeticion = pantallaMantenimientoNotasModelos.getTxtPeticion().getText();
+
+		avisoService.altaAviso(codigoProyecto, descripcionAviso, txtAviso, codNivelAviso, codPeticion, codUsr);
+	}
+
+	private void modificacion(Aviso avisoSeleccionado) throws ServiceException {
+		AvisoService avisoService = (AvisoService) getService(MDSQLConstants.AVISO_SERVICE);
+		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String codUsr = session.getCodUsr();
+
+		Modelo modelo = pantallaMantenimientoNotasModelos.getModeloSeleccionado();
+		String codigoProyecto = modelo.getCodigoProyecto();
+		BigDecimal codigoAviso = avisoSeleccionado.getCodigoAviso();
+		String descripcionAviso = pantallaMantenimientoNotasModelos.getTxtDescripcion().getText();
+		String txtAviso = pantallaMantenimientoNotasModelos.getTxtTitulo().getText();
+
+		String codNivelAviso = StringUtils.EMPTY;
+		NivelImportancia nivelAviso = (NivelImportancia) pantallaMantenimientoNotasModelos.getCmbImportancia().getSelectedItem();
+		if (!Objects.isNull(nivelAviso)) {
+			codNivelAviso = nivelAviso.getCodigoNivelAviso().toString();
+		}
+
+		String mcaHabilitado = AppHelper.normalizeValueToCheck(pantallaMantenimientoNotasModelos.getChkHabilitada().isSelected());
+		String codPeticion = pantallaMantenimientoNotasModelos.getTxtPeticion().getText();
+
+		avisoService.modificarAviso(codigoProyecto, codigoAviso, descripcionAviso, txtAviso, codNivelAviso, mcaHabilitado, codPeticion, codUsr);
 	}
 
 	private void cargarModelo(Modelo modeloSeleccionado) {

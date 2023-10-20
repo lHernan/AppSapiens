@@ -8,10 +8,15 @@ package com.mdsql.ui;
 import java.util.Map;
 
 import com.mdsql.ui.listener.PantallaMantenimientoEntornosListener;
+import com.mdsql.ui.model.EntornoTableModel;
+import com.mdsql.ui.model.HistoricoTableModel;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
+import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 
+import com.mdval.ui.utils.TableSupport;
 import lombok.Getter;
 
 /**
@@ -31,7 +36,7 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
     private javax.swing.JScrollPane jScrollPane1;
     
     @Getter
-    private javax.swing.JTable tblMantenimientoEntornos;
+    private TableSupport tblMantenimientoEntornos;
     
     @Getter
     private javax.swing.JTextField txtBBDD;
@@ -75,7 +80,7 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 	        jLabel14 = new javax.swing.JLabel();
 	        btnBuscar = new javax.swing.JButton();
 	        jScrollPane1 = new javax.swing.JScrollPane();
-	        tblMantenimientoEntornos = new javax.swing.JTable();
+	        tblMantenimientoEntornos = new TableSupport();
 	        jLabel4 = new javax.swing.JLabel();
 	        txtEsquema = new javax.swing.JTextField();
 	        jLabel5 = new javax.swing.JLabel();
@@ -181,7 +186,9 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
-		 
+		 Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.MNTO_ENTORNOS_TABLA_CABECERA);
+		 tblMantenimientoEntornos.initModel(
+				 new EntornoTableModel(cabecera));
 	 }
 	 
 	 @Override
@@ -191,16 +198,16 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 	 
 	 @Override
 	 protected void setupLiterals() {
-		 setTitle(literales.getLiteral("PantallaMantenimientoEntornos.title"));
+		 setTitle(literales.getLiteral("PantallaMantenimientoEntornos.titulo"));
 
-		 jLabel3.setText(literales.getLiteral("PantallaMantenimientoEntornos.label3"));
+		 jLabel3.setText(literales.getLiteral("PantallaMantenimientoEntornos.jLabel3"));
 		 btnGrabar.setText(literales.getLiteral("PantallaMantenimientoEntornos.btnGrabar"));
 		 btnCancelar.setText(literales.getLiteral("PantallaMantenimientoEntornos.btnCancelar"));
 		 btnBuscar.setText(literales.getLiteral("PantallaMantenimientoEntornos.btnBuscar"));
-		 jLabel4.setText(literales.getLiteral("PantallaMantenimientoEntornos.label4"));
-		 jLabel5.setText(literales.getLiteral("PantallaMantenimientoEntornos.label5"));
+		 jLabel4.setText(literales.getLiteral("PantallaMantenimientoEntornos.jLabel4"));
+		 jLabel5.setText(literales.getLiteral("PantallaMantenimientoEntornos.jLabel5"));
 		 chkHabilitada.setText(literales.getLiteral("PantallaMantenimientoEntornos.chkHabilitada"));
-		 jLabel6.setText(literales.getLiteral("PantallaMantenimientoEntornos.label6"));
+		 jLabel6.setText(literales.getLiteral("PantallaMantenimientoEntornos.jLabel6"));
 	 
 	 }
 	 
