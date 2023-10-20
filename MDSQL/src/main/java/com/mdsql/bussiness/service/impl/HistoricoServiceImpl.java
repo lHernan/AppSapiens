@@ -139,4 +139,9 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
     public void bajaHistorico(String codigoProyecto, String nombreObjeto, String peticion, String codUsr) throws ServiceException {
 
     }
+
+    @Override
+    public void altaHistorico(String codigoProyecto, String nombreObjeto, String tipoObjeto, String historificada, String peticion, String codUsr) throws ServiceException {
+
+    }
 }

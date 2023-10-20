@@ -55,6 +55,7 @@ public class PantallaHistoricoBajaListener extends ListenerSupport implements Ac
 			String peticion = pantallaHistoricoBaja.getTxtPeticion().getText();
 
 			historicoService.bajaHistorico(codigoProyecto, nombreObjeto, peticion, codUsr);
+			pantallaHistoricoBaja.getReturnParams().put("response", "OK");
 		} catch (ServiceException e) {
 			pantallaHistoricoBaja.getReturnParams().put("response", "KO");
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);

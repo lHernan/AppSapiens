@@ -5,6 +5,7 @@
 package com.mdsql.ui;
 
 import com.mdsql.bussiness.entities.Historico;
+import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaHistoricoAltaListener;
 import com.mdsql.ui.listener.PantallaHistoricoBajaListener;
 import com.mdsql.utils.MDSQLConstants;
@@ -52,6 +53,10 @@ public class PantallaHistoricoAlta extends DialogSupport {
 	@Getter
 	private javax.swing.JTextField txtPeticion;
 	// End of variables declaration//GEN-END:variables
+
+	@Getter
+	@Setter
+	private Modelo modeloSeleccionado;
 
 	public PantallaHistoricoAlta(FrameSupport parent, Boolean modal) {
 		super(parent, modal);

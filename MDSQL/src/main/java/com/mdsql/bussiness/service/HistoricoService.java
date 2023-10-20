@@ -21,4 +21,6 @@ public interface HistoricoService {
     List<Historico> consultarHistorico(String codigoProyecto, String tipoObjeto) throws ServiceException;
 
     void bajaHistorico(String codigoProyecto, String nombreObjeto, String peticion, String codUsr) throws ServiceException;
+
+    void altaHistorico(String codigoProyecto, String nombreObjeto, String tipoObjeto, String historificada, String peticion, String codUsr) throws ServiceException;
 }
