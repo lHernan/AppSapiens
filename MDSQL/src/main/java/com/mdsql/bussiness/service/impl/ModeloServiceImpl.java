@@ -112,7 +112,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
 	@Override
 	public List<Variable> consultaVariables(Modelo modelo) throws ServiceException {
-		return null;
+		return Collections.emptyList();
 	}
 
 	@Override

@@ -2,17 +2,14 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.*;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 import com.mdsql.bussiness.entities.*;
-import com.mdsql.bussiness.service.HistoricoService;
-import com.mdsql.bussiness.service.PropietarioService;
-import com.mdsql.bussiness.service.TipoObjetoService;
+import com.mdsql.bussiness.service.*;
 import com.mdsql.ui.PantallaHistoricoAlta;
 import com.mdsql.ui.PantallaHistoricoBaja;
 import com.mdsql.ui.PantallaMantenimientoHistorico;
@@ -22,6 +19,7 @@ import com.mdsql.ui.model.PermisosTableModel;
 import com.mdsql.ui.model.TipoObjetoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
@@ -115,7 +113,7 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 	}
 	
 	private void eventBtnInforme() {
-		
+		informe();
 	}
 
 	@Override
@@ -144,6 +142,41 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+		}
+	}
+
+	private void informe() {
+		try {
+			HistoricoService historicoService = (HistoricoService) getService(MDSQLConstants.HISTORICO_SERVICE);
+
+			String codigoProyecto = pantallaMantenimientoHistorico.getTxtModelo().getText();
+			String tipoObjeto = (String) pantallaMantenimientoHistorico.getCmbTipoObjeto().getSelectedItem();
+
+			List<Historico> lista = historicoService.consultarHistorico(codigoProyecto, tipoObjeto);
+
+			fillInforme(codigoProyecto, lista);
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+		}
+	}
+
+	private void fillInforme(String codigoProyecto, List<Historico> lista) {
+		try {
+			InformeService informeService = (InformeService) getService(MDSQLConstants.INFORME_SERVICE);
+			ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(MDSQLConstants.EXCEL_GENERATOR_SERVICE);
+
+			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+			String path = configuration.getConfig("RutaInformes");
+
+			if(lista.isEmpty()) {
+				JOptionPane.showMessageDialog(pantallaMantenimientoHistorico.getFrameParent(), "No hay datos para generar informe");
+			} else {
+				excelGeneratorService.generarExcelHistorico(lista, path, codigoProyecto, new Date());
+			}
+		} catch (IOException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
 	}
 

@@ -78,6 +78,8 @@ public class MDSQLConstants extends Constants {
 	 */
 	public static final String LISTADO_HISTORICO_CAMBIOS_TEMPLATE_LOCATION = "/templates/ListadoHistoricoCambios.xlt";
 
+	public static final String LISTADO_HISTORICO_TEMPLATE_LOCATION = "/templates/ListadoHistorico.xlt";
+
 	/**
 	 * Bean names
 	 */
