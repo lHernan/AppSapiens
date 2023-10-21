@@ -6,11 +6,11 @@
 package com.mdsql.ui;
 
 import java.util.Map;
+import java.util.Objects;
 
+import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaMantenimientoVariablesListener;
-import com.mdsql.ui.listener.tables.EntornosTableListener;
 import com.mdsql.ui.listener.tables.VariablesTableListener;
-import com.mdsql.ui.model.EntornoTableModel;
 import com.mdsql.ui.model.VariableTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
@@ -20,6 +20,7 @@ import com.mdval.ui.utils.FrameSupport;
 
 import com.mdval.ui.utils.TableSupport;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
@@ -72,7 +73,7 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 	    private javax.swing.JTextField txtModeloProyecto;
 	    
 	    @Getter
-	    private javax.swing.JTextField txtModeloProyecto1;
+	    private javax.swing.JTextField txtCodigoProyecto;
 	    
 	    @Getter
 	    private javax.swing.JTextField txtPeticion;
@@ -111,6 +112,10 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 	    private javax.swing.JComboBox<String> cmbUsoInterno;
 	    // End of variables declaration//GEN-END:variables
 
+		@Getter
+		@Setter
+		private Modelo modelo;
+
 	    public PantallaMantenimientoVariables(FrameSupport parent, Boolean modal) {
 			 super(parent, modal);
 		 }
@@ -133,7 +138,7 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 		        jLabel4 = new javax.swing.JLabel();
 		        txtCodigoVariable = new javax.swing.JTextField();
 		        chkHabilitada = new javax.swing.JCheckBox();
-		        txtModeloProyecto1 = new javax.swing.JTextField();
+		        txtCodigoProyecto = new javax.swing.JTextField();
 		        jLabel10 = new javax.swing.JLabel();
 		        txtPeticion = new javax.swing.JTextField();
 		        jLabel16 = new javax.swing.JLabel();
@@ -226,7 +231,7 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 															 .addComponent(jLabel3)
 															 .addComponent(jLabel4))
 													 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-													 .addComponent(txtModeloProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+													 .addComponent(txtCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
 													 .addGap(18, 18, 18)
 													 .addComponent(txtModeloProyecto))
 											 .addGroup(layout.createSequentialGroup()
@@ -275,7 +280,7 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 									 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 											 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 													 .addComponent(jLabel3)
-													 .addComponent(txtModeloProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+													 .addComponent(txtCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
 											 .addComponent(txtModeloProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
 									 .addGap(30, 30, 30)
 									 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,13 +383,18 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 		 @Override
 		 protected void initialState() {
 			txtModeloProyecto.setEditable(Boolean.FALSE);
-			txtModeloProyecto1.setEditable(Boolean.FALSE);
+			txtCodigoProyecto.setEditable(Boolean.FALSE);
 			txtUsuarioAlta.setEditable(Boolean.FALSE);
 			txtFechaAlta.setEditable(Boolean.FALSE);
 			txtUsuarioModificacion.setEditable(Boolean.FALSE);
 			txtFechaModificacion.setEditable(Boolean.FALSE);
 
 			btnGuardar.setEnabled(Boolean.FALSE);
+
+			 if (!Objects.isNull(modelo)) {
+				 txtCodigoProyecto.setText(modelo.getCodigoProyecto());
+				 txtModeloProyecto.setText(modelo.getNombreModelo());
+			 }
 		 }
 		 
 		 @Override

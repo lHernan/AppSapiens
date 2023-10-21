@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.PantallaMantenimientoVariables;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.utils.MDSQLConstants;
@@ -36,7 +37,8 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 
 	@Override
 	public void onLoad() {
-		// TODO Auto-generated method stub
+		Modelo modelo = (Modelo) pantallaMantenimientoVariables.getParams().get("modelo");
+		pantallaMantenimientoVariables.setModelo(modelo);
 		
 	}
 }
