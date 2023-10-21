@@ -2,6 +2,7 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +17,14 @@ import com.mdsql.ui.PantallaMantenimientoVariables;
 import com.mdsql.ui.model.*;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.LiteralesSingleton;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
+import com.mdval.utils.AppHelper;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class PantallaMantenimientoVariablesListener extends ListenerSupport implements ActionListener, OnLoadListener {
 	private PantallaMantenimientoVariables pantallaMantenimientoVariables;
@@ -42,7 +47,55 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 	}
 	
 	private void eventBtnGuardar() {
-		
+		try {
+			ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			String codUsr = session.getCodUsr();
+			Modelo modelo = pantallaMantenimientoVariables.getModelo();
+
+			String codigoProyecto = modelo.getCodigoProyecto();
+			String codigoVariable = pantallaMantenimientoVariables.getTxtCodigoVariable().getText();
+			String entorno = (String) pantallaMantenimientoVariables.getCmbEntorno().getSelectedItem();
+			String bbdd = pantallaMantenimientoVariables.getTxtBBDD().getText();
+			String tipoVariable = (String) pantallaMantenimientoVariables.getCmbTipoVariable().getSelectedItem();
+			String valorVariable = pantallaMantenimientoVariables.getTxtValorVariable().getText();
+			String valorSustituir = pantallaMantenimientoVariables.getTxtValorVariableSustituir().getText();
+			String codigoPeticion = pantallaMantenimientoVariables.getTxtPeticion().getText();
+			String mcaInterno = (String) pantallaMantenimientoVariables.getCmbUsoInterno().getSelectedItem();
+			String mcaHabilitado = AppHelper.normalizeValueToCheck(pantallaMantenimientoVariables.getChkHabilitada().isSelected());
+
+			modeloService.actualizarVariableModelo(codigoProyecto, codigoVariable, entorno, bbdd, tipoVariable, valorVariable, valorSustituir, codigoPeticion, mcaInterno, mcaHabilitado, codUsr);
+
+			clearForm();
+			actualizarVariables(modelo);
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaMantenimientoVariables.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+		}
+	}
+
+	private void clearForm() {
+		try {
+			LiteralesSingleton literales = LiteralesSingleton.getInstance();
+
+			pantallaMantenimientoVariables.getTxtCodigoVariable().setText(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getTxtValorVariable().setText(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getCmbUsoInterno().setSelectedItem(literales.getLiteral("no"));
+			pantallaMantenimientoVariables.getTxtPeticion().setText(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getTxtValorVariableSustituir().setText(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getCmbTipoVariable().setSelectedItem(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getTxtBBDD().setText(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getCmbEntorno().setSelectedItem(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getTxtComentario().setText(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getChkHabilitada().setSelected(Boolean.FALSE);
+			pantallaMantenimientoVariables.getChkUsoPermisos().setSelected(Boolean.FALSE);
+
+			pantallaMantenimientoVariables.getTxtUsuarioAlta().setText(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getTxtFechaAlta().setText(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getTxtUsuarioModificacion().setText(StringUtils.EMPTY);
+			pantallaMantenimientoVariables.getTxtFechaModificacion().setText(StringUtils.EMPTY);
+
+		} catch (IOException e) {}
 	}
 
 	@Override

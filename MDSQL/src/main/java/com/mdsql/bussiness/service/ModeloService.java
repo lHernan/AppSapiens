@@ -23,5 +23,7 @@ public interface ModeloService {
 	OutputConsultaModelos consultaModelos(String codigoProyecto, String nombreModelo, String codigoSubProyecto)
 			throws ServiceException;
 
-    List<Variable> consultaVariables(Modelo modelo);
+    List<Variable> consultaVariables(Modelo modelo) throws ServiceException;
+
+    void actualizarVariableModelo(String codigoProyecto, String codigoVariable, String entorno, String bbdd, String tipoVariable, String valorVariable, String valorSustituir, String codigoPeticion, String mcaInterno, String mcaHabilitado, String codUsr) throws ServiceException;
 }

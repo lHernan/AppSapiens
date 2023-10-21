@@ -111,8 +111,13 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	}
 
 	@Override
-	public List<Variable> consultaVariables(Modelo modelo) {
+	public List<Variable> consultaVariables(Modelo modelo) throws ServiceException {
 		return null;
+	}
+
+	@Override
+	public void actualizarVariableModelo(String codigoProyecto, String codigoVariable, String entorno, String bbdd, String tipoVariable, String valorVariable, String valorSustituir, String codigoPeticion, String mcaInterno, String mcaHabilitado, String codUsr) throws ServiceException {
+
 	}
 
 	/**
