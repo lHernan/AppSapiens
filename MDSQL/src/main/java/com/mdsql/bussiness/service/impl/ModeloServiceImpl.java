@@ -12,13 +12,10 @@ import java.util.Objects;
 
 import javax.sql.DataSource;
 
-import com.mdsql.bussiness.entities.NivelImportancia;
+import com.mdsql.bussiness.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mdsql.bussiness.entities.Modelo;
-import com.mdsql.bussiness.entities.OutputConsultaModelos;
-import com.mdsql.bussiness.entities.SubProyecto;
 import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -111,6 +108,11 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			LogWrapper.error(log, "[ModeloService.consultaModelos] Error: %s", e.getMessage());
 			throw new ServiceException(e);
 		}
+	}
+
+	@Override
+	public List<Variable> consultaVariables(Modelo modelo) {
+		return null;
 	}
 
 	/**

@@ -5,14 +5,18 @@
  */
 package com.mdsql.ui;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaMantenimientoVariablesListener;
 import com.mdsql.ui.listener.tables.VariablesTableListener;
+import com.mdsql.ui.model.SiNoComboBoxModel;
 import com.mdsql.ui.model.VariableTableModel;
+import com.mdsql.ui.model.VigenteHistoricoComboBoxModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.LiteralesSingleton;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
@@ -88,7 +92,7 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 	    private javax.swing.JTextField txtValorVariable;
 	    
 	    @Getter
-	    private javax.swing.JTextField txtValorVariable1;
+	    private javax.swing.JTextField txtValorVariableSustituir;
 	    
 	    @Getter
 	    private javax.swing.JButton btnCancelar;
@@ -146,7 +150,7 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 		        jLabel5 = new javax.swing.JLabel();
 		        txtValorVariable = new javax.swing.JTextField();
 		        jLabel6 = new javax.swing.JLabel();
-		        txtValorVariable1 = new javax.swing.JTextField();
+		        txtValorVariableSustituir = new javax.swing.JTextField();
 		        jLabel7 = new javax.swing.JLabel();
 		        txtBBDD = new javax.swing.JTextField();
 		        chkUsoPermisos = new javax.swing.JCheckBox();
@@ -213,7 +217,7 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 																			 .addComponent(jLabel6))
 																	 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																	 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-																			 .addComponent(txtValorVariable1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+																			 .addComponent(txtValorVariableSustituir, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
 																			 .addComponent(txtValorVariable, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
 															 .addGroup(layout.createSequentialGroup()
 																	 .addComponent(jLabel7)
@@ -310,7 +314,7 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 																							 .addComponent(txtValorVariable, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
 																					 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 																					 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-																							 .addComponent(txtValorVariable1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+																							 .addComponent(txtValorVariableSustituir, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
 																							 .addComponent(jLabel6)))
 																			 .addGroup(layout.createSequentialGroup()
 																					 .addGap(78, 78, 78)
@@ -375,6 +379,12 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 		 @SuppressWarnings("unchecked")
 		 @Override
 		 protected void initModels() {
+			 SiNoComboBoxModel siNoComboBoxModel = new SiNoComboBoxModel();
+			 VigenteHistoricoComboBoxModel vigenteHistoricoComboBoxModel = new VigenteHistoricoComboBoxModel();
+
+			 cmbEntorno.setModel(vigenteHistoricoComboBoxModel);
+			 cmbUsoInterno.setModel(siNoComboBoxModel);
+
 			 Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.MNTO_VARIABLES_TABLA_CABECERA);
 			 tblVariables.initModel(
 					 new VariableTableModel(cabecera));
@@ -382,19 +392,25 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 		 
 		 @Override
 		 protected void initialState() {
-			txtModeloProyecto.setEditable(Boolean.FALSE);
-			txtCodigoProyecto.setEditable(Boolean.FALSE);
-			txtUsuarioAlta.setEditable(Boolean.FALSE);
-			txtFechaAlta.setEditable(Boolean.FALSE);
-			txtUsuarioModificacion.setEditable(Boolean.FALSE);
-			txtFechaModificacion.setEditable(Boolean.FALSE);
+			try {
+				 LiteralesSingleton literales = LiteralesSingleton.getInstance();
 
-			btnGuardar.setEnabled(Boolean.FALSE);
+				txtModeloProyecto.setEditable(Boolean.FALSE);
+				txtCodigoProyecto.setEditable(Boolean.FALSE);
+				txtUsuarioAlta.setEditable(Boolean.FALSE);
+				txtFechaAlta.setEditable(Boolean.FALSE);
+				txtUsuarioModificacion.setEditable(Boolean.FALSE);
+				txtFechaModificacion.setEditable(Boolean.FALSE);
 
-			 if (!Objects.isNull(modelo)) {
-				 txtCodigoProyecto.setText(modelo.getCodigoProyecto());
-				 txtModeloProyecto.setText(modelo.getNombreModelo());
-			 }
+				cmbUsoInterno.setSelectedItem(literales.getLiteral("no"));
+
+				btnGuardar.setEnabled(Boolean.FALSE);
+
+				 if (!Objects.isNull(modelo)) {
+					 txtCodigoProyecto.setText(modelo.getCodigoProyecto());
+					 txtModeloProyecto.setText(modelo.getNombreModelo());
+				 }
+			} catch (IOException e) {}
 		 }
 		 
 		 @Override

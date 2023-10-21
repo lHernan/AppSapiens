@@ -1,7 +1,9 @@
 package com.mdsql.bussiness.service;
 
+import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.NivelImportancia;
 import com.mdsql.bussiness.entities.OutputConsultaModelos;
+import com.mdsql.bussiness.entities.Variable;
 import com.mdval.exceptions.ServiceException;
 
 import java.util.List;
@@ -20,4 +22,6 @@ public interface ModeloService {
 	 */
 	OutputConsultaModelos consultaModelos(String codigoProyecto, String nombreModelo, String codigoSubProyecto)
 			throws ServiceException;
+
+    List<Variable> consultaVariables(Modelo modelo);
 }

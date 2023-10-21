@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -26,5 +27,9 @@ public class Variable implements Serializable {
 	private String habilitada;
 	private String usoInterno;
 	private String peticion;
+	private String usrAlta;
+	private Date fechaAlta;
+	private String usrModificacion;
+	private Date fechaModificacion;
 
 }

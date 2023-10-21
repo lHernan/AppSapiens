@@ -15,4 +15,9 @@ public class TipoObjetoServiceImpl implements TipoObjetoService {
     public List<String> consultarTiposObjeto() {
         return Collections.emptyList();
     }
+
+    @Override
+    public List<String> consultarTiposVariable() {
+        return Collections.emptyList();
+    }
 }

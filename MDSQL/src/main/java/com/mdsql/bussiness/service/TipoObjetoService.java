@@ -13,4 +13,5 @@ public interface TipoObjetoService {
 
     List<String> consultarTiposObjeto();
 
+    List<String> consultarTiposVariable();
 }
