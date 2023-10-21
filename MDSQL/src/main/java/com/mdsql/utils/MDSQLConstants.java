@@ -48,7 +48,7 @@ public class MDSQLConstants extends Constants {
 
 
 
-    public static enum Results {
+	public static enum Results {
 		ERROR(0, "ERROR"), OK(1, "OK"), WARN(2, "WARN");
 		
 		@Getter
@@ -155,6 +155,7 @@ public class MDSQLConstants extends Constants {
 	public static final String T_T_INFORME_CAMBIOS = "T_T_INFORME_CAMBIOS";
 	public static final String T_T_LOG_EJECUCION = "T_T_LOG_EJECUCION";
 	public static final String T_T_TIP_OBJETO = "T_T_TIP_OBJETO";
+	public static final String T_T_TIPO_VBLE = "T_T_TIPO_VBLE";
 	public static final String T_T_ESTADO = "T_T_ESTADO";
 	public static final String T_T_OPERACION = "T_T_OPERACION";
 

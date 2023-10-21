@@ -72,14 +72,20 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 
 	@Override
 	public void onLoad() {
-		TipoObjetoService tipoObjetoService = (TipoObjetoService) getService(MDSQLConstants.TIPO_OBJETO_SERVICE);
+		try {
+			TipoObjetoService tipoObjetoService = (TipoObjetoService) getService(MDSQLConstants.TIPO_OBJETO_SERVICE);
 
-		// Rellenar combos
-		List<String> tipos = tipoObjetoService.consultarTiposObjeto();
+			// Rellenar combos
+			List<String> tipos = tipoObjetoService.consultarTiposObjeto();
 
-		if (CollectionUtils.isNotEmpty(tipos)) {
-			TipoObjetoComboBoxModel tipoObjetoComboBoxModel = new TipoObjetoComboBoxModel(tipos);
-			pantallaHistoricoAlta.getCmbTipoObjeto().setModel(tipoObjetoComboBoxModel);
+			if (CollectionUtils.isNotEmpty(tipos)) {
+				TipoObjetoComboBoxModel tipoObjetoComboBoxModel = new TipoObjetoComboBoxModel(tipos);
+				pantallaHistoricoAlta.getCmbTipoObjeto().setModel(tipoObjetoComboBoxModel);
+			}
+		} catch (ServiceException e) {
+			pantallaHistoricoAlta.getReturnParams().put("response", "KO");
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaHistoricoAlta.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 	}
 
