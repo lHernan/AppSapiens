@@ -116,6 +116,8 @@ public class MDSQLConstants extends Constants {
 
 	public static final String PROPIETARIO_SERVICE = "propietarioService";
 
+	public static final String ENTORNO_SERVICE = "ENTORNO_SERVICE";
+
 	/**
 	 * DataBase Types and constants
 	 */

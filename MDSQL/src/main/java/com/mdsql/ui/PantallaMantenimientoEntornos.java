@@ -8,6 +8,8 @@ package com.mdsql.ui;
 import java.util.Map;
 
 import com.mdsql.ui.listener.PantallaMantenimientoEntornosListener;
+import com.mdsql.ui.listener.tables.EntornosTableListener;
+import com.mdsql.ui.listener.tables.HistoricoTableListener;
 import com.mdsql.ui.model.EntornoTableModel;
 import com.mdsql.ui.model.HistoricoTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -18,6 +20,9 @@ import com.mdval.ui.utils.FrameSupport;
 
 import com.mdval.ui.utils.TableSupport;
 import lombok.Getter;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -173,6 +178,7 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 	 @Override
 	 protected void initEvents() {
 		 PantallaMantenimientoEntornosListener actioListener = new PantallaMantenimientoEntornosListener(this);
+		 ListSelectionListener listSelectionListener = new EntornosTableListener(this);
 		 
 		 btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_ENTORNOS_BUSCAR);
 		 btnGrabar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_ENTORNOS_GRABAR);
@@ -181,6 +187,9 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 		 btnBuscar.addActionListener(actioListener);
 		 btnGrabar.addActionListener(actioListener);
 		 btnCancelar.addActionListener(actioListener);
+
+		 ListSelectionModel rowPM = tblMantenimientoEntornos.getSelectionModel();
+		 rowPM.addListSelectionListener(listSelectionListener);
 	 }
 	 
 	 @SuppressWarnings("unchecked")
@@ -193,7 +202,7 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 	 
 	 @Override
 	 protected void initialState() {
-		 
+		btnGrabar.setEnabled(Boolean.FALSE);
 	 }
 	 
 	 @Override
