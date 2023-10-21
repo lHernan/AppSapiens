@@ -47,6 +47,7 @@ public class MDSQLConstants extends Constants {
 	public static final String PROCESADO_EN_CURSO = "PROCESADO_EN_CURSO";
 
 
+
     public static enum Results {
 		ERROR(0, "ERROR"), OK(1, "OK"), WARN(2, "WARN");
 		
@@ -414,6 +415,8 @@ public class MDSQLConstants extends Constants {
 
 	public static final String CMD_MNTO_ENTORNOS = "CMD_MNTO_ENTORNOS";
 
+	public static final String CMD_MNTO_VARIABLES = "CMD_MNTO_VARIABLES";
+
 	/**
 	 * Panel principal
 	 */
@@ -427,6 +430,8 @@ public class MDSQLConstants extends Constants {
 	public static final String NOTAS_MODELO_TABLA_CABECERA = "NOTAS_MODELO_TABLA_CABECERA";
 
 	public static final String MNTO_ENTORNOS_TABLA_CABECERA = "MNTO_ENTORNOS_TABLA_CABECERA";
+
+	public static final String MNTO_VARIABLES_TABLA_CABECERA = "MNTO_VARIABLES_TABLA_CABECERA";
 
 	public static final String PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION = "PANEL_RESULTADOS_BTN_MARCAR_EXCEPCION";
 	public static final String PANEL_RESULTADOS_BTN_ADD_GLOSARIO = "PANEL_RESULTADOS_BTN_ADD_GLOSARIO";

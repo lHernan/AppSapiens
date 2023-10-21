@@ -62,6 +62,21 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		if (MDSQLConstants.MNU_ENTORNOS.equals(actionCommand)) {
 			evtMntoEntornos();
 		}
+
+		if (MDSQLConstants.MNU_VARIABLES.equals(actionCommand)) {
+			evtMntoVariables();
+		}
+	}
+
+	private void evtMntoVariables() {
+		Modelo seleccionado = getModelo();
+		Map<String, Object> params = new HashMap<>();
+
+		params.put("modelo", seleccionado);
+
+		PantallaMantenimientoVariables pantallaMantenimientoVariables = (PantallaMantenimientoVariables) MDSQLUIHelper.createDialog(framePrincipal,
+				MDSQLConstants.CMD_MNTO_VARIABLES, params);
+		MDSQLUIHelper.show(pantallaMantenimientoVariables);
 	}
 
 	private void evtMntoEntornos() {
@@ -92,6 +107,7 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 	 * 
 	 */
 	private void evtPermisosGenerales() {
+		/*
 		Modelo seleccionado = getModelo();
 		Map<String, Object> params;
 
@@ -101,9 +117,11 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		PantallaPermisosGeneralesporModeloporTipoObjeto pantallaPermisosGeneralesporModeloporTipoObjeto = (PantallaPermisosGeneralesporModeloporTipoObjeto) MDSQLUIHelper.createDialog(framePrincipal,
 				MDSQLConstants.CMD_PERMISOS_GENERALES, params);
 		MDSQLUIHelper.show(pantallaPermisosGeneralesporModeloporTipoObjeto);
+		*/
 	}
 
 	private void evtPermisosObjeto() {
+		/*
 		Modelo seleccionado = getModelo();
 		Map<String, Object> params = new HashMap<>();
 
@@ -112,6 +130,7 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		PantallaDetallePermisosPorObjeto pantallaDetallePermisosPorObjeto = (PantallaDetallePermisosPorObjeto) MDSQLUIHelper.createDialog(framePrincipal,
 				MDSQLConstants.CMD_PERMISOS_OBJETO, params);
 		MDSQLUIHelper.show(pantallaDetallePermisosPorObjeto);
+		 */
 	}
 
 	private Modelo getModelo() {
