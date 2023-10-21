@@ -33,7 +33,6 @@ public class PantallaMantenimientoVariables extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         cmbTipoVariable = new javax.swing.JComboBox<>();
-        btnBuscarModelo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMantenimientoHistorico = new javax.swing.JTable();
@@ -94,13 +93,6 @@ public class PantallaMantenimientoVariables extends javax.swing.JFrame {
         cmbTipoVariable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTipoVariableActionPerformed(evt);
-            }
-        });
-
-        btnBuscarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loupe.png"))); // NOI18N
-        btnBuscarModelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarModeloActionPerformed(evt);
             }
         });
 
@@ -307,8 +299,6 @@ public class PantallaMantenimientoVariables extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtModeloProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtModeloProyecto))
                     .addGroup(layout.createSequentialGroup()
@@ -346,7 +336,7 @@ public class PantallaMantenimientoVariables extends javax.swing.JFrame {
                                                 .addComponent(txtComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(171, 171, 171)))
                                         .addComponent(txtFechaModificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addGap(298, 298, 298))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +345,6 @@ public class PantallaMantenimientoVariables extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(txtModeloProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -429,7 +418,7 @@ public class PantallaMantenimientoVariables extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                 .addGap(49, 49, 49)
                 .addComponent(btnCancelar)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         pack();
@@ -458,10 +447,6 @@ public class PantallaMantenimientoVariables extends javax.swing.JFrame {
     private void txtModeloProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModeloProyecto1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtModeloProyecto1ActionPerformed
-
-    private void btnBuscarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarModeloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarModeloActionPerformed
 
     private void chkHabilitadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkHabilitadaActionPerformed
         // TODO add your handling code here:
@@ -582,7 +567,6 @@ public class PantallaMantenimientoVariables extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarModelo;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JCheckBox chkHabilitada;
