@@ -218,6 +218,36 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
 
     @Override
     public void altaHistorico(String codigoProyecto, String nombreObjeto, String tipoObjeto, String historificada, String peticion, String codUsr) throws ServiceException {
+        String runSP = createCall("p_alta_obj_historico", MDSQLConstants.CALL_08_ARGS);
 
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, codigoProyecto, nombreObjeto, peticion, codUsr);
+
+            callableStatement.setString(1, codigoProyecto);
+            callableStatement.setString(2, nombreObjeto);
+            callableStatement.setString(3, tipoObjeto);
+            callableStatement.setString(4, historificada);
+            callableStatement.setString(5, peticion);
+            callableStatement.setString(6, codUsr);
+
+            callableStatement.registerOutParameter(7, Types.INTEGER);
+            callableStatement.registerOutParameter(8, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(7);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(8));
+            }
+
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[HistoricoService.altaHistorico] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
     }
 }
