@@ -18,6 +18,7 @@ public class Entorno implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -72890274682898477L;
+
 	private String bbdd;
 	private String esquema;
 	private String password;
