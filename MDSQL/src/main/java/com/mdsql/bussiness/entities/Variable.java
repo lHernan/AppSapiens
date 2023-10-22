@@ -18,6 +18,8 @@ public class Variable implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -72890274682898477L;
+
+	private String codigoProyecto;
 	private String codigoVariable;
 	private String valor;
 	private String tipo;

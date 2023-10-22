@@ -1,5 +1,6 @@
 package com.mdsql.bussiness.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -112,12 +113,103 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
 	@Override
 	public List<Variable> consultaVariables(Modelo modelo) throws ServiceException {
-		return Collections.emptyList();
+		String runSP = createCall("p_con_vbles_modelo", MDSQLConstants.CALL_04_ARGS);
+
+		try (Connection conn = dataSource.getConnection();
+			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+			String typeVariable = createCallType(MDSQLConstants.T_T_VARIABLE);
+			String typeError = createCallTypeError();
+
+			String codigoProyecto = modelo.getCodigoProyecto();
+			logProcedure(runSP, codigoProyecto);
+
+			callableStatement.setString(1, codigoProyecto);
+			callableStatement.registerOutParameter(2, Types.ARRAY, typeVariable);
+			callableStatement.registerOutParameter(3, Types.INTEGER);
+			callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
+
+			callableStatement.execute();
+
+			Integer result = callableStatement.getInt(3);
+
+			if (result == 0) {
+				throw buildException(callableStatement.getArray(4));
+			}
+
+			List<Variable> variables = new ArrayList<>();
+			Array arrayVariables = callableStatement.getArray(2);
+
+			if (arrayVariables != null) {
+				Object[] rows = (Object[]) arrayVariables.getArray();
+				for (Object row : rows) {
+					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+
+					Variable variable = Variable.builder()
+							.codigoProyecto((String) cols[0])
+							.codigoVariable((String) cols[1])
+							.entorno((String) cols[2])
+							.bbdd((String) cols[3])
+							.tipo((String) cols[4])
+							.valor((String) cols[5])
+							.valorSustituir((String) cols[6])
+							.peticion((String) cols[7])
+							.usoInterno((String) cols[8])
+							.habilitada((String) cols[9])
+							.usrModificacion((String) cols[10])
+							.fechaModificacion((java.util.Date) cols[11])
+							.usrAlta((String) cols[12])
+							.fechaAlta((java.util.Date) cols[13])
+							.build();
+
+					variables.add(variable);
+				}
+			}
+			return variables;
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ModeloService.consultaVariables] Error:  %s", e.getMessage());
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override
 	public void actualizarVariableModelo(String codigoProyecto, String codigoVariable, String entorno, String bbdd, String tipoVariable, String valorVariable, String valorSustituir, String codigoPeticion, String mcaInterno, String mcaHabilitado, String codUsr) throws ServiceException {
+		String runSP = createCall("p_mnto_vbles_modelo", MDSQLConstants.CALL_13_ARGS);
 
+		try (Connection conn = dataSource.getConnection();
+			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+			String typeError = createCallTypeError();
+
+			logProcedure(runSP, codigoProyecto, codigoVariable, entorno, bbdd, tipoVariable, valorVariable, valorSustituir, codigoPeticion, mcaInterno, mcaHabilitado, codUsr);
+
+			callableStatement.setString(1, codigoProyecto);
+			callableStatement.setString(2, codigoVariable);
+			callableStatement.setString(3, entorno);
+			callableStatement.setString(4, bbdd);
+			callableStatement.setString(5, tipoVariable);
+			callableStatement.setString(6, valorVariable);
+			callableStatement.setString(7, valorSustituir);
+			callableStatement.setString(8, codigoPeticion);
+			callableStatement.setString(9, mcaInterno);
+			callableStatement.setString(10, mcaHabilitado);
+			callableStatement.setString(11, codUsr);
+
+			callableStatement.registerOutParameter(12, Types.INTEGER);
+			callableStatement.registerOutParameter(13, Types.ARRAY, typeError);
+
+			callableStatement.execute();
+
+			Integer result = callableStatement.getInt(12);
+
+			if (result == 0) {
+				throw buildException(callableStatement.getArray(13));
+			}
+
+		} catch (SQLException e) {
+			LogWrapper.error(log, "[ModeloService.actualizarVariableModelo] Error:  %s", e.getMessage());
+			throw new ServiceException(e);
+		}
 	}
 
 	/**
