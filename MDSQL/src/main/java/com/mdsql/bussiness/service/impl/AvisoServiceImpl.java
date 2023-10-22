@@ -189,7 +189,7 @@ public class AvisoServiceImpl extends ServiceSupport implements AvisoService {
 
             String typeError = createCallTypeError();
 
-            logProcedure(runSP, codigoProyecto, descripcionAviso, txtAviso, codNivelAviso, codPeticion, codUsr);
+            logProcedure(runSP, codigoProyecto, codigoAviso, descripcionAviso, txtAviso, codNivelAviso, mcaHabilitado, codPeticion, codUsr);
 
             callableStatement.setString(1, codigoProyecto);
             callableStatement.setBigDecimal(2, codigoAviso);
