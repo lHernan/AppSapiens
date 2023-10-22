@@ -47,8 +47,7 @@ public class MDSQLConstants extends Constants {
 	public static final String PROCESADO_EN_CURSO = "PROCESADO_EN_CURSO";
 
 
-
-	public static enum Results {
+    public static enum Results {
 		ERROR(0, "ERROR"), OK(1, "OK"), WARN(2, "WARN");
 		
 		@Getter
@@ -175,6 +174,8 @@ public class MDSQLConstants extends Constants {
 	public static final String T_T_ERROR_SCRIPT = "T_T_ERROR_SCRIPT";
 	public static final String T_T_SCRIPT_PARCHE = "T_T_SCRIPT_PARCHE";
 	public static final String T_T_SCRIPT_OLD = "T_T_SCRIPT_OLD";
+
+	public static final String T_T_DET_OBJ_HIS = "T_T_DET_OBJ_HIS";
 
 	// CONSTANTES DE UI
 

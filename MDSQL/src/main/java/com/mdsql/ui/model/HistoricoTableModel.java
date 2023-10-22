@@ -51,7 +51,7 @@ public class HistoricoTableModel extends DefaultTableModel<Historico> {
 		} else if (3 == columnIndex) {
 			return row.getPeticion();
 		} else if (4 == columnIndex) {
-			return row.getFecha();
+			return row.getFechaActualizacion();
 		} else if (5 == columnIndex) {
 			return row.getCodigoUsuario();
 		}

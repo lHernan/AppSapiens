@@ -21,8 +21,9 @@ public class Historico implements Serializable {
 	private static final long serialVersionUID = -3330091903761565934L;
 	private String nombreObjeto;
     private String historificado;
+    private String mcaTrh;
     private String tipoObjeto;
     private String peticion;
-    private Date fecha;
+    private Date fechaActualizacion;
     private String codigoUsuario;
 }

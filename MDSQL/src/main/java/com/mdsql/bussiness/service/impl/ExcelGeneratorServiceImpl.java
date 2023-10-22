@@ -113,7 +113,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		printCell(row, 2, historico.getTipoObjeto());
 		printCell(row, 3, historico.getPeticion());
 
-		String sDate = dateInformeFormatter.dateToString(historico.getFecha());
+		String sDate = dateInformeFormatter.dateToString(historico.getFechaActualizacion());
 		printCell(row, 4, sDate);
 		printCell(row, 5, historico.getCodigoUsuario());
 	}
