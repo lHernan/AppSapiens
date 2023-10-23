@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author federico
@@ -70,13 +71,16 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 
 	private void evtMntoVariables() {
 		Modelo seleccionado = getModelo();
-		Map<String, Object> params = new HashMap<>();
 
-		params.put("modelo", seleccionado);
+		if (!Objects.isNull(seleccionado)) {
+			Map<String, Object> params = new HashMap<>();
 
-		PantallaMantenimientoVariables pantallaMantenimientoVariables = (PantallaMantenimientoVariables) MDSQLUIHelper.createDialog(framePrincipal,
-				MDSQLConstants.CMD_MNTO_VARIABLES, params);
-		MDSQLUIHelper.show(pantallaMantenimientoVariables);
+			params.put("modelo", seleccionado);
+
+			PantallaMantenimientoVariables pantallaMantenimientoVariables = (PantallaMantenimientoVariables) MDSQLUIHelper.createDialog(framePrincipal,
+					MDSQLConstants.CMD_MNTO_VARIABLES, params);
+			MDSQLUIHelper.show(pantallaMantenimientoVariables);
+		}
 	}
 
 	private void evtMntoEntornos() {
@@ -109,14 +113,17 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 	private void evtPermisosGenerales() {
 		/*
 		Modelo seleccionado = getModelo();
-		Map<String, Object> params;
 
-		params = new HashMap<>();
-		params.put("modelo", seleccionado);
+		if (!Objects.isNull(seleccionado)) {
+			Map<String, Object> params;
 
-		PantallaPermisosGeneralesporModeloporTipoObjeto pantallaPermisosGeneralesporModeloporTipoObjeto = (PantallaPermisosGeneralesporModeloporTipoObjeto) MDSQLUIHelper.createDialog(framePrincipal,
-				MDSQLConstants.CMD_PERMISOS_GENERALES, params);
-		MDSQLUIHelper.show(pantallaPermisosGeneralesporModeloporTipoObjeto);
+			params = new HashMap<>();
+			params.put("modelo", seleccionado);
+
+			PantallaPermisosGeneralesporModeloporTipoObjeto pantallaPermisosGeneralesporModeloporTipoObjeto = (PantallaPermisosGeneralesporModeloporTipoObjeto) MDSQLUIHelper.createDialog(framePrincipal,
+					MDSQLConstants.CMD_PERMISOS_GENERALES, params);
+			MDSQLUIHelper.show(pantallaPermisosGeneralesporModeloporTipoObjeto);
+		}
 		*/
 	}
 
