@@ -96,7 +96,7 @@ public class TipoObjetoServiceImpl extends ServiceSupport implements TipoObjetoS
                 Object[] rows = (Object[]) arrayTipo.getArray();
                 for (Object row : rows) {
                     Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-                    String tipo = (String) cols[1];
+                    String tipo = (String) cols[0];
                     tipos.add(tipo);
                 }
             }
