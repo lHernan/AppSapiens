@@ -10,10 +10,7 @@ import javax.swing.*;
 
 import com.mdsql.bussiness.entities.*;
 import com.mdsql.bussiness.service.*;
-import com.mdsql.ui.PantallaHistoricoAlta;
-import com.mdsql.ui.PantallaHistoricoBaja;
-import com.mdsql.ui.PantallaMantenimientoHistorico;
-import com.mdsql.ui.PantallaSeleccionModelos;
+import com.mdsql.ui.*;
 import com.mdsql.ui.model.HistoricoTableModel;
 import com.mdsql.ui.model.PermisosTableModel;
 import com.mdsql.ui.model.TipoObjetoComboBoxModel;
@@ -77,6 +74,7 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 		MDSQLUIHelper.show(pantallaSeleccionModelos);
 		seleccionado = pantallaSeleccionModelos.getSeleccionado();
 		pantallaMantenimientoHistorico.setModeloSeleccionado(seleccionado);
+		pantallaMantenimientoHistorico.getTxtModelo().setText(seleccionado.getCodigoProyecto());
 	}
 	
 	private void eventBtnBuscar() {
