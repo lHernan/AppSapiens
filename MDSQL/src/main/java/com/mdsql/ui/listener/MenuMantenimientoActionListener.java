@@ -95,11 +95,8 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 
 	private void evtNotasModelos() {
 		Map<String, Object> params = new HashMap<>();
-		params.put("opcion", "mntoVariables");
-		Modelo seleccionado = getModelo(params);
-
 		PantallaMantenimientoNotasModelos pantallaMantenimientoNotasModelos = (PantallaMantenimientoNotasModelos) MDSQLUIHelper.createDialog(framePrincipal,
-				MDSQLConstants.CMD_MNTO_NOTAS, params);
+					MDSQLConstants.CMD_MNTO_NOTAS, params);
 		MDSQLUIHelper.show(pantallaMantenimientoNotasModelos);
 	}
 

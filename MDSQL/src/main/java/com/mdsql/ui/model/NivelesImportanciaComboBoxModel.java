@@ -19,7 +19,7 @@ public class NivelesImportanciaComboBoxModel extends AbstractListModel<NivelImpo
 
 	private List<NivelImportancia> lista;
 
-	private String selection = null;
+	private NivelImportancia selection = null;
 
 	public NivelesImportanciaComboBoxModel() {
 		super();
@@ -43,7 +43,7 @@ public class NivelesImportanciaComboBoxModel extends AbstractListModel<NivelImpo
 
 	@Override
 	public void setSelectedItem(Object anItem) {
-		selection = (String) anItem;
+		selection = (NivelImportancia) anItem;
 	}
 
 	@Override
