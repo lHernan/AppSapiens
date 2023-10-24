@@ -225,7 +225,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
 
             String typeError = createCallTypeError();
 
-            logProcedure(runSP, codigoProyecto, nombreObjeto, peticion, codUsr);
+            logProcedure(runSP, codigoProyecto, nombreObjeto, tipoObjeto, historificada, peticion, codUsr);
 
             callableStatement.setString(1, codigoProyecto);
             callableStatement.setString(2, nombreObjeto);
