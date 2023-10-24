@@ -60,6 +60,7 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 	private void eventBtnBuscarModelo() {
 		Modelo seleccionado = null;
 		Map<String, Object> params = new HashMap<>();
+		params.put("opcion", "mntoNotasModelos");
 
 		String codigoProyecto = pantallaMantenimientoNotasModelos.getTxtCodigoProyecto().getText();
 

@@ -70,10 +70,12 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 	}
 
 	private void evtMntoVariables() {
-		Modelo seleccionado = getModelo();
+		Map<String, Object> params = new HashMap<>();
+		params.put("opcion", "mntoVariables");
+		Modelo seleccionado = getModelo(params);
 
 		if (!Objects.isNull(seleccionado)) {
-			Map<String, Object> params = new HashMap<>();
+			params = new HashMap<>();
 
 			params.put("modelo", seleccionado);
 
@@ -93,6 +95,8 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 
 	private void evtNotasModelos() {
 		Map<String, Object> params = new HashMap<>();
+		params.put("opcion", "mntoVariables");
+		Modelo seleccionado = getModelo(params);
 
 		PantallaMantenimientoNotasModelos pantallaMantenimientoNotasModelos = (PantallaMantenimientoNotasModelos) MDSQLUIHelper.createDialog(framePrincipal,
 				MDSQLConstants.CMD_MNTO_NOTAS, params);
@@ -140,8 +144,7 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		 */
 	}
 
-	private Modelo getModelo() {
-		Map<String, Object> params = new HashMap<>();
+	private Modelo getModelo(Map<String, Object> params) {
 		PantallaSeleccionModelos pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createDialog(framePrincipal,
 				MDSQLConstants.CMD_SEARCH_MODEL, params);
 		MDSQLUIHelper.show(pantallaSeleccionModelos);
