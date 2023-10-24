@@ -68,6 +68,7 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 		MDSQLUIHelper.show(pantallaSeleccionModelos);
 		seleccionado = pantallaSeleccionModelos.getSeleccionado();
 		pantallaHistoricoAlta.setModeloSeleccionado(seleccionado);
+		pantallaHistoricoAlta.getTxtModelo().setText(seleccionado.getCodigoProyecto());
 	}
 
 	@Override
