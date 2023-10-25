@@ -28,7 +28,9 @@ public class TipoObjetoComboBoxModel extends AbstractListModel<String> implement
 
 	public TipoObjetoComboBoxModel(List<String> tipos) {
 		super();
-		this.tipos = tipos;
+		this.tipos = new ArrayList<>();
+		this.tipos.add(null);
+		this.tipos.addAll(tipos);
 	}
 
 	@Override

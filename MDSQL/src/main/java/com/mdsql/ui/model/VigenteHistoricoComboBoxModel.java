@@ -29,6 +29,7 @@ public class VigenteHistoricoComboBoxModel extends AbstractListModel<String> imp
 		super();
 		
 		responses = new ArrayList<>();
+		responses.add(null);
 		responses.add("Vigente");
 		responses.add("Histórico");
 	}

@@ -28,7 +28,9 @@ public class NivelesImportanciaComboBoxModel extends AbstractListModel<NivelImpo
 
 	public NivelesImportanciaComboBoxModel(List<NivelImportancia> lista) {
 		super();
-		this.lista = lista;
+		this.lista = new ArrayList<>();
+		this.lista.add(null);
+		this.lista.addAll(lista);
 	}
 
 	@Override
