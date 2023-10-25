@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.swing.JFileChooser;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -276,5 +274,10 @@ public class MDSQLUIHelper extends UIHelper {
 			field.setText(value);
 			field.setCaretPosition(0);
 		}
+	}
+
+	public static void setSelectedItem(JComboBox cmb, Object selected) {
+		cmb.setSelectedItem(selected);
+		cmb.repaint();
 	}
 }

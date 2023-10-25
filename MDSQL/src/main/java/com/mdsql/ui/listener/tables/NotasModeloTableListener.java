@@ -6,6 +6,7 @@ import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.model.NotasModeloTableModel;
 import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.DateFormatter;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
@@ -46,7 +47,10 @@ public class NotasModeloTableListener extends ListenerSupport implements ListSel
 			pantallaMantenimientoNotasModelos.setAvisoSeleccionado(seleccionado);
 
 			pantallaMantenimientoNotasModelos.getTxtPeticion().setText(seleccionado.getCodigoPeticion());
-			pantallaMantenimientoNotasModelos.getCmbImportancia().setSelectedItem(seleccionado.getNivelImportancia());
+
+			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoNotasModelos.getCmbImportancia(), seleccionado.getNivelImportancia());
+
+			pantallaMantenimientoNotasModelos.getCmbImportancia().repaint();
 			pantallaMantenimientoNotasModelos.getTxtTitulo().setText(seleccionado.getTxtAviso());
 			pantallaMantenimientoNotasModelos.getTxtDescripcion().setText(seleccionado.getDescripcionAviso());
 			pantallaMantenimientoNotasModelos.getTxtUsuarioAlta().setText(seleccionado.getCodigoUsrAlta());
