@@ -50,7 +50,6 @@ public class NotasModeloTableListener extends ListenerSupport implements ListSel
 
 			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoNotasModelos.getCmbImportancia(), seleccionado.getNivelImportancia());
 
-			pantallaMantenimientoNotasModelos.getCmbImportancia().repaint();
 			pantallaMantenimientoNotasModelos.getTxtTitulo().setText(seleccionado.getTxtAviso());
 			pantallaMantenimientoNotasModelos.getTxtDescripcion().setText(seleccionado.getDescripcionAviso());
 			pantallaMantenimientoNotasModelos.getTxtUsuarioAlta().setText(seleccionado.getCodigoUsrAlta());
