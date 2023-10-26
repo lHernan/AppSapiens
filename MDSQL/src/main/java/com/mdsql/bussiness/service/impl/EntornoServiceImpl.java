@@ -60,8 +60,9 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
                     Entorno entorno = Entorno.builder()
                             .bbdd((String) cols[0])
                             .esquema((String) cols[1])
-                            .password((String) cols[3])
-                            .habilitado((String) cols[4])
+                            .password((String) cols[2])
+                            .habilitado((String) cols[3])
+                            .comentario((String) cols[4])
                             .build();
 
                     entornos.add(entorno);
