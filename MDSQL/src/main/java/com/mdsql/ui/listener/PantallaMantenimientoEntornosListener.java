@@ -91,6 +91,8 @@ public class PantallaMantenimientoEntornosListener extends ListenerSupport imple
 		pantallaMantenimientoEntornos.getTxtPassword().setText(StringUtils.EMPTY);
 		pantallaMantenimientoEntornos.getChkHabilitada().setSelected(Boolean.FALSE);
 		pantallaMantenimientoEntornos.getTxtComentario().setText(StringUtils.EMPTY);
+
+		pantallaMantenimientoEntornos.getBtnGrabar().setEnabled(Boolean.FALSE);
 	}
 
 	private void actualizarEntornos() throws ServiceException, IOException {
@@ -104,6 +106,7 @@ public class PantallaMantenimientoEntornosListener extends ListenerSupport imple
 		List<Entorno> lista = entornoService.consultarEntornos(nomBBDD, nomEsquema, claveEncriptacion, mcaHabilitado);
 
 		fillEntornos(lista);
+		pantallaMantenimientoEntornos.getBtnGrabar().setEnabled(Boolean.FALSE);
 	}
 
 	private void fillEntornos(List<Entorno> list) throws ServiceException {

@@ -150,8 +150,6 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 
 				cargarNivelesImportancia();
 				cargarAvisosModelo(modeloSeleccionado);
-
-				pantallaMantenimientoNotasModelos.getBtnGuardar().setEnabled(Boolean.TRUE);
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
@@ -185,7 +183,7 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 
 	private void clearForm() {
 		pantallaMantenimientoNotasModelos.getTxtPeticion().setText(StringUtils.EMPTY);
-		pantallaMantenimientoNotasModelos.getCmbImportancia().setSelectedItem(null);
+		MDSQLUIHelper.setSelectedItem(pantallaMantenimientoNotasModelos.getCmbImportancia(), null);
 		pantallaMantenimientoNotasModelos.getChkHabilitada().setSelected(Boolean.FALSE);
 		pantallaMantenimientoNotasModelos.getTxtTitulo().setText(StringUtils.EMPTY);
 		pantallaMantenimientoNotasModelos.getTxtDescripcion().setText(StringUtils.EMPTY);
@@ -193,6 +191,8 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 		pantallaMantenimientoNotasModelos.getTxtFechaAlta().setText(StringUtils.EMPTY);
 		pantallaMantenimientoNotasModelos.getTxtUsuarioModificacion().setText(StringUtils.EMPTY);
 		pantallaMantenimientoNotasModelos.getTxtFechaModificacion().setText(StringUtils.EMPTY);
+
+		pantallaMantenimientoNotasModelos.getBtnGuardar().setEnabled(Boolean.FALSE);
 	}
 
 	private void clearList() {

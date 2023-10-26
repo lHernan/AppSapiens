@@ -7,6 +7,7 @@ import com.mdsql.ui.PantallaMantenimientoVariables;
 import com.mdsql.ui.model.EntornoTableModel;
 import com.mdsql.ui.model.VariableTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.DateFormatter;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
@@ -47,14 +48,13 @@ public class VariablesTableListener extends ListenerSupport implements ListSelec
 
 			pantallaMantenimientoVariables.getTxtCodigoVariable().setText(seleccionada.getCodigoVariable());
 			pantallaMantenimientoVariables.getTxtValorVariable().setText(seleccionada.getValor());
-			pantallaMantenimientoVariables.getCmbUsoInterno().setSelectedItem(seleccionada.getUsoInterno());
+			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoVariables.getCmbUsoInterno(), seleccionada.getUsoInterno());
 			pantallaMantenimientoVariables.getTxtPeticion().setText(seleccionada.getPeticion());
 			pantallaMantenimientoVariables.getTxtValorVariableSustituir().setText(seleccionada.getValorSustituir());
-			pantallaMantenimientoVariables.getCmbTipoVariable().setSelectedItem(seleccionada.getTipo());
+			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoVariables.getCmbTipoVariable(), seleccionada.getTipo());
 			pantallaMantenimientoVariables.getTxtBBDD().setText(seleccionada.getBbdd());
-			pantallaMantenimientoVariables.getCmbEntorno().setSelectedItem(seleccionada.getEntorno());
+			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoVariables.getCmbEntorno(), seleccionada.getEntorno());
 			pantallaMantenimientoVariables.getChkHabilitada().setSelected(AppHelper.normalizeCheckValue(seleccionada.getHabilitada()));
-
 			pantallaMantenimientoVariables.getTxtUsuarioAlta().setText(seleccionada.getUsrAlta());
 
 			String sFecha = dateFormatter.dateToString(seleccionada.getFechaAlta());

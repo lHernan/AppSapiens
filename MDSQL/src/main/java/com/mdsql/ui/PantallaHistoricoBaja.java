@@ -63,6 +63,8 @@ public class PantallaHistoricoBaja extends DialogSupport {
 		jLabel1 = new javax.swing.JLabel();
 		txtPeticion = new javax.swing.JTextField();
 
+		this.setBounds(510, 130);
+
 		txtPeticion.setPreferredSize(new java.awt.Dimension(64, 41));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

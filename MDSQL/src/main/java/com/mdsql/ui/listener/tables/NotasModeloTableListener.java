@@ -47,9 +47,7 @@ public class NotasModeloTableListener extends ListenerSupport implements ListSel
 			pantallaMantenimientoNotasModelos.setAvisoSeleccionado(seleccionado);
 
 			pantallaMantenimientoNotasModelos.getTxtPeticion().setText(seleccionado.getCodigoPeticion());
-
 			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoNotasModelos.getCmbImportancia(), seleccionado.getNivelImportancia());
-
 			pantallaMantenimientoNotasModelos.getTxtTitulo().setText(seleccionado.getTxtAviso());
 			pantallaMantenimientoNotasModelos.getTxtDescripcion().setText(seleccionado.getDescripcionAviso());
 			pantallaMantenimientoNotasModelos.getTxtUsuarioAlta().setText(seleccionado.getCodigoUsrAlta());

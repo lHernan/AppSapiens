@@ -80,12 +80,12 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 
 			pantallaMantenimientoVariables.getTxtCodigoVariable().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getTxtValorVariable().setText(StringUtils.EMPTY);
-			pantallaMantenimientoVariables.getCmbUsoInterno().setSelectedItem(literales.getLiteral("no"));
+			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoVariables.getCmbUsoInterno(), literales.getLiteral("no"));
 			pantallaMantenimientoVariables.getTxtPeticion().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getTxtValorVariableSustituir().setText(StringUtils.EMPTY);
-			pantallaMantenimientoVariables.getCmbTipoVariable().setSelectedItem(StringUtils.EMPTY);
+			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoVariables.getCmbTipoVariable(), null);
 			pantallaMantenimientoVariables.getTxtBBDD().setText(StringUtils.EMPTY);
-			pantallaMantenimientoVariables.getCmbEntorno().setSelectedItem(StringUtils.EMPTY);
+			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoVariables.getCmbEntorno(), null);
 			pantallaMantenimientoVariables.getTxtComentario().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getChkHabilitada().setSelected(Boolean.FALSE);
 			pantallaMantenimientoVariables.getChkUsoPermisos().setSelected(Boolean.FALSE);
@@ -95,6 +95,7 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 			pantallaMantenimientoVariables.getTxtUsuarioModificacion().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getTxtFechaModificacion().setText(StringUtils.EMPTY);
 
+			pantallaMantenimientoVariables.getBtnGuardar().setEnabled(Boolean.FALSE);
 		} catch (IOException e) {}
 	}
 
