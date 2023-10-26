@@ -40,7 +40,7 @@ public class PantallaMantenimientoNotasModelos extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtPeticion = new javax.swing.JTextField();
         chkHabilitada = new javax.swing.JCheckBox();
-        txtModeloProyecto1 = new javax.swing.JTextField();
+        txtCodigoProyecto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -123,15 +123,16 @@ public class PantallaMantenimientoNotasModelos extends javax.swing.JFrame {
         });
 
         chkHabilitada.setText("Habilitada");
+        chkHabilitada.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         chkHabilitada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkHabilitadaActionPerformed(evt);
             }
         });
 
-        txtModeloProyecto1.addActionListener(new java.awt.event.ActionListener() {
+        txtCodigoProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtModeloProyecto1ActionPerformed(evt);
+                txtCodigoProyectoActionPerformed(evt);
             }
         });
 
@@ -203,7 +204,7 @@ public class PantallaMantenimientoNotasModelos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtModeloProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -260,10 +261,10 @@ public class PantallaMantenimientoNotasModelos extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(btnBuscarModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtModeloProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtModeloProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -322,9 +323,9 @@ public class PantallaMantenimientoNotasModelos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPeticionActionPerformed
 
-    private void txtModeloProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModeloProyecto1ActionPerformed
+    private void txtCodigoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProyectoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtModeloProyecto1ActionPerformed
+    }//GEN-LAST:event_txtCodigoProyectoActionPerformed
 
     private void btnBuscarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarModeloActionPerformed
         // TODO add your handling code here:
@@ -423,11 +424,11 @@ public class PantallaMantenimientoNotasModelos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblMantenimientoHistorico;
+    private javax.swing.JTextField txtCodigoProyecto;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtFechaAlta;
     private javax.swing.JTextField txtFechaModificacion;
     private javax.swing.JTextField txtModeloProyecto;
-    private javax.swing.JTextField txtModeloProyecto1;
     private javax.swing.JTextField txtPeticion;
     private javax.swing.JTextField txtTitulo;
     private javax.swing.JTextField txtUsuarioAlta;
