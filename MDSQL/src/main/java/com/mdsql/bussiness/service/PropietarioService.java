@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface PropietarioService {
 
-    List<Propietario> consultarPropietariosModelo(Modelo modelo);
+    List<Propietario> consultarPropietariosSinonimo(Modelo modelo);
 
     List<Grant> consultarReceptoresModelo(Modelo modelo);
 }

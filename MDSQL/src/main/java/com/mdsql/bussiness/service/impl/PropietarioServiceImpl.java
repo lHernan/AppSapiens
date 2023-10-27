@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 public class PropietarioServiceImpl implements PropietarioService {
     @Override
-    public List<Propietario> consultarPropietariosModelo(Modelo modelo) {
+    public List<Propietario> consultarPropietariosSinonimo(Modelo modelo) {
         return Collections.emptyList();
     }
 

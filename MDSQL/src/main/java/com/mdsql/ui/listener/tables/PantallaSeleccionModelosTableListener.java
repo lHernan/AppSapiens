@@ -47,6 +47,9 @@ public class PantallaSeleccionModelosTableListener extends ListenerSupport imple
 			else if ("mntoVariables".equals(opcion)) {
 				pantallaSeleccionModelos.getBtnVariables().setEnabled(Boolean.TRUE);
 			}
+			else if ("mntoPermisosGenerales".equals(opcion)) {
+				pantallaSeleccionModelos.getBtnPermisosGenerales().setEnabled(Boolean.TRUE);
+			}
 			else {
 				pantallaSeleccionModelos.getBtnSeleccionar().setEnabled(Boolean.TRUE);
 			}

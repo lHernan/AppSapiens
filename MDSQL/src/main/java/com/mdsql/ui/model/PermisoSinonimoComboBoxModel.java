@@ -32,6 +32,7 @@ public class PermisoSinonimoComboBoxModel extends AbstractListModel<String> impl
 		super();
 		
 		responses = new ArrayList<>();
+		responses.add(null);
 		responses.add("Permiso");
 		responses.add("Sinónimo");
 	}

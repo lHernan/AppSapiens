@@ -402,7 +402,7 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 				txtUsuarioModificacion.setEditable(Boolean.FALSE);
 				txtFechaModificacion.setEditable(Boolean.FALSE);
 
-				cmbUsoInterno.setSelectedItem(literales.getLiteral("no"));
+				MDSQLUIHelper.setSelectedItem(cmbUsoInterno, literales.getLiteral("no"));
 
 				btnGuardar.setEnabled(Boolean.FALSE);
 

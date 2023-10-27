@@ -52,6 +52,10 @@ public class PantallaSeleccionModelosListener extends ListenerSupport implements
 		if (MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_VARIABLES.equals(jButton.getActionCommand())) {
 			pantallaSeleccionModelos.dispose();
 		}
+
+		if (MDSQLConstants.PANTALLA_SELECCION_MODELOS_BTN_PERMISOS_GENERALES.equals(jButton.getActionCommand())) {
+			pantallaSeleccionModelos.dispose();
+		}
 	}
 
 	/*

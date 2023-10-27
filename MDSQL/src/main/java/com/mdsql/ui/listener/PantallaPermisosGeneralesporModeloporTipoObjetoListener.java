@@ -138,7 +138,7 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 
 			// Rellenar combos
 			List<String> tipos = tipoObjetoService.consultarTiposObjeto();
-			List<Propietario> propietarios = propietarioService.consultarPropietariosModelo(modelo);
+			List<Propietario> propietarios = propietarioService.consultarPropietariosSinonimo(modelo);
 			List<Grant> receptores = propietarioService.consultarReceptoresModelo(modelo);
 
 			if (CollectionUtils.isNotEmpty(tipos)) {

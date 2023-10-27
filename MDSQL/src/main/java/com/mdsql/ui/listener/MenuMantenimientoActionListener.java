@@ -112,12 +112,11 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 	 * 
 	 */
 	private void evtPermisosGenerales() {
-		/*
-		Modelo seleccionado = getModelo();
+		Map<String, Object> params = new HashMap<>();
+		params.put("opcion", "mntoPermisosGenerales");
+		Modelo seleccionado = getModelo(params);
 
 		if (!Objects.isNull(seleccionado)) {
-			Map<String, Object> params;
-
 			params = new HashMap<>();
 			params.put("modelo", seleccionado);
 
@@ -125,7 +124,6 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 					MDSQLConstants.CMD_PERMISOS_GENERALES, params);
 			MDSQLUIHelper.show(pantallaPermisosGeneralesporModeloporTipoObjeto);
 		}
-		*/
 	}
 
 	private void evtPermisosObjeto() {

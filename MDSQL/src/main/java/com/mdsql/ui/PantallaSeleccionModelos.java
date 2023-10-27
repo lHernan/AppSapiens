@@ -46,6 +46,7 @@ public class PantallaSeleccionModelos extends DialogSupport {
     private JButton btnBuscar;
     @Getter
     private JButton btnNotas;
+    @Getter
     private JButton btnPermisosGenerales;
     private JButton btnPermisosPorColumna;
     private JButton btnPermisosPorObjeto;

@@ -397,15 +397,14 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
-		 SiNoComboBoxModel siNoComboBoxModel = new SiNoComboBoxModel();
 		 PermisoSinonimoComboBoxModel permisoSinonimoComboBoxModel = new PermisoSinonimoComboBoxModel();
 		 VigenteHistoricoComboBoxModel vigenteHistoricoComboBoxModel = new VigenteHistoricoComboBoxModel();
 
-		 cmbWithGrantOpcion.setModel(siNoComboBoxModel);
+		 cmbWithGrantOpcion.setModel(new SiNoComboBoxModel());
 		 cmbWithGrantOpcion.setRenderer(new CmbStringRenderer());
 		 cmbPermisoSinonimo.setModel(permisoSinonimoComboBoxModel);
 		 cmbPermisoSinonimo.setRenderer(new CmbStringRenderer());
-		 cmbIncluirPDC.setModel(siNoComboBoxModel);
+		 cmbIncluirPDC.setModel(new SiNoComboBoxModel());
 		 cmbIncluirPDC.setRenderer(new CmbStringRenderer());
 		 cmbEntorno.setModel(vigenteHistoricoComboBoxModel);
 		 cmbEntorno.setRenderer(new CmbStringRenderer());
@@ -427,7 +426,10 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 txtFechaAlta.setEditable(Boolean.FALSE);
 		 txtUsuarioModificacion.setEditable(Boolean.FALSE);
 		 txtFechaModificacion.setEditable(Boolean.FALSE);
-		 cmbPermisoSinonimo.setSelectedItem(null);
+
+		 MDSQLUIHelper.setSelectedItem(cmbPermisoSinonimo, null);
+		 MDSQLUIHelper.setSelectedItem(cmbWithGrantOpcion, literales.getLiteral("no"));
+		 MDSQLUIHelper.setSelectedItem(cmbIncluirPDC, literales.getLiteral("si"));
 
 		 if (!Objects.isNull(modelo)) {
 			 txtModeloProyecto.setText(modelo.getCodigoProyecto());
