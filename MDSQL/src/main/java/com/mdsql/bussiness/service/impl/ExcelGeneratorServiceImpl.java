@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 
 import com.mdsql.bussiness.entities.Historico;
+import com.mdsql.bussiness.entities.Permiso;
+import com.mdsql.bussiness.entities.Sinonimo;
 import com.mdsql.utils.DateFormatter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -35,6 +37,10 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	private static final String FORMATO_ARCHIVO_HISTORICO_CAMBIOS = "%s_Cambios_desde_hasta_%s.xls";
 
 	private static final String FORMATO_ARCHIVO_HISTORICO = "%s_SufijoExcelObjHistorico_%s.xls";
+
+	private static final String FORMATO_ARCHIVO_PERMISOS = "%s_SufijoExcelPermisosGenerales_%s.xls";
+
+	private static final String FORMATO_ARCHIVO_SINONIMOS = "%s_SufijoExcelSinonimosGenerales_%s.xls";
 
 	private DateFormatter dateInformeFormatter;
 
@@ -94,6 +100,64 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		}
 	}
 
+	@Override
+	@SneakyThrows
+	public void generarExcelSinonimos(List<Sinonimo> sinonimosGenerales, String path, String codigoProyecto, Date date) {
+		String sDate = dateInformeFormatter.dateToString(date);
+
+		String fileName = String.format(FORMATO_ARCHIVO_SINONIMOS, codigoProyecto, sDate);
+		log.info("Archivo: {}", fileName);
+
+		try (InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.LISTADO_SINONIMOS_TEMPLATE_LOCATION);
+			 FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
+			 Workbook workbook = new HSSFWorkbook(inputStream)) {
+
+			Sheet sheet = workbook.getSheet("Hoja1");
+
+			setupCabeceraSinonimos(sheet);
+
+			int rowNum = 1; // row to start writting
+			for (Sinonimo sinonimo : sinonimosGenerales) {
+				createRowSinonimo(sheet, sinonimo, rowNum);
+				rowNum += 1;
+			}
+
+			workbook.write(outputStream);
+		}
+	}
+
+	@Override
+	@SneakyThrows
+	public void generarExcelPermisos(List<Permiso> permisosGenerales, String path, String codigoProyecto, Date date) {
+		String sDate = dateInformeFormatter.dateToString(date);
+
+		String fileName = String.format(FORMATO_ARCHIVO_PERMISOS, codigoProyecto, sDate);
+		log.info("Archivo: {}", fileName);
+
+		try (InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.LISTADO_PERMISOS_TEMPLATE_LOCATION);
+			 FileOutputStream outputStream = new FileOutputStream(path + File.separator + fileName);
+			 Workbook workbook = new HSSFWorkbook(inputStream)) {
+
+			Sheet sheet = workbook.getSheet("Hoja1");
+
+			setupCabeceraPermisos(sheet);
+
+			int rowNum = 1; // row to start writting
+			for (Permiso permiso : permisosGenerales) {
+				createRowPermiso(sheet, permiso, rowNum);
+				rowNum += 1;
+			}
+
+			workbook.write(outputStream);
+		}
+	}
+
+	private void setupCabeceraSinonimos(Sheet sheet) {
+	}
+
+	private void setupCabeceraPermisos(Sheet sheet) {
+	}
+
 	private void setupCabeceraInformeHistorico(Sheet sheet) {
 		Row row = sheet.getRow(0);
 
@@ -103,6 +167,12 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		printCell(row, 3, "Petición");
 		printCell(row, 4, "Fecha");
 		printCell(row, 5, "Usuario");
+	}
+
+	private void createRowSinonimo(Sheet sheet, Sinonimo sinonimo, int rowNum) {
+	}
+
+	private void createRowPermiso(Sheet sheet, Permiso permiso, int rowNum) {
 	}
 
 	private void createRowInformeHistorico(Sheet sheet, Historico historico, int rowNum) {

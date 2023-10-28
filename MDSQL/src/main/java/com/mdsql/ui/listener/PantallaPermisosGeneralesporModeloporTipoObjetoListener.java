@@ -2,10 +2,12 @@ package com.mdsql.ui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 import com.mdsql.bussiness.entities.*;
 import com.mdsql.bussiness.service.*;
@@ -13,6 +15,7 @@ import com.mdsql.ui.PantallaPermisosGeneralesporModeloporTipoObjeto;
 import com.mdsql.ui.model.*;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -121,7 +124,30 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 	}
 
 	private void eventBtnInforme() {
-		
+		try {
+			PermisosService permisosService = (PermisosService) getService(MDSQLConstants.PERMISOS_SERVICE);
+			Modelo modelo = pantallaPermisosGeneralesporModeloporTipoObjeto.getModelo();
+
+			List<Permiso> permisosGenerales = permisosService.consultaPermisosGenerales(modelo);
+			List<Sinonimo> sinonimosGenerales = permisosService.consultaSinonimosGenerales(modelo);
+
+			if (CollectionUtils.isNotEmpty(permisosGenerales)) {
+				fillInformePermisos(modelo, permisosGenerales);
+			}
+			else {
+				JOptionPane.showMessageDialog(pantallaPermisosGeneralesporModeloporTipoObjeto.getFrameParent(), "No hay permisos para generar informe");
+			}
+
+			if (CollectionUtils.isNotEmpty(sinonimosGenerales)) {
+				fillInformeSinonimos(modelo, sinonimosGenerales);
+			}
+			else {
+				JOptionPane.showMessageDialog(pantallaPermisosGeneralesporModeloporTipoObjeto.getFrameParent(), "No hay sinónimos para generar informe");
+			}
+		} catch (ServiceException | IOException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaPermisosGeneralesporModeloporTipoObjeto.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+		}
 	}
 
 	@Override
@@ -195,5 +221,23 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 		tableModel.clearData();
 
 		tableModel.setData(sinonimosGenerales);
+	}
+
+	private void fillInformeSinonimos(Modelo modelo, List<Sinonimo> sinonimosGenerales) throws IOException {
+		ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(MDSQLConstants.EXCEL_GENERATOR_SERVICE);
+
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String path = configuration.getConfig("RutaInformes");
+
+		excelGeneratorService.generarExcelSinonimos(sinonimosGenerales, path, modelo.getCodigoProyecto(), new Date());
+	}
+
+	private void fillInformePermisos(Modelo modelo, List<Permiso> permisosGenerales) throws IOException {
+		ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(MDSQLConstants.EXCEL_GENERATOR_SERVICE);
+
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String path = configuration.getConfig("RutaInformes");
+
+		excelGeneratorService.generarExcelPermisos(permisosGenerales, path, modelo.getCodigoProyecto(), new Date());
 	}
 }

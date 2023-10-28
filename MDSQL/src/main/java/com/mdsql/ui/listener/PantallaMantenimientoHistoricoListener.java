@@ -166,7 +166,6 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 
 	private void fillInforme(String codigoProyecto, List<Historico> lista) {
 		try {
-			InformeService informeService = (InformeService) getService(MDSQLConstants.INFORME_SERVICE);
 			ExcelGeneratorService excelGeneratorService = (ExcelGeneratorService) getService(MDSQLConstants.EXCEL_GENERATOR_SERVICE);
 
 			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
