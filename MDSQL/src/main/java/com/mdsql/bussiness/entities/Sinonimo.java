@@ -5,25 +5,37 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class Sinonimo {
 
-    private String receptor;
+    private String codigoProyecto;
 
-    private String tipoObjeto;
+    private String codUsrGrant;
 
-    private String entorno;
+    private String codOwnerSyn;
 
-    private String propietario;
+    private String desEntorno;
 
-    private String incluirPDC;
+    private String tipObjeto;
 
-    private Boolean habilitada;
+    private String valReglaSyn;
 
-    private String peticion;
+    private String mcaPdc;
 
-    private String funcionNombre;
+    private String mcaHabilitado;
+
+    private String codPeticion;
+
+    private String codUsr;
+
+    private Date fecActu;
+
+    private String codUsrAlta;
+
+    private Date fecAlta;
 }

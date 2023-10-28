@@ -26,12 +26,118 @@ public class PermisosServiceImpl extends ServiceSupport implements PermisosServi
 
     @Override
     public List<Permiso> consultaPermisosGenerales(Modelo modelo) throws ServiceException {
-        return Collections.emptyList();
+        String runSP = createCall("p_con_per_generales", MDSQLConstants.CALL_04_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typePermiso = createCallType(MDSQLConstants.T_T_PERMISO_GEN);
+            String typeError = createCallTypeError();
+
+            String codigoProyecto = modelo.getCodigoProyecto();
+            logProcedure(runSP, codigoProyecto);
+
+            callableStatement.setString(1, codigoProyecto);
+            callableStatement.registerOutParameter(2, Types.ARRAY, typePermiso);
+            callableStatement.registerOutParameter(3, Types.INTEGER);
+            callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(3);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(4));
+            }
+
+            List<Permiso> permisos = new ArrayList<>();
+            Array arrayTipo = callableStatement.getArray(2);
+
+            if (arrayTipo != null) {
+                Object[] rows = (Object[]) arrayTipo.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+                    Permiso permiso = Permiso.builder()
+                            .codigoProyecto((String) cols[0])
+                            .codUsrGrant((String) cols[1])
+                            .valGrant((String) cols[2])
+                            .desEntorno((String) cols[3])
+                            .tipObjeto((String) cols[4])
+                            .mcaGrantOption((String) cols[5])
+                            .mcaPdc((String) cols[6])
+                            .mcaHabilitado((String) cols[7])
+                            .codPeticion((String) cols[8])
+                            .codUsr((String) cols[9])
+                            .fecActu((Date) cols[10])
+                            .codUsrAlta((String) cols[11])
+                            .fecAlta((Date) cols[12])
+                            .build();
+                    permisos.add(permiso);
+                }
+            }
+            return permisos;
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[PermisosService.consultaPermisosGenerales] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
     }
 
     @Override
     public List<Sinonimo> consultaSinonimosGenerales(Modelo modelo) throws ServiceException {
-        return Collections.emptyList();
+        String runSP = createCall("p_con_syn_generales", MDSQLConstants.CALL_04_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeSinonimo = createCallType(MDSQLConstants.T_T_SINONIMO_GEN);
+            String typeError = createCallTypeError();
+
+            String codigoProyecto = modelo.getCodigoProyecto();
+            logProcedure(runSP, codigoProyecto);
+
+            callableStatement.setString(1, codigoProyecto);
+            callableStatement.registerOutParameter(2, Types.ARRAY, typeSinonimo);
+            callableStatement.registerOutParameter(3, Types.INTEGER);
+            callableStatement.registerOutParameter(4, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(3);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(4));
+            }
+
+            List<Sinonimo> sinonimos = new ArrayList<>();
+            Array arraySinonimos = callableStatement.getArray(2);
+
+            if (arraySinonimos != null) {
+                Object[] rows = (Object[]) arraySinonimos.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+                    Sinonimo sinonimo = Sinonimo.builder()
+                            .codigoProyecto((String) cols[0])
+                            .codUsrGrant((String) cols[1])
+                            .codOwnerSyn((String) cols[2])
+                            .desEntorno((String) cols[3])
+                            .tipObjeto((String) cols[4])
+                            .valReglaSyn((String) cols[5])
+                            .mcaPdc((String) cols[6])
+                            .mcaHabilitado((String) cols[7])
+                            .codPeticion((String) cols[8])
+                            .codUsr((String) cols[9])
+                            .fecActu((Date) cols[10])
+                            .codUsrAlta((String) cols[11])
+                            .fecAlta((Date) cols[12])
+                            .build();
+                    sinonimos.add(sinonimo);
+                }
+            }
+            return sinonimos;
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[PermisosService.consultaSinonimosGenerales] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
     }
 
     @Override

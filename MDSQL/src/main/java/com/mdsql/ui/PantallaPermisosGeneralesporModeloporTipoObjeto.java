@@ -431,6 +431,8 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 MDSQLUIHelper.setSelectedItem(cmbWithGrantOpcion, literales.getLiteral("no"));
 		 MDSQLUIHelper.setSelectedItem(cmbIncluirPDC, literales.getLiteral("si"));
 
+		 btnGuardar.setEnabled(Boolean.FALSE);
+
 		 if (!Objects.isNull(modelo)) {
 			 txtModeloProyecto.setText(modelo.getCodigoProyecto());
 			 txtModelo1.setText(modelo.getNombreModelo());

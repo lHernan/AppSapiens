@@ -45,21 +45,21 @@ public class SinonimosTableModel extends DefaultTableModel<Sinonimo> {
 		Sinonimo row = data.get(rowIndex);
 
 		if (0 == columnIndex) {
-			return row.getReceptor();
+			return row.getCodUsrGrant();
 		} else if (1 == columnIndex) {
-			return row.getTipoObjeto();
+			return row.getTipObjeto();
 		} else if (2 == columnIndex) {
-			return row.getEntorno();
+			return row.getDesEntorno();
 		} else if (3 == columnIndex) {
-			return row.getPropietario();
+			return row.getCodOwnerSyn();
 		} else if (4 == columnIndex) {
-			return row.getIncluirPDC();
+			return row.getMcaPdc();
 		} else if (5 == columnIndex) {
-			return row.getHabilitada();
+			return row.getMcaHabilitado();
 		} else if (6 == columnIndex) {
-			return row.getPeticion();
+			return row.getCodPeticion();
 		} else if (7 == columnIndex) {
-			return row.getFuncionNombre();
+			return row.getValReglaSyn();
 		}
 
 		return null;

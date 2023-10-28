@@ -5,25 +5,37 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class Permiso {
 
-    private String receptor;
+    private String codigoProyecto;
 
-    private String tipoObjeto;
+    private String codUsrGrant;
 
-    private String permiso;
+    private String valGrant;
 
-    private String entorno;
+    private String desEntorno;
 
-    private String grantOption;
+    private String tipObjeto;
 
-    private String incluirPDC;
+    private String mcaGrantOption;
 
-    private Boolean habilitada;
+    private String mcaPdc;
 
-    private String peticion;
+    private String mcaHabilitado;
+
+    private String codPeticion;
+
+    private String codUsr;
+
+    private Date fecActu;
+
+    private String codUsrAlta;
+
+    private Date fecAlta;
 }

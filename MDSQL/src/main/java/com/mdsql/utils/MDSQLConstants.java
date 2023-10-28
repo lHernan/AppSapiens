@@ -190,6 +190,10 @@ public class MDSQLConstants extends Constants {
 
 	public static final String T_T_PERMISO = "T_T_PERMISO";
 
+	public static final String T_T_PERMISO_GEN = "T_T_PERMISO_GEN";
+
+	public static final String T_T_SINONIMO_GEN = "T_T_SINONIMO_GEN";
+
 	// CONSTANTES DE UI
 
 	// Tecla Enter, para los botones
