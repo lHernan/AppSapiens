@@ -184,12 +184,136 @@ public class PermisosServiceImpl extends ServiceSupport implements PermisosServi
     }
 
     @Override
-    public void guardarPermiso(String codProyecto, String codUsrGrant, String valGrant, String desEntorno, String tipoObjeto, String mcaGrantOption, String mcaIncluirPDC, String mcaHabilitado, String codPeticion, String codUsr) throws ServiceException {
+    public List<Permiso> guardarPermiso(String codProyecto, String codUsrGrant, String valGrant, String desEntorno, String tipoObjeto, String mcaGrantOption, String mcaIncluirPDC, String mcaHabilitado, String codPeticion, String codUsr) throws ServiceException {
+        String runSP = createCall("p_mnto_per_general", MDSQLConstants.CALL_13_ARGS);
 
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typePermiso = createCallType(MDSQLConstants.T_T_PERMISO_GEN);
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, codProyecto, codUsrGrant, valGrant, desEntorno, tipoObjeto, mcaGrantOption, mcaIncluirPDC, mcaHabilitado, codPeticion, codUsr);
+
+            callableStatement.setString(1, codProyecto);
+            callableStatement.setString(2, codUsrGrant);
+            callableStatement.setString(3, valGrant);
+            callableStatement.setString(4, desEntorno);
+            callableStatement.setString(5, tipoObjeto);
+            callableStatement.setString(6, mcaGrantOption);
+            callableStatement.setString(7, mcaIncluirPDC);
+            callableStatement.setString(8, mcaHabilitado);
+            callableStatement.setString(9, codPeticion);
+            callableStatement.setString(10, codUsr);
+
+            callableStatement.registerOutParameter(11, Types.ARRAY, typePermiso);
+            callableStatement.registerOutParameter(12, Types.INTEGER);
+            callableStatement.registerOutParameter(13, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(7);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(8));
+            }
+
+            List<Permiso> permisos = new ArrayList<>();
+            Array arrayTipo = callableStatement.getArray(2);
+
+            if (arrayTipo != null) {
+                Object[] rows = (Object[]) arrayTipo.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+                    Permiso permiso = Permiso.builder()
+                            .codigoProyecto((String) cols[0])
+                            .codUsrGrant((String) cols[1])
+                            .valGrant((String) cols[2])
+                            .desEntorno((String) cols[3])
+                            .tipObjeto((String) cols[4])
+                            .mcaGrantOption((String) cols[5])
+                            .mcaPdc((String) cols[6])
+                            .mcaHabilitado((String) cols[7])
+                            .codPeticion((String) cols[8])
+                            .codUsr((String) cols[9])
+                            .fecActu((Date) cols[10])
+                            .codUsrAlta((String) cols[11])
+                            .fecAlta((Date) cols[12])
+                            .build();
+                    permisos.add(permiso);
+                }
+            }
+            return permisos;
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[PermisosService.guardarPermiso] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
     }
 
     @Override
-    public void guardarSinonimo(String codProyecto, String codUsrGrant, String codOwnerSyn, String desEntorno, String tipoObjeto, String funcionNombre, String mcaIncluirPDC, String mcaHabilitado, String codPeticion, String codUsr) throws ServiceException {
+    public List<Sinonimo> guardarSinonimo(String codProyecto, String codUsrGrant, String codOwnerSyn, String desEntorno, String tipoObjeto, String funcionNombre, String mcaIncluirPDC, String mcaHabilitado, String codPeticion, String codUsr) throws ServiceException {
+        String runSP = createCall("p_mnto_syn_general", MDSQLConstants.CALL_13_ARGS);
 
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeSinonimo = createCallType(MDSQLConstants.T_T_SINONIMO_GEN);
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, codProyecto, codUsrGrant, codOwnerSyn, desEntorno, tipoObjeto, funcionNombre, mcaIncluirPDC, mcaHabilitado, codPeticion, codUsr);
+
+            callableStatement.setString(1, codProyecto);
+            callableStatement.setString(2, codUsrGrant);
+            callableStatement.setString(3, codOwnerSyn);
+            callableStatement.setString(4, desEntorno);
+            callableStatement.setString(5, tipoObjeto);
+            callableStatement.setString(6, funcionNombre);
+            callableStatement.setString(7, mcaIncluirPDC);
+            callableStatement.setString(8, mcaHabilitado);
+            callableStatement.setString(9, codPeticion);
+            callableStatement.setString(10, codUsr);
+
+            callableStatement.registerOutParameter(11, Types.ARRAY, typeSinonimo);
+            callableStatement.registerOutParameter(12, Types.INTEGER);
+            callableStatement.registerOutParameter(13, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(12);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(13));
+            }
+
+            List<Sinonimo> sinonimos = new ArrayList<>();
+            Array arraySinonimos = callableStatement.getArray(11);
+
+            if (arraySinonimos != null) {
+                Object[] rows = (Object[]) arraySinonimos.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+                    Sinonimo sinonimo = Sinonimo.builder()
+                            .codigoProyecto((String) cols[0])
+                            .codUsrGrant((String) cols[1])
+                            .codOwnerSyn((String) cols[2])
+                            .desEntorno((String) cols[3])
+                            .tipObjeto((String) cols[4])
+                            .valReglaSyn((String) cols[5])
+                            .mcaPdc((String) cols[6])
+                            .mcaHabilitado((String) cols[7])
+                            .codPeticion((String) cols[8])
+                            .codUsr((String) cols[9])
+                            .fecActu((Date) cols[10])
+                            .codUsrAlta((String) cols[11])
+                            .fecAlta((Date) cols[12])
+                            .build();
+                    sinonimos.add(sinonimo);
+                }
+            }
+            return sinonimos;
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[PermisosService.guardarSinonimo] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
     }
 }
