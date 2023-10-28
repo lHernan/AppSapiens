@@ -184,6 +184,10 @@ public class MDSQLConstants extends Constants {
 
 	public static final String T_T_VARIABLE = "T_T_VARIABLE";
 
+	public static final String T_T_OWNER_SYN = "T_T_OWNER_SYN";
+
+	public static final String T_T_USR_GRANT = "T_T_USR_GRANT";
+
 	// CONSTANTES DE UI
 
 	// Tecla Enter, para los botones

@@ -4,6 +4,7 @@ import com.mdsql.bussiness.entities.Grant;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Propietario;
 import com.mdsql.bussiness.entities.TipoObjeto;
+import com.mdval.exceptions.ServiceException;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface PropietarioService {
 
-    List<Propietario> consultarPropietariosSinonimo(Modelo modelo);
+    List<Propietario> consultarPropietariosSinonimo(Modelo modelo) throws ServiceException;
 
-    List<Grant> consultarReceptoresModelo(Modelo modelo);
+    List<Grant> consultarReceptoresModelo(Modelo modelo) throws ServiceException;
 }
