@@ -153,9 +153,29 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	}
 
 	private void setupCabeceraSinonimos(Sheet sheet) {
+		Row row = sheet.getRow(0);
+
+		printCell(row, 0, "Receptor");
+		printCell(row, 1, "Tipo Objeto");
+		printCell(row, 2, "Entorno");
+		printCell(row, 3, "Propietario");
+		printCell(row, 4, "Incluir en PDC");
+		printCell(row, 5, "Habilitada");
+		printCell(row, 6, "Petición");
+		printCell(row, 7, "Función Nombre");
 	}
 
 	private void setupCabeceraPermisos(Sheet sheet) {
+		Row row = sheet.getRow(0);
+
+		printCell(row, 0, "Receptor");
+		printCell(row, 1, "Tipo Objeto");
+		printCell(row, 2, "Permiso");
+		printCell(row, 3, "Entorno");
+		printCell(row, 4, "Grant Option");
+		printCell(row, 5, "Incluir en PDC");
+		printCell(row, 6, "Habilitada");
+		printCell(row, 7, "Petición");
 	}
 
 	private void setupCabeceraInformeHistorico(Sheet sheet) {
@@ -170,9 +190,29 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	}
 
 	private void createRowSinonimo(Sheet sheet, Sinonimo sinonimo, int rowNum) {
+		Row row = sheet.createRow(rowNum);
+
+		printCell(row, 0, sinonimo.getCodUsrGrant());
+		printCell(row, 1, sinonimo.getTipObjeto());
+		printCell(row, 2, sinonimo.getDesEntorno());
+		printCell(row, 3, sinonimo.getCodOwnerSyn());
+		printCell(row, 4, sinonimo.getMcaPdc());
+		printCell(row, 5, sinonimo.getMcaHabilitado());
+		printCell(row, 6, sinonimo.getCodPeticion());
+		printCell(row, 7, sinonimo.getValReglaSyn());
 	}
 
 	private void createRowPermiso(Sheet sheet, Permiso permiso, int rowNum) {
+		Row row = sheet.createRow(rowNum);
+
+		printCell(row, 0, permiso.getCodUsrGrant());
+		printCell(row, 1, permiso.getTipObjeto());
+		printCell(row, 2, permiso.getValGrant());
+		printCell(row, 3, permiso.getDesEntorno());
+		printCell(row, 4, permiso.getMcaGrantOption());
+		printCell(row, 5, permiso.getMcaPdc());
+		printCell(row, 6, permiso.getMcaHabilitado());
+		printCell(row, 7, permiso.getCodPeticion());
 	}
 
 	private void createRowInformeHistorico(Sheet sheet, Historico historico, int rowNum) {
