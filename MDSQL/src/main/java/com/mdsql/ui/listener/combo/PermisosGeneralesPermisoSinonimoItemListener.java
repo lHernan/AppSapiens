@@ -6,6 +6,7 @@ import com.mdsql.ui.model.PermisoComboBoxModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.AppHelper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class PermisosGeneralesPermisoSinonimoItemListener extends PermisoSinonim
 			pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtFuncionNombre().setEnabled(Boolean.FALSE);
 
 			pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbWithGrantOpcion().setEnabled(Boolean.TRUE);
+			MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbWithGrantOpcion(), literales.getLiteral("no"));
 			pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPermiso().setEnabled(Boolean.TRUE);
 		}
 

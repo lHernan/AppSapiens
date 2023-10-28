@@ -36,10 +36,8 @@ public class GrantComboBoxModel extends AbstractListModel<Grant> implements Comb
 	public GrantComboBoxModel(List<Grant> list) {
 		super();
 		this.list = new ArrayList<>();
-		
-		for (Grant item : list) {
-			this.list.add(item);
-		}
+		this.list.add(null);
+		this.list.addAll(list);
 	}
 	
 	/**

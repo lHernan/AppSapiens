@@ -188,6 +188,8 @@ public class MDSQLConstants extends Constants {
 
 	public static final String T_T_USR_GRANT = "T_T_USR_GRANT";
 
+	public static final String T_T_PERMISO = "T_T_PERMISO";
+
 	// CONSTANTES DE UI
 
 	// Tecla Enter, para los botones

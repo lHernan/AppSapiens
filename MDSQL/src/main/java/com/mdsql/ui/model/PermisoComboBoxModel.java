@@ -26,7 +26,9 @@ public class PermisoComboBoxModel extends AbstractListModel<String> implements C
 
 	public PermisoComboBoxModel(List<String> list) {
 		super();
-		this.list = list;
+		this.list = new ArrayList<>();
+		this.list.add(null);
+		this.list.addAll(list);
 	}
 
 	@Override

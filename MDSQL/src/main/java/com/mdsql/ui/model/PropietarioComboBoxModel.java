@@ -36,10 +36,8 @@ public class PropietarioComboBoxModel extends AbstractListModel<Propietario> imp
 	public PropietarioComboBoxModel(List<Propietario> list) {
 		super();
 		this.list = new ArrayList<>();
-		
-		for (Propietario item : list) {
-			this.list.add(item);
-		}
+		this.list.add(null);
+		this.list.addAll(list);
 	}
 	
 	/**
