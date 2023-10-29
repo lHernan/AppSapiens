@@ -1,14 +1,13 @@
 package com.mdsql.ui.listener.tables;
 
-import com.mdsql.bussiness.entities.Modelo;
-import com.mdsql.bussiness.entities.Permiso;
-import com.mdsql.bussiness.entities.Sinonimo;
+import com.mdsql.bussiness.entities.*;
 import com.mdsql.ui.PantallaDetallePermisosPorObjeto;
+import com.mdsql.ui.PantallaPermisosGeneralesporModeloporTipoObjeto;
 import com.mdsql.ui.PantallaSeleccionModelos;
-import com.mdsql.ui.model.PermisosTableModel;
-import com.mdsql.ui.model.SeleccionModelosTableModel;
-import com.mdsql.ui.model.SinonimosTableModel;
+import com.mdsql.ui.model.*;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,11 +19,11 @@ import java.util.Objects;
 @Slf4j
 public class SinonimosTableListener extends ListenerSupport implements ListSelectionListener {
 
-	private PantallaDetallePermisosPorObjeto pantallaDetallePermisosPorObjeto;
+	private PantallaPermisosGeneralesporModeloporTipoObjeto pantallaPermisosGeneralesporModeloporTipoObjeto;
 
-	public SinonimosTableListener(PantallaDetallePermisosPorObjeto pantallaDetallePermisosPorObjeto) {
+	public SinonimosTableListener(PantallaPermisosGeneralesporModeloporTipoObjeto pantallaPermisosGeneralesporModeloporTipoObjeto) {
 		super();
-		this.pantallaDetallePermisosPorObjeto = pantallaDetallePermisosPorObjeto;
+		this.pantallaPermisosGeneralesporModeloporTipoObjeto = pantallaPermisosGeneralesporModeloporTipoObjeto;
 	}
 
 	@Override
@@ -35,14 +34,43 @@ public class SinonimosTableListener extends ListenerSupport implements ListSelec
 		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 		Integer index = lsm.getMinSelectionIndex();
 
-		SinonimosTableModel tableModel = (SinonimosTableModel) pantallaDetallePermisosPorObjeto.getTblPermisos().getModel();
+		SinonimosTableModel tableModel = (SinonimosTableModel) pantallaPermisosGeneralesporModeloporTipoObjeto.getTblSinonimos().getModel();
 
 		Sinonimo seleccionado = tableModel.getSelectedRow(index);
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
-			pantallaDetallePermisosPorObjeto.setSinonimoSeleccionado(seleccionado);
-			pantallaDetallePermisosPorObjeto.getBtnModificacion().setEnabled(Boolean.TRUE);
-			pantallaDetallePermisosPorObjeto.getTblPermisos().clearSelection();
+			pantallaPermisosGeneralesporModeloporTipoObjeto.setSinonimoSeleccionado(seleccionado);
+			MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPermisoSinonimo(), "Sinónimo");
+			MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbTipoObjeto(), seleccionado.getTipObjeto());
+			MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbEntorno(), seleccionado.getDesEntorno());
+			pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtFuncionNombre().setText(seleccionado.getValReglaSyn());
+
+			String codPropietario = seleccionado.getCodOwnerSyn();
+			PropietarioComboBoxModel propietarioComboBoxModel = (PropietarioComboBoxModel) pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPropietarioSinonimo().getModel();
+			Propietario propietario = propietarioComboBoxModel.getByCode(codPropietario);
+			MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPropietarioSinonimo(), propietario);
+
+			String codReceptor = seleccionado.getCodUsrGrant();
+			GrantComboBoxModel model = (GrantComboBoxModel) pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbReceptorPermiso().getModel();
+			Grant grant = model.getByCode(codReceptor);
+			MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbReceptorPermiso(), grant);
+
+			pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtPeticion().setText(seleccionado.getCodPeticion());
+			MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbIncluirPDC(), seleccionado.getMcaPdc());
+			Boolean habilitada = AppHelper.normalizeCheckValue(seleccionado.getMcaHabilitado());
+			pantallaPermisosGeneralesporModeloporTipoObjeto.getChkHabilitado().setSelected(habilitada);
+
+			pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtUsuarioAlta().setText(seleccionado.getCodUsrAlta());
+			String sFecha = dateFormatter.dateToString(seleccionado.getFecAlta());
+			pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtFechaAlta().setText(sFecha);
+
+			pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtUsuarioModificacion().setText(seleccionado.getCodUsr());
+
+			sFecha = dateFormatter.dateToString(seleccionado.getFecActu());
+			pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtFechaModificacion().setText(sFecha);
+
+			pantallaPermisosGeneralesporModeloporTipoObjeto.getBtnGuardar().setEnabled(Boolean.TRUE);
+			pantallaPermisosGeneralesporModeloporTipoObjeto.getTblPermisos().clearSelection();
 		}
 	}
 

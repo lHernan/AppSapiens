@@ -23,7 +23,7 @@ public class TablaSinonimosCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
-		columnClasses.add(Boolean.class);
+		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		

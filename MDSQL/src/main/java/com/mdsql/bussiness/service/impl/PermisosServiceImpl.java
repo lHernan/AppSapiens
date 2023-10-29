@@ -68,9 +68,9 @@ public class PermisosServiceImpl extends ServiceSupport implements PermisosServi
                             .mcaHabilitado((String) cols[7])
                             .codPeticion((String) cols[8])
                             .codUsr((String) cols[9])
-                            .fecActu((Date) cols[10])
+                            .fecActu((java.util.Date) cols[10])
                             .codUsrAlta((String) cols[11])
-                            .fecAlta((Date) cols[12])
+                            .fecAlta((java.util.Date) cols[12])
                             .build();
                     permisos.add(permiso);
                 }
@@ -126,9 +126,9 @@ public class PermisosServiceImpl extends ServiceSupport implements PermisosServi
                             .mcaHabilitado((String) cols[7])
                             .codPeticion((String) cols[8])
                             .codUsr((String) cols[9])
-                            .fecActu((Date) cols[10])
+                            .fecActu((java.util.Date) cols[10])
                             .codUsrAlta((String) cols[11])
-                            .fecAlta((Date) cols[12])
+                            .fecAlta((java.util.Date) cols[12])
                             .build();
                     sinonimos.add(sinonimo);
                 }
@@ -212,14 +212,14 @@ public class PermisosServiceImpl extends ServiceSupport implements PermisosServi
 
             callableStatement.execute();
 
-            Integer result = callableStatement.getInt(7);
+            Integer result = callableStatement.getInt(12);
 
             if (result == 0) {
-                throw buildException(callableStatement.getArray(8));
+                throw buildException(callableStatement.getArray(13));
             }
 
             List<Permiso> permisos = new ArrayList<>();
-            Array arrayTipo = callableStatement.getArray(2);
+            Array arrayTipo = callableStatement.getArray(11);
 
             if (arrayTipo != null) {
                 Object[] rows = (Object[]) arrayTipo.getArray();

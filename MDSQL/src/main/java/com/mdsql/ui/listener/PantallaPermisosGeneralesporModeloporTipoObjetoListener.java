@@ -22,6 +22,7 @@ import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.utils.AppHelper;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends ListenerSupport implements ActionListener, OnLoadListener {
 	private PantallaPermisosGeneralesporModeloporTipoObjeto pantallaPermisosGeneralesporModeloporTipoObjeto;
@@ -84,6 +85,9 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 
 			permisosService.guardarSinonimo(codProyecto, codUsrGrant, codOwnerSyn, desEntorno, tipoObjeto, funcionNombre, mcaIncluirPDC, mcaHabilitado, codPeticion, codUsr);
 
+			// Limpiar formulario
+			clearForm();
+
 			// Actualizar
 			actualizarSinonimos(modelo);
 		} catch (ServiceException e) {
@@ -103,7 +107,7 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 			Grant grant = (Grant) pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbReceptorPermiso().getSelectedItem();
 
 			String codUsrGrant = grant.getCodGrant();
-			String valGrant = grant.getDesGrant();
+			String valGrant = (String) pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPermiso().getSelectedItem();
 
 			String desEntorno = (String) pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbEntorno().getSelectedItem();
 			String tipoObjeto = (String) pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbTipoObjeto().getSelectedItem();
@@ -115,12 +119,40 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 
 			permisosService.guardarPermiso(codProyecto, codUsrGrant, valGrant, desEntorno, tipoObjeto, mcaGrantOption, mcaIncluirPDC, mcaHabilitado, codPeticion, codUsr);
 
+			// Limpiar formulario
+			clearForm();
+
 			// Actualizar
 			actualizarPermisos(modelo);
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaPermisosGeneralesporModeloporTipoObjeto.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
+	}
+
+	private void clearForm() {
+		MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPermisoSinonimo(), null);
+		MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbWithGrantOpcion(), literales.getLiteral("no"));
+		MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbIncluirPDC(), literales.getLiteral("si"));
+
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtPeticion().setText(StringUtils.EMPTY);
+		MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbTipoObjeto(), null);
+		MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPermiso(), null);
+		MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbEntorno(), null);
+		MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPropietarioSinonimo(), null);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtFuncionNombre().setText(StringUtils.EMPTY);
+		MDSQLUIHelper.setSelectedItem(pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbReceptorPermiso(), null);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getChkHabilitado().setSelected(Boolean.FALSE);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtUsuarioAlta().setText(StringUtils.EMPTY);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtFechaAlta().setText(StringUtils.EMPTY);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtUsuarioModificacion().setText(StringUtils.EMPTY);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtFechaModificacion().setText(StringUtils.EMPTY);
+
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPermiso().setEnabled(Boolean.TRUE);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPropietarioSinonimo().setEnabled(Boolean.TRUE);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtFuncionNombre().setEnabled(Boolean.TRUE);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbWithGrantOpcion().setEnabled(Boolean.TRUE);
+		pantallaPermisosGeneralesporModeloporTipoObjeto.getBtnGuardar().setEnabled(Boolean.FALSE);
 	}
 
 	private void eventBtnInforme() {

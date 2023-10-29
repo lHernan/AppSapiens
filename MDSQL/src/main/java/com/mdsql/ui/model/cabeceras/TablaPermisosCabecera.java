@@ -27,7 +27,7 @@ public class TablaPermisosCabecera extends Cabecera {
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		columnClasses.add(String.class);
-		columnClasses.add(Boolean.class);
+		columnClasses.add(String.class);
 		columnClasses.add(String.class);
 		
 		columnSizes.add(150);

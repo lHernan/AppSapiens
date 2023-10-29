@@ -1,11 +1,13 @@
 package com.mdsql.ui.model;
 
 import com.mdsql.bussiness.entities.BBDD;
+import com.mdsql.bussiness.entities.Grant;
 import com.mdsql.bussiness.entities.Propietario;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author federico
@@ -65,6 +67,16 @@ public class PropietarioComboBoxModel extends AbstractListModel<Propietario> imp
 	@Override
 	public Object getSelectedItem() {
 		return selection;
+	}
+
+	public Propietario getByCode(String code) {
+		for (Propietario propietario : list) {
+			if (!Objects.isNull(propietario) && propietario.getCodPropietario().equals(code)) {
+				return propietario;
+			}
+		}
+
+		return null;
 	}
 
 }

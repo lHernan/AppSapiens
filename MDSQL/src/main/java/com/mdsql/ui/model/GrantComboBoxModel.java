@@ -6,6 +6,7 @@ import com.mdsql.bussiness.entities.Grant;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author federico
@@ -67,4 +68,13 @@ public class GrantComboBoxModel extends AbstractListModel<Grant> implements Comb
 		return selection;
 	}
 
+	public Grant getByCode(String code) {
+		for (Grant grant : list) {
+			if (!Objects.isNull(grant) && grant.getCodGrant().equals(code)) {
+				return grant;
+			}
+		}
+
+		return null;
+	}
 }

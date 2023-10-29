@@ -349,8 +349,6 @@ public class PantallaDetallePermisosPorObjeto extends DialogSupport {
 		 PantallaDetallePermisosPorObjetoListener actionListener = new PantallaDetallePermisosPorObjetoListener(this);
 		 PermisosPorObjetoTipoObjetoItemListener cmbTipoObjetoListener = new PermisosPorObjetoTipoObjetoItemListener(this);
 		 PermisosPorObjetoPermisoSinonimoItemListener cmbPermisoSinonimoListener = new PermisosPorObjetoPermisoSinonimoItemListener(this);
-		 ListSelectionListener permisosSelectionListener = new PermisosTableListener(this);
-		 ListSelectionListener sinonimosSelectionListener = new SinonimosTableListener(this);
 
 		 btnBuscar.setActionCommand(MDSQLConstants.PANTALLA_DETALLE_PERMISOS_POR_OBJETO_BUSCAR);
 		 btnAlta.setActionCommand(MDSQLConstants.PANTALLA_DETALLE_PERMISOS_POR_OBJETO_ALTA);
@@ -367,11 +365,7 @@ public class PantallaDetallePermisosPorObjeto extends DialogSupport {
 		 cmbTipoObjeto.addItemListener(cmbTipoObjetoListener);
 		 cmbPermisoSinonimo.addItemListener(cmbPermisoSinonimoListener);
 
-		 ListSelectionModel rowPM = tblPermisos.getSelectionModel();
-		 rowPM.addListSelectionListener(permisosSelectionListener);
 
-		 ListSelectionModel rowSM = tblSinonimos.getSelectionModel();
-		 rowSM.addListSelectionListener(sinonimosSelectionListener);
 
 		 this.addOnLoadListener(actionListener);
 	 }

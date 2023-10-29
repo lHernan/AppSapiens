@@ -8,14 +8,17 @@ package com.mdsql.ui;
 import java.util.Map;
 import java.util.Objects;
 
-import com.mdsql.bussiness.entities.Grant;
-import com.mdsql.bussiness.entities.Modelo;
-import com.mdsql.bussiness.entities.Propietario;
+import com.mdsql.bussiness.entities.*;
 import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoListener;
 import com.mdsql.ui.listener.combo.PermisosGeneralesPermisoSinonimoItemListener;
 import com.mdsql.ui.listener.combo.PermisosGeneralesTipoObjetoItemListener;
+import com.mdsql.ui.listener.tables.NotasModeloTableListener;
+import com.mdsql.ui.listener.tables.PermisosTableListener;
+import com.mdsql.ui.listener.tables.SinonimosTableListener;
 import com.mdsql.ui.model.*;
 import com.mdsql.ui.renderer.CmbStringRenderer;
+import com.mdsql.ui.renderer.GrantRenderer;
+import com.mdsql.ui.renderer.PropietarioRenderer;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -25,6 +28,9 @@ import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.TableSupport;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -127,7 +133,15 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 	@Getter
 	@Setter
 	private Modelo modelo;
-	
+
+	@Getter
+	@Setter
+	private Permiso permisoSeleccionado;
+
+	@Getter
+	@Setter
+	private Sinonimo sinonimoSeleccionado;
+
 	 public PantallaPermisosGeneralesporModeloporTipoObjeto(FrameSupport parent, Boolean modal) {
 		 super(parent, modal);
 	 }
@@ -379,6 +393,8 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 PantallaPermisosGeneralesporModeloporTipoObjetoListener actionListener = new PantallaPermisosGeneralesporModeloporTipoObjetoListener(this);
 		 PermisosGeneralesTipoObjetoItemListener cmbTipoObjetoListener = new PermisosGeneralesTipoObjetoItemListener(this);
 		 PermisosGeneralesPermisoSinonimoItemListener cmbPermisoSinonimoListener = new PermisosGeneralesPermisoSinonimoItemListener(this);
+		 ListSelectionListener permisosSelectionListener = new PermisosTableListener(this);
+		 ListSelectionListener sinonimosSelectionListener = new SinonimosTableListener(this);
 
 		 btnGuardar.setActionCommand(MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_GUARDAR);
 		 btnInforme.setActionCommand(MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_INFORME);
@@ -390,6 +406,12 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 
 		 cmbTipoObjeto.addItemListener(cmbTipoObjetoListener);
 		 cmbPermisoSinonimo.addItemListener(cmbPermisoSinonimoListener);
+
+		 ListSelectionModel rowPM = tblPermisos.getSelectionModel();
+		 rowPM.addListSelectionListener(permisosSelectionListener);
+
+		 ListSelectionModel rowSM = tblSinonimos.getSelectionModel();
+		 rowSM.addListSelectionListener(sinonimosSelectionListener);
 
 		 this.addOnLoadListener(actionListener);
 	 }
@@ -408,6 +430,8 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 cmbIncluirPDC.setRenderer(new CmbStringRenderer());
 		 cmbEntorno.setModel(vigenteHistoricoComboBoxModel);
 		 cmbEntorno.setRenderer(new CmbStringRenderer());
+		 cmbReceptorPermiso.setRenderer(new GrantRenderer());
+		 cmbPropietarioSinonimo.setRenderer(new PropietarioRenderer());
 
 		 Cabecera cabeceraPermisos = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.PERMISOS_GENERALES_TABLA_CABECERA);
 		 tblPermisos.initModel(
