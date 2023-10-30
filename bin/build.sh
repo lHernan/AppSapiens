@@ -59,7 +59,7 @@ clear
 
 echo "Instalando $MDSQL_PROJECT"
 
-rm *.zip
+#rm *.zip
 
 [ ! -d "$DIR_PROJECT/$ENTREGABLES" ] && mkdir $DIR_PROJECT/$ENTREGABLES
 
@@ -115,7 +115,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 mv $MDSQL_PROJECT.zip $MDSQL_PROJECT-$LATEST.zip
-rm -r $DIR_PROJECT/$ENTREGABLES
+#rm -r $DIR_PROJECT/$ENTREGABLES
 
 git add $MDSQL_PROJECT-$LATEST.zip
 if [ $? -ne 0 ] ; then
