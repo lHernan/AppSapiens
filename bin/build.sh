@@ -143,6 +143,10 @@ Nos complace comunicarle que está disponible para su revisión la entrega
 
 https://github.com/lHernan/AppSapiens/blob/$RAMA/Entregables/$MDSQL_PROJECT-$LATEST.zip
 
+El video de entrega se encuentra en:
+
+https://github.com/lHernan/AppSapiens/blob/$RAMA/Entregables/$MDSQL_PROJECT-$LATEST.wmv
+
 Las siguientes incidencias se han solucionado, rogamos las revisen:
 
 $SUMMARY
