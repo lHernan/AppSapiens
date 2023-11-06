@@ -5,7 +5,7 @@ if [[ "$1" == "" ]] ; then
 	exit
 fi
 
-DIR_PROJECT=/home/jmartin/git/AppSapiens
+DIR_PROJECT=/home/federico/workspace/AppSapiens
 RAMA=$1
 
 ENTREGABLES=Entregables
@@ -160,5 +160,5 @@ if [ $? -ne 0 ] ; then
 	exit
 fi
 
-$DIR_PROJECT/bin/entregar.sh $MDSQL_PROJECT $LATEST
+#$DIR_PROJECT/bin/entregar.sh $MDSQL_PROJECT $LATEST
 echo "Entrega $LATEST completada"

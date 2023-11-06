@@ -136,6 +136,13 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 			
 			OutputRegistraEjecucionType ejecucion = scriptService.executeScript(bbdd, scriptLanza.getNombreScript(), scriptLanza.getLineasScript(), proceso.getFicheroLog());
 			
+			// Hay avisos
+			if (ejecucion.getResult() == 2) {
+				ServiceException serviceException = ejecucion.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaEjecutarTypes.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
+			
 			// Actualizar los types de la tabla y la repinta
 			CollectionUtils.forAllDo(types, new UpdateTypesScriptsClosure(ejecucion));
 			pantallaEjecutarTypes.getTblTypes().repaint();

@@ -91,6 +91,14 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
             if (result == 0) {
                 throw buildException(callableStatement.getArray(13));
             }
+            
+            OutputRegistraEjecucion outputRegistraEjecucion = new OutputRegistraEjecucion();
+            outputRegistraEjecucion.setResult(result);
+            
+            // Hay avisos
+            if (result == 2) {
+            	outputRegistraEjecucion.setServiceException(buildException(callableStatement.getArray(13)));
+         	}
 
             BigDecimal codigoEstadoProceso = callableStatement.getBigDecimal(5);
             String descripcionEstadoProceso = callableStatement.getString(6);
@@ -100,15 +108,13 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
             String txtCuadreOperacion = callableStatement.getString(10);
             String txtCuadreObj = callableStatement.getString(11);
 
-            OutputRegistraEjecucion outputRegistraEjecucion = OutputRegistraEjecucion.builder()
-                    .codigoEstadoProceso(codigoEstadoProceso)
-                    .descripcionEstadoProceso(descripcionEstadoProceso)
-                    .nombreScript(nombreScript)
-                    .codigoEstadoScript(codigoEstadoScript)
-                    .descripcionEstadoScript(descripcionEstadoScript)
-                    .txtCuadreOperacion(txtCuadreOperacion)
-                    .txtCuadreObj(txtCuadreObj)
-                    .build();
+            outputRegistraEjecucion.setCodigoEstadoProceso(codigoEstadoProceso);
+            outputRegistraEjecucion.setDescripcionEstadoProceso(descripcionEstadoProceso);
+            outputRegistraEjecucion.setNombreScript(nombreScript);
+            outputRegistraEjecucion.setCodigoEstadoScript(codigoEstadoScript);
+            outputRegistraEjecucion.setDescripcionEstadoScript(descripcionEstadoScript);
+            outputRegistraEjecucion.setTxtCuadreOperacion(txtCuadreOperacion);
+            outputRegistraEjecucion.setTxtCuadreObj(txtCuadreObj);
 
             return outputRegistraEjecucion;
 
@@ -161,6 +167,14 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
             if (result == 0) {
                 throw buildException(callableStatement.getArray(8));
             }
+            
+            OutputRegistraEjecucionType outputRegistraEjecucionType = new OutputRegistraEjecucionType();
+            outputRegistraEjecucionType.setResult(result);
+            
+            // Hay avisos
+            if (result == 2) {
+            	outputRegistraEjecucionType.setServiceException(buildException(callableStatement.getArray(8)));
+         	}
 
             BigDecimal codigoEstadoProceso = callableStatement.getBigDecimal(4);
             String descripcionEstadoProceso = callableStatement.getString(5);
@@ -192,11 +206,9 @@ public class EjecucionServiceImpl extends ServiceSupport implements EjecucionSer
                 }
             }
 
-            OutputRegistraEjecucionType outputRegistraEjecucionType = OutputRegistraEjecucionType.builder()
-                    .codigoEstadoProceso(codigoEstadoProceso)
-                    .descripcionEstadoProceso(descripcionEstadoProceso)
-                    .listaType(types)
-                    .build();
+            outputRegistraEjecucionType.setCodigoEstadoProceso(codigoEstadoProceso);
+            outputRegistraEjecucionType.setDescripcionEstadoProceso(descripcionEstadoProceso);
+            outputRegistraEjecucionType.setListaType(types);
 
             return outputRegistraEjecucionType;
 

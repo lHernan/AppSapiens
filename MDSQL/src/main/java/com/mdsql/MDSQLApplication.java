@@ -82,23 +82,28 @@ public class MDSQLApplication implements CommandLineRunner {
 		/* Create and display the form */
 		EventQueue.invokeLater(() -> {
 			try {
-				ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
-				
-				// If has session saved, set in global properties. If not, creates it
-				Session session = (Session) MDSQLAppHelper.deserializeFromDisk(MDSQLConstants.SESSION);
-				if (Objects.isNull(session)) {
-					session = new Session();
-					String codUsr = System.getenv(configuration.getConfig("user.field"));
-					session.setCodUsr(codUsr);
-					LogWrapper.debug(log, "Usuario: %s", codUsr);
+				if (MDSQLAppHelper.confirmPayload()) {
+					ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+					
+					// If has session saved, set in global properties. If not, creates it
+					Session session = (Session) MDSQLAppHelper.deserializeFromDisk(MDSQLConstants.SESSION);
+					if (Objects.isNull(session)) {
+						session = new Session();
+						String codUsr = System.getenv(configuration.getConfig("user.field"));
+						session.setCodUsr(codUsr);
+						LogWrapper.debug(log, "Usuario: %s", codUsr);
+					}
+					
+					MDSQLAppHelper.setGlobalProperty(MDSQLConstants.SESSION, session);
+					
+					FramePrincipal framePrincipal = new FramePrincipal();
+					framePrincipal.setProcesado(session.getProcesado());
+					MDSQLUIHelper.showMaximized(framePrincipal);
+					framePrincipal.setVisible(Boolean.TRUE);
 				}
-				
-				MDSQLAppHelper.setGlobalProperty(MDSQLConstants.SESSION, session);
-				
-				FramePrincipal framePrincipal = new FramePrincipal();
-				framePrincipal.setProcesado(session.getProcesado());
-				MDSQLUIHelper.showMaximized(framePrincipal);
-				framePrincipal.setVisible(Boolean.TRUE);
+				else {
+					System.exit(1);
+				}
 			} catch (IOException e) {
 				Map<String, Object> params = MDSQLUIHelper.buildError(e);
 				MDSQLUIHelper.showPopup(null, MDSQLConstants.CMD_ERROR, params);
