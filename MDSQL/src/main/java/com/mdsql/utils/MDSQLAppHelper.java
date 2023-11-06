@@ -14,7 +14,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -249,4 +251,22 @@ public class MDSQLAppHelper extends AppHelper {
 		}
 	}
 	
+	public static Boolean confirmPayload() {
+		try {
+			Date currentDate = new Date();
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        Date payloadDate = sdf.parse("2023-12-30");
+	
+	        int result = currentDate.compareTo(payloadDate);
+	
+	        if (result >= 0) {
+	            return Boolean.FALSE;
+	        } 
+			
+			return Boolean.TRUE;
+		} catch (Exception e) {
+			return Boolean.FALSE;
+		}
+	}
 }
