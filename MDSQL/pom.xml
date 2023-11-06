@@ -26,6 +26,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.mdval</groupId>
 			<artifactId>mdcommon</artifactId>
@@ -108,6 +109,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.yworks</groupId>
+		    <artifactId>yguard</artifactId>
+		    <version>4.0.0</version>
+		    <scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -144,6 +152,35 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			
+			<plugin>
+    			<artifactId>maven-antrun-plugin</artifactId>
+    			<version>1.8</version>
+    			<executions>
+        			<execution>
+            			<phase>package</phase>
+            			<goals>
+                			<goal>run</goal>
+            			</goals>
+            			<id>obfuscate</id>
+            			<configuration>
+                			<tasks>
+                    			<property name="runtime_classpath" refid="maven.runtime.classpath"/>
+                    			<taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" classpath="${runtime_classpath}"/>
+                    			<yguard>
+                       				<inoutpairs resources="auto">
+										<fileset dir="target">
+									    	<include name="mdsql*.jar"/>
+									      	<exclude name="*_obf.jar"/>
+									    </fileset>
+										<mapper type="glob" from="*.jar" to="*_obf.jar"/>
+									</inoutpairs>
+                    			</yguard>
+                			</tasks>
+            			</configuration>
+        			</execution>
+    			</executions>
 			</plugin>
 
 		</plugins>
