@@ -5,7 +5,7 @@ if [[ "$1" == "" ]] ; then
 	exit
 fi
 
-DIR_PROJECT=/home/jmartin/git/AppSapiens
+DIR_PROJECT=/home/federico/workspace/AppSapiens
 RAMA=$1
 
 ENTREGABLES=Entregables
@@ -59,7 +59,7 @@ clear
 
 echo "Instalando $MDSQL_PROJECT"
 
-rm *.zip
+#rm *.zip
 
 [ ! -d "$DIR_PROJECT/$ENTREGABLES" ] && mkdir $DIR_PROJECT/$ENTREGABLES
 
@@ -115,7 +115,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 mv $MDSQL_PROJECT.zip $MDSQL_PROJECT-$LATEST.zip
-rm -r $DIR_PROJECT/$ENTREGABLES
+#rm -r $DIR_PROJECT/$ENTREGABLES
 
 git add $MDSQL_PROJECT-$LATEST.zip
 if [ $? -ne 0 ] ; then
@@ -156,5 +156,5 @@ if [ $? -ne 0 ] ; then
 	exit
 fi
 
-$DIR_PROJECT/bin/entregar.sh $MDSQL_PROJECT $LATEST
+#$DIR_PROJECT/bin/entregar.sh $MDSQL_PROJECT $LATEST
 echo "Entrega $LATEST completada"
