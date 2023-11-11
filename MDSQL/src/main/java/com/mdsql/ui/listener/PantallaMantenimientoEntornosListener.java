@@ -9,20 +9,16 @@ import java.util.Map;
 import javax.swing.JButton;
 
 import com.mdsql.bussiness.entities.Entorno;
-import com.mdsql.bussiness.entities.Historico;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.EntornoService;
-import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.ui.PantallaMantenimientoEntornos;
 import com.mdsql.ui.model.EntornoTableModel;
-import com.mdsql.ui.model.HistoricoTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
-import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.utils.AppHelper;
 import org.apache.commons.lang3.StringUtils;
 
