@@ -194,7 +194,7 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 	 
 	 @Override
 	 protected void initialState() {
-		btnGrabar.setEnabled(Boolean.FALSE);
+		btnGrabar.setEnabled(Boolean.TRUE);
 	 }
 	 
 	 @Override

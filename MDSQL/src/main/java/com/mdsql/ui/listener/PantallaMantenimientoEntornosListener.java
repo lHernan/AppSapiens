@@ -92,7 +92,7 @@ public class PantallaMantenimientoEntornosListener extends ListenerSupport imple
 		pantallaMantenimientoEntornos.getChkHabilitada().setSelected(Boolean.FALSE);
 		pantallaMantenimientoEntornos.getTxtComentario().setText(StringUtils.EMPTY);
 
-		pantallaMantenimientoEntornos.getBtnGrabar().setEnabled(Boolean.FALSE);
+		pantallaMantenimientoEntornos.getBtnGrabar().setEnabled(Boolean.TRUE);
 	}
 
 	private void actualizarEntornos() throws ServiceException, IOException {
