@@ -192,7 +192,7 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 		pantallaMantenimientoNotasModelos.getTxtUsuarioModificacion().setText(StringUtils.EMPTY);
 		pantallaMantenimientoNotasModelos.getTxtFechaModificacion().setText(StringUtils.EMPTY);
 
-		pantallaMantenimientoNotasModelos.getBtnGuardar().setEnabled(Boolean.FALSE);
+		pantallaMantenimientoNotasModelos.getBtnGuardar().setEnabled(Boolean.TRUE);
 	}
 
 	private void clearList() {

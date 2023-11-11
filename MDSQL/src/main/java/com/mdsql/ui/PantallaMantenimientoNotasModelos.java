@@ -11,7 +11,6 @@ import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.NivelImportancia;
 import com.mdsql.ui.listener.PantallaMantenimientoNotasModelosListener;
-import com.mdsql.ui.listener.tables.HistoricoTableListener;
 import com.mdsql.ui.listener.tables.NotasModeloTableListener;
 import com.mdsql.ui.model.NotasModeloTableModel;
 import com.mdsql.ui.renderer.NivelImportanciaRenderer;
@@ -307,7 +306,7 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
 		txtUsuarioModificacion.setEditable(Boolean.FALSE);
 		txtFechaModificacion.setEditable(Boolean.FALSE);
 
-		btnGuardar.setEnabled(Boolean.FALSE);
+		btnGuardar.setEnabled(Boolean.TRUE);
 	 }
 	 
 	 @Override
