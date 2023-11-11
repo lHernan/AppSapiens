@@ -287,7 +287,6 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
 		 rowPM.addListSelectionListener(listSelectionListener);
 	 }
     
-	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
 		cmbImportancia.setRenderer(new NivelImportanciaRenderer());
