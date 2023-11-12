@@ -88,6 +88,18 @@ if [ $? -ne 0 ] ; then
 	exit
 fi
 
+cp mdsql.bat $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
+if [ $? -ne 0 ] ; then
+	echo "Ocurrió un error al copiar el fichero mdsql.bat"
+	exit
+fi
+
+cp mdsql.sh $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
+if [ $? -ne 0 ] ; then
+	echo "Ocurrió un error al copiar el fichero mdsql.sh"
+	exit
+fi
+
 cp logotipo.png $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
 if [ $? -ne 0 ] ; then
 	echo "Ocurrió un error al copiar el fichero logotipo.png"
