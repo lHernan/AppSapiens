@@ -8,7 +8,10 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdsql.bussiness.entities.Entorno;
+import com.mdsql.bussiness.entities.OutputConsultarEntornos;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.EntornoService;
 import com.mdsql.ui.PantallaMantenimientoEntornos;
@@ -20,7 +23,6 @@ import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.utils.AppHelper;
-import org.apache.commons.lang3.StringUtils;
 
 public class PantallaMantenimientoEntornosListener extends ListenerSupport implements ActionListener {
 	private PantallaMantenimientoEntornos pantallaMantenimientoEntornos;
@@ -99,10 +101,16 @@ public class PantallaMantenimientoEntornosListener extends ListenerSupport imple
 		String nomEsquema = pantallaMantenimientoEntornos.getTxtEsquema().getText();
 		String mcaHabilitado = AppHelper.normalizeValueToCheck(pantallaMantenimientoEntornos.getChkHabilitada().isSelected());
 
-		List<Entorno> lista = entornoService.consultarEntornos(nomBBDD, nomEsquema, claveEncriptacion, mcaHabilitado);
+		OutputConsultarEntornos outputConsultarEntornos  = entornoService.consultarEntornos(nomBBDD, nomEsquema, claveEncriptacion, mcaHabilitado);
+		
+		// Hay avisos
+		if (outputConsultarEntornos.getResult() == 2) {
+			ServiceException serviceException = outputConsultarEntornos.getServiceException();
+			Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+			MDSQLUIHelper.showPopup(pantallaMantenimientoEntornos.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+		}
 
-		fillEntornos(lista);
-		pantallaMantenimientoEntornos.getBtnGrabar().setEnabled(Boolean.FALSE);
+		fillEntornos(outputConsultarEntornos.getEntornos());
 	}
 
 	private void fillEntornos(List<Entorno> list) throws ServiceException {

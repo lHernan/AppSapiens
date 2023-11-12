@@ -1,6 +1,7 @@
 package com.mdsql.bussiness.service.impl;
 
 import com.mdsql.bussiness.entities.Entorno;
+import com.mdsql.bussiness.entities.OutputConsultarEntornos;
 import com.mdsql.bussiness.service.EntornoService;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -22,7 +23,7 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
     private DataSource dataSource;
 
     @Override
-    public List<Entorno> consultarEntornos(String nomBBDD, String nomEsquema, String claveEncriptacion, String mcaHabilitado) throws ServiceException {
+    public OutputConsultarEntornos consultarEntornos(String nomBBDD, String nomEsquema, String claveEncriptacion, String mcaHabilitado) throws ServiceException {
         String runSP = createCall("p_busca_entornos", MDSQLConstants.CALL_07_ARGS);
         
         Integer begin = 16;
@@ -53,6 +54,14 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
                 throw buildException(callableStatement.getArray(7));
             }
 
+            OutputConsultarEntornos outputConsultarEntornos = new OutputConsultarEntornos();
+            outputConsultarEntornos.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputConsultarEntornos.setServiceException(buildException(callableStatement.getArray(7)));
+			}
+            
             List<Entorno> entornos = new ArrayList<>();
             Array arrayEntornos = callableStatement.getArray(5);
 
@@ -71,8 +80,10 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
 
                     entornos.add(entorno);
                 }
+                
+                outputConsultarEntornos.setEntornos(entornos);
             }
-            return entornos;
+            return outputConsultarEntornos;
         } catch (SQLException e) {
             LogWrapper.error(log, "[EntornoService.consultarEntornos] Error:  %s", e.getMessage());
             throw new ServiceException(e);
