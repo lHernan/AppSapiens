@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service(MDSQLConstants.PERMISOS_SERVICE)
