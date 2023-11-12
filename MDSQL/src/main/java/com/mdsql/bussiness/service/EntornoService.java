@@ -1,11 +1,8 @@
 package com.mdsql.bussiness.service;
 
-import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.Entorno;
-import com.mdsql.bussiness.entities.NivelImportancia;
 import com.mdval.exceptions.ServiceException;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
