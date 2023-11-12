@@ -14,6 +14,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -268,5 +269,9 @@ public class MDSQLAppHelper extends AppHelper {
 		} catch (Exception e) {
 			return Boolean.FALSE;
 		}
+	}
+	
+	public static Date toDate(Timestamp timestamp) {
+		return new Date(timestamp.getTime());
 	}
 }
