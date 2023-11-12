@@ -4,7 +4,6 @@ import com.mdsql.bussiness.entities.Historico;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.HistoricoService;
-import com.mdsql.ui.PantallaBuscadorFicheros;
 import com.mdsql.ui.PantallaHistoricoBaja;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
@@ -15,7 +14,6 @@ import com.mdval.exceptions.ServiceException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Map;
 
 public class PantallaHistoricoBajaListener extends ListenerSupport implements ActionListener {
@@ -56,12 +54,12 @@ public class PantallaHistoricoBajaListener extends ListenerSupport implements Ac
 
 			historicoService.bajaHistorico(codigoProyecto, nombreObjeto, peticion, codUsr);
 			pantallaHistoricoBaja.getReturnParams().put("response", "OK");
+			
+			pantallaHistoricoBaja.dispose();
 		} catch (ServiceException e) {
 			pantallaHistoricoBaja.getReturnParams().put("response", "KO");
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaHistoricoBaja.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
-
-		pantallaHistoricoBaja.dispose();
 	}
 }

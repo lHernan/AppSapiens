@@ -152,7 +152,6 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 		pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbPropietarioSinonimo().setEnabled(Boolean.TRUE);
 		pantallaPermisosGeneralesporModeloporTipoObjeto.getTxtFuncionNombre().setEnabled(Boolean.TRUE);
 		pantallaPermisosGeneralesporModeloporTipoObjeto.getCmbWithGrantOpcion().setEnabled(Boolean.TRUE);
-		pantallaPermisosGeneralesporModeloporTipoObjeto.getBtnGuardar().setEnabled(Boolean.FALSE);
 	}
 
 	private void eventBtnInforme() {

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service(MDSQLConstants.PERMISOS_SERVICE)
@@ -236,9 +235,9 @@ public class PermisosServiceImpl extends ServiceSupport implements PermisosServi
                             .mcaHabilitado((String) cols[7])
                             .codPeticion((String) cols[8])
                             .codUsr((String) cols[9])
-                            .fecActu((Date) cols[10])
+                            .fecActu((java.util.Date) cols[10])
                             .codUsrAlta((String) cols[11])
-                            .fecAlta((Date) cols[12])
+                            .fecAlta((java.util.Date) cols[12])
                             .build();
                     permisos.add(permiso);
                 }
@@ -303,9 +302,9 @@ public class PermisosServiceImpl extends ServiceSupport implements PermisosServi
                             .mcaHabilitado((String) cols[7])
                             .codPeticion((String) cols[8])
                             .codUsr((String) cols[9])
-                            .fecActu((Date) cols[10])
+                            .fecActu((java.util.Date) cols[10])
                             .codUsrAlta((String) cols[11])
-                            .fecAlta((Date) cols[12])
+                            .fecAlta((java.util.Date) cols[12])
                             .build();
                     sinonimos.add(sinonimo);
                 }

@@ -8,14 +8,24 @@ package com.mdsql.ui;
 import java.util.Map;
 import java.util.Objects;
 
-import com.mdsql.bussiness.entities.*;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
+
+import com.mdsql.bussiness.entities.Grant;
+import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.Permiso;
+import com.mdsql.bussiness.entities.Propietario;
+import com.mdsql.bussiness.entities.Sinonimo;
 import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoListener;
 import com.mdsql.ui.listener.combo.PermisosGeneralesPermisoSinonimoItemListener;
 import com.mdsql.ui.listener.combo.PermisosGeneralesTipoObjetoItemListener;
-import com.mdsql.ui.listener.tables.NotasModeloTableListener;
 import com.mdsql.ui.listener.tables.PermisosTableListener;
 import com.mdsql.ui.listener.tables.SinonimosTableListener;
-import com.mdsql.ui.model.*;
+import com.mdsql.ui.model.PermisoSinonimoComboBoxModel;
+import com.mdsql.ui.model.PermisosTableModel;
+import com.mdsql.ui.model.SiNoComboBoxModel;
+import com.mdsql.ui.model.SinonimosTableModel;
+import com.mdsql.ui.model.VigenteHistoricoComboBoxModel;
 import com.mdsql.ui.renderer.CmbStringRenderer;
 import com.mdsql.ui.renderer.GrantRenderer;
 import com.mdsql.ui.renderer.PropietarioRenderer;
@@ -24,13 +34,10 @@ import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
-
 import com.mdval.ui.utils.TableSupport;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -416,7 +423,6 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 this.addOnLoadListener(actionListener);
 	 }
 	 
-	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
 		 PermisoSinonimoComboBoxModel permisoSinonimoComboBoxModel = new PermisoSinonimoComboBoxModel();
@@ -455,7 +461,7 @@ public class PantallaPermisosGeneralesporModeloporTipoObjeto extends DialogSuppo
 		 MDSQLUIHelper.setSelectedItem(cmbWithGrantOpcion, literales.getLiteral("no"));
 		 MDSQLUIHelper.setSelectedItem(cmbIncluirPDC, literales.getLiteral("si"));
 
-		 btnGuardar.setEnabled(Boolean.FALSE);
+		 btnGuardar.setEnabled(Boolean.TRUE);
 
 		 if (!Objects.isNull(modelo)) {
 			 txtModeloProyecto.setText(modelo.getCodigoProyecto());

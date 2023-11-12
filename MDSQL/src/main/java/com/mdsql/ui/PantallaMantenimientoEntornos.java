@@ -9,9 +9,7 @@ import java.util.Map;
 
 import com.mdsql.ui.listener.PantallaMantenimientoEntornosListener;
 import com.mdsql.ui.listener.tables.EntornosTableListener;
-import com.mdsql.ui.listener.tables.HistoricoTableListener;
 import com.mdsql.ui.model.EntornoTableModel;
-import com.mdsql.ui.model.HistoricoTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -33,7 +31,6 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 	private static final long serialVersionUID = 1L;
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -184,7 +181,6 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 		 rowPM.addListSelectionListener(listSelectionListener);
 	 }
 	 
-	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
 		 Cabecera cabecera = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.MNTO_ENTORNOS_TABLA_CABECERA);
@@ -194,7 +190,7 @@ public class PantallaMantenimientoEntornos extends DialogSupport {
 	 
 	 @Override
 	 protected void initialState() {
-		btnGrabar.setEnabled(Boolean.FALSE);
+		btnGrabar.setEnabled(Boolean.TRUE);
 	 }
 	 
 	 @Override

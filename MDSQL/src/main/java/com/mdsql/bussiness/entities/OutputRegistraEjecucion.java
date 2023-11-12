@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.mdval.exceptions.ServiceException;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,4 +31,6 @@ public class OutputRegistraEjecucion implements Serializable {
     private String txtCuadreObj;
     private Date fechaEjecucion;
 
+    private Integer result;
+    private ServiceException serviceException;
 }

@@ -1,6 +1,7 @@
 package com.mdsql.bussiness.service.impl;
 
 import com.mdsql.bussiness.entities.Entorno;
+import com.mdsql.bussiness.entities.OutputConsultarEntornos;
 import com.mdsql.bussiness.service.EntornoService;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -22,8 +23,12 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
     private DataSource dataSource;
 
     @Override
-    public List<Entorno> consultarEntornos(String nomBBDD, String nomEsquema, String claveEncriptacion, String mcaHabilitado) throws ServiceException {
+    public OutputConsultarEntornos consultarEntornos(String nomBBDD, String nomEsquema, String claveEncriptacion, String mcaHabilitado) throws ServiceException {
         String runSP = createCall("p_busca_entornos", MDSQLConstants.CALL_07_ARGS);
+        
+        Integer begin = 16;
+        Integer end = begin + 12;
+        String claveMandar = claveEncriptacion.substring(begin, end);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -31,11 +36,11 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
             String typeEntorno = createCallType(MDSQLConstants.T_T_ENTORNO);
             String typeError = createCallTypeError();
 
-            logProcedure(runSP, nomBBDD, nomEsquema, claveEncriptacion, mcaHabilitado);
+            logProcedure(runSP, nomBBDD, nomEsquema, claveMandar, mcaHabilitado);
 
             callableStatement.setString(1, nomBBDD);
             callableStatement.setString(2, nomEsquema);
-            callableStatement.setString(3, claveEncriptacion);
+            callableStatement.setString(3, claveMandar);
             callableStatement.setString(4, mcaHabilitado);
             callableStatement.registerOutParameter(5, Types.ARRAY, typeEntorno);
             callableStatement.registerOutParameter(6, Types.INTEGER);
@@ -49,6 +54,14 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
                 throw buildException(callableStatement.getArray(7));
             }
 
+            OutputConsultarEntornos outputConsultarEntornos = new OutputConsultarEntornos();
+            outputConsultarEntornos.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputConsultarEntornos.setServiceException(buildException(callableStatement.getArray(7)));
+			}
+            
             List<Entorno> entornos = new ArrayList<>();
             Array arrayEntornos = callableStatement.getArray(5);
 
@@ -67,8 +80,10 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
 
                     entornos.add(entorno);
                 }
+                
+                outputConsultarEntornos.setEntornos(entornos);
             }
-            return entornos;
+            return outputConsultarEntornos;
         } catch (SQLException e) {
             LogWrapper.error(log, "[EntornoService.consultarEntornos] Error:  %s", e.getMessage());
             throw new ServiceException(e);
@@ -78,17 +93,21 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
     @Override
     public void guardarEntorno(String nomBBDD, String nomEsquema, String claveEncriptacion, String password, String mcaHabilitado, String comentario, String codUsr) throws ServiceException {
         String runSP = createCall("p_mnto_entorno", MDSQLConstants.CALL_09_ARGS);
+        
+        Integer begin = 16;
+        Integer end = begin + 12;
+        String claveMandar = claveEncriptacion.substring(begin, end);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
             String typeError = createCallTypeError();
 
-            logProcedure(runSP, nomBBDD, nomEsquema, claveEncriptacion, password, mcaHabilitado, comentario, codUsr);
+            logProcedure(runSP, nomBBDD, nomEsquema, claveMandar, password, mcaHabilitado, comentario, codUsr);
 
             callableStatement.setString(1, nomBBDD);
             callableStatement.setString(2, nomEsquema);
-            callableStatement.setString(3, claveEncriptacion);
+            callableStatement.setString(3, claveMandar);
             callableStatement.setString(4, password);
             callableStatement.setString(5, mcaHabilitado);
             callableStatement.setString(6, comentario);
