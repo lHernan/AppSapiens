@@ -1,12 +1,10 @@
 package com.mdsql.ui.listener;
 
-import com.mdsql.bussiness.entities.Historico;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.bussiness.service.TipoObjetoService;
 import com.mdsql.ui.PantallaHistoricoAlta;
-import com.mdsql.ui.PantallaHistoricoBaja;
 import com.mdsql.ui.PantallaSeleccionModelos;
 import com.mdsql.ui.model.TipoObjetoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
