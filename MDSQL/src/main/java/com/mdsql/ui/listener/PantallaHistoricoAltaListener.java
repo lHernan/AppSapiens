@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class PantallaHistoricoAltaListener extends ListenerSupport implements ActionListener, OnLoadListener {
 
@@ -98,14 +99,19 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 
 			Modelo modeloSeleccionado = pantallaHistoricoAlta.getModeloSeleccionado();
 
-			String codigoProyecto = modeloSeleccionado.getCodigoProyecto();
-			String tipoObjeto = (String) pantallaHistoricoAlta.getCmbTipoObjeto().getSelectedItem();
-			String nombreObjeto = pantallaHistoricoAlta.getTxtNombreObjeto().getText();
-			String peticion = pantallaHistoricoAlta.getTxtPeticion().getText();
-			String historificada = AppHelper.normalizeValueToCheck(pantallaHistoricoAlta.getChkHistorificada().isSelected());
+			if (!Objects.isNull(modeloSeleccionado)) {
+				String codigoProyecto = modeloSeleccionado.getCodigoProyecto();
+				String tipoObjeto = (String) pantallaHistoricoAlta.getCmbTipoObjeto().getSelectedItem();
+				String nombreObjeto = pantallaHistoricoAlta.getTxtNombreObjeto().getText();
+				String peticion = pantallaHistoricoAlta.getTxtPeticion().getText();
+				String historificada = AppHelper.normalizeValueToCheck(pantallaHistoricoAlta.getChkHistorificada().isSelected());
 
-			historicoService.altaHistorico(codigoProyecto, nombreObjeto, tipoObjeto, historificada, peticion, codUsr);
-			pantallaHistoricoAlta.getReturnParams().put("response", "OK");
+				historicoService.altaHistorico(codigoProyecto, nombreObjeto, tipoObjeto, historificada, peticion, codUsr);
+				pantallaHistoricoAlta.getReturnParams().put("response", "OK");
+			}
+			else {
+				pantallaHistoricoAlta.getReturnParams().put("response", "KO");
+			}
 		} catch (ServiceException e) {
 			pantallaHistoricoAlta.getReturnParams().put("response", "KO");
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
