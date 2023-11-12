@@ -10,12 +10,8 @@ import java.util.Map;
 import com.mdsql.bussiness.entities.Historico;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.ui.listener.PantallaMantenimientoHistoricoListener;
-import com.mdsql.ui.listener.PantallaPermisosGeneralesporModeloporTipoObjetoListener;
 import com.mdsql.ui.listener.tables.HistoricoTableListener;
-import com.mdsql.ui.listener.tables.PermisosTableListener;
 import com.mdsql.ui.model.HistoricoTableModel;
-import com.mdsql.ui.model.PermisosTableModel;
-import com.mdsql.ui.model.SinonimosTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
@@ -199,7 +195,6 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 		 this.addOnLoadListener(actionListener);
 	 }
 	
-	 @SuppressWarnings("unchecked")
 	 @Override
 	 protected void initModels() {
 		 Cabecera cabeceraHistorico = MDSQLUIHelper.createCabeceraTabla(MDSQLConstants.MNTO_HISTORICO_TABLA_CABECERA);

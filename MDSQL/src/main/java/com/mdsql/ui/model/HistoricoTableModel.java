@@ -1,7 +1,6 @@
 package com.mdsql.ui.model;
 
 import com.mdsql.bussiness.entities.Historico;
-import com.mdsql.bussiness.entities.HistoricoProceso;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
@@ -45,7 +44,7 @@ public class HistoricoTableModel extends DefaultTableModel<Historico> {
 		if (columnIndex == 0) {
 			return row.getNombreObjeto();
 		} else if (1 == columnIndex) {
-			return row.getHistorificado();
+			return row.getMcaTrh();
 		} else if (2 == columnIndex) {
 			return row.getTipoObjeto();
 		} else if (3 == columnIndex) {
