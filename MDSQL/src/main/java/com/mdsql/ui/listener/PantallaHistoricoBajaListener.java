@@ -56,12 +56,12 @@ public class PantallaHistoricoBajaListener extends ListenerSupport implements Ac
 
 			historicoService.bajaHistorico(codigoProyecto, nombreObjeto, peticion, codUsr);
 			pantallaHistoricoBaja.getReturnParams().put("response", "OK");
+			
+			pantallaHistoricoBaja.dispose();
 		} catch (ServiceException e) {
 			pantallaHistoricoBaja.getReturnParams().put("response", "KO");
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaHistoricoBaja.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
-
-		pantallaHistoricoBaja.dispose();
 	}
 }
