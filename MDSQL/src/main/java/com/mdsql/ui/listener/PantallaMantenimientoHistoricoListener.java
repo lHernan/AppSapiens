@@ -3,7 +3,6 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.*;
 
 import javax.swing.*;
@@ -12,7 +11,6 @@ import com.mdsql.bussiness.entities.*;
 import com.mdsql.bussiness.service.*;
 import com.mdsql.ui.*;
 import com.mdsql.ui.model.HistoricoTableModel;
-import com.mdsql.ui.model.PermisosTableModel;
 import com.mdsql.ui.model.TipoObjetoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
