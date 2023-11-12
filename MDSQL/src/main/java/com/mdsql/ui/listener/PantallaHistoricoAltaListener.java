@@ -1,8 +1,10 @@
 package com.mdsql.ui.listener;
 
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputConsultaModelos;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.HistoricoService;
+import com.mdsql.bussiness.service.ModeloService;
 import com.mdsql.bussiness.service.TipoObjetoService;
 import com.mdsql.ui.PantallaHistoricoAlta;
 import com.mdsql.ui.PantallaSeleccionModelos;
@@ -53,21 +55,32 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 	}
 
 	private void eventBtnBuscarModelo() {
-		Modelo seleccionado = null;
-		Map<String, Object> params = new HashMap<>();
-
-		String codigoProyecto = pantallaHistoricoAlta.getTxtModelo().getText();
-
-		if (StringUtils.isNotBlank(codigoProyecto)) {
-			params.put("codigoProyecto", codigoProyecto);
+		try {
+			Modelo seleccionado = null;
+			Map<String, Object> params = new HashMap<>();
+	
+			String codigoProyecto = pantallaHistoricoAlta.getTxtModelo().getText();
+			
+			List<Modelo> modelos = buscarModelos(codigoProyecto, null, null);
+			if (modelos.size() == 1) {
+				seleccionado = modelos.get(0);
+			}
+			else {
+				if (StringUtils.isNotBlank(codigoProyecto)) {
+					params.put("codigoProyecto", codigoProyecto);
+				}
+				
+				PantallaSeleccionModelos pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createDialog(pantallaHistoricoAlta.getFrameParent(),
+						MDSQLConstants.CMD_SEARCH_MODEL, params);
+				MDSQLUIHelper.show(pantallaSeleccionModelos);
+				seleccionado = pantallaSeleccionModelos.getSeleccionado();
+				pantallaHistoricoAlta.setModeloSeleccionado(seleccionado);
+				pantallaHistoricoAlta.getTxtModelo().setText(seleccionado.getCodigoProyecto());
+			}
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaHistoricoAlta.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
-
-		PantallaSeleccionModelos pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createDialog(pantallaHistoricoAlta.getFrameParent(),
-				MDSQLConstants.CMD_SEARCH_MODEL, params);
-		MDSQLUIHelper.show(pantallaSeleccionModelos);
-		seleccionado = pantallaSeleccionModelos.getSeleccionado();
-		pantallaHistoricoAlta.setModeloSeleccionado(seleccionado);
-		pantallaHistoricoAlta.getTxtModelo().setText(seleccionado.getCodigoProyecto());
 	}
 
 	@Override
@@ -117,5 +130,27 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 		}
 
 		pantallaHistoricoAlta.dispose();
+	}
+	
+	/**
+	 * @param codModelo
+	 * @param nombreModelo
+	 * @param codSubmodelo
+	 * @return
+	 * @throws ServiceException 
+	 */
+	private List<Modelo> buscarModelos(String codModelo, String nombreModelo, String codSubmodelo) throws ServiceException {
+		ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
+		
+		OutputConsultaModelos outputConsultaModelos = modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
+		
+		// Hay avisos
+		if (outputConsultaModelos.getResult() == 2) {
+			ServiceException serviceException = outputConsultaModelos.getServiceException();
+			Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+			MDSQLUIHelper.showPopup(pantallaHistoricoAlta.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+		}
+		
+		return outputConsultaModelos.getModelos(); 
 	}
 }

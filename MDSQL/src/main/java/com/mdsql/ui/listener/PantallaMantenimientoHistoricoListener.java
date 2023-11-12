@@ -58,21 +58,32 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 	}
 
 	private void eventBtnBuscarModelo() {
-		Modelo seleccionado = null;
-		Map<String, Object> params = new HashMap<>();
-
-		String codigoProyecto = pantallaMantenimientoHistorico.getTxtModelo().getText();
-
-		if (StringUtils.isNotBlank(codigoProyecto)) {
-			params.put("codigoProyecto", codigoProyecto);
+		try {
+			Modelo seleccionado = null;
+			Map<String, Object> params = new HashMap<>();
+	
+			String codigoProyecto = pantallaMantenimientoHistorico.getTxtModelo().getText();
+			
+			List<Modelo> modelos = buscarModelos(codigoProyecto, null, null);
+			if (modelos.size() == 1) {
+				seleccionado = modelos.get(0);
+			}
+			else {
+				if (StringUtils.isNotBlank(codigoProyecto)) {
+					params.put("codigoProyecto", codigoProyecto);
+				}
+				
+				PantallaSeleccionModelos pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createDialog(pantallaMantenimientoHistorico.getFrameParent(),
+						MDSQLConstants.CMD_SEARCH_MODEL, params);
+				MDSQLUIHelper.show(pantallaSeleccionModelos);
+				seleccionado = pantallaSeleccionModelos.getSeleccionado();
+				pantallaMantenimientoHistorico.setModeloSeleccionado(seleccionado);
+				pantallaMantenimientoHistorico.getTxtModelo().setText(seleccionado.getCodigoProyecto());
+			}
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
-
-		PantallaSeleccionModelos pantallaSeleccionModelos = (PantallaSeleccionModelos) MDSQLUIHelper.createDialog(pantallaMantenimientoHistorico.getFrameParent(),
-				MDSQLConstants.CMD_SEARCH_MODEL, params);
-		MDSQLUIHelper.show(pantallaSeleccionModelos);
-		seleccionado = pantallaSeleccionModelos.getSeleccionado();
-		pantallaMantenimientoHistorico.setModeloSeleccionado(seleccionado);
-		pantallaMantenimientoHistorico.getTxtModelo().setText(seleccionado.getCodigoProyecto());
 	}
 	
 	private void eventBtnBuscar() {
@@ -144,6 +155,28 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
+	}
+	
+	/**
+	 * @param codModelo
+	 * @param nombreModelo
+	 * @param codSubmodelo
+	 * @return
+	 * @throws ServiceException 
+	 */
+	private List<Modelo> buscarModelos(String codModelo, String nombreModelo, String codSubmodelo) throws ServiceException {
+		ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
+		
+		OutputConsultaModelos outputConsultaModelos = modeloService.consultaModelos(codModelo, nombreModelo, codSubmodelo);
+		
+		// Hay avisos
+		if (outputConsultaModelos.getResult() == 2) {
+			ServiceException serviceException = outputConsultaModelos.getServiceException();
+			Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+			MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+		}
+		
+		return outputConsultaModelos.getModelos(); 
 	}
 
 	private void informe() {
