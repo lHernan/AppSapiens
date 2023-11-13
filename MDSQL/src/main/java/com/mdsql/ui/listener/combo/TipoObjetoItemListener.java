@@ -19,8 +19,6 @@ public abstract class TipoObjetoItemListener extends ListenerSupport implements 
 		if (event.getStateChange() == ItemEvent.SELECTED) {
 			Object item = event.getItem();
 			
-			log.info("Selected: {}", item);
-          
 			String tipoObjeto = (String) item;
 			processItem(tipoObjeto);
 		}
