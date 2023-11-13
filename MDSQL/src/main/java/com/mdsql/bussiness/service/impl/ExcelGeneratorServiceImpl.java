@@ -36,7 +36,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 	private static final String FORMATO_ARCHIVO_HISTORICO_CAMBIOS = "%s_Cambios_desde_hasta_%s.xls";
 
-	private static final String FORMATO_ARCHIVO_HISTORICO = "%s_SufijoExcelObjHistorico_%s.xls";
+	private static final String FORMATO_ARCHIVO_HISTORICO = "%s_%s_%s.xls";
 
 	private static final String FORMATO_ARCHIVO_PERMISOS = "%s_SufijoExcelPermisosGenerales_%s.xls";
 
@@ -76,10 +76,10 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 	@Override
 	@SneakyThrows
-	public void generarExcelHistorico(List<Historico> lista, String path, String codigoProyecto, Date date) {
+	public void generarExcelHistorico(List<Historico> lista, String path, String sufijo, String codigoProyecto, Date date) {
 		String sDate = dateInformeFormatter.dateToString(date);
 
-		String fileName = String.format(FORMATO_ARCHIVO_HISTORICO, codigoProyecto, sDate);
+		String fileName = String.format(FORMATO_ARCHIVO_HISTORICO, codigoProyecto, sufijo, sDate);
 		log.info("Archivo: {}", fileName);
 
 		try (InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.LISTADO_HISTORICO_TEMPLATE_LOCATION);

@@ -201,11 +201,12 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 
 			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 			String path = configuration.getConfig("RutaInformes");
+			String sufijo = configuration.getConfig("SufijoExcelObjHistorico");
 
 			if(lista.isEmpty()) {
 				JOptionPane.showMessageDialog(pantallaMantenimientoHistorico.getFrameParent(), "No hay datos para generar informe");
 			} else {
-				excelGeneratorService.generarExcelHistorico(lista, path, codigoProyecto, new Date());
+				excelGeneratorService.generarExcelHistorico(lista, path, sufijo, codigoProyecto, new Date());
 			}
 		} catch (IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);

@@ -16,7 +16,7 @@ public interface ExcelGeneratorService {
 	void generarExcelHistoricoCambios(List<InformeCambios> listaCambios, String path, String codigoProyecto,
 			String fechaDesde, String fechaHasta);
 
-    void generarExcelHistorico(List<Historico> lista, String path, String codigoProyecto, Date date);
+    void generarExcelHistorico(List<Historico> lista, String path, String sufijo, String codigoProyecto, Date date);
 
 	void generarExcelSinonimos(List<Sinonimo> sinonimosGenerales, String path, String codigoProyecto, Date date);
 
