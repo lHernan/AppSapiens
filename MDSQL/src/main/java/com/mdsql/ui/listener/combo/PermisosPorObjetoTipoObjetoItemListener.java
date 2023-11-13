@@ -35,4 +35,10 @@ public class PermisosPorObjetoTipoObjetoItemListener extends TipoObjetoItemListe
 		}
 	}
 
+	@Override
+	public void processDeselected() {
+		PermisoComboBoxModel permisoComboBoxModel = new PermisoComboBoxModel();
+		pantallaDetallePermisosPorObjeto.getCmbPermiso().setModel(permisoComboBoxModel);
+	}
+
 }

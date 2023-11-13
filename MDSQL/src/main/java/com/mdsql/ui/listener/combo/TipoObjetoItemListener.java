@@ -1,12 +1,13 @@
 package com.mdsql.ui.listener.combo;
 
-import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.ui.utils.ListenerSupport;
-
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Objects;
 
+import com.mdsql.ui.utils.ListenerSupport;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public abstract class TipoObjetoItemListener extends ListenerSupport implements ItemListener {
 
 	public TipoObjetoItemListener() {
@@ -15,15 +16,21 @@ public abstract class TipoObjetoItemListener extends ListenerSupport implements 
 	
 	@Override
     public void itemStateChanged(ItemEvent event) {
-       if (event.getStateChange() == ItemEvent.SELECTED) {
-          Object item = event.getItem();
+		if (event.getStateChange() == ItemEvent.SELECTED) {
+			Object item = event.getItem();
+			
+			log.info("Selected: {}", item);
           
-          if (!Objects.isNull(item)) {
-        	  String tipoObjeto = (String) item;
-        	  processItem(tipoObjeto);
-          }
-       }
+			String tipoObjeto = (String) item;
+			processItem(tipoObjeto);
+		}
+		
+		if (event.getStateChange() == ItemEvent.DESELECTED) {
+			processDeselected();
+		}
     }  
 	
 	public abstract void processItem(String item);
+	
+	public abstract void processDeselected();
 }
