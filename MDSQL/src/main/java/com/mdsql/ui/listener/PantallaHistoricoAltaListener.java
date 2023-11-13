@@ -123,13 +123,14 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 			else {
 				pantallaHistoricoAlta.getReturnParams().put("response", "KO");
 			}
+			
+			pantallaHistoricoAlta.dispose();
 		} catch (ServiceException e) {
 			pantallaHistoricoAlta.getReturnParams().put("response", "KO");
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaHistoricoAlta.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
 		}
 
-		pantallaHistoricoAlta.dispose();
 	}
 	
 	/**
