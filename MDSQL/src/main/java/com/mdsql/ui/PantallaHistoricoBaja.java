@@ -6,19 +6,13 @@ package com.mdsql.ui;
 
 import com.mdsql.bussiness.entities.Historico;
 import com.mdsql.bussiness.entities.Modelo;
-import com.mdsql.ui.listener.PantallaBuscadorFicherosListener;
 import com.mdsql.ui.listener.PantallaHistoricoBajaListener;
-import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.DialogSupport;
 import com.mdval.ui.utils.FrameSupport;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -68,34 +62,36 @@ public class PantallaHistoricoBaja extends DialogSupport {
 		txtPeticion.setPreferredSize(new java.awt.Dimension(64, 41));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup()
-								.addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(txtPeticion, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())
-						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(btnAceptar)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(btnCancelar)
-								.addContainerGap())
-		);
-		layout.setVerticalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(jLabel1)
-										.addComponent(txtPeticion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(btnCancelar)
-										.addComponent(btnAceptar))
-								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(txtPeticion, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAceptar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar)
+                        .addGap(156, 156, 156))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtPeticion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAceptar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 	}
 
 	@Override
