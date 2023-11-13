@@ -34,7 +34,6 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 	private static final long serialVersionUID = 1L;
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -89,7 +88,6 @@ public class PantallaMantenimientoHistorico extends DialogSupport {
 		 	txtModelo = new javax.swing.JTextField();
 	        btnInforme = new javax.swing.JButton();
 	        btnCancelar = new javax.swing.JButton();
-	        jLabel14 = new javax.swing.JLabel();
 	        jLabel15 = new javax.swing.JLabel();
 	        cmbTipoObjeto = new javax.swing.JComboBox<>();
 	        btnBuscarModelo = new javax.swing.JButton();
