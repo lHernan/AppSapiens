@@ -2,7 +2,6 @@ package com.mdsql.ui.listener.combo;
 
 import com.mdsql.bussiness.service.PermisosService;
 import com.mdsql.ui.PantallaDetallePermisosPorObjeto;
-import com.mdsql.ui.PantallaPermisosGeneralesporModeloporTipoObjeto;
 import com.mdsql.ui.model.PermisoComboBoxModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
