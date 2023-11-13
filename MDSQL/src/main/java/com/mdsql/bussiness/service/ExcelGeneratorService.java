@@ -18,7 +18,7 @@ public interface ExcelGeneratorService {
 
     void generarExcelHistorico(List<Historico> lista, String path, String sufijo, String codigoProyecto, Date date);
 
-	void generarExcelSinonimos(List<Sinonimo> sinonimosGenerales, String path, String codigoProyecto, Date date);
+	void generarExcelSinonimos(List<Sinonimo> sinonimosGenerales, String path, String sufijo, String codigoProyecto, Date date);
 
-	void generarExcelPermisos(List<Permiso> permisosGenerales, String path, String codigoProyecto, Date date);
+	void generarExcelPermisos(List<Permiso> permisosGenerales, String path, String sufijo, String codigoProyecto, Date date);
 }

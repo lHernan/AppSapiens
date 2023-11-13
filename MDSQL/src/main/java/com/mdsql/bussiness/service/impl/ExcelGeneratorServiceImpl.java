@@ -38,9 +38,9 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 	private static final String FORMATO_ARCHIVO_HISTORICO = "%s_%s_%s.xls";
 
-	private static final String FORMATO_ARCHIVO_PERMISOS = "%s_SufijoExcelPermisosGenerales_%s.xls";
+	private static final String FORMATO_ARCHIVO_PERMISOS = "%s_%s_%s.xls";
 
-	private static final String FORMATO_ARCHIVO_SINONIMOS = "%s_SufijoExcelSinonimosGenerales_%s.xls";
+	private static final String FORMATO_ARCHIVO_SINONIMOS = "%s_%s_%s.xls";
 
 	private DateFormatter dateInformeFormatter;
 
@@ -102,10 +102,10 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 	@Override
 	@SneakyThrows
-	public void generarExcelSinonimos(List<Sinonimo> sinonimosGenerales, String path, String codigoProyecto, Date date) {
+	public void generarExcelSinonimos(List<Sinonimo> sinonimosGenerales, String path, String sufijo,  String codigoProyecto, Date date) {
 		String sDate = dateInformeFormatter.dateToString(date);
 
-		String fileName = String.format(FORMATO_ARCHIVO_SINONIMOS, codigoProyecto, sDate);
+		String fileName = String.format(FORMATO_ARCHIVO_SINONIMOS, codigoProyecto, sufijo, sDate);
 		log.info("Archivo: {}", fileName);
 
 		try (InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.LISTADO_SINONIMOS_TEMPLATE_LOCATION);
@@ -128,10 +128,10 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 
 	@Override
 	@SneakyThrows
-	public void generarExcelPermisos(List<Permiso> permisosGenerales, String path, String codigoProyecto, Date date) {
+	public void generarExcelPermisos(List<Permiso> permisosGenerales, String path, String sufijo, String codigoProyecto, Date date) {
 		String sDate = dateInformeFormatter.dateToString(date);
 
-		String fileName = String.format(FORMATO_ARCHIVO_PERMISOS, codigoProyecto, sDate);
+		String fileName = String.format(FORMATO_ARCHIVO_PERMISOS, codigoProyecto, sufijo, sDate);
 		log.info("Archivo: {}", fileName);
 
 		try (InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.LISTADO_PERMISOS_TEMPLATE_LOCATION);

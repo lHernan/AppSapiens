@@ -259,8 +259,9 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String path = configuration.getConfig("RutaInformes");
+		String sufijo = configuration.getConfig("SufijoExcelSinonimosGenerales");
 
-		excelGeneratorService.generarExcelSinonimos(sinonimosGenerales, path, modelo.getCodigoProyecto(), new Date());
+		excelGeneratorService.generarExcelSinonimos(sinonimosGenerales, path, sufijo, modelo.getCodigoProyecto(), new Date());
 	}
 
 	private void fillInformePermisos(Modelo modelo, List<Permiso> permisosGenerales) throws IOException {
@@ -268,7 +269,8 @@ public class PantallaPermisosGeneralesporModeloporTipoObjetoListener extends Lis
 
 		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
 		String path = configuration.getConfig("RutaInformes");
+		String sufijo = configuration.getConfig("SufijoExcelPermisosGenerales");
 
-		excelGeneratorService.generarExcelPermisos(permisosGenerales, path, modelo.getCodigoProyecto(), new Date());
+		excelGeneratorService.generarExcelPermisos(permisosGenerales, path, sufijo, modelo.getCodigoProyecto(), new Date());
 	}
 }
