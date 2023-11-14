@@ -216,4 +216,15 @@ public abstract class FrameSupport extends JFrame {
 		
 		setupLiterals();
 	}
+	
+	/**
+	 * @param width
+	 * @param height
+	 */
+	public void setBounds(int width, int height) {
+		Dimension dimension = new Dimension(width, height);
+		setPreferredSize(dimension);
+		setMinimumSize(dimension);
+		setResizable(Boolean.TRUE);
+	}
 }
