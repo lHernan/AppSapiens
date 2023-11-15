@@ -90,9 +90,10 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		Map<String, Object> params = new HashMap<>();
 
 		Proceso proceso = pantallaEjecutarTypes.getProceso();
-		Script seleccionado = proceso.getScriptLanza();
+		Type seleccionado = pantallaEjecutarTypes.getSeleccionado();
+		BigDecimal numeroOrden = seleccionado.getNumeroOrdenType();
 
-		params.put("script", seleccionado);
+		params.put("orden", numeroOrden);
 		params.put("proceso", proceso);
 
 		PantallaVerCuadresScript pantallaVerCuadresScript = (PantallaVerCuadresScript) MDSQLUIHelper
