@@ -97,19 +97,22 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 		String codUsr = session.getCodUsr();
 
 		Modelo modelo = pantallaMantenimientoNotasModelos.getModeloSeleccionado();
-		String codigoProyecto = modelo.getCodigoProyecto();
-		String descripcionAviso = pantallaMantenimientoNotasModelos.getTxtDescripcion().getText();
-		String txtAviso = pantallaMantenimientoNotasModelos.getTxtTitulo().getText();
+		
+		if (!Objects.isNull(modelo)) {
+			String codigoProyecto = modelo.getCodigoProyecto();
+			String descripcionAviso = pantallaMantenimientoNotasModelos.getTxtDescripcion().getText();
+			String txtAviso = pantallaMantenimientoNotasModelos.getTxtTitulo().getText();
 
-		String codNivelAviso = StringUtils.EMPTY;
-		NivelImportancia nivelAviso = (NivelImportancia) pantallaMantenimientoNotasModelos.getCmbImportancia().getSelectedItem();
-		if (!Objects.isNull(nivelAviso)) {
-			codNivelAviso = nivelAviso.getCodigoNivelAviso().toString();
+			String codNivelAviso = StringUtils.EMPTY;
+			NivelImportancia nivelAviso = (NivelImportancia) pantallaMantenimientoNotasModelos.getCmbImportancia().getSelectedItem();
+			if (!Objects.isNull(nivelAviso)) {
+				codNivelAviso = nivelAviso.getCodigoNivelAviso().toString();
+			}
+
+			String codPeticion = pantallaMantenimientoNotasModelos.getTxtPeticion().getText();
+
+			avisoService.altaAviso(codigoProyecto, descripcionAviso, txtAviso, codNivelAviso, codPeticion, codUsr);
 		}
-
-		String codPeticion = pantallaMantenimientoNotasModelos.getTxtPeticion().getText();
-
-		avisoService.altaAviso(codigoProyecto, descripcionAviso, txtAviso, codNivelAviso, codPeticion, codUsr);
 	}
 
 	private void modificacion(Aviso avisoSeleccionado) throws ServiceException {
@@ -154,16 +157,18 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 	}
 
 	private void cargarAvisosModelo(Modelo modeloSeleccionado) throws ServiceException {
-		// Limpiar la tabla de avisos
-		NotasModeloTableModel tableModel = (NotasModeloTableModel) pantallaMantenimientoNotasModelos.getTblNotasModelos().getModel();
-		tableModel.clearData();
-
-		// Hacer la consulta
-		AvisoService avisoService = (AvisoService) getService(MDSQLConstants.AVISO_SERVICE);
-		List<Aviso> avisos = avisoService.consultaAvisosModelo(modeloSeleccionado.getCodigoProyecto());
-
-		if (CollectionUtils.isNotEmpty(avisos)) {
-			tableModel.setData(avisos);
+		if (!Objects.isNull(modeloSeleccionado)) {
+			// Limpiar la tabla de avisos
+			NotasModeloTableModel tableModel = (NotasModeloTableModel) pantallaMantenimientoNotasModelos.getTblNotasModelos().getModel();
+			tableModel.clearData();
+	
+			// Hacer la consulta
+			AvisoService avisoService = (AvisoService) getService(MDSQLConstants.AVISO_SERVICE);
+			List<Aviso> avisos = avisoService.consultaAvisosModelo(modeloSeleccionado.getCodigoProyecto());
+	
+			if (CollectionUtils.isNotEmpty(avisos)) {
+				tableModel.setData(avisos);
+			}
 		}
 	}
 
