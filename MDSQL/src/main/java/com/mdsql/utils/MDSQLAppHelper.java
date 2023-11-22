@@ -274,4 +274,9 @@ public class MDSQLAppHelper extends AppHelper {
 	public static Date toDate(Timestamp timestamp) {
 		return new Date(timestamp.getTime());
 	}
+	
+	public static String obtenerClaveEncriptacion(String claveEncriptacion) {
+		Integer begin = 17;
+        return claveEncriptacion.substring(begin, begin + 12);
+	}
 }

@@ -1,19 +1,27 @@
 package com.mdsql.bussiness.service.impl;
 
-import com.mdsql.bussiness.entities.Entorno;
-import com.mdsql.bussiness.entities.OutputConsultarEntornos;
-import com.mdsql.bussiness.service.EntornoService;
-import com.mdsql.utils.MDSQLConstants;
-import com.mdval.exceptions.ServiceException;
-import com.mdval.utils.LogWrapper;
-import lombok.extern.slf4j.Slf4j;
+import java.sql.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.mdsql.bussiness.entities.Entorno;
+import com.mdsql.bussiness.entities.OutputConsultarEntornos;
+import com.mdsql.bussiness.service.EntornoService;
+import com.mdsql.utils.MDSQLAppHelper;
+import com.mdsql.utils.MDSQLConstants;
+import com.mdval.exceptions.ServiceException;
+import com.mdval.utils.LogWrapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service(MDSQLConstants.ENTORNO_SERVICE)
 @Slf4j
@@ -26,9 +34,7 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
     public OutputConsultarEntornos consultarEntornos(String nomBBDD, String nomEsquema, String claveEncriptacion, String mcaHabilitado) throws ServiceException {
         String runSP = createCall("p_busca_entornos", MDSQLConstants.CALL_07_ARGS);
         
-        Integer begin = 16;
-        Integer end = begin + 12;
-        String claveMandar = claveEncriptacion.substring(begin, end);
+        String claveMandar = MDSQLAppHelper.obtenerClaveEncriptacion(claveEncriptacion);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
@@ -94,9 +100,7 @@ public class EntornoServiceImpl extends ServiceSupport implements EntornoService
     public void guardarEntorno(String nomBBDD, String nomEsquema, String claveEncriptacion, String password, String mcaHabilitado, String comentario, String codUsr) throws ServiceException {
         String runSP = createCall("p_mnto_entorno", MDSQLConstants.CALL_09_ARGS);
         
-        Integer begin = 16;
-        Integer end = begin + 12;
-        String claveMandar = claveEncriptacion.substring(begin, end);
+        String claveMandar = MDSQLAppHelper.obtenerClaveEncriptacion(claveEncriptacion);
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement callableStatement = conn.prepareCall(runSP)) {
