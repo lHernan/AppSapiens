@@ -33,5 +33,6 @@ public class Variable implements Serializable {
 	private Date fechaAlta;
 	private String usrModificacion;
 	private Date fechaModificacion;
+	private String comentario;
 
 }

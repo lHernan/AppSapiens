@@ -154,10 +154,11 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 							.peticion((String) cols[7])
 							.usoInterno((String) cols[8])
 							.habilitada((String) cols[9])
-							.usrModificacion((String) cols[10])
-							.fechaModificacion((java.util.Date) cols[11])
-							.usrAlta((String) cols[12])
-							.fechaAlta((java.util.Date) cols[13])
+							.comentario((String) cols[10])
+							.usrModificacion((String) cols[11])
+							.fechaModificacion((java.util.Date) cols[12])
+							.usrAlta((String) cols[13])
+							.fechaAlta((java.util.Date) cols[14])
 							.build();
 
 					variables.add(variable);
