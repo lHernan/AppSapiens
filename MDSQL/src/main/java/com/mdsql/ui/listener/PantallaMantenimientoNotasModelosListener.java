@@ -10,6 +10,9 @@ import java.util.Objects;
 
 import javax.swing.JButton;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.NivelImportancia;
@@ -17,17 +20,17 @@ import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.AvisoService;
 import com.mdsql.ui.PantallaMantenimientoNotasModelos;
 import com.mdsql.ui.PantallaSeleccionModelos;
-import com.mdsql.ui.model.*;
+import com.mdsql.ui.model.NivelesImportanciaComboBoxModel;
+import com.mdsql.ui.model.NotasModeloTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
+import com.mdval.ui.utils.OnLoadListener;
 import com.mdval.utils.AppHelper;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
-public class PantallaMantenimientoNotasModelosListener extends ListenerSupport implements ActionListener {
+public class PantallaMantenimientoNotasModelosListener extends ListenerSupport implements ActionListener, OnLoadListener {
 	private PantallaMantenimientoNotasModelos pantallaMantenimientoNotasModelos;
 	
 	public PantallaMantenimientoNotasModelosListener(PantallaMantenimientoNotasModelos pantallaMantenimientoNotasModelos) {
@@ -147,7 +150,6 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 				pantallaMantenimientoNotasModelos.getTxtCodigoProyecto().setText(modeloSeleccionado.getCodigoProyecto());
 				pantallaMantenimientoNotasModelos.getTxtModeloProyecto().setText(modeloSeleccionado.getNombreModelo());
 
-				cargarNivelesImportancia();
 				cargarAvisosModelo(modeloSeleccionado);
 			}
 		} catch (ServiceException e) {
@@ -200,5 +202,15 @@ public class PantallaMantenimientoNotasModelosListener extends ListenerSupport i
 		NotasModeloTableModel tableModel = (NotasModeloTableModel) pantallaMantenimientoNotasModelos
 				.getTblNotasModelos().getModel();
 		tableModel.clearData();
+	}
+
+	@Override
+	public void onLoad() {
+		try {
+			cargarNivelesImportancia();
+		} catch (ServiceException e) {
+			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaMantenimientoNotasModelos.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+		}
 	}
 }

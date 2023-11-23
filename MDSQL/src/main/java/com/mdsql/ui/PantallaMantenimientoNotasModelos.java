@@ -278,6 +278,8 @@ public class PantallaMantenimientoNotasModelos extends DialogSupport {
 
 		 ListSelectionModel rowPM = tblNotasModelos.getSelectionModel();
 		 rowPM.addListSelectionListener(listSelectionListener);
+		 
+		 this.addOnLoadListener(actionListener);
 	 }
     
 	 @Override
