@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
+import java.util.Objects;
 
 public class PantallaHistoricoBajaListener extends ListenerSupport implements ActionListener {
 
@@ -47,14 +48,16 @@ public class PantallaHistoricoBajaListener extends ListenerSupport implements Ac
 
 			Modelo modeloSeleccionado = pantallaHistoricoBaja.getModeloSeleccionado();
 			Historico seleccionado = pantallaHistoricoBaja.getSeleccionado();
-
-			String codigoProyecto = modeloSeleccionado.getCodigoProyecto();
-			String nombreObjeto = seleccionado.getNombreObjeto();
-			String peticion = pantallaHistoricoBaja.getTxtPeticion().getText();
-
-			historicoService.bajaHistorico(codigoProyecto, nombreObjeto, peticion, codUsr);
-			pantallaHistoricoBaja.getReturnParams().put("response", "OK");
 			
+			if (!Objects.isNull(modeloSeleccionado)) {
+				String codigoProyecto = modeloSeleccionado.getCodigoProyecto();
+				String nombreObjeto = seleccionado.getNombreObjeto();
+				String peticion = pantallaHistoricoBaja.getTxtPeticion().getText();
+
+				historicoService.bajaHistorico(codigoProyecto, nombreObjeto, peticion, codUsr);
+			}
+			
+			pantallaHistoricoBaja.getReturnParams().put("response", "OK");
 			pantallaHistoricoBaja.dispose();
 		} catch (ServiceException e) {
 			pantallaHistoricoBaja.getReturnParams().put("response", "KO");
