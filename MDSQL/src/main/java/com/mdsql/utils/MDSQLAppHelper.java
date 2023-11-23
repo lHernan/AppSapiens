@@ -275,7 +275,11 @@ public class MDSQLAppHelper extends AppHelper {
 		return new Date(timestamp.getTime());
 	}
 	
-	public static String obtenerClaveEncriptacion(String claveEncriptacion) {
+	public static String obtenerClaveEncriptacion(String claveEncriptacion) throws IndexOutOfBoundsException {
+		if (claveEncriptacion.length() < 29) {
+			throw new IndexOutOfBoundsException("La clave de encriptación debe ser mayor que 29 caracteres");
+		}
+		
 		Integer begin = 17;
         return claveEncriptacion.substring(begin, begin + 12);
 	}
