@@ -78,6 +78,9 @@ public class PantallaHistoricoAlta extends DialogSupport {
 		jButton1 = new javax.swing.JButton();
 		
 		setBounds(673, 226);
+		
+		chkHistorificada.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        chkHistorificada.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
 		txtPeticion.setPreferredSize(new java.awt.Dimension(64, 41));
 

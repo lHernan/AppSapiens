@@ -55,6 +55,8 @@ public class PantallaHistoricoAlta extends javax.swing.JFrame {
         jLabel2.setText("Nombre Objeto:");
 
         chkHistorificada.setText("Historificada por SMD");
+        chkHistorificada.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        chkHistorificada.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         chkHistorificada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkHistorificadaActionPerformed(evt);

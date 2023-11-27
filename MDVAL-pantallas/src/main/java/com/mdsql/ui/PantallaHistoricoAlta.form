@@ -139,6 +139,8 @@
     <Component class="javax.swing.JCheckBox" name="chkHistorificada">
       <Properties>
         <Property name="text" type="java.lang.String" value="Historificada por SMD"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkHistorificadaActionPerformed"/>
