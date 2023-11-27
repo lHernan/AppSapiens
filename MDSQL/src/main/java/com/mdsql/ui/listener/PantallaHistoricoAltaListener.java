@@ -64,6 +64,7 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 			List<Modelo> modelos = buscarModelos(codigoProyecto, null, null);
 			if (modelos.size() == 1) {
 				seleccionado = modelos.get(0);
+				pantallaHistoricoAlta.setModeloSeleccionado(seleccionado);
 			}
 			else {
 				if (StringUtils.isNotBlank(codigoProyecto)) {
