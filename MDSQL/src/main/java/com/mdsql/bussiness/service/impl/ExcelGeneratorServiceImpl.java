@@ -219,7 +219,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 		Row row = sheet.createRow(rowNum);
 
 		printCell(row, 0, historico.getNombreObjeto());
-		printCell(row, 1, historico.getMcaTrh());
+		printCell(row, 1, historico.getHistorificado());
 		printCell(row, 2, historico.getTipoObjeto());
 		printCell(row, 3, historico.getPeticion());
 

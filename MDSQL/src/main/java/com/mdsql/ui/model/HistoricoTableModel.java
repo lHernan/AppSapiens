@@ -44,7 +44,7 @@ public class HistoricoTableModel extends DefaultTableModel<Historico> {
 		if (columnIndex == 0) {
 			return row.getNombreObjeto();
 		} else if (1 == columnIndex) {
-			return row.getMcaTrh();
+			return row.getHistorificado();
 		} else if (2 == columnIndex) {
 			return row.getTipoObjeto();
 		} else if (3 == columnIndex) {
