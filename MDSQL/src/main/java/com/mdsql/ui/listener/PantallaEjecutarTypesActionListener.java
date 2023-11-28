@@ -90,9 +90,10 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 		Map<String, Object> params = new HashMap<>();
 
 		Proceso proceso = pantallaEjecutarTypes.getProceso();
-		Script seleccionado = proceso.getScriptLanza();
+		Type seleccionado = pantallaEjecutarTypes.getSeleccionado();
+		BigDecimal numeroOrden = seleccionado.getNumeroOrdenType();
 
-		params.put("script", seleccionado);
+		params.put("orden", numeroOrden);
 		params.put("proceso", proceso);
 
 		PantallaVerCuadresScript pantallaVerCuadresScript = (PantallaVerCuadresScript) MDSQLUIHelper
@@ -135,6 +136,13 @@ public class PantallaEjecutarTypesActionListener extends ListenerSupport impleme
 			Script scriptLanza = proceso.getScriptLanza();
 			
 			OutputRegistraEjecucionType ejecucion = scriptService.executeScript(bbdd, scriptLanza.getNombreScript(), scriptLanza.getLineasScript(), proceso.getFicheroLog());
+			
+			// Hay avisos
+			if (ejecucion.getResult() == 2) {
+				ServiceException serviceException = ejecucion.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaEjecutarTypes.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
 			
 			// Actualizar los types de la tabla y la repinta
 			CollectionUtils.forAllDo(types, new UpdateTypesScriptsClosure(ejecucion));

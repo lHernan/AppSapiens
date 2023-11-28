@@ -282,7 +282,18 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 
 				// Ejecuta los scripts
 				List<OutputRegistraEjecucion> ejecuciones = scriptService.executeScripts(bbdd, scripts);
-
+				
+				// Hay avisos
+				for (OutputRegistraEjecucion ejecucion : ejecuciones) {
+					
+					// Por cada script muestra un aviso
+					if (ejecucion.getResult() == 2) {
+						ServiceException serviceException = ejecucion.getServiceException();
+						Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+						MDSQLUIHelper.showPopup(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+					}
+				}
+				
 				// Actualizar los scripts de las tablas y las repinta
 				vigente = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
 				CollectionUtils.forAllDo(vigente, new UpdateScriptsClosure(ejecuciones));

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JButton;
 
@@ -52,9 +53,10 @@ public class PantallaVerCuadresScriptListener extends ListenerSupport implements
 
 			Script script = (Script) pantallaVerCuadresScript.getParams().get("script");
 			Proceso proceso = (Proceso) pantallaVerCuadresScript.getParams().get("proceso");
+			BigDecimal orden = (BigDecimal) pantallaVerCuadresScript.getParams().get("orden");
 
 			BigDecimal idProceso = proceso.getIdProceso();
-			BigDecimal numeroOrden = script.getNumeroOrden();
+			BigDecimal numeroOrden = (!Objects.isNull(script)) ? script.getNumeroOrden() : orden;
 			List<CuadreObjeto> cuadreObjetos = cuadreService.consultaCuadreOperacionesObjetoScript(idProceso,
 					numeroOrden);
 			List<CuadreOperacion> cuadreOperaciones = cuadreService.consultaCuadreOperacionesScript(idProceso,
