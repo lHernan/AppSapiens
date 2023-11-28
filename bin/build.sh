@@ -5,7 +5,7 @@ if [[ "$1" == "" ]] ; then
 	exit
 fi
 
-DIR_PROJECT=/home/jmartin/git/AppSapiens
+DIR_PROJECT=/home/federico/git/AppSapiens
 RAMA=$1
 
 ENTREGABLES=Entregables
