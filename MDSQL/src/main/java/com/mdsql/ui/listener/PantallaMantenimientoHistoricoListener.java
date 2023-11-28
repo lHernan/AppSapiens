@@ -67,6 +67,7 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 			List<Modelo> modelos = buscarModelos(codigoProyecto, null, null);
 			if (modelos.size() == 1) {
 				seleccionado = modelos.get(0);
+				pantallaMantenimientoHistorico.setModeloSeleccionado(seleccionado);
 			}
 			else {
 				if (StringUtils.isNotBlank(codigoProyecto)) {
