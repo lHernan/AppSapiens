@@ -42,7 +42,6 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 	    private javax.swing.JLabel jLabel11;
 	    private javax.swing.JLabel jLabel12;
 	    private javax.swing.JLabel jLabel13;
-	    private javax.swing.JLabel jLabel14;
 	    private javax.swing.JLabel jLabel15;
 	    private javax.swing.JLabel jLabel16;
 	    private javax.swing.JLabel jLabel17;
@@ -133,7 +132,6 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 			 	jLabel3 = new javax.swing.JLabel();
 		        txtModeloProyecto = new javax.swing.JTextField();
 		        btnCancelar = new javax.swing.JButton();
-		        jLabel14 = new javax.swing.JLabel();
 		        jLabel15 = new javax.swing.JLabel();
 		        cmbTipoVariable = new javax.swing.JComboBox<>();
 		        btnGuardar = new javax.swing.JButton();
@@ -378,12 +376,10 @@ public class PantallaMantenimientoVariables extends DialogSupport {
 
 				MDSQLUIHelper.setSelectedItem(cmbUsoInterno, literales.getLiteral("no"));
 
-				btnGuardar.setEnabled(Boolean.FALSE);
-
-				 if (!Objects.isNull(modelo)) {
-					 txtCodigoProyecto.setText(modelo.getCodigoProyecto());
-					 txtModeloProyecto.setText(modelo.getNombreModelo());
-				 }
+				if (!Objects.isNull(modelo)) {
+					txtCodigoProyecto.setText(modelo.getCodigoProyecto());
+					txtModeloProyecto.setText(modelo.getNombreModelo());
+				}
 			} catch (IOException e) {}
 		 }
 		 
