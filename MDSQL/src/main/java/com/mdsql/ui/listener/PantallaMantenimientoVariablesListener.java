@@ -26,15 +26,16 @@ import org.apache.commons.lang3.StringUtils;
 
 public class PantallaMantenimientoVariablesListener extends ListenerSupport implements ActionListener, OnLoadListener {
 	private PantallaMantenimientoVariables pantallaMantenimientoVariables;
-	
+
 	public PantallaMantenimientoVariablesListener(PantallaMantenimientoVariables pantallaMantenimientoVariables) {
 		super();
 		this.pantallaMantenimientoVariables = pantallaMantenimientoVariables;
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
-		
+
 		if (MDSQLConstants.PANTALLA_MANTENIMIENTO_VARIABLES_GUARDAR.equals(jButton.getActionCommand())) {
 			eventBtnGuardar();
 		}
@@ -43,7 +44,7 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 			pantallaMantenimientoVariables.dispose();
 		}
 	}
-	
+
 	private void eventBtnGuardar() {
 		try {
 			ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
@@ -60,15 +61,19 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 			String valorSustituir = pantallaMantenimientoVariables.getTxtValorVariableSustituir().getText();
 			String codigoPeticion = pantallaMantenimientoVariables.getTxtPeticion().getText();
 			String mcaInterno = (String) pantallaMantenimientoVariables.getCmbUsoInterno().getSelectedItem();
-			String mcaHabilitado = AppHelper.normalizeValueToCheck(pantallaMantenimientoVariables.getChkHabilitada().isSelected());
+			String mcaHabilitado = AppHelper
+					.normalizeValueToCheck(pantallaMantenimientoVariables.getChkHabilitada().isSelected());
+			String comentario = pantallaMantenimientoVariables.getTxtComentario().getText();
 
-			modeloService.actualizarVariableModelo(codigoProyecto, codigoVariable, entorno, bbdd, tipoVariable, valorVariable, valorSustituir, codigoPeticion, mcaInterno, mcaHabilitado, codUsr);
+			modeloService.actualizarVariableModelo(codigoProyecto, codigoVariable, entorno, bbdd, tipoVariable,
+					valorVariable, valorSustituir, codigoPeticion, mcaInterno, mcaHabilitado, comentario, codUsr);
 
 			clearForm();
 			actualizarVariables(modelo);
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaMantenimientoVariables.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaMantenimientoVariables.getFrameParent(), MDSQLConstants.CMD_ERROR,
+					errParams);
 		}
 	}
 
@@ -78,7 +83,8 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 
 			pantallaMantenimientoVariables.getTxtCodigoVariable().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getTxtValorVariable().setText(StringUtils.EMPTY);
-			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoVariables.getCmbUsoInterno(), literales.getLiteral("no"));
+			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoVariables.getCmbUsoInterno(),
+					literales.getLiteral("no"));
 			pantallaMantenimientoVariables.getTxtPeticion().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getTxtValorVariableSustituir().setText(StringUtils.EMPTY);
 			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoVariables.getCmbTipoVariable(), null);
@@ -92,7 +98,8 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 			pantallaMantenimientoVariables.getTxtFechaAlta().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getTxtUsuarioModificacion().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getTxtFechaModificacion().setText(StringUtils.EMPTY);
-		} catch (IOException e) {}
+		} catch (IOException e) {
+		}
 	}
 
 	@Override
@@ -114,7 +121,8 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 			}
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaMantenimientoVariables.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
+			MDSQLUIHelper.showPopup(pantallaMantenimientoVariables.getFrameParent(), MDSQLConstants.CMD_ERROR,
+					errParams);
 		}
 	}
 
@@ -129,8 +137,8 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 
 	private void fillVariables(List<Variable> variables) {
 		// Obtiene el modelo y lo actualiza
-		VariableTableModel tableModel = (VariableTableModel) pantallaMantenimientoVariables
-				.getTblVariables().getModel();
+		VariableTableModel tableModel = (VariableTableModel) pantallaMantenimientoVariables.getTblVariables()
+				.getModel();
 		tableModel.clearData();
 
 		tableModel.setData(variables);

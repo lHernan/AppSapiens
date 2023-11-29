@@ -172,15 +172,15 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	}
 
 	@Override
-	public void actualizarVariableModelo(String codigoProyecto, String codigoVariable, String entorno, String bbdd, String tipoVariable, String valorVariable, String valorSustituir, String codigoPeticion, String mcaInterno, String mcaHabilitado, String codUsr) throws ServiceException {
-		String runSP = createCall("p_mnto_vbles_modelo", MDSQLConstants.CALL_13_ARGS);
+	public void actualizarVariableModelo(String codigoProyecto, String codigoVariable, String entorno, String bbdd, String tipoVariable, String valorVariable, String valorSustituir, String codigoPeticion, String mcaInterno, String mcaHabilitado, String comentario, String codUsr) throws ServiceException {
+		String runSP = createCall("p_mnto_vbles_modelo", MDSQLConstants.CALL_14_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
 			 CallableStatement callableStatement = conn.prepareCall(runSP)) {
 
 			String typeError = createCallTypeError();
 
-			logProcedure(runSP, codigoProyecto, codigoVariable, entorno, bbdd, tipoVariable, valorVariable, valorSustituir, codigoPeticion, mcaInterno, mcaHabilitado, codUsr);
+			logProcedure(runSP, codigoProyecto, codigoVariable, entorno, bbdd, tipoVariable, valorVariable, valorSustituir, codigoPeticion, mcaInterno, mcaHabilitado, comentario, codUsr);
 
 			callableStatement.setString(1, codigoProyecto);
 			callableStatement.setString(2, codigoVariable);
@@ -193,16 +193,17 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			callableStatement.setString(9, mcaInterno);
 			callableStatement.setString(10, mcaHabilitado);
 			callableStatement.setString(11, codUsr);
+			callableStatement.setString(12, comentario);
 
-			callableStatement.registerOutParameter(12, Types.INTEGER);
-			callableStatement.registerOutParameter(13, Types.ARRAY, typeError);
+			callableStatement.registerOutParameter(13, Types.INTEGER);
+			callableStatement.registerOutParameter(14, Types.ARRAY, typeError);
 
 			callableStatement.execute();
 
-			Integer result = callableStatement.getInt(12);
+			Integer result = callableStatement.getInt(13);
 
 			if (result == 0) {
-				throw buildException(callableStatement.getArray(13));
+				throw buildException(callableStatement.getArray(14));
 			}
 
 		} catch (SQLException e) {
