@@ -94,8 +94,6 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 			pantallaMantenimientoVariables.getTxtFechaAlta().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getTxtUsuarioModificacion().setText(StringUtils.EMPTY);
 			pantallaMantenimientoVariables.getTxtFechaModificacion().setText(StringUtils.EMPTY);
-
-			pantallaMantenimientoVariables.getBtnGuardar().setEnabled(Boolean.FALSE);
 		} catch (IOException e) {}
 	}
 
