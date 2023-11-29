@@ -10,8 +10,6 @@ import javax.swing.JButton;
 
 import com.mdsql.bussiness.entities.*;
 import com.mdsql.bussiness.service.ModeloService;
-import com.mdsql.bussiness.service.PermisosService;
-import com.mdsql.bussiness.service.PropietarioService;
 import com.mdsql.bussiness.service.TipoObjetoService;
 import com.mdsql.ui.PantallaMantenimientoVariables;
 import com.mdsql.ui.model.*;
