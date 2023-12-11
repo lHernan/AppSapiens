@@ -98,7 +98,7 @@ public class ServiceSupport {
 	protected void logProcedure(String runSP, Object... objects) {
 		LogWrapper.debug(log, "%s", runSP);
 		
-		if (!Objects.isNull(objects)) {
+		if (!Objects.isNull(objects) && objects.length > 0) {
 			StringBuilder sbArgumentos = new StringBuilder("Parámetros de entrada: \n");
 			for (Object o : objects) {
 				String value = (!Objects.isNull(o) && !StringUtils.isBlank(o.toString())) ? o.toString() : "NULL";

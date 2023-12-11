@@ -23,7 +23,7 @@ public class NivelAvisosTableCellRenderer extends DefaultTableCellRenderer {
 		Aviso aviso = ((ProcesarScriptNotaTableModel) table.getModel()).getSelectedRow(row);
 		
 		if (!Objects.isNull(aviso)) {
-			Integer orden = aviso.getCodigoNivelAviso().intValue();
+			Integer orden = aviso.getNivelImportancia().getCodigoNivelAviso().intValue();
 			setColorCelda(c, orden, col, isSelected);
 		}
 

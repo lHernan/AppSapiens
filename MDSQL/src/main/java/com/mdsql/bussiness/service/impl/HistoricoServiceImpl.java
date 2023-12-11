@@ -6,13 +6,11 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import javax.sql.DataSource;
 
+import com.mdsql.bussiness.entities.Historico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -128,6 +126,127 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
             return outputConsultaHistoricoProceso;
         } catch (SQLException e) {
             LogWrapper.error(log, "[HistoricoService.consultarHistoricoProceso] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Historico> consultarHistorico(String codigoProyecto, String tipoObjeto) throws ServiceException {
+        String runSP = createCall("p_con_obj_historico", MDSQLConstants.CALL_05_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeHis = createCallType(MDSQLConstants.T_T_DET_OBJ_HIS);
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, codigoProyecto, tipoObjeto);
+
+            callableStatement.setString(1, codigoProyecto);
+            callableStatement.setString(2, tipoObjeto);
+
+            callableStatement.registerOutParameter(3, Types.ARRAY, typeHis);
+            callableStatement.registerOutParameter(4, Types.INTEGER);
+            callableStatement.registerOutParameter(5, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(4);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(5));
+            }
+
+            List<Historico> historicos = new ArrayList<>();
+            Array arrayHistoricoProceso = callableStatement.getArray(3);
+
+            if (arrayHistoricoProceso != null) {
+                Object[] rows = (Object[]) arrayHistoricoProceso.getArray();
+                for (Object row : rows) {
+                    Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
+                    Historico historico = Historico.builder()
+                            .nombreObjeto((String) cols[0])
+                            .tipoObjeto((String) cols[1])
+                            .historico((String) cols[2])
+                            .historificado((String) cols[3])
+                            .peticion((String) cols[4])
+                            .codigoUsuario((String) cols[5])
+                            .fechaActualizacion((java.util.Date) cols[6])
+                            .build();
+                    historicos.add(historico);
+                }
+            }
+            return historicos;
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[HistoricoService.consultarHistorico] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void bajaHistorico(String codigoProyecto, String nombreObjeto, String peticion, String codUsr) throws ServiceException {
+        String runSP = createCall("p_baja_obj_historico", MDSQLConstants.CALL_06_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, codigoProyecto, nombreObjeto, peticion, codUsr);
+
+            callableStatement.setString(1, codigoProyecto);
+            callableStatement.setString(2, nombreObjeto);
+            callableStatement.setString(3, peticion);
+            callableStatement.setString(4, codUsr);
+
+            callableStatement.registerOutParameter(5, Types.INTEGER);
+            callableStatement.registerOutParameter(6, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(5);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(6));
+            }
+
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[HistoricoService.bajaHistorico] Error:  %s", e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void altaHistorico(String codigoProyecto, String nombreObjeto, String tipoObjeto, String historificada, String peticion, String codUsr) throws ServiceException {
+        String runSP = createCall("p_alta_obj_historico", MDSQLConstants.CALL_08_ARGS);
+
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(runSP)) {
+
+            String typeError = createCallTypeError();
+
+            logProcedure(runSP, codigoProyecto, nombreObjeto, tipoObjeto, historificada, peticion, codUsr);
+
+            callableStatement.setString(1, codigoProyecto);
+            callableStatement.setString(2, nombreObjeto);
+            callableStatement.setString(3, tipoObjeto);
+            callableStatement.setString(4, historificada);
+            callableStatement.setString(5, peticion);
+            callableStatement.setString(6, codUsr);
+
+            callableStatement.registerOutParameter(7, Types.INTEGER);
+            callableStatement.registerOutParameter(8, Types.ARRAY, typeError);
+
+            callableStatement.execute();
+
+            Integer result = callableStatement.getInt(7);
+
+            if (result == 0) {
+                throw buildException(callableStatement.getArray(8));
+            }
+
+        } catch (SQLException e) {
+            LogWrapper.error(log, "[HistoricoService.altaHistorico] Error:  %s", e.getMessage());
             throw new ServiceException(e);
         }
     }

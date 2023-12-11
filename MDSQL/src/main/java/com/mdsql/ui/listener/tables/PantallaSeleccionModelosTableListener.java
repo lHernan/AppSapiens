@@ -38,7 +38,21 @@ public class PantallaSeleccionModelosTableListener extends ListenerSupport imple
 		if (!Objects.isNull(seleccionado)) {
 			LogWrapper.debug(log, "Selected: %s", seleccionado.toString());
 			pantallaSeleccionModelos.setSeleccionado(seleccionado);
-			pantallaSeleccionModelos.getBtnSeleccionar().setEnabled(Boolean.TRUE);
+
+			String opcion = (String) pantallaSeleccionModelos.getParams().get("opcion");
+
+			if ("mntoNotasModelos".equals(opcion)) {
+				pantallaSeleccionModelos.getBtnNotas().setEnabled(Boolean.TRUE);
+			}
+			else if ("mntoVariables".equals(opcion)) {
+				pantallaSeleccionModelos.getBtnVariables().setEnabled(Boolean.TRUE);
+			}
+			else if ("mntoPermisosGenerales".equals(opcion)) {
+				pantallaSeleccionModelos.getBtnPermisosGenerales().setEnabled(Boolean.TRUE);
+			}
+			else {
+				pantallaSeleccionModelos.getBtnSeleccionar().setEnabled(Boolean.TRUE);
+			}
 		}
 	}
 

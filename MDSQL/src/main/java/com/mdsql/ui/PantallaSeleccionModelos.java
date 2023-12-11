@@ -44,10 +44,13 @@ public class PantallaSeleccionModelos extends DialogSupport {
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnBuscar;
+    @Getter
     private JButton btnNotas;
+    @Getter
     private JButton btnPermisosGenerales;
     private JButton btnPermisosPorColumna;
     private JButton btnPermisosPorObjeto;
+    @Getter
     private JButton btnVariables;
     private JLabel jLabel3;
     private JLabel jLabel4;

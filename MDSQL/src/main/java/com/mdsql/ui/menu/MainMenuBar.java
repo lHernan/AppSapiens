@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import com.mdsql.ui.listener.MenuListener;
+import com.mdsql.ui.listener.MenuMantenimientoActionListener;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.utils.FrameSupport;
 import com.mdval.ui.utils.MenuSupport;
@@ -33,13 +34,13 @@ public class MainMenuBar extends MenuSupport {
     private JMenuItem mnuItemVariables;
     private JMenu mnuEntornos;
     private JMenuItem mnuItemEntornos;
-    private JMenu mnuNotasModelos;
+    private JMenuItem mnuNotasModelos;
     private JMenuItem mnuItemNotasModelos;
     private JMenu mnuConsultas;
     private JMenuItem mnuConsultaHistoricoCambios;
     private JMenuItem mnuConsultaPeticiones;
     private JMenu mnuScriptInicial;
-    private JMenu mnuMantenimientoHistorico;
+    private JMenuItem mnuMantenimientoHistorico;
     
     private JMenuItem mnuPermisosGenerales;
     private JMenu mnuPermisosPersonalizados;
@@ -118,7 +119,7 @@ public class MainMenuBar extends MenuSupport {
         mnuConfiguracionEntornosPrueba.setActionCommand(MDSQLConstants.MNU_CONFIGURACION_ENTORNOS_PRUEBA); // NOI18N
         mnuScriptInicial.add(mnuConfiguracionEntornosPrueba);
         
-        mnuMantenimientoHistorico = new JMenu();
+        mnuMantenimientoHistorico = new JMenuItem();
         mnuMantenimientoHistorico.setActionCommand(MDSQLConstants.MNU_MANTENIMIENTO_HISTORICO); // NOI18N
 
         add(mnuPermisos);
@@ -160,24 +161,25 @@ public class MainMenuBar extends MenuSupport {
 	 *
 	 */
 	protected void initEvents() {
-		ActionListener actionListener = new MenuListener(frameParent);
-		
-		mnuPermisosGenerales.addActionListener(actionListener);
-		
-		mnuConsultaPermisos.addActionListener(actionListener);
-		mnuMantenimientoPermisos.addActionListener(actionListener);
-		mnuGenerarPermisos.addActionListener(actionListener);
+		ActionListener menuActionListener = new MenuListener(frameParent);
+        ActionListener menuMantenimientoActionListener = new MenuMantenimientoActionListener(frameParent);
+
+        mnuPermisosGenerales.addActionListener(menuMantenimientoActionListener);
+
+        mnuConsultaPermisos.addActionListener(menuMantenimientoActionListener);
+		mnuMantenimientoPermisos.addActionListener(menuActionListener);
+		mnuGenerarPermisos.addActionListener(menuActionListener);
         
-		mnuItemEntornos.addActionListener(actionListener);
-        mnuItemVariables.addActionListener(actionListener);
-        mnuItemNotasModelos.addActionListener(actionListener);
-        mnuConsultaHistoricoCambios.addActionListener(actionListener);
-        mnuConsultaPeticiones.addActionListener(actionListener);
+		mnuItemEntornos.addActionListener(menuMantenimientoActionListener);
+        mnuItemVariables.addActionListener(menuMantenimientoActionListener);
+        mnuItemNotasModelos.addActionListener(menuMantenimientoActionListener);
+        mnuConsultaHistoricoCambios.addActionListener(menuActionListener);
+        mnuConsultaPeticiones.addActionListener(menuActionListener);
         
-        mnuMantenimientoEntornosPruebas.addActionListener(actionListener);
-        mnuEjecucionScriptInicial.addActionListener(actionListener);
-        mnuConfiguracionEntornosPrueba.addActionListener(actionListener);
-        
-        mnuMantenimientoHistorico.addActionListener(actionListener);
+        mnuMantenimientoEntornosPruebas.addActionListener(menuActionListener);
+        mnuEjecucionScriptInicial.addActionListener(menuActionListener);
+        mnuConfiguracionEntornosPrueba.addActionListener(menuActionListener);
+
+        mnuMantenimientoHistorico.addActionListener(menuMantenimientoActionListener);
 	}
 }

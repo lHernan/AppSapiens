@@ -2,25 +2,7 @@ package com.mdsql.ui.utils.creators;
 
 import java.util.Map;
 
-import com.mdsql.ui.model.cabeceras.TablaAjustarLogEjecucionCabecera;
-import com.mdsql.ui.model.cabeceras.TablaConsultaPeticionesCabecera;
-import com.mdsql.ui.model.cabeceras.TablaCuadresObjetosCabecera;
-import com.mdsql.ui.model.cabeceras.TablaCuadresOperacionesCabecera;
-import com.mdsql.ui.model.cabeceras.TablaDetalleScriptCabecera;
-import com.mdsql.ui.model.cabeceras.TablaEjecutarTypesCabecera;
-import com.mdsql.ui.model.cabeceras.TablaErroresCabecera;
-import com.mdsql.ui.model.cabeceras.TablaHistoricoObjetosCabecera;
-import com.mdsql.ui.model.cabeceras.TablaInformacionModeloCabecera;
-import com.mdsql.ui.model.cabeceras.TablaModelosCabecera;
-import com.mdsql.ui.model.cabeceras.TablaNotasCabecera;
-import com.mdsql.ui.model.cabeceras.TablaParchesCabecera;
-import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoObjetosCabecera;
-import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoOperacionesCabecera;
-import com.mdsql.ui.model.cabeceras.TablaResumenProcesadoScriptsCabecera;
-import com.mdsql.ui.model.cabeceras.TablaScriptsCabecera;
-import com.mdsql.ui.model.cabeceras.TablaSeleccionHistoricoCabecera;
-import com.mdsql.ui.model.cabeceras.TablaTypesCabecera;
-import com.mdsql.ui.model.cabeceras.TablaUltimasPeticionesCabecera;
+import com.mdsql.ui.model.cabeceras.*;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.ui.model.cabeceras.Cabecera;
 
@@ -118,7 +100,31 @@ public class CabeceraTablaCreator extends Creator {
 		if (MDSQLConstants.DLG_HISTORICO_CAMBIOS_TABLA_CABECERA.equals(item)) {
 			cabecera = new TablaHistoricoObjetosCabecera();
 		}
-		
+
+		if (MDSQLConstants.PERMISOS_GENERALES_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaPermisosCabecera();
+		}
+
+		if (MDSQLConstants.SINONIMOS_GENERALES_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaSinonimosCabecera();
+		}
+
+		if (MDSQLConstants.MNTO_HISTORICO_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaHistoricoCabecera();
+		}
+
+		if (MDSQLConstants.NOTAS_MODELO_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaNotasModeloCabecera();
+		}
+
+		if (MDSQLConstants.MNTO_ENTORNOS_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaEntornosCabecera();
+		}
+
+		if (MDSQLConstants.MNTO_VARIABLES_TABLA_CABECERA.equals(item)) {
+			cabecera = new TablaVariablesCabecera();
+		}
+
 		return cabecera;
 	}
 

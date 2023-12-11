@@ -45,7 +45,7 @@ public class ProcesarScriptNotaTableModel extends DefaultTableModel<Aviso> {
 		Aviso row = data.get(rowIndex);
 		
 		if (0 == columnIndex) {
-			return row.getDescripcionNivelAviso();
+			return row.getNivelImportancia().getDescripcionNivelAviso();
 		} else if (1 == columnIndex) {
 			return row.getDescripcionAviso();
 		} else if (2 == columnIndex) {

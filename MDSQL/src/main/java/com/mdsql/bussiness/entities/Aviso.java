@@ -20,8 +20,7 @@ public class Aviso implements Serializable {
      */
     private static final long serialVersionUID = 3697494311301739263L;
 
-    private BigDecimal codigoNivelAviso;
-    private String descripcionNivelAviso;
+    private NivelImportancia nivelImportancia;
     private BigDecimal codigoAviso;
     private String descripcionAviso;
     private String txtAviso;

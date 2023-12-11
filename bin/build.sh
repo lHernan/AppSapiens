@@ -5,7 +5,7 @@ if [[ "$1" == "" ]] ; then
 	exit
 fi
 
-DIR_PROJECT=/home/jmartin/git/AppSapiens
+DIR_PROJECT=/home/federico/git/AppSapiens
 RAMA=$1
 
 ENTREGABLES=Entregables
@@ -88,6 +88,18 @@ if [ $? -ne 0 ] ; then
 	exit
 fi
 
+cp mdsql.bat $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
+if [ $? -ne 0 ] ; then
+	echo "Ocurrió un error al copiar el fichero mdsql.bat"
+	exit
+fi
+
+cp mdsql.sh $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
+if [ $? -ne 0 ] ; then
+	echo "Ocurrió un error al copiar el fichero mdsql.sh"
+	exit
+fi
+
 cp logotipo.png $DIR_PROJECT/$ENTREGABLES/$MDSQL_PROJECT
 if [ $? -ne 0 ] ; then
 	echo "Ocurrió un error al copiar el fichero logotipo.png"
@@ -142,6 +154,10 @@ echo "Muy señor mío/a.
 Nos complace comunicarle que está disponible para su revisión la entrega
 
 https://github.com/lHernan/AppSapiens/blob/$RAMA/Entregables/$MDSQL_PROJECT-$LATEST.zip
+
+El video de entrega se encuentra en:
+
+https://github.com/lHernan/AppSapiens/blob/$RAMA/Entregables/$MDSQL_PROJECT-$LATEST.wmv
 
 Las siguientes incidencias se han solucionado, rogamos las revisen:
 
