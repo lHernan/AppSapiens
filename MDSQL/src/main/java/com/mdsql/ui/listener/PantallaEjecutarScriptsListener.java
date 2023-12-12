@@ -157,8 +157,7 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		Map<String, Object> params = new HashMap<>();
 
 		Proceso proceso = pantallaEjecutarScripts.getProceso();
-		List<Script> vigentes = ((ScriptsTableModel) pantallaEjecutarScripts.getTblVigente().getModel()).getData();
-
+		
 		params.put("proceso", proceso);
 		params.put("script", pantallaEjecutarScripts.getSeleccionado());
 

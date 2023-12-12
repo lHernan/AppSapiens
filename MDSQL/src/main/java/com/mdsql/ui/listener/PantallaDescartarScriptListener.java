@@ -3,7 +3,10 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
@@ -116,9 +119,14 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 			InputDescartarScript inputDescartarScript = createInputDescartarScript(session, proceso, script, comentario);
 			OutputDescartarScript outputDescartarScript = scriptService.descartarScript(inputDescartarScript);
 			
-			if (CollectionUtils.isNotEmpty(outputDescartarScript.getListaScriptNew())) {
-				
+			List<Script> scriptsNew = outputDescartarScript.getListaScriptNew();
+			if (CollectionUtils.isNotEmpty(scriptsNew)) {
+				for (Script scr : scriptsNew) {
+					saveScript(scr);
+				}
 			}
+			
+			// TODO - Iniciar la ejecución del parche (si lo hay)
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
@@ -136,5 +144,17 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 		inputDescartarScript.setTxtComentario(txtComentario);
 		
 		return inputDescartarScript;
+	}
+	
+	private void saveScript(Script scr) throws ServiceException {
+		try {
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			String selectedRoute = session.getSelectedRoute();
+			String ruta = selectedRoute.concat(File.separator);
+			
+			MDSQLAppHelper.dumpLinesToFile(scr.getLineasScript(), Paths.get(ruta.concat(scr.getNombreScript())).toFile());
+		} catch (IOException e) {
+			throw new ServiceException(e);
+		}
 	}
 }
