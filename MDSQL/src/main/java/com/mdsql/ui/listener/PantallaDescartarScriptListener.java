@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.AbstractButton;
 
@@ -126,7 +127,17 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 				}
 			}
 			
-			// TODO - Iniciar la ejecución del parche (si lo hay)
+			// Iniciar la ejecución del parche (si lo hay)
+			if (!Objects.isNull(archivoReparacion)) {
+				
+			}
+			else {
+				if ("Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
+					pantallaDescartarScript.getReturnParams().put("estado", proceso.getDescripcionEstadoProceso());
+				}
+				
+				pantallaDescartarScript.dispose();
+			}
 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);

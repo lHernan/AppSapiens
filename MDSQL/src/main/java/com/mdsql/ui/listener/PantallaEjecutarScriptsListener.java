@@ -12,6 +12,7 @@ import java.util.Objects;
 import javax.swing.JButton;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
@@ -164,6 +165,15 @@ public class PantallaEjecutarScriptsListener extends ListenerSupport implements 
 		PantallaDescartarScript pantallaDescartarScript = (PantallaDescartarScript) MDSQLUIHelper
 				.createDialog(pantallaEjecutarScripts.getFrameParent(), MDSQLConstants.CMD_DESCARTAR_SCRIPT, params);
 		MDSQLUIHelper.show(pantallaDescartarScript);
+		
+		String estado = (String) pantallaDescartarScript.getReturnParams().get("estado"); 
+		if (StringUtils.isNotBlank(estado)) {
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			proceso.setDescripcionEstadoProceso("Ejecutado");
+			session.setProceso(proceso);
+
+			cerraryEntregar(proceso);
+		}
 	}
 
 	private void eventBtnReparar() {
