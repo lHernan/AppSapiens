@@ -33,12 +33,15 @@ public abstract class ListenerSupport extends Observable {
 	
 	protected DateFormatter dateInformeFormatter;
 	
+	protected DateFormatter dateInputFormatter;
+	
 	public ListenerSupport() {
 		try {
 			literales = LiteralesSingleton.getInstance();
 			dateFormatter = new DateFormatter();
 			dateBuscarFormatter = new DateFormatter(MDSQLConstants.FORMATO_FECHA_BUSCADOR_PETICIONES);
 			dateInformeFormatter = new DateFormatter(MDSQLConstants.INFORME_DATE_FORMAT);
+			dateInputFormatter = new DateFormatter(MDSQLConstants.INPUT_DATE_FORMAT);
 		} catch (IOException e) {
 			log.warn("ERROR:", e);
 		}
