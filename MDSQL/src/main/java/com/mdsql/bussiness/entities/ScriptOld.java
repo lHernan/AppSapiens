@@ -13,7 +13,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class ScriptOld implements Serializable {
 
-    private String nombreScriptOld;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4494380619327570796L;
+	private String nombreScriptOld;
     private String nombreScriptNew;
 
 }

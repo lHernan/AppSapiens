@@ -15,7 +15,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class ErrorScript implements Serializable {
 
-    private BigDecimal numeroOrden;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5567625773896832307L;
+	private BigDecimal numeroOrden;
     private Date fechaError;
     private BigDecimal idProceso;
     private BigDecimal numeroIteracion;
