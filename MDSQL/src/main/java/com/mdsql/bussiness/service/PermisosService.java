@@ -1,12 +1,11 @@
 package com.mdsql.bussiness.service;
 
-import com.mdsql.bussiness.entities.BBDD;
+import java.util.List;
+
 import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Permiso;
 import com.mdsql.bussiness.entities.Sinonimo;
 import com.mdval.exceptions.ServiceException;
-
-import java.util.List;
 
 /**
  * @author hcarreno
