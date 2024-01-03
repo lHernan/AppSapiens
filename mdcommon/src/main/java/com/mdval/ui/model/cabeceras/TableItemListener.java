@@ -26,7 +26,7 @@ public abstract class TableItemListener implements ItemListener {
 		
 		boolean checked = e.getStateChange() == ItemEvent.SELECTED;
 		for (int x = 0, y = table.getRowCount(); x < y; x++) {
-			setValueAt(new Boolean(checked), x, column);
+			setValueAt(Boolean.valueOf(checked), x, column);
 		}
 	}
 
