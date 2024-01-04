@@ -6,16 +6,22 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 import javax.sql.DataSource;
 
-import com.mdsql.bussiness.entities.Historico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mdsql.bussiness.entities.Historico;
 import com.mdsql.bussiness.entities.HistoricoProceso;
 import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
+import com.mdsql.bussiness.entities.OutputAltaHistorico;
+import com.mdsql.bussiness.entities.OutputBajaHistorico;
+import com.mdsql.bussiness.entities.OutputConsultaHistorico;
 import com.mdsql.bussiness.entities.OutputConsultaHistoricoProceso;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.utils.MDSQLConstants;
@@ -131,7 +137,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
     }
 
     @Override
-    public List<Historico> consultarHistorico(String codigoProyecto, String tipoObjeto) throws ServiceException {
+    public OutputConsultaHistorico consultarHistorico(String codigoProyecto, String tipoObjeto) throws ServiceException {
         String runSP = createCall("p_con_obj_historico", MDSQLConstants.CALL_05_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -156,6 +162,14 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
             if (result == 0) {
                 throw buildException(callableStatement.getArray(5));
             }
+            
+            OutputConsultaHistorico outputConsultaHistorico = new OutputConsultaHistorico();
+            outputConsultaHistorico.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputConsultaHistorico.setServiceException(buildException(callableStatement.getArray(4)));
+			}
 
             List<Historico> historicos = new ArrayList<>();
             Array arrayHistoricoProceso = callableStatement.getArray(3);
@@ -175,8 +189,9 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
                             .build();
                     historicos.add(historico);
                 }
+                outputConsultaHistorico.setHistorico(historicos);
             }
-            return historicos;
+            return outputConsultaHistorico;
         } catch (SQLException e) {
             LogWrapper.error(log, "[HistoricoService.consultarHistorico] Error:  %s", e.getMessage());
             throw new ServiceException(e);
@@ -184,7 +199,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
     }
 
     @Override
-    public void bajaHistorico(String codigoProyecto, String nombreObjeto, String peticion, String codUsr) throws ServiceException {
+    public OutputBajaHistorico bajaHistorico(String codigoProyecto, String nombreObjeto, String peticion, String codUsr) throws ServiceException {
         String runSP = createCall("p_baja_obj_historico", MDSQLConstants.CALL_06_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -209,6 +224,16 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
             if (result == 0) {
                 throw buildException(callableStatement.getArray(6));
             }
+            
+            OutputBajaHistorico outputBajaHistorico = new OutputBajaHistorico();
+            outputBajaHistorico.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputBajaHistorico.setServiceException(buildException(callableStatement.getArray(4)));
+			}
+
+			return outputBajaHistorico;
 
         } catch (SQLException e) {
             LogWrapper.error(log, "[HistoricoService.bajaHistorico] Error:  %s", e.getMessage());
@@ -217,7 +242,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
     }
 
     @Override
-    public void altaHistorico(String codigoProyecto, String nombreObjeto, String tipoObjeto, String historificada, String peticion, String codUsr) throws ServiceException {
+    public OutputAltaHistorico altaHistorico(String codigoProyecto, String nombreObjeto, String tipoObjeto, String historificada, String peticion, String codUsr) throws ServiceException {
         String runSP = createCall("p_alta_obj_historico", MDSQLConstants.CALL_08_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -244,6 +269,16 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
             if (result == 0) {
                 throw buildException(callableStatement.getArray(8));
             }
+            
+            OutputAltaHistorico outputAltaHistorico = new OutputAltaHistorico();
+            outputAltaHistorico.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputAltaHistorico.setServiceException(buildException(callableStatement.getArray(4)));
+			}
+
+			return outputAltaHistorico;
 
         } catch (SQLException e) {
             LogWrapper.error(log, "[HistoricoService.altaHistorico] Error:  %s", e.getMessage());

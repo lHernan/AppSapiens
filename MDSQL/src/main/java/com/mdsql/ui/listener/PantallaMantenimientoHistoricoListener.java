@@ -130,10 +130,17 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 			TipoObjetoService tipoObjetoService = (TipoObjetoService) getService(MDSQLConstants.TIPO_OBJETO_SERVICE);
 
 			// Rellenar combos
-			List<String> tipos = tipoObjetoService.consultarTiposObjeto();
+			OutputConsultaTiposObjeto outputConsultaTiposObjeto = tipoObjetoService.consultarTiposObjeto();
+			
+			// Hay avisos
+			if (outputConsultaTiposObjeto.getResult() == 2) {
+				ServiceException serviceException = outputConsultaTiposObjeto.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
 
-			if (CollectionUtils.isNotEmpty(tipos)) {
-				TipoObjetoComboBoxModel tipoObjetoComboBoxModel = new TipoObjetoComboBoxModel(tipos);
+			if (CollectionUtils.isNotEmpty(outputConsultaTiposObjeto.getTiposObjeto())) {
+				TipoObjetoComboBoxModel tipoObjetoComboBoxModel = new TipoObjetoComboBoxModel(outputConsultaTiposObjeto.getTiposObjeto());
 				pantallaMantenimientoHistorico.getCmbTipoObjeto().setModel(tipoObjetoComboBoxModel);
 			}
 		} catch (ServiceException e) {
@@ -149,9 +156,16 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 			String codigoProyecto = pantallaMantenimientoHistorico.getTxtModelo().getText();
 			String tipoObjeto = (String) pantallaMantenimientoHistorico.getCmbTipoObjeto().getSelectedItem();
 
-			List<Historico> lista = historicoService.consultarHistorico(codigoProyecto, tipoObjeto);
+			OutputConsultaHistorico outputConsultaHistorico = historicoService.consultarHistorico(codigoProyecto, tipoObjeto);
+			
+			// Hay avisos
+			if (outputConsultaHistorico.getResult() == 2) {
+				ServiceException serviceException = outputConsultaHistorico.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
 
-			fillHistorico(lista);
+			fillHistorico(outputConsultaHistorico.getHistorico());
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);
@@ -187,9 +201,16 @@ public class PantallaMantenimientoHistoricoListener extends ListenerSupport impl
 			String codigoProyecto = pantallaMantenimientoHistorico.getTxtModelo().getText();
 			String tipoObjeto = (String) pantallaMantenimientoHistorico.getCmbTipoObjeto().getSelectedItem();
 
-			List<Historico> lista = historicoService.consultarHistorico(codigoProyecto, tipoObjeto);
+			OutputConsultaHistorico outputConsultaHistorico = historicoService.consultarHistorico(codigoProyecto, tipoObjeto);
+			
+			// Hay avisos
+			if (outputConsultaHistorico.getResult() == 2) {
+				ServiceException serviceException = outputConsultaHistorico.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
 
-			fillInforme(codigoProyecto, lista);
+			fillInforme(codigoProyecto, outputConsultaHistorico.getHistorico());
 		} catch (ServiceException e) {
 			Map<String, Object> errParams = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaMantenimientoHistorico.getFrameParent(), MDSQLConstants.CMD_ERROR, errParams);

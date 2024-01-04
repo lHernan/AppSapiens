@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mdsql.bussiness.entities.OutputConsultaTiposObjeto;
 import com.mdsql.bussiness.service.TipoObjetoService;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -28,7 +29,7 @@ public class TipoObjetoServiceImpl extends ServiceSupport implements TipoObjetoS
     private DataSource dataSource;
 
     @Override
-    public List<String> consultarTiposObjeto() throws ServiceException {
+    public OutputConsultaTiposObjeto consultarTiposObjeto() throws ServiceException {
         String runSP = createCall("p_con_tipos_obj_per", MDSQLConstants.CALL_03_ARGS);
 
         try (Connection conn = dataSource.getConnection();
@@ -50,6 +51,14 @@ public class TipoObjetoServiceImpl extends ServiceSupport implements TipoObjetoS
             if (result == 0) {
                 throw buildException(callableStatement.getArray(3));
             }
+            
+            OutputConsultaTiposObjeto outputConsultaTiposObjeto = new OutputConsultaTiposObjeto();
+            outputConsultaTiposObjeto.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputConsultaTiposObjeto.setServiceException(buildException(callableStatement.getArray(4)));
+			}
 
             List<String> tipos = new ArrayList<>();
             Array arrayTipo = callableStatement.getArray(1);
@@ -61,8 +70,10 @@ public class TipoObjetoServiceImpl extends ServiceSupport implements TipoObjetoS
                     String tipo = (String) cols[0];
                     tipos.add(tipo);
                 }
+                
+                outputConsultaTiposObjeto.setTiposObjeto(tipos);
             }
-            return tipos;
+            return outputConsultaTiposObjeto;
         } catch (SQLException e) {
             LogWrapper.error(log, "[TipoObjetoService.consultarTiposObjeto] Error:  %s", e.getMessage());
             throw new ServiceException(e);
