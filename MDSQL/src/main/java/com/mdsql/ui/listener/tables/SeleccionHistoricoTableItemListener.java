@@ -20,11 +20,11 @@ public class SeleccionHistoricoTableItemListener extends TableItemListener {
 		
 		if (0 == c || 3 == c) {
 			if (model.isCellEditable(r, c) && row.getEditable()) {
-				table.setValueAt(new Boolean(checked), r, c);
+				table.setValueAt(Boolean.valueOf(checked), r, c);
 			}
 		}
 		else {
-			table.setValueAt(new Boolean(checked), r, c);
+			table.setValueAt(Boolean.valueOf(checked), r, c);
 		}
 	}
 

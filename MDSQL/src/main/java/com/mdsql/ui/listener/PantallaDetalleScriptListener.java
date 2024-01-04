@@ -47,7 +47,6 @@ public class PantallaDetalleScriptListener extends ListenerSupport implements Ac
 		try {
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 			
-			String nombreScript = (String) pantallaDetalleScript.getParams().get("script");
 			BigDecimal idProceso = (BigDecimal) pantallaDetalleScript.getParams().get("proceso");
 			BigDecimal numeroOrden = (BigDecimal) pantallaDetalleScript.getParams().get("numeroOrden");
 			

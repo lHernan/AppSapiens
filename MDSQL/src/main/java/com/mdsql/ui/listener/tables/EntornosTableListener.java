@@ -1,20 +1,19 @@
 package com.mdsql.ui.listener.tables;
 
+import java.util.Objects;
+
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import com.mdsql.bussiness.entities.Entorno;
-import com.mdsql.bussiness.entities.Permiso;
-import com.mdsql.ui.PantallaDetallePermisosPorObjeto;
 import com.mdsql.ui.PantallaMantenimientoEntornos;
 import com.mdsql.ui.model.EntornoTableModel;
-import com.mdsql.ui.model.PermisosTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
-import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EntornosTableListener extends ListenerSupport implements ListSelectionListener {

@@ -276,6 +276,7 @@ public class MDSQLUIHelper extends UIHelper {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static void setSelectedItem(JComboBox cmb, Object selected) {
 		cmb.setSelectedItem(selected);
 		cmb.repaint();

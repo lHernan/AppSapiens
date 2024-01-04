@@ -1,8 +1,8 @@
 package com.mdsql.ui.listener.combo;
 
-import com.mdsql.ui.PantallaDetallePermisosPorObjeto;
-import com.mdsql.ui.PantallaPermisosGeneralesporModeloporTipoObjeto;
 import org.apache.commons.lang3.StringUtils;
+
+import com.mdsql.ui.PantallaDetallePermisosPorObjeto;
 
 public class PermisosPorObjetoPermisoSinonimoItemListener extends PermisoSinonimoItemListener {
 

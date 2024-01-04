@@ -1,19 +1,15 @@
 package com.mdsql.ui.model;
 
-import com.mdsql.utils.LiteralesSingleton;
-import com.mdval.utils.LogWrapper;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.swing.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.AbstractListModel;
+import javax.swing.ComboBoxModel;
 
 /**
  * @author federico
  *
  */
-@Slf4j
 public class PermisoSinonimoComboBoxModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
 	/**

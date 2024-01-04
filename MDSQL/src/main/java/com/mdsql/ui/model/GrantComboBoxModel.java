@@ -1,12 +1,13 @@
 package com.mdsql.ui.model;
 
-import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.bussiness.entities.Grant;
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import javax.swing.AbstractListModel;
+import javax.swing.ComboBoxModel;
+
+import com.mdsql.bussiness.entities.Grant;
 
 /**
  * @author federico

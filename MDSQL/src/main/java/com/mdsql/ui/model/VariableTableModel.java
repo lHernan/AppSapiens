@@ -1,11 +1,10 @@
 package com.mdsql.ui.model;
 
-import com.mdsql.bussiness.entities.Entorno;
+import java.util.List;
+
 import com.mdsql.bussiness.entities.Variable;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
-
-import java.util.List;
 
 public class VariableTableModel extends DefaultTableModel<Variable> {
 

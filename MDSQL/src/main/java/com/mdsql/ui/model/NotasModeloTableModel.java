@@ -1,12 +1,10 @@
 package com.mdsql.ui.model;
 
+import java.util.List;
+
 import com.mdsql.bussiness.entities.Aviso;
-import com.mdsql.bussiness.entities.Historico;
-import com.mdsql.bussiness.entities.NotaModelo;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
-
-import java.util.List;
 
 public class NotasModeloTableModel extends DefaultTableModel<Aviso> {
 

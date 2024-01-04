@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.commons.collections.Closure;
 
 import com.mdsql.bussiness.entities.OutputRegistraEjecucionType;
-import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Type;
 
 /**
