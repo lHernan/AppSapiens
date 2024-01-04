@@ -14,7 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class OutputRegistraEjecucionParche implements Serializable {
 
-    private BigDecimal codigoEstadoProceso;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1379177878327861639L;
+	private BigDecimal codigoEstadoProceso;
     private String descripcionEstadoProceso;
     private String nombreScript;
     private BigDecimal codigoEstadoScript;

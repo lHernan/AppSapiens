@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGeneratorService {
 
-	private static final String FORMATO_ARCHIVO_HISTORICO_CAMBIOS = "%s_Cambios_desde_hasta_%s.xls";
+	private static final String FORMATO_ARCHIVO_HISTORICO_CAMBIOS = "%s_Cambios_desde_%s_hasta_%s.xls";
 
 	private static final String FORMATO_ARCHIVO_HISTORICO = "%s_%s_%s.xls";
 
@@ -53,7 +53,7 @@ public class ExcelGeneratorServiceImpl extends ServiceSupport implements ExcelGe
 	public void generarExcelHistoricoCambios(List<InformeCambios> listaCambios, String path, String codigoProyecto,
 			String fechaDesde, String fechaHasta) {
 		
-		String fileName = String.format(FORMATO_ARCHIVO_HISTORICO_CAMBIOS, codigoProyecto, fechaHasta);
+		String fileName = String.format(FORMATO_ARCHIVO_HISTORICO_CAMBIOS, codigoProyecto, fechaDesde, fechaHasta);
 		log.info("Archivo: {}", fileName);
 
 		try (InputStream inputStream = getClass().getResourceAsStream(MDSQLConstants.LISTADO_HISTORICO_CAMBIOS_TEMPLATE_LOCATION);

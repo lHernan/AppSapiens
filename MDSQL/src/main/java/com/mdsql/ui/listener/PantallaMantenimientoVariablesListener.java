@@ -65,8 +65,15 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 					.normalizeValueToCheck(pantallaMantenimientoVariables.getChkHabilitada().isSelected());
 			String comentario = pantallaMantenimientoVariables.getTxtComentario().getText();
 
-			modeloService.actualizarVariableModelo(codigoProyecto, codigoVariable, entorno, bbdd, tipoVariable,
+			OutputActualizarVariablesModelo outputActualizarVariablesModelo = modeloService.actualizarVariableModelo(codigoProyecto, codigoVariable, entorno, bbdd, tipoVariable,
 					valorVariable, valorSustituir, codigoPeticion, mcaInterno, mcaHabilitado, comentario, codUsr);
+			
+			// Hay avisos
+			if (outputActualizarVariablesModelo.getResult() == 2) {
+				ServiceException serviceException = outputActualizarVariablesModelo.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaMantenimientoVariables.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
 
 			clearForm();
 			actualizarVariables(modelo);
@@ -129,9 +136,17 @@ public class PantallaMantenimientoVariablesListener extends ListenerSupport impl
 	private void actualizarVariables(Modelo modelo) throws ServiceException {
 		ModeloService modeloService = (ModeloService) getService(MDSQLConstants.MODELO_SERVICE);
 
-		List<Variable> variables = modeloService.consultaVariables(modelo);
-		if (CollectionUtils.isNotEmpty(variables)) {
-			fillVariables(variables);
+		OutputVariablesModelo outputVariablesModelo = modeloService.consultaVariables(modelo);
+		
+		// Hay avisos
+		if (outputVariablesModelo.getResult() == 2) {
+			ServiceException serviceException = outputVariablesModelo.getServiceException();
+			Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+			MDSQLUIHelper.showPopup(pantallaMantenimientoVariables.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+		}
+		
+		if (CollectionUtils.isNotEmpty(outputVariablesModelo.getVariables())) {
+			fillVariables(outputVariablesModelo.getVariables());
 		}
 	}
 

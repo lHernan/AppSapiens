@@ -110,7 +110,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	}
 
 	@Override
-	public List<Variable> consultaVariables(Modelo modelo) throws ServiceException {
+	public OutputVariablesModelo consultaVariables(Modelo modelo) throws ServiceException {
 		String runSP = createCall("p_con_vbles_modelo", MDSQLConstants.CALL_04_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
@@ -133,6 +133,14 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
 			if (result == 0) {
 				throw buildException(callableStatement.getArray(4));
+			}
+			
+			OutputVariablesModelo outputVariablesModelo = new OutputVariablesModelo();
+			outputVariablesModelo.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputVariablesModelo.setServiceException(buildException(callableStatement.getArray(4)));
 			}
 
 			List<Variable> variables = new ArrayList<>();
@@ -163,8 +171,11 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 
 					variables.add(variable);
 				}
+				
+				outputVariablesModelo.setVariables(variables);
 			}
-			return variables;
+			
+			return outputVariablesModelo;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ModeloService.consultaVariables] Error:  %s", e.getMessage());
 			throw new ServiceException(e);
@@ -172,7 +183,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 	}
 
 	@Override
-	public void actualizarVariableModelo(String codigoProyecto, String codigoVariable, String entorno, String bbdd, String tipoVariable, String valorVariable, String valorSustituir, String codigoPeticion, String mcaInterno, String mcaHabilitado, String comentario, String codUsr) throws ServiceException {
+	public OutputActualizarVariablesModelo actualizarVariableModelo(String codigoProyecto, String codigoVariable, String entorno, String bbdd, String tipoVariable, String valorVariable, String valorSustituir, String codigoPeticion, String mcaInterno, String mcaHabilitado, String comentario, String codUsr) throws ServiceException {
 		String runSP = createCall("p_mnto_vbles_modelo", MDSQLConstants.CALL_14_ARGS);
 
 		try (Connection conn = dataSource.getConnection();
@@ -192,8 +203,8 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			callableStatement.setString(8, codigoPeticion);
 			callableStatement.setString(9, mcaInterno);
 			callableStatement.setString(10, mcaHabilitado);
-			callableStatement.setString(11, codUsr);
-			callableStatement.setString(12, comentario);
+			callableStatement.setString(11, comentario);
+			callableStatement.setString(12, codUsr);
 
 			callableStatement.registerOutParameter(13, Types.INTEGER);
 			callableStatement.registerOutParameter(14, Types.ARRAY, typeError);
@@ -205,7 +216,16 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			if (result == 0) {
 				throw buildException(callableStatement.getArray(14));
 			}
+			
+			OutputActualizarVariablesModelo outputActualizarVariablesModelo = new OutputActualizarVariablesModelo();
+			outputActualizarVariablesModelo.setResult(result);
+			
+			// Hay avisos
+			if (result == 2) {
+				outputActualizarVariablesModelo.setServiceException(buildException(callableStatement.getArray(4)));
+			}
 
+			return outputActualizarVariablesModelo;
 		} catch (SQLException e) {
 			LogWrapper.error(log, "[ModeloService.actualizarVariableModelo] Error:  %s", e.getMessage());
 			throw new ServiceException(e);

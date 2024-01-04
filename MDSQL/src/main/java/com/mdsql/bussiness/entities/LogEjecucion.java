@@ -17,7 +17,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class LogEjecucion implements Serializable {
 
-    private String nombreScript;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 126031777836246207L;
+	private String nombreScript;
     private BigDecimal idProceso;
     private BigDecimal numeroOrden;
     private BigDecimal numeroIteracion;

@@ -1,18 +1,16 @@
 package com.mdsql.bussiness.service;
 
-import com.mdsql.bussiness.entities.TipoObjeto;
-import com.mdsql.bussiness.entities.TipoParticula;
-import com.mdval.exceptions.ServiceException;
-
-import java.math.BigDecimal;
 import java.util.List;
+
+import com.mdsql.bussiness.entities.OutputConsultaTiposObjeto;
+import com.mdval.exceptions.ServiceException;
 
 /**
  * @author hcarreno
  */
 public interface TipoObjetoService {
 
-    List<String> consultarTiposObjeto() throws ServiceException;
+    OutputConsultaTiposObjeto consultarTiposObjeto() throws ServiceException;
 
     List<String> consultarTiposVariable() throws ServiceException;
 }

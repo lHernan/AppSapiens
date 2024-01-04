@@ -7,17 +7,16 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.mdsql.bussiness.entities.NivelImportancia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mdsql.bussiness.entities.Aviso;
+import com.mdsql.bussiness.entities.NivelImportancia;
 import com.mdsql.bussiness.service.AvisoService;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;

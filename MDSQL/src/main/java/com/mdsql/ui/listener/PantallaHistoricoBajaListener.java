@@ -1,7 +1,15 @@
 package com.mdsql.ui.listener;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.swing.JButton;
+
 import com.mdsql.bussiness.entities.Historico;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputBajaHistorico;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.ui.PantallaHistoricoBaja;
@@ -10,12 +18,6 @@ import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Map;
-import java.util.Objects;
 
 public class PantallaHistoricoBajaListener extends ListenerSupport implements ActionListener {
 
@@ -54,7 +56,14 @@ public class PantallaHistoricoBajaListener extends ListenerSupport implements Ac
 				String nombreObjeto = seleccionado.getNombreObjeto();
 				String peticion = pantallaHistoricoBaja.getTxtPeticion().getText();
 
-				historicoService.bajaHistorico(codigoProyecto, nombreObjeto, peticion, codUsr);
+				OutputBajaHistorico outputBajaHistorico = historicoService.bajaHistorico(codigoProyecto, nombreObjeto, peticion, codUsr);
+			
+				// Hay avisos
+				if (outputBajaHistorico.getResult() == 2) {
+					ServiceException serviceException = outputBajaHistorico.getServiceException();
+					Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+					MDSQLUIHelper.showPopup(pantallaHistoricoBaja.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+				}
 			}
 			
 			pantallaHistoricoBaja.getReturnParams().put("response", "OK");

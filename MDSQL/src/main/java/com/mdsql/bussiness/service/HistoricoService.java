@@ -1,11 +1,11 @@
 package com.mdsql.bussiness.service;
 
-import com.mdsql.bussiness.entities.Historico;
 import com.mdsql.bussiness.entities.InputConsutaHistoricoProceso;
+import com.mdsql.bussiness.entities.OutputAltaHistorico;
+import com.mdsql.bussiness.entities.OutputBajaHistorico;
+import com.mdsql.bussiness.entities.OutputConsultaHistorico;
 import com.mdsql.bussiness.entities.OutputConsultaHistoricoProceso;
 import com.mdval.exceptions.ServiceException;
-
-import java.util.List;
 
 /**
  * @author hcarreno
@@ -18,9 +18,9 @@ public interface HistoricoService {
      */
 	OutputConsultaHistoricoProceso consultarHistoricoProceso(InputConsutaHistoricoProceso inputConsutaHistoricoProceso) throws ServiceException;
 
-    List<Historico> consultarHistorico(String codigoProyecto, String tipoObjeto) throws ServiceException;
+    OutputConsultaHistorico consultarHistorico(String codigoProyecto, String tipoObjeto) throws ServiceException;
 
-    void bajaHistorico(String codigoProyecto, String nombreObjeto, String peticion, String codUsr) throws ServiceException;
+    OutputBajaHistorico bajaHistorico(String codigoProyecto, String nombreObjeto, String peticion, String codUsr) throws ServiceException;
 
-    void altaHistorico(String codigoProyecto, String nombreObjeto, String tipoObjeto, String historificada, String peticion, String codUsr) throws ServiceException;
+    OutputAltaHistorico altaHistorico(String codigoProyecto, String nombreObjeto, String tipoObjeto, String historificada, String peticion, String codUsr) throws ServiceException;
 }

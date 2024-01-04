@@ -107,12 +107,20 @@ public class PantallaDetallePermisosPorObjetoListener extends ListenerSupport im
 			actualizarSinonimos(modelo);
 
 			// Rellenar combos
-			List<String> tipos = tipoObjetoService.consultarTiposObjeto();
+			OutputConsultaTiposObjeto outputConsultaTiposObjeto = tipoObjetoService.consultarTiposObjeto();
+						
+			// Hay avisos
+			if (outputConsultaTiposObjeto.getResult() == 2) {
+				ServiceException serviceException = outputConsultaTiposObjeto.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaDetallePermisosPorObjeto.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
+
 			List<Propietario> propietarios = propietarioService.consultarPropietariosSinonimo(modelo);
 			List<Grant> receptores = propietarioService.consultarReceptoresModelo(modelo);
 
-			if (CollectionUtils.isNotEmpty(tipos)) {
-				TipoObjetoComboBoxModel tipoObjetoComboBoxModel = new TipoObjetoComboBoxModel(tipos);
+			if (CollectionUtils.isNotEmpty(outputConsultaTiposObjeto.getTiposObjeto())) {
+				TipoObjetoComboBoxModel tipoObjetoComboBoxModel = new TipoObjetoComboBoxModel(outputConsultaTiposObjeto.getTiposObjeto());
 				pantallaDetallePermisosPorObjeto.getCmbTipoObjeto().setModel(tipoObjetoComboBoxModel);
 			}
 

@@ -13,7 +13,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class BBDD implements Serializable {
 
-    private String nombreBBDD;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7745175229547275319L;
+	private String nombreBBDD;
     private String nombreEsquema;
     private String nombreBBDDHis;
     private String nombreEsquemaHis;

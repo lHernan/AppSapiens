@@ -1,7 +1,9 @@
 package com.mdsql.ui.listener;
 
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputAltaHistorico;
 import com.mdsql.bussiness.entities.OutputConsultaModelos;
+import com.mdsql.bussiness.entities.OutputConsultaTiposObjeto;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.bussiness.service.ModeloService;
@@ -65,6 +67,7 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 			if (modelos.size() == 1) {
 				seleccionado = modelos.get(0);
 				pantallaHistoricoAlta.setModeloSeleccionado(seleccionado);
+				pantallaHistoricoAlta.getTxtModelo().setText(seleccionado.getCodigoProyecto());
 			}
 			else {
 				if (StringUtils.isNotBlank(codigoProyecto)) {
@@ -90,10 +93,17 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 			TipoObjetoService tipoObjetoService = (TipoObjetoService) getService(MDSQLConstants.TIPO_OBJETO_SERVICE);
 
 			// Rellenar combos
-			List<String> tipos = tipoObjetoService.consultarTiposObjeto();
+			OutputConsultaTiposObjeto outputConsultaTiposObjeto = tipoObjetoService.consultarTiposObjeto();
+			
+			// Hay avisos
+			if (outputConsultaTiposObjeto.getResult() == 2) {
+				ServiceException serviceException = outputConsultaTiposObjeto.getServiceException();
+				Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+				MDSQLUIHelper.showPopup(pantallaHistoricoAlta.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+			}
 
-			if (CollectionUtils.isNotEmpty(tipos)) {
-				TipoObjetoComboBoxModel tipoObjetoComboBoxModel = new TipoObjetoComboBoxModel(tipos);
+			if (CollectionUtils.isNotEmpty(outputConsultaTiposObjeto.getTiposObjeto())) {
+				TipoObjetoComboBoxModel tipoObjetoComboBoxModel = new TipoObjetoComboBoxModel(outputConsultaTiposObjeto.getTiposObjeto());
 				pantallaHistoricoAlta.getCmbTipoObjeto().setModel(tipoObjetoComboBoxModel);
 			}
 		} catch (ServiceException e) {
@@ -118,7 +128,15 @@ public class PantallaHistoricoAltaListener extends ListenerSupport implements Ac
 				String peticion = pantallaHistoricoAlta.getTxtPeticion().getText();
 				String historificada = AppHelper.normalizeValueToCheck(pantallaHistoricoAlta.getChkHistorificada().isSelected());
 
-				historicoService.altaHistorico(codigoProyecto, nombreObjeto, tipoObjeto, historificada, peticion, codUsr);
+				OutputAltaHistorico outputAltaHistorico = historicoService.altaHistorico(codigoProyecto, nombreObjeto, tipoObjeto, historificada, peticion, codUsr);
+				
+				// Hay avisos
+				if (outputAltaHistorico.getResult() == 2) {
+					ServiceException serviceException = outputAltaHistorico.getServiceException();
+					Map<String, Object> params = MDSQLUIHelper.buildWarnings(serviceException.getErrors());
+					MDSQLUIHelper.showPopup(pantallaHistoricoAlta.getFrameParent(), MDSQLConstants.CMD_WARN, params);
+				}
+				
 				pantallaHistoricoAlta.getReturnParams().put("response", "OK");
 			}
 			else {

@@ -17,7 +17,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class InputEliminaLog implements Serializable {
 
-    private BigDecimal idProceso;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 386181220435550826L;
+	private BigDecimal idProceso;
     private BigDecimal numeroOrden;
     private BigDecimal numeroIteracion;
     private BigDecimal numeroEjecucion;

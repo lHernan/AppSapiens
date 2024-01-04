@@ -15,7 +15,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class ScriptParche implements Serializable {
 
-    private BigDecimal numeroOrden;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5144036093577124606L;
+	private BigDecimal numeroOrden;
     private BigDecimal codigoEstadoEjecucion;
     private String descripcionEstadoEjecucion;
     private Date fechaScript;
