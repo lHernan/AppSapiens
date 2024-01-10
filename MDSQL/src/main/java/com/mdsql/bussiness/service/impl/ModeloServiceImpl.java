@@ -222,7 +222,7 @@ public class ModeloServiceImpl extends ServiceSupport implements ModeloService {
 			
 			// Hay avisos
 			if (result == 2) {
-				outputActualizarVariablesModelo.setServiceException(buildException(callableStatement.getArray(4)));
+				outputActualizarVariablesModelo.setServiceException(buildException(callableStatement.getArray(14)));
 			}
 
 			return outputActualizarVariablesModelo;
