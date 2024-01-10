@@ -1,21 +1,21 @@
 package com.mdsql.ui.listener.tables;
 
+import java.util.Objects;
+
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import com.mdsql.bussiness.entities.Aviso;
 import com.mdsql.ui.PantallaMantenimientoNotasModelos;
-import com.mdsql.ui.PantallaProcesarScript;
 import com.mdsql.ui.model.NotasModeloTableModel;
-import com.mdsql.ui.model.ProcesarScriptNotaTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.DateFormatter;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
-import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class NotasModeloTableListener extends ListenerSupport implements ListSelectionListener {

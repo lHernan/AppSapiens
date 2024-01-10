@@ -1,20 +1,24 @@
 package com.mdsql.ui.listener.tables;
 
-import com.mdsql.bussiness.entities.*;
-import com.mdsql.ui.PantallaDetallePermisosPorObjeto;
+import java.util.Objects;
+
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import com.mdsql.bussiness.entities.Grant;
+import com.mdsql.bussiness.entities.Propietario;
+import com.mdsql.bussiness.entities.Sinonimo;
 import com.mdsql.ui.PantallaPermisosGeneralesporModeloporTipoObjeto;
-import com.mdsql.ui.PantallaSeleccionModelos;
-import com.mdsql.ui.model.*;
+import com.mdsql.ui.model.GrantComboBoxModel;
+import com.mdsql.ui.model.PropietarioComboBoxModel;
+import com.mdsql.ui.model.SinonimosTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
-import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SinonimosTableListener extends ListenerSupport implements ListSelectionListener {

@@ -1,13 +1,14 @@
 package com.mdsql.ui.renderer;
 
-import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.bussiness.entities.NivelImportancia;
+import java.awt.Component;
+import java.util.Objects;
+
+import javax.swing.JList;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
+
 import org.apache.commons.lang3.StringUtils;
 
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
-import java.awt.*;
-import java.util.Objects;
+import com.mdsql.bussiness.entities.NivelImportancia;
 
 public class NivelImportanciaRenderer extends BasicComboBoxRenderer {
 

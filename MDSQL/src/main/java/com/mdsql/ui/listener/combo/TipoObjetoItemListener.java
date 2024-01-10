@@ -5,9 +5,6 @@ import java.awt.event.ItemListener;
 
 import com.mdsql.ui.utils.ListenerSupport;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public abstract class TipoObjetoItemListener extends ListenerSupport implements ItemListener {
 
 	public TipoObjetoItemListener() {

@@ -1,11 +1,10 @@
 package com.mdsql.ui.listener.combo;
 
-import com.mdsql.bussiness.entities.BBDD;
-import com.mdsql.ui.utils.ListenerSupport;
-
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Objects;
+
+import com.mdsql.ui.utils.ListenerSupport;
 
 public abstract class PermisoSinonimoItemListener extends ListenerSupport implements ItemListener {
 

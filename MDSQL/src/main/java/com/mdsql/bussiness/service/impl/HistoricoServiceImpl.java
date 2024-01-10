@@ -168,7 +168,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
 			
 			// Hay avisos
 			if (result == 2) {
-				outputConsultaHistorico.setServiceException(buildException(callableStatement.getArray(4)));
+				outputConsultaHistorico.setServiceException(buildException(callableStatement.getArray(5)));
 			}
 
             List<Historico> historicos = new ArrayList<>();
@@ -230,7 +230,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
 			
 			// Hay avisos
 			if (result == 2) {
-				outputBajaHistorico.setServiceException(buildException(callableStatement.getArray(4)));
+				outputBajaHistorico.setServiceException(buildException(callableStatement.getArray(6)));
 			}
 
 			return outputBajaHistorico;
@@ -275,7 +275,7 @@ public class HistoricoServiceImpl extends ServiceSupport implements HistoricoSer
 			
 			// Hay avisos
 			if (result == 2) {
-				outputAltaHistorico.setServiceException(buildException(callableStatement.getArray(4)));
+				outputAltaHistorico.setServiceException(buildException(callableStatement.getArray(8)));
 			}
 
 			return outputAltaHistorico;

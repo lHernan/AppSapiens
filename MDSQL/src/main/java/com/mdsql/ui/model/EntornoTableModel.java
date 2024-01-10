@@ -1,11 +1,10 @@
 package com.mdsql.ui.model;
 
+import java.util.List;
+
 import com.mdsql.bussiness.entities.Entorno;
-import com.mdsql.bussiness.entities.Historico;
 import com.mdval.ui.model.DefaultTableModel;
 import com.mdval.ui.model.cabeceras.Cabecera;
-
-import java.util.List;
 
 public class EntornoTableModel extends DefaultTableModel<Entorno> {
 
