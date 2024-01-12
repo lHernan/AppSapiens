@@ -91,7 +91,7 @@ public class PantallaDescartarScript extends DialogSupport {
         btnAceptar = new JButton();
         btnCancelar = new JButton();
 
-        setBounds(954, 462);
+        setBounds(965, 462);
 
         txtScriptProcesar.setEditable(false);
         

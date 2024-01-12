@@ -120,16 +120,11 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 			InputDescartarScript inputDescartarScript = createInputDescartarScript(session, proceso, script, comentario);
 			OutputDescartarScript outputDescartarScript = scriptService.descartarScript(inputDescartarScript);
 			
-			List<Script> scriptsNew = outputDescartarScript.getListaScriptNew();
-			if (CollectionUtils.isNotEmpty(scriptsNew)) {
-				for (Script scr : scriptsNew) {
-					saveScript(scr);
-				}
-			}
+			saveScriptsNew(outputDescartarScript);
 			
 			// Iniciar la ejecución del parche (si lo hay)
 			if (!Objects.isNull(archivoReparacion)) {
-				
+				saveScriptsParches(outputDescartarScript);
 			}
 			else {
 				if ("Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
@@ -142,6 +137,24 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaDescartarScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
+		}
+	}
+
+	private void saveScriptsParches(OutputDescartarScript outputDescartarScript) throws ServiceException {
+		List<Script> parches = outputDescartarScript.getListaParches();
+		if (CollectionUtils.isNotEmpty(parches)) {
+			for (Script scr : parches) {
+				saveScript(scr);
+			}
+		}
+	}
+
+	private void saveScriptsNew(OutputDescartarScript outputDescartarScript) throws ServiceException {
+		List<Script> scriptsNew = outputDescartarScript.getListaScriptNew();
+		if (CollectionUtils.isNotEmpty(scriptsNew)) {
+			for (Script scr : scriptsNew) {
+				saveScript(scr);
+			}
 		}
 	}
 
