@@ -349,6 +349,54 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			throw new ServiceException(e);
 		}
 	}
+	
+	@Override
+	public OutputRegistraEjecucionParche executeScriptParche(BBDD bbdd, Script script) throws ServiceException {
+		try {
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			String selectedRoute = session.getSelectedRoute();
+			String ruta = selectedRoute.concat(File.separator);
+			String nombreEsquema = StringUtils.EMPTY;
+			String nombreBBDD = StringUtils.EMPTY;
+
+			Proceso proceso = session.getProceso();
+			proceso.setRutaTrabajo(ruta);
+			String codigoUsuario = session.getCodUsr();
+			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+			String txtClaveEncriptada = configuration.getConfig(MDSQLConstants.TOKEN).substring(17, 29);
+
+			/**
+			 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
+			 * de datos o la de histórico para su ejecución
+			 */
+			if ("SQL".equals(script.getTipoScript()) || "PDC".equals(script.getTipoScript())) {
+				nombreEsquema = bbdd.getNombreEsquema();
+				nombreBBDD = bbdd.getNombreBBDD();
+			}
+
+			// Sólo hay que crear el script lanza
+			String lanzaFile = ruta.concat(script.getNombreScriptLanza());
+
+			String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
+			//bbdd.setPassword(password);
+
+			// Ejecución del script
+			executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile);
+
+			// Obtiene el log
+			String logFile = ruta.concat(script.getNombreScriptLog());
+			List<TextoLinea> logLinesList = MDSQLAppHelper.writeFileToLines(new File(logFile));
+
+			// Registra la ejecución
+			OutputRegistraEjecucionParche outputRegistraEjecucion = ejecucionService.registraEjecucionParche(
+					proceso.getIdProceso(), script.getNumeroOrden(), codigoUsuario, logLinesList, StringUtils.EMPTY);
+
+			return outputRegistraEjecucion;
+		} catch (IOException e) {
+			LogWrapper.error(log, "[ScriptService.executeScriptParche] Error", e);
+			throw new ServiceException(e);
+		}
+	}
 
 	@SneakyThrows
 	private void ejecutarRepararScript(Script script, Boolean isReparacion, Boolean isSameScript,

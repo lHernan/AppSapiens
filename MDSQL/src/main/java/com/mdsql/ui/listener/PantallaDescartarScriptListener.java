@@ -15,8 +15,10 @@ import javax.swing.AbstractButton;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdsql.bussiness.entities.BBDD;
 import com.mdsql.bussiness.entities.InputDescartarScript;
 import com.mdsql.bussiness.entities.OutputDescartarScript;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucionParche;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
@@ -132,6 +134,7 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 			// Iniciar la ejecución del parche (si lo hay)
 			if (!Objects.isNull(archivoReparacion)) {
 				saveScriptsParches(outputDescartarScript);
+				executeScriptsParches(outputDescartarScript);
 			}
 			else {
 				if ("Ejecutado".equals(proceso.getDescripcionEstadoProceso())) {
@@ -141,6 +144,31 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 				pantallaDescartarScript.dispose();
 			}
 
+		} catch (ServiceException e) {
+			Map<String, Object> params = MDSQLUIHelper.buildError(e);
+			MDSQLUIHelper.showPopup(pantallaDescartarScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
+		} 
+	}
+
+	private void executeScriptsParches(OutputDescartarScript outputDescartarScript) {
+		try {
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			Proceso proceso = session.getProceso();
+			BBDD bbdd = proceso.getBbdd();
+			
+			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
+			
+			List<Script> parches = outputDescartarScript.getListaParches();
+			if (CollectionUtils.isNotEmpty(parches)) {
+				for (Script scr : parches) {
+					OutputRegistraEjecucionParche outputRegistraEjecucion = scriptService.executeScriptParche(bbdd, scr);
+					// Si el script ha dado error, no ejecuta el resto y cierra esta pantalla
+					if ("Error".equals(outputRegistraEjecucion.getDescripcionEstadoScript())
+							|| "Descuadrado".equals(outputRegistraEjecucion.getDescripcionEstadoScript())) {
+						pantallaDescartarScript.dispose();
+					}
+				}
+			}
 		} catch (ServiceException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaDescartarScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
@@ -181,7 +209,7 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 			File archivoReparacion) throws ServiceException {
 		try {
 			inputDescartarScript.setNombreScriptParche(archivoReparacion.getName());
-			inputDescartarScript.setTxtRutaParche(archivoReparacion.getAbsolutePath());
+			inputDescartarScript.setTxtRutaParche(archivoReparacion.getParent());
 			
 			List<TextoLinea> lineasParche = MDSQLAppHelper.writeFileToLines(archivoReparacion);
 			

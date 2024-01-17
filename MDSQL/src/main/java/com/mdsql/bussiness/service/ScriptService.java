@@ -12,6 +12,7 @@ import com.mdsql.bussiness.entities.OutputDescartarScript;
 import com.mdsql.bussiness.entities.OutputExcepcionScript;
 import com.mdsql.bussiness.entities.OutputProcesaScript;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucionParche;
 import com.mdsql.bussiness.entities.OutputRegistraEjecucionType;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Proceso;
@@ -39,5 +40,7 @@ public interface ScriptService {
     List<DetObjeto> detalleObjetosScripts(BigDecimal idProceso, BigDecimal numeroOrden);
 
     OutputExcepcionScript excepcionScript(Proceso proceso, Script script, String txtMotivoExcepcion, String codUsr) throws ServiceException;
+
+	OutputRegistraEjecucionParche executeScriptParche(BBDD bbdd, Script script) throws ServiceException;
 
 }
