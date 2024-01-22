@@ -186,6 +186,10 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		inputReparaScript.setNombreEsquema(nombreEsquema);
 		String mcaHis = proceso.getModelo().getMcaHis();
 		inputReparaScript.setPMcaHis(mcaHis);
+		String nombreBBDDHis = proceso.getBbdd().getNombreBBDDHis();
+		inputReparaScript.setNombreBBDDHis(nombreBBDDHis);
+		String nombreEsquemaHis = proceso.getBbdd().getNombreEsquemaHis();
+		inputReparaScript.setNombreEsquemaHis(nombreEsquemaHis);
 		
 		Boolean reprocesa = pantallaRepararScript.getRbtnReprocesar().isSelected();
 		if (reprocesa) {

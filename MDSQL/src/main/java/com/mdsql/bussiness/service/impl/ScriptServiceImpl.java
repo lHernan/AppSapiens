@@ -509,9 +509,12 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					structObjHis[arrayIndexObjHis++] = conn.createStruct(recordObjHis,
 							new Object[] { data.getObjeto(), data.getTipo(), mcaVigente, mcaHistorico });
 				}
+				
+				arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
 			}
-
-			arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
+			else {
+				arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, null);
+			}
 
 			callableStatement.setBigDecimal(1, inputReparaScript.getIdProceso());
 			callableStatement.setBigDecimal(2, inputReparaScript.getNumeroOrden());
