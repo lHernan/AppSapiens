@@ -461,7 +461,10 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					inputReparaScript.getMcaMismoScript(), inputReparaScript.getNombreScriptNew(),
 					inputReparaScript.getTxtRutaNew(), inputReparaScript.getScriptNew(),
 					inputReparaScript.getTxtComentario(), inputReparaScript.getNombreScriptParche(),
-					inputReparaScript.getTxtRutaParche(), inputReparaScript.getScriptParche());
+					inputReparaScript.getTxtRutaParche(), inputReparaScript.getScriptParche(),
+					inputReparaScript.getNombreBBDD(), inputReparaScript.getNombreEsquema(),
+					inputReparaScript.getPMcaHis(), inputReparaScript.getNombreBBDDHis(),
+					inputReparaScript.getNombreEsquemaHis(), inputReparaScript.getListaObjetoHis());
 
 			Array arrayLineaScriptNew = null;
 			if (!Objects.isNull(inputReparaScript.getScriptNew())) {
@@ -513,7 +516,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
 			}
 			else {
-				arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, null);
+				arrayObjHis = ((OracleConnection) conn).createOracleArray(tableObjHis, structObjHis);
 			}
 
 			callableStatement.setBigDecimal(1, inputReparaScript.getIdProceso());

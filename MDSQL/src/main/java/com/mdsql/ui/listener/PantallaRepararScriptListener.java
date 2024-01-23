@@ -16,6 +16,7 @@ import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
@@ -147,14 +148,15 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 					
 					Boolean continuarProcesado = (Boolean) pantallaSeleccionHistorico.getReturnParams().get("procesado");
 					if (continuarProcesado) {
-						repararScript(proceso, script);
+						List<SeleccionHistorico> objetosHistorico = (List<SeleccionHistorico>) pantallaSeleccionHistorico.getReturnParams().get("objetosHistorico");
+						repararScript(proceso, script, objetosHistorico);
 					}
 					else {
 						JOptionPane.showMessageDialog(pantallaRepararScript.getFrameParent(), "Operación cancelada");
 					}
 				}
 				else {
-					repararScript(proceso, script);
+					repararScript(proceso, script, null);
 				}
 			}
 
@@ -169,7 +171,7 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	 * @param script 
 	 * @throws ServiceException
 	 */
-	private void repararScript(Proceso proceso, Script script) throws ServiceException {
+	private void repararScript(Proceso proceso, Script script, List<SeleccionHistorico> objetosHistorico) throws ServiceException {
 		ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 		
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
@@ -212,6 +214,8 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		else {
 			
 		}
+		
+		inputReparaScript.setListaObjetoHis(objetosHistorico);
 		
 		String txtComentario = pantallaRepararScript.getJTextArea1().getText();
 		inputReparaScript.setTxtComentario(txtComentario);
