@@ -200,6 +200,8 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 			
 			// Leer el script y pasarlo a líneas
 			List<TextoLinea> lineasScriptReprocesar = MDSQLUIHelper.toTextoLineas(archivoReprocesado, MDSQLConstants.DEFAULT_CHARSET);
+			inputReparaScript.setNombreScriptNew(archivoReprocesado.getName());
+			inputReparaScript.setTxtRutaNew(session.getRutaScript());
 			inputReparaScript.setScriptNew(lineasScriptReprocesar);
 		}
 		else { // Se ha seleccionado script de reparación

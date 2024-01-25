@@ -467,8 +467,9 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 					inputReparaScript.getNombreEsquemaHis(), inputReparaScript.getListaObjetoHis());
 
 			Array arrayLineaScriptNew = null;
+			Struct[] structLineaScriptNew = {};
 			if (!Objects.isNull(inputReparaScript.getScriptNew())) {
-				Struct[] structLineaScriptNew = new Struct[inputReparaScript.getScriptNew().size()];
+				structLineaScriptNew = new Struct[inputReparaScript.getScriptNew().size()];
 
 				int arrayIndexLinea = 0;
 				for (TextoLinea data : inputReparaScript.getScriptNew()) {
@@ -479,12 +480,13 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				arrayLineaScriptNew = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScriptNew);
 			}
 			else {
-				arrayLineaScriptNew = ((OracleConnection) conn).createOracleArray(tableLinea, null);
+				arrayLineaScriptNew = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScriptNew);
 			}
 			
 			Array arrayLineaScriptParche = null;
+			Struct[] structLineaScriptParche = {};
 			if (!Objects.isNull(inputReparaScript.getScriptParche())) {
-				Struct[] structLineaScriptParche = new Struct[inputReparaScript.getScriptParche().size()];
+				structLineaScriptParche = new Struct[inputReparaScript.getScriptParche().size()];
 				
 				int arrayIndexLineaParche = 0;
 				for (TextoLinea data : inputReparaScript.getScriptParche()) {
@@ -496,11 +498,11 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 						structLineaScriptParche);
 			}
 			else {
-				arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea, null);
+				arrayLineaScriptParche = ((OracleConnection) conn).createOracleArray(tableLinea, structLineaScriptParche);
 			}
 			
 			Array arrayObjHis = null;
-			Struct[] structObjHis = null;
+			Struct[] structObjHis = {};
 			if (CollectionUtils.isNotEmpty(inputReparaScript.getListaObjetoHis())) {
 				structObjHis = new Struct[inputReparaScript.getListaObjetoHis().size()];
 
@@ -545,7 +547,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 			callableStatement.registerOutParameter(19, Types.VARCHAR);
 			callableStatement.registerOutParameter(20, Types.ARRAY, tableLinea);
 			callableStatement.registerOutParameter(21, Types.VARCHAR);
-			callableStatement.registerOutParameter(22, Types.ARRAY, tableLinea);
+			callableStatement.registerOutParameter(22, Types.VARCHAR);
 			callableStatement.registerOutParameter(23, Types.VARCHAR);
 			callableStatement.registerOutParameter(24, Types.ARRAY, typeScriptOld);
 			callableStatement.registerOutParameter(25, Types.ARRAY, typeScript);
