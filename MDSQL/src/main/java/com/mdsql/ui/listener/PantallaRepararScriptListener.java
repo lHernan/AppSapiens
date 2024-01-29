@@ -121,6 +121,7 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	private void aceptar() {
 		try {
 			Integer response = UIHelper.showConfirm(literales.getLiteral("confirmacion.mensaje"),
