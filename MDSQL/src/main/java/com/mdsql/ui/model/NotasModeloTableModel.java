@@ -44,13 +44,13 @@ public class NotasModeloTableModel extends DefaultTableModel<Aviso> {
 		if (columnIndex == 0) {
 			return row.getNivelImportancia().getDescripcionNivelAviso();
 		} else if (1 == columnIndex) {
-			return row.getTxtAviso();
+			return row.getDescripcionAviso();
 		} else if (2 == columnIndex) {
 			return row.getMcaHabilitado();
 		} else if (3 == columnIndex) {
 			return row.getCodigoPeticion();
 		} else if (4 == columnIndex) {
-			return row.getDescripcionAviso();
+			return row.getTxtAviso();
 		}
 
 		return null;

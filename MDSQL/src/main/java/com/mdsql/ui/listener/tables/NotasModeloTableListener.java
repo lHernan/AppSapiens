@@ -48,8 +48,8 @@ public class NotasModeloTableListener extends ListenerSupport implements ListSel
 
 			pantallaMantenimientoNotasModelos.getTxtPeticion().setText(seleccionado.getCodigoPeticion());
 			MDSQLUIHelper.setSelectedItem(pantallaMantenimientoNotasModelos.getCmbImportancia(), seleccionado.getNivelImportancia());
-			pantallaMantenimientoNotasModelos.getTxtTitulo().setText(seleccionado.getTxtAviso());
-			pantallaMantenimientoNotasModelos.getTxtDescripcion().setText(seleccionado.getDescripcionAviso());
+			pantallaMantenimientoNotasModelos.getTxtTitulo().setText(seleccionado.getDescripcionAviso());
+			pantallaMantenimientoNotasModelos.getTxtDescripcion().setText(seleccionado.getTxtAviso());
 			pantallaMantenimientoNotasModelos.getTxtUsuarioAlta().setText(seleccionado.getCodigoUsrAlta());
 
 			String sFecha = dateFormatter.dateToString(seleccionado.getFechaAlta());
