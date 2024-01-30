@@ -26,6 +26,8 @@ import javax.swing.JTextArea;
 import org.apache.any23.encoding.TikaEncodingDetector;
 import org.apache.commons.lang3.StringUtils;
 
+import com.mdsql.bussiness.entities.OutputConsultaProcesado;
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
@@ -282,5 +284,11 @@ public class MDSQLAppHelper extends AppHelper {
 		
 		Integer begin = 17;
         return claveEncriptacion.substring(begin, begin + 12);
+	}
+
+	public static Proceso buildProceso(BigDecimal idProceso, OutputConsultaProcesado outputConsultaProcesado) {
+		return Proceso.builder().idProceso(idProceso)
+				.codigoEstadoProceso(outputConsultaProcesado.getCodigoEstadoProceso())
+				.build();
 	}
 }
