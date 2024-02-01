@@ -286,9 +286,8 @@ public class MDSQLAppHelper extends AppHelper {
         return claveEncriptacion.substring(begin, begin + 12);
 	}
 
-	public static Proceso buildProceso(BigDecimal idProceso, OutputConsultaProcesado outputConsultaProcesado) {
+	public static Proceso buildProceso(BigDecimal idProceso) {
 		return Proceso.builder().idProceso(idProceso)
-				.codigoEstadoProceso(outputConsultaProcesado.getCodigoEstadoProceso())
 				.build();
 	}
 }

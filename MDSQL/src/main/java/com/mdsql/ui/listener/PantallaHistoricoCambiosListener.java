@@ -88,27 +88,18 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 	}
 
 	private void resumenProcesado() {
-		try {
-			Map<String, Object> params = new HashMap<>();
+		Map<String, Object> params = new HashMap<>();
+		
+		HistoricoProceso seleccionado = pantallaHistoricoCambios.getSeleccionado();
+		
+		Proceso proceso = MDSQLAppHelper.buildProceso(seleccionado.getIdProceso());
 			
-			ProcesoService procesoService = (ProcesoService) getService(MDSQLConstants.PROCESO_SERVICE);
-	
-			HistoricoProceso seleccionado = pantallaHistoricoCambios.getSeleccionado();
-			
-			OutputConsultaProcesado outputConsultaProcesado = procesoService.consultaProcesado(seleccionado.getIdProceso());
-			Proceso proceso = MDSQLAppHelper.buildProceso(seleccionado.getIdProceso(), outputConsultaProcesado);
-				
-			params.put("proceso", proceso);
-			params.put("entregar", Boolean.FALSE);
-	
-			PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
-					.createDialog(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
-			MDSQLUIHelper.show(pantallaResumenProcesado);
-		} catch (ServiceException e) {
-			Map<String, Object> params = MDSQLUIHelper.buildError(e);
-			MDSQLUIHelper.showPopup(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
-		}
+		params.put("proceso", proceso);
+		params.put("entregar", Boolean.FALSE);
 
+		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
+				.createDialog(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
+		MDSQLUIHelper.show(pantallaResumenProcesado);
 	}
 
 	private void verDetalleScript() {
