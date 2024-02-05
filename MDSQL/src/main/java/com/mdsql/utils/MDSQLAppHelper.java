@@ -289,4 +289,9 @@ public class MDSQLAppHelper extends AppHelper {
 		return Proceso.builder().idProceso(idProceso)
 				.build();
 	}
+
+	public static String getLogFor(String nombreScript) {
+		String name = nombreScript.substring(0, nombreScript.lastIndexOf("."));
+		return name.concat(".log");
+	}
 }
