@@ -24,12 +24,15 @@ import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.Operacion;
 import com.mdsql.bussiness.entities.OutputConsultaHistoricoProceso;
 import com.mdsql.bussiness.entities.OutputConsultaModelos;
+import com.mdsql.bussiness.entities.OutputConsultaProcesado;
 import com.mdsql.bussiness.entities.OutputInformeCambios;
+import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.service.ConsultaService;
 import com.mdsql.bussiness.service.ExcelGeneratorService;
 import com.mdsql.bussiness.service.HistoricoService;
 import com.mdsql.bussiness.service.InformeService;
 import com.mdsql.bussiness.service.ModeloService;
+import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.ui.PantallaDetalleScript;
 import com.mdsql.ui.PantallaHistoricoCambios;
 import com.mdsql.ui.PantallaResumenProcesado;
@@ -41,6 +44,7 @@ import com.mdsql.ui.model.TipoObjetoComboBoxModel;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.ConfigurationSingleton;
+import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 import com.mdval.ui.utils.OnLoadListener;
@@ -85,16 +89,17 @@ public class PantallaHistoricoCambiosListener extends ListenerSupport implements
 
 	private void resumenProcesado() {
 		Map<String, Object> params = new HashMap<>();
-
+		
 		HistoricoProceso seleccionado = pantallaHistoricoCambios.getSeleccionado();
-
-		params.put("idProceso", seleccionado.getIdProceso());
+		
+		Proceso proceso = MDSQLAppHelper.buildProceso(seleccionado.getIdProceso());
+			
+		params.put("proceso", proceso);
 		params.put("entregar", Boolean.FALSE);
 
 		PantallaResumenProcesado pantallaResumenProcesado = (PantallaResumenProcesado) MDSQLUIHelper
 				.createDialog(pantallaHistoricoCambios.getFrameParent(), MDSQLConstants.CMD_RESUMEN_PROCESADO, params);
 		MDSQLUIHelper.show(pantallaResumenProcesado);
-
 	}
 
 	private void verDetalleScript() {

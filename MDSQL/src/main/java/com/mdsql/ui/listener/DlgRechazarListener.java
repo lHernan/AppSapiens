@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -18,7 +19,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.ScriptType;
 import com.mdsql.bussiness.entities.Session;
+import com.mdsql.bussiness.entities.Type;
 import com.mdsql.bussiness.service.ProcesoService;
 import com.mdsql.ui.DlgRechazar;
 import com.mdsql.ui.utils.ListenerSupport;
@@ -75,7 +78,7 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 
 			// Borrar los scripts lanza y renombrar los logs
 			borrarScriptsLanza(proceso);
-			rechazarLogs(proceso);
+			rechazarScripts(proceso);
 
 			dlgRechazar.getReturnParams().put("proceso", proceso);
 			dlgRechazar.dispose();
@@ -96,6 +99,27 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 		List<Script> scripts = proceso.getScripts();
 		String ruta = proceso.getRutaTrabajo();
 
+		borrarScriptsFromList(scripts, ruta);
+		borrarScriptsFromTypes(proceso, ruta);
+	}
+
+	private void borrarScriptsFromTypes(Proceso proceso, String ruta) {
+		String lanzaFile = StringUtils.EMPTY;
+		String logFile = StringUtils.EMPTY;
+
+		if (StringUtils.isNotBlank(ruta) && CollectionUtils.isNotEmpty(proceso.getTypes())) {
+			try {
+				lanzaFile = ruta.concat(proceso.getScriptLanza().getNombreScript());
+				logFile = MDSQLAppHelper.getLogFor(proceso.getScriptLanza().getNombreScript());
+				Files.delete(Paths.get(lanzaFile));
+				Files.delete(Paths.get(ruta.concat(logFile)));
+			} catch (IOException e) {
+				LogWrapper.warn(log, "No existe el fichero %s", lanzaFile);
+			}
+		}
+	}
+
+	private void borrarScriptsFromList(List<Script> scripts, String ruta) {
 		if (StringUtils.isNotBlank(ruta) && CollectionUtils.isNotEmpty(scripts)) {
 			for (Script script : scripts) {
 				String lanzaFile = StringUtils.EMPTY;
@@ -113,40 +137,72 @@ public class DlgRechazarListener extends ListenerSupport implements ActionListen
 	/**
 	 * @param proceso
 	 */
-	private void rechazarLogs(Proceso proceso) {
+	private void rechazarScripts(Proceso proceso) {
 		try {
 			String sufijoRechazo = ConfigurationSingleton.getInstance().getConfig("SufijoRechazoProcesado");
 			List<Script> scripts = proceso.getScripts();
+			List<Type> types = proceso.getTypes();
 			String ruta = proceso.getRutaTrabajo();
 
-			if (StringUtils.isNotBlank(ruta) && CollectionUtils.isNotEmpty(scripts)) {
-				for (Script script : scripts) {
-					String nombreFile = script.getNombreScript();
-					File f = new File(ruta.concat(nombreFile));
-					if (f.exists()) {
-						String name = nombreFile.substring(0, nombreFile.lastIndexOf('.'));
-						String extension = getExtensionByStringHandling(nombreFile).get();
-						String rechazado = name.concat("_" + sufijoRechazo);
-						String fileNameRechazado = rechazado + "." + extension;
-						File newFile = new File(ruta.concat(fileNameRechazado));
-						f.renameTo(newFile);
-					}
-					
-					nombreFile = script.getNombreScriptLog();
-					f = new File(ruta.concat(nombreFile));
-					if (f.exists()) {
-						String name = nombreFile.substring(0, nombreFile.lastIndexOf('.'));
-						String extension = getExtensionByStringHandling(nombreFile).get();
-						String rechazado = name.concat("_" + sufijoRechazo);
-						String fileNameRechazado = rechazado + "." + extension;
-						File newFile = new File(ruta.concat(fileNameRechazado));
-						f.renameTo(newFile);
-					}
-				}
-			}
+			rechazarScriptsFromList(sufijoRechazo, scripts, ruta);
+			rechazarScriptsFromTypes(sufijoRechazo, types, ruta);
 
 		} catch (IOException e) {
 			LogWrapper.warn(log, "¡¡¡SufijoRechazoProcesado!!!");
+		}
+	}
+
+	private void rechazarScriptsFromTypes(String sufijoRechazo, List<Type> types, String ruta) {
+		if (StringUtils.isNotBlank(ruta) && CollectionUtils.isNotEmpty(types)) {
+			for (Type type : types) {
+				String nombreFile = type.getNombreObjeto();
+				if (CollectionUtils.isNotEmpty(type.getScriptType()) && type.getNumeroOrdenType().equals(BigDecimal.ZERO)) {
+					for (ScriptType scriptType : type.getScriptType()) {
+						nombreFile = scriptType.getNombreScript();
+						renombrarArchivo(sufijoRechazo, ruta, nombreFile);
+					}
+				}
+				else {
+					renombrarArchivo(sufijoRechazo, ruta, nombreFile);
+				}
+			}
+		}
+	}
+
+	private void renombrarArchivo(String sufijoRechazo, String ruta, String nombreFile) {
+		File f = new File(ruta.concat(nombreFile));
+		if (f.exists()) {
+			String rechazado = nombreFile.concat("_" + sufijoRechazo);
+			File newFile = new File(ruta.concat(rechazado));
+			f.renameTo(newFile);
+		}
+	}
+
+	private void rechazarScriptsFromList(String sufijoRechazo, List<Script> scripts, String ruta) {
+		if (StringUtils.isNotBlank(ruta) && CollectionUtils.isNotEmpty(scripts)) {
+			for (Script script : scripts) {
+				String nombreFile = script.getNombreScript();
+				File f = new File(ruta.concat(nombreFile));
+				if (f.exists()) {
+					String name = nombreFile.substring(0, nombreFile.lastIndexOf('.'));
+					String extension = getExtensionByStringHandling(nombreFile).get();
+					String rechazado = name.concat("_" + sufijoRechazo);
+					String fileNameRechazado = rechazado + "." + extension;
+					File newFile = new File(ruta.concat(fileNameRechazado));
+					f.renameTo(newFile);
+				}
+				
+				nombreFile = script.getNombreScriptLog();
+				f = new File(ruta.concat(nombreFile));
+				if (f.exists()) {
+					String name = nombreFile.substring(0, nombreFile.lastIndexOf('.'));
+					String extension = getExtensionByStringHandling(nombreFile).get();
+					String rechazado = name.concat("_" + sufijoRechazo);
+					String fileNameRechazado = rechazado + "." + extension;
+					File newFile = new File(ruta.concat(fileNameRechazado));
+					f.renameTo(newFile);
+				}
+			}
 		}
 	}
 
