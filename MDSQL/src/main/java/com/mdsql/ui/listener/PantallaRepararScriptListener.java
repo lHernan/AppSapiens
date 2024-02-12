@@ -16,6 +16,7 @@ import com.mdsql.bussiness.entities.Modelo;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
+import com.mdsql.bussiness.entities.ScriptOld;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
@@ -226,7 +227,8 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		OutputReparaScript repararScript = scriptService.repararScript(inputReparaScript);
 		
 		if (reprocesa) {
-			renombrarFicheros(repararScript);
+			renombrarFicheros(proceso, repararScript);
+			cargarScripts(repararScript);
 			
 			List<Script> scripts = repararScript.getListaScript();
 			pantallaRepararScript.getReturnParams().put("scripts", scripts);
@@ -240,8 +242,17 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	/**
 	 * @param repararScript
 	 */
-	private void renombrarFicheros(OutputReparaScript repararScript) {
-		// TODO Preguntar a Mario donde vienen los nuevos nombres
+	private void renombrarFicheros(Proceso proceso, OutputReparaScript repararScript) {
+		String ruta = proceso.getRutaTrabajo();
+		
+		for (ScriptOld scriptOld : repararScript.getListaScriptOld()) {
+			File f = new File(ruta.concat(scriptOld.getNombreScriptOld()));
+			MDSQLAppHelper.renombrarArchivo(f, ruta.concat(scriptOld.getNombreScriptNew()));
+		}
+	}
+	
+	private void cargarScripts(OutputReparaScript repararScript) {
+		// TODO Auto-generated method stub
 		
 	}
 

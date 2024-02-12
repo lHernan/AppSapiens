@@ -34,12 +34,14 @@ import com.mdval.utils.AppGlobalSingleton;
 import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author federico
  *
  */
+@UtilityClass
 @Slf4j
 public class MDSQLAppHelper extends AppHelper {
 
@@ -47,7 +49,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param key
 	 * @return
 	 */
-	public static Object getGlobalProperty(String key) {
+	public Object getGlobalProperty(String key) {
 		return AppGlobalSingleton.getInstance().getProperty(key);
 	}
 
@@ -55,7 +57,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param key
 	 * @param value
 	 */
-	public static void setGlobalProperty(String key, Object value) {
+	public void setGlobalProperty(String key, Object value) {
 		AppGlobalSingleton.getInstance().setProperty(key, value);
 	}
 
@@ -64,7 +66,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	public static Charset detectCharsetFromFile(File file) throws IOException {
+	public Charset detectCharsetFromFile(File file) throws IOException {
 		try (InputStream is = new FileInputStream(file)) {
 			Charset charset = Charset.forName(new TikaEncodingDetector().guessEncoding(is));
 			return charset;
@@ -78,7 +80,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param file
 	 * @throws IOException
 	 */
-	public static void writeToFile(String content, File file) throws IOException {
+	public void writeToFile(String content, File file) throws IOException {
 		StringBuffer strBuffer = new StringBuffer(content);
 		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), MDSQLConstants.CP_1252))) {
 			writer.write(strBuffer.toString());
@@ -91,7 +93,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String writeFileToString(File file) throws IOException {
+	public String writeFileToString(File file) throws IOException {
 		StringBuffer strBuffer = new StringBuffer(StringUtils.EMPTY);
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), MDSQLConstants.CP_1252))) {
@@ -107,7 +109,7 @@ public class MDSQLAppHelper extends AppHelper {
 		}
 	}
 	
-	public static List<TextoLinea> writeFileToLines(File file) throws IOException {
+	public List<TextoLinea> writeFileToLines(File file) throws IOException {
 		List<TextoLinea> linesList = new ArrayList<>();
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), MDSQLConstants.CP_1252))) {
@@ -126,7 +128,7 @@ public class MDSQLAppHelper extends AppHelper {
 	/**
 	 * @param fileName
 	 */
-	public static void createEmptyFile(String fileName) {
+	public void createEmptyFile(String fileName) {
 		try {
 			File file = new File(fileName);
 			file.createNewFile();
@@ -140,7 +142,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param parent
 	 * @param nameFolder
 	 */
-	public static Path createFolder(String parent, String nameFolder) throws IOException {
+	public Path createFolder(String parent, String nameFolder) throws IOException {
 		Path folderToCreate = Paths.get(parent, nameFolder);
 		Files.createDirectories(folderToCreate);
 		return folderToCreate;
@@ -150,7 +152,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param lineas
 	 * @param txtScript
 	 */
-	public static void dumpContentToText(List<TextoLinea> lineas, JTextArea txtScript) {
+	public void dumpContentToText(List<TextoLinea> lineas, JTextArea txtScript) {
 		StringBuffer strBuffer = toStringBuffer(lineas);
 		txtScript.append(strBuffer.toString());
 	}
@@ -159,7 +161,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param lineas
 	 * @param txtScript
 	 */
-	public static void dumpLinesToFile(List<TextoLinea> lineas, File file) throws IOException {
+	public void dumpLinesToFile(List<TextoLinea> lineas, File file) throws IOException {
 		StringBuffer strBuffer = toStringBuffer(lineas);
 		writeToFile(strBuffer.toString(), file);
 	}
@@ -168,7 +170,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param lineas
 	 * @return
 	 */
-	private static StringBuffer toStringBuffer(List<TextoLinea> lineas) {
+	private StringBuffer toStringBuffer(List<TextoLinea> lineas) {
 		StringBuffer strBuffer = new StringBuffer(StringUtils.EMPTY);
 		
 		for (int i=0;i<lineas.size();i++) {
@@ -192,7 +194,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param file
 	 * @param txtScript
 	 */
-	public static void dumpContentToText(File file, JTextArea txtScript) throws IOException {
+	public void dumpContentToText(File file, JTextArea txtScript) throws IOException {
 		try {
 			// Detecta el juego de caracteres del archivo y lo guarda para su posterior uso
 			Charset charset = MDSQLAppHelper.detectCharsetFromFile(file);
@@ -209,7 +211,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param file
 	 * @param txtScript
 	 */
-	public static void dumpTextToFile(JTextArea txtScript, File file) throws IOException {
+	public void dumpTextToFile(JTextArea txtScript, File file) throws IOException {
 		String content = txtScript.getText();
 
 		writeToFile(content, file);
@@ -220,7 +222,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @param scriptLanza
 	 * @return
 	 */
-	public static Script createScript(String nombreScriptLanza, List<TextoLinea> scriptLanza) {
+	public Script createScript(String nombreScriptLanza, List<TextoLinea> scriptLanza) {
 		Script script = new Script();
 		
 		script.setNombreScript(nombreScriptLanza);
@@ -234,7 +236,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String getRutaEntregados() throws IOException {
+	public String getRutaEntregados() throws IOException {
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
 		String carpetaEntregados = (String) ConfigurationSingleton.getInstance().getConfig("CarpetaEntregaFicheros");
 		return session.getSelectedRoute() + File.separator + carpetaEntregados;
@@ -244,7 +246,7 @@ public class MDSQLAppHelper extends AppHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	public static void checkRuta(String ruta) throws IOException {
+	public void checkRuta(String ruta) throws IOException {
 		File rootFolder = new File(ruta);
 		
 		if (!rootFolder.exists() || !rootFolder.isDirectory()) {
@@ -253,7 +255,7 @@ public class MDSQLAppHelper extends AppHelper {
 		}
 	}
 	
-	public static Boolean confirmPayload() {
+	public Boolean confirmPayload() {
 		try {
 			Date currentDate = new Date();
 			
@@ -272,11 +274,11 @@ public class MDSQLAppHelper extends AppHelper {
 		}
 	}
 	
-	public static Date toDate(Timestamp timestamp) {
+	public Date toDate(Timestamp timestamp) {
 		return new Date(timestamp.getTime());
 	}
 	
-	public static String obtenerClaveEncriptacion(String claveEncriptacion) throws IndexOutOfBoundsException {
+	public String obtenerClaveEncriptacion(String claveEncriptacion) throws IndexOutOfBoundsException {
 		if (claveEncriptacion.length() < 29) {
 			throw new IndexOutOfBoundsException("La clave de encriptación debe ser mayor que 29 caracteres");
 		}
@@ -285,13 +287,18 @@ public class MDSQLAppHelper extends AppHelper {
         return claveEncriptacion.substring(begin, begin + 12);
 	}
 
-	public static Proceso buildProceso(BigDecimal idProceso) {
+	public Proceso buildProceso(BigDecimal idProceso) {
 		return Proceso.builder().idProceso(idProceso)
 				.build();
 	}
 
-	public static String getLogFor(String nombreScript) {
+	public String getLogFor(String nombreScript) {
 		String name = nombreScript.substring(0, nombreScript.lastIndexOf("."));
 		return name.concat(".log");
+	}
+	
+	public void renombrarArchivo(File f, String nuevoNombre) {
+		File newFile = new File(nuevoNombre);
+		f.renameTo(newFile);
 	}
 }
