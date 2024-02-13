@@ -21,6 +21,7 @@ import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
+import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.PantallaRepararScript;
 import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.utils.ListenerSupport;
@@ -252,8 +253,8 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	}
 	
 	private void cargarScripts(OutputReparaScript repararScript) {
-		// TODO Auto-generated method stub
-		
+		FramePrincipal framePrincipal = (FramePrincipal) pantallaRepararScript.getFrameParent();
+		MDSQLUIHelper.putScriptsOn(framePrincipal, repararScript.getListaScript());
 	}
 
 }
