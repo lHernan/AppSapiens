@@ -42,5 +42,6 @@ public interface ScriptService {
     OutputExcepcionScript excepcionScript(Proceso proceso, Script script, String txtMotivoExcepcion, String codUsr) throws ServiceException;
 
 	OutputRegistraEjecucionParche executeScriptParche(BBDD bbdd, Script script) throws ServiceException;
-
+	
+	void ejecutarRepararScript(Script script, Boolean isReparacion, Boolean isSameScript, OutputReparaScript outputReparaScript);
 }

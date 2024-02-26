@@ -22,6 +22,7 @@ import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.FramePrincipal;
+import com.mdsql.ui.PantallaAjustarLogEjecucion;
 import com.mdsql.ui.PantallaRepararScript;
 import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.utils.ListenerSupport;
@@ -208,16 +209,16 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 			inputReparaScript.setScriptNew(lineasScriptReprocesar);
 		}
 		else { // Se ha seleccionado script de reparación
-			
+			List<TextoLinea> lineasScriptParche = MDSQLUIHelper.toTextoLineas(archivoReparacion, MDSQLConstants.DEFAULT_CHARSET);
+			inputReparaScript.setNombreScriptParche(archivoReparacion.getName());
+			inputReparaScript.setTxtRutaParche(session.getRutaScript());
+			inputReparaScript.setScriptParche(lineasScriptParche);
 		}
 		
 		Boolean mismoScript = pantallaRepararScript.getRbtnEjecutarScriptProcesado().isSelected();
 		if (mismoScript) {
 			String mcaMismoScript = AppHelper.normalizeValueToCheck(mismoScript);
 			inputReparaScript.setMcaMismoScript(mcaMismoScript);
-		}
-		else {
-			
 		}
 		
 		inputReparaScript.setListaObjetoHis(objetosHistorico);
@@ -236,8 +237,31 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 			pantallaRepararScript.dispose();
 		}
 		else { // Se ha seleccionado script de reparación
+			// Mostrar pantalla Ajustar log ejecución
+			eventBtnVerLog(proceso, script);
 			
+			// Se ejecuta el script de reparación
+			scriptService.ejecutarRepararScript(script, reprocesa, mismoScript, repararScript);
 		}
+	}
+	
+	private void eventBtnVerLog(Proceso proceso, Script script) {
+		Map<String, Object> params = new HashMap<>();
+
+		params.put("script", script);
+		params.put("proceso", proceso);
+		
+		if ("Ejecutado".equals(script.getDescripcionEstadoScript())) {
+			params.put("consulta", Boolean.TRUE);
+		}
+		else {
+			params.put("consulta", Boolean.FALSE);
+		}
+		
+		PantallaAjustarLogEjecucion pantallaAjustarLogEjecucion = (PantallaAjustarLogEjecucion) MDSQLUIHelper
+				.createDialog(pantallaRepararScript.getFrameParent(), MDSQLConstants.CMD_AJUSTAR_LOG_EJECUCION,
+						params);
+		MDSQLUIHelper.show(pantallaAjustarLogEjecucion);
 	}
 
 	/**

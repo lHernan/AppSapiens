@@ -399,7 +399,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	}
 
 	@SneakyThrows
-	private void ejecutarRepararScript(Script script, Boolean isReparacion, Boolean isSameScript,
+	public void ejecutarRepararScript(Script script, Boolean isReparacion, Boolean isSameScript,
 			OutputReparaScript outputReparaScript) {
 		// TODO return OutputRegistraEjecucion or OutputRegistraEjecucionParche
 		// separate?
