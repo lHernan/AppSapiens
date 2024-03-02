@@ -22,11 +22,11 @@ public class PantallaMantenimientoEntornosPruebaListener extends ListenerSupport
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();
 		
-		if (MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_INFORME.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_MANTENIMIENTO_ENTORNOS_PRUEBA_GUARDAR.equals(jButton.getActionCommand())) {
 			eventBtnGuardar();
 		}
 
-		if (MDSQLConstants.PANTALLA_PERMISOS_GENERALES_POR_MODELO_POR_TIPO_OBJETO_CANCELAR.equals(jButton.getActionCommand())) {
+		if (MDSQLConstants.PANTALLA_MANTENIMIENTO_ENTORNOS_PRUEBA_CANCELAR.equals(jButton.getActionCommand())) {
 			pantallaMantenimientoEntornosPrueba.dispose();
 		}
 	}

@@ -1,33 +1,33 @@
 package com.mdsql.ui.listener;
 
-import com.mdsql.bussiness.entities.*;
-import com.mdsql.ui.*;
-import com.mdsql.ui.utils.ListenerSupport;
-import com.mdsql.ui.utils.MDSQLUIHelper;
-import com.mdsql.utils.MDSQLConstants;
-import com.mdval.ui.utils.DialogSupport;
-import com.mdval.ui.utils.FrameSupport;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.swing.JMenuItem;
+
+import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.ui.PantallaMantenimientoEntornos;
+import com.mdsql.ui.PantallaMantenimientoEntornosPrueba;
+import com.mdsql.ui.PantallaMantenimientoHistorico;
+import com.mdsql.ui.PantallaMantenimientoNotasModelos;
+import com.mdsql.ui.PantallaMantenimientoVariables;
+import com.mdsql.ui.PantallaPermisosGeneralesporModeloporTipoObjeto;
+import com.mdsql.ui.PantallaSeleccionModelos;
+import com.mdsql.ui.utils.ListenerSupport;
+import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.MDSQLConstants;
+import com.mdval.ui.utils.FrameSupport;
+
 /**
  * @author federico
  *
  */
-@Slf4j
 public class MenuMantenimientoActionListener extends ListenerSupport implements ActionListener {
 
 	private FrameSupport framePrincipal;
-
-	private PantallaProcesarScript pantallaProcesarScript;
-
-	private DialogSupport pantallaEjecutar;
 
 	/**
 	 * @param framePrincipal
@@ -63,6 +63,10 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		if (MDSQLConstants.MNU_ENTORNOS.equals(actionCommand)) {
 			evtMntoEntornos();
 		}
+		
+		if (MDSQLConstants.MNU_MANTENIMIENTO_ENTORNOS_PRUEBAS.equals(actionCommand)) {
+			evtMntoEntornosPruebas();
+		}
 
 		if (MDSQLConstants.MNU_VARIABLES.equals(actionCommand)) {
 			evtMntoVariables();
@@ -91,6 +95,14 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		PantallaMantenimientoEntornos pantallaMantenimientoEntornos = (PantallaMantenimientoEntornos) MDSQLUIHelper.createDialog(framePrincipal,
 				MDSQLConstants.CMD_MNTO_ENTORNOS, params);
 		MDSQLUIHelper.show(pantallaMantenimientoEntornos);
+	}
+	
+	private void evtMntoEntornosPruebas() {
+		Map<String, Object> params = new HashMap<>();
+
+		PantallaMantenimientoEntornosPrueba pantallaMantenimientoEntornosPrueba = (PantallaMantenimientoEntornosPrueba) MDSQLUIHelper.createDialog(framePrincipal,
+				MDSQLConstants.CMD_MNTO_ENTORNOS_PRUEBAS, params);
+		MDSQLUIHelper.show(pantallaMantenimientoEntornosPrueba);
 	}
 
 	private void evtNotasModelos() {

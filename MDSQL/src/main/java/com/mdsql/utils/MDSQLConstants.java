@@ -440,6 +440,8 @@ public class MDSQLConstants extends Constants {
 	public static final String CMD_MNTO_ENTORNOS = "CMD_MNTO_ENTORNOS";
 
 	public static final String CMD_MNTO_VARIABLES = "CMD_MNTO_VARIABLES";
+	
+	public static final String CMD_MNTO_ENTORNOS_PRUEBAS = "CMD_MNTO_ENTORNOS_PRUEBAS";
 
 	/**
 	 * Panel principal
@@ -454,6 +456,7 @@ public class MDSQLConstants extends Constants {
 	public static final String NOTAS_MODELO_TABLA_CABECERA = "NOTAS_MODELO_TABLA_CABECERA";
 
 	public static final String MNTO_ENTORNOS_TABLA_CABECERA = "MNTO_ENTORNOS_TABLA_CABECERA";
+	public static final String MNTO_ENTORNOS_PRUEBA_TABLA_CABECERA = "MNTO_ENTORNOS_PRUEBA_TABLA_CABECERA";
 
 	public static final String MNTO_VARIABLES_TABLA_CABECERA = "MNTO_VARIABLES_TABLA_CABECERA";
 
