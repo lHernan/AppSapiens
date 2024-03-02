@@ -7,7 +7,11 @@ package com.mdsql.ui;
 
 import java.util.Map;
 
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
+
 import com.mdsql.ui.listener.PantallaMantenimientoEntornosPruebaListener;
+import com.mdsql.ui.listener.tables.EntornosPruebaTableListener;
 import com.mdsql.ui.model.EntornosPruebaTableModel;
 import com.mdsql.ui.utils.MDSQLUIHelper;
 import com.mdsql.utils.MDSQLConstants;
@@ -104,55 +108,65 @@ public class PantallaMantenimientoEntornosPrueba extends DialogSupport {
 	        
 	        jScrollPane1.setViewportView(tblMantenimientoEntornosPrueba);
 	        
+	        txtDescripcion.setColumns(20);
+	        txtDescripcion.setRows(5);
+	        jScrollPane2.setViewportView(txtDescripcion);
+	        
 	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 	        getContentPane().setLayout(layout);
 	        layout.setHorizontalGroup(
 	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	            .addGroup(layout.createSequentialGroup()
+	                .addGap(396, 396, 396)
+	                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+	            .addGroup(layout.createSequentialGroup()
+	                .addContainerGap()
+	                .addComponent(jLabel2))
+	            .addGroup(layout.createSequentialGroup()
+	                .addContainerGap()
 	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	                    .addGroup(layout.createSequentialGroup()
-	                        .addGap(396, 396, 396)
-	                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+	                            .addGroup(layout.createSequentialGroup()
+	                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                .addGap(334, 334, 334))
+	                            .addGroup(layout.createSequentialGroup()
+	                                .addComponent(jLabel6)
+	                                .addGap(44, 44, 44)
+	                                .addComponent(txtTablespace, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+	                                .addComponent(jLabel13)
+	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+	                                .addComponent(txtGradoparal, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                .addGap(305, 305, 305)))
+	                        .addGap(0, 0, Short.MAX_VALUE))
 	                    .addGroup(layout.createSequentialGroup()
-	                        .addContainerGap()
 	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	                            .addComponent(jScrollPane1)
-	                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-	                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-	                                    .addComponent(jLabel7)
-	                                    .addGap(71, 71, 71)
-	                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-	                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-	                                            .addComponent(txtBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	                                            .addComponent(jLabel5)
-	                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-	                                            .addComponent(txtEsquema))
-	                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)))
-	                                .addComponent(jLabel1)
-	                                .addGroup(layout.createSequentialGroup()
-	                                    .addComponent(jLabel3)
-	                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                                        .addComponent(jLabel14)
-	                                        .addComponent(txtNombreEntorno))))
 	                            .addGroup(layout.createSequentialGroup()
-	                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-	                                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	                                    .addGroup(layout.createSequentialGroup()
-	                                        .addComponent(jLabel6)
-	                                        .addGap(44, 44, 44)
-	                                        .addComponent(txtTablespace, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                                        .addGap(24, 24, 24)
-	                                        .addComponent(jLabel13)))
-	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	                                .addComponent(txtGradoparal, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                                .addGap(18, 18, 18)
-	                                .addComponent(chkHabilitada))))
-	                    .addGroup(layout.createSequentialGroup()
-	                        .addContainerGap()
-	                        .addComponent(jLabel2)))
-	                .addContainerGap())
+	                                        .addComponent(jLabel3)
+	                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                                            .addComponent(jLabel14)
+	                                            .addComponent(txtNombreEntorno, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)))
+	                                    .addComponent(jLabel1)
+	                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+	                                        .addGroup(layout.createSequentialGroup()
+	                                            .addComponent(jLabel7)
+	                                            .addGap(71, 71, 71)
+	                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+	                                                .addGroup(layout.createSequentialGroup()
+	                                                    .addComponent(txtBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                                                    .addComponent(jLabel5)
+	                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+	                                                    .addComponent(txtEsquema))
+	                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)))
+	                                        .addComponent(chkHabilitada)))
+	                                .addGap(0, 0, Short.MAX_VALUE)))
+	                        .addContainerGap())))
 	        );
 	        layout.setVerticalGroup(
 	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,12 +209,16 @@ public class PantallaMantenimientoEntornosPrueba extends DialogSupport {
 		@Override
 		protected void initEvents() {
 			PantallaMantenimientoEntornosPruebaListener actionListener = new PantallaMantenimientoEntornosPruebaListener(this);
+			ListSelectionListener listSelectionListener = new EntornosPruebaTableListener(this);
 			
 			btnGuardar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_ENTORNOS_PRUEBA_GUARDAR);
 			btnCancelar.setActionCommand(MDSQLConstants.PANTALLA_MANTENIMIENTO_ENTORNOS_PRUEBA_CANCELAR);
 			
 			btnGuardar.addActionListener(actionListener);
 			btnCancelar.addActionListener(actionListener);
+			
+			ListSelectionModel rowPM = tblMantenimientoEntornosPrueba.getSelectionModel();
+			rowPM.addListSelectionListener(listSelectionListener);
 			
 			this.addOnLoadListener(actionListener);
 		}
@@ -213,7 +231,7 @@ public class PantallaMantenimientoEntornosPrueba extends DialogSupport {
 	    
 		@Override
 		protected void initialState() {
-			
+			btnGuardar.setEnabled(Boolean.FALSE);
 		}
 	    
 		@Override

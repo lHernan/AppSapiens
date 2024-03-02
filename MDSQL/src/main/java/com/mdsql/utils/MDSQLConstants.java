@@ -122,7 +122,9 @@ public class MDSQLConstants extends Constants {
 
 	public static final String PROPIETARIO_SERVICE = "propietarioService";
 
-	public static final String ENTORNO_SERVICE = "ENTORNO_SERVICE";
+	public static final String ENTORNO_SERVICE = "entornoService";
+	
+	public static final String ENTORNOS_PRUEBA_SERVICE = "entornosPruebaService";
 
 	/**
 	 * DataBase Types and constants
@@ -184,6 +186,8 @@ public class MDSQLConstants extends Constants {
 	public static final String T_T_NIVEL_AVISO = "T_T_NIVEL_AVISO";
 
 	public static final String T_T_ENTORNO = "T_T_ENTORNO";
+	
+	public static final String T_T_ENTORNO_PRUEBA = "T_T_ENTORNO_PRUEBA";
 
 	public static final String T_T_VARIABLE = "T_T_VARIABLE";
 
