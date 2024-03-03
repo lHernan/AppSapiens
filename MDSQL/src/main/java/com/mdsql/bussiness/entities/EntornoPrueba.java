@@ -24,5 +24,6 @@ public class EntornoPrueba implements Serializable {
 	private String tablespace;
 	private String gradoParal;
 	private String descripcion;
+	private String mcaHabilitado; 
 
 }

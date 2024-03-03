@@ -10,6 +10,7 @@ import com.mdsql.bussiness.entities.EntornoPrueba;
 import com.mdsql.ui.PantallaMantenimientoEntornosPrueba;
 import com.mdsql.ui.model.EntornosPruebaTableModel;
 import com.mdsql.ui.utils.ListenerSupport;
+import com.mdval.utils.AppHelper;
 import com.mdval.utils.LogWrapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,9 @@ public class EntornosPruebaTableListener extends ListenerSupport implements List
 			pantallaMantenimientoEntornosPrueba.getTxtTablespace().setText(seleccionado.getTablespace());
 			pantallaMantenimientoEntornosPrueba.getTxtGradoparal().setText(seleccionado.getGradoParal());
 			pantallaMantenimientoEntornosPrueba.getTxtDescripcion().setText(seleccionado.getDescripcion());
+			
+			Boolean habilitada = AppHelper.normalizeCheckValue(seleccionado.getMcaHabilitado());
+			pantallaMantenimientoEntornosPrueba.getChkHabilitada().setSelected(habilitada);
 			
 			pantallaMantenimientoEntornosPrueba.getBtnGuardar().setEnabled(Boolean.TRUE);
 		}
