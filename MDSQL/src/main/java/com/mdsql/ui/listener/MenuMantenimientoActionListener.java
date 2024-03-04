@@ -9,6 +9,7 @@ import java.util.Objects;
 import javax.swing.JMenuItem;
 
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.ui.PantallaEjecutarScriptInicialEntornoPrueba;
 import com.mdsql.ui.PantallaMantenimientoEntornos;
 import com.mdsql.ui.PantallaMantenimientoEntornosPrueba;
 import com.mdsql.ui.PantallaMantenimientoHistorico;
@@ -67,10 +68,22 @@ public class MenuMantenimientoActionListener extends ListenerSupport implements 
 		if (MDSQLConstants.MNU_MANTENIMIENTO_ENTORNOS_PRUEBAS.equals(actionCommand)) {
 			evtMntoEntornosPruebas();
 		}
+		
+		if (MDSQLConstants.MNU_EJECUCION_SCRIPT_INICIAL.equals(actionCommand)) {
+			evtScriptInicial();
+		}
 
 		if (MDSQLConstants.MNU_VARIABLES.equals(actionCommand)) {
 			evtMntoVariables();
 		}
+	}
+
+	private void evtScriptInicial() {
+		Map<String, Object> params = new HashMap<>();
+
+		PantallaEjecutarScriptInicialEntornoPrueba ejecutarScriptInicialEntornoPrueba = (PantallaEjecutarScriptInicialEntornoPrueba) MDSQLUIHelper.createDialog(framePrincipal,
+				MDSQLConstants.CMD_MNTO_SCRIPT_INICIAL, params);
+		MDSQLUIHelper.show(ejecutarScriptInicialEntornoPrueba);
 	}
 
 	private void evtMntoVariables() {

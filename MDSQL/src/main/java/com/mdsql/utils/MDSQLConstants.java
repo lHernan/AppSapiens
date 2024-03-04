@@ -379,6 +379,7 @@ public class MDSQLConstants extends Constants {
 	public static final String MNU_CONSULTA_HISTORICO_CAMBIOS = "MNU_CONSULTA_HISTORICO_CAMBIOS";
 	public static final String MNU_CONSULTA_PETICIONES = "MNU_CONSULTA_PETICIONES";
 	public static final String MNU_MANTENIMIENTO_ENTORNOS_PRUEBAS = "MNU_MANTENIMIENTO_ENTORNOS_PRUEBAS";
+	public static final String MNU_MANTENIMIENTO_SCRIPT_INICIAL = "MNU_MANTENIMIENTO_SCRIPT_INICIAL";
 	public static final String MNU_EJECUCION_SCRIPT_INICIAL = "MNU_EJECUCION_SCRIPT_INICIAL";
 	public static final String MNU_NOTAS_MODELOS = "MNU_NOTAS_MODELOS";
 	public static final String MNU_CONFIGURACION_ENTORNOS_PRUEBA = "MNU_CONFIGURACION_ENTORNOS_PRUEBA";
@@ -446,6 +447,8 @@ public class MDSQLConstants extends Constants {
 	public static final String CMD_MNTO_VARIABLES = "CMD_MNTO_VARIABLES";
 	
 	public static final String CMD_MNTO_ENTORNOS_PRUEBAS = "CMD_MNTO_ENTORNOS_PRUEBAS";
+	
+	public static final String CMD_MNTO_SCRIPT_INICIAL = "CMD_MNTO_SCRIPT_INICIAL";
 
 	/**
 	 * Panel principal
