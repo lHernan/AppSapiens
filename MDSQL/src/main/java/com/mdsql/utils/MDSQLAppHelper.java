@@ -168,6 +168,14 @@ public class MDSQLAppHelper extends AppHelper {
 	
 	/**
 	 * @param lineas
+	 * @param txtScript
+	 */
+	public void dumpStringToFile(String content, File file) throws IOException {
+		writeToFile(content, file);
+	}
+	
+	/**
+	 * @param lineas
 	 * @return
 	 */
 	private StringBuffer toStringBuffer(List<TextoLinea> lineas) {

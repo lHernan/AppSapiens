@@ -198,6 +198,13 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		inputReparaScript.setNombreEsquemaHis(nombreEsquemaHis);
 		
 		Boolean reprocesa = pantallaRepararScript.getRbtnReprocesar().isSelected();
+		Boolean mismoScript = pantallaRepararScript.getRbtnEjecutarScriptProcesado().isSelected();
+		
+		if (mismoScript) {
+			String mcaMismoScript = AppHelper.normalizeValueToCheck(mismoScript);
+			inputReparaScript.setMcaMismoScript(mcaMismoScript);
+		}
+		
 		if (reprocesa) {
 			String mcaReprocesa = AppHelper.normalizeValueToCheck(reprocesa);
 			inputReparaScript.setMcaReprocesa(mcaReprocesa);	
@@ -207,18 +214,16 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 			inputReparaScript.setNombreScriptNew(archivoReprocesado.getName());
 			inputReparaScript.setTxtRutaNew(session.getRutaScript());
 			inputReparaScript.setScriptNew(lineasScriptReprocesar);
+			
+			if (!mismoScript) {
+				List<TextoLinea> lineasScriptParche = MDSQLUIHelper.toTextoLineas(archivoReparacion, MDSQLConstants.DEFAULT_CHARSET);
+				inputReparaScript.setNombreScriptParche(archivoReparacion.getName());
+				inputReparaScript.setTxtRutaParche(session.getRutaScript());
+				inputReparaScript.setScriptParche(lineasScriptParche);
+			}
 		}
-		else { // Se ha seleccionado script de reparación
-			List<TextoLinea> lineasScriptParche = MDSQLUIHelper.toTextoLineas(archivoReparacion, MDSQLConstants.DEFAULT_CHARSET);
-			inputReparaScript.setNombreScriptParche(archivoReparacion.getName());
-			inputReparaScript.setTxtRutaParche(session.getRutaScript());
-			inputReparaScript.setScriptParche(lineasScriptParche);
-		}
+		else { 
 		
-		Boolean mismoScript = pantallaRepararScript.getRbtnEjecutarScriptProcesado().isSelected();
-		if (mismoScript) {
-			String mcaMismoScript = AppHelper.normalizeValueToCheck(mismoScript);
-			inputReparaScript.setMcaMismoScript(mcaMismoScript);
 		}
 		
 		inputReparaScript.setListaObjetoHis(objetosHistorico);
@@ -232,16 +237,20 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 			renombrarFicheros(proceso, repararScript);
 			cargarScripts(repararScript);
 			
+			if (!mismoScript) {
+				// Mostrar pantalla Ajustar log ejecución
+				eventBtnVerLog(proceso, script);
+				
+				// Se ejecuta el script de reparación
+				scriptService.ejecutarRepararScript(script, reprocesa, mismoScript, repararScript);
+			}
+			
 			List<Script> scripts = repararScript.getListaScript();
 			pantallaRepararScript.getReturnParams().put("scripts", scripts);
 			pantallaRepararScript.dispose();
 		}
-		else { // Se ha seleccionado script de reparación
-			// Mostrar pantalla Ajustar log ejecución
-			eventBtnVerLog(proceso, script);
+		else { 
 			
-			// Se ejecuta el script de reparación
-			scriptService.ejecutarRepararScript(script, reprocesa, mismoScript, repararScript);
 		}
 	}
 	

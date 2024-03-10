@@ -410,17 +410,25 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		String ruta = session.getProceso().getRutaTrabajo();
 		BBDD bbdd = session.getProceso().getBbdd();
 		
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String txtClaveEncriptada = configuration.getConfig(MDSQLConstants.TOKEN).substring(17, 29);
+		
 		String nombreEsquema = StringUtils.isNotBlank(bbdd.getNombreEsquema()) ? bbdd.getNombreEsquema()
 				: bbdd.getNombreEsquemaHis();
 		String nombreBBDD = StringUtils.isNotBlank(bbdd.getNombreBBDD()) ? bbdd.getNombreBBDD()
 				: bbdd.getNombreBBDDHis();
+		
+		String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
+		
+		// Esto causa reescritura de ficheros
+		MDSQLAppHelper.dumpLinesToFile(outputReparaScript.getScriptRepara(), Paths.get(ruta.concat(outputReparaScript.getNombreScriptRepara())).toFile());
 
-		String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptRepara());
-		MDSQLAppHelper.dumpLinesToFile(outputReparaScript.getScriptRepara(), Paths.get(lanzaFile).toFile());
+		String lanzaFile = ruta.concat(outputReparaScript.getNombreScriptLanza());
+		MDSQLAppHelper.dumpStringToFile(outputReparaScript.getScriptLanza(), Paths.get(lanzaFile).toFile());
 		
-		executeLanzaFile(nombreEsquema, nombreBBDD, bbdd.getPassword(), lanzaFile);
+		executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile);
 		
-		String logFile = ruta.concat(script.getNombreScriptLog());
+		String logFile = ruta.concat(outputReparaScript.getNombreLogRepara());
 		List<TextoLinea> logLinesList = MDSQLAppHelper.writeFileToLines(new File(logFile));
 
 		if (isReparacion.equals(Boolean.TRUE)) {
@@ -577,19 +585,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 				}
 			}
 
-			List<TextoLinea> scriptLanza = new ArrayList<>();
-			Array arrayScriptLanza = callableStatement.getArray(22);
-
-			if (arrayScriptLanza != null) {
-				Object[] rows = (Object[]) arrayScriptLanza.getArray();
-				for (Object row : rows) {
-					Object[] cols = ((oracle.jdbc.OracleStruct) row).getAttributes();
-
-					TextoLinea textoLinea = TextoLinea.builder().valor((String) cols[0]).build();
-
-					scriptLanza.add(textoLinea);
-				}
-			}
+			String scriptLanza = callableStatement.getString(22);
 
 			List<ScriptOld> listaScriptOld = new ArrayList<>();
 			Array arrayScriptOld = callableStatement.getArray(24);
