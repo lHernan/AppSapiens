@@ -1015,4 +1015,76 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 		}
 	}
 
+	@Override
+	public List<OutputRegistraEjecucion> executeScripts(BBDD bbdd, OutputReparaScript outputReparaScript) throws ServiceException {
+		try {
+			Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+			String selectedRoute = session.getSelectedRoute();
+			String ruta = selectedRoute.concat(File.separator);
+			String nombreEsquema = StringUtils.EMPTY;
+			String nombreBBDD = StringUtils.EMPTY;
+
+			Proceso proceso = session.getProceso();
+			proceso.setRutaTrabajo(ruta);
+			String codigoUsuario = session.getCodUsr();
+			List<OutputRegistraEjecucion> ejecuciones = new ArrayList<>();
+			ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+			String txtClaveEncriptada = configuration.getConfig(MDSQLConstants.TOKEN).substring(17, 29);
+
+			if (CollectionUtils.isNotEmpty(outputReparaScript.getListaScript())) {
+				for (Script script : outputReparaScript.getListaScript()) {
+					// Esto causa reescritura de ficheros
+					MDSQLAppHelper.dumpLinesToFile(script.getLineasScript(), Paths.get(ruta.concat(script.getNombreScript())).toFile());
+
+					/**
+					 * Según sea el tipo de script (SQL, PDC, SQLH, PDCH), se seleccionará la base
+					 * de datos o la de histórico para su ejecución
+					 */
+					if ("SQL".equals(script.getTipoScript()) || "PDC".equals(script.getTipoScript())) {
+						nombreEsquema = bbdd.getNombreEsquema();
+						nombreBBDD = bbdd.getNombreBBDD();
+					}
+
+					if ("SQLH".equals(script.getTipoScript()) || "PDCH".equals(script.getTipoScript())) {
+						nombreEsquema = bbdd.getNombreEsquemaHis();
+						nombreBBDD = bbdd.getNombreBBDDHis();
+					}
+
+					// Sólo hay que crear el script lanza
+					String lanzaFile = ruta.concat(script.getNombreScriptLanza());
+					MDSQLAppHelper.writeToFile(script.getTxtScriptLanza().concat(System.lineSeparator()), Paths.get(lanzaFile).toFile());
+
+					String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
+					//bbdd.setPassword(password);
+
+					// Ejecución del script
+					executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile);
+
+					// Obtiene el log
+					String logFile = ruta.concat(script.getNombreScriptLog());
+					List<TextoLinea> logLinesList = MDSQLAppHelper.writeFileToLines(new File(logFile));
+
+					// Registra la ejecución
+					OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(
+							proceso.getIdProceso(), script.getNumeroOrden(), codigoUsuario, logLinesList);
+					outputRegistraEjecucion.setNumOrden(script.getNumeroOrden());
+					outputRegistraEjecucion.setFechaEjecucion(new Date());
+					ejecuciones.add(outputRegistraEjecucion);
+
+					// Si el script ha dado error, no ejecuta el resto
+					if ("Error".equals(outputRegistraEjecucion.getDescripcionEstadoScript())
+							|| "Descuadrado".equals(outputRegistraEjecucion.getDescripcionEstadoScript())) {
+						break;
+					}
+
+				}
+			}
+
+			return ejecuciones;
+		} catch (IOException e) {
+			LogWrapper.error(log, "[ScriptService.executeScripts] Error", e);
+			throw new ServiceException(e);
+		}
+	}
+
 }

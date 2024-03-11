@@ -205,10 +205,10 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 			inputReparaScript.setMcaMismoScript(mcaMismoScript);
 		}
 		
+		String mcaReprocesa = AppHelper.normalizeValueToCheck(reprocesa);
+		inputReparaScript.setMcaReprocesa(mcaReprocesa);	
+		
 		if (reprocesa) {
-			String mcaReprocesa = AppHelper.normalizeValueToCheck(reprocesa);
-			inputReparaScript.setMcaReprocesa(mcaReprocesa);	
-			
 			// Leer el script y pasarlo a líneas
 			List<TextoLinea> lineasScriptReprocesar = MDSQLUIHelper.toTextoLineas(archivoReprocesado, MDSQLConstants.DEFAULT_CHARSET);
 			inputReparaScript.setNombreScriptNew(archivoReprocesado.getName());
@@ -221,9 +221,6 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 				inputReparaScript.setTxtRutaParche(session.getRutaScript());
 				inputReparaScript.setScriptParche(lineasScriptParche);
 			}
-		}
-		else { 
-		
 		}
 		
 		inputReparaScript.setListaObjetoHis(objetosHistorico);
@@ -250,7 +247,16 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 			pantallaRepararScript.dispose();
 		}
 		else { 
-			
+			if (!mismoScript) {
+				// Mostrar pantalla Ajustar log ejecución
+				eventBtnVerLog(proceso, script);
+				
+				// Se ejecuta el script de reparación
+				scriptService.ejecutarRepararScript(script, reprocesa, mismoScript, repararScript);
+			}
+			else {
+				scriptService.executeScripts(proceso.getBbdd(), repararScript);
+			}
 		}
 	}
 	
