@@ -200,10 +200,8 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 		Boolean reprocesa = pantallaRepararScript.getRbtnReprocesar().isSelected();
 		Boolean mismoScript = pantallaRepararScript.getRbtnEjecutarScriptProcesado().isSelected();
 		
-		if (mismoScript) {
-			String mcaMismoScript = AppHelper.normalizeValueToCheck(mismoScript);
-			inputReparaScript.setMcaMismoScript(mcaMismoScript);
-		}
+		String mcaMismoScript = AppHelper.normalizeValueToCheck(mismoScript);
+		inputReparaScript.setMcaMismoScript(mcaMismoScript);
 		
 		String mcaReprocesa = AppHelper.normalizeValueToCheck(reprocesa);
 		inputReparaScript.setMcaReprocesa(mcaReprocesa);	
