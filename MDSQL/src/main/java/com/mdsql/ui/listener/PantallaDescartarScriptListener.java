@@ -32,6 +32,8 @@ import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
 
+import lombok.SneakyThrows;
+
 public class PantallaDescartarScriptListener extends ListenerSupport implements ActionListener {
 
 	private PantallaDescartarScript pantallaDescartarScript;
@@ -39,6 +41,8 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 	private File archivo;
 
 	private File archivoReparacion;
+	
+	private String tipoCambio = "R";
 
 	public PantallaDescartarScriptListener(PantallaDescartarScript pantallaDescartarScript) {
 		this.pantallaDescartarScript = pantallaDescartarScript;
@@ -67,10 +71,12 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 
 		if (MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_RBTN_REDUCIR.equals(jButton.getActionCommand())) {
 			enableLoadParche(Boolean.FALSE);
+			tipoCambio = "R";
 		}
 
 		if (MDSQLConstants.PANTALLA_DESCARTAR_SCRIPT_RBTN_AMPLIAR.equals(jButton.getActionCommand())) {
 			enableLoadParche(Boolean.TRUE);
+			tipoCambio = "A";
 		}
 
 	}
@@ -121,7 +127,7 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 			ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
 
 			String comentario = pantallaDescartarScript.getTxtComentario().getText();
-			InputDescartarScript inputDescartarScript = createInputDescartarScript(session, proceso, script, comentario);
+			InputDescartarScript inputDescartarScript = createInputDescartarScript(session, proceso, archivo, comentario);
 			
 			if (!Objects.isNull(archivoReparacion)) {
 				inputDescartarScript = addArchivoReparacion(inputDescartarScript, archivoReparacion);
@@ -193,14 +199,22 @@ public class PantallaDescartarScriptListener extends ListenerSupport implements 
 		}
 	}
 
-	private InputDescartarScript createInputDescartarScript(Session session, Proceso proceso, Script script, String txtComentario) {
+	@SneakyThrows(IOException.class)
+	private InputDescartarScript createInputDescartarScript(Session session, Proceso proceso, File archivo, String txtComentario) {
 		InputDescartarScript inputDescartarScript = new InputDescartarScript();
 		
 		inputDescartarScript.setNombreScript(archivo.getName());
-		inputDescartarScript.setScript(script.getLineasScript());
+		
+		List<TextoLinea> lineasScript = MDSQLAppHelper.writeFileToLines(archivo);
+		
+		inputDescartarScript.setScript(lineasScript);
+		inputDescartarScript.setNombreScriptNew(archivo.getName());
+		inputDescartarScript.setTxtRutaNew(archivo.getParent());
+		
 		inputDescartarScript.setIdProceso(proceso.getIdProceso());
 		inputDescartarScript.setCodigoUsuario(session.getCodUsr());
 		inputDescartarScript.setTxtComentario(txtComentario);
+		inputDescartarScript.setTipoCambio(tipoCambio);
 		
 		return inputDescartarScript;
 	}
