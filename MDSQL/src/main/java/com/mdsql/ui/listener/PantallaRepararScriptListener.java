@@ -4,6 +4,9 @@ package com.mdsql.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +14,11 @@ import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mdsql.bussiness.entities.InputReparaScript;
 import com.mdsql.bussiness.entities.Modelo;
+import com.mdsql.bussiness.entities.OutputRegistraEjecucion;
 import com.mdsql.bussiness.entities.OutputReparaScript;
 import com.mdsql.bussiness.entities.Proceso;
 import com.mdsql.bussiness.entities.Script;
@@ -20,6 +26,8 @@ import com.mdsql.bussiness.entities.ScriptOld;
 import com.mdsql.bussiness.entities.SeleccionHistorico;
 import com.mdsql.bussiness.entities.Session;
 import com.mdsql.bussiness.entities.TextoLinea;
+import com.mdsql.bussiness.service.BBDDService;
+import com.mdsql.bussiness.service.EjecucionService;
 import com.mdsql.bussiness.service.ScriptService;
 import com.mdsql.ui.FramePrincipal;
 import com.mdsql.ui.PantallaAjustarLogEjecucion;
@@ -27,6 +35,7 @@ import com.mdsql.ui.PantallaRepararScript;
 import com.mdsql.ui.PantallaSeleccionHistorico;
 import com.mdsql.ui.utils.ListenerSupport;
 import com.mdsql.ui.utils.MDSQLUIHelper;
+import com.mdsql.utils.ConfigurationSingleton;
 import com.mdsql.utils.MDSQLAppHelper;
 import com.mdsql.utils.MDSQLConstants;
 import com.mdval.exceptions.ServiceException;
@@ -164,7 +173,7 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 				}
 			}
 
-		} catch (ServiceException e) {
+		} catch (ServiceException | IOException e) {
 			Map<String, Object> params = MDSQLUIHelper.buildError(e);
 			MDSQLUIHelper.showPopup(pantallaRepararScript.getFrameParent(), MDSQLConstants.CMD_ERROR, params);
 		}
@@ -175,11 +184,17 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 	 * @param script 
 	 * @throws ServiceException
 	 */
-	private void repararScript(Proceso proceso, Script script, List<SeleccionHistorico> objetosHistorico) throws ServiceException {
+	private void repararScript(Proceso proceso, Script script, List<SeleccionHistorico> objetosHistorico) throws ServiceException, IOException {
 		ScriptService scriptService = (ScriptService) getService(MDSQLConstants.SCRIPT_SERVICE);
+		BBDDService bbddService = (BBDDService) getService(MDSQLConstants.BBDD_SERVICE);
+		EjecucionService ejecucionService = (EjecucionService) getService(MDSQLConstants.EJECUCION_SERVICE);
 		
 		Session session = (Session) MDSQLAppHelper.getGlobalProperty(MDSQLConstants.SESSION);
+		String selectedRoute = session.getSelectedRoute();
+		String ruta = selectedRoute.concat(File.separator);
 		String codigoUsuario = session.getCodUsr();
+		ConfigurationSingleton configuration = ConfigurationSingleton.getInstance();
+		String txtClaveEncriptada = configuration.getConfig(MDSQLConstants.TOKEN).substring(17, 29);
 		
 		InputReparaScript inputReparaScript = new InputReparaScript();
 		inputReparaScript.setNumeroOrden(script.getNumeroOrden());
@@ -238,6 +253,32 @@ public class PantallaRepararScriptListener extends ListenerSupport implements Ac
 				
 				// Se ejecuta el script de reparación
 				scriptService.ejecutarRepararScript(script, reprocesa, mismoScript, repararScript);
+			}
+			else {
+				// Generar el lanza y lo ejecuta
+				if (StringUtils.isNotBlank(repararScript.getScriptLanza())) {
+					String lanzaFile = ruta.concat(repararScript.getNombreScriptLanza());
+					MDSQLAppHelper.writeToFile(script.getTxtScriptLanza().concat(System.lineSeparator()), Paths.get(lanzaFile).toFile());
+				
+					String password = bbddService.consultaPasswordBBDD(nombreBBDD, nombreEsquema, txtClaveEncriptada);
+
+					// Ejecución del script
+					scriptService.executeLanzaFile(nombreEsquema, nombreBBDD, password, lanzaFile);
+					
+					// TODO - Obtener el log asociado al lanza
+					String logFile = ruta.concat(script.getNombreScriptLog());
+					List<TextoLinea> logLinesList = MDSQLAppHelper.writeFileToLines(new File(logFile));
+
+					// Registra la ejecución
+					OutputRegistraEjecucion outputRegistraEjecucion = ejecucionService.registraEjecucion(
+							proceso.getIdProceso(), script.getNumeroOrden(), codigoUsuario, logLinesList);
+				}
+				else { // O generar los ficheros
+					for (Script scr : repararScript.getListaScript()) {
+						MDSQLAppHelper.dumpLinesToFile(scr.getLineasScript(), Paths.get(ruta.concat(scr.getNombreScript())).toFile());
+					}
+				}
+				
 			}
 			
 			List<Script> scripts = repararScript.getListaScript();

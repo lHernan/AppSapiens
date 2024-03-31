@@ -873,7 +873,7 @@ public class ScriptServiceImpl extends ServiceSupport implements ScriptService {
 	 * @param charset
 	 * @throws ServiceException
 	 */
-	private void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation)  throws ServiceException {
+	public void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation)  throws ServiceException {
 		String connection = String.format(MDSQLConstants.FORMATO_CONEXION, nombreEsquema, password, nombreBBDD);
 		
 		ProcessBuilder processBuilder = new ProcessBuilder(MDSQLConstants.SQL_PLUS, connection,

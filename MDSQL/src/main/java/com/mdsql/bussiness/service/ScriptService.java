@@ -46,4 +46,6 @@ public interface ScriptService {
 	OutputRegistraEjecucionParche executeScriptParche(BBDD bbdd, Script script) throws ServiceException;
 	
 	void ejecutarRepararScript(Script script, Boolean isReparacion, Boolean isSameScript, OutputReparaScript outputReparaScript);
+	
+	void executeLanzaFile(String nombreEsquema, String nombreBBDD, String password, String fileLocation)  throws ServiceException;
 }
