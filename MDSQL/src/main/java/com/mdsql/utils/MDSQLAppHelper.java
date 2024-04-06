@@ -268,7 +268,7 @@ public class MDSQLAppHelper extends AppHelper {
 			Date currentDate = new Date();
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	        Date payloadDate = sdf.parse("2024-12-31");
+	        Date payloadDate = sdf.parse("2024-06-30");
 	
 	        int result = currentDate.compareTo(payloadDate);
 	
